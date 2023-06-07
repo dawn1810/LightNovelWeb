@@ -13,7 +13,6 @@ button{
 ul{
     list-style: none;
 }
-
 .header_wrap{
     height: 56px;
     padding: 0 30px;
@@ -344,6 +343,17 @@ yt-icon.ytd-logo{
     cursor: pointer;
 }
 
+.category_list{
+    width: 799px;
+    height: 500px;
+    background-color: #fff;
+    position: fixed;
+    top: 20%;
+    left: 11%;
+}
+.clearfix{
+    display: flex;
+}
 .trending-container{
     display: flex;
 }
