@@ -345,12 +345,20 @@ yt-icon.ytd-logo{
 }
 
 .category_list{
-    width: 799px;
+    /* width: 699px; */
     height: 500px;
     background-color: #fff;
     position: fixed;
-    top: 20%;
-    left: 11%;
+    top: 7%;
+    left: 14%;
+    display: none;
+    color: #000;
+}
+.category_list ul {
+    padding-left: 0;
+}
+.col-sm-3{
+    padding: 0 20px;
 }
 .clearfix{
     display: flex;
@@ -361,7 +369,12 @@ yt-icon.ytd-logo{
 .trending-container{
     display: flex;
 }
-
+#category-item-btn a:hover{
+    color: #003cff;
+}
+.hidden-xs{
+    flex;
+}
 
 
 .trending-horizontal-item{
