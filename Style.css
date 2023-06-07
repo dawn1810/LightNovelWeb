@@ -300,6 +300,7 @@ yt-icon.ytd-logo{
     cursor:pointer;
 }
 
+
 .novel_item img{
     width: 298px;
     height: 450px;
@@ -353,6 +354,9 @@ yt-icon.ytd-logo{
 }
 .clearfix{
     display: flex;
+}
+.nav li{
+    padding: 10px;
 }
 .trending-container{
     display: flex;
