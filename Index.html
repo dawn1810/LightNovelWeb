@@ -8,10 +8,12 @@
     <script src="https://kit.fontawesome.com/b8977956b3.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="Style.css">
     <link rel="stylesheet" href="BackEnd.js">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <title>Document</title>
 </head>
 
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <header>
         <div class="header_wrap">
             <div class="header_start">
@@ -117,121 +119,212 @@
         </div>
     </header>
     <div class="body_wrap">
+        <div class="body_menu">
+            <ul class="left_item close">
 
-        <ul class="left_item close">
-            <li id="home_page" class=" left_li">
-                <div><i class="fa-solid fa-house"></i> Trang Chủ</div>
-            </li>
-            <li id="category" class=" left_li">
-                <div> Thể Loại</div>
-            </li>
-            <li>
-                <div id="favorite_novel" class=" left_li"> Truyện Được Yêu Thích</div>
-            </li>
-            <li id="trending_novel_btn" class=" left_li">
-                <div>Top Thịnh Hành </div>
-            </li>
-            <li id="liked_novel" class=" left_li">
-                <div> <i class="fa-sharp fa-solid fa-thumbs-up"></i> Truyện Đã Like</div>
-            </li>
-            <li id="history" class=" left_li">
-                <div><i class="fa-solid fa-clock-rotate-left"></i> Lịch Sử</div>
-            </li>
-        </ul>
+                <li id="home_page" class=" left_li">
+                    <div><i class="fa-solid fa-house"></i> Trang Chủ</div>
+                </li>
+                <li id="category" class=" left_li">
+                    <div> Thể Loại</div>
+                </li>
+                <li>
+                    <div id="favorite_novel" class=" left_li"> Truyện Được Yêu Thích</div>
+                </li>
+                <li id="trending_novel_btn" class=" left_li">
+                    <div>Top Thịnh Hành </div>
+                </li>
+                <li id="liked_novel" class=" left_li">
+                    <div> <i class="fa-sharp fa-solid fa-thumbs-up"></i> Truyện Đã Like</div>
+                </li>
+                <li id="history" class=" left_li">
+                    <div><i class="fa-solid fa-clock-rotate-left"></i> Lịch Sử</div>
+                </li>
+            </ul>
+        </div>
+
 
         <div class="novel_container">
+            <div class="trending-container">
+                <div class="swiper">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper" navigation="true" pagination="true" keyboard="true" mousewheel="true"
+                        css-mode="true">
+                        <!-- Slides -->
+                        <div class="swiper-slide">
+                            <div class="trending_novel_item">
+                                <img src="https://i.ytimg.com/vi/8DcxGijBgzw/maxresdefault.jpg" alt="image"
+                                    class="trending_backg">
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="trending_novel_item">
+                                <img src="https://upload.motgame.vn/photos/motgame-vn/2022/08/fv.jpg" alt="image"
+                                    class="trending_backg">
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="trending_novel_item">
+                                <img src="https://images2.thanhnien.vn/Uploaded/truonggiang/2017_04_09/one-piece-dai-chien2_NBWB.jpg?width=600"
+                                    alt="image" class="trending_backg">
+                            </div>
+                        </div>
 
-            <div class="trending_novel trending-container">
-                <div class="Scroll_item">
-                    <i class="fa-solid fa-circle-dot"></i>
-                    <i class="fa-solid fa-circle-dot"></i>
-                    <i class="fa-solid fa-circle-dot"></i>
-                    <i class="fa-solid fa-circle-dot"></i>
-                </div>
-                <div class="next_page-arrow">
-                    <button class="left_arrow"><i class="fa-solid fa-arrow-left"></i></button>
-                    <button class="right_arrow"><i class="fa-solid fa-arrow-right"></i></button>
+                        <div class="swiper-slide">
+                            <div class="trending_novel_item">
+                                <img src="https://gocphimz.net/wp-content/uploads/2023/04/Isekai-de-Cheat-Skill-wo-Te-ni-Shita-Ore-wa-Genjitsu-Sekai-wo-mo-Musou-Suru-Level-Up-wa-Jinsei-wo-Kaeta-Vol.-11-1-e1661442860778.webp"
+                                    alt="image" class="trending_backg">
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="trending_novel_item">
+                                <img src="https://gocphimz.net/wp-content/uploads/2023/04/Isekai-de-Cheat-Skill-wo-Te-ni-Shita-Ore-wa-Genjitsu-Sekai-wo-mo-Musou-Suru-Level-Up-wa-Jinsei-wo-Kaeta-Vol.-11-1-e1661442860778.webp"
+                                    alt="image" class="trending_backg">
+                            </div>
+                        </div>
+
+                        ...
+                    </div>
+                    <!-- If we need pagination -->
+                    <div class="swiper-pagination"></div>
+
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+
+                    <!-- If we need scrollbar -->
+                    <div class="swiper-scrollbar"></div>
                 </div>
 
-                <div class="trending_novel_item">
-                    <img src="https://i.ytimg.com/vi/8DcxGijBgzw/maxresdefault.jpg" alt="image" class="trending_backg">
-                </div>
-                <div class="trending_novel_item">
-                    <img src="https://gocphimz.net/wp-content/uploads/2023/04/Isekai-de-Cheat-Skill-wo-Te-ni-Shita-Ore-wa-Genjitsu-Sekai-wo-mo-Musou-Suru-Level-Up-wa-Jinsei-wo-Kaeta-Vol.-11-1-e1661442860778.webp"
-                        alt="image" class="trending_backg">
-                </div>
-                <div class="trending_novel_item">
-                    <img src="https://images2.thanhnien.vn/Uploaded/truonggiang/2017_04_09/one-piece-dai-chien2_NBWB.jpg?width=600"
-                        alt="image" class="trending_backg">
-                </div>
-                <div class="trending_novel_item">
-                    <img src="https://upload.motgame.vn/photos/motgame-vn/2022/08/fv.jpg" alt="image"
-                        class="trending_backg">
+                <div class="trending-horizontal">
+                    <div class="trending-horizontal-item">
+                        <img src="https://pic-bstarstatic.akamaized.net/ugc/c1153f1808852e98055efdce8523db6d86aad2d8.jpg" alt="">
+                        <span class="trending-horizontal-item_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
+                            GÁI</span>
+                    </div>
+                    <div class="trending-horizontal-item">
+                        <img src="https://pic-bstarstatic.akamaized.net/ugc/c1153f1808852e98055efdce8523db6d86aad2d8.jpg" alt="">
+                        <span class="trending-horizontal-item_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
+                            GÁI</span>
+                    </div>
+                    
+                    <div class="trending-horizontal-item">
+                        <img src="https://pic-bstarstatic.akamaized.net/ugc/c1153f1808852e98055efdce8523db6d86aad2d8.jpg" alt="">
+                        <span class="trending-horizontal-item_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
+                            GÁI</span>
+                    </div>
+                    <div class="trending-horizontal-item">
+                        <img src="https://pic-bstarstatic.akamaized.net/ugc/c1153f1808852e98055efdce8523db6d86aad2d8.jpg" alt="">
+                        <span class="trending-horizontal-item_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
+                            GÁI</span>
+                    </div>
+                    <div class="trending-horizontal-item">
+                        <img src="https://pic-bstarstatic.akamaized.net/ugc/c1153f1808852e98055efdce8523db6d86aad2d8.jpg" alt="">
+                        <span class="trending-horizontal-item_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
+                            GÁI</span>
+                    </div>
+                    <div class="trending-horizontal-item">
+                        <img src="https://pic-bstarstatic.akamaized.net/ugc/c1153f1808852e98055efdce8523db6d86aad2d8.jpg" alt="">
+                        <span class="trending-horizontal-item_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
+                            GÁI</span>
+                    </div>
+                    <div class="trending-horizontal-item">
+                        <img src="https://pic-bstarstatic.akamaized.net/ugc/c1153f1808852e98055efdce8523db6d86aad2d8.jpg" alt="">
+                        <span class="trending-horizontal-item_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
+                            GÁI</span>
+                    </div>
+                    <div class="trending-horizontal-item">
+                        <img src="https://pic-bstarstatic.akamaized.net/ugc/c1153f1808852e98055efdce8523db6d86aad2d8.jpg" alt="">
+                        <span class="trending-horizontal-item_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
+                            GÁI</span>
+                    </div>
+                    <div class="trending-horizontal-item">
+                        <img src="https://pic-bstarstatic.akamaized.net/ugc/c1153f1808852e98055efdce8523db6d86aad2d8.jpg" alt="">
+                        <span class="trending-horizontal-item_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
+                            GÁI</span>
+                    </div>
+
+                    <div class="trending-horizontal-item">
+                        <img src="https://pic-bstarstatic.akamaized.net/ugc/c1153f1808852e98055efdce8523db6d86aad2d8.jpg" alt="">
+                        <span class="trending-horizontal-item_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
+                            GÁI</span>
+                    </div>
+                    <div class="trending-horizontal-item">
+                        <img src="https://pic-bstarstatic.akamaized.net/ugc/c1153f1808852e98055efdce8523db6d86aad2d8.jpg" alt="">
+                        <span class="trending-horizontal-item_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
+                            GÁI</span>
+                    </div>
+                    <div class="trending-horizontal-item">
+                        <img src="https://pic-bstarstatic.akamaized.net/ugc/c1153f1808852e98055efdce8523db6d86aad2d8.jpg" alt="">
+                        <span class="trending-horizontal-item_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
+                            GÁI</span>
+                    </div>
                 </div>
             </div>
-
-            <div class="novel">
-                <div class="novel_item">
-                    <img src="https://nghetruyen.org/image/4751.png" alt="image">
-                    <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
-                </div>
-                <div class="novel_item">
-                    <img src="https://nghetruyen.org/image/4751.png" alt="image">
-                    <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
-                </div>
-                <div class="novel_item">
-                    <img src="https://nghetruyen.org/image/4751.png" alt="image">
-                    <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
-                </div>
-                <div class="novel_item">
-                    <img src="https://nghetruyen.org/image/4751.png" alt="image">
-                    <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
-                </div>
-                <div class="novel_item">
-                    <img src="https://nghetruyen.org/image/4751.png" alt="image">
-                    <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
-                </div>
-                <div class="novel_item">
-                    <img src="https://nghetruyen.org/image/4751.png" alt="image">
-                    <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
-                </div>
-                <div class="novel_item">
-                    <img src="https://nghetruyen.org/image/4751.png" alt="image">
-                    <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
-                </div>
-                <div class="novel_item">
-                    <img src="https://nghetruyen.org/image/4751.png" alt="image">
-                    <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
-                </div>
-                <div class="novel_item">
-                    <img src="https://nghetruyen.org/image/4751.png" alt="image">
-                    <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
-                </div>
-                <div class="novel_item">
-                    <img src="https://nghetruyen.org/image/4751.png" alt="image">
-                    <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
-                </div>
-                <div class="novel_item">
-                    <img src="https://nghetruyen.org/image/4751.png" alt="image">
-                    <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
-                </div>
-                <div class="novel_item">
-                    <img src="https://nghetruyen.org/image/4751.png" alt="image">
-                    <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
-                </div>
-                <div class="novel_item">
-                    <img src="https://nghetruyen.org/image/4751.png" alt="image">
-                    <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
-                </div>
-                <div class="novel_item">
-                    <img src="https://nghetruyen.org/image/4751.png" alt="image">
-                    <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
-                </div>
-            </div>
-
         </div>
+        <div class="novel">
+            <div class="novel_item">
+                <img src="https://nghetruyen.org/image/4751.png" alt="image">
+                <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
+            </div>
+            <div class="novel_item">
+                <img src="https://nghetruyen.org/image/4751.png" alt="image">
+                <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
+            </div>
+            <div class="novel_item">
+                <img src="https://nghetruyen.org/image/4751.png" alt="image">
+                <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
+            </div>
+            <div class="novel_item">
+                <img src="https://nghetruyen.org/image/4751.png" alt="image">
+                <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
+            </div>
+            <div class="novel_item">
+                <img src="https://nghetruyen.org/image/4751.png" alt="image">
+                <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
+            </div>
+            <div class="novel_item">
+                <img src="https://nghetruyen.org/image/4751.png" alt="image">
+                <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
+            </div>
+            <div class="novel_item">
+                <img src="https://nghetruyen.org/image/4751.png" alt="image">
+                <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
+            </div>
+            <div class="novel_item">
+                <img src="https://nghetruyen.org/image/4751.png" alt="image">
+                <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
+            </div>
+            <div class="novel_item">
+                <img src="https://nghetruyen.org/image/4751.png" alt="image">
+                <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
+            </div>
+            <div class="novel_item">
+                <img src="https://nghetruyen.org/image/4751.png" alt="image">
+                <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
+            </div>
+            <div class="novel_item">
+                <img src="https://nghetruyen.org/image/4751.png" alt="image">
+                <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
+            </div>
+            <div class="novel_item">
+                <img src="https://nghetruyen.org/image/4751.png" alt="image">
+                <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
+            </div>
+            <div class="novel_item">
+                <img src="https://nghetruyen.org/image/4751.png" alt="image">
+                <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
+            </div>
+            <div class="novel_item">
+                <img src="https://nghetruyen.org/image/4751.png" alt="image">
+                <span class="novel_name">VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM GÁI</span>
+            </div>
+        </div>
+    </div>
     </div>
 </body>
 <script src="/script.js"></script>
+
 
 </html>
