@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/b8977956b3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="Style.css">
+    <link rel="stylesheet" href="BackEnd.js">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="reviews.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <header>
+        <div class="header_wrap">
+            <div class="header_start">
+                <div class="header_menu">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <div class="header_logo">
+                    <img src="Untitled-1 (5).png" alt="">
+                </div>
+            </div>
+            <div class="header_search">
+                <div class="header_search_wrap">
+                    <form role="search">
+                        <div class="header_search_input">
+                            <input type="text" placeholder="Tìm kiếm">
+                        </div>
+
+                    </form>
+                    <div class="header_search_logo">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="header_end">
+                <div class="header_notify">
+                    <div class="header_notify_logo">
+                        <i class="fa-solid fa-bell"></i>
+                    </div>
+                    <div class="header_notify_more">
+                        <div class="header_notify_more_head">
+                            <div class="header_notify_more_head_title">
+                                Thông báo
+                            </div>
+
+                        </div>
+                        <div class="header_notify_more_item">
+                            Chưa có thông báo
+                        </div>
+                    </div>
+                </div>
+                <div class="header_user">
+                    <div class="header_user_logo">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="header_user_more">
+                        <div class="header_user_more_item">Thông tin tài khoản</div>
+                        <div class="header_user_more_item">Truyện đã lưu</div>
+                        <div class="header_user_more_item">Đổi mật khẩu</div>
+                        <div class="header_user_more_item">Đăng xuất</div>
+                    </div>
+
+                </div>
+                <div class="header_noUser" style="display:none">
+                    <div class="header_login">
+                        Login
+                    </div>
+                    <div class="header_signup">
+                        Sign Up
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </header>
+    <div class="body_wrap">
+        <div class="body_menu">
+            <ul class="left_item close">
+
+                <li id="home_page" class=" left_li">
+                    <div><i class="fa-solid fa-house"></i> Trang Chủ</div>
+                </li>
+                <li id="category" class=" left_li">
+                    <div> Thể Loại</div>
+                    <div class="category_list">
+                        <div class="clearfix">
+                            <div class="col-sm-3">
+                                <ul class="nav">
+                                    <li>
+                                        <a data-title="Tất cả thể loại truyện tranh" et="_self">
+                                            <strong>Tất cả</strong>
+                                        </a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Action"
+                                            data-title="Thể loại này thường có nội dung về đánh nhau, bạo lực, hỗn loạn, với diễn biến nhanh"
+                                            target="_self">Action</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Adult"
+                                            data-title="Thể loại Adult đề cập đến vấn đề nhạy cảm, chỉ dành cho tuổi 17+"
+                                            target="_self">Adult</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Adventure"
+                                            data-title="Thể loại phiêu lưu, mạo hiểm, thường là hành trình của các nhân vật"
+                                            target="_self">Adventure</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Anime" data-title="Truyện đã được chuyển thể thành film Anime"
+                                            target="_self">Anime</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Chuyển Sinh"
+                                            data-title="Thể loại này là những câu chuyện về người ở một thế giới này xuyên đến một thế giới khác, có thể là thế giới mang phong cách trung cổ với kiếm sĩ và ma thuật, hay thế giới trong game, hoặc có thể là bạn chết ở nơi này và được chuyển sinh đến nơi khác"
+                                            target="_self">Chuyển Sinh</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Comedy"
+                                            data-title="Thể loại có nội dung trong sáng và cảm động, thường có các tình tiết gây cười, các xung đột nhẹ nhàng"
+                                            target="_self">Comedy</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Comic" data-title="Truyện tranh Châu Âu và Châu Mĩ"
+                                            target="_self">Comic</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Cooking" data-title="Thể loại có nội dung về nấu ăn, ẩm thực"
+                                            target="_self">Cooking</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Cổ Đại"
+                                            data-title="Truyện có nội dung xảy ra ở thời cổ đại phong kiến."
+                                            target="_self">
+                                            <strong>Cổ Đại</strong>
+                                        </a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Doujinshi"
+                                            data-title="Thể loại truyện phóng tác do fan hay có thể cả những Mangaka khác với tác giả truyện gốc. Tác giả vẽ Doujinshi thường dựa trên những nhân vật gốc để viết ra những câu chuyện theo sở thích của mình"
+                                            target="_self">Doujinshi</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Drama"
+                                            data-title="Thể loại mang đến cho người xem những cảm xúc khác nhau: buồn bã, căng thẳng thậm chí là bi phẫn"
+                                            target="_self">Drama</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Đam Mỹ" data-title="Truyện tình cảm giữa nam và nam." target="_self">
+                                            <strong>Đam Mỹ</strong>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-3">
+                                <ul class="nav">
+                                    <li id="category-item-btn">
+                                        <a title="Ecchi"
+                                            data-title="Thường có những tình huống nhạy cảm nhằm lôi cuốn người xem"
+                                            target="_self">Ecchi</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Fantasy"
+                                            data-title="Thể loại xuất phát từ trí tưởng tượng phong phú, từ pháp thuật đến thế giới trong mơ thậm chí là những câu chuyện thần tiên"
+                                            target="_self">Fantasy</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Gender Bender"
+                                            data-title="Là một thể loại trong đó giới tính của nhân vật bị lẫn lộn: nam hoá thành nữ, nữ hóa thành nam..."
+                                            target="_self">Gender Bender</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Harem"
+                                            data-title="Thể loại truyện tình cảm, lãng mạn mà trong đó, nhiều nhân vật nữ thích một nam nhân vật chính"
+                                            target="_self">Harem</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Historical" data-title="Thể loại có liên quan đến thời xa xưa"
+                                            target="_self">Historical</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Horror"
+                                            data-title="Horror là: rùng rợn, nghe cái tên là bạn đã hiểu thể loại này có nội dung thế nào. Nó làm cho bạn kinh hãi, khiếp sợ, ghê tởm, run rẩy, có thể gây sock - một thể loại không dành cho người yếu tim"
+                                            target="_self">Horror</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Josei"
+                                            data-title="Thể loại của manga hay anime được sáng tác chủ yếu bởi phụ nữ cho những độc giả nữ từ 18 đến 30. Josei manga có thể miêu tả những lãng mạn thực tế , nhưng trái ngược với hầu hết các kiểu lãng mạn lí tưởng của Shoujo manga với cốt truyện rõ ràng, chín chắn"
+                                            target="_self">Josei</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Live action" data-title="Truyện đã được chuyển thể thành phim"
+                                            target="_self">Live action</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Manga" data-title="Truyện tranh của Nhật Bản" target="_self">Manga</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Manhua" data-title="Truyện tranh của Trung Quốc" target="_self">
+                                            <strong>Manhua</strong>
+                                        </a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Manhwa" data-title="Truyện tranh Hàn Quốc, đọc từ trái sang phải"
+                                            target="_self">Manhwa</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Martial Arts"
+                                            data-title="Giống với tên gọi, bất cứ gì liên quan đến võ thuật trong truyện từ các trận đánh nhau, tự vệ đến các môn võ thuật như akido, karate, judo hay taekwondo, kendo, các cách né tránh"
+                                            target="_self">Martial Arts</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Mature"
+                                            data-title="Thể loại dành cho lứa tuổi 17+ bao gồm các pha bạo lực, máu me, chém giết, tình dục ở mức độ vừa"
+                                            target="_self">Mature</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-3">
+                                <ul class="nav">
+                                    <li id="category-item-btn">
+                                        <a title="Mecha"
+                                            data-title="Mecha, còn được biết đến dưới cái tên meka hay mechs, là thể loại nói tới những cỗ máy biết đi (thường là do phi công cầm lái)"
+                                            target="_self">Mecha</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Mystery"
+                                            data-title="Thể loại thường xuất hiện những điều bí ấn không thể lí giải được và sau đó là những nỗ lực của nhân vật chính nhằm tìm ra câu trả lời thỏa đáng"
+                                            target="_self">Mystery</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Ngôn Tình"
+                                            data-title="Truyện thuộc kiểu lãng mạn, kể về những sự kiện vui buồn trong tình yêu của nhân vật chính."
+                                            target="_self">
+                                            <strong>Ngôn Tình</strong>
+                                        </a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="One shot" data-title="Những truyện ngắn, thường là 1 chapter"
+                                            target="_self">One shot</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Psychological"
+                                            data-title="Thể loại liên quan đến những vấn đề về tâm lý của nhân vật ( tâm thần bất ổn, điên cuồng ...)"
+                                            target="_self">Psychological</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Romance"
+                                            data-title="Thường là những câu chuyện về tình yêu, tình cảm lãng mạn. Ớ đây chúng ta sẽ lấy ví dụ như tình yêu giữa một người con trai và con gái, bên cạnh đó đặc điểm thể loại này là kích thích trí tưởng tượng của bạn về tình yêu"
+                                            target="_self">
+                                            <strong>Romance</strong>
+                                        </a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="School Life"
+                                            data-title="Trong thể loại này, ngữ cảnh diễn biến câu chuyện chủ yếu ở trường học"
+                                            target="_self">School Life</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Sci-fi"
+                                            data-title="Bao gồm những chuyện khoa học viễn tưởng, đa phần chúng xoay quanh nhiều hiện tượng mà liên quan tới khoa học, công nghệ, tuy vậy thường thì những câu chuyện đó không gắn bó chặt chẽ với các thành tựu khoa học hiện thời, mà là do con người tưởng tượng ra"
+                                            target="_self">Sci-fi</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Seinen"
+                                            data-title="Thể loại của manga thường nhằm vào những đối tượng nam 18 đến 30 tuổi, nhưng người xem có thể lớn tuổi hơn, với một vài bộ truyện nhắm đến các doanh nhân nam quá 40. Thể loại này có nhiều phong cách riêng biệt , nhưng thể loại này có những nét riêng biệt, thường được phân vào những phong cách nghệ thuật rộng hơn và phong phú hơn về chủ đề, có các loại từ mới mẻ tiên tiến đến khiêu dâm"
+                                            target="_self">Seinen</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Shoujo"
+                                            data-title="Đối tượng hướng tới của thể loại này là phái nữ. Nội dung của những bộ manga này thường liên quan đến tình cảm lãng mạn, chú trọng đầu tư cho nhân vật (tính cách,...)"
+                                            target="_self">Shoujo</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Shoujo Ai"
+                                            data-title="Thể loại quan hệ hoặc liên quan tới đồng tính nữ, thể hiện trong các mối quan hệ trên mức bình thường giữa các nhân vật nữ trong các manga, anime"
+                                            target="_self">Shoujo Ai</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Shounen"
+                                            data-title="Đối tượng hướng tới của thể loại này là phái nam. Nội dung của những bộ manga này thường liên quan đến đánh nhau và/hoặc bạo lực (ở mức bình thường, không thái quá)"
+                                            target="_self">Shounen</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Shounen Ai"
+                                            data-title="Thể loại có nội dung về tình yêu giữa những chàng trai trẻ, mang tính chất lãng mạn nhưng ko đề cập đến quan hệ tình dục"
+                                            target="_self">Shounen Ai</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-3">
+                                <ul class="nav">
+                                    <li id="category-item-btn">
+                                        <a title="Slice of Life" data-title="Nói về cuộc sống đời thường"
+                                            target="_self">Slice of Life</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Smut"
+                                            data-title="Những truyện có nội dung hơi nhạy cảm, đặc biệt là liên quan đến tình dục"
+                                            target="_self">Smut</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Soft Yaoi" data-title="Boy x Boy. Nặng hơn Shounen Ai tí."
+                                            target="_self">Soft Yaoi</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Soft Yuri" data-title="Girl x Girl. Nặng hơn Shoujo Ai tí"
+                                            target="_self">Soft Yuri</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Sports"
+                                            data-title="Đúng như tên gọi, những môn thể thao như bóng đá, bóng chày, bóng chuyền, đua xe, cầu lông,... là một phần của thể loại này"
+                                            target="_self">Sports</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Supernatural"
+                                            data-title="Thể hiện những sức mạnh đáng kinh ngạc và không thể giải thích được, chúng thường đi kèm với những sự kiện trái ngược hoặc thách thức với những định luật vật lý"
+                                            target="_self">Supernatural</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Thiếu Nhi" data-title="Truyện tranh dành cho lứa tuổi thiếu nhi"
+                                            target="_self">Thiếu Nhi</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Tragedy"
+                                            data-title="Thể loại chứa đựng những sự kiện mà dẫn đến kết cục là những mất mát hay sự rủi ro to lớn"
+                                            target="_self">Tragedy</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Trinh Thám"
+                                            data-title="Các truyện có nội dung về các vụ án, các thám tử cảnh sát điều tra..."
+                                            target="_self">Trinh Thám</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Truyện scan"
+                                            data-title="Các truyện đã phát hành tại VN được scan đăng online"
+                                            target="_self">Truyện scan</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Truyện Màu" data-title="Tổng hợp truyện tranh màu, rõ, đẹp"
+                                            target="_self">Truyện Màu</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Webtoon"
+                                            data-title="Là truyện tranh được đăng dài kỳ trên internet của Hàn Quốc chứ không xuất bản theo cách thông thường"
+                                            target="_self">Webtoon</a>
+                                    </li>
+                                    <li id="category-item-btn">
+                                        <a title="Xuyên Không"
+                                            data-title="Xuyên Không, Xuyên Việt là thể loại nhân vật chính vì một lý do nào đó mà bị đưa đến sinh sống ở một không gian hay một khoảng thời gian khác. Nhân vật chính có thể trực tiếp xuyên qua bằng thân xác mình hoặc sống lại bằng thân xác người khác."
+                                            target="_self">
+                                            <strong>Xuyên Không</strong>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- <div class="col-sm-12 hidden-xs">
+                                <p class="tip separator">Tất cả thể loại truyện tranh</p>
+                            </div> -->
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div id="favorite_novel" class=" left_li"> Truyện Được Yêu Thích</div>
+                </li>
+                <li id="trending_novel_btn" class=" left_li">
+                    <div>Top Thịnh Hành </div>
+                </li>
+                <li id="liked_novel" class=" left_li">
+                    <div> <i class="fa-sharp fa-solid fa-thumbs-up"></i> Truyện Đã Like</div>
+                </li>
+                <li id="history" class=" left_li">
+                    <div><i class="fa-solid fa-clock-rotate-left"></i> Lịch Sử</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <main>
+        <div class="current-Titile">
+            <div class="current-Titile_wrap">
+                <img src="https://cdn.mythuat.info/wp-content/uploads/2018/04/2-ve-truyen-tranh-cho-nguoi-moi-bat-dau-mau-trang-1280x720.jpg.jpg" alt=""
+                class="novel-backg">
+            <div class="current-Titile_main">
+                <img src="https://pgddttieucan.edu.vn/wp-content/uploads/2022/08/1660850102_101-Anh-Anime-Nu-Anh-Anime-Girl-Dang-Yeu-Ngau.jpg"
+                    alt="" class="novel-avt">
+
+                <div class="title-gr">
+
+                    <span class="current-novel-name">Đạo Làm Chồng Đảm (FULL HD)</span>
+
+                    <div class="last-time-update"> <i class="fa-regular fa-clock"></i> 14 phút trước</div>
+
+                    <ul class="current-category-list">
+                        <a href="" class="current-category-list-item">comendy</a>
+                        <a href="" class="current-category-list-item">action</a>
+                        <a href="" class="current-category-list-item">drama</a>
+                    </ul>
+                    <button class="follow-btn"> theo dỏi </button>
+                    <button class="chap1-start">đọc từ chap 1</button>
+                </div>
+            </div>
+            </div>
+
+        </div>
+        <div class="current-body">
+            <div class="summary-listchap">
+                <div class="summary">
+
+                </div>
+                <div class="listchap">
+                    <div class="chapter-item">
+                        <div>
+                            <h2 style="margin: 15px;">chap 1</h2>
+                            <div style="
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+">
+                                <div>khong co tieu de</div>
+                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-circle-down" style="
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 21px;
+"></i>
+                    </div>
+                    <div class="chapter-item">
+                        <div>
+                            <h2 style="margin: 15px;">chap 1</h2>
+                            <div style="
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+">
+                                <div>khong co tieu de</div>
+                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-circle-down" style="
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 21px;
+"></i>
+                    </div>
+                    <div class="chapter-item">
+                        <div>
+                            <h2 style="margin: 15px;">chap 1</h2>
+                            <div style="
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+">
+                                <div>khong co tieu de</div>
+                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-circle-down" style="
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 21px;
+"></i>
+                    </div>
+                    <div class="chapter-item">
+                        <div>
+                            <h2 style="margin: 15px;">chap 1</h2>
+                            <div style="
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+">
+                                <div>khong co tieu de</div>
+                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-circle-down" style="
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 21px;
+"></i>
+                    </div>
+                    <div class="chapter-item">
+                        <div>
+                            <h2 style="margin: 15px;">chap 1</h2>
+                            <div style="
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+">
+                                <div>khong co tieu de</div>
+                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-circle-down" style="
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 21px;
+"></i>
+                    </div>
+                    <div class="chapter-item">
+                        <div>
+                            <h2 style="margin: 15px;">chap 1</h2>
+                            <div style="
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+">
+                                <div>khong co tieu de</div>
+                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-circle-down" style="
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 21px;
+"></i>
+                    </div>
+                    <div class="chapter-item">
+                        <div>
+                            <h2 style="margin: 15px;">chap 1</h2>
+                            <div style="
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+">
+                                <div>khong co tieu de</div>
+                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-circle-down" style="
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 21px;
+"></i>
+                    </div>
+                    <div class="chapter-item">
+                        <div>
+                            <h2 style="margin: 15px;">chap 1</h2>
+                            <div style="
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+">
+                                <div>khong co tieu de</div>
+                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-circle-down" style="
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 21px;
+"></i>
+                    </div>
+                    <div class="chapter-item">
+                        <div>
+                            <h2 style="margin: 15px;">chap 1</h2>
+                            <div style="
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+">
+                                <div>khong co tieu de</div>
+                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-circle-down" style="
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 21px;
+"></i>
+                    </div>
+                    <div class="chapter-item">
+                        <div>
+                            <h2 style="margin: 15px;">chap 1</h2>
+                            <div style="
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+">
+                                <div>khong co tieu de</div>
+                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-circle-down" style="
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 21px;
+"></i>
+                    </div>
+                    <div class="chapter-item">
+                        <div>
+                            <h2 style="margin: 15px;">chap 1</h2>
+                            <div style="
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+">
+                                <div>khong co tieu de</div>
+                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-circle-down" style="
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 21px;
+"></i>
+                    </div>
+                    <div class="chapter-item">
+                        <div>
+                            <h2 style="margin: 15px;">chap 1</h2>
+                            <div style="
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+">
+                                <div>khong co tieu de</div>
+                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-circle-down" style="
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 21px;
+"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="same-propose">
+
+                <div class="same-propose-item">
+                    <img src="https://st.nettruyenvt.com/data/comics/44/the-gioi-cua-game-otome-that-kho-khan-ch-2944.jpg"
+                        alt="">
+                    <div
+                        style="width: 100%;display: flex;flex-direction: column;margin-left: 15px;justify-content: flex-end;height: 83%;">
+                        <h3 class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu
+                            <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
+                    </div>
+                </div>
+                <div class="same-propose-item">
+                    <img src="https://st.nettruyenvt.com/data/comics/44/the-gioi-cua-game-otome-that-kho-khan-ch-2944.jpg"
+                        alt="">
+                    <div
+                        style="width: 100%;display: flex;flex-direction: column;margin-left: 15px;justify-content: flex-end;height: 83%;">
+                        <h3 class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu
+                            <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
+                    </div>
+                </div>
+                <div class="same-propose-item">
+                    <img src="https://st.nettruyenvt.com/data/comics/44/the-gioi-cua-game-otome-that-kho-khan-ch-2944.jpg"
+                        alt="">
+                    <div
+                        style="width: 100%;display: flex;flex-direction: column;margin-left: 15px;justify-content: flex-end;height: 83%;">
+                        <h3 class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu
+                            <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
+                    </div>
+                </div>
+                <div class="same-propose-item">
+                    <img src="https://st.nettruyenvt.com/data/comics/44/the-gioi-cua-game-otome-that-kho-khan-ch-2944.jpg"
+                        alt="">
+                    <div
+                        style="width: 100%;display: flex;flex-direction: column;margin-left: 15px;justify-content: flex-end;height: 83%;">
+                        <h3 class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu
+                            <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
+                    </div>
+                </div>
+                <div class="same-propose-item">
+                    <img src="https://st.nettruyenvt.com/data/comics/44/the-gioi-cua-game-otome-that-kho-khan-ch-2944.jpg"
+                        alt="">
+                    <div
+                        style="width: 100%;display: flex;flex-direction: column;margin-left: 15px;justify-content: flex-end;height: 83%;">
+                        <h3 class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu
+                            <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
+                    </div>
+                </div>
+                <div class="same-propose-item">
+                    <img src="https://st.nettruyenvt.com/data/comics/44/the-gioi-cua-game-otome-that-kho-khan-ch-2944.jpg"
+                        alt="">
+                    <div
+                        style="width: 100%;display: flex;flex-direction: column;margin-left: 15px;justify-content: flex-end;height: 83%;">
+                        <h3 class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu
+                            <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        </div>
+    </main>
+</body>
+<script src="/script.js"></script>
+
+
+</html>

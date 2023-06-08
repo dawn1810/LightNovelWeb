@@ -1,0 +1,125 @@
+main{
+    display: flex;
+    padding-right: 10%;
+    padding-left: 10%;
+    flex-direction: column;
+}
+
+button:hover{
+
+    cursor: pointer;
+}
+.current-Titile_wrap{
+    position: relative;
+}
+.current-Titile_main{
+    position: absolute;
+    top: 25%;
+}
+.novel-backg{
+    width: 100%;
+    opacity: 0.5;
+}
+.current-Titile{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.novel-avt {
+    width: 15%;
+    /* position: absolute; */
+    bottom: 0vh;
+    left: 5%;
+}
+
+.current-novel-name{
+    font-size: 35px;
+    /* position: absolute; */
+    bottom: 28vh;
+    color: rgb(177, 12, 45);
+}
+.title-gr{
+    width: 60%;
+    position: relative;
+}
+.last-time-update{
+    padding: 7px;
+}
+.current-category-list-item{
+    padding: 11px 23px;
+    background-color: #35353c;
+    margin: 5px;
+    border-radius: 19px;
+}
+.follow-btn{
+    width: 250px;
+    height: 6vh;
+    border-radius: 8px;
+    margin: 20px;
+    background-color: #524d4d !important;
+}
+
+.chap1-start{
+    width: 250px;
+    height: 6vh;
+    border-radius: 8px;
+    margin: 20px;
+    background-color: #524d4d !important;
+}
+
+.chapter-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #383838;
+    border-left: 5px solid;
+    margin:5px;
+}
+
+.chapter-item:hover{
+    cursor: pointer;
+    background-color: #26262c;
+}
+
+.chapter-item div{
+    display: flex;
+}
+
+.listchap{
+    overflow-y: scroll; 
+    width: 930px;
+    height: 658px;
+}
+
+.summary{
+    width: 930px;
+    height: 390px;
+    background-color:#383838 ;
+}
+
+.same-propose img{
+    height: 64px;
+    border-radius:5px;
+}
+
+.same-propose{
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+}
+
+.same-propose-item{
+    display: flex;
+}
+
+.same-propose-item:hover{
+    cursor: pointer;
+}
+
+.current-body{
+    font-size: 15px;
+    display: flex;
+}
