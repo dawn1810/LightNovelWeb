@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="BackEnd.js">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <link rel="stylesheet" href="reviews.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <title>Document</title>
 </head>
 
@@ -18,8 +19,41 @@
     <header>
         <div class="header_wrap">
             <div class="header_start">
-                <div class="header_menu">
+                <!-- <div class="header_menu">
                     <i class="fa-solid fa-bars"></i>
+                </div> -->
+                <div id="hamburger" class="hamburglar is-closed">
+
+                    <div class="burger-icon">
+                        <div class="burger-container">
+                            <span class="burger-bun-top"></span>
+                            <span class="burger-filling"></span>
+                            <span class="burger-bun-bot"></span>
+                        </div>
+                    </div>
+
+                    <!-- svg ring containter -->
+                    <div class="burger-ring">
+                        <svg class="svg-ring">
+                            <path class="path" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4"
+                                d="M 34 2 C 16.3 2 2 16.3 2 34 s 14.3 32 32 32 s 32 -14.3 32 -32 S 51.7 2 34 2" />
+                        </svg>
+                    </div>
+                    <!-- the masked path that animates the fill to the ring -->
+
+                    <svg width="0" height="0">
+                        <mask id="mask">
+                            <path xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#ff0000" stroke-miterlimit="10"
+                                stroke-width="4"
+                                d="M 34 2 c 11.6 0 21.8 6.2 27.4 15.5 c 2.9 4.8 5 16.5 -9.4 16.5 h -4" />
+                        </mask>
+                    </svg>
+                    <div class="path-burger">
+                        <div class="animate-path">
+                            <div class="path-rotation"></div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="header_logo">
                     <img src="/image/logo.png" alt="">
@@ -436,28 +470,41 @@
                             <div class="last-time-update"> <i class="fa-regular fa-clock"></i> 14 phút trước</div>
 
                             <ul class="current-category-list">
-                                <div class="btn btn1">
-                                    <h4>Action</h4>
-                                </div>
-                                <div class="btn btn1">
-                                    <h4>Comedy</h4>
-                                </div>
-                                <div class="btn btn1">
-                                    <h4>Drama</h4>
-                                </div>
-                            </ul>
-                            <div class="button-group">
+                                <li id="action" class="current-category-list_item">
+                                    <a href="">
+                                        <div class="btn btn1">
+                                            <h4>Action</h4>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li id="drama" class="current-category-list_item">
+                                    <a href="">
+                                        <div class="btn btn1">
+                                            <h4>Drama</h4>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li id="comedy" class="current-category-list_item">
+                                    <a href="">
+                                        <div class="btn btn1">
+                                            <h4>Comedy</h4>
+                                        </div>
+                                    </a>
+                                </li>
 
-                                <div class="btn btn7">
+                            </ul>
+                            <div class="button-group main_operation">
+
+                                <div class="btn btn7 operation_readFirt">
                                     <h4>Đọc từ chap 1</h4>
                                 </div>
 
-                                <div class="btn btn7">
+                                <div class="btn btn7 operation_readNew">
                                     <h4>Chap mới nhất</h4>
                                 </div>
 
-                                <div class="btn btn7">
-                                    <h4><i class="fa-solid fa-bookmark"></i> Theo dỏi</h4>
+                                <div class="btn btn7 operation_monitor">
+                                    <h4><i class="fa-solid fa-bookmark"></i> Theo dõi</h4>
                                 </div>
                             </div>
                             <div class="summary">
@@ -713,61 +760,55 @@
             </div>
 
             <div class="Similar novels">
-                <div style="margin: 2vh; font-size: 1.7rem;">Có thể bạn sẽ thích</div>
+                <div class="Similar_title">Có thể bạn sẽ thích</div>
                 <div class="same-propose">
 
                     <div class="same-propose-item">
                         <img src="https://st.nettruyenvt.com/data/comics/44/the-gioi-cua-game-otome-that-kho-khan-ch-2944.jpg"
                             alt="">
-                        <div
-                            style="width: 100%;display: flex;flex-direction: column;margin-left: 15px;justify-content: flex-end;height: 83%;">
-                            <h3 class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu
-                                <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
+                        <div class="same-propose-item_title">
+                            <div class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu</div>
+                            <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
                         </div>
                     </div>
                     <div class="same-propose-item">
                         <img src="https://st.nettruyenvt.com/data/comics/44/the-gioi-cua-game-otome-that-kho-khan-ch-2944.jpg"
                             alt="">
-                        <div
-                            style="width: 100%;display: flex;flex-direction: column;margin-left: 15px;justify-content: flex-end;height: 83%;">
-                            <h3 class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu
-                                <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
+                        <div class="same-propose-item_title">
+                            <div class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu</div>
+                            <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
                         </div>
                     </div>
                     <div class="same-propose-item">
                         <img src="https://st.nettruyenvt.com/data/comics/44/the-gioi-cua-game-otome-that-kho-khan-ch-2944.jpg"
                             alt="">
-                        <div
-                            style="width: 100%;display: flex;flex-direction: column;margin-left: 15px;justify-content: flex-end;height: 83%;">
-                            <h3 class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu
-                                <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
+                        <div class="same-propose-item_title">
+                            <div class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu</div>
+                            <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
                         </div>
                     </div>
                     <div class="same-propose-item">
                         <img src="https://st.nettruyenvt.com/data/comics/44/the-gioi-cua-game-otome-that-kho-khan-ch-2944.jpg"
                             alt="">
-                        <div
-                            style="width: 100%;display: flex;flex-direction: column;margin-left: 15px;justify-content: flex-end;height: 83%;">
-                            <h3 class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu
-                                <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
+                        <div class="same-propose-item_title">
+                            <div class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu</div>
+                            <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
                         </div>
                     </div>
                     <div class="same-propose-item">
                         <img src="https://st.nettruyenvt.com/data/comics/44/the-gioi-cua-game-otome-that-kho-khan-ch-2944.jpg"
                             alt="">
-                        <div
-                            style="width: 100%;display: flex;flex-direction: column;margin-left: 15px;justify-content: flex-end;height: 83%;">
-                            <h3 class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu
-                                <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
+                        <div class="same-propose-item_title">
+                            <div class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu</div>
+                            <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
                         </div>
                     </div>
                     <div class="same-propose-item">
                         <img src="https://st.nettruyenvt.com/data/comics/44/the-gioi-cua-game-otome-that-kho-khan-ch-2944.jpg"
                             alt="">
-                        <div
-                            style="width: 100%;display: flex;flex-direction: column;margin-left: 15px;justify-content: flex-end;height: 83%;">
-                            <h3 class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu
-                                <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
+                        <div class="same-propose-item_title">
+                            <div class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu</div>
+                            <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
                         </div>
                     </div>
 
@@ -826,7 +867,7 @@
     <footer>
         <div class="footer_wrap">
             <div class="footer_wrap_logo">
-                <img src="Untitled-1 (5).png" alt="">
+                <img src="/image/logo.png" alt="">
             </div>
             <div class="footer_wrap_main">
                 <div id="footer_wrap_main_title">
