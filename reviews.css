@@ -15,9 +15,10 @@ button:hover{
 .current-Titile_main{
     position: absolute;
     top: 25%;
+    display: flex;
 }
 .novel-backg{
-    width: 100%;
+    width: 130vh;
     opacity: 0.5;
 }
 .current-Titile{
@@ -29,7 +30,7 @@ button:hover{
 }
 
 .novel-avt {
-    width: 15%;
+    width: 30%;
     /* position: absolute; */
     bottom: 0vh;
     left: 5%;
@@ -44,9 +45,13 @@ button:hover{
 .title-gr{
     width: 60%;
     position: relative;
+    margin-left: 20px;
 }
 .last-time-update{
     padding: 7px;
+}
+.current-category-list{
+    padding: 0;
 }
 .current-category-list-item{
     padding: 11px 23px;
@@ -56,18 +61,20 @@ button:hover{
 }
 .follow-btn{
     width: 250px;
-    height: 6vh;
+    height: 5vh;
+    font-size: 20px;
     border-radius: 8px;
     margin: 20px;
-    background-color: #524d4d !important;
+    background-color: #cb0000 !important;
 }
 
 .chap1-start{
     width: 250px;
-    height: 6vh;
+    height: 5vh;
+    font-size: 20px;
     border-radius: 8px;
     margin: 20px;
-    background-color: #524d4d !important;
+    background-color: #cb0000 !important;
 }
 
 .chapter-item{
@@ -96,8 +103,13 @@ button:hover{
 
 .summary{
     width: 930px;
-    height: 390px;
     background-color:#383838 ;
+    margin:20px 0;
+    font-size: 20px;
+}
+
+.summary-Content{
+   padding: 20px;
 }
 
 .same-propose img{
@@ -122,4 +134,29 @@ button:hover{
 .current-body{
     font-size: 15px;
     display: flex;
+}
+
+:root{
+    --small-font:15px;
+}
+
+.button-group{
+    display: flex;
+}
+.current-Titile_interact{
+    display: flex;
+}
+
+.Titile_interact_like{
+    margin: 20px 5px;
+   background-color: #1877f2;
+   border-radius: 2px;
+   font-size: var(--small-font);
+}
+
+.Titile_interact_share{
+    margin: 20px 5px;
+   background-color: #1877f2;
+   border-radius: 2px;
+   font-size: var(--small-font);
 }
