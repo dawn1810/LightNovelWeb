@@ -293,7 +293,6 @@ button:hover {
   display: inline-block;
   padding: 0.625em 1.875em;
   margin: 0 10px;
-  /* background-color: #fff; */
   border-radius: 1.5625em;
   box-sizing: border-box;
 }
