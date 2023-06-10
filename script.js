@@ -2,10 +2,37 @@ const header_menu = document.querySelector('.header_menu')
 const left_item = document.querySelector('.left_item')
 const category_btn = document.getElementById('category')
 const category_list = document.querySelector('.category_list')
-const summary_Content= document.querySelector('.summary-Content')
+const summary_Content = document.querySelector('.summary-Content')
 const summary_btn = document.querySelector('.summary-btn')
 
 let menuBtnCount = true;
+
+
+$("document").ready(function () {
+    let trigger = $("#hamburger"),
+        isClosed = false;
+
+    trigger.click(function () {
+        burgerTime();
+    });
+
+    function burgerTime() {
+        if (isClosed == true) {
+            trigger.removeClass("is-open");
+            trigger.addClass("is-closed");
+            isClosed = false;
+            left_item.classList.add('close');
+        } else {
+            trigger.removeClass("is-closed");
+            trigger.addClass("is-open");
+            isClosed = true;
+            left_item.classList.remove('close');
+
+        }
+    }
+});
+
+
 
 category_btn.onclick = function () {
     category_list.style.display = 'block';
@@ -36,15 +63,17 @@ left_item.onclick = function (event) {
     console.log('ok')
 }
 
-function toggleSummary() { 
-    if (summary_Content.innerHTML === '') {
-      summary_Content.innerHTML = 'Murasaki có khả năng nhìn thấy tương lai của người mà cô ấy chạm vào. Là con gái của chủ nhà, hàng tháng cô phải đuổi theo Shijima Banri để lấy tiền thuê nhà. Lần nào cũng vậy, tác giả tội nghiệp Shijima hứa với cô rằng anh ta sẽ trả tiền thuê nhà ngay khi được xuất bản và được trả tiền. Murasaki giữ bí mật về khả năng nhìn thấy tương lai của mình và rất mong chờ nó, bởi vì cô thấy Shijima là nửa kia định mệnh mà cô sẽ kết hôn.';
-      summary_btn.innerHTML = '<i class="fa-solid fa-angles-up"></i> Ẩn tóm tắt';
+function toggleSummary() {
+    if (summary_Content.style.display == 'none') {
+        summary_Content.style.display = 'block';
+        summary_btn.innerHTML = '<i class="fa-solid fa-bars"></i> TÓM TẮT TRUYỆN';
+
     } else {
-      summary_Content.innerHTML = '';
-      summary_btn.innerHTML = '<i class="fa-solid fa-bars"></i> TÓM TẮT TRUYỆN';
+        summary_Content.style.display = 'none';
+
+        summary_btn.innerHTML = '<i class="fa-solid fa-angles-up"></i> Ẩn tóm tắt';
     }
-  }
+}
 // document.querySelector('body').onclick = function () {
 //     left_item.classList.add('close')
 // }
