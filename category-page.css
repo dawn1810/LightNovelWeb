@@ -1,29 +1,43 @@
-.sort-menu{
+main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sort-menu {
     margin-top: 100px;
     display: flex;
     flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
 }
-.sort{
+
+.sort {
     border-radius: 6px;
     width: 100%;
     height: 100%;
 }
 
-.sort-container{
+.sort-container {
     width: 45%;
-    height: 5vh;
+    height: 40px;
     margin: 1vh;
 }
 
-.check-gr{
-    width: 80%;
+.check-gr {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
-.search-btn{
-    width: 15vh !important;
-    height: 5vh !important;
+.check-gr div {
+    width: 41%;
+}
+
+
+.search-btn {
+    width: 120px !important;
+    height: 45px !important;
     background-color: aquamarine !important;
     border-radius: 10px;
 }
