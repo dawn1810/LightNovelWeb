@@ -856,12 +856,12 @@ yt-icon.ytd-logo {
 .category_list {
     /* width: 699px; */
     height: 500px;
-    background-color: #fff;
+    background-color: #403d3d;
     position: fixed;
-    top: 7%;
+    top: 9%;
     left: 14%;
     display: none;
-    color: #000;
+    color: #fff;
 }
 
 .category_list ul {
