@@ -1,0 +1,29 @@
+.sort-menu{
+    margin-top: 100px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.sort{
+    border-radius: 6px;
+    width: 100%;
+    height: 100%;
+}
+
+.sort-container{
+    width: 45%;
+    height: 5vh;
+    margin: 1vh;
+}
+
+.check-gr{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-btn{
+    width: 15vh !important;
+    height: 5vh !important;
+    background-color: aquamarine !important;
+    border-radius: 10px;
+}
