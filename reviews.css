@@ -133,7 +133,7 @@ button:hover {
     margin-right: 40px;
 }
 .btn7 a{
-    z-index:999999
+    z-index:1;
 }
 .btn7:before,
 .btn7:after {
