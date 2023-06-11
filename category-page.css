@@ -59,8 +59,10 @@ main {
 }
 
 .samecategory-item{
-    padding: 20px;
+    margin: 20px;
+    padding: 10px;
     display: flex;
+    background-color: #1e1e1e;
 }
 
 .detailed-information{
@@ -197,12 +199,13 @@ li {
 }
 
 .book-top {
-    flex: 1;
+    height: 100%;
+    flex: 1 1 0%;
     position: relative;
     padding: 25px;
-    margin: 25px 0;
+    margin: 25px 0px;
     border-radius: 4px;
-    border: 1px solid #f0f0f0;
+    border: 1px solid rgb(240, 240, 240);
 }
 
 .book-top .menu-item.top-1:before {
@@ -213,11 +216,13 @@ li {
 .book-top .menu-item.top-2:before {
     background-color: #47ff66;
     color: #000000;
+    content: '2';
 }
 
 .book-top .menu-item.top-3:before {
     background-color: #4772ff;
     color: #000000;
+    content: '3';
 }
 
 .book-top .menu-item:nth-child(4):before {
@@ -259,7 +264,7 @@ li {
     font-weight: 400;
     width: 32px;
     height: 32px;
-    background-color: #ff9595;
+    background-color: #5a5a5a;
     color: #ffffff;
     border-radius: 100%;
 }
