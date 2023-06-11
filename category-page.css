@@ -43,6 +43,7 @@ main {
 }
 
 .main-content{
+    padding: 0px 10%;
     display: flex;
 }
 
@@ -56,16 +57,18 @@ main {
     padding: 20px;
     display: flex;
 }
+
 .detailed-information{
     flex: 8;
     display: flex;
     flex-direction: column;
 }
 .samecategory-item img{
-    width: 13%;
+    width: 15%;
     flex: 1;
     height: 2%;
 }
+
 .lasted-chapter{
     flex: 1;
     text-align: end;
@@ -130,6 +133,7 @@ ol, ul {
     padding: 0;
     list-style: none;
 }
+
 .book-category ul li {
     font-size: 14px;
     line-height: 1.7;
@@ -143,10 +147,24 @@ li {
 #day-tab {
     border-radius: 8px 0 0 8px;
 }
+
 .book-tabs .tab.active {
     background-color: #007f61;
     color: #fff;
     cursor: default;
+}
+
+.book-tabs .panel.active {
+    display: block;
+}
+
+.book-tabs .panel {
+    display: none;
+}
+
+.book-tabs .tabs {
+    font-size: 0;
+    margin-bottom: 30px;
 }
 .book-tabs .tab {
     border: 1px solid #000;
@@ -193,24 +211,31 @@ li {
 .book-top .menu-item:nth-child(4):before {
     content: '4';
 }
+
 .book-top .menu-item:nth-child(5):before {
     content: '5';
 }
+
 .book-top .menu-item:nth-child(6):before {
     content: '6';
 }
+
 .book-top .menu-item:nth-child(7):before {
     content: '7';
 }
+
 .book-top .menu-item:nth-child(8):before {
     content: '8';
 }
+
 .book-top .menu-item:nth-child(9):before {
     content: '9';
 }
+
 .book-top .menu-item:nth-child(10):before {
     content: '10';
 }
+
 .book-top .menu-item:before {
     position: absolute;
     top: 0;
