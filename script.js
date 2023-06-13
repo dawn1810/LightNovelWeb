@@ -34,9 +34,9 @@ $("document").ready(function () {
 
 
 
-category_btn.onclick = function () {
-    category_list.style.display = 'block';
-}
+// category_btn.onclick = function () {
+//     category_list.style.display = 'block';
+// }
 document.onclick = function (event) {
     const targetElement = event.target;
     if (!category_list.contains(targetElement) && targetElement !== category_btn) {
@@ -100,3 +100,12 @@ const swiper = new Swiper('.swiper', {
         el: '.swiper-scrollbar',
     },
 });
+
+
+
+
+
+
+
+
+
