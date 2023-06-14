@@ -1,66 +1,89 @@
 
-function includeHTML() {
-    var z, i, elmnt, file, xhttp;
-    /* Loop through a collection of all HTML elements: */
-    z = document.getElementsByTagName("*");
-    for (i = 0; i < z.length; i++) {
-        elmnt = z[i];
-        /*search for elements with a certain attribute:*/
-        file = elmnt.getAttribute("footer-tag");
-        if (file) {
-            /* Make an HTTP request using the attribute value as the file name: */
-            xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4) {
-                    if (this.status == 200) {
-                        elmnt.innerHTML = this.responseText;
-                    }
-                    if (this.status == 404) {
-                        elmnt.innerHTML = "Page not found.";
-                    }
-                    /* Remove the attribute, and call this function once more: */
-                    elmnt.removeAttribute("footer-tag");
-                    includeHTML();
+$(document).ready(function () {
+    $("#footer-element").load("footer.html", function () {
+        // your script
+    });
+});
+
+
+
+$(document).ready(function () {
+    $("#header-element").load("header.html", function () {
+        const header_menu = document.querySelector('.header_menu')
+        const left_item = document.querySelector('.left_item')
+        const category_btn = document.getElementById('category')
+        const category_list = document.querySelector('.category_list')
+        const summary_Content = document.querySelector('.summary-Content')
+        const summary_btn = document.querySelector('.summary-btn')
+
+        let menuBtnCount = true;
+
+
+        $("document").ready(function () {
+            let trigger = $("#hamburger"),
+                isClosed = false;
+
+            trigger.click(function () {
+                burgerTime();
+            });
+
+            function burgerTime() {
+                if (isClosed == true) {
+                    trigger.removeClass("is-open");
+                    trigger.addClass("is-closed");
+                    isClosed = false;
+                    left_item.classList.add('close');
+                } else {
+                    trigger.removeClass("is-closed");
+                    trigger.addClass("is-open");
+                    isClosed = true;
+                    left_item.classList.remove('close');
+
                 }
-            };
-            xhttp.open("GET", file, true);
-            xhttp.send();
-            /* Exit the function: */
-            return;
+            }
+        });
+
+
+
+        category_btn.onclick = function () {
+            category_list.style.display = 'block';
         }
-    }
-}
-
-
-
-function header_tag() {
-    var z, i, elmnt, file, xhttp;
-    /* Loop through a collection of all HTML elements: */
-    z = document.getElementsByTagName("*");
-    for (i = 0; i < z.length; i++) {
-        elmnt = z[i];
-        /*search for elements with a certain attribute:*/
-        file = elmnt.getAttribute("header-tag");
-        if (file) {
-            /* Make an HTTP request using the attribute value as the file name: */
-            xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4) {
-                    if (this.status == 200) {
-                        elmnt.innerHTML = this.responseText;
-                    }
-                    if (this.status == 404) {
-                        elmnt.innerHTML = "Page not found.";
-                    }
-                    /* Remove the attribute, and call this function once more: */
-                    elmnt.removeAttribute("header-tag");
-                    includeHTML();
-                }
-            };
-            xhttp.open("GET", file, true);
-            xhttp.send();
-            /* Exit the function: */
-            return;
+        document.onclick = function (event) {
+            const targetElement = event.target;
+            if (!category_list.contains(targetElement) && targetElement !== category_btn) {
+                category_list.style.display = 'none';
+            }
         }
-    }
-}
+
+        header_menu.onclick = function (event) {
+            if (menuBtnCount) {
+                event.stopPropagation();
+                left_item.classList.remove('close');
+                menuBtnCount = false;
+            }
+            else {
+                left_item.classList.add('close');
+                menuBtnCount = true;
+            }
+
+        }
+        const category = document.querySelector('.category')
+
+        left_item.onclick = function (event) {
+            event.stopPropagation();
+            console.log('ok')
+        }
+
+        function toggleSummary() {
+            if (summary_Content.style.display == 'none') {
+                summary_Content.style.display = 'block';
+                summary_btn.innerHTML = '<i class="fa-solid fa-bars"></i> TÓM TẮT TRUYỆN';
+
+            } else {
+                summary_Content.style.display = 'none';
+
+                summary_btn.innerHTML = '<i class="fa-solid fa-angles-up"></i> Ẩn tóm tắt';
+            }
+        }
+    });
+});

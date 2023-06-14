@@ -34,15 +34,15 @@ $("document").ready(function () {
 
 
 
-// category_btn.onclick = function () {
-//     category_list.style.display = 'block';
-// }
-// document.onclick = function (event) {
-//     const targetElement = event.target;
-//     if (!category_list.contains(targetElement) && targetElement !== category_btn) {
-//         category_list.style.display = 'none';
-//     }
-// }
+category_btn.onclick = function () {
+    category_list.style.display = 'block';
+}
+document.onclick = function (event) {
+    const targetElement = event.target;
+    if (!category_list.contains(targetElement) && targetElement !== category_btn) {
+        category_list.style.display = 'none';
+    }
+}
 
 header_menu.onclick = function (event) {
     if (menuBtnCount) {
@@ -101,6 +101,7 @@ const swiper = new Swiper('.swiper', {
     },
 });
 
+  
 
 
 
