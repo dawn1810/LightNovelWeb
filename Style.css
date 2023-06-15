@@ -447,14 +447,8 @@ a {
 .header_logo img {
     width: 60px !important;
     height: 60px !important;
-    transition: transform 0.3s ease;
+    transition: transform 3s ease;
     transition: margin 0.1s ease;
-}
-
-.header_logo:hover img {
-    margin-top: 30px;
-    margin-left: 30px;
-    transform: scale(2.5);
 }
 
 yt-icon {
