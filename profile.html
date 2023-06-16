@@ -24,31 +24,31 @@
                 <div class="Setting_sidebar-wrapper">
                     <h1 class="Setting_sidebar_title">Cài đặt</h1>
                     <div class="Setting_sidebar-list">
-                        <div class="Setting_sidebar-list_item">
+                        <div class="Setting_sidebar-list_item yourinfo">
                             <div class="Setting_sidebar-list_item_wrap">
 
                             </div>
                             <i class="fa-solid fa-user"></i> Thông tin cá nhân
                         </div>
-                        <div class="Setting_sidebar-list_item">
+                        <div class="Setting_sidebar-list_item yourfollow">
                             <div class="Setting_sidebar-list_item_wrap">
 
                                 <i class="fa-solid fa-book"></i> Truyện đã theo dõi
                             </div>
                         </div>
-                        <div class="Setting_sidebar-list_item">
+                        <div class="Setting_sidebar-list_item yournotify">
                             <div class="Setting_sidebar-list_item_wrap">
 
                                 <i class="fa-solid fa-bell"></i> Thông báo
                             </div>
                         </div>
-                        <div class="Setting_sidebar-list_item">
+                        <div class="Setting_sidebar-list_item yourchangepass">
                             <div class="Setting_sidebar-list_item_wrap">
 
                                 <i class="fa-solid fa-shield-halved"></i> Đổi mật khẩu
                             </div>
                         </div>
-                        <div class="Setting_sidebar-list_item">
+                        <div class="Setting_sidebar-list_item logout">
                             <div class="Setting_sidebar-list_item_wrap">
 
                                 <i class="fa-solid fa-right-from-bracket"></i> Thoát
@@ -73,15 +73,32 @@
                                     <div class="information_name_wrap">
                                         <div class="information_name">
                                             <h3>Avatar</h3>
-                                            <div class="image-upload">
-                                                <label for="file-input">
-                                                    <img src="camera-icon-55.jpg" id="preview-image"
-                                                        alt="Camera Icon" />
-                                                </label>
-                                                <input type="file" id="file-input" accept="image/*" />
+                                            <div class="dropdown">
+                                                <button class="dropdown-trigger" type="button">
+                                                    <div class="dropdown-content">
+                                                        <label>Choose image</label>
+                                                        <input id="file-upload" type="file" style="display: none;" />
+                                                    </div>
+                                                    <div class="drop-zone" ondrop="drop(event)"
+                                                        ondragover="allowDrop(event)">
+                                                        <p>Drop / Choose Avatar</p>
+                                                    </div>
+                                                    <img class="your-avt" src="✧ Gabi_0101.jpeg" alt="">
+                                                </button>
                                             </div>
                                         </div>
-                                        <button id="button_file"> Chỉnh Sửa</button>
+                                    </div>
+                                    <div class="information_name_wrap">
+                                        <div class="information_name">
+                                            <h3>Giới tính</h3>
+
+                                            <div class="sex_random ">
+                                                100
+                                            </div>
+
+
+                                        </div>
+                                        <button id="button_file" class="button_random "> Random</button>
                                     </div>
                                     <div class="information_name_wrap">
                                         <div class="information_name">
@@ -90,13 +107,117 @@
                                         </div>
                                         <button id="button_file"> Chỉnh Sửa</button>
                                     </div>
+
+                                    
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <div class="Setting_pageWrapper page2"></div>
-                    <div class="Setting_pageWrapper page3"></div>
-                    <div class="Setting_pageWrapper page4"></div>
+                    <div class="Setting_pageWrapper page2">
+                        <h2>Truyện đã theo dõi</h2>
+                        <div class="followed-container">
+
+                            <div class="followed-item">
+                                <div class="name-container">
+                                    <img src="https://nettruyenco.vn/public/images/comics/thien-kim-mu-pha-san-va-tong-tai-diem-vuong.jpg"
+                                        alt="" class="avt">
+                                    <h3 class="name-novel">
+                                        <p>con heo xin xan</p>
+                                        <p>da hoan thanh</p>
+                                    </h3>
+                                    <button class="delete-follow">bo theo doi</button>
+                                </div>
+                                <div class="last-time-container">
+                                    <div class="chapter">Chap 100</div>
+                                    <div class="time"> 23h truoc</div>
+                                </div>
+                            </div>
+
+                            <div class="followed-item">
+                                <div class="name-container">
+                                    <img src="https://nettruyenco.vn/public/images/comics/thien-kim-mu-pha-san-va-tong-tai-diem-vuong.jpg"
+                                        alt="" class="avt">
+                                    <h3 class="name-novel">
+                                        <p>con heo xin xan</p>
+                                        <p>da hoan thanh</p>
+                                    </h3>
+
+                                    <button class="delete-follow">bo theo doi</button>
+                                </div>
+                                <div class="last-time-container">
+                                    <div class="chapter">Chap 100</div>
+                                    <div class="time"> 23h truoc</div>
+                                </div>
+                            </div>
+
+                            <div class="followed-item">
+                                <div class="name-container">
+                                    <img src="https://nettruyenco.vn/public/images/comics/thien-kim-mu-pha-san-va-tong-tai-diem-vuong.jpg"
+                                        alt="" class="avt">
+                                    <h3 class="name-novel">
+                                        <p>con heo xin xan</p>
+                                        <p>da hoan thanh</p>
+                                    </h3>
+
+                                    <button class="delete-follow">bo theo doi</button>
+                                </div>
+                                <div class="last-time-container">
+                                    <div class="chapter">Chap 100</div>
+                                    <div class="time"> 23h truoc</div>
+                                </div>
+                            </div>
+
+                            <div class="followed-item">
+                                <div class="name-container">
+                                    <img src="https://nettruyenco.vn/public/images/comics/thien-kim-mu-pha-san-va-tong-tai-diem-vuong.jpg"
+                                        alt="" class="avt">
+                                    <h3 class="name-novel">
+                                        <p>con heo xin xan</p>
+                                        <p>da hoan thanh</p>
+                                    </h3>
+
+                                    <button class="delete-follow">bo theo doi</button>
+                                </div>
+                                <div class="last-time-container">
+                                    <div class="chapter">Chap 100</div>
+                                    <div class="time"> 23h truoc</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Setting_pageWrapper page3">
+                        <h2>Thông Báo</h2>
+                        <div class="notify-container">
+
+                            <div class="notify-item">
+                                <a href="" class="notify-content">con heo xin xan vua ra chap moi</a>
+                                <div id="notify-time">10h truoc</div>
+                            </div>
+                            <div class="notify-item">
+                                <a href="" class="notify-content">con heo xin xan vua ra chap moi</a>
+                                <div id="notify-time">10h truoc</div>
+                            </div>
+                            <div class="notify-item">
+                                <a href="" class="notify-content">con heo xin xan vua ra chap moi</a>
+                                <div id="notify-time">10h truoc</div>
+                            </div>
+                            <div class="notify-item">
+                                <a href="" class="notify-content">con heo xin xan vua ra chap moi</a>
+                                <div id="notify-time">10h truoc</div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="Setting_pageWrapper page4">
+                        <h2>ĐỔI Mật Khẩu</h2>
+                        <div class="change-pass">
+                            <p>Mật Khẩu Mới </p>
+                            <input class="old-password pass" type="text">
+                            <p>Mật Khẩu Cũ </p>
+                            <input class="new-password pass" type="text">
+                            <button class="change-pass-btn">Doi Pass</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

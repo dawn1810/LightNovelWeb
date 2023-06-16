@@ -3,9 +3,15 @@ body {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    background-color: black;
+    background-color: var(--background-color);
     color: #dbd9d9;
     font-family: "Roboto", "Arial", sans-serif;
+}
+
+:root {
+    --background-color: #ffffec;
+    --button-color: #878ECD;
+    --text-color: black;
 }
 
 button {
@@ -35,13 +41,17 @@ a {
     left: 0;
     z-index: 9999999999;
     width: 96%;
-    background-color: #000;
+    background-color: #D4B499;
 }
 
 .header_start,
 .header_end {
     display: flex;
     align-items: center;
+}
+
+.header_start {
+    height: 50px;
 }
 
 .header_menu {
@@ -105,7 +115,7 @@ a {
         width: 30px;
         height: 34px;
         margin: 0 4px 0 0;
-        background: #fff;
+        background: #506D84;
     }
 }
 
@@ -219,7 +229,7 @@ a {
     height: 4px;
     width: 36px;
     border-radius: 2px;
-    background: #fff;
+    background: #506D84;
 }
 
 .burger-bun-top {
@@ -462,7 +472,7 @@ yt-icon.ytd-logo {
 .header_search {
     flex: 0 1 728px;
     cursor: auto;
-    background-color: #000;
+    /* background-color:#00ADB5; */
 }
 
 .header_search_wrap {
@@ -474,9 +484,9 @@ yt-icon.ytd-logo {
     padding: 5px;
     padding-right: 0px;
     border-radius: 2px;
-    background: #000;
+    background: #F3D5C0;
     border-radius: 10px;
-    border: 1px solid #403d3d;
+
 }
 
 .header_search_wrap form {
@@ -502,8 +512,8 @@ yt-icon.ytd-logo {
     padding: 0;
     margin: 0;
     font-size: 16px;
-    background-color: #000;
-    color: #fff;
+    background-color: #F3D5C0;
+    color: black;
     width: 100%;
 }
 
@@ -519,6 +529,10 @@ yt-icon.ytd-logo {
     align-items: center;
     border-radius: 50%;
     cursor: pointer;
+}
+
+.header_search_logo i {
+    color: #506D84;
 }
 
 .header_search_logo:hover {
@@ -547,6 +561,10 @@ yt-icon.ytd-logo {
     width: 102px;
     height: 100%;
     background-color: transparent;
+}
+
+.header_notify_logo i {
+    color: #506D84;
 }
 
 .header_notify_more::after {
@@ -613,10 +631,14 @@ yt-icon.ytd-logo {
     width: 26px;
     height: 26px;
     border-radius: 50%;
-    border: 1px solid #fff;
+    border: 1px solid #506D84;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.header_user_logo i {
+    color: #506D84;
 }
 
 .header_user_more {
@@ -748,7 +770,7 @@ yt-icon.ytd-logo {
     width: 15%;
     padding: 5px;
     box-sizing: border-box;
-    background-color: #323636;
+    background-color: rgb(151 107 51);
     margin: 17px 10px;
     margin-bottom: 30px;
     border-radius: 10px;
@@ -773,7 +795,7 @@ yt-icon.ytd-logo {
 
 .novel_name {
     font-size: 16px;
-    color: #358cff;
+    color: #ffffff;
     text-transform: capitalize;
     word-wrap: break-word;
     white-space: normal;
@@ -795,7 +817,7 @@ yt-icon.ytd-logo {
 }
 
 .novel_author span {
-    color: #358cff;
+    color: #ffb035;
 }
 
 .novel_chapter {
@@ -811,15 +833,16 @@ yt-icon.ytd-logo {
 .novel_chapter div {
     margin-left: 10px;
     color: red;
+    font-weight: 700;
 }
 
 .left_item {
     position: fixed;
-    top: 0;
+    top: -17px;
     left: 0;
     height: 100%;
     width: 215px;
-    background-color: rgb(0, 0, 0);
+    background-color: #889EAF;
     margin-top: 0;
     padding: 0;
     transition: all 0.5s ease;
@@ -834,19 +857,21 @@ yt-icon.ytd-logo {
 .left_li {
     width: 94%;
     height: 45px;
-    background-color: rgb(0, 0, 0);
-    border: black;
-    border-radius: 10px;
+    background-color: #889EAF;
+    border: #889EAF;
     padding-left: 13px;
     text-align: center;
     align-items: center;
     display: flex;
+    color: #063458;
 }
-.left_li i{
+
+.left_li i {
     padding-right: 10px;
 }
+
 .left_li:hover {
-    background-color: #272727;
+    background-color: #687c8d;
     cursor: pointer;
 }
 
@@ -889,6 +914,12 @@ yt-icon.ytd-logo {
     display: flex;
 }
 
+.trending-horizontal {
+    background-color: #889EAF;
+    padding-top: 13px;
+    height: 558px;
+}
+
 .trending-horizontal-item {
     display: flex;
     padding: 15px 5px;
@@ -898,12 +929,16 @@ yt-icon.ytd-logo {
 }
 
 .trending-horizontal-item:hover {
-    background-color: #282828;
+    background-color: #CDC2AE;
 }
 
 .trending-horizontal-item_name {
     padding-left: 20px;
     color: #1c62b9;
+}
+
+.trending-container {
+    background-color: #dff4f3;
 }
 
 .trending-horizontal-item img {
@@ -913,7 +948,7 @@ yt-icon.ytd-logo {
 
 .trending-horizontal-item_name {
     font-size: 15px;
-    color: #2472d0;
+    color: #000000;
 }
 
 .swiper {
@@ -934,9 +969,9 @@ yt-icon.ytd-logo {
 
 .trending-horizontal {
     width: 30%;
-    background-color: #0f0f0f;
+    background-color: #ECE5C7;
     overflow: auto;
-    height: 570px;
+    height: 558px;
     touch-action: cross-slide-y;
 }
 
@@ -946,6 +981,19 @@ yt-icon.ytd-logo {
     justify-content: space-between;
     align-items: center;
     border: 5px solid #403d3d;
+    background-color: #d4b499;
+}
+
+#footer_wrap_main_title {
+    color: #8d5703;
+}
+
+.footer_wrap_contact_item i{
+    color: #8d5703;
+}
+
+#footer_wrap_main_title a{
+    color: #463797
 }
 
 .footer_wrap_logo img {
