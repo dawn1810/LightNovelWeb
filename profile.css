@@ -8,12 +8,14 @@ main{
     height: 47px !important;
     border-radius: 20px;
 }
+#button_file:hover{
+    cursor: pointer;
+}
 
 .information_name_wrap{
     margin: 5px;
     display: flex;
     justify-content: space-between;
-    border-bottom: 0.5px  white solid ;
 }
 .containner_wrap{
     width: 1200px;
@@ -46,6 +48,7 @@ main{
     background-color: black;
     color: white;
 }
+
 .information_name {
     width: 100%;
     font-size: 1.2rem;
@@ -55,6 +58,8 @@ main{
     width: 100%;
     font-size: 1rem;
     line-height: 2rem;
+    border-bottom: 0.5px  white solid ;
+
 }
 
 .image-upload {
