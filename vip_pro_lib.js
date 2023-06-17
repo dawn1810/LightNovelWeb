@@ -260,8 +260,9 @@ exports.uploadFileToDrive = async (filePath, id_folder = '1Tv80lyGA-rYIsN6nT9_A-
       media: media,
       fields: 'id',
     });
-  
+    
     console.log('File uploaded successfully! File ID:', res.data.id);
+    return res.data.id;
   } catch (err) {
     console.error('Error uploading file:', err);
   }
