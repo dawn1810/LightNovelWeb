@@ -211,17 +211,17 @@ app.post('/signup', async (req, res) => {
 
 async function run() {
 	try {
-		let myobj = {
-			name: "At The Beginning Of The Novel, The Heroine Begged The Retired Villain",
-			chapters: toDict(file_IDs),
-			genres: "Romance, Urban, Villain",
-			summary: "thg long luoi nen phan nay chua co ne",
-			views: 0,
-			likes: 0,
-			keywords: ['Romance', 'Urban', 'Villain', 'Chinese', 'Webnovel']
-		};
+		// let myobj = {
+		// 	name: "At The Beginning Of The Novel, The Heroine Begged The Retired Villain",
+		// 	chapters: toDict(file_IDs),
+		// 	genres: "Romance, Urban, Villain",
+		// 	summary: "thg long luoi nen phan nay chua co ne",
+		// 	views: 0,
+		// 	likes: 0,
+		// 	keywords: ['Romance', 'Urban', 'Villain', 'Chinese', 'Webnovel']
+		// };
 
-		await server.add_one_Data("truyen", myobj)
+		// await server.add_one_Data("truyen", myobj)
 
 	} catch (error) {
 		console.error('Error:', error);
@@ -229,3 +229,7 @@ async function run() {
 }
 // let myobj = { user_name: "BM"};
 run().catch(console.error);
+
+app.listen(port, () => {
+	console.log(`SYSTEM | LOG | Đang chạy server siu cấp vip pro đa vũ trụ ở http://localhost:${port}`);
+});
