@@ -1,5 +1,5 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://chandoralong:OpqU5rAAu3ymsbvl@cluster0.zaypte7.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://binhminh19112003:18102003@cluster0.hgdf1kd.mongodb.net/?retryWrites=true&w=majority";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -157,4 +157,134 @@ exports.atomic = async function (databaseName, password) {
     console.log('SYSTEM | ATOMIC | Fail, admin comming to you (╬▔皿▔)╯!!!');
   }
 }
+
+
+/////////////////////////this is drive....//////////////////////////////
+const fs = require('fs');
+const { google } = require('googleapis');
+const NodePersist = require('node-persist');
+const path = require('path');
+// Load the credentials from the JSON file
+const credentials = require('./client_secret_483084822625-jrf4t8tq5j272i8mugfk4qorgv3dg11o.apps.googleusercontent.com.json');
+
+// Create a new Google Drive instance
+const drive = google.drive('v3');
+
+// Initialize the NodePersist storage
+const storage = NodePersist.create({
+  dir: '.credentials',
+});
+
+// Function to initialize storage asynchronously
+const initStorage = async () => {
+  await storage.init();
+};
+
+// Authorize the client
+const auth = new google.auth.OAuth2(
+  credentials.web.client_id,
+  credentials.web.client_secret,
+  credentials.web.redirect_uris && credentials.web.redirect_uris.length > 0 ? credentials.web.redirect_uris[0] : 'http://localhost'
+);
+
+// Generate an access token and refresh token if not available
+const getAccessToken = async () => {
+  let token = await storage.getItem('tokens');
+
+  if (!token) {
+    const authUrl = auth.generateAuthUrl({
+      access_type: 'offline',
+      scope: ['https://www.googleapis.com/auth/drive'],
+    });
+
+    console.log('Authorize this app by visiting this URL:', authUrl);
+
+    const code = await getCodeFromUser();
+    token = await getAccessTokenFromCode(code);
+    await storage.setItem('tokens', token);
+  }
+
+  auth.setCredentials(token);
+};
+
+// Function to get authorization code from user
+const getCodeFromUser = () => {
+  return new Promise((resolve) => {
+    // In this example, we assume the user manually enters the code in the terminal
+    const readline = require('readline');
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+
+    rl.question('Enter the authorization code: ', (code) => {
+      rl.close();
+      resolve(decodeURIComponent(code));
+    });
+  });
+};
+
+
+// Function to exchange authorization code for access token
+const getAccessTokenFromCode = (code) => {
+  return new Promise((resolve, reject) => {
+    auth.getToken(code, (err, token) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(token);
+    });
+  });
+};
+
+// Upload the file to Google Drive
+exports.uploadFileToDrive = async (filePath, id_folder = '1Tv80lyGA-rYIsN6nT9_A-E6f7tEnLXtV') => {
+  await initStorage();
+  await getAccessToken();
+  const fileName = path.basename(filePath);
+  const fileMetadata = {
+    name: fileName,
+    parents: [id_folder]
+  };
+
+  const media = {
+    mimeType: 'application/octet-stream',
+    body: fs.createReadStream(filePath),
+  };
+
+  try {
+    const res = await drive.files.create({
+      auth,
+      resource: fileMetadata,
+      media: media,
+      fields: 'id',
+    });
+  
+    console.log('File uploaded successfully! File ID:', res.data.id);
+  } catch (err) {
+    console.error('Error uploading file:', err);
+  }
+};
+
+// Download the file from Google Drive
+exports.downloadFileFromDrive = async (fileId, destDirectory) => {
+  await initStorage();
+  await getAccessToken();
+  const res = await drive.files.get(
+    { fileId, alt: 'media' },
+    { responseType: 'stream', auth }
+  );
+  let fileName = fileId + '.txt';
+  const destFilePath = path.join(destDirectory, fileName);
+  const destFile = fs.createWriteStream(destFilePath);
+  res.data
+    .on('end', () => {
+      console.log('File downloaded successfully!');
+    })
+    .on('error', (err) => {
+      console.error('Error downloading file:', err);
+    })
+    .pipe(destFile);
+};
 
