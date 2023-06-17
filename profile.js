@@ -3,14 +3,54 @@ const avtUpLoad = document.getElementById('file-upload');
 const avatar = document.querySelector('.your-avt');
 const dropZone = document.querySelector('.drop-zone');
 
-const button_file = document.querySelectorAll('.button_file')
+
+
+const Setting_pageWrapper  = document.querySelectorAll('.Setting_pageWrapper')
+const Setting_item = document.querySelectorAll('.Setting_sidebar-list_item')
+
+for(let i = 0; i < Setting_item.length; i++){
+    // console.log(Setting_item[i])
+	console.log(i)
+    Setting_item[i].onclick = function(){
+		for(const key of Setting_item){
+            key.style.backgroundColor = '#ebd6bd'
+            console.log(key )
+        }
+		Setting_item[i].style.backgroundColor = '#b0906b'
+        for(const key of Setting_pageWrapper){
+            key.style.display = 'none'
+            console.log(key )
+        }
+		if(i == Setting_pageWrapper.length  ){
+			Setting_pageWrapper[i].style.display = 'none'
+
+		}else{
+			Setting_pageWrapper[i].style.display = 'block'
+
+		}
+	console.log(i)
+
+	console.log(Setting_pageWrapper[i])
+
+    }
+}
+const button_file = document.querySelectorAll('#button_file')
 
 for(const button of button_file){
-	button.onclick = function(){
+	button.onclick = function(e){
+        e.preventDefault();
         console.log('ok')
-		button.parentElement.querySelector('#fullname').click()
+        console.log(button.parentElement)
+        let file = button.parentElement.querySelector('input')
+		file.focus()
+        file.setSelectionRange(file.value.length, file.value.length);
 	}
 }
+// document.querySelector('.button_file').onclick = function(e){
+//     e.preventDefault();
+//     console.log('ok')
+//     button.parentElement.querySelector('#fullname').click()
+// }
 
 // // Set avt as default:
 // if (localStorage.getItem('avt')) {
@@ -65,71 +105,8 @@ function drop(event) {
 
 
 
-document.addEventListener("DOMContentLoaded", () => {
-    setTimeout(() => {
-        let unicycle = new UnicycleRangeSlider("#unicycle1");
-    }, 500);
-});
-class UnicycleRangeSlider {
-    constructor(el) {
-        this.wheel = document.querySelector(`${el} input[type=range]`);
-        this.marker = document.querySelector(`${el} .unicycle__marker`);
-        this.flag = document.querySelector(`${el} .unicycle__flag`);
 
-        this.updateBodyPos();
-        this.wheel.addEventListener("input", () => { this.updateBodyPos(); });
-    }
-    updateBodyPos() {
-        let max = this.wheel.max,
-            min = this.wheel.min,
-            realValue = this.wheel.value,
-            ticks = max - min,
-            relValue = realValue - min,
-            percent = relValue / ticks,
-            revs = 1,
-            left = percent * 100,
-            emAdjust = percent * 1.5,
-            pedalRot = percent * (360 * revs),
-            period = (1 / ((ticks / revs) / 2)) * relValue * Math.PI,
-            rightLegRot = -22.5 * Math.sin(period + (1.85 * Math.PI)) - 22.5,
-            rightLowerLegRot = 45 * Math.sin(period + (0 * Math.PI)) + 45,
-            leftLegRot = -22.5 * Math.sin(period + (2.85 * Math.PI)) - 22.5,
-            leftLowerLegRot = 45 * Math.sin(period + (1 * Math.PI)) + 45,
-            cssVars = {
-                "--pedalRot": `${pedalRot}deg`,
-                "--rightLegRot": `${rightLegRot}deg`,
-                "--rightLowerLegRot": `${rightLowerLegRot}deg`,
-                "--leftLegRot": `${leftLegRot}deg`,
-                "--leftLowerLegRot": `${leftLowerLegRot}deg`
-            };
-        // position stick figure and unicycle body
-        this.marker.style.left = `calc(${left}% - ${emAdjust}em)`;
-        // update the variables in CSS
-        for (let v in cssVars)
-            this.marker.style.setProperty(v, cssVars[v]);
-        // number in the flag
-        // if (realValue == 100) {
-        //     this.flag.innerHTML = 'Nữ';
-        // }
-        // else if (realValue == 0) {
-        //     this.flag.innerHTML = 'Nam';
-        // }
-        // else {
-        //     this.flag.innerHTML = '3D';
-        // }
-        this.flag.innerHTML = realValue;
-    }
-}
-document.addEventListener("DOMContentLoaded", () => {
-    setTimeout(() => {
-        let unicycle = new UnicycleRangeSlider("#unicycle1");
-    }, 500);
-});
-document.addEventListener("DOMContentLoaded", () => {
-    setTimeout(() => {
-        let unicycle = new UnicycleRangeSlider("#unicycle12");
-    }, 500);
-});
+
 
 
 
@@ -156,12 +133,7 @@ function getRandomElement(list) {
 
 
 
-const yourinfo_btn=querySelector(".yourinfo");
 
-const yourfollow_btn=querySelector(".yourfollow");
 
-const yournotify_btn=querySelector(".yournotify");
-
-const yourchangepass_btn=querySelector(".yourchangepass");
 
 

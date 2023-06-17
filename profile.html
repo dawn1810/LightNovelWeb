@@ -26,20 +26,14 @@
                     <div class="Setting_sidebar-list">
                         <div class="Setting_sidebar-list_item yourinfo">
                             <div class="Setting_sidebar-list_item_wrap">
-
+                                <i class="fa-solid fa-user"></i> Thông tin cá nhân
                             </div>
-                            <i class="fa-solid fa-user"></i> Thông tin cá nhân
+                            
                         </div>
                         <div class="Setting_sidebar-list_item yourfollow">
                             <div class="Setting_sidebar-list_item_wrap">
 
                                 <i class="fa-solid fa-book"></i> Truyện đã theo dõi
-                            </div>
-                        </div>
-                        <div class="Setting_sidebar-list_item yournotify">
-                            <div class="Setting_sidebar-list_item_wrap">
-
-                                <i class="fa-solid fa-bell"></i> Thông báo
                             </div>
                         </div>
                         <div class="Setting_sidebar-list_item yourchangepass">
@@ -57,58 +51,77 @@
                     </div>
                 </div>
                 <div class="Setting_pageWrapper__PM">
-                    <div class="Setting_pageWrapper page1">
-                        <div class="Setting_pageWrapper">Thông tin cá nhân</div>
+                    <div class="Setting_pageWrapper page1" style="display: block;">
+                        <h1 class="Setting_pageWrapper_titlte">Thông tin cá nhân</h1>
                         <div class="Setting_pageWrapper_main">
                             <form action="">
 
                                 <div class="FieldWrapper_wrapper">
-                                    <div class="information_name_wrap">
-                                        <div class="information_name">
-                                            <h3>Họ tên</h3>
-                                            <input type="text" id="fullname" value="Kẻ hủy diệt Nguyễn Hưng Thịnh">
-                                        </div>
-                                        <button id="button_file"> Chỉnh Sửa</button>
-                                    </div>
-                                    <div class="information_name_wrap">
-                                        <div class="information_name">
+                                    <div class="avt-wrapper-container">
+                                        <div class="information_name_wrap">
                                             <h3>Avatar</h3>
-                                            <div class="dropdown">
-                                                <button class="dropdown-trigger" type="button">
-                                                    <div class="dropdown-content">
-                                                        <label>Choose image</label>
-                                                        <input id="file-upload" type="file" style="display: none;" />
-                                                    </div>
-                                                    <div class="drop-zone" ondrop="drop(event)"
-                                                        ondragover="allowDrop(event)">
-                                                        <p>Drop / Choose Avatar</p>
-                                                    </div>
-                                                    <img class="your-avt" src="✧ Gabi_0101.jpeg" alt="">
-                                                </button>
+
+                                            <div class="information_name">
+                                                <div class="dropdown">
+                                                    <button class="dropdown-trigger" type="button">
+                                                        <div class="dropdown-content">
+                                                            <label>Choose image</label>
+                                                            <input id="file-upload" type="file"
+                                                                style="display: none;" />
+                                                        </div>
+                                                        <div class="drop-zone" ondrop="drop(event)"
+                                                            ondragover="allowDrop(event)">
+                                                            <p>Drop / Choose Avatar</p>
+                                                        </div>
+                                                        <img class="your-avt" src="✧ Gabi_0101.jpeg" alt="">
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="information_name_wrap">
-                                        <div class="information_name">
-                                            <h3>Giới tính</h3>
 
-                                            <div class="sex_random ">
-                                                100
+                                    <div class="info-wrapper-container">
+
+                                        <div class="information_name_wrap">
+                                            <h3>User</h3>
+                                            <div class="information_name">
+                                                <input type="text" id="fullname" value="Kẻ hủy diệt Nguyễn Hưng Thịnh">
+                                                <button id="button_file"> Chỉnh Sửa</button>
                                             </div>
-
-
                                         </div>
-                                        <button id="button_file" class="button_random "> Random</button>
-                                    </div>
-                                    <div class="information_name_wrap">
-                                        <div class="information_name">
+
+                                        <div class="information_name_wrap">
+                                            <h3>Họ tên</h3>
+                                            <div class="information_name">
+                                                <input type="text" id="fullname" value="Kẻ hủy diệt Nguyễn Hưng Thịnh">
+                                                <button id="button_file"> Chỉnh Sửa</button>
+                                            </div>
+                                        </div>
+
+                                       
+
+                                        <div class="information_name_wrap">
                                             <h3>Email</h3>
-                                            <input type="text" id="fullname" value="Thinhterrorist@gmail.com">
+                                            <div class="information_name">
+                                                <input type="text" id="fullname" value="Thinhterrorist@gmail.com">
+                                                <button id="button_file"> Chỉnh Sửa</button>
+                                            </div>
                                         </div>
-                                        <button id="button_file"> Chỉnh Sửa</button>
-                                    </div>
 
-                                    
+                                        <div class="information_name_wrap">
+                                            <h3>Giới tính</h3>
+                                            <div class="information_name">
+                                                <div class="sex_wrapper">
+                                                    <div class="sex_random ">
+                                                        100
+                                                    </div>
+
+                                                </div>
+                                                <button id="button_file" class="button_random "> Random</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -121,101 +134,104 @@
                                 <div class="name-container">
                                     <img src="https://nettruyenco.vn/public/images/comics/thien-kim-mu-pha-san-va-tong-tai-diem-vuong.jpg"
                                         alt="" class="avt">
-                                    <h3 class="name-novel">
-                                        <p>con heo xin xan</p>
-                                        <p>da hoan thanh</p>
-                                    </h3>
-                                    <button class="delete-follow">bo theo doi</button>
+                                    <div class="name-novel">
+                                        <h2>con heo xin xan</h2>
+                                        <p> Nước Lèo vốn không đi với X nhưng ở một tình cảnh trớ trêu đã kéo họ lại gần
+                                            nhau (close up) trong một thế giới đầy đau thương. Liều họ có quyết định
+                                            cùng nương tựa nhau và vượt qua khó khắn? Liệu có chuyện tình đẹp vcl nào ở
+                                            đây?</p>
+
+                                        <div class="last-time-container">
+                                            <div class="chapter"><a href="">Chap 100</a></div>
+                                            <div class="time"> 23h truoc</div>
+                                        </div>
+                                    </div>
+
                                 </div>
-                                <div class="last-time-container">
-                                    <div class="chapter">Chap 100</div>
-                                    <div class="time"> 23h truoc</div>
-                                </div>
+
+                                <button class="delete-follow">bo theo doi</button>
                             </div>
 
                             <div class="followed-item">
                                 <div class="name-container">
                                     <img src="https://nettruyenco.vn/public/images/comics/thien-kim-mu-pha-san-va-tong-tai-diem-vuong.jpg"
                                         alt="" class="avt">
-                                    <h3 class="name-novel">
-                                        <p>con heo xin xan</p>
-                                        <p>da hoan thanh</p>
-                                    </h3>
+                                    <div class="name-novel">
+                                        <h2>con heo xin xan</h2>
+                                        <p> Nước Lèo vốn không đi với X nhưng ở một tình cảnh trớ trêu đã kéo họ lại gần
+                                            nhau (close up) trong một thế giới đầy đau thương. Liều họ có quyết định
+                                            cùng nương tựa nhau và vượt qua khó khắn? Liệu có chuyện tình đẹp vcl nào ở
+                                            đây?</p>
 
-                                    <button class="delete-follow">bo theo doi</button>
+                                        <div class="last-time-container">
+                                            <div class="chapter">Chap 100</div>
+                                            <div class="time"> 23h truoc</div>
+                                        </div>
+                                    </div>
+
                                 </div>
-                                <div class="last-time-container">
-                                    <div class="chapter">Chap 100</div>
-                                    <div class="time"> 23h truoc</div>
-                                </div>
+
+                                <button class="delete-follow">bo theo doi</button>
                             </div>
 
                             <div class="followed-item">
                                 <div class="name-container">
                                     <img src="https://nettruyenco.vn/public/images/comics/thien-kim-mu-pha-san-va-tong-tai-diem-vuong.jpg"
                                         alt="" class="avt">
-                                    <h3 class="name-novel">
-                                        <p>con heo xin xan</p>
-                                        <p>da hoan thanh</p>
-                                    </h3>
+                                    <div class="name-novel">
+                                        <h2>con heo xin xan</h2>
+                                        <p> Nước Lèo vốn không đi với X nhưng ở một tình cảnh trớ trêu đã kéo họ lại gần
+                                            nhau (close up) trong một thế giới đầy đau thương. Liều họ có quyết định
+                                            cùng nương tựa nhau và vượt qua khó khắn? Liệu có chuyện tình đẹp vcl nào ở
+                                            đây?</p>
 
-                                    <button class="delete-follow">bo theo doi</button>
+                                        <div class="last-time-container">
+                                            <div class="chapter">Chap 100</div>
+                                            <div class="time"> 23h truoc</div>
+                                        </div>
+                                    </div>
+
                                 </div>
-                                <div class="last-time-container">
-                                    <div class="chapter">Chap 100</div>
-                                    <div class="time"> 23h truoc</div>
-                                </div>
+
+                                <button class="delete-follow">bo theo doi</button>
                             </div>
 
                             <div class="followed-item">
                                 <div class="name-container">
                                     <img src="https://nettruyenco.vn/public/images/comics/thien-kim-mu-pha-san-va-tong-tai-diem-vuong.jpg"
                                         alt="" class="avt">
-                                    <h3 class="name-novel">
-                                        <p>con heo xin xan</p>
-                                        <p>da hoan thanh</p>
-                                    </h3>
+                                    <div class="name-novel">
+                                        <h2>con heo xin xan</h2>
+                                        <p> Nước Lèo vốn không đi với X nhưng ở một tình cảnh trớ trêu đã kéo họ lại gần
+                                            nhau (close up) trong một thế giới đầy đau thương. Liều họ có quyết định
+                                            cùng nương tựa nhau và vượt qua khó khắn? Liệu có chuyện tình đẹp vcl nào ở
+                                            đây?</p>
 
-                                    <button class="delete-follow">bo theo doi</button>
+                                        <div class="last-time-container">
+                                            <div class="chapter">Chap 100</div>
+                                            <div class="time"> 23h truoc</div>
+                                        </div>
+                                    </div>
+
                                 </div>
-                                <div class="last-time-container">
-                                    <div class="chapter">Chap 100</div>
-                                    <div class="time"> 23h truoc</div>
-                                </div>
+
+                                <button class="delete-follow">bo theo doi</button>
                             </div>
+
                         </div>
                     </div>
-                    <div class="Setting_pageWrapper page3">
-                        <h2>Thông Báo</h2>
-                        <div class="notify-container">
 
-                            <div class="notify-item">
-                                <a href="" class="notify-content">con heo xin xan vua ra chap moi</a>
-                                <div id="notify-time">10h truoc</div>
-                            </div>
-                            <div class="notify-item">
-                                <a href="" class="notify-content">con heo xin xan vua ra chap moi</a>
-                                <div id="notify-time">10h truoc</div>
-                            </div>
-                            <div class="notify-item">
-                                <a href="" class="notify-content">con heo xin xan vua ra chap moi</a>
-                                <div id="notify-time">10h truoc</div>
-                            </div>
-                            <div class="notify-item">
-                                <a href="" class="notify-content">con heo xin xan vua ra chap moi</a>
-                                <div id="notify-time">10h truoc</div>
-                            </div>
-
-                        </div>
-                    </div>
                     <div class="Setting_pageWrapper page4">
-                        <h2>ĐỔI Mật Khẩu</h2>
+                        <h2>Đổi Mật Khẩu</h2>
                         <div class="change-pass">
-                            <p>Mật Khẩu Mới </p>
-                            <input class="old-password pass" type="text">
                             <p>Mật Khẩu Cũ </p>
-                            <input class="new-password pass" type="text">
-                            <button class="change-pass-btn">Doi Pass</button>
+                            <input class="old-password pass" placeholder="nhập mật khẩu bạn đã quên" type="text">
+                            <p>Mật Khẩu Mới </p>
+                            <input class="new-password pass" placeholder="nhập mật khẩu mới" type="text">
+                            <p>Xác nhận mật khẩu mới </p>
+                            <input class="new-password pass" placeholder="nhập lại mật khẩu mới" type="text">
+                            
+                            <button class="change-pass-btn">ĐỔI MẬT KHẨU</button>
                         </div>
                     </div>
                 </div>

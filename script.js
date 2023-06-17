@@ -83,6 +83,7 @@ const swiper = new Swiper('.swiper', {
     // Optional parameters
     direction: 'horizontal',
     loop: true,
+    centeredSlides: true,
 
     // If we need pagination
     pagination: {
@@ -100,3 +101,8 @@ const swiper = new Swiper('.swiper', {
         el: '.swiper-scrollbar',
     },
 });
+
+setInterval(function () {
+    document.querySelector('.swiper-button-next').click()
+
+}, 5000);

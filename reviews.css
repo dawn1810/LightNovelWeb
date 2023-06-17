@@ -29,7 +29,8 @@ button:hover {
 
 .novel-backg {
     width: 100%;
-    opacity: 0.5;
+    filter: blur(5px);
+    /* filter: hue-rotate(38deg); */
 }
 
 .current-Titile {
@@ -51,13 +52,14 @@ button:hover {
     font-size: 35px;
     /* position: absolute; */
     bottom: 28vh;
-    color: rgb(177, 12, 45);
+    color: rgb(92 52 195);
 }
 
 .title-gr {
     width: 70%;
     position: relative;
     margin-left: 50px;
+    color: #2c5fc9;
 }
 
 .last-time-update {
@@ -102,7 +104,7 @@ button:hover {
 
 .btn1 {
     transition: all 300ms cubic-bezier(0.39, 0.575, 0.565, 1);
-    background-color: hsla(323, 87%, 50%, 0.664);
+    background-color: #884c05;
     border: 2px solid #111;
     width: 100px !important;
     height: 31px !important;
@@ -124,53 +126,56 @@ button:hover {
 .btn1:hover h4 {
     color: hsla(323, 87%, 50%, 0.664);
 }
+   
 
-.btn7 {
-    /* background-color: blueviolet; */
-    border: none;
-    cursor: pointer;
-    width: 170px;
-    margin-right: 40px;
-}
-.btn7 a{
-    z-index:1;
-}
-.btn7:before,
-.btn7:after {
-    border: 5px solid rgb(109 252 0);
-    transition: all 100ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
-    background-color: #ff00ec78;
-}
+.wrapper{
+    margin: 20px;
 
-.btn7:hover:after {
-    width: 63px;
-    animation: anim7a 1.5s infinite linear;
-}
+  }
+  
+  .button-efect{
+    display: block;
+    width: 200px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    font-family: sans-serif;
+    text-decoration: none;
+    color: #333;
+    border: 2px solid #333;
+    letter-spacing: 2px;
+    text-align: center;
+    position: relative;
+    transition: all .35s;
+    border-radius: 10px;    
+    background-color: white;
+  }
+  
+  .button-efect span{
+    position: relative;
+    z-index: 2;
+  }
+  
+  .button-efect:after{
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: #884c05;
+    transition: all .35s;
+    border-radius: 6px;
+  }
+  
+  .button-efect:hover{
+    color: #fff;
+  }
+  
+  .button-efect:hover:after{
+    width: 100%;
+  }
 
-.btn7:hover:before {
-    width: 63px;
-    animation: anim7b 1.5s infinite linear;
-}
-
-@keyframes anim7a {
-    from {
-        transform: rotate(0turn);
-    }
-
-    to {
-        transform: rotate(1turn);
-    }
-}
-
-@keyframes anim7b {
-    from {
-        transform: rotate(0.125turn);
-    }
-
-    to {
-        transform: rotate(1.125turn);
-    }
-}
 
 
 h4 {
@@ -205,7 +210,7 @@ h4 {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: #383838;
+    background-color: #889EAF;
     border-left: 5px solid;
     margin: 5px;
 }
@@ -257,10 +262,11 @@ h4 {
 .summary-Content {
     padding: 20px;
     font-size: 17px;
+    color: rgb(255, 255, 255);
 }
 
 .summary-btn {
-    background-color: #007fcb !important;
+    background-color: #884c05 !important;
     border-radius: 4px;
 }
 
