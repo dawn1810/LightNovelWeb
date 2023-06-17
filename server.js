@@ -203,32 +203,33 @@ app.use(express.static(__dirname));
 app.get('/', (req, res) => {
 	res.sendFile(__dirname + '/Index.html');
 });
-//đi vs
-// Sign up ////////////////////////////////////////////////////////////////////////////////////////////////
-app.post('/signup', async (req, res) => {
+
+// Get chap ////////////////////////////////////////////////////////////////////////////////////////////////
+app.post('/readingpage.html/getchap', async (req, res) => {
 	console.log('ok bro')
+	res.sendStatus(200);
 });
 
-async function run() {
-	try {
-		// let myobj = {
-		// 	name: "At The Beginning Of The Novel, The Heroine Begged The Retired Villain",
-		// 	chapters: toDict(file_IDs),
-		// 	genres: "Romance, Urban, Villain",
-		// 	summary: "thg long luoi nen phan nay chua co ne",
-		// 	views: 0,
-		// 	likes: 0,
-		// 	keywords: ['Romance', 'Urban', 'Villain', 'Chinese', 'Webnovel']
-		// };
+// async function run() {
+// 	try {
+// 		// let myobj = {
+// 		// 	name: "At The Beginning Of The Novel, The Heroine Begged The Retired Villain",
+// 		// 	chapters: toDict(file_IDs),
+// 		// 	genres: "Romance, Urban, Villain",
+// 		// 	summary: "thg long luoi nen phan nay chua co ne",
+// 		// 	views: 0,
+// 		// 	likes: 0,
+// 		// 	keywords: ['Romance', 'Urban', 'Villain', 'Chinese', 'Webnovel']
+// 		// };
 
-		// await server.add_one_Data("truyen", myobj)
+// 		// await server.add_one_Data("truyen", myobj)
 
-	} catch (error) {
-		console.error('Error:', error);
-	}
-}
-// let myobj = { user_name: "BM"};
-run().catch(console.error);
+// 	} catch (error) {
+// 		console.error('Error:', error);
+// 	}
+// }
+// // let myobj = { user_name: "BM"};
+// run().catch(console.error);
 
 app.listen(port, () => {
 	console.log(`SYSTEM | LOG | Đang chạy server siu cấp vip pro đa vũ trụ ở http://localhost:${port}`);

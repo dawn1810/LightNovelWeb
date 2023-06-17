@@ -104,10 +104,10 @@ function autoScroll() {
 }
 
 const currentURL = window.location.href;
-
+console.log(currentURL)
 async function getchapdata() {
 
-    const url = `${currentURL}getchap`; // URL của máy chủ mục tiêu
+    const url = `${currentURL}/getchap`; // URL của máy chủ mục tiêu
     const postData = JSON.stringify({
         // thông tin đăng nhậpppp
         'status': 'login',
