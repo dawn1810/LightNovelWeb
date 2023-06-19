@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- t là bá chủ thế giới -->
+<!-- con tao laf bo cua ba chu the gioi -->
+<!-- t đứng đầu vũ trụ -->
+<!-- tao la ba chu tat ca dai ngan  -->
+<!-- https://storage.googleapis.com/sticker-prod/V2Khayv1pfUcAZm2zomL/20.thumb128.png -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mid-semesterPTTK</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto Mono' rel='stylesheet'>
+    <link rel="stylesheet" href="stylelogin.css">
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+    <script src="https://kit.fontawesome.com/b8977956b3.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div class="header_wrap">
+            <div class="header_1 ">
+                <div class="login">
+                    <button id="login-btn">Login</button>
+                </div>
+                <!-- <div class="signup">
+                    <button id="signup-btn">Nuoc Leo</button>
+                </div> -->
+            </div>
+            <div class="header_2">
+                <div class="User">
+                    <button id="User-btn">User</button>
+                </div>
+                <div class="User_more">
+                    <div class="User_more-wrap">
+                        <div class="User_more_item user-info">ThÃ´ng tin ngÆ°á»i dÃ¹ng</div>
+                        <div class="User_more_item User_more_item_Change_pass">Äá»•i máº­t kháº©u</div>
+                        <div class="User_more_item logout">ÄÄƒng xuáº¥t</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+
+</body>
+<div class="modal">
+    <div class="modal_wrap">
+        <div class="form">
+            <div class="form-toggle"></div>
+            <div class="form-panel one">
+                <div class="form-header">
+                    <h1>Hell Login</h1>
+                </div>
+                <div class="form-content">
+                    <form id="form2">
+                        <div class="form-group group1">
+                            <label for="username">Give me your name</label>
+                            <input id="cccd" type="text" name="cccd" required="required" />
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group group1">
+                            <label for="password">Password</label>
+                            <div class="pass1">
+                                <input id="password" type="password" name="password" required="required" />
+                                <div class="eye">
+                                    <div class="eye-icon1">
+                                        <i class="fa-regular fa-eye-slash"></i>
+                                    </div>
+                                    <div class="eye-icon2 displayed">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group group1">
+                        </div>
+                        <div class="form-group group1">
+                            <button id="login" type="submit">Log In</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="form-panel two">
+                <div class="form-header">
+                    <h1>Register Account</h1>
+                </div>
+                <div class="form-content">
+                    <form id="form1">
+                        <div class="form-group group1">
+                            <label for="username">Username</label>
+                            <input id="username" type="text" name="username" required="required" />
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group group1">
+                            <label for="cccd">CCCD</label>
+                            <input id="cccd_login" type="text" name="cccd_login" required="required" />
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group group1">
+                            <label for="email">Email Address</label>
+                            <input id="email" type="email" name="email" required="required" />
+                            <span class="form-message"></span>
+                        </div>
+
+                        <div class="form-group group1">
+                            <label>giới tính</label>
+                            <div id="unicycle1" class="unicycle">
+                                <input type="range" class="unicycle__wheel" name="unicycle" min="0" max="100"
+                                    value="50">
+                                <div class="unicycle__marker">
+
+
+                                    <div class="unicycle__flag-pole">
+
+                                        <div class="unicycle__flag">0</div>
+                                        <img src="https://dbdzm869oupei.cloudfront.net/img/sticker/preview/62944.png"
+                                            alt="">
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group group1">
+                                <button id="Register" type="submit">Register</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal2">
+    <div class="modal_wrap">
+        <div class="form">
+            <div class="form-toggle"></div>
+            <div class="form-panel one">
+                <div class="form-header">
+                    <h1>Hell Info</h1>
+                </div>
+                <div class="form-content">
+                    <form id="form4">
+                        <div class="form-group group1">
+                            <label for="username">Số CCCD</label>
+                            <input id="cccd" type="text" name="cccd" required="required" disabled />
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group group1">
+                            <label for="password">Họ & Tên</label>
+                            <div class="pass1">
+                                <input id="fullname" type="text" name="fullname" required="required" />
+                            </div>
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group group1">
+                            <label for="password">Ngày sinh</label>
+                            <div class="pass1">
+                                <input id="birtday" type="date" name="birtday" required="required" />
+
+                            </div>
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group group1">
+                            <label for="password">Quê quán</label>
+                            <div class="pass1">
+                                <input id="quequan" type="text" name="quequan" required="required" />
+
+                            </div>
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group group1">
+                            <label>giới tính</label>
+                            <div id="unicycle12" class="unicycle">
+                                <input id="sex" type="range" class="unicycle__wheel" name="unicycle" min="0" max="100">
+                                <div class="unicycle__marker">
+
+
+                                    <div class="unicycle__flag-pole">
+
+                                        <div class="unicycle__flag">0</div>
+                                        <img src="https://dbdzm869oupei.cloudfront.net/img/sticker/preview/62944.png"
+                                            alt="">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group group1">
+                            <button id="info_btn" type="submit">Xác Nhận</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="popup">
+    <div class="popup_main">
+        <div class="chat">
+            <div class="profile">
+                <img class="profile-avt" src='image/avt.png' alt=''>
+                <img class="profile-border" src='image/Ink.png' alt=''>
+            </div>
+            <div class="message">
+                <div class="chat_img">
+                    <img src="image/bgnoityfi.png" alt="">
+                </div>
+                <!-- <img class="profile-border" src='image/Ink.png' alt=''> -->
+                <span id="noity-mess">Chúc mừng ngươi đăng ký thành công</span>
+            </div>
+            <div class="user">
+                Ruyk
+            </div>
+        </div>
+
+        <div class="chat2">
+            <div class="profile">
+                <img class="profile-avt" src='image/avt.png' alt=''>
+                <img class="profile-border" src='image/Ink.png' alt=''>
+            </div>
+            <div class="message">
+                <div class="chat_img">
+                    <img src="image/bgnoityfi.png" alt="">
+                </div>
+                <span id="noity-mess">Mày nhập sai rồi Tên mày đã được thêm vào sổ</span>
+            </div>
+            <div class="user">
+                Ruyk
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- change pass -->
+<div class="modal_pass">
+    <div class="modal_wrap">
+        <div class="form">
+            <div class="form-toggle"></div>
+            <div class="form-panel one">
+                <div class="form-header">
+                    <h1>Change password</h1>
+                </div>
+                <div class="form-content">
+                    <form id="form-3">
+                        <div class="form-group group1">
+                            <label for="old-Password">Old Password</label>
+                            <div class="pass1 okeye1">
+                                <input id="old-Password" type="password" name="old-Password" required="required" />
+                                <div class="eye">
+                                    <div class="eye-icon1">
+                                        <i class="fa-regular fa-eye-slash"></i>
+                                    </div>
+                                    <div class="eye-icon2 displayed">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group group1">
+                            <label for="new-Password">New Password</label>
+                            <div class="pass1 okeye2">
+                                <input id="new-Password" type="password" name="new-Password" required="required" />
+                                <div class="eye">
+                                    <div class="eye-icon1">
+                                        <i class="fa-regular fa-eye-slash"></i>
+                                    </div>
+                                    <div class="eye-icon2 displayed">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group group1">
+                            <label for="new-Password-again">New Password again</label>
+                            <div class="pass1 okeye3">
+                                <input id="new-Password-again" type="password" name="new-Password-again"
+                                    required="required" />
+                                <div class="eye">
+                                    <div class="eye-icon1">
+                                        <i class="fa-regular fa-eye-slash"></i>
+                                    </div>
+                                    <div class="eye-icon2 displayed">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group group1">
+                            <button id="change-pass-apply" type="submit">OK</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- change pass -->
+<script src="scriptcopy.js"></script>
+<script>
+    Validator({
+        form: '#form1',
+        formGroupSelector: '.group1',
+        errorSelector: '.form-message',
+        rules: [
+
+            Validator.isRequired('#username', 'Vui lòng nhập nội dung này'),
+
+            Validator.isRequired('#cccd', 'Vui lòng nhập nội dung này'),
+            Validator.minLength('#new-Password', 6),
+            Validator.isEmail('#email'),
+            Validator.isNotNumber("#cccd_login")
+
+
+        ],
+        onSubmid: function (data) {
+            console.log(data);
+        }
+    });
+
+    Validator({
+        form: '#form-3',
+        formGroupSelector: '.group1',
+        errorSelector: '.form-message',
+        rules: [
+
+            Validator.isRequired('#old-Password', 'Vui lòng nhập nội dung này'),
+
+            Validator.isRequired('#new-Password', 'Vui lòng nhập nội dung này'),
+            Validator.isRequired('#new-Password-again', 'Vui lòng nhập nội dung này'),
+            Validator.minLength('#new-Password', 6),
+            Validator.isRequired('#new-Password-again'),
+            Validator.isConfirmed('#new-Password-again', function () {
+                return document.querySelector('#form-3 #new-Password').value;
+            }, 'Mật khẩu nhập lại không chính xác')
+        ],
+        onSubmit: function (data) {
+            // Call API
+            console.log(data);
+        }
+    });
+
+    Validator({
+        form: '#form4',
+        formGroupSelector: '.group1',
+        errorSelector: '.form-message',
+        rules: [
+
+            Validator.isRequired('#cccd', 'Vui lòng nhập nội dung này'),
+
+            Validator.isRequired('#fullname', 'Vui lòng nhập nội dung này'),
+            Validator.isRequired('#birtday', 'Vui lòng nhập nội dung này'),
+            Validator.isRequired('#quequan', 'Vui lòng nhập nội dung này'),
+            Validator.isRequired('#sex', 'Vui lòng nhập nội dung này'),
+            Validator.isNotNumber("#cccd")
+
+        ],
+        onSubmit: function (data) {
+            // Call API
+            console.log(data);
+        }
+    });
+
+</script>
+<script src="login.js"></script>
+
+</html>

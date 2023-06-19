@@ -1,0 +1,915 @@
+html,
+body {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    background-color: black;
+    color: #dbd9d9;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    align-content: center;
+    flex-wrap: wrap;
+    /* height: 60px; */
+    width: 100%;
+    top: 0;
+    /* right: 20px; */
+    background-color: black;
+    z-index: 1000;
+    margin-right: 10px;
+    transition: 0.3s;
+}
+
+.header_wrap {
+    position: fixed;
+    top: 2%;
+    z-index: 1000;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+header button {
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+    font-family: "MyWebFont";
+    color: #fff;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+header button:hover {
+    color: #880808;
+}
+
+main {
+    margin-top: 60px;
+    margin: auto;
+}
+
+.header_2 {
+    position: relative;
+}
+
+.User {
+    padding: 10px;
+}
+
+.header_2:hover .User_more {
+    display: block;
+}
+
+.User_more {
+    display: none;
+    position: absolute;
+    top: 72%;
+    right: 12%;
+    border-left: 2px solid #fffbfb;
+    border-right: 2px solid #ffffff;
+    background: black;
+    clip-path: polygon(0% 8.75%, 64.05% 8.75%, 70.19% 0%, 76.33% 8.75%, 100% 8.75%, 100% 100%, 0% 100%);
+    background-color: #ffffff;
+    z-index: 1000000;
+}
+
+.User_more-wrap {
+    margin: 3px;
+    background: black;
+    margin-top: 15px;
+    font-size: 20;
+}
+
+.User_more_item {
+    width: max-content;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.User_more_item:hover {
+    color: #f30000;
+}
+
+
+/* data name */
+/* ERD */
+
+/* ERD */
+
+
+body {
+    margin: 0px;
+}
+
+
+
+.modal {
+    position: fixed !important;
+    top: 3%;
+    width: 100vw;
+    height: 100%;
+    z-index: 100;
+    display: none;
+    background: #000000d9;
+}
+
+.modal2 {
+    position: fixed;
+    top: -8%;
+    display: none;
+    width: 99vw;
+    z-index: 100;
+
+}
+
+.modal2 .form {
+    min-height: 904px;
+    width: 1151px;
+}
+
+.modal2 h1 {
+    position: absolute;
+    top: 88%;
+    font-size: 42px;
+}
+
+.modal2 .form-panel {
+    padding: 185px calc(5% + 7px) 60px 60px;
+    box-sizing: border-box;
+}
+
+.modal2 .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0 20px;
+    flex-direction: column;
+}
+
+.modal2 #unicycle1 input {
+    width: 100%;
+}
+
+.modal_pass {
+    position: fixed !important;
+    top: -2%;
+    width: 100vw;
+    height: 100%;
+    z-index: 100;
+    display: none;
+    background: #000000d9;
+}
+
+.modal-wrap {
+    width: 600px;
+    height: 500px;
+    background-color: aqua;
+}
+
+.modal_pass .form-header {
+    margin: 0;
+}
+
+/* form */
+.overlay,
+.form-panel.one:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    background: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 100%;
+}
+
+.form {
+    z-index: 15;
+    position: relative;
+    background-image: url(image/formbg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 800px;
+    min-height: 628px;
+    border-radius: 4px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    margin: 100px auto 10px;
+    overflow: hidden;
+}
+
+.form-toggle {
+    background-image: url("image/skull.png");
+    background-size: contain;
+    z-index: 10;
+    position: absolute;
+    top: 60px;
+    right: 60px;
+    /* background: #FFFFFF; */
+    width: 85px;
+    height: 85px;
+    border-radius: 100%;
+    transform-origin: center;
+    transform: translate(0, -25%) scale(0);
+    opacity: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#password {
+    position: relative;
+}
+
+.pass1 {
+    /* z-index: -1; */
+    width: 100%;
+    position: relative;
+}
+
+.eye {
+    position: absolute;
+    padding-right: 10px;
+    top: 30%;
+    right: 1%;
+}
+
+.eye i {
+    color: #171717;
+}
+
+.displayed {
+    display: none;
+}
+
+.eye-icon1,
+.eye-icon2 {
+    cursor: pointer;
+}
+
+.group1:visited {
+    border-color: #f33a58;
+}
+
+.group1.invalid {
+    border-color: #f33a58;
+}
+
+.group1.invalid .form-message {
+    color: #f33a58;
+    font-size: 12px;
+    top: 45px;
+}
+
+.form-toggle.visible {
+    transform: translate(0, -25%) scale(1);
+    opacity: 1;
+}
+
+.form-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 0 20px;
+}
+
+.form-group:last-child {
+    margin: 0;
+    width: 100%;
+}
+
+.form-group label {
+    font-family: "MyWebFont";
+    display: block;
+    margin: 0 0 10px;
+    color: rgba(246, 12, 12, 1);
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+.two .form-group label {
+    color: #ffffff;
+}
+
+
+#unicycle1 input {
+    width: 565px;
+}
+
+.form-group input:focus {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.two .form-group input {
+    color: #ffffff;
+}
+
+.two .form-group input:focus {
+    color: #ffffff;
+}
+
+.form-group button {
+    outline: none;
+    background: #880808;
+    width: 100%;
+    border: 0;
+    border-radius: 4px;
+    padding: 12px 20px;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: inherit;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.two .form-group button {
+    background: #ffffff;
+    color: black;
+    margin-top: 18px;
+}
+
+.form-group .form-remember {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.form-group .form-remember input[type="checkbox"] {
+    display: inline-block;
+    width: auto;
+    margin: 0 10px 0 0;
+}
+
+.form-group .form-recovery {
+    color: #4285f4;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.form-panel {
+    padding: 160px calc(5% + 46px) 60px 60px;
+    box-sizing: border-box;
+}
+
+.form-panel.one:before {
+    content: "";
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease;
+}
+
+.form-panel.one.hidden:before {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.form-panel.two {
+    z-index: 5;
+    position: absolute;
+    top: -8%;
+    left: 95%;
+    background: #460303;
+    width: 100%;
+    min-height: 100%;
+    padding: 85px calc(10% + 40px) 60px 110px;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.form-panel.two:before,
+.form-panel.two:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 60px;
+    left: 1.5%;
+    background: rgba(255, 255, 255, 0.2);
+    height: 30px;
+    width: 2px;
+    transition: 0.3s ease;
+}
+
+.form-panel.two:after {
+    left: 3%;
+}
+
+.form-panel.two:hover {
+    left: 93%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.form-panel.two:hover:before,
+.form-panel.two:hover:after {
+    opacity: 0;
+}
+
+.form-panel.two.active {
+    left: 0%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    cursor: default;
+}
+
+.form-panel.two.active:before,
+.form-panel.two.active:after {
+    opacity: 0;
+}
+
+.form-header {
+    margin: 0 0 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.form-header h1 {
+    font-family: "MyWebFont";
+    padding: 4px 0;
+    color: #880808;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.modal2 h1 {
+    top: 15%;
+    right: 8%;
+    font-size: 42px;
+}
+
+
+.two .form-header h1 {
+    position: relative;
+    z-index: 40;
+    color: #ffffff;
+}
+
+.pen-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 600px;
+    margin: 20px auto 100px;
+}
+
+.pen-footer a {
+    color: #ffffff;
+    font-size: 12px;
+    text-decoration: none;
+    text-shadow: 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.pen-footer a .material-icons {
+    width: 12px;
+    margin: 0 5px;
+    vertical-align: middle;
+    font-size: 12px;
+}
+
+.cp-fab {
+    background: #ffffff !important;
+    color: #4285f4 !important;
+}
+
+.invalid {
+    border: #f30000 2px solid;
+}
+
+/* popup */
+.popup {
+    position: fixed;
+    top: 10%;
+    width: 100vw;
+    /* display: none; */
+    z-index: 100000;
+}
+
+.popup_main {
+    display: flex;
+    justify-content: center;
+}
+
+.chat,
+.chat2 {
+    position: relative;
+    display: none;
+    width: 40vw;
+    min-width: 400px;
+    max-width: 80%;
+    animation: popFromBottom 0.5s ease-in-out;
+    /* background-image: url();
+    background-size: contain  ;
+    background-repeat: no-repeat; */
+}
+
+@keyframes popFromBottom {
+    0% {
+        transform: translateY(300px) scale(0);
+    }
+
+    100% {
+        transform: translateY(0px) scale(1);
+    }
+}
+
+img {
+    height: 32vmin;
+    margin-left: -50%;
+    margin-top: -35px;
+}
+
+.profile {
+    display: inline-block;
+    width: 26vmin;
+    height: 32vmin;
+    overflow: hidden;
+    position: absolute;
+    left: -16vmin;
+    top: -1vmin;
+}
+
+.profile-border {
+    position: absolute;
+    top: 14%;
+    left: 28%;
+    filter: brightness(0) invert(1);
+}
+
+.profile-avt {
+    position: absolute;
+    z-index: 2;
+    padding: 14%;
+    left: 37%;
+}
+
+.message {
+    font-family: "MyWebFont";
+    width: 100%;
+    height: 100%;
+
+    font-size: 20px;
+    text-align: left;
+    color: #ffffff;
+    position: relative;
+}
+
+.message span {
+    z-index: 100;
+    position: relative;
+    padding-left: 6%;
+    top: 74%;
+    left: 6%;
+}
+
+.chat_img {
+    position: absolute;
+    left: 43%;
+    top: -14%;
+}
+
+.chat_img img {
+    width: 655px;
+    height: 121%;
+}
+
+.user {
+    font-family: "MyWebFont";
+    text-align: left;
+    padding: 25px 30px 5px 110px;
+    border-radius: 0px 0px 20px;
+    font-size: 3.2vmin;
+    background: #fff;
+    color: #000000;
+    display: inline-block;
+    float: left;
+    font-weight: 600;
+    font-style: normal;
+}
+
+/* gio tinh vip pro */
+
+:root {
+    --bg: #f1f1f1;
+    --fg: #171717;
+}
+
+.unicycle,
+.unicycle__wheel,
+.unicycle__rider-body,
+.unicycle__pedal-arms {
+    position: relative;
+}
+
+.unicycle {
+    margin-top: 25px;
+}
+
+.form-group input {
+    outline: none;
+    display: block;
+    background: rgb(255 255 255 / 65%);
+    width: 100%;
+    /* border: 0; */
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 12px 20px;
+    color: rgba(0, 0, 0, 0.6);
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: inherit;
+    transition: 0.3s ease;
+}
+
+/* .unicycle__wheel {
+    background: transparent;
+    border-radius: 0.75em;
+    margin:0;
+    box-shadow: 0 0 0 0.1em inset;
+    display: block;
+    outline: transparent;
+    width: 100%;
+    height: 1.5em;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.unicycle__wheel::-webkit-slider-thumb {
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0.1em inset;
+    cursor: pointer;
+    width: 1.5em;
+    height: 1.5em;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.unicycle__wheel::-moz-range-thumb {
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0.1em inset;
+    cursor: pointer;
+    width: 1.5em;
+    height: 1.5em;
+} */
+
+.form-group .unicycle__wheel {
+    width: 100%;
+    height: 6px;
+    /* margin: 0 10px; */
+    -webkit-appearance: none;
+    border-radius: 10px;
+    background-color: #e54c9e;
+    background-image: linear-gradient(#6F4FF2 0%, #6F4FF2 17%, #5BA9F9 17%, #5BA9F9 34%, #89F84B 34%, #89F84B 50%, #FEFD52 50%, #FEFD52 67%, #EEAC3D 67%, #EEAC3D 83%, #E44229 83%, #E44229 100%);
+    outline: none;
+    opacity: 0.7;
+    background-repeat: no-repeat;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+}
+
+.unicycle__wheel::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 6px;
+    /* background: linear-gradient(#6F4FF2 0%, #6F4FF2 17%, #5BA9F9 17%, #5BA9F9 34%, #89F84B 34%, #89F84B 50%, #FEFD52 50%,#FEFD52 67%, #EEAC3D 67%, #EEAC3D 83%, #E44229 83%, #E44229 100%); */
+    border-radius: 25px;
+    border: 0px solid #000101;
+    cursor: pointer;
+}
+
+.unicycle__wheel::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    margin-top: -10px;
+    width: 30px;
+    height: 30px;
+    /* background-image: url("https://i.postimg.cc/8sQ2Z2Px/nyanimated.gif"); */
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    border: 0px solid #000101;
+    cursor: ew-resize;
+}
+
+.unicycle__marker,
+.unicycle__right-arm,
+.unicycle__right-lower-arm,
+.unicycle__left-arm,
+.unicycle__left-lower-arm,
+.unicycle__right-leg,
+.unicycle__right-lower-leg,
+.unicycle__left-leg,
+.unicycle__left-lower-leg,
+.unicycle__flag-pole,
+.unicycle__flag,
+.unicycle__pedal {
+    position: absolute;
+}
+
+.unicycle__marker {
+    /* JS will control the variables */
+
+    top: -2.5em;
+    z-index: -1;
+    color: deeppink;
+}
+
+.unicycle__marker>div {
+    margin: auto;
+}
+
+
+
+
+.unicycle__flag {
+    box-shadow: 0 0 0 0.1em inset;
+}
+
+
+
+.unicycle__rider-head~div,
+.unicycle__right-arm,
+.unicycle__right-lower-arm,
+.unicycle__left-arm,
+.unicycle__left-lower-arm,
+.unicycle__right-leg,
+.unicycle__right-lower-leg,
+.unicycle__left-leg,
+.unicycle__left-lower-leg,
+.unicycle__flag-pole,
+.unicycle__pedal {
+    background: currentColor;
+}
+
+.unicycle__rider-body,
+.unicycle__right-arm,
+.unicycle__right-lower-arm,
+.unicycle__left-arm,
+.unicycle__left-lower-arm,
+.unicycle__right-leg,
+.unicycle__right-lower-leg,
+.unicycle__left-leg,
+.unicycle__left-lower-leg,
+.unicycle__flag-pole,
+.unicycle__bar {
+    width: 0.1em;
+}
+
+.unicycle__right-lower-arm,
+.unicycle__left-lower-arm,
+.unicycle__right-leg,
+.unicycle__right-lower-leg,
+.unicycle__left-leg,
+.unicycle__left-lower-leg,
+.unicycle__seat,
+.unicycle__pedal-arms,
+.unicycle__pedal {
+    border-radius: 0.05em;
+}
+
+.unicycle__right-arm,
+.unicycle__right-lower-arm,
+.unicycle__left-arm,
+.unicycle__left-lower-arm,
+.unicycle__right-leg,
+.unicycle__right-lower-leg,
+.unicycle__left-leg,
+.unicycle__left-lower-leg {
+    transform-origin: 50% 0.05em;
+}
+
+.unicycle__right-lower-arm,
+.unicycle__left-lower-arm,
+.unicycle__right-leg,
+.unicycle__left-leg,
+.unicycle__right-lower-leg,
+.unicycle__left-lower-leg {
+    top: calc(100% - 0.05em);
+}
+
+.unicycle__right-arm,
+.unicycle__right-lower-arm,
+.unicycle__left-arm,
+.unicycle__left-lower-arm,
+.unicycle__right-leg,
+.unicycle__left-leg {
+    height: 0.75em;
+}
+
+.unicycle__right-lower-leg,
+.unicycle__left-lower-leg {
+    height: 0.78em;
+}
+
+.unicycle__right-arm {
+    transform: rotate(-80deg);
+}
+
+.unicycle__right-lower-arm {
+    transform: rotate(-10deg);
+}
+
+.unicycle__left-arm {
+    transform: rotate(25deg);
+}
+
+.unicycle__left-lower-arm {
+    transform: rotate(5deg);
+}
+
+.unicycle__right-leg {
+    transform: rotate(var(--rightLegRot));
+}
+
+.unicycle__right-lower-leg {
+    transform: rotate(var(--rightLowerLegRot));
+}
+
+.unicycle__left-leg {
+    transform: rotate(var(--leftLegRot));
+}
+
+.unicycle__left-lower-leg {
+    transform: rotate(var(--leftLowerLegRot));
+}
+
+.unicycle__flag-pole {
+    height: 0em;
+    bottom: -38px;
+    transform: rotate(360deg);
+    transform-origin: 50% calc(100% - 0.1em);
+}
+
+.unicycle__flag-pole img {
+    width: 53px;
+    height: 57px;
+}
+
+.unicycle__flag {
+    right: 0;
+    text-align: center;
+    width: 2.25em;
+    height: 1.5em;
+    rotate: 5deg;
+    margin-top: -24px;
+    margin-right: 4px;
+}
+
+.unicycle__seat,
+.unicycle__pedal-arms {
+    height: 0.1em;
+}
+
+.unicycle__seat {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 0.4em;
+}
+
+.unicycle__bar {
+    border-radius: 0 0 0.05em 0.05em;
+    height: 1.1em;
+}
+
+.unicycle__pedal-arms {
+    top: -0.1em;
+    width: 0.5em;
+    transform: rotate(var(--pedalRot));
+}
+
+.unicycle__pedal {
+    top: 0;
+    width: 0.3em;
+    height: 0.1em;
+    transform: rotate(calc(var(--pedalRot) * -1));
+}
+
+.unicycle__pedal:first-child {
+    left: -0.15em;
+}
+
+.unicycle__pedal:last-child {
+    right: -0.15em;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #171717;
+        --fg: #f1f1f1;
+    }
+}
+
+/* gio tinh vip pro */

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/b8977956b3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/src/CSS/Style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <!-- <link rel="stylesheet" href="reviews.css"> -->
+    <link rel="stylesheet" href="/src/CSS/readingpage.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <title>Reading</title>
+</head>
+
+<body>
+    <script src="/src/JS/link.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <div id="header-element"></div>
+
+    <main>
+        <ul class="menu-tag ">
+            <li class="active"><a href="/HTML/reviews.html" title="doc truyen"> <i class="fa-solid fa-house"></i> Truyện</a>>
+            </li>
+            <li class="active"><a href="/HTML/reviews.html">Thần Đạo Đan Tôn</a>></li>
+            <li class="active rv-author-a">Chương 2</li>
+        </ul>
+        <div class="main-body">
+            <div class="title">
+                <span class="novel-name">LongDD và các con vợ ở dị giới</span>
+                <span class="novel-name-chapter">Chương 2 long phịch thủ</span>
+            </div>
+
+            <div class="head btn-gr">
+                <button class="directional-btn left-btn"> <i class="fa-solid fa-angles-left"></i> </button>
+                <div class="settings_siuuu">
+                    <button class="directional-btn setting-btn"><i class="fa-solid fa-sun"></i></button>
+                    <div class="sub-menu wrap-settings">
+                        <div class="colors">
+                            <ul>
+                                <p>Màu nền</p><select name="ss_reader_background" id="ss_reader_background">
+                                    <option value="#DFDFE3">Xám Đậm</option>
+                                    <option value="linear-gradient(to left, #5b0664, #210e68)">GALAXY</option>show-list
+                                    <option value="#E9EBEE">Xanh nhạt</option>
+                                    <option value="#F4F4E4">Vàng nhạt</option>
+                                    <option value="#EAE4D3">Màu sepia</option>
+                                    <option value="#D5D8DC">Xanh đậm</option>
+                                    <option value="#FAFAC8">Vàng đậm</option>
+                                    <option value="#EFEFAB">Vàng ố</option>
+                                    <option value="#FFF">Màu trắng</option>
+                                    <option value="#eaeaea">Hạt sạn</option>
+                                    <option value="#bfb197">Sách cũ</option>
+                                    <option value="#232323">Màu tối</option>
+                                </select>
+                            </ul>
+                            <ul>
+                                <p>Màu chữ</p><select name="ss_reader_textColor" id="ss_reader_textColor">
+                                    <option selected value="#222">Đen</option>
+                                    <option value="#2B2B2B">Benly</option>
+                                    <option value="#373D3F">Raven</option>
+                                    <option value="#555F61">Asher</option>
+                                    <option  value="#fff">Trắng</option>
+                                    <option value="#007f61">SSTruyen</option>
+                                </select>
+                            </ul>
+                        </div>
+                        <div class="fonts">
+                            <ul>
+                                <p>Font chữ</p><select name="ss_reader_font" id="ss_reader_font">
+                                    <option value="'Palatino Linotype', serif">Palatino Linotype</option>
+                                    <option value="Bookerly, serif">Bookerly</option>
+                                    <option value="Minion, serif">Minion</option>
+                                    <option value="'Segoe UI', sans-serif">Segoe UI</option>
+                                    <option value="Roboto, sans-serif">Roboto</option>
+                                    <option value="'Roboto Condensed', sans-serif">Roboto Condensed</option>
+                                    <option value="'Patrick Hand', sans-serif">Patrick Hand</option>
+                                    <option value="'Noticia Text', sans-serif">Noticia Text</option>
+                                    <option value="'Times New Roman', serif">Times New Roman</option>
+                                    <option value="Verdana, sans-serif">Verdana</option>
+                                    <option value="Tahoma, sans-serif">Tahoma</option>
+                                    <option value="Arial, sans-serif">Arial</option>
+                                </select>
+                            </ul>
+                        </div>
+                        <div class="size">
+                            <ul>
+                                <p>Size chữ</p><select name="ss_reader_size" id="ss_reader_size">
+                                    <option value="16px">16</option>
+                                    <option value="18px">18</option>
+                                    <option value="20px">20</option>
+                                    <option value="22px">22</option>
+                                    <option value="24px">24</option>
+                                    <option value="26px">26</option>
+                                    <option value="28px">28</option>
+                                    <option value="30px">30</option>
+                                    <option value="32px">32</option>
+                                    <option value="34px">34</option>
+                                    <option value="36px">36</option>
+                                    <option value="38px">38</option>
+                                    <option value="40px">40</option>
+                                </select>
+                            </ul>
+                        </div>
+                        <div class="line-height">
+                            <ul>
+                                <p>Chiều cao dòng</p><select name="ss_reader_line_height" id="ss_reader_line_height">
+                                    <option value="1">1.0</option>
+                                    <option value="1.2">1.2</option>
+                                    <option value="1.4">1.4</option>
+                                    <option value="1.6">1.6</option>
+                                    <option value="1.8">1.8</option>
+                                    <option value="2.0">2.0</option>
+                                    <option value="2.2">2.2</option>
+                                    <option value="2.5">2.5</option>
+                                </select>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="chapter_list">
+                    <button class="directional-btn show-list"><i class="fa-solid fa-list"></i></button>
+                    <div class="chapter_list_wrap">
+                        <select name="show_more" id="show_more">
+                            <option value="1">1.0</option>
+                            <option value="1.2">1.2</option>
+                            <option value="1.4">1.4</option>
+                            <option value="1.6">1.6</option>
+                            <option value="1.8">1.8</option>
+                            <option value="2.0">2.0</option>
+                            <option value="2.2">2.2</option>
+                            <option value="2.5">2.5</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="directional-btn right-btn"><i class="fa-solid fa-angles-right"></i></button>
+            </div>
+            <div class="main-content-container">
+                <p class="main-content">Trương Viễn sắp điên rồi, hắn lại bị một phế vật tát liền hai cái! Trong cơn
+                    giận
+                    dữ, hắn cũng không suy nghĩ, dựa vào cái gì một phế vật Luyện Thể tầng hai, có thể quất Luyện Thể
+                    tầng
+                    bốn như hắn hai bạt tai, hét lớn một tiếng, nhào tới Lăng Hàn...Hiện tại hắn chỉ có một ý nghĩ,
+                    chính là
+                    tàn nhẫn đánh tên rác rưởi này một trận...Hắn đấm ra một quyền, sức mạnh mười phần, có tiếng kình
+                    phong
+                    vang lên...Lăng Hàn rất bình tĩnh, ở kiếp trước, hắn chỉ gảy ngón tay liền có thể giải quyết 10 ngàn
+                    tên
+                    Trương Viễn, nhưng bây giờ hắn chỉ là Luyện Thể tầng hai. Có chút phiền phức, nhưng cũng chỉ là một
+                    chút phiền toái nhỏ mà thôi, dù sao hiện tại chủ đạo thân thể này, cũng đã từng là cường giả Thiên
+                    Nhân
+                    Cảnh, tầm mắt còn ở đó!..Chỉ cần Trương Viễn vừa nhấc tay, chân hơi động, Lăng Hàn liền có thể suy
+                    đoán
+                    ra cú đấm này đánh về nơi nào, bước chân sẽ đi tới đâu, bởi vậy, trong nháy mắt cú đấm của Trương
+                    Viễn
+                    đánh đến, Lăng Hàn đã có phản ứng...Hô, cú đấm này đánh tới, Trương Viễn không khỏi lộ ra nụ cười
+                    gằn
+                    đáng sợ, hắn thấy nếu một quyền này oanh trúng, thì trong nháy mắt có thể khiến Lăng Hàn mất đi năng
+                    lực
+                    phản kháng, chỉ có thể mặc hắn đánh...Đánh trúng rồi!..Hả?..Trương Viễn lộ vẻ kinh ngạc, bởi vì cú
+                    đấm
+                    này nhìn như đánh vào mặt Lăng Hàn, nhưng thực tế lại lệch một chút, Lăng Hàn lui về phía sau môt
+                    bước,
+                    vừa đúng tránh qua cú đấm này...Không dư một phần, không thiếu một phân, thật giống như dùng thước
+                    đo
+                    ra, vừa vặn đứng ở trước chóp mũi của Lăng Hàn...Nhất định là đúng dịp, Trương Viễn nói ở trong
+                    lòng...Đúng lúc này, Lăng Hàn lại tát tới...Đùng, thanh âm lanh lảnh vang lên, Trương Viễn lại trúng
+                    một
+                    cái tát...- Đáng chết!...Trương Viễn nhổ mấy bãi nước miếng, hét lớn một tiếng, sau đó hắn lại vung
+                    quyền đánh tới Lăng Hàn...Lăng Hàn như chuyển động cùng lúc, người hơi ngửa ra sau, hô, cú đấm của
+                    Trương Viễn lại đánh hụt. Hắn phất tay, chân phải thuận thế đá ra, phốc, đá vào giữa hai chân của
+                    Trương
+                    Viễn...- Gào…..Coi như là Luyện Thể tầng bốn thì lại làm sao, vẫn không thể luyện thành Thiết Đản
+                    công,
+                    ăn một cước này, Trương Viễn quỳ xuống đất, hai tay ôm đũng quần, trên mặt chảy ra mồ hôi lạnh...-
+                    Ngươi
+                    thật âm hiểm!..Trương Viễn co giật nói, khuôn mặt vặn vẹo đến không thành hình
+                    người...Đùng!..Lăng
+                    Hàn lại quất tới một bạt tai, Trương Viễn phun ra mấy cái răng gãy. Lăng Hàn đương nhiên sẽ không
+                    đồng
+                    tình, nói:..- Chó chính là chó, quả nhiên không thể mọc ngà voi...Trương Viễn giận dữ, hắn lại quỳ
+                    trên
+                    mặt đất, bị một Luyện Thể tầng hai tát tai, đây là nhục nhã thế nào? Hắn muốn phản kích, nhưng một
+                    cước
+                    kia, đã đánh tan năng lực phản kháng của hắn, hơi động liền đau “bi” đến đòi mạng...Nhưng tuyệt
+                    không
+                    thể để cho Lăng Hàn phá hỏng chuyện tốt của Lăng Trọng Khoan, bằng không hắn là không hoàn thành
+                    nhiệm
+                    vụ. Lấy tính cách của Lăng Trọng Khoan, hắn là tuyệt đối không sống được...- Hàn… Hàn thiếu gia,
+                    ngươi
+                    nghe ta nói, ngươi không thể rời nơi này, kỳ thực, kỳ thực ngươi đã trúng độc, rời khỏi gian phòng
+                    này
+                    sẽ độc phát thân vong...Hắn nhanh trí, làm sao cũng phải lưu Lăng Hàn ở lại chỗ này..
+                    ..Lăng Hàn không khỏi bật cười, loại biểu diễn vụng về này
+                    có thể lừa hắn? Lăng Hàn nâng cước đạp bay Trương Viễn, hiện tại không thể lãng phí thời gian với
+                    chó
+                    săn, hắn nhất định phải ngăn cản gian kế của Lăng Trọng Khoan, bằng không phụ thân liều mạng sẽ
+                    thành áo
+                    cưới cho người khác...Còn Trương Viễn, Lăng Hàn đương nhiên sẽ không để loại tiểu nhân vật này ở
+                    trong
+                    lòng, ngược lại là Lăng Trọng Khoan, chỉ cần thấy hắn xuất hiện, tất nhiên sẽ xử lý Trương Viễn, căn
+                    bản
+                    không cần ô uế tay hắn...- Không nên đi! Không nên đi a! ..Trương Viễn cầu xin mang theo tiếng khóc
+                    từ
+                    phía sau truyền đến, hắn phảng phất đã thấy kết cục thê thảm của mình...Tự gây nghiệt không thể
+                    sống,
+                    không đáng giá đồng tình...Lăng Hàn đi nhanh, mấy phút sau, hắn đi tới một phòng khách, còn chưa
+                    tiến
+                    vào liền nghe bên trong truyền ra một thanh âm già nua mà vang dội:..- Lưu tiểu thư, xin mời, xin
+                    mời!..Phòng khách có hai cổng nội ngoại, nội môn liên tiếp nội viện, ngoại môn là dẫn tới đại môn,
+                    xuyên
+                    thấu qua rèm cửa, chỉ thấy một nhóm năm người đang đi vào, bốn nam một nữ...Ngoại trừ cô gái kia,
+                    bốn
+                    nam tử Lăng Hàn đều biết, đều là Lăng gia tộc nhân, trong đó tên lão nhân khoảng sáu mươi chính là
+                    Đại
+                    chấp sự Lăng Trọng Khoan, ba người khác, có hai cái là trung niên chừng bốn mươi tuổi, đều là con
+                    trai
+                    của Lăng Trọng Khoan, mà cuối cùng là một tên thiếu niên, so với Lăng Hàn hơi lớn hơn một hai tuổi,
+                    chính là Trưởng Tôn của Lăng Trọng Khoan… Lăng Mộ Vân...Lăng Hàn nhìn lại nữ tử duy nhất kia, cho dù
+                    lấy
+                    ánh mắt Thiên Nhân Cảnh kiếp trước của hắn, hai mắt cũng sáng ngời, cô gái này thật đẹp, mắt như thu
+                    thủy, da trắng như tuyết, dung nhan chim sa cá lăn, cũng khoảng mười bảy mười tám tuổi, nhưng đã có
+                    phong thái họa quốc ương dân...Chỉ là vẻ mặt của nàng quá lạnh, phảng phất như một tòa băng sơn, bài
+                    xích bất luận người nào tiếp cận...Thiếu nữ này tất nhiên chính là người của Hổ Dương Học Viện, tới
+                    rất
+                    vừa vặn....Hả?..Con ngươi của Lăng Hàn hơi phóng to, hắn phát hiện một sự tình càng vừa vặn, khóe
+                    miệng
+                    không khỏi lộ ra một nụ cười...Song phương phân chủ khách ngồi xuống, vài tên thị nữ dâng trà thơm,
+                    cung
+                    kính đứng hầu ở bên cạnh năm người...- Người mà Lăng Gia các ngươi chuẩn bị đưa đi học viện đã chuẩn
+                    bị
+                    kỹ càng chưa?..Lưu Vũ Đồng mở miệng nói, âm thanh lành lạnh lại êm tai, còn có một tia xem thường.
+                    Nàng
+                    ghét nhất chính là hành vi thương lượng cửa sau, tuy phụng lệnh mà đến, nhưng đối với sư đệ tương
+                    lai
+                    kia lại không có chút hảo cảm...- Chuẩn bị kỹ càng, chuẩn bị kỹ càng!..Lăng Trọng Khoan liền vội
+                    vàng
+                    nói, tuy tuổi tác của hắn đủ để làm gia gia của thiếu nữ, nhưng cảnh giới của song phương lại ngang
+                    nhau, đều là Tụ Nguyên Cảnh...Võ không trưởng ấu, cường giả vi tôn...Thậm chí, Lăng Trọng Khoan có
+                    loại
+                    cảm giác, tu vi của thiếu nữ này còn cao hơn hắn một ít, hắn là Tụ Nguyên tầng sáu, mà thiếu nữ, có
+                    khả
+                    năng là tầng bảy, thậm chí tầng tám...Điều này cũng làm cho hắn càng thêm bức thiết muốn đưa Tôn Tử
+                    của
+                    mình tiến vào Hổ Dương Học Viện, không ra mấy năm, tất có thể vượt qua Lăng Đông Hành, giúp hắn đoạt
+                    lại
+                    vị trí Gia chủ...- Mộ Vân, còn không mau tới bái kiến Lưu sư tỷ!..Lão gia hoả quay đầu nói với Lăng
+                    Mộ
+                    Vân...- Vâng, gia gia!..Lăng Mộ Vân mười phần cung kính, chắp tay nói với Lưu Vũ Đồng...- Mộ Vân bái
+                    kiến Lưu sư tỷ!...Ánh mắt của hắn có một tia hừng hực, đối với mỹ nữ lãnh diễm, lại vô cùng mạnh mẽ
+                    kia
+                    tràn ngập dã tâm...Hắn tin tưởng, chỉ cần có thể ở chung nhiều chút thời gian, tất có thể đoạt được
+                    tâm
+                    của mỹ nhân...Lưu Vũ Đồng hơi kinh ngạc, nàng nhớ người mà Lăng Gia thương lượng cửa sau tên Lăng
+                    Hàn.
+                    Có điều, cái này cùng nàng có quan hệ gì, nàng chỉ phụ trách đến dẫn người về học viện mà thôi...-
+                    Nếu
+                    chuẩn bị kỹ càng,vậy liền lên đường đi...Nàng lạnh nhạt nói...- Lưu tiểu thư, xin ở lại hàn xá thêm
+                    mấy
+                    ngày, cho chúng ta bày tỏ tâm ý a...Lăng Trọng Khoan vội vàng nói, hắn muốn kéo quan hệ với thiếu nữ
+                    này, ngày sau có thể chăm sóc cháu trai một chút...- Không cần!..Lưu Vũ Đồng lạnh lùng từ chối, liền
+                    muốn xoay người rời đi...- Tạm thời show-listdừng chân!..Một thanh âm vang lên, Lăng Hàn bước ra
+                    ngoài...Sắc
+                    mặt
+                    của bốn người Lăng Trọng Khoan đều hơi có chút biến hóa, mặc kệ bọn họ xem thường phế vật Lăng Gia
+                    này
+                    ra sao, nhưng hiện tại bọn hắn là tặc, làm kẻ trộm đương nhiên sẽ có chút chột dạ...- Hàn đệ, không
+                    phải
+                    ngươi bị thương sao, nhanh trở về tĩnh dưỡng a...Lăng Mộ Vân phản ứng cực nhanh, bước đến bên người
+                    Lăng
+                    Hàn, đưa tay tóm tới, hắn muốn hạn chế Lăng Hàn ngay lập tức, không cho đối phương có cơ hội mở
+                    miệng...Hắn là Luyện Thể tầng bảy, thực lực tuyệt đối không phải Trương Viễn có thể sánh được..
+                </p>
+            </div>
+
+            <div class="foot btn-gr">
+                <button class="directional-btn left-btn"> <i class="fa-solid fa-angles-left"></i> </button>
+                <button class="directional-btn show-list"><i class="fa-solid fa-list"></i></button>
+                <button class="directional-btn right-btn"><i class="fa-solid fa-angles-right"></i></button>
+            </div>
+        </div>
+    </main>
+
+    <div class="allbtn">
+        <!-- <div class="lame-btn">
+            <div class="left-gr">
+                <a href="">
+                    <button class="lame-left lame">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                </a>
+                <button class="lame-up lame">
+                    <i class="fa-solid fa-chevron-up"></i>
+                </button>
+            </div>
+            <div class="right-gr">
+                <a href="">
+                    <button class="lame-right lame">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </a>
+                <button class="lame-down lame">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <button class="lame-auto lame playing">
+                    <i class="fa-solid fa-caret-right play "></i>
+                    <i class="fa-solid fa-pause pause"></i>
+                </button>
+            </div>
+        </div> -->
+        <nav class="menu">
+            <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open"/>
+            <label class="menu-open-button" for="menu-open">
+              <span class="hamburger hamburger-1"></span>
+              <span class="hamburger hamburger-2"></span>
+              <span class="hamburger hamburger-3"></span>
+            </label>
+            
+            <a href="#" class="menu-item"> <button class="lame-left lame">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button> </a>
+            <a href="#" class="menu-item"> <button class="lame-down lame">
+                <i class="fa-solid fa-chevron-down"></i>
+            </button> </a>
+            <a href="#" class="menu-item"> <button class="lame-up lame">
+                <i class="fa-solid fa-chevron-up"></i>
+            </button></a>
+            
+            <a href="#" class="menu-item"> <button class="lame-right  lame">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button> </a>
+            <a href="#" class="menu-item"> <button class="lame-auto lame playing">
+                <i class="fa-solid fa-caret-right play "></i>
+                <i class="fa-solid fa-pause pause" style="display: none;"></i>
+            </button> </a>
+            
+            
+          </nav>
+          
+          
+          <!-- filters -->
+          <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+              <defs>
+                <filter id="shadowed-goo">
+                    
+                    <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+                    <feGaussianBlur in="goo" stdDeviation="3" result="shadow" />
+                    <feColorMatrix in="shadow" mode="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2" result="shadow" />
+                    <feOffset in="shadow" dx="1" dy="1" result="shadow" />
+                    <feComposite in2="shadow" in="goo" result="goo" />
+                    <feComposite in2="goo" in="SourceGraphic" result="mix" />
+                </filter>
+                <filter id="goo">
+                    <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+                    <feComposite in2="goo" in="SourceGraphic" result="mix" />
+                </filter>
+              </defs>
+          </svg>
+    </div>
+    
+    <div id="footer-element"></div>
+</body>
+<!-- <script src="/src/JS/script.js"></script> -->
+
+<footer footer-tag="/HTML/footer.html"></footer>
+<script src="/src/JS/reading.js"></script>
+
+
+</html>
