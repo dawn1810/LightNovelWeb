@@ -525,11 +525,28 @@
 login.onclick = function () {
     console.log('Login')
     modal.style.display = 'block'
+    if(modal2.style.display == 'block'){
+        modal2.style.display = 'none'
+    }
 }
+document.querySelector('.no_login a').onclick = function (e) {
+    e.preventDefault();
+    
+    login.click()
+}
+
 const sg = document.querySelector('.header_signup')
 sg.onclick = function () {
     console.log('Login')
     modal2.style.display = 'block'
+    if(modal.style.display == 'block'){
+        modal.style.display = 'none'
+    }
+}
+document.querySelector('.no_signup a').onclick = function (e) {
+    e.preventDefault();
+    
+    sg.click()
 }
 modal.onclick = function (event) {
     if (!event.target.closest('.modal_wrap')) {
@@ -542,11 +559,11 @@ modal2.onclick = function (event) {
     }
 }
 
-modal('.modal_wrap').onclick = function (event) {
-    event.stopPropagation();
-}
-modal2('.modal_wrap').onclick = function (event) {
-    event.stopPropagation();
-}
+// modal('.modal_wrap').onclick = function (event) {
+//     event.stopPropagation();
+// }
+// modal2('.modal_wrap').onclick = function (event) {
+//     event.stopPropagation();
+// }
 </script>
 </html>

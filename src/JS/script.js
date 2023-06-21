@@ -91,12 +91,12 @@ async function checkAuthentication() {
 
 
 
-document.onclick = function (event) {
-    const targetElement = event.target;
-    if (!category_list.contains(targetElement) && targetElement !== category_btn) {
-        category_list.style.display = 'none';
-    }
-}
+// document.onclick = function (event) {
+//     const targetElement = event.target;
+//     if (!category_list.contains(targetElement) && targetElement !== category_btn) {
+//         category_list.style.display = 'none';
+//     }
+// }
 
 // header_menu.onclick = function (event) {
 //     if (menuBtnCount) {

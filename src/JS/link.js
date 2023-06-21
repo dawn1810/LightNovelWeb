@@ -87,12 +87,12 @@ $(document).ready(function () {
         }
     });
 });
-document.onclick = function (event) {
-    const targetElement = event.target;
-    if (!category_list.contains(targetElement) && targetElement !== category_btn) {
-        category_list.style.display = 'none';
-    }
-}
+// document.onclick = function (event) {
+//     const targetElement = event.target;
+//     if (!category_list.contains(targetElement) && targetElement !== category_btn) {
+//         category_list.style.display = 'none';
+//     }
+// }
 
 
 // const category = document.querySelector('.category')

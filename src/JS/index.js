@@ -241,23 +241,25 @@ document.addEventListener('DOMContentLoaded', function () {
                 let go = 0
                 eyea.onclick = function () {
                     console.log(123)
-                    if (eye2a.classList.contains('displayed')) {
-                        eye2a.classList.remove('displayed')
-                        eye1a.classList.add('displayed')
-                        document.querySelector('#form1 #Password').type = 'text';
-                        go += 1
-                    }
-                    else {
-                        eye1a.classList.remove('displayed')
-                        eye2a.classList.add('displayed')
-                        document.querySelector('#form1 #Password').type = 'password'
-                        go += 1
-                    }
-                    if (go == 3) {
+                    
+                    if (go >= 3) {
                         eye3a.classList.remove('displayed')
                         eye2a.classList.add('displayed')
                         eye1a.classList.add('displayed')
                         document.querySelector('#form1 #Password').type = 'password'
+                    }else{
+                        if (eye2a.classList.contains('displayed')) {
+                            eye2a.classList.remove('displayed')
+                            eye1a.classList.add('displayed')
+                            document.querySelector('#form1 #Password').type = 'text';
+                            go += 1
+                        }
+                        else {
+                            eye1a.classList.remove('displayed')
+                            eye2a.classList.add('displayed')
+                            document.querySelector('#form1 #Password').type = 'password'
+                            go += 1
+                        }
                     }
                 }
                 const eyeb = document.querySelector('#form2 .eye')
@@ -267,243 +269,230 @@ document.addEventListener('DOMContentLoaded', function () {
                 let jo = 0
                 eyeb.onclick = function () {
                     console.log(123)
-                    if (eye2b.classList.contains('displayed')) {
-                        eye2b.classList.remove('displayed')
-                        eye1b.classList.add('displayed')
-                        document.querySelector('#form2 #Password').type = 'text';
-                        jo +=1
-                    }
-                    else {
-                        eye1b.classList.remove('displayed')
-                        eye2b.classList.add('displayed')
-                        document.querySelector('#form-3 #new-Password').type = 'password'
-                        jo +=1
-                    }
-                    if (jo == 3) {
+                    
+                    if (jo >= 3) {
                         eye3b.classList.remove('displayed')
                         eye2b.classList.add('displayed')
                         eye1b.classList.add('displayed')
-                        document.querySelector('#form1 #Password').type = 'password'
-                    }
-                }
-                const eyec = document.querySelector('.okeye3 .eye')
-                const eye1c = document.querySelector('.okeye3 .eye-icon1')
-                const eye2c = document.querySelector('.okeye3 .eye-icon2')
-                eyec.onclick = function () {
-                    console.log(123)
-                    if (eye2c.classList.contains('displayed')) {
-                        eye2c.classList.remove('displayed')
-                        eye1c.classList.add('displayed')
-                        document.querySelector('#form-3 #new-Password-again').type = 'text';
-                    }
-                    else {
-                        eye1c.classList.remove('displayed')
-                        eye2c.classList.add('displayed')
-                        document.querySelector('#form-3 #new-Password-again').type = 'password'
-                    }
-                }
-
-
-                document.querySelector('#change-pass-apply').onclick = async function (e) {
-                    console.log('cut di bn oi');
-                    e.preventDefault();
-                    //gửi request tới csdl server
-                    const accountCookie = getCookie('account')
-                    const url = `${currentURL}changepass`; // URL của máy chủ mục tiêu
-                    const postData = JSON.stringify({
-                        // thông tin đăng kýýý
-                        'status': 'Change Pass',
-                        'account': `${accountCookie}`,
-                        'Old-Password': `${document.querySelector('#old-Password').value}`,
-                        'new-Password': `${document.querySelector('#new-Password').value}`,
-                        'new-Password-again': `${document.querySelector('#new-Password-again').value}`
-                    });
-
-
-                    //bình minh bị gà
-                    const requestOptions = {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: postData
-                    };
-
-                    btn_reg.disabled = true;
-                    btn_reg.textContent = "LOADING...";
-                    try {
-                        const response = await fetch(url, requestOptions)
-                        console.log(response.status)
-                        if (response.status == '200') {
-                            document.querySelector('.popup').style.display = 'block';
-                            document.querySelector('.chat').style.display = 'inline-block';
-                            document.querySelector('.chat .message span').innerHTML = 'Ngươi đã mất đi 50% tuổi thọ'
-
-                            setTimeout(function () {
-                                document.querySelector('.popup').style.display = 'none';
-                                document.querySelector('.chat').style.display = 'none';
-                                location.reload();
-                            }, 5000)
-
-
-                        }
-                        else if (response.status == '204') {
-                            document.querySelector('.popup').style.display = 'block';
-                            document.querySelector('.chat').style.display = 'none';
-                            document.querySelector('.chat2').style.display = 'inline-block';
-                            document.querySelector('.chat2 .message span').innerHTML = 'Ngươi đã từng đến đây rồi'
-
-                            setTimeout(function () {
-                                document.querySelector('.popup').style.display = 'none';
-                                document.querySelector('.chat2').style.display = 'inline-block';
-                            }, 5000)
-
-                        }
-                        else if (response.status == '403') {
-                            document.querySelector('.popup').style.display = 'block';
-                            document.querySelector('.chat2').style.display = 'inline-block';
-                            document.querySelector('.chat2 .message span').innerHTML = 'Thông điệp của ngươi không được hồi đáp'
-                            setTimeout(function () {
-                                document.querySelector('.popup').style.display = 'none';
-                                // Đổi mật khẩu
-                                document.querySelector('.chat2').style.display = 'inline-block';
-
-                            }, 5000)
-
-                        }
-                        else if (response.status == '404') {
-                            document.querySelector('.popup').style.display = 'block';
-                            document.querySelector('.chat2').style.display = 'inline-block';
-                            document.querySelector('.chat2 .message span').innerHTML = 'Ngươi Không Tồn Tại'
-                            setTimeout(function () {
-                                document.querySelector('.popup').style.display = 'none';
-                                // Đổi mật khẩu
-                                document.querySelector('.chat2').style.display = 'inline-block';
-
-                            }, 5000)
-
+                        document.querySelector('#form2 #Password').type = 'password'
+                    }else{
+                        if (eye2b.classList.contains('displayed')) {
+                            eye2b.classList.remove('displayed')
+                            eye1b.classList.add('displayed')
+                            document.querySelector('#form2 #Password').type = 'text';
+                            jo +=1
                         }
                         else {
-                            document.querySelector('.popup').style.display = 'block';
-                            document.querySelector('.chat2').style.display = 'inline-block';
-                            setTimeout(function () {
-                                document.querySelector('.popup').style.display = 'none';
-                                document.querySelector('.chat2').style.display = 'inline-block';
-                            }, 5000)
-
+                            eye1b.classList.remove('displayed')
+                            eye2b.classList.add('displayed')
+                            document.querySelector('#form2 #new-Password').type = 'password'
+                            jo +=1
                         }
-                        btn_reg.disabled = false;
-                        btn_reg.textContent = "Register";
-                    } catch (error) {
-                        console.log('Error:', error);
-
                     }
-
-
-
                 }
-                document.querySelector('#info_btn').onclick = async function (e) {
-                    console.log('cut di bn oi');
-                    e.preventDefault();
-                    //gửi request tới csdl server
-                    const accountCookie = getCookie('account')
-                    const url = `${currentURL}updateinfo`; // URL của máy chủ mục tiêu
-
-                    const postData = JSON.stringify({
-                        // thông tin đăng kýýý
-                        'status': 'user info',
-                        'account': `${accountCookie}`,
-                        'cccd': `${document.querySelector('#cccd').value}`,
-                        'fullname': `${document.querySelector('#fullname').value}`,
-                        'birtday': `${document.querySelector('#birtday').value}`,
-                        'quequan': `${document.querySelector('#quequan').value}`,
-                        'sex': `${document.querySelector('#sex').value}`
-
-                    });
+               
 
 
-                    //bình minh bị gà
-                    const requestOptions = {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: postData
-                    };
-
-                    btn_reg.disabled = true;
-                    btn_reg.textContent = "LOADING...";
-                    try {
-                        const response = await fetch(url, requestOptions)
-                        console.log(response.status)
-                        if (response.status == '200') {
-                            document.querySelector('.popup').style.display = 'block';
-                            document.querySelector('.chat').style.display = 'inline-block';
-                            document.querySelector('.chat .message span').innerHTML = 'Ngươi đã mất đi 50% tuổi thọ'
-
-                            setTimeout(function () {
-                                document.querySelector('.popup').style.display = 'none';
-                                document.querySelector('.chat').style.display = 'none';
-                                location.reload()
-                            }, 2000)
+                // document.querySelector('#change-pass-apply').onclick = async function (e) {
+                //     console.log('cut di bn oi');
+                //     e.preventDefault();
+                //     //gửi request tới csdl server
+                //     const accountCookie = getCookie('account')
+                //     const url = `${currentURL}changepass`; // URL của máy chủ mục tiêu
+                //     const postData = JSON.stringify({
+                //         // thông tin đăng kýýý
+                //         'status': 'Change Pass',
+                //         'account': `${accountCookie}`,
+                //         'Old-Password': `${document.querySelector('#old-Password').value}`,
+                //         'new-Password': `${document.querySelector('#new-Password').value}`,
+                //         'new-Password-again': `${document.querySelector('#new-Password-again').value}`
+                //     });
 
 
-                        }
-                        else if (response.status == '204') {
-                            document.querySelector('.popup').style.display = 'block';
-                            document.querySelector('.chat').style.display = 'none';
-                            document.querySelector('.chat2').style.display = 'inline-block';
-                            document.querySelector('.chat2 .message span').innerHTML = 'Ngươi đã từng đến đây rồi'
+                //     //bình minh bị gà
+                //     const requestOptions = {
+                //         method: 'POST',
+                //         headers: {
+                //             'Content-Type': 'application/json'
+                //         },
+                //         body: postData
+                //     };
 
-                            setTimeout(function () {
-                                document.querySelector('.popup').style.display = 'none';
-                                document.querySelector('.chat2').style.display = 'inline-block';
-                            }, 5000)
+                //     btn_reg.disabled = true;
+                //     btn_reg.textContent = "LOADING...";
+                //     try {
+                //         const response = await fetch(url, requestOptions)
+                //         console.log(response.status)
+                //         if (response.status == '200') {
+                //             document.querySelector('.popup').style.display = 'block';
+                //             document.querySelector('.chat').style.display = 'inline-block';
+                //             document.querySelector('.chat .message span').innerHTML = 'Ngươi đã mất đi 50% tuổi thọ'
 
-                        }
-                        else if (response.status == '403') {
-                            document.querySelector('.popup').style.display = 'block';
-                            document.querySelector('.chat2').style.display = 'inline-block';
-                            document.querySelector('.chat2 .message span').innerHTML = 'Thông điệp của ngươi không được hồi đáp'
-                            setTimeout(function () {
-                                document.querySelector('.popup').style.display = 'none';
-                                // Đổi mật khẩu
-                                document.querySelector('.chat2').style.display = 'inline-block';
-
-                            }, 5000)
-
-                        }
-                        else if (response.status == '404') {
-                            document.querySelector('.popup').style.display = 'block';
-                            document.querySelector('.chat2').style.display = 'inline-block';
-                            document.querySelector('.chat2 .message span').innerHTML = 'Ngươi Không Tồn Tại'
-                            setTimeout(function () {
-                                document.querySelector('.popup').style.display = 'none';
-                                // Đổi mật khẩu
-                                document.querySelector('.chat2').style.display = 'inline-block';
-
-                            }, 5000)
-
-                        }
-                        else {
-                            document.querySelector('.popup').style.display = 'block';
-                            document.querySelector('.chat2').style.display = 'inline-block';
-                            setTimeout(function () {
-                                document.querySelector('.popup').style.display = 'none';
-                                document.querySelector('.chat2').style.display = 'inline-block';
-                            }, 5000)
-
-                        }
-                        btn_reg.disabled = false;
-                        btn_reg.textContent = "Register";
-                    } catch (error) {
-                        console.log('Error:', error);
-
-                    }
+                //             setTimeout(function () {
+                //                 document.querySelector('.popup').style.display = 'none';
+                //                 document.querySelector('.chat').style.display = 'none';
+                //                 location.reload();
+                //             }, 5000)
 
 
+                //         }
+                //         else if (response.status == '204') {
+                //             document.querySelector('.popup').style.display = 'block';
+                //             document.querySelector('.chat').style.display = 'none';
+                //             document.querySelector('.chat2').style.display = 'inline-block';
+                //             document.querySelector('.chat2 .message span').innerHTML = 'Ngươi đã từng đến đây rồi'
 
-                }
+                //             setTimeout(function () {
+                //                 document.querySelector('.popup').style.display = 'none';
+                //                 document.querySelector('.chat2').style.display = 'inline-block';
+                //             }, 5000)
+
+                //         }
+                //         else if (response.status == '403') {
+                //             document.querySelector('.popup').style.display = 'block';
+                //             document.querySelector('.chat2').style.display = 'inline-block';
+                //             document.querySelector('.chat2 .message span').innerHTML = 'Thông điệp của ngươi không được hồi đáp'
+                //             setTimeout(function () {
+                //                 document.querySelector('.popup').style.display = 'none';
+                //                 // Đổi mật khẩu
+                //                 document.querySelector('.chat2').style.display = 'inline-block';
+
+                //             }, 5000)
+
+                //         }
+                //         else if (response.status == '404') {
+                //             document.querySelector('.popup').style.display = 'block';
+                //             document.querySelector('.chat2').style.display = 'inline-block';
+                //             document.querySelector('.chat2 .message span').innerHTML = 'Ngươi Không Tồn Tại'
+                //             setTimeout(function () {
+                //                 document.querySelector('.popup').style.display = 'none';
+                //                 // Đổi mật khẩu
+                //                 document.querySelector('.chat2').style.display = 'inline-block';
+
+                //             }, 5000)
+
+                //         }
+                //         else {
+                //             document.querySelector('.popup').style.display = 'block';
+                //             document.querySelector('.chat2').style.display = 'inline-block';
+                //             setTimeout(function () {
+                //                 document.querySelector('.popup').style.display = 'none';
+                //                 document.querySelector('.chat2').style.display = 'inline-block';
+                //             }, 5000)
+
+                //         }
+                //         btn_reg.disabled = false;
+                //         btn_reg.textContent = "Register";
+                //     } catch (error) {
+                //         console.log('Error:', error);
+
+                //     }
+
+
+
+                // }
+                // document.querySelector('#info_btn').onclick = async function (e) {
+                //     console.log('cut di bn oi');
+                //     e.preventDefault();
+                //     //gửi request tới csdl server
+                //     const accountCookie = getCookie('account')
+                //     const url = `${currentURL}updateinfo`; // URL của máy chủ mục tiêu
+
+                //     const postData = JSON.stringify({
+                //         // thông tin đăng kýýý
+                //         'status': 'user info',
+                //         'account': `${accountCookie}`,
+                //         'cccd': `${document.querySelector('#cccd').value}`,
+                //         'fullname': `${document.querySelector('#fullname').value}`,
+                //         'birtday': `${document.querySelector('#birtday').value}`,
+                //         'quequan': `${document.querySelector('#quequan').value}`,
+                //         'sex': `${document.querySelector('#sex').value}`
+
+                //     });
+
+
+                //     //bình minh bị gà
+                //     const requestOptions = {
+                //         method: 'POST',
+                //         headers: {
+                //             'Content-Type': 'application/json'
+                //         },
+                //         body: postData
+                //     };
+
+                //     btn_reg.disabled = true;
+                //     btn_reg.textContent = "LOADING...";
+                //     try {
+                //         const response = await fetch(url, requestOptions)
+                //         console.log(response.status)
+                //         if (response.status == '200') {
+                //             document.querySelector('.popup').style.display = 'block';
+                //             document.querySelector('.chat').style.display = 'inline-block';
+                //             document.querySelector('.chat .message span').innerHTML = 'Ngươi đã mất đi 50% tuổi thọ'
+
+                //             setTimeout(function () {
+                //                 document.querySelector('.popup').style.display = 'none';
+                //                 document.querySelector('.chat').style.display = 'none';
+                //                 location.reload()
+                //             }, 2000)
+
+
+                //         }
+                //         else if (response.status == '204') {
+                //             document.querySelector('.popup').style.display = 'block';
+                //             document.querySelector('.chat').style.display = 'none';
+                //             document.querySelector('.chat2').style.display = 'inline-block';
+                //             document.querySelector('.chat2 .message span').innerHTML = 'Ngươi đã từng đến đây rồi'
+
+                //             setTimeout(function () {
+                //                 document.querySelector('.popup').style.display = 'none';
+                //                 document.querySelector('.chat2').style.display = 'inline-block';
+                //             }, 5000)
+
+                //         }
+                //         else if (response.status == '403') {
+                //             document.querySelector('.popup').style.display = 'block';
+                //             document.querySelector('.chat2').style.display = 'inline-block';
+                //             document.querySelector('.chat2 .message span').innerHTML = 'Thông điệp của ngươi không được hồi đáp'
+                //             setTimeout(function () {
+                //                 document.querySelector('.popup').style.display = 'none';
+                //                 // Đổi mật khẩu
+                //                 document.querySelector('.chat2').style.display = 'inline-block';
+
+                //             }, 5000)
+
+                //         }
+                //         else if (response.status == '404') {
+                //             document.querySelector('.popup').style.display = 'block';
+                //             document.querySelector('.chat2').style.display = 'inline-block';
+                //             document.querySelector('.chat2 .message span').innerHTML = 'Ngươi Không Tồn Tại'
+                //             setTimeout(function () {
+                //                 document.querySelector('.popup').style.display = 'none';
+                //                 // Đổi mật khẩu
+                //                 document.querySelector('.chat2').style.display = 'inline-block';
+
+                //             }, 5000)
+
+                //         }
+                //         else {
+                //             document.querySelector('.popup').style.display = 'block';
+                //             document.querySelector('.chat2').style.display = 'inline-block';
+                //             setTimeout(function () {
+                //                 document.querySelector('.popup').style.display = 'none';
+                //                 document.querySelector('.chat2').style.display = 'inline-block';
+                //             }, 5000)
+
+                //         }
+                //         btn_reg.disabled = false;
+                //         btn_reg.textContent = "Register";
+                //     } catch (error) {
+                //         console.log('Error:', error);
+
+                //     }
+
+
+
+                // }
                 // Đổi mật khẩu
             }
             return !errorMessage;
@@ -648,31 +637,5 @@ const modal2 = document.querySelector('.modal2')
 
 const login_gg = document.querySelector('.login_gg')
 login_gg.onclick = async function () {
-    const url = `${currentURL}/auth/google`; // URL của máy chủ mục tiêu
-
-    const requestOptions = {
-        method: 'GET',
-        headers: {
-            Accept: "applicaiton/json",
-            "Content-Type": "applicaiton/json",
-        },
-        // body: postData,
-        withCredentials: true, // should be there
-        credentials: 'include' // should be there
-    };
-
-
-    try {
-        const response = await fetch(url, requestOptions)
-        const json = await response.json();
-        console.log(json)
-
-        if (response.status == 200) {
-            console.log('ok');
-        }
-    }
-    catch {
-        console.log('ok bro');
-     };
-
+    window.open(`${currentURL}/auth/google`,"login With Google", "width=500,height=500");
 };

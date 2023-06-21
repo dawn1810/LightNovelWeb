@@ -12,8 +12,8 @@ const path = require('path');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const credentials = require('./client_secret_483084822625-jrf4t8tq5j272i8mugfk4qorgv3dg11o.apps.googleusercontent.com.json');
+const session = require('express-session');
 
-passport.use(new GoogleStrategy());
 
 ////////////////////////
 const app = express();
@@ -217,6 +217,11 @@ async function getNovelList() {
 app.use(bodyParser.json());
 app.use(cors({ origin: true, credentials: true }));
 app.use(cookieParser());
+app.use(session({
+	secret: 'okbro', // Thay đổi "your-secret-key" bằng một chuỗi bất kỳ
+	resave: false,
+	saveUninitialized: false
+}));
 const parentDirectory = path.dirname(__dirname);
 app.use(express.static(parentDirectory));
 
@@ -352,6 +357,7 @@ app.post('/login', async (req, res) => {
 				res.writeHead(403, { 'Content-Type': 'text/plain' });
 				res.end('Mày lấy acc của thg nào!!!');
 			}
+			// set cookies
 		}
 		else {
 			// log in next time: (log in database)
@@ -372,18 +378,66 @@ app.post('/login', async (req, res) => {
 });
 
 // Log in with Google
-passport.use(
-	new GoogleStrategy(
-		{
-			clientID: credentials.web.client_id,
-			clientSecret: credentials.web.client_secret,
-			callbackURL: '/auth/google/callback'
-		},
-		accessToken => {
-			console.log(accessToken);
+passport.use(new GoogleStrategy({
+	clientID: credentials.web.client_id,
+	clientSecret: credentials.web.client_secret,
+	callbackURL: "http://localhost:6969/auth/google/callback",
+	passReqToCallback: true
+},
+	async function (request, accessToken, refreshToken, profile, done) {
+		try {
+			// Kiểm tra xem thông tin người dùng đã tồn tại chưa
+			const existingUser = await server.find_one_Data("tt_nguoi_dung", { googleId: profile.id });
+			if (existingUser) {
+				// update new data for tt_nguoi_dung database
+				await server.update_one_Data("tt_nguoi_dung", {googleId: profile.id}, {
+					email: profile.emails[0].value,
+					displayName: profile.displayName,
+					avatarUrl: profile.photos[0].value,
+					sex: "unknown",
+					likeNovels: [],
+					monitorNovels: [],
+					commentIds: []
+				});
+
+				return done(null, existingUser);
+				/// set cookie cho vào tài khoảng
+			}
+			else {
+				// Tạo mới một người dùng
+				const newUser = {
+					googleId: profile.id,
+					email: profile.emails[0].value,
+					displayName: profile.displayName,
+					avatarUrl: profile.photos[0].value,
+					sex: "unknown",
+					likeNovels: [],
+					monitorNovels: [],
+					commentIds: []
+				};
+
+				await server.add_one_Data("tt_nguoi_dung", newUser.googleId);
+				/// set cookie cho vào tài khoảng
+				return done(null, newUser);
+			}
+		} catch (err) {
+			return done(err);
 		}
-	)
-);
+	}
+));
+
+passport.serializeUser(function (userId, done) {
+	done(null, userId);
+});
+
+passport.deserializeUser(async function (userId, done) {
+	try {
+		const user = await server.find_one_Data("tt_nguoi_dung", { _id: ObjectId(userId) });
+		done(null, user);
+	} catch (err) {
+		done(err);
+	}
+});
 
 // setup route để cho user gửi request.
 app.get(
@@ -394,9 +448,15 @@ app.get(
 );
 
 // lấy dữ liêu liệu về từ google
-app.get('/auth/google/callback', passport.authenticate('google'));
-
-
+app.get('/auth/google/callback',
+	passport.authenticate('google', { failureRedirect: '/login' }),
+	function (req, res) {
+		// Xử lý khi xác thực thành công
+		// res.redirect('/');
+		// Đóng tab hiện tại
+		res.send('<script>window.close();</script>');
+	}
+);
 
 
 // Schedule the code execution at midnight (00:00)
