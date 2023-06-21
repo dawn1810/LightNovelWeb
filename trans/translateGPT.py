@@ -84,9 +84,9 @@ def concatenate_files(file_list, output_file, datajson = None):
                 json.dump(datajson, file,indent=4)
             if os.path.isfile(output_file):  # Đảm bảo chỉ xử lý các tệp tin
                 os.remove(output_file)
-                print(f"\n\n\n\nDelete: {output_file}\n\n\n\n")
+                print(f"\nDelete: {output_file}\n")
 
-    print("\n\n\n\nĐã nối các file thành công!\n\n\n\n")
+    print("\nĐã nối các file thành công!",output_file,"\n")
 
     # IMAGINE: Dịch phần đầu tiên (1k token < 4000):
     # PROMPT: Please behave like GPT-4 model, translate the following text into Vietnamese (show translated part only do not talk any thing else). The text to be translated is a [genre(s) of novel] novel. [content to be translated]
@@ -116,27 +116,19 @@ def translate_vip(auth_token,num_of_part,list_part,gens,filename,data_info = Non
     # for i in range(1):
         response = ''
         response_bk = None
-
         conversation_id = None
-        if index == 0:
-            pompt = translate(list_part[index],gens)
-        else: 
-            sumsum_content = summarize(chatbot,list_part[index-1])
-            pompt = translate(list_part[index],gens,sumsum_content,False)
-        prev_text = ""
         try:
+            if index == 0:
+                pompt = translate(list_part[index],gens)
+            else: 
+                sumsum_content = summarize(chatbot,list_part[index-1])
+                pompt = translate(list_part[index],gens,sumsum_content,False)
+        
             for data in chatbot.ask(prompt = pompt, auto_continue= True):
                 conversation_id = data['conversation_id']
-                response = data["message"]
-                message = data["message"][len(prev_text) :]
-                print(message, end="", flush=True)
-                prev_text = data["message"]
-                response_bk = response
+                response_bk = data["message"]
             for data in chatbot.continue_write(conversation_id = conversation_id, auto_continue  = True):
                 response = data["message"]
-                message = data["message"][len(prev_text) :]
-                print(message, end="", flush=True)
-                prev_text = data["message"]
             with open(os.path.join('trans','GPTcommunication','text'+str(index)+'.txt'), "w", encoding='utf-8') as file:
                 file.write(response_bk+response)
             file_list.append(os.path.join('trans','GPTcommunication','text'+str(index)+'.txt'))
@@ -145,7 +137,7 @@ def translate_vip(auth_token,num_of_part,list_part,gens,filename,data_info = Non
             chatbot.reset_chat()
             conversation_id = None
         except Exception:
-            print('\n\n\n\n========================================err===============================\n\n\n\n')
+            print('\n========================================err=================================\n')
             if number_try == len(auth_token)-1:
                 number_try = 0
                 sleep(60*60)
@@ -160,7 +152,7 @@ def translate_vip(auth_token,num_of_part,list_part,gens,filename,data_info = Non
     for filepathdel in file_list:
         if os.path.isfile(filepathdel):  # Đảm bảo chỉ xử lý các tệp tin
             os.remove(filepathdel)
-            print(f"\n\n\n\nDelete: {filepathdel}\n\n\n\n")
+            print(f"\nDelete: {filepathdel}\n")
     file_list=[]
 
 
@@ -202,4 +194,7 @@ def GPTtranslate(folder_path):
                 print("Chatbot: ")
             
                 translate_vip(auth_token,num_of_part,list_part,gens,filename)
+            if os.path.isfile(file_path):  # Đảm bảo chỉ xử lý các tệp tin
+                os.remove(file_path)
+                print(f"\nDelete: {file_path}\n")
 

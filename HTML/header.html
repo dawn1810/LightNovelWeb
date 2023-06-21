@@ -482,5 +482,71 @@
     </script>
     <!-- <script src="/src/JS/script.js"> </script> -->
 </body>
+<!-- <div class="modal">
+    <div class="modal_wrap">
+        <form class="form" id="form1">
+            <p class="heading">LOGIN</p>
+            <div class="group1">
+                <input placeholder="Username" class="input" type="text">
+                <span class="form-message"></span>
+            </div>
+            <div class="group1">
+                <input placeholder="Password" class="input" type="password">
+                <span class="form-message"></span>
+            </div>
+            <div class="group1">
+                <button class="btn">Submit</button>
+            </div>
+        </form>
+    </div>
+</div> -->
+<script>
+    // Validator({
+    //     form: '#form1',
+    //     formGroupSelector: '.group1',
+    //     errorSelector: '.form-message',
+    //     rules: [
 
+    //         Validator.isRequired('#username', 'Vui lòng nhập nội dung này'),
+
+    //         Validator.isRequired('#cccd', 'Vui lòng nhập nội dung này'),
+    //         Validator.minLength('#new-Password', 6),
+    //         Validator.isEmail('#email'),
+    //         Validator.isNotNumber("#cccd_login")
+
+
+    //     ],
+    //     onSubmid: function (data) {
+    //         console.log(data);
+    //     }
+    // });
+
+    const login = document.querySelector('.header_login')
+login.onclick = function () {
+    console.log('Login')
+    modal.style.display = 'block'
+}
+const sg = document.querySelector('.header_signup')
+sg.onclick = function () {
+    console.log('Login')
+    modal2.style.display = 'block'
+}
+modal.onclick = function (event) {
+    if (!event.target.closest('.modal_wrap')) {
+        modal.style.display = 'none';
+    }
+}
+modal2.onclick = function (event) {
+    if (!event.target.closest('.modal_wrap')) {
+        modal2.style.display = 'none';
+    }
+}
+
+modal('.modal_wrap').onclick = function (event) {
+    event.stopPropagation();
+}
+modal2('.modal_wrap').onclick = function (event) {
+    event.stopPropagation();
+}
+</script>
 </html>

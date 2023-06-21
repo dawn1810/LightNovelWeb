@@ -82,7 +82,7 @@ exports.find_all_Data = async function ({ table, query = undefined, projection =
     await client.connect();
     // let query = { user_name: "Long Khoa Hoc"};
     // sort go here: https://www.w3schools.com/nodejs/nodejs_mongodb_sort.asp
-    let result = await client.db('wtfn').collection(table).find(query, { 'projection': projection }).sort().skip(skip).limit(limit).toArray();
+    let result = await client.db('wtfn').collection(table).find(query, { 'projection': projection }).sort(sort).skip(skip).limit(limit).toArray();
 
     console.log('SYSTEM | FIND_MANY_DATA | Finding documents: ', result);
 

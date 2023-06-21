@@ -121,3 +121,8 @@ document.onclick = function (event) {
 //     }
 
 // }
+// const login = document.querySelector('.header_login')
+// login.onclick = function () {
+//     console.log('Login')
+//     modal.style.display = 'block'
+// }
