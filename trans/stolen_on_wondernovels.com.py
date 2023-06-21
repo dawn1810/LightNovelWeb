@@ -163,7 +163,7 @@ if __name__ == '__main__':
     # _ = input('PRESS ENTER TO TRANS >>>')
     # del(_)
 
-    translateGPT.GPTtranslate(path_save)
+    translateGPT.GPTtranslate(path_save,True)
     response_done = requests.get('http://localhost:6969/update_novel')
     if response_done.status_code == 200:
         print('Done trans, going to upload database')

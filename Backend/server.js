@@ -9,12 +9,18 @@ const cookieParser = require('cookie-parser');
 const cron = require('node-cron');
 const NodePersist = require('node-persist');
 const path = require('path');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const credentials = require('./client_secret_483084822625-jrf4t8tq5j272i8mugfk4qorgv3dg11o.apps.googleusercontent.com.json');
+
+passport.use(new GoogleStrategy());
 
 ////////////////////////
 const app = express();
 const port = 6969;
 const secretKey = '5gB#2L1!8*1!0)$7vF@9';
 const authenticationKey = Buffer.from(secretKey.padEnd(32, '0'), 'utf8').toString('hex');
+
 
 function sendEmail(password, email, usr_name) {
 	const transporter = nodemailer.createTransport({
@@ -180,14 +186,14 @@ async function getNovelList() {
 	try {
 		// by week:
 		let query_by_week = { update_date: { $gte: getFirstAndLastDayOfWeek().firstDay, $lt: getFirstAndLastDayOfWeek().lastDay } };
-		const by_week = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { _id: 0, name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { views: 1 }, limit: 12 });
+		const by_week = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { _id: 0, name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { views: 1 }, limit: 50 });
 		// by month:
 		let query_by_month = { update_date: { $gte: getFirstAndLastDayOfMonth().firstDay, $lt: getFirstAndLastDayOfMonth().lastDay } };
-		const by_month = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { _id: 0, name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { views: 1 }, limit: 12 });
+		const by_month = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { _id: 0, name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { views: 1 }, limit: 50 });
 		// all time
-		const all_time = await server.find_all_Data({ table: "truyen", projection: { _id: 0, name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { views: 1 }, limit: 12 });
+		const all_time = await server.find_all_Data({ table: "truyen", projection: { _id: 0, name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { views: 1 }, limit: 50 });
 		// update nearby:
-		const nearby = await server.find_all_Data({ table: "truyen", projection: { _id: 0, name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { update_date: 1 }, limit: 12 });
+		const nearby = await server.find_all_Data({ table: "truyen", projection: { _id: 0, name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { update_date: 1 }, limit: 50 });
 		// result
 		const result = {
 			"by_week": by_week,
@@ -303,12 +309,13 @@ app.post('/signup', async (req, res) => {
 	try {
 		// usr ton tai => thong bao
 		const result = await server.find_all_Data({ query: { usr: data.usr }, table: "dang_nhap", projection: { _id: 0, usr: 1 } });
-		
+
 		if (result.length != 0) {
 			res.writeHead(404, { 'Content-Type': 'text/plain' });
 			res.end('Ten đang nhập đã tồn tại');
 		} else {
-			await server.add_one_Data("dang_ky", {email: data.email, usr: data.usr, pass: data.pass });
+			// add data to dang_ky database:
+			await server.add_one_Data("dang_ky", { email: data.email, usr: data.usr, pass: data.pass });
 			res.writeHead(202, { 'Content-Type': 'text/plain' });
 			res.end('Đăng kí thành cmn công!!! zeze');
 		}
@@ -335,7 +342,10 @@ app.post('/login', async (req, res) => {
 		if (f_result.length != 0) {
 			// log in first time: (sign up database)
 			if (f_result.includes({ pass: data.pass })) {
+				// move data to dang_nhap database
 				await server.add_one_Data("dang_nhap", { usr: data.usr, pass: data.pass });
+				// remove usr name font dang_ky data base\
+				await server.delete_many_Data("dang_ky", { usr: data.usr });
 				res.writeHead(200, { 'Content-Type': 'text/plain' });
 				res.end('Đăng nhập thành công!!! zeze');
 			} else {
@@ -361,13 +371,45 @@ app.post('/login', async (req, res) => {
 	}
 });
 
+// Log in with Google
+passport.use(
+	new GoogleStrategy(
+		{
+			clientID: credentials.web.client_id,
+			clientSecret: credentials.web.client_secret,
+			callbackURL: '/auth/google/callback'
+		},
+		accessToken => {
+			console.log(accessToken);
+		}
+	)
+);
+
+// setup route để cho user gửi request.
+app.get(
+	'/auth/google',
+	passport.authenticate('google', {
+		scope: ['profile', 'email']
+	})
+);
+
+// lấy dữ liêu liệu về từ google
+app.get('/auth/google/callback', passport.authenticate('google'));
+
+
+
+
 // Schedule the code execution at midnight (00:00)
 cron.schedule('0 0 * * *', async () => {
+	// update popular novel list 
 	await getNovelList();
+	// remove all data in dang_ky database
+	await server.delete_many_Data("dang_ky", {});
 });
 
 // Run the code immediately
-await getNovelList();
+// update popular novel list 
+getNovelList();
 
 
 app.listen(port, () => {

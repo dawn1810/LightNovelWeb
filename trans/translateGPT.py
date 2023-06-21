@@ -45,16 +45,20 @@ def seperated_part(input_text):
     return result
 
 def summarize(chatbot,content):
+    print("Đang tóm tắt....")
+
     response = ''
     response_bk = None
     uuid = None
     for data in chatbot.ask(prompt = 'Summarize the following passage in a concise manner (show summarized part only do not talk any thing else): \n%s' % (content), auto_continue= True):
         uuid = data['conversation_id']
-        response = data["message"]
-    response_bk = response
-    for data in chatbot.continue_write(conversation_id = uuid, auto_continue  = True):
-        response = data["message"]
-        uuid = data['conversation_id']
+        response_bk = data["message"]
+    print(data['finish_details'])
+    while data['finish_details'] == 'max_tokens':
+        print('Do',data['finish_details'],'nên dịch tiếp')
+        for data in chatbot.continue_write(conversation_id = uuid, auto_continue  = True):
+            response = data["message"]
+            uuid = data['conversation_id']
     #when everything done then
     chatbot.delete_conversation(uuid)
     chatbot.reset_chat()
@@ -76,6 +80,7 @@ def concatenate_files(file_list, output_file, datajson = None):
             with open(file_path, 'r', encoding='utf-8') as infile:
                 text = infile.read().strip()
                 outfile.write(text + '\n')
+                
     if datajson:
             with open(output_file, "r", encoding='utf-8') as file:
                 content = file.read()
@@ -123,12 +128,19 @@ def translate_vip(auth_token,num_of_part,list_part,gens,filename,data_info = Non
             else: 
                 sumsum_content = summarize(chatbot,list_part[index-1])
                 pompt = translate(list_part[index],gens,sumsum_content,False)
-        
+            print("Đang dịch phần đầu....")
+
             for data in chatbot.ask(prompt = pompt, auto_continue= True):
                 conversation_id = data['conversation_id']
                 response_bk = data["message"]
-            for data in chatbot.continue_write(conversation_id = conversation_id, auto_continue  = True):
-                response = data["message"]
+            print("Dịch xong")
+            while data['finish_details'] == 'max_tokens':
+                print('Do',data['finish_details'],'nên dịch tiếp')
+
+                for data in chatbot.continue_write(conversation_id = conversation_id, auto_continue  = True):
+                    response = data["message"]
+                print('Done')
+
             with open(os.path.join('trans','GPTcommunication','text'+str(index)+'.txt'), "w", encoding='utf-8') as file:
                 file.write(response_bk+response)
             file_list.append(os.path.join('trans','GPTcommunication','text'+str(index)+'.txt'))
@@ -140,6 +152,8 @@ def translate_vip(auth_token,num_of_part,list_part,gens,filename,data_info = Non
             print('\n========================================err=================================\n')
             if number_try == len(auth_token)-1:
                 number_try = 0
+                print('\ngoing to timeout\n')
+
                 sleep(60*60)
             else:
                 number_try += 1 
@@ -157,7 +171,7 @@ def translate_vip(auth_token,num_of_part,list_part,gens,filename,data_info = Non
 
 
 
-def GPTtranslate(folder_path):
+def GPTtranslate(folder_path,check_resume = False):
     auth_token = [
         "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJuYm1pbmgyMTAxMzgxQHN0dWRlbnQuY3R1ZXQuZWR1LnZuIiwiZW1haWxfdmVyaWZpZWQiOnRydWV9LCJodHRwczovL2FwaS5vcGVuYWkuY29tL2F1dGgiOnsidXNlcl9pZCI6InVzZXItWkFCTXlremplUm0wV0VFdGlUMjMwVVNNIn0sImlzcyI6Imh0dHBzOi8vYXV0aDAub3BlbmFpLmNvbS8iLCJzdWIiOiJhdXRoMHw2M2Q5YmM5NzlmZTE4ZWZkOWM0ZjI3ZGUiLCJhdWQiOlsiaHR0cHM6Ly9hcGkub3BlbmFpLmNvbS92MSIsImh0dHBzOi8vb3BlbmFpLm9wZW5haS5hdXRoMGFwcC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjg2MTM1MjkyLCJleHAiOjE2ODczNDQ4OTIsImF6cCI6IlRkSkljYmUxNldvVEh0Tjk1bnl5d2g1RTR5T282SXRHIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCBtb2RlbC5yZWFkIG1vZGVsLnJlcXVlc3Qgb3JnYW5pemF0aW9uLnJlYWQgb3JnYW5pemF0aW9uLndyaXRlIn0.ZZyNJxXDkHiCCU3ouTmaqpJLl2MOh4P9sCSa1vtfphll_I2glgafKAgRcpsz1nJyRO9EEI4cx27ZY1pAlncp-8BbpNnUlDL4iMgU0NZP2JC9QJhbMwC-IznEPqpwA6gbNr6ZwAKIncd4EVCrr7KR5tWd0EU4NXlSsvIxt06wzWP8zZDzm3b0RetSm_FkcuNSKaE2-eayvjoGAne6suTYii_G5TJKVjVb_Ny04xGvIQRQJfgtytUn_ErQ0ge7qyYTmusZ4hWJzKi_WQx8hc7lQUJYIbSxLfliLBzbn-rQq9SzVRbXkUObF5UfIvGpweiSbbqaDWxgNfqGUAb0wRW-sQ",
         "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJjaGFuZG9yYWxvbmdAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWV9LCJodHRwczovL2FwaS5vcGVuYWkuY29tL2F1dGgiOnsidXNlcl9pZCI6InVzZXItTUZkOWxwVGFZcWtDaEM4SEhwYjBWeUszIn0sImlzcyI6Imh0dHBzOi8vYXV0aDAub3BlbmFpLmNvbS8iLCJzdWIiOiJhdXRoMHw2M2Q4NGYyZTc0Zjk0YWM1MmJiZDNkYjgiLCJhdWQiOlsiaHR0cHM6Ly9hcGkub3BlbmFpLmNvbS92MSIsImh0dHBzOi8vb3BlbmFpLm9wZW5haS5hdXRoMGFwcC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjg2ODQ2MjgwLCJleHAiOjE2ODgwNTU4ODAsImF6cCI6IlRkSkljYmUxNldvVEh0Tjk1bnl5d2g1RTR5T282SXRHIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCBtb2RlbC5yZWFkIG1vZGVsLnJlcXVlc3Qgb3JnYW5pemF0aW9uLnJlYWQgb3JnYW5pemF0aW9uLndyaXRlIn0.tCsugOarLpeJeC8kDGtRwzbqNwI7pu-q5JdBr0tkGhVbYBMiKEL_umKUrH2j00AKkpdzFsbGqiG5i9bWyBbtVD9BCmBlw9lkHKSRNSHwQDPfti2gJxNiRXtsB7l2ckzlfbxWOe4mMCZGB4-NG9dTFHYn8V_zuWTPpUier1DBORFJJQmNqUh9dEtHWJCFmP4vfDIdMJvFGv-eIiaVI22pbmA-HCoovJmhOZ8C3MqxYLvR9DlrjyL2122q4nt7l-SKmo0DhBaY2i0eeT8XR4a5cyX3BoTuBcwQYHLjyS7BIty9jXA5OERvdbwnbUQLfoGxeSeNENJMf068q2sEnndi3A",
@@ -175,8 +189,9 @@ def GPTtranslate(folder_path):
 
 
             gens = ", ".join(data_info['Genre(s)'])
-            sumsumlist = seperated_part(data_info['Summary'])
-            translate_vip(auth_token,len(sumsumlist),sumsumlist,gens,'info.txt',data_info)
+            if not check_resume:
+                sumsumlist = seperated_part(data_info['Summary'])
+                translate_vip(auth_token,len(sumsumlist),sumsumlist,gens,'info.txt',data_info)
 
             with open(file_path, 'r', encoding='utf-8') as file:
                 # Đọc nội dung của tệp tin
@@ -191,7 +206,7 @@ def GPTtranslate(folder_path):
                 
        
               
-                print("Chatbot: ")
+                print("Đang dịch....")
             
                 translate_vip(auth_token,num_of_part,list_part,gens,filename)
             if os.path.isfile(file_path):  # Đảm bảo chỉ xử lý các tệp tin

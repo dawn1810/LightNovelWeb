@@ -234,36 +234,56 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
                 }
-                const eyea = document.querySelector('.okeye1 .eye')
-                const eye1a = document.querySelector('.okeye1 .eye-icon1')
-                const eye2a = document.querySelector('.okeye1 .eye-icon2')
+                const eyea = document.querySelector('#form1 .eye')
+                const eye1a = document.querySelector('#form1 .eye-icon1')
+                const eye2a = document.querySelector('#form1 .eye-icon2')
+                const eye3a = document.querySelector('#form1 .eye-icon3')
+                let go = 0
                 eyea.onclick = function () {
                     console.log(123)
                     if (eye2a.classList.contains('displayed')) {
                         eye2a.classList.remove('displayed')
                         eye1a.classList.add('displayed')
-                        document.querySelector('#form-3 #old-Password').type = 'text';
+                        document.querySelector('#form1 #Password').type = 'text';
+                        go += 1
                     }
                     else {
                         eye1a.classList.remove('displayed')
                         eye2a.classList.add('displayed')
-                        document.querySelector('#form-3 #old-Password').type = 'password'
+                        document.querySelector('#form1 #Password').type = 'password'
+                        go += 1
+                    }
+                    if (go == 3) {
+                        eye3a.classList.remove('displayed')
+                        eye2a.classList.add('displayed')
+                        eye1a.classList.add('displayed')
+                        document.querySelector('#form1 #Password').type = 'password'
                     }
                 }
-                const eyeb = document.querySelector('.okeye2 .eye')
-                const eye1b = document.querySelector('.okeye2 .eye-icon1')
-                const eye2b = document.querySelector('.okeye2 .eye-icon2')
+                const eyeb = document.querySelector('#form2 .eye')
+                const eye1b = document.querySelector('#form2 .eye-icon1')
+                const eye2b = document.querySelector('#form2 .eye-icon2')
+                const eye3b = document.querySelector('#form2 .eye-icon3')
+                let jo = 0
                 eyeb.onclick = function () {
                     console.log(123)
                     if (eye2b.classList.contains('displayed')) {
                         eye2b.classList.remove('displayed')
                         eye1b.classList.add('displayed')
-                        document.querySelector('#form-3 #new-Password').type = 'text';
+                        document.querySelector('#form2 #Password').type = 'text';
+                        jo +=1
                     }
                     else {
                         eye1b.classList.remove('displayed')
                         eye2b.classList.add('displayed')
                         document.querySelector('#form-3 #new-Password').type = 'password'
+                        jo +=1
+                    }
+                    if (jo == 3) {
+                        eye3b.classList.remove('displayed')
+                        eye2b.classList.add('displayed')
+                        eye1b.classList.add('displayed')
+                        document.querySelector('#form1 #Password').type = 'password'
                     }
                 }
                 const eyec = document.querySelector('.okeye3 .eye')
@@ -625,3 +645,34 @@ get_popular_novel();
 
 const modal = document.querySelector('.modal')
 const modal2 = document.querySelector('.modal2')
+
+const login_gg = document.querySelector('.login_gg')
+login_gg.onclick = async function () {
+    const url = `${currentURL}/auth/google`; // URL của máy chủ mục tiêu
+
+    const requestOptions = {
+        method: 'GET',
+        headers: {
+            Accept: "applicaiton/json",
+            "Content-Type": "applicaiton/json",
+        },
+        // body: postData,
+        withCredentials: true, // should be there
+        credentials: 'include' // should be there
+    };
+
+
+    try {
+        const response = await fetch(url, requestOptions)
+        const json = await response.json();
+        console.log(json)
+
+        if (response.status == 200) {
+            console.log('ok');
+        }
+    }
+    catch {
+        console.log('ok bro');
+     };
+
+};
