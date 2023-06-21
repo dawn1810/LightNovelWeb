@@ -554,11 +554,13 @@ yt-icon.ytd-logo {
 .header_login,
 .header_signup {
     cursor: pointer;
+    color: #884c05;
+
 }
 
 .header_login:hover,
 .header_signup:hover {
-    color: #884c05;
+    color: #c38c48;
 }
 
 .header_end i {
@@ -782,6 +784,7 @@ html .body_main {
 .top_popular_top_title {
     font-size: 20px;
     width: fit-content;
+    height: fit-content;
     padding: 10px;
     background: #884c05;
     border-radius: 5px;
@@ -899,7 +902,8 @@ html .body_main {
 }
 
 .novel_item:hover {
-    border: 3px solid #000000;
+    /* border: 3px solid #000000; */
+    padding-top: 2px;
 }
 
 .novel_item img {
@@ -1127,7 +1131,7 @@ html .body_main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 5px solid #403d3d;
+    border-top: 5px solid #403d3d;
     background-color: #d4b499;
 }
 
@@ -1325,6 +1329,7 @@ html .body_main {
     margin-right: 0;
 }
 .Noo{
+    margin-top: 20px;
     color: black;
     text-align: center;
 }

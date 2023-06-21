@@ -9,7 +9,11 @@ import re
 import os
 import shutil
 #/////////////////////////////////my space///////////////////////////////
-from revChatGPT.V1 import Chatbot
+from revChatGPT.V1 import Chatbot 
+# python3 -m pip install --upgrade revChatGPT --user
+# try it bro
+
+#install --upgrade revChatGPT thoi xem sao
 
 #///////////////////////////////////////////////////////////////////////
 max_token = 1000

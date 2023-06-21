@@ -2,6 +2,7 @@ import json
 import os
 import re
 from bs4 import BeautifulSoup
+#pip install beautifulsoup4
 import requests
 import translateGPT
 

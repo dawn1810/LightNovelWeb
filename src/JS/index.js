@@ -122,6 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
             const rules = selectorRules[rule.selector];
+            // login btn
             const btn_reg = document.getElementById('logins');
             // const btn_login = document.getElementById('login');
 
@@ -140,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 btn_reg.disabled = false;
                 btn_reg.onclick = async function (e) {
                     console.log('cut di bn oi');
-                    console.log(document.querySelector('#cccd').value)
+                    console.log(document.querySelector('#email').value)
                     e.preventDefault();
                     //gửi request tới csdl server
                     const url = `${currentURL}signup`; // URL của máy chủ mục tiêu
@@ -148,8 +149,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         // thông tin đăng kýýý
                         'status': 'signup',
                         'email': `${document.querySelector('#email').value}`,
-                        'username': `${document.querySelector('#username').value}`,
-                        'cccd': `${document.querySelector('#cccd_login').value}`
+                        'username': `${document.querySelector('#Username').value}`,
+                        'password': `${document.querySelector('#Password').value}`
                     });
 
 
@@ -168,51 +169,19 @@ document.addEventListener('DOMContentLoaded', function () {
                         const response = await fetch(url, requestOptions)
                         console.log(response.status)
                         if (response.status == '200') {
-                            document.querySelector('.popup').style.display = 'block';
-                            document.querySelector('.chat').style.display = 'inline-block';
-                            document.querySelector('.chat2').style.display = 'none';
-
-                            setTimeout(function () {
-                                document.querySelector('.popup').style.display = 'none';
-                                document.querySelector('.chat').style.display = 'none';
-                            }, 5000)
-
-                            document.querySelector('.form-toggle').click()
-
+                            console.log("ve trang dang nhap roi");
+                                //chạy file stoten.py trong thư mục trans đi a zai
+                                //chạyd di z a zai
                         }
                         else if (response.status == '204') {
-                            document.querySelector('.popup').style.display = 'block';
-                            document.querySelector('.chat').style.display = 'none';
-                            document.querySelector('.chat2').style.display = 'inline-block';
-                            document.querySelector('.chat2 .message span').innerHTML = 'Ngươi đã từng đến đây rồi'
-
-                            setTimeout(function () {
-                                document.querySelector('.popup').style.display = 'none';
-                                document.querySelector('.chat2').style.display = 'inline-block';
-                            }, 5000)
-
+                            // Ngươi đã từng đến đây rồi
                         }
                         else if (response.status == '403') {
-                            document.querySelector('.popup').style.display = 'block';
-                            document.querySelector('.chat2').style.display = 'inline-block';
-                            document.querySelector('.chat2 .message span').innerHTML = 'Thông điệp của ngươi không được hồi đáp'
-                            setTimeout(function () {
-                                document.querySelector('.popup').style.display = 'none';
-                                document.querySelector('.chat2').style.display = 'inline-block';
-
-                            }, 5000)
+                            // Thông điệp của ngươi không được hồi đáp
 
                         }
                         else if (response.status == '404') {
-                            document.querySelector('.popup').style.display = 'block';
-                            document.querySelector('.chat2').style.display = 'inline-block';
-                            document.querySelector('.chat2 .message span').innerHTML = 'Ngươi Không Tồn Tại'
-                            setTimeout(function () {
-                                document.querySelector('.popup').style.display = 'none';
-                                document.querySelector('.chat2').style.display = 'inline-block';
-
-                            }, 5000)
-
+                            // Ngươi Không Tồn Tại
                         }
                         else {
                             document.querySelector('.popup').style.display = 'block';
@@ -291,7 +260,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
                
+                // login btn
 
+
+                // dang ky
+                const btn_reg = document.getElementById('signup');
+                // dang ky
 
                 // document.querySelector('#change-pass-apply').onclick = async function (e) {
                 //     console.log('cut di bn oi');

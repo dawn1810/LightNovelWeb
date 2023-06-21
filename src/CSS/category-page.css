@@ -18,6 +18,7 @@ main {
     display: flex;
     justify-items: center;
     align-items: center;
+    justify-content: space-between;
 }
 
 .sort {
@@ -30,7 +31,7 @@ main {
 }
 
 .sort-container {
-    width: 100%;
+    width: 15%;
     height: 50px;
     margin-top: 1vh;
     margin-right: 1vh;
@@ -42,7 +43,10 @@ main {
     flex-direction: row;
     justify-content: space-between;
 }
-
+.filter{
+    text-align: center;
+    font-size: 16px;
+}
 .select-title {
     height: 18px;
     margin-bottom: 10px;
