@@ -213,7 +213,18 @@ async function getNovelList() {
 		console.log('SYSTEM | GET_NOVEL_LIST | ERROR | ', err);
 	}
 }
-
+function preventSessionFixation(req, res, next) {
+	if (!req.sessionID) { // if the session ID doesn't exist, generate a new one
+		req.session.regenerate((err) => {
+			if (err) {
+				console.error('Error generating new session ID', err);
+			} else {
+				console.log('New session ID generated');
+			}
+		});
+	}
+	next();
+}
 // Lắng nghe các yêu cầu POST tới localhost:6969
 app.use(bodyParser.json());
 app.use(cors({ origin: true, credentials: true }));
@@ -223,6 +234,8 @@ app.use(session({
 	resave: false,
 	saveUninitialized: false
 }));
+app.use(preventSessionFixation);
+
 const parentDirectory = path.dirname(__dirname);
 app.use(express.static(parentDirectory));
 
@@ -394,8 +407,8 @@ passport.deserializeUser(async function (userId, done) {
 
 //////////LOG IN WITH GOOGLE////////////////////////////////////////////////////////////////////////////////////////////////
 passport.use(new GoogleStrategy({
-	clientID: credentials.web.client_id,
-	clientSecret: credentials.web.client_secret,
+	clientID: credentials.google.client_id,
+	clientSecret: credentials.google.client_secret,
 	callbackURL: "http://localhost:6969/auth/google/callback",
 	passReqToCallback: true
 },
@@ -405,15 +418,16 @@ passport.use(new GoogleStrategy({
 			const existingUser = await server.find_one_Data("tt_nguoi_dung", { googleId: profile.id });
 			if (existingUser) {
 				// update new data for tt_nguoi_dung database
-				await server.update_one_Data("tt_nguoi_dung", {googleId: profile.id}, {
-					email: profile.emails[0].value,
-					displayName: profile.displayName,
-					avatarUrl: profile.photos[0].value,
-					sex: "unknown",
-					likeNovels: [],
-					monitorNovels: [],
-					commentIds: []
-				});
+				await server.update_one_Data("tt_nguoi_dung", { googleId: profile.id },
+					{
+						email: profile.emails[0].value,
+						displayName: profile.displayName,
+						avatarUrl: profile.photos[0].value,
+						sex: "unknown",
+						likeNovels: [],
+						monitorNovels: [],
+						commentIds: []
+					});
 
 				return done(null, existingUser.googleId);
 				/// set cookie cho vào tài khoảng
@@ -431,9 +445,9 @@ passport.use(new GoogleStrategy({
 					commentIds: []
 				};
 
-				await server.add_one_Data("tt_nguoi_dung", newUser.googleId);
+				await server.add_one_Data("tt_nguoi_dung", newUser);
 				/// set cookie cho vào tài khoảng
-				return done(null, newUser);
+				return done(null, newUser.googleId);
 			}
 		} catch (err) {
 			return done(err);
@@ -461,73 +475,71 @@ app.get('/auth/google/callback',
 
 //////////LOG IN WITH FACEBOOK////////////////////////////////////////////////////////////////////////////////////////////////
 passport.use(new FacebookStrategy({
-	clientID: credentials.web.client_id, // cho nay thay the thanh caur facebook
-	clientSecret: credentials.web.client_secret, // cho nay thay thanh cau facebook
-	callbackURL: "http://localhost:6969/auth/google/callback",
+	clientID: credentials.facebook.client_id,
+	clientSecret: credentials.facebook.client_secret,
+	callbackURL: "http://localhost:6969/auth/facebook/callback",
 	passReqToCallback: true
 },
 	async function (request, accessToken, refreshToken, profile, done) {
-		try {
-			// Kiểm tra xem thông tin người dùng đã tồn tại chưa
-			const existingUser = await server.find_one_Data("tt_nguoi_dung", { googleId: profile.id });
-			if (existingUser) {
-				// update new data for tt_nguoi_dung database
-				await server.update_one_Data("tt_nguoi_dung", {googleId: profile.id}, {
-					email: profile.emails[0].value,
-					displayName: profile.displayName,
-					avatarUrl: profile.photos[0].value,
-					sex: "unknown",
-					likeNovels: [],
-					monitorNovels: [],
-					commentIds: []
-				});
+		console.log(profile);
+		return done(null, profile.id);
+		// try {
+		// 	// Kiểm tra xem thông tin người dùng đã tồn tại chưa
+		// 	const existingUser = await server.find_one_Data("tt_nguoi_dung", { facebookId: profile.id });
+		// 	if (existingUser) {
+		// 		// update new data for tt_nguoi_dung database
+		// 		await server.update_one_Data("tt_nguoi_dung", { facebookId: profile.id }, {
+		// 			email: profile.emails[0].value,
+		// 			displayName: profile.displayName,
+		// 			avatarUrl: profile.photos[0].value,
+		// 			sex: "unknown",
+		// 			likeNovels: [],
+		// 			monitorNovels: [],
+		// 			commentIds: []
+		// 		});
 
-				return done(null, existingUser.googleId);
-				/// set cookie cho vào tài khoảng
-			}
-			else {
-				// Tạo mới một người dùng
-				const newUser = {
-					googleId: profile.id,
-					email: profile.emails[0].value,
-					displayName: profile.displayName,
-					avatarUrl: profile.photos[0].value,
-					sex: "unknown",
-					likeNovels: [],
-					monitorNovels: [],
-					commentIds: []
-				};
+		// 		return done(null, existingUser.facebookId);
+		// 		/// set cookie cho vào tài khoảng
+		// 	}
+		// 	else {
+		// 		// Tạo mới một người dùng
+		// 		const newUser = {
+		// 			facebookId: profile.id,
+		// 			email: profile.emails[0].value,
+		// 			displayName: profile.displayName,
+		// 			avatarUrl: profile.photos[0].value,
+		// 			sex: "unknown",
+		// 			likeNovels: [],
+		// 			monitorNovels: [],
+		// 			commentIds: []
+		// 		};
 
-				await server.add_one_Data("tt_nguoi_dung", newUser.googleId);
-				/// set cookie cho vào tài khoảng
-				return done(null, newUser);
-			}
-		} catch (err) {
-			return done(err);
-		}
+		// 		await server.add_one_Data("tt_nguoi_dung", newUser.facebookId);
+		// 		/// set cookie cho vào tài khoảng
+		// 		return done(null, newUser);
+		// 	}
+		// } catch (err) {
+		// 	return done(err);
+		// }
 	}
 ));
 
 app.get(
-	'/auth/google',
-	passport.authenticate('google', {
-		scope: ['profile', 'email']
+	'/auth/facebook',
+	passport.authenticate('facebook', {
+		scope: ['public_profile', 'email'] // không biết đúng không làm đại
 	})
 );
 
-// lấy dữ liêu liệu về từ google
-app.get('/auth/google/callback',
-	passport.authenticate('google', { failureRedirect: '/login' }),
+app.get('/auth/facebook',
+	passport.authenticate('facebook'));
+
+app.get('/auth/facebook/callback',
+	passport.authenticate('facebook', { failureRedirect: '/login' }),
 	function (req, res) {
-		// Xử lý khi xác thực thành công
-		// res.redirect('/');
-		// Đóng tab hiện tại
+		// Successful authentication, redirect home.
 		res.send('<script>window.close();</script>');
-	}
-);
-
-
-
+	});
 
 // Schedule the code execution at midnight (00:00)
 cron.schedule('0 0 * * *', async () => {

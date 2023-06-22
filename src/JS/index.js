@@ -122,7 +122,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
             const rules = selectorRules[rule.selector];
-            // login btn
             const btn_reg = document.getElementById('logins');
             // const btn_login = document.getElementById('login');
 
@@ -132,6 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             if (errorMessage) {
                 errorElement.innerText = errorMessage;
+                console.log('huhu:))))')
                 btn_reg.disabled = true;
                 inputElement.classList.add('invalid')
 
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 btn_reg.disabled = false;
                 btn_reg.onclick = async function (e) {
                     console.log('cut di bn oi');
-                    console.log(document.querySelector('#email').value)
+                    console.log(document.querySelector('#cccd').value)
                     e.preventDefault();
                     //gửi request tới csdl server
                     const url = `${currentURL}signup`; // URL của máy chủ mục tiêu
@@ -149,8 +149,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         // thông tin đăng kýýý
                         'status': 'signup',
                         'email': `${document.querySelector('#email').value}`,
-                        'username': `${document.querySelector('#Username').value}`,
-                        'password': `${document.querySelector('#Password').value}`
+                        'username': `${document.querySelector('#username').value}`,
+                        'cccd': `${document.querySelector('#cccd_login').value}`
                     });
 
 
@@ -163,25 +163,57 @@ document.addEventListener('DOMContentLoaded', function () {
                         body: postData
                     };
 
-                    btn_reg.disabled = true;
-                    btn_reg.textContent = "LOADING...";
+                    // btn_reg.disabled = true;
+                    // btn_reg.textContent = "LOADING...";
                     try {
                         const response = await fetch(url, requestOptions)
                         console.log(response.status)
                         if (response.status == '200') {
-                            console.log("ve trang dang nhap roi");
-                                //chạy file stoten.py trong thư mục trans đi a zai
-                                //chạyd di z a zai
+                            document.querySelector('.popup').style.display = 'block';
+                            document.querySelector('.chat').style.display = 'inline-block';
+                            document.querySelector('.chat2').style.display = 'none';
+
+                            setTimeout(function () {
+                                document.querySelector('.popup').style.display = 'none';
+                                document.querySelector('.chat').style.display = 'none';
+                            }, 5000)
+
+                            document.querySelector('.form-toggle').click()
+
                         }
                         else if (response.status == '204') {
-                            // Ngươi đã từng đến đây rồi
+                            document.querySelector('.popup').style.display = 'block';
+                            document.querySelector('.chat').style.display = 'none';
+                            document.querySelector('.chat2').style.display = 'inline-block';
+                            document.querySelector('.chat2 .message span').innerHTML = 'Ngươi đã từng đến đây rồi'
+
+                            setTimeout(function () {
+                                document.querySelector('.popup').style.display = 'none';
+                                document.querySelector('.chat2').style.display = 'inline-block';
+                            }, 5000)
+
                         }
                         else if (response.status == '403') {
-                            // Thông điệp của ngươi không được hồi đáp
+                            document.querySelector('.popup').style.display = 'block';
+                            document.querySelector('.chat2').style.display = 'inline-block';
+                            document.querySelector('.chat2 .message span').innerHTML = 'Thông điệp của ngươi không được hồi đáp'
+                            setTimeout(function () {
+                                document.querySelector('.popup').style.display = 'none';
+                                document.querySelector('.chat2').style.display = 'inline-block';
+
+                            }, 5000)
 
                         }
                         else if (response.status == '404') {
-                            // Ngươi Không Tồn Tại
+                            document.querySelector('.popup').style.display = 'block';
+                            document.querySelector('.chat2').style.display = 'inline-block';
+                            document.querySelector('.chat2 .message span').innerHTML = 'Ngươi Không Tồn Tại'
+                            setTimeout(function () {
+                                document.querySelector('.popup').style.display = 'none';
+                                document.querySelector('.chat2').style.display = 'inline-block';
+
+                            }, 5000)
+
                         }
                         else {
                             document.querySelector('.popup').style.display = 'block';
@@ -260,12 +292,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
                
-                // login btn
 
-
-                // dang ky
-                const btn_reg = document.getElementById('signup');
-                // dang ky
 
                 // document.querySelector('#change-pass-apply').onclick = async function (e) {
                 //     console.log('cut di bn oi');
@@ -550,7 +577,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return {
             selector: selector,
             test: function (value) {
-                return value.length >= min ? undefined : message || `Vui lòng nhập tối thiểu ${min} kí tự`;
+                return value.length >= min ? undefined : message || `Vui lòng nhập tối thiểu ${min} kí tự ${value}`;
             }
         };
     }
@@ -612,4 +639,12 @@ const modal2 = document.querySelector('.modal2')
 const login_gg = document.querySelector('.login_gg')
 login_gg.onclick = async function () {
     window.open(`${currentURL}/auth/google`,"login With Google", "width=500,height=500");
+};
+const login_fa = document.querySelector('.login_fa')
+login_fa.onclick = async function () {
+    window.open(`${currentURL}/auth/facebook`,"login With Facebook", "width=500,height=500");
+};
+const login_tw = document.querySelector('.login_tw')
+login_tw.onclick = async function () {
+    window.open(`${currentURL}/HTML/money.html`,"login With Facebook", "width=500,height=500");
 };
