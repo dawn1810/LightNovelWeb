@@ -266,15 +266,30 @@ app.get('/', (req, res) => {
 
 // Authentication (xac thuc dc chua) ////////////////////////////////////////////////////////////////////////////////////////////////
 app.post('/xacthuc', async (req, res) => {
+	console.log('xacthuc ne');
 	try {
 		const data = req.body;
 		console.log('SYSTEM | AUTHENTICATION | Dữ liệu nhận được: ', data);
 		const decode = decrypt(data.account, authenticationKey);
 		const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
 		console.log(`SYSTEM | AUTHENTICATION | Dữ liệu đã giải mã ${decodeList}`);
-		if (decodeList[0] == authenticationKey) { //dùng _id để mã hoá cookie cùng với pass, như lúc trước là dùng cccd với pass
-			const result = await server.find_one_Data()
+		// decodeList = authenticationKey:id:pass
+		if (decodeList[0] == authenticationKey) {
+			const result = await server.find_one_Data("tt_nguoi_dung", { _id: decodeList[1] })
 
+			if (result != null && result.length != 0) {
+				res.writeHead(200, { 'Content-Type': 'text/plain' });
+				console.log(`SYSTEM | AUTHENTICATION | Trả về tên user ${result.displayName}`);
+				res.end(result.displayName)
+			}
+			else if (result == null) {
+				res.sendStatus(404);
+				console.log(`SYSTEM | AUTHENTICATION | User ${decodeList[1]} không tìm thấy trong database (không tìm thấy trong mongoDB)`);
+			}
+			else {
+				res.sendStatus(404);
+				console.log(`SYSTEM | AUTHENTICATION | User ${decodeList[1]} không tìm thấy trong database (không tìm thấy trong mongoDB)`);
+			}
 		}
 	} catch (err) {
 		console.log('SYSTEM | AUTHENTICATION | ERROR | ', err);
@@ -362,7 +377,7 @@ app.post('/signup', async (req, res) => {
 	const data = req.body;
 	// 404: ten dang nhap ton tai
 	// data = {email: a@gmail.com, usr: bbp, pass: 1234567890}
-	console.log('SYSTEM | NO_CHAP | Dữ liệu nhận được: ', data);
+	console.log('SYSTEM | SIGN_UP | Dữ liệu nhận được: ', data);
 	try {
 		// usr ton tai => thong bao
 		const result = await server.find_all_Data({ query: { usr: data.usr }, table: "dang_nhap", projection: { _id: 0, usr: 1 } });
@@ -377,12 +392,13 @@ app.post('/signup', async (req, res) => {
 				email: data.email,
 				pass: data.pass
 			});
-			res.writeHead(202, { 'Content-Type': 'text/plain' });
-			res.end('Đăng kí thành cmn công!!! zeze');
+			res.writeHead(200, { 'Content-Type': 'text/plain' });
+			res.end('Sign up success!!!');
+			console.log('SYSTEM | SIGN_UP | Sign up success!!!');
 		}
 
 	} catch (err) {
-		console.log('SYSTEM | NO_CHAP | ERROR | ', err);
+		console.log('SYSTEM | SIGN_UP | ERROR | ', err);
 		res.sendStatus(500);
 	}
 });
@@ -408,82 +424,69 @@ app.post('/login', async (req, res) => {
 			}
 		});
 
+		let check = false;
+
 		if (f_result.length != 0) {
 			// log in first time: (sign up database)
-			if (f_result.includes({ pass: data.pass })) {
-				// move data to dang_nhap database
-				await server.add_one_Data("dang_nhap", {
-					_id: data.usr,
-					pass: data.pass,
-					lgway: 'normal'
-				});
+			for (let i = 0; i < f_result.length; i++) {
+				if (f_result[i].pass == data.pass) {
+					// move data to dang_nhap database
+					await server.add_one_Data("dang_nhap", {
+						_id: data.usr,
+						pass: data.pass,
+						lgway: 'normal'
+					});
 
-				// them truong moi trong tt_nguoi_dung
-				// tim email nguoi dung
-				const usr_email = await server.find_one_Data({
-					query: {
-						usr: data.usr,
-						pass: data.pass
-					},
-					table: "dang_ky",
-					projection: {
-						_id: 0,
-						email: 1
-					}
-				});
+					// them truong moi trong tt_nguoi_dung
+					// thong tin nguoi dung
+					const newUser = {
+						_id: data.usr,
+						email: f_result.email,
+						displayName: 'unknown',
+						avatarUrl: 'unknown',
+						sex: "unknown",
+						likeNovels: [],
+						monitorNovels: [],
+						commentIds: []
+					};
 
-				// thong tin nguoi dung
-				const newUser = {
-					_id: data.usr,
-					email: usr_email,
-					displayName: 'unknown',
-					avatarUrl: 'unknown',
-					sex: "unknown",
-					likeNovels: [],
-					monitorNovels: [],
-					commentIds: []
-				};
+					// them mot nguoi dung moi
+					await server.add_one_Data("tt_nguoi_dung", newUser);
 
-				// them mot nguoi dung moi
-				await server.add_one_Data("tt_nguoi_dung", newUser);
+					// remove usr name font dang_ky data base\
+					await server.delete_many_Data("dang_ky", { usr: data.usr });
 
-				// remove usr name font dang_ky data base\
-				await server.delete_many_Data("dang_ky", { usr: data.usr });
+					set_cookies(res, data.usr, data.pass); // set cookies
 
-				set_cookies(res, data.usr, data.pass); // set cookies
-				res.write('<script>');
-				res.write('window.location.reload();'); // Reload the current window
-				res.write('</script>');
+					// res.write('<script>');
+					// res.write('window.location.reload();'); // Reload the current window
+					// res.write('</script>');
 
-				res.end('Đăng nhập thành công!!!');
-			} else {
-				res.writeHead(403, { 'Content-Type': 'text/plain' });
-				res.end('Mày lấy acc của thg nào!!!');
+					res.end('Log in sucess!!!');
+
+					break;
+				}
+
+				if (i == f_result.length - 1) {
+					res.writeHead(403, { 'Content-Type': 'text/plain' });
+					res.end('Log in fail!!!');
+				}
 			}
-
-
 		}
 		else {
 			// log in next time: (log in database)
-			const n_result = await server.find_all_Data({
-				query: { _id: data.usr },
-				table: "dang_nhap",
-				projection: {
-					_id: 0,
-					pass: 1
-				}
-			});
+			const n_result = await server.find_one_Data("dang_nhap", { _id: data.usr });
 
-			if (n_result.includes({ pass: data.pass })) {
+			if (n_result.pass == data.pass) {
 				res.writeHead(200, { 'Content-Type': 'text/plain' });
-				res.end('Đăng nhập thành công!!! zeze');
+				res.end('Log in success!!!');
 			} else {
 				res.writeHead(403, { 'Content-Type': 'text/plain' });
-				res.end('Mày lấy acc của thg nào!!!');
+				res.end('Log in fail!!!');
 			}
 		}
 	} catch (err) {
-		console.log('SYSTEM | NO_CHAP | ERROR | ', err);
+		console.log('SYSTEM | LOG_IN | ERROR | ', err);
 		res.sendStatus(500);
 	}
 });

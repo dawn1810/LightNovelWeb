@@ -99,6 +99,7 @@ async function get_popular_novel() {
 
 }
 
+
 document.addEventListener('DOMContentLoaded', function () {
     console.log(document.querySelector('#form1'))
     function Validator(options) {
@@ -151,13 +152,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     const url = `${currentURL}/signup`; // URL của máy chủ mục tiêu
                     const postData = JSON.stringify({
                         // thông tin đăng kýýý
-                        'status': 'login',
                         'email': `${document.querySelector('#form2 #email').value}`,
                         'usr': `${document.querySelector('#form2 #Username').value}`,
                         'pass': `${document.querySelector('#form2 #Password').value}`,
                     });
 
-                    //bình minh bị gà
+                    //bình minh bị đẹp trai
                     const requestOptions = {
                         method: 'POST',
                         headers: {
@@ -175,19 +175,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     try {
                         const response = await fetch(url, requestOptions)
                         console.log(response.status)
-                        // if (response.status == '200') {
-                        //     document.querySelector('.popup').style.display = 'block';
-                        //     document.querySelector('.chat').style.display = 'inline-block';
-                        //     document.querySelector('.chat2').style.display = 'none';
+                        if (response.status == '200') {
+                            // document.querySelector('.popup').style.display = 'block';
+                            // document.querySelector('.chat').style.display = 'inline-block';
+                            // document.querySelector('.chat2').style.display = 'none';
 
-                        //     setTimeout(function () {
-                        //         document.querySelector('.popup').style.display = 'none';
-                        //         document.querySelector('.chat').style.display = 'none';
-                        //     }, 5000)
+                            // setTimeout(function () {
+                            //     document.querySelector('.popup').style.display = 'none';
+                            //     document.querySelector('.chat').style.display = 'none';
+                            // }, 5000)
 
-                        //     document.querySelector('.form-toggle').click()
+                            // document.querySelector('.form-toggle').click()
+                            document.querySelector('.no_login a').click()
 
-                        // }
+                        }
                         // else if (response.status == '204') {
                         //     document.querySelector('.popup').style.display = 'block';
                         //     document.querySelector('.chat').style.display = 'none';
@@ -238,10 +239,50 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     }
                     //eye
-
-
-
                 }
+                // log in 
+                // data = {usr: bbp, pass: 1234567890}
+                const log_btn = document.querySelector('.login');
+                log_btn.onclick = async function (e) {
+                    console.log('cut di bn oi');
+                    e.preventDefault();
+                    //gửi request tới csdl server
+                    const url = `${currentURL}/login`; // URL của máy chủ mục tiêu
+                    const postData = JSON.stringify({
+                        // thông tin đăng ký
+                        'usr': `${document.querySelector('#form1 #Username').value}`,
+                        'pass': `${document.querySelector('#form1 #Password').value}`
+                    });
+
+                    //bình minh bị đẹp trai
+                    const requestOptions = {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: postData
+                    };
+
+                    reg_btn.disabled = true;
+                    reg_btn.innerHTML = `<div class="load">
+                    <div class="progress"></div>
+                    <div class="progress"></div>
+                    <div class="progress"></div>
+                </div>`;
+                    try {
+                        const response = await fetch(url, requestOptions)
+                        console.log(response.status)
+                        if (response.status == 200) {
+                            console.log('e sơ')
+                            window.location.reload();
+                        }
+                    } catch (error) {
+                        console.log('Error:', error);
+
+                    }
+                    //eye
+                }
+
                 const eyea = document.querySelector('#form1 .eye')
                 const eye1a = document.querySelector('#form1 .eye-icon1')
                 const eye2a = document.querySelector('#form1 .eye-icon2')
@@ -250,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 eyea.onclick = function () {
                     console.log(123)
 
-                    if (go >= 3) {
+                    if (go >= 5) {
                         eye3a.classList.remove('displayed')
                         eye2a.classList.add('displayed')
                         eye1a.classList.add('displayed')

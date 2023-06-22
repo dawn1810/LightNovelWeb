@@ -1,6 +1,6 @@
 //xin chào bbp
 const background_color = document.getElementById("ss_reader_background")
-const currentURL = window.location.origin;
+// const currentURL = window.location.origin;
 
 const textColor = document.getElementById("ss_reader_textColor")
 
@@ -73,8 +73,8 @@ const lame_auto = document.querySelector('.lame-auto');
 const pause = document.querySelector('.pause')
 const play = document.querySelector('.play')
 
-const menus =  document.querySelectorAll('.menu a')
-for(const meme of menus) {
+const menus = document.querySelectorAll('.menu a')
+for (const meme of menus) {
     meme.onclick = (e) => {
         e.preventDefault();
     }

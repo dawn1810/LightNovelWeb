@@ -4,7 +4,7 @@ const category_btn = document.getElementById('category')
 const category_list = document.querySelector('.category_list')
 const summary_Content = document.querySelector('.summary-Content')
 const summary_btn = document.querySelector('.summary-btn')
-const currentURL = window.location.origin;
+
 
 let menuBtnCount = true;
 ///anh zai xin chỗ
@@ -34,27 +34,27 @@ async function checkAuthentication() {
         })
             .then(response => {
                 if (response.status === 200) {
-                //     document.querySelector('.header_1 ').style.display = 'none'
+                    //     document.querySelector('.header_1 ').style.display = 'none'
 
-                //     return response.text(); // Chuyển đổi phản hồi thành văn bản
+                    //     return response.text(); // Chuyển đổi phản hồi thành văn bản
 
-                // } else {
-                //     document.querySelector('.header_2 ').style.display = 'none'
+                    // } else {
+                    //     document.querySelector('.header_2 ').style.display = 'none'
                 }
             })
-    //         .then(data => {
-    //             responseData = data; // Lưu trữ nội dung phản hồi vào biến
-    //             if (responseData) {
-    //                 document.querySelector('.header_2 #User-btn').innerHTML = responseData;
-    //             }
-    //         }) // In nội dung phản hồi
-    //         // Sử dụng responseData ở những nơi khác trong mã của b
-    //         .catch(error => {
-    //             console.log(error)
-    //         });
-    // }
-    // else {
-    //     document.querySelector('.header_2 ').style.display = 'none'
+        //         .then(data => {
+        //             responseData = data; // Lưu trữ nội dung phản hồi vào biến
+        //             if (responseData) {
+        //                 document.querySelector('.header_2 #User-btn').innerHTML = responseData;
+        //             }
+        //         }) // In nội dung phản hồi
+        //         // Sử dụng responseData ở những nơi khác trong mã của b
+        //         .catch(error => {
+        //             console.log(error)
+        //         });
+        // }
+        // else {
+        //     document.querySelector('.header_2 ').style.display = 'none'
 
 
     }
@@ -141,7 +141,7 @@ const swiper = new Swiper('.swiper', {
     autoplay: {
         delay: 5000,
         disableOnInteraction: false
-      },
+    },
     centeredSlides: true,
     clickable: true,
 

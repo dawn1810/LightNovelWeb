@@ -114,6 +114,18 @@
                     </div>
                 </div>
 
+
+                <!-- sau khi dang nhap -->
+
+                <div class="curent_user">
+                    <a class="avt">
+                        <img src="https://lh3.googleusercontent.com/4OKGtyPkhZm9Bqe3YVS8XzA1rAEwqdjZGAXcn-eXswqui6CBU5cZWYRjnSPnLieClblPv2HO_IdKaOhdF90wCL1VLhB3BhAwUM1u2SZkNlo4S_3BnwGRYqT0PfX-sWItniM2Igb-xiy9IRmhQYW09fgvyvj72GKRTf_fpYRhgrtuG5yP9HAXAjBrcHO26Sq_iDi2C44WcnOUQl5ca2aSYRCrbzC71qE_Dzenk8-L9_6deuj9rLK7zwR9JfvHAfGJiYsqnf4llrCs7CY22vXihEfBfVN6XJ9T-ItK-xtQuEZdXKDEfWkb2CMRlRjGRLT8oqYyJ_4aIe92c2eBmE5p8KEODx2_vgWGKhpKYDzBaNM96k5Q1mCmbi-B7fS_W2B_hybI1QbVWcB67kM-8mHok8a8MfBgivIh7X4MAauyUKYMbtdD3lyU2JMjtmIr6yLHU2ME-9EyaC7BKmhLYsInbqHRXgsba6HeGp2nxuKE5KzXzUbZdzDgHLoeedJGUPIvVH-oVu5T9-99wgGu8Vzo_zpvS_2D0Xg2SKBkXQtBUJ9oKUOfCGcERs2mEQCbNDzf0lAfPyTAB8ljllshXKNXRiWvJuMl7EVmX2p_l883wo_nm2LgfuwbNdlNPiiDL4_6we37yJAg0Aa-BfFGHeMO5jBJ8CvTBQaMWc8shibxofTLzMdvNOnTiYEZAynWtZQG0ViyOqwGScZEPvZCYrEAe7ATO-ceaQKZ9r3fIzEawSQIhpx3SCGLcAqjuVd2HjcgvVXjfCnerIRqtMJf2V_WBXEtg6XCwvjp7v8ggRlu4IqiWVac1uNppiHjnZcqnPic_qGYkGhb4x9PosxTD5t9LZ-7ijV5ClD39jlEA-3kAzJCLNZiECqzfw3Lze-hipMrBDFEqn9Tf67cI_aAvNdoWw3LGrE_chcBpaJYt-5jv0WdcTjQUw=w242-h376-s-no?authuser=0"
+                            alt="" class="avt_user">
+                    </a>
+                </div>
+
+                <!-- sau khi dang nhap -->
+
             </div>
 
 
@@ -413,23 +425,23 @@
             <div id="favorite_novel" class=" left_li"><i class="fa-solid fa-heart"></i> Truyện Được Yêu Thích</div>
         </li>
         <li id="trending_novel_btn" class=" left_li">
-            <a  href="/HTML/category-page.html"> <i class="fa-solid fa-chart-simple"></i> Top
+            <a href="/HTML/category-page.html"> <i class="fa-solid fa-chart-simple"></i> Top
                 Thịnh Hành </a>
         </li>
         <li id="liked_novel" class=" left_li">
-            <a  href="/HTML/category-page.html"> <i class="fa-sharp fa-solid fa-thumbs-up"></i>
+            <a href="/HTML/category-page.html"> <i class="fa-sharp fa-solid fa-thumbs-up"></i>
                 Truyện yêu thích</a>
         </li>
         <li id="history" class=" left_li">
             <div><i class="fa-solid fa-clock-rotate-left"></i> Lịch Sử</div>
         </li>
-        <li class="d-l_theme">
-            <input type="checkbox" class="checkbox" id="checkbox">
-            <label for="checkbox" class="checkbox-label">
-                <i class="fas fa-moon"></i>
-                <i class="fas fa-sun"></i>
-                <span class="ball"></span>
-            </label>
+        <li class="d-l_theme ">
+            <div class="toggle-switch">
+                <label class="switch-label">
+                    <input type="checkbox" class="checkbox" id="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
         </li>
     </ul>
 
@@ -492,7 +504,7 @@
             console.log('cho long')
         });
         const checkbox = document.getElementById("checkbox")
-        
+
         // checkbox.addEventListener("change", () => {
         //     console.log("Checkbox")
         //     // if (checkbox.checked) {

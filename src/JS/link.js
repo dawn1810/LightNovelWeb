@@ -18,7 +18,7 @@ $(document).ready(function () {
 
 
 
-       
+
 
         let menuBtnCount = true;
         const rootStyle = document.documentElement.style;
@@ -30,13 +30,20 @@ $(document).ready(function () {
                 localStorage.setItem('theme', 'dark');
 
                 // home
-                rootStyle.setProperty('--header-background', "#000");
+                rootStyle.setProperty('--header-background', "#292c49");
                 rootStyle.setProperty('--black-text', "#fff");
-                rootStyle.setProperty('--white-color', "#312a04");
-                rootStyle.setProperty('--background-color', "#000");
-                rootStyle.setProperty('--category_bg', "#042e4e");
-                rootStyle.setProperty('--search-bg', "#fff");
+                rootStyle.setProperty('--white-color', "#000");
+                rootStyle.setProperty('--background-color', "#1e1e1e");
+                rootStyle.setProperty('--category_bg', "#374d88");
+                rootStyle.setProperty('--search-bg', "#959595");
                 rootStyle.setProperty('--menu-text', "#fff");
+                rootStyle.setProperty('--item-color', "rgb(38 56 123)");
+                rootStyle.setProperty('--button-color', "#23427a");
+                rootStyle.setProperty('--login-btn', "#ff971b");
+                rootStyle.setProperty('--author-color', "#2a3995");
+                rootStyle.setProperty('--header-text', "#ecd9c2");
+                rootStyle.setProperty('--link-text', "#c24141");
+                rootStyle.setProperty('--novel_author', "#788afc");
                 // home
 
                 // review
@@ -147,7 +154,7 @@ $(document).ready(function () {
 // document.addEventListener('DOMContentLoaded', function() {
 //     category_btn.onclick = function () {
 //         category_list.style.display = 'block';
-//     };    
+//     };
 //   });
 
 

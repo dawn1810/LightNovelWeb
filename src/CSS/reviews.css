@@ -1,6 +1,7 @@
-:root{
-    --title-color:#2c5fc9;
-    --button-color:var(--button-color);
+:root {
+    --title-color: #2c5fc9;
+    --chap-item: rgb(213 148 66);
+
 }
 
 main {
@@ -132,14 +133,14 @@ button:hover {
 .btn1:hover h4 {
     color: hsla(323, 87%, 50%, 0.664);
 }
-   
 
-.wrapper{
+
+.wrapper {
     margin: 20px;
 
-  }
-  
-  .button-efect{
+}
+
+.button-efect {
     display: block;
     width: 200px;
     height: 40px;
@@ -153,16 +154,16 @@ button:hover {
     text-align: center;
     position: relative;
     transition: all .35s;
-    border-radius: 10px;    
+    border-radius: 10px;
     background-color: white;
-  }
-  
-  .button-efect span{
+}
+
+.button-efect span {
     position: relative;
     z-index: 2;
-  }
-  
-  .button-efect:after{
+}
+
+.button-efect:after {
     position: absolute;
     content: "";
     top: 0;
@@ -172,15 +173,15 @@ button:hover {
     background: var(--button-color);
     transition: all .35s;
     border-radius: 6px;
-  }
-  
-  .button-efect:hover{
+}
+
+.button-efect:hover {
     color: #fff;
-  }
-  
-  .button-efect:hover:after{
+}
+
+.button-efect:hover:after {
     width: 100%;
-  }
+}
 
 
 
@@ -216,7 +217,7 @@ h4 {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: rgb(151 107 51);
+    background-color: var(--item-color);
     border-left: 5px solid;
     margin: 5px;
 }
@@ -253,7 +254,8 @@ h4 {
 .Similar_title {
     padding: 20px 0;
     font-size: 25px;
-    color: var(--login-btn);;
+    color: var(--login-btn);
+    ;
 
 }
 
@@ -289,7 +291,7 @@ h4 {
     margin-bottom: 10px;
     padding: 5px;
     border-radius: 17px;
-    background-color: rgb(213 148 66);
+    background-color: var(--chap-item);
 }
 
 .same-propose img {
@@ -369,7 +371,8 @@ h4 {
     background-color: #ceae80;
 
 }
-.comment_container_wrap{
+
+.comment_container_wrap {
     padding: 20px;
 }
 
@@ -453,7 +456,8 @@ h4 {
 .posting_time {
     color: #38383875;
 }
-.Evaluate_btn:hover{
+
+.Evaluate_btn:hover {
     color: #1877f2;
 }
 
@@ -513,6 +517,6 @@ h4 {
     color: red;
 }
 
-.Information{
+.Information {
     margin: 10px 0;
 }
