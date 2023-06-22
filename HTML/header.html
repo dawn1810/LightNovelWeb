@@ -76,7 +76,7 @@
                 </div>
             </div>
             <div class="header_end">
-                
+
                 <div class="header_user">
                     <div class="header_notify">
                         <div class="header_notify_logo">
@@ -87,7 +87,7 @@
                                 <div class="header_notify_more_head_title">
                                     Thông báo
                                 </div>
-    
+
                             </div>
                             <div class="header_notify_more_item">
                                 Chưa có thông báo
@@ -113,7 +113,7 @@
                         Sign Up
                     </div>
                 </div>
-                
+
             </div>
 
 
@@ -151,8 +151,8 @@
                                     target="_self">Adventure</a>
                             </li>
                             <li id="category-item-btn">
-                                <a href="/HTML/category-page.html" title="Anime" data-title="Truyện đã được chuyển thể thành film Anime"
-                                    target="_self">Anime</a>
+                                <a href="/HTML/category-page.html" title="Anime"
+                                    data-title="Truyện đã được chuyển thể thành film Anime" target="_self">Anime</a>
                             </li>
                             <li id="category-item-btn">
                                 <a href="/HTML/category-page.html" title="Chuyển Sinh"
@@ -165,11 +165,12 @@
                                     target="_self">Comedy</a>
                             </li>
                             <li id="category-item-btn">
-                                <a href="/HTML/category-page.html" title="Comic" data-title="Truyện tranh Châu Âu và Châu Mĩ" target="_self">Comic</a>
+                                <a href="/HTML/category-page.html" title="Comic"
+                                    data-title="Truyện tranh Châu Âu và Châu Mĩ" target="_self">Comic</a>
                             </li>
                             <li id="category-item-btn">
-                                <a href="/HTML/category-page.html" title="Cooking" data-title="Thể loại có nội dung về nấu ăn, ẩm thực"
-                                    target="_self">Cooking</a>
+                                <a href="/HTML/category-page.html" title="Cooking"
+                                    data-title="Thể loại có nội dung về nấu ăn, ẩm thực" target="_self">Cooking</a>
                             </li>
                             <li id="category-item-btn">
                                 <a title="Cổ Đại" data-title="Truyện có nội dung xảy ra ở thời cổ đại phong kiến."
@@ -397,6 +398,9 @@
                                     <strong>Xuyên Không</strong>
                                 </a>
                             </li>
+
+
+
                         </ul>
                     </div>
                     <!-- <div class="col-sm-12 hidden-xs">
@@ -409,13 +413,23 @@
             <div id="favorite_novel" class=" left_li"><i class="fa-solid fa-heart"></i> Truyện Được Yêu Thích</div>
         </li>
         <li id="trending_novel_btn" class=" left_li">
-            <a style="color: #063458;" href="/HTML/category-page.html"> <i class="fa-solid fa-chart-simple"></i> Top Thịnh Hành </a>
+            <a  href="/HTML/category-page.html"> <i class="fa-solid fa-chart-simple"></i> Top
+                Thịnh Hành </a>
         </li>
         <li id="liked_novel" class=" left_li">
-            <a style="color: #063458;" href="/HTML/category-page.html"> <i class="fa-sharp fa-solid fa-thumbs-up"></i> Truyện yêu thích</a>
+            <a  href="/HTML/category-page.html"> <i class="fa-sharp fa-solid fa-thumbs-up"></i>
+                Truyện yêu thích</a>
         </li>
         <li id="history" class=" left_li">
             <div><i class="fa-solid fa-clock-rotate-left"></i> Lịch Sử</div>
+        </li>
+        <li class="d-l_theme">
+            <input type="checkbox" class="checkbox" id="checkbox">
+            <label for="checkbox" class="checkbox-label">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+                <span class="ball"></span>
+            </label>
         </li>
     </ul>
 
@@ -477,7 +491,15 @@
         logo.addEventListener("mouseover", function () {
             console.log('cho long')
         });
-
+        const checkbox = document.getElementById("checkbox")
+        
+        // checkbox.addEventListener("change", () => {
+        //     console.log("Checkbox")
+        //     // if (checkbox.checked) {
+        //     //     rootStyle.setProperty('--white-color', "#000");
+        //     //     rootStyle.setProperty('--black-text', "#fff");
+        //     // }
+        // })
 
     </script>
     <script src="/src/JS/script.js"> </script>
@@ -522,42 +544,42 @@
     // });
 
     const login = document.querySelector('.header_login')
-login.onclick = function () {
-    console.log('Login')
-    modal.style.display = 'block'
-    if(modal2.style.display == 'block'){
-        modal2.style.display = 'none'
+    login.onclick = function () {
+        console.log('Login')
+        modal.style.display = 'block'
+        if (modal2.style.display == 'block') {
+            modal2.style.display = 'none'
+        }
     }
-}
-document.querySelector('.no_login a').onclick = function (e) {
-    e.preventDefault();
-    
-    login.click()
-}
+    document.querySelector('.no_login a').onclick = function (e) {
+        e.preventDefault();
 
-const sg = document.querySelector('.header_signup')
-sg.onclick = function () {
-    console.log('Login')
-    modal2.style.display = 'block'
-    if(modal.style.display == 'block'){
-        modal.style.display = 'none'
+        login.click()
     }
-}
-document.querySelector('.no_signup a').onclick = function (e) {
-    e.preventDefault();
-    
-    sg.click()
-}
-modal.onclick = function (event) {
-    if (!event.target.closest('.modal_wrap')) {
-        modal.style.display = 'none';
+
+    const sg = document.querySelector('.header_signup')
+    sg.onclick = function () {
+        console.log('Login')
+        modal2.style.display = 'block'
+        if (modal.style.display == 'block') {
+            modal.style.display = 'none'
+        }
     }
-}
-modal2.onclick = function (event) {
-    if (!event.target.closest('.modal_wrap')) {
-        modal2.style.display = 'none';
+    document.querySelector('.no_signup a').onclick = function (e) {
+        e.preventDefault();
+
+        sg.click()
     }
-}
+    modal.onclick = function (event) {
+        if (!event.target.closest('.modal_wrap')) {
+            modal.style.display = 'none';
+        }
+    }
+    modal2.onclick = function (event) {
+        if (!event.target.closest('.modal_wrap')) {
+            modal2.style.display = 'none';
+        }
+    }
 
 // modal('.modal_wrap').onclick = function (event) {
 //     event.stopPropagation();
@@ -566,4 +588,5 @@ modal2.onclick = function (event) {
 //     event.stopPropagation();
 // }
 </script>
+
 </html>

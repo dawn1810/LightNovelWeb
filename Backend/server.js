@@ -213,6 +213,7 @@ async function getNovelList() {
 		console.log('SYSTEM | GET_NOVEL_LIST | ERROR | ', err);
 	}
 }
+
 function preventSessionFixation(req, res, next) {
 	if (!req.sessionID) { // if the session ID doesn't exist, generate a new one
 		req.session.regenerate((err) => {
@@ -225,6 +226,24 @@ function preventSessionFixation(req, res, next) {
 	}
 	next();
 }
+
+function set_cookies(res, id, pass) {
+	const encryptedString = encrypt(`${authenticationKey}:${id}:${pass}`, authenticationKey);
+	const oneYearFromNow = new Date();
+	oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+	res.cookie('account', encryptedString, {
+		expires: oneYearFromNow,
+		secure: true,
+		sameSite: 'none',
+		domain: 'localhost',
+		// domain: 'c22c-2a09-bac5-d44d-18d2-00-279-87.ngrok-free.app',
+
+		path: '/'
+	});
+	res.writeHead(200, { 'Content-Type': 'text/html' });
+	console.log(`SYSTEM | SET_COOKIES | User ${id} login!`);
+}
+
 // Lắng nghe các yêu cầu POST tới localhost:6969
 app.use(bodyParser.json());
 app.use(cors({ origin: true, credentials: true }));
@@ -244,6 +263,25 @@ app.use(express.static(parentDirectory));
 app.get('/', (req, res) => {
 	res.sendFile(parentDirectory + '/HTML/index.html');
 });
+
+// Authentication (xac thuc dc chua) ////////////////////////////////////////////////////////////////////////////////////////////////
+app.post('/xacthuc', async (req, res) => {
+	try {
+		const data = req.body;
+		console.log('SYSTEM | AUTHENTICATION | Dữ liệu nhận được: ', data);
+		const decode = decrypt(data.account, authenticationKey);
+		const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
+		console.log(`SYSTEM | AUTHENTICATION | Dữ liệu đã giải mã ${decodeList}`);
+		if (decodeList[0] == authenticationKey) { //dùng _id để mã hoá cookie cùng với pass, như lúc trước là dùng cccd với pass
+			const result = await server.find_one_Data()
+
+		}
+	} catch (err) {
+		console.log('SYSTEM | AUTHENTICATION | ERROR | ', err);
+		res.sendStatus(500);
+	}
+});
+
 
 // Get chap ////////////////////////////////////////////////////////////////////////////////////////////////
 app.post('/give_me_chap', async (req, res) => {
@@ -281,7 +319,7 @@ app.post('/no_chaps', async (req, res) => {
 			res.writeHead(200, { 'Content-Type': 'text/plain' });
 			res.end(String(result[0].no_chapters));
 		}
-	} catch {
+	} catch (err) {
 		console.log('SYSTEM | NO_CHAP | ERROR | ', err);
 		res.sendStatus(500);
 	}
@@ -334,12 +372,16 @@ app.post('/signup', async (req, res) => {
 			res.end('Ten đang nhập đã tồn tại');
 		} else {
 			// add data to dang_ky database:
-			await server.add_one_Data("dang_ky", { email: data.email, usr: data.usr, pass: data.pass });
+			await server.add_one_Data("dang_ky", {
+				usr: data.usr,
+				email: data.email,
+				pass: data.pass
+			});
 			res.writeHead(202, { 'Content-Type': 'text/plain' });
 			res.end('Đăng kí thành cmn công!!! zeze');
 		}
 
-	} catch {
+	} catch (err) {
 		console.log('SYSTEM | NO_CHAP | ERROR | ', err);
 		res.sendStatus(500);
 	}
@@ -355,27 +397,82 @@ app.post('/login', async (req, res) => {
 	// email: 18102003
 	// }
 	// data = {usr: bbp, pass: 1234567890}
-	console.log('SYSTEM | NO_CHAP | Dữ liệu nhận được: ', data);
+	console.log('SYSTEM | LOG_IN | Dữ liệu nhận được: ', data);
 	try {
-		const f_result = await server.find_all_Data({ query: { usr: data.usr }, table: "dang_ky", projection: { _id: 0, pass: 1 } });
+		const f_result = await server.find_all_Data({
+			query: { usr: data.usr },
+			table: "dang_ky",
+			projection: {
+				_id: 0,
+				pass: 1
+			}
+		});
+
 		if (f_result.length != 0) {
 			// log in first time: (sign up database)
 			if (f_result.includes({ pass: data.pass })) {
 				// move data to dang_nhap database
-				await server.add_one_Data("dang_nhap", { usr: data.usr, pass: data.pass });
+				await server.add_one_Data("dang_nhap", {
+					_id: data.usr,
+					pass: data.pass,
+					lgway: 'normal'
+				});
+
+				// them truong moi trong tt_nguoi_dung
+				// tim email nguoi dung
+				const usr_email = await server.find_one_Data({
+					query: {
+						usr: data.usr,
+						pass: data.pass
+					},
+					table: "dang_ky",
+					projection: {
+						_id: 0,
+						email: 1
+					}
+				});
+
+				// thong tin nguoi dung
+				const newUser = {
+					_id: data.usr,
+					email: usr_email,
+					displayName: 'unknown',
+					avatarUrl: 'unknown',
+					sex: "unknown",
+					likeNovels: [],
+					monitorNovels: [],
+					commentIds: []
+				};
+
+				// them mot nguoi dung moi
+				await server.add_one_Data("tt_nguoi_dung", newUser);
+
 				// remove usr name font dang_ky data base\
 				await server.delete_many_Data("dang_ky", { usr: data.usr });
-				res.writeHead(200, { 'Content-Type': 'text/plain' });
-				res.end('Đăng nhập thành công!!! zeze');
+
+				set_cookies(res, data.usr, data.pass); // set cookies
+				res.write('<script>');
+				res.write('window.location.reload();'); // Reload the current window
+				res.write('</script>');
+
+				res.end('Đăng nhập thành công!!!');
 			} else {
 				res.writeHead(403, { 'Content-Type': 'text/plain' });
 				res.end('Mày lấy acc của thg nào!!!');
 			}
-			// set cookies
+
+
 		}
 		else {
 			// log in next time: (log in database)
-			const n_result = await server.find_all_Data({ query: { usr: data.usr }, table: "dang_nhap", projection: { _id: 0, pass: 1 } });
+			const n_result = await server.find_all_Data({
+				query: { _id: data.usr },
+				table: "dang_nhap",
+				projection: {
+					_id: 0,
+					pass: 1
+				}
+			});
 
 			if (n_result.includes({ pass: data.pass })) {
 				res.writeHead(200, { 'Content-Type': 'text/plain' });
@@ -385,7 +482,7 @@ app.post('/login', async (req, res) => {
 				res.end('Mày lấy acc của thg nào!!!');
 			}
 		}
-	} catch {
+	} catch (err) {
 		console.log('SYSTEM | NO_CHAP | ERROR | ', err);
 		res.sendStatus(500);
 	}
@@ -414,14 +511,14 @@ passport.use(new GoogleStrategy({
 },
 	async function (request, accessToken, refreshToken, profile, done) {
 		try {
-			console.log(accessToken);
-			console.log(refreshToken);
-			console.log(request);
+			// console.log(accessToken);
+			// console.log(refreshToken);
+			// console.log(request);
 			// Kiểm tra xem thông tin người dùng đã tồn tại chưa
-			const existingUser = await server.find_one_Data("tt_nguoi_dung", { googleId: profile.id });
+			const existingUser = await server.find_one_Data("tt_nguoi_dung", { _id: profile.id });
 			if (existingUser) {
 				// update new data for tt_nguoi_dung database
-				await server.update_one_Data("tt_nguoi_dung", { googleId: profile.id },
+				await server.update_one_Data("tt_nguoi_dung", { _id: profile.id },
 					{
 						email: profile.emails[0].value,
 						displayName: profile.displayName,
@@ -432,13 +529,13 @@ passport.use(new GoogleStrategy({
 						commentIds: []
 					});
 
-				return done(null, existingUser.googleId);
-				/// set cookie cho vào tài khoảng
+				return done(null, existingUser);
+
 			}
 			else {
 				// Tạo mới một người dùng
 				const newUser = {
-					googleId: profile.id,
+					_id: profile.id,
 					email: profile.emails[0].value,
 					displayName: profile.displayName,
 					avatarUrl: profile.photos[0].value,
@@ -448,9 +545,13 @@ passport.use(new GoogleStrategy({
 					commentIds: []
 				};
 
+				// dang_nhap data base:
+				await server.add_one_Data("dang_nhap", { _id: profile.id, lgway: 'google', });
+				// người dùng database:
 				await server.add_one_Data("tt_nguoi_dung", newUser);
+
 				/// set cookie cho vào tài khoảng
-				return done(null, newUser.googleId);
+				return done(null, newUser);
 			}
 		} catch (err) {
 			return done(err);
@@ -469,10 +570,26 @@ app.get(
 app.get('/auth/google/callback',
 	passport.authenticate('google', { failureRedirect: '/login' }),
 	function (req, res) {
-		// Xử lý khi xác thực thành công
-		// res.redirect('/');
-		// Đóng tab hiện tại
-		res.send('<script>window.close();</script>');
+		// req.user = {
+		// 	_id: '113263126602180653712',
+		// 	email: 'binhminh19112003@gmail.com',
+		// 	displayName: 'Dawn Nguyen',
+		// 	avatarUrl: 'https://lh3.googleusercontent.com/a/AAcHTtdoUcqqaX6Kqqxfujnio9LmL2J_SIYjDaxcb8kf=s96-c',
+		// 	sex: 'unknown',
+		// 	likeNovels: [],
+		// 	monitorNovels: [],
+		// 	commentIds: []
+		//  }
+		//set cookies
+		set_cookies(res, req.user._id, "");
+
+		// Đóng tab hiện tại và reload main window
+		res.write('<script>');
+		res.write('window.close();');
+		res.write('window.opener.location.reload();');
+		res.write('</script>');
+		// dùng chung
+		res.end('Login thanh cong!');
 	}
 );
 
@@ -484,14 +601,14 @@ passport.use(new FacebookStrategy({
 	passReqToCallback: true
 },
 	async function (request, accessToken, refreshToken, profile, done) {
-		console.log(profile);
+		// console.log(profile);
 		return done(null, profile.id);
 		// try {
 		// 	// Kiểm tra xem thông tin người dùng đã tồn tại chưa
-		// 	const existingUser = await server.find_one_Data("tt_nguoi_dung", { facebookId: profile.id });
+		// 	const existingUser = await server.find_one_Data("tt_nguoi_dung", { _id: profile.id });
 		// 	if (existingUser) {
 		// 		// update new data for tt_nguoi_dung database
-		// 		await server.update_one_Data("tt_nguoi_dung", { facebookId: profile.id }, {
+		// 		await server.update_one_Data("tt_nguoi_dung", { _id: profile.id }, {
 		// 			email: profile.emails[0].value,
 		// 			displayName: profile.displayName,
 		// 			avatarUrl: profile.photos[0].value,
@@ -501,23 +618,24 @@ passport.use(new FacebookStrategy({
 		// 			commentIds: []
 		// 		});
 
-		// 		return done(null, existingUser.facebookId);
+		// 		return done(null, existingUser._id);
 		// 		/// set cookie cho vào tài khoảng
 		// 	}
-		// 	else {
-		// 		// Tạo mới một người dùng
-		// 		const newUser = {
-		// 			facebookId: profile.id,
-		// 			email: profile.emails[0].value,
-		// 			displayName: profile.displayName,
-		// 			avatarUrl: profile.photos[0].value,
-		// 			sex: "unknown",
-		// 			likeNovels: [],
-		// 			monitorNovels: [],
-		// 			commentIds: []
-		// 		};
+		// else {
+		// 	// Tạo mới một người dùng
+		// 	const newUser = {
+		// 		_id: profile.id,
+		// 		lgway: 'google',
+		// 		email: profile.emails[0].value,
+		// 		displayName: profile.displayName,
+		// 		avatarUrl: profile.photos[0].value,
+		// 		sex: "unknown",
+		// 		likeNovels: [],
+		// 		monitorNovels: [],
+		// 		commentIds: []
+		// 	};
 
-		// 		await server.add_one_Data("tt_nguoi_dung", newUser.facebookId);
+		// 		await server.add_one_Data("tt_nguoi_dung", newUser._id);
 		// 		/// set cookie cho vào tài khoảng
 		// 		return done(null, newUser);
 		// 	}
@@ -554,7 +672,7 @@ cron.schedule('0 0 * * *', async () => {
 
 // Run the code immediately
 // update popular novel list 
-getNovelList();
+// getNovelList();
 
 
 app.listen(port, () => {

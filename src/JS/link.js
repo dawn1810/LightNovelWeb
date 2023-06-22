@@ -16,8 +16,50 @@ $(document).ready(function () {
         const summary_Content = document.querySelector('.summary-Content')
         const summary_btn = document.querySelector('.summary-btn')
 
-        let menuBtnCount = true;
 
+
+       
+
+        let menuBtnCount = true;
+        const rootStyle = document.documentElement.style;
+        const checkbox = document.getElementById("checkbox")
+
+        checkbox.addEventListener("change", () => {
+            console.log("Checkbox")
+            if (checkbox.checked) {
+                localStorage.setItem('theme', 'dark');
+
+                // home
+                rootStyle.setProperty('--header-background', "#000");
+                rootStyle.setProperty('--black-text', "#fff");
+                rootStyle.setProperty('--white-color', "#312a04");
+                rootStyle.setProperty('--background-color', "#000");
+                rootStyle.setProperty('--category_bg', "#042e4e");
+                rootStyle.setProperty('--search-bg', "#fff");
+                rootStyle.setProperty('--menu-text', "#fff");
+                // home
+
+                // review
+                // review
+
+                //reading
+                // reading
+            }
+            else {
+                localStorage.setItem('theme', 'light');
+
+                rootStyle.setProperty('--header-background', "#D4B499");
+                rootStyle.setProperty('--black-text', "#000");
+                rootStyle.setProperty('--white-color', "#dbd9d9");
+                rootStyle.setProperty('--background-color', "#ffffec");
+                rootStyle.setProperty('--category_bg', "#889EAF");
+                rootStyle.setProperty('--search-bg', "#F3D5C0");
+                rootStyle.setProperty('--menu-text', "#063458");
+            }
+        })
+
+        // const theme = localStorage.getItem(theme);
+        // console.log(theme)
 
         $("document").ready(function () {
             let trigger = $("#hamburger"),

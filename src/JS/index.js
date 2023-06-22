@@ -1,3 +1,7 @@
+localStorage.setItem('theme', 'light');
+
+
+
 async function get_popular_novel() {
 
     const url = `${currentURL}/get_ds`; // URL của máy chủ mục tiêu
@@ -138,21 +142,20 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 errorElement.innerText = '';
                 inputElement.classList.remove('invalid')
-                btn_reg.disabled = false;
-                btn_reg.onclick = async function (e) {
+                // reg_btn.disabled = false;
+                const reg_btn = document.querySelector('.signup')
+                reg_btn.onclick = async function (e) {
                     console.log('cut di bn oi');
-                    console.log(document.querySelector('#cccd').value)
                     e.preventDefault();
                     //gửi request tới csdl server
-                    const url = `${currentURL}signup`; // URL của máy chủ mục tiêu
+                    const url = `${currentURL}/signup`; // URL của máy chủ mục tiêu
                     const postData = JSON.stringify({
                         // thông tin đăng kýýý
-                        'status': 'signup',
-                        'email': `${document.querySelector('#email').value}`,
-                        'username': `${document.querySelector('#username').value}`,
-                        'cccd': `${document.querySelector('#cccd_login').value}`
+                        'status': 'login',
+                        'email': `${document.querySelector('#form2 #email').value}`,
+                        'usr': `${document.querySelector('#form2 #Username').value}`,
+                        'pass': `${document.querySelector('#form2 #Password').value}`,
                     });
-
 
                     //bình minh bị gà
                     const requestOptions = {
@@ -163,67 +166,71 @@ document.addEventListener('DOMContentLoaded', function () {
                         body: postData
                     };
 
-                    // btn_reg.disabled = true;
-                    // btn_reg.textContent = "LOADING...";
+                    reg_btn.disabled = true;
+                    reg_btn.innerHTML = `<div class="load">
+                    <div class="progress"></div>
+                    <div class="progress"></div>
+                    <div class="progress"></div>
+                </div>`;
                     try {
                         const response = await fetch(url, requestOptions)
                         console.log(response.status)
-                        if (response.status == '200') {
-                            document.querySelector('.popup').style.display = 'block';
-                            document.querySelector('.chat').style.display = 'inline-block';
-                            document.querySelector('.chat2').style.display = 'none';
+                        // if (response.status == '200') {
+                        //     document.querySelector('.popup').style.display = 'block';
+                        //     document.querySelector('.chat').style.display = 'inline-block';
+                        //     document.querySelector('.chat2').style.display = 'none';
 
-                            setTimeout(function () {
-                                document.querySelector('.popup').style.display = 'none';
-                                document.querySelector('.chat').style.display = 'none';
-                            }, 5000)
+                        //     setTimeout(function () {
+                        //         document.querySelector('.popup').style.display = 'none';
+                        //         document.querySelector('.chat').style.display = 'none';
+                        //     }, 5000)
 
-                            document.querySelector('.form-toggle').click()
+                        //     document.querySelector('.form-toggle').click()
 
-                        }
-                        else if (response.status == '204') {
-                            document.querySelector('.popup').style.display = 'block';
-                            document.querySelector('.chat').style.display = 'none';
-                            document.querySelector('.chat2').style.display = 'inline-block';
-                            document.querySelector('.chat2 .message span').innerHTML = 'Ngươi đã từng đến đây rồi'
+                        // }
+                        // else if (response.status == '204') {
+                        //     document.querySelector('.popup').style.display = 'block';
+                        //     document.querySelector('.chat').style.display = 'none';
+                        //     document.querySelector('.chat2').style.display = 'inline-block';
+                        //     document.querySelector('.chat2 .message span').innerHTML = 'Ngươi đã từng đến đây rồi'
 
-                            setTimeout(function () {
-                                document.querySelector('.popup').style.display = 'none';
-                                document.querySelector('.chat2').style.display = 'inline-block';
-                            }, 5000)
+                        //     setTimeout(function () {
+                        //         document.querySelector('.popup').style.display = 'none';
+                        //         document.querySelector('.chat2').style.display = 'inline-block';
+                        //     }, 5000)
 
-                        }
-                        else if (response.status == '403') {
-                            document.querySelector('.popup').style.display = 'block';
-                            document.querySelector('.chat2').style.display = 'inline-block';
-                            document.querySelector('.chat2 .message span').innerHTML = 'Thông điệp của ngươi không được hồi đáp'
-                            setTimeout(function () {
-                                document.querySelector('.popup').style.display = 'none';
-                                document.querySelector('.chat2').style.display = 'inline-block';
+                        // }
+                        // else if (response.status == '403') {
+                        //     document.querySelector('.popup').style.display = 'block';
+                        //     document.querySelector('.chat2').style.display = 'inline-block';
+                        //     document.querySelector('.chat2 .message span').innerHTML = 'Thông điệp của ngươi không được hồi đáp'
+                        //     setTimeout(function () {
+                        //         document.querySelector('.popup').style.display = 'none';
+                        //         document.querySelector('.chat2').style.display = 'inline-block';
 
-                            }, 5000)
+                        //     }, 5000)
 
-                        }
-                        else if (response.status == '404') {
-                            document.querySelector('.popup').style.display = 'block';
-                            document.querySelector('.chat2').style.display = 'inline-block';
-                            document.querySelector('.chat2 .message span').innerHTML = 'Ngươi Không Tồn Tại'
-                            setTimeout(function () {
-                                document.querySelector('.popup').style.display = 'none';
-                                document.querySelector('.chat2').style.display = 'inline-block';
+                        // }
+                        // else if (response.status == '404') {
+                        //     document.querySelector('.popup').style.display = 'block';
+                        //     document.querySelector('.chat2').style.display = 'inline-block';
+                        //     document.querySelector('.chat2 .message span').innerHTML = 'Ngươi Không Tồn Tại'
+                        //     setTimeout(function () {
+                        //         document.querySelector('.popup').style.display = 'none';
+                        //         document.querySelector('.chat2').style.display = 'inline-block';
 
-                            }, 5000)
+                        //     }, 5000)
 
-                        }
-                        else {
-                            document.querySelector('.popup').style.display = 'block';
-                            document.querySelector('.chat2').style.display = 'inline-block';
-                            setTimeout(function () {
-                                document.querySelector('.popup').style.display = 'none';
-                                document.querySelector('.chat2').style.display = 'inline-block';
-                            }, 5000)
+                        // }
+                        // else {
+                        //     document.querySelector('.popup').style.display = 'block';
+                        //     document.querySelector('.chat2').style.display = 'inline-block';
+                        //     setTimeout(function () {
+                        //         document.querySelector('.popup').style.display = 'none';
+                        //         document.querySelector('.chat2').style.display = 'inline-block';
+                        //     }, 5000)
 
-                        }
+                        // }
                         btn_reg.disabled = false;
                         btn_reg.textContent = "Register";
                     } catch (error) {
@@ -242,13 +249,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 let go = 0
                 eyea.onclick = function () {
                     console.log(123)
-                    
+
                     if (go >= 3) {
                         eye3a.classList.remove('displayed')
                         eye2a.classList.add('displayed')
                         eye1a.classList.add('displayed')
                         document.querySelector('#form1 #Password').type = 'password'
-                    }else{
+                    } else {
                         if (eye2a.classList.contains('displayed')) {
                             eye2a.classList.remove('displayed')
                             eye1a.classList.add('displayed')
@@ -270,28 +277,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 let jo = 0
                 eyeb.onclick = function () {
                     console.log(123)
-                    
+
                     if (jo >= 3) {
                         eye3b.classList.remove('displayed')
                         eye2b.classList.add('displayed')
                         eye1b.classList.add('displayed')
                         document.querySelector('#form2 #Password').type = 'password'
-                    }else{
+                    } else {
                         if (eye2b.classList.contains('displayed')) {
                             eye2b.classList.remove('displayed')
                             eye1b.classList.add('displayed')
                             document.querySelector('#form2 #Password').type = 'text';
-                            jo +=1
+                            jo += 1
                         }
                         else {
                             eye1b.classList.remove('displayed')
                             eye2b.classList.add('displayed')
                             document.querySelector('#form2 #new-Password').type = 'password'
-                            jo +=1
+                            jo += 1
                         }
                     }
                 }
-               
+
 
 
                 // document.querySelector('#change-pass-apply').onclick = async function (e) {
@@ -638,13 +645,24 @@ const modal2 = document.querySelector('.modal2')
 
 const login_gg = document.querySelector('.login_gg')
 login_gg.onclick = async function () {
-    window.open(`${currentURL}/auth/google`,"login With Google", "width=500,height=500");
+    window.open(`${currentURL}/auth/google`, "login With Google", "width=500,height=500");
 };
 const login_fa = document.querySelector('.login_fa')
 login_fa.onclick = async function () {
-    window.open(`${currentURL}/auth/facebook`,"login With Facebook", "width=500,height=500");
+    window.open(`${currentURL}/auth/facebook`, "login With Facebook", "width=500,height=500");
 };
 const login_tw = document.querySelector('.login_tw')
 login_tw.onclick = async function () {
-    window.open(`${currentURL}/HTML/money.html`,"login With Facebook", "width=500,height=500");
+    window.open(`${currentURL}/HTML/money.html`, "login With Facebook", "width=500,height=500");
 };
+// console.log(checkbox)
+
+// const rootStyle = document.documentElement.style;
+// // const checkbox = document.getElementById("checkbox")
+// checkbox.addEventListener("change", () => {
+//     console.log("Checkbox")
+//     if (checkbox.checked) {
+//         rootStyle.setProperty('--header-background', "#000");
+//         rootStyle.setProperty('--black-text', "#fff");
+//     }
+// })
