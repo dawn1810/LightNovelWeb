@@ -168,7 +168,7 @@ const swiper = new Swiper('.swiper', {
 
 async function get_popular_novel() {
 
-    const url = `${currentURL}/get_ds`; // URL của máy chủ mục tiêu
+    // const url = `${currentURL}/get_ds`; // URL của máy chủ mục tiêu
     // const postData = JSON.stringify({
     //     // thông tin đăng nhậpppp
     //     'status': 'popular_novel',
@@ -266,4 +266,4 @@ async function get_popular_novel() {
 
 }
 
-get_popular_novel();
+// get_popular_novel();

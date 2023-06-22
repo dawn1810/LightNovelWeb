@@ -182,9 +182,9 @@ const initStorage = async () => {
 
 // Authorize the client
 const auth = new google.auth.OAuth2(
-  credentials.web.client_id,
-  credentials.web.client_secret,
-  credentials.web.redirect_uris && credentials.web.redirect_uris.length > 0 ? credentials.web.redirect_uris[0] : 'http://localhost'
+  credentials.google.client_id,
+  credentials.google.client_secret,
+  credentials.google.redirect_uris && credentials.web.redirect_uris.length > 0 ? credentials.web.redirect_uris[0] : 'http://localhost'
 );
 
 // Generate an access token and refresh token if not available
