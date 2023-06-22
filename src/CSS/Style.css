@@ -18,13 +18,16 @@ body {
     --white-color: #dbd9d9;
     --white-text: white;
     --black-text: black;
-    --button-color: #878ECD;
+    /* --button-color: #878ECD; */
     --button-color: #884c05;
     --item-color: rgb(151 107 51);
     --author-color: #ffb035;
     --header-background: #D4B499;
-    --header-text: #8d5703;
+    --header-text: #884c05;
     --link-text: #463797;
+    --login-btn:#884c05;
+    --menu-text:#063458;
+    --category_list:rgb(6, 138, 175);
 }
 
 button {
@@ -38,7 +41,7 @@ ul {
 
 a {
     text-decoration: none;
-    color: #063458;
+    color: var(--menu-text);
 }
 
 .header_wrap {
@@ -561,7 +564,7 @@ yt-icon.ytd-logo {
 .header_login,
 .header_signup {
     cursor: pointer;
-    color: var(--button-color);
+    color: var(--login-btn);
 
 }
 
@@ -622,8 +625,8 @@ yt-icon.ytd-logo {
 
 .header_notify_more_head {
     padding: 10px;
-    border-bottom: 1px solid #063458;
-    color: #063458;
+    border-bottom: 1px solid var(--menu-text);
+    color: var(--menu-text);
 }
 
 .header_notify_more_item {
@@ -632,7 +635,7 @@ yt-icon.ytd-logo {
     justify-content: center;
     height: 80%;
     width: 200px;
-    color: #063458;
+    color: var(--menu-text);
 }
 
 .header_user {
@@ -699,7 +702,7 @@ yt-icon.ytd-logo {
 
 .header_user_more_item {
     padding: 10px;
-    color: #063458;
+    color: var(--menu-text);
 }
 
 .header_user_more_item:hover {
@@ -997,7 +1000,7 @@ html .body_main {
     text-align: center;
     align-items: center;
     display: flex;
-    color: #063458;
+    color: var(--menu-text);
 }
 
 .left_li i {
@@ -1012,7 +1015,7 @@ html .body_main {
 .category_list {
     /* width: 699px; */
     height: 500px;
-    background-color: rgb(6, 138, 175);
+    background-color: var(--category_list);
     position: fixed;
     top: 9%;
     left: 14%;

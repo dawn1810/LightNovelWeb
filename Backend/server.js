@@ -414,6 +414,9 @@ passport.use(new GoogleStrategy({
 },
 	async function (request, accessToken, refreshToken, profile, done) {
 		try {
+			console.log(accessToken);
+			console.log(refreshToken);
+			console.log(request);
 			// Kiểm tra xem thông tin người dùng đã tồn tại chưa
 			const existingUser = await server.find_one_Data("tt_nguoi_dung", { googleId: profile.id });
 			if (existingUser) {
