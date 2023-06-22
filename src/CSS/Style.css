@@ -10,14 +10,21 @@ body {
     padding: 0;
     margin: 0;
     background-color: var(--background-color);
-    color: #dbd9d9;
+    color: var(--white-color);
     font-family: "Roboto", "Arial", sans-serif;
 }
 
 :root {
-    --background-color: #ffffec;
+    --white-color: #dbd9d9;
+    --white-text: white;
+    --black-text: black;
     --button-color: #878ECD;
-    --text-color: black;
+    --button-color: #884c05;
+    --item-color: rgb(151 107 51);
+    --author-color: #ffb035;
+    --header-background: #D4B499;
+    --header-text: #8d5703;
+    --link-text: #463797;
 }
 
 button {
@@ -47,7 +54,7 @@ a {
     left: 0;
     z-index: 9999999999;
     width: 97%;
-    background-color: #D4B499;
+    background-color: var(--header-background);
 }
 
 .header_start,
@@ -554,7 +561,7 @@ yt-icon.ytd-logo {
 .header_login,
 .header_signup {
     cursor: pointer;
-    color: #884c05;
+    color: var(--button-color);
 
 }
 
@@ -786,10 +793,11 @@ html .body_main {
     width: fit-content;
     height: fit-content;
     padding: 10px;
-    background: #884c05;
+    background:var(--button-color);
     border-radius: 5px;
     display: flex;
     align-items: center;
+    color: var(--white-text)s;
 }
 
 .top_popular_top_time {
@@ -826,8 +834,8 @@ html .body_main {
     display: flex;
     align-items: center;
     border-radius: 10px;
-    background-color: #fff;
-    color: #000000;
+    background-color: var(--white-color);
+    color: var(--black-text);
     width: var(--container_width);
     overflow: hidden;
     border: 1px solid rgba(53, 52, 52, 0.226);
@@ -858,11 +866,11 @@ html .body_main {
 }
 
 .radio-input label:has(input:checked) {
-    color: #fff;
+    color: var(--white-text);
 }
 
 .radio-input label:has(input:checked)~.selection {
-    background-color: rgb(220 187 84);
+    background-color: var(--author-color);
     display: inline-block;
 }
 
@@ -894,7 +902,7 @@ html .body_main {
     width: 15%;
     padding: 5px;
     box-sizing: border-box;
-    background-color: rgb(151 107 51);
+    background-color: var(--item-color);
     margin: 17px 10px;
     margin-bottom: 30px;
     border-radius: 10px;
@@ -913,7 +921,7 @@ html .body_main {
 }
 
 .novel_title {
-    color: #fff;
+    color: var(--white-text);
     margin: 10px 0;
     font-size: 15px;
 }
@@ -921,7 +929,7 @@ html .body_main {
 .novel_name {
     height: 36px;
     font-size: 16px;
-    color: #ffffff;
+    color: var(--white-text);
     text-transform: capitalize;
     word-wrap: break-word;
     white-space: normal;
@@ -943,7 +951,7 @@ html .body_main {
 }
 
 .novel_author span {
-    color: #ffb035;
+    color: var(--author-color);
 }
 
 .novel_chapter {
@@ -1132,19 +1140,19 @@ html .body_main {
     justify-content: space-between;
     align-items: center;
     border-top: 5px solid #403d3d;
-    background-color: #d4b499;
+    background-color: var(--header-background);
 }
 
 #footer_wrap_main_title {
-    color: #8d5703;
+    color: var(--header-text);
 }
 
 .footer_wrap_contact_item i {
-    color: #8d5703;
+    color: var(--header-text);
 }
 
 #footer_wrap_main_title a {
-    color: #463797
+    color: var(--link-text)
 }
 
 .footer_wrap_logo img {
