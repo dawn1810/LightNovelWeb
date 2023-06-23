@@ -1,7 +1,11 @@
 localStorage.setItem('theme', 'light');
 
 
-
+// const logout = document.querySelector('.logout')
+// logout.onclick = function(e){
+//     e.preventDefault();
+//     console.log('hahaaha')
+// }
 async function get_popular_novel() {
 
     const url = `${currentURL}/get_ds`; // URL của máy chủ mục tiêu

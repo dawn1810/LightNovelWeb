@@ -266,7 +266,6 @@ app.get('/', (req, res) => {
 
 // Authentication (xac thuc dc chua) ////////////////////////////////////////////////////////////////////////////////////////////////
 app.post('/xacthuc', async (req, res) => {
-	console.log('xacthuc ne');
 	try {
 		const data = req.body;
 		console.log('SYSTEM | AUTHENTICATION | Dữ liệu nhận được: ', data);
@@ -278,9 +277,15 @@ app.post('/xacthuc', async (req, res) => {
 			const result = await server.find_one_Data("tt_nguoi_dung", { _id: decodeList[1] })
 
 			if (result != null && result.length != 0) {
-				res.writeHead(200, { 'Content-Type': 'text/plain' });
+				let send_back = {
+					usr:  result._id,
+					avt: result.avatarUrl,
+					name: result.displayName
+				};
+
+				res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
 				console.log(`SYSTEM | AUTHENTICATION | Trả về tên user ${result.displayName}`);
-				res.end(result.displayName)
+				res.end(JSON.stringify(send_back));
 			}
 			else if (result == null) {
 				res.sendStatus(404);

@@ -143,42 +143,11 @@ $(document).ready(function () {
         }
     });
 });
-// document.onclick = function (event) {
-//     const targetElement = event.target;
-//     if (!category_list.contains(targetElement) && targetElement !== category_btn) {
-//         category_list.style.display = 'none';
-//     }
-// }
 
 
-// const category = document.querySelector('.category')
 
-// left_item.onclick = function (event) {
-//     event.stopPropagation();
-//     console.log('ok')
-// }
-
-// document.addEventListener('DOMContentLoaded', function() {
-//     category_btn.onclick = function () {
-//         category_list.style.display = 'block';
-//     };
-//   });
-
-
-// header_menu.onclick = function (event) {
-//     if (menuBtnCount) {
-//         event.stopPropagation();
-//         left_item.classList.remove('close');
-//         menuBtnCount = false;
-//     }
-//     else {
-//         left_item.classList.add('close');
-//         menuBtnCount = true;
-//     }
-
-// }
-// const login = document.querySelector('.header_login')
-// login.onclick = function () {
-//     console.log('Login')
-//     modal.style.display = 'block'
+// const logout = document.querySelector('.logout')
+// logout.onclick = function(e){
+//     e.preventDefault();
+//     console.log('hahaaha')
 // }
