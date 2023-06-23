@@ -62,6 +62,13 @@ $(document).ready(function () {
                 rootStyle.setProperty('--category_bg', "#889EAF");
                 rootStyle.setProperty('--search-bg', "#F3D5C0");
                 rootStyle.setProperty('--menu-text', "#063458");
+                rootStyle.setProperty('--item-color', "rgb(151 107 51)");
+                rootStyle.setProperty('--button-color', "#884c05");
+                rootStyle.setProperty('--login-btn', "#884c05");
+                rootStyle.setProperty('--author-color', "#ffb035");
+                rootStyle.setProperty('--header-text', "#884c05");
+                rootStyle.setProperty('--link-text', "#463797");
+                rootStyle.setProperty('--novel_author', "#ffb035");
             }
         })
 
