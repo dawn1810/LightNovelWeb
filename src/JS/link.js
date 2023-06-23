@@ -23,9 +23,11 @@ $(document).ready(function () {
         let menuBtnCount = true;
         const rootStyle = document.documentElement.style;
         const checkbox = document.getElementById("checkbox")
+        const themes = localStorage.getItem('theme');
 
         checkbox.addEventListener("change", () => {
             console.log("Checkbox")
+
             if (checkbox.checked) {
                 localStorage.setItem('theme', 'dark');
 
@@ -53,24 +55,34 @@ $(document).ready(function () {
                 // reading
             }
             else {
-                localStorage.setItem('theme', 'light');
 
-                rootStyle.setProperty('--header-background', "#D4B499");
-                rootStyle.setProperty('--black-text', "#000");
-                rootStyle.setProperty('--white-color', "#dbd9d9");
-                rootStyle.setProperty('--background-color', "#ffffec");
-                rootStyle.setProperty('--category_bg', "#889EAF");
-                rootStyle.setProperty('--search-bg', "#F3D5C0");
-                rootStyle.setProperty('--menu-text', "#063458");
-                rootStyle.setProperty('--item-color', "rgb(151 107 51)");
-                rootStyle.setProperty('--button-color', "#884c05");
-                rootStyle.setProperty('--login-btn', "#884c05");
-                rootStyle.setProperty('--author-color', "#ffb035");
-                rootStyle.setProperty('--header-text', "#884c05");
-                rootStyle.setProperty('--link-text', "#463797");
-                rootStyle.setProperty('--novel_author', "#ffb035");
+                if (themes) {
+                    rootStyle.setProperty('--header-background', "#D4B499");
+                    rootStyle.setProperty('--black-text', "#000");
+                    rootStyle.setProperty('--white-color', "#dbd9d9");
+                    rootStyle.setProperty('--background-color', "#ffffec");
+                    rootStyle.setProperty('--category_bg', "#889EAF");
+                    rootStyle.setProperty('--search-bg', "#F3D5C0");
+                    rootStyle.setProperty('--menu-text', "#063458");
+                    rootStyle.setProperty('--item-color', "rgb(151 107 51)");
+                    rootStyle.setProperty('--button-color', "#884c05");
+                    rootStyle.setProperty('--login-btn', "#884c05");
+                    rootStyle.setProperty('--author-color', "#ffb035");
+                    rootStyle.setProperty('--header-text', "#884c05");
+                    rootStyle.setProperty('--link-text', "#463797");
+                    rootStyle.setProperty('--novel_author', "#ffb035");
+                    localStorage.setItem('theme', 'light');
+
+                }
             }
         })
+
+        if (themes) {
+            console.log(themes);
+            if (themes == 'dark') {
+                checkbox.click();
+            }
+        }
 
         // const theme = localStorage.getItem(theme);
         // console.log(theme)

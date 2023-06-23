@@ -1,4 +1,5 @@
-localStorage.setItem('theme', 'light');
+// localStorage.setItem('theme', 'light');
+// const currentURL = window.location.origin;
 
 
 // const logout = document.querySelector('.logout')

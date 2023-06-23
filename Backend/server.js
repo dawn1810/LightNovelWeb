@@ -278,9 +278,8 @@ app.post('/xacthuc', async (req, res) => {
 
 			if (result != null && result.length != 0) {
 				let send_back = {
-					usr:  result._id,
-					avt: result.avatarUrl,
-					name: result.displayName
+					usr: result._id,
+					avt: result.avatarUrl
 				};
 
 				res.writeHead(200, { 'Content-Type': 'applicaiton/json' });

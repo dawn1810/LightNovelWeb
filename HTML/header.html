@@ -96,8 +96,11 @@
                     </div>
                     <div class="header_user_logo">
                         <div class="header_user_logo_i">
-                            <i class="fa-regular fa-circle-user"></i>
-                            <!-- <img src="https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg" alt="" class="avt_user"> -->
+                            <!-- <i class="fa-regular fa-circle-user"></i> -->
+                            <div class="curent-avt">
+                                <img src="https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg"
+                                    alt="" class="avt_user">
+                            </div>
                             naruto
                         </div>
                         <div class="header_user_more">
@@ -598,10 +601,10 @@
         }
     }
     const logout = document.querySelector('.logout')
-logout.onclick = async function(e){
-    e.preventDefault();
-    console.log('hahaaha')
-    await fetch(`${currentURL}/`, {
+    logout.onclick = async function (e) {
+        e.preventDefault();
+        console.log('hahaaha')
+        await fetch(`${currentURL}/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -632,8 +635,8 @@ logout.onclick = async function(e){
             .catch(error => {
                 console.log(error)
             });
-    
-}
+
+    }
 
 // modal('.modal_wrap').onclick = function (event) {
 //     event.stopPropagation();

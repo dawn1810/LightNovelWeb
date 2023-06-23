@@ -1,4 +1,5 @@
-const currentURL = window.location.origin;
+// const { json } = require("express");
+
 
 function getCookie(name) {
     const cookies = document.cookie.split(';');
@@ -38,10 +39,14 @@ async function checkAuthentication() {
                 }
             })
             .then(data => {
-                responseData = data; // Lưu trữ nội dung phản hồi vào biến
+                responseData = JSON.parse(data); // Lưu trữ nội dung phản hồi vào biến
+                // console.log(responseData.usr)
                 if (responseData) {
-                    document.querySelector('.header_user_logo_i').innerHTML = `<i class="fa-regular fa-circle-user"></i>
-                    ${responseData}`;
+
+                    if (responseData.avt == 'unknown') {
+                        document.querySelector('.header_user_logo_i').innerHTML = `<i class="fa-regular fa-circle-user"></i>
+                    ${responseData.usr}`;
+                    }
                 }
             }) // In nội dung phản hồi
             // Sử dụng responseData ở những nơi khác trong mã của b
