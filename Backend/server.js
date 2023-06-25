@@ -371,6 +371,7 @@ app.get('/update_novel', async (req, res) => {
 			views: 0,
 			likes: 0,
 			update_date: new Date(),
+			comment_id: "unknown"
 		};
 
 		console.log('SYSTEM | UPDATE_NOVEL | Start upload novel to MongoDB');
@@ -697,7 +698,7 @@ app.post('/reviews', async (req, res) => {
 	// data = {
 	// 	name: "ten truyen",
 	// }
-	console.log('SYSTEM | LOG_IN | Dữ liệu nhận được: ', data);
+	console.log('SYSTEM | REVIEWS | Dữ liệu nhận được: ', data);
 	try {
 		let result = await server.find_all_Data({
 			table: "truyen", 
@@ -720,6 +721,46 @@ app.post('/reviews', async (req, res) => {
 		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
 		console.log('SYSTEM | REVIEWS | Trả về thông tin reviews truyện ', result[0].name);
 		res.end(JSON.stringify(result[0]));
+
+	} catch (err) {
+		console.log('SYSTEM | REVIEWS | ERROR | ', err);
+		res.sendStatus(500);
+	}
+});
+
+// Reading page --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+app.post('/reviews', async (req, res) => {
+	const data = req.body;
+	// data = {
+	// 	novel_name: 'ten novel', 
+	// 	chapter: 'chapter muon doc (phan tu thu may trong lít chapters)',
+	// }
+	console.log('SYSTEM | LOG_IN | Dữ liệu nhận được: ', data);
+	try {
+		let result = await server.find_all_Data({
+			table: "truyen", 
+			query: {name: data.name}, 
+			projection: {
+				_id: 0, 
+				name: 1,
+				name_chaps: 1,
+				chap_ids: 1,
+			},
+			limit: 1
+		});
+
+		// Gửi data về client
+		const chap_content = await server.downloadFileFromDrive(result.chap_ids[data.chapter] ,'.temp', 'txt');
+
+		let send_back = {
+			name: result.name,
+			name_chaps: result.name_chaps[data.chapter],
+			chap_content: chap_content
+		}
+		
+		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
+		console.log('SYSTEM | REVIEWS | Trả về nội dung truyện muốn đọc', result[0].name);
+		res.end(JSON.stringify(send_back));
 
 	} catch (err) {
 		console.log('SYSTEM | REVIEWS | ERROR | ', err);
