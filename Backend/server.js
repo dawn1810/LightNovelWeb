@@ -691,14 +691,38 @@ app.get('/auth/facebook/callback',
 		res.send('<script>window.close();</script>');
 	});
 
+// Reviews page ---------------------------------------------------------------------------------------------------------------------------------------------------
 app.post('/reviews', async (req, res) => {
 	const data = req.body;
-	// data = {cookies}
+	// data = {
+	// 	name: "ten truyen",
+	// }
 	console.log('SYSTEM | LOG_IN | Dữ liệu nhận được: ', data);
 	try {
+		let result = await server.find_all_Data({
+			table: "truyen", 
+			query: {name: data.name}, 
+			projection: {
+				_id: 0, 
+				name: 1,
+				author: 1,
+				no_chapters: 1,
+				genres: 1,
+				summary: 1,
+				image: 1,
+				views: 1,
+				likes: 1
+			},
+			limit: 1
+		});
+
+		// Gửi data về client
+		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
+		console.log('SYSTEM | REVIEWS | Trả về thông tin reviews truyện ', result[0].name);
+		res.end(JSON.stringify(result[0]));
 
 	} catch (err) {
-		console.log('SYSTEM | LOG_IN | ERROR | ', err);
+		console.log('SYSTEM | REVIEWS | ERROR | ', err);
 		res.sendStatus(500);
 	}
 });
