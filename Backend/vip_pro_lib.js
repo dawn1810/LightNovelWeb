@@ -84,7 +84,9 @@ exports.find_all_Data = async function ({ table, query = undefined, projection =
     // sort go here: https://www.w3schools.com/nodejs/nodejs_mongodb_sort.asp
     let result = await client.db('wtfn').collection(table).find(query, { 'projection': projection }).sort(sort).skip(skip).limit(limit).toArray();
 
-    console.log('SYSTEM | FIND_MANY_DATA | Finding documents: ', result);
+    // Chuyển đổi giá trị _id của từng bản ghi sang chuỗi ký tự
+
+    // console.log('SYSTEM | FIND_MANY_DATA | Finding documents: ', result);
 
     return result;
 

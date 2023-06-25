@@ -1,12 +1,15 @@
 // localStorage.setItem('theme', 'light');
 // const currentURL = window.location.origin;
 
+// const { setItem } = require("node-persist");
+
 
 // const logout = document.querySelector('.logout')
 // logout.onclick = function(e){
 //     e.preventDefault();
 //     console.log('hahaaha')
 // }
+
 async function get_popular_novel() {
 
     const url = `${currentURL}/get_ds`; // URL của máy chủ mục tiêu
@@ -45,8 +48,8 @@ async function get_popular_novel() {
                     info_novel += `<div class="novel_item">
                     <div class="novel_item_main">
                         <img src="https://st.nettruyenplus.com/data/comics/171/gay-go-cap-99-5344.jpg" alt="image">
-                        <div class="novel_title">
-                            <a href="/HTML/reviews.html" class="novel_name">${helop[i].name}</a>
+                        <div class="novel_title" onclick="myFunction()">
+                            <a href="/reviews/${helop[i]._id}" class="novel_name">${helop[i].name}</a>
                             <div class="novel_author">
                                 Tác giả : <span>${helop[i].author}</span>
                             </div>
@@ -106,6 +109,13 @@ async function get_popular_novel() {
 
 
 document.addEventListener('DOMContentLoaded', function () {
+    // const novel_title = document.querySelectorAll('.novel_title')
+    // for (let i = 0; i < novel_title.length; i++) {
+    //     novel_title[i].onclick = function (e) {
+    //         e.preventDefault();
+    //         localStorage.setItem('novel_id', novel_title.innerHTML)
+    //     }
+    // }
     console.log(document.querySelector('#form1'))
     function Validator(options) {
         const username = document.getElementById('username')
@@ -682,6 +692,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 get_popular_novel();
+
 // category_btn.onclick = function () {
 //     category_list.style.display = 'block';
 // }

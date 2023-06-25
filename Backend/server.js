@@ -15,10 +15,13 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const credentials = require('./client_secret_483084822625-jrf4t8tq5j272i8mugfk4qorgv3dg11o.apps.googleusercontent.com.json');
 const session = require('express-session');
 const fs = require("fs");
+const { ObjectId } = require('mongodb');
 
 ////////////////////////
 const app = express();
-const port = 6969;
+const router = express.Router();
+
+const port = 7000;
 const secretKey = '5gB#2L1!8*1!0)$7vF@9';
 const authenticationKey = Buffer.from(secretKey.padEnd(32, '0'), 'utf8').toString('hex');
 
@@ -187,20 +190,41 @@ async function getNovelList() {
 	try {
 		// by week:
 		let query_by_week = { update_date: { $gte: getFirstAndLastDayOfWeek().firstDay, $lt: getFirstAndLastDayOfWeek().lastDay } };
-		const by_week = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { _id: 0, name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { views: 1 }, limit: 50 });
+		const by_week = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { views: 1 }, limit: 50 });
 		// by month:
 		let query_by_month = { update_date: { $gte: getFirstAndLastDayOfMonth().firstDay, $lt: getFirstAndLastDayOfMonth().lastDay } };
-		const by_month = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { _id: 0, name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { views: 1 }, limit: 50 });
+		const by_month = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { views: 1 }, limit: 50 });
 		// all time
-		const all_time = await server.find_all_Data({ table: "truyen", projection: { _id: 0, name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { views: 1 }, limit: 50 });
+		const all_time = await server.find_all_Data({ table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { views: 1 }, limit: 50 });
 		// update nearby:
-		const nearby = await server.find_all_Data({ table: "truyen", projection: { _id: 0, name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { update_date: 1 }, limit: 50 });
-		// result
+		const nearby = await server.find_all_Data({ table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { update_date: 1 }, limit: 50 });
+
+		// Change all id to string:
+		const by_week_new = by_week.map(doc => {
+			const idString = doc._id.toString();
+			return { ...doc, _id: idString };
+		});
+
+		const by_month_new = by_month.map(doc => {
+			const idString = doc._id.toString();
+			return { ...doc, _id: idString };
+		});
+
+		const all_time_new = all_time.map(doc => {
+			const idString = doc._id.toString();
+			return { ...doc, _id: idString };
+		});
+
+		const nearby_new = nearby.map(doc => {
+			const idString = doc._id.toString();
+			return { ...doc, _id: idString };
+		});
+
 		const result = {
-			"by_week": by_week,
-			"by_month": by_month,
-			"all_time": all_time,
-			"nearby": nearby
+			"by_week": by_week_new,
+			"by_month": by_month_new,
+			"all_time": all_time_new,
+			"nearby": nearby_new
 		};
 		await storage.init();
 
@@ -208,7 +232,7 @@ async function getNovelList() {
 		console.log(`SYSTEM | LOG | OK BRO, EVERYTHING DONE`);
 
 		// console.log(`SYSTEM | GET_NOVEL_LIST | Danh sách truyện `, result);
-		// return result;
+		return result;
 	} catch (err) {
 		console.log('SYSTEM | GET_NOVEL_LIST | ERROR | ', err);
 	}
@@ -254,7 +278,7 @@ app.use(session({
 	saveUninitialized: false
 }));
 app.use(preventSessionFixation);
-
+app.use(express.json());
 const parentDirectory = path.dirname(__dirname);
 app.use(express.static(parentDirectory));
 
@@ -263,6 +287,22 @@ app.use(express.static(parentDirectory));
 app.get('/', (req, res) => {
 	res.sendFile(parentDirectory + '/HTML/index.html');
 });
+
+app.get('/profile', (req, res) => {
+	res.sendFile(parentDirectory + '/HTML/profile.html');
+});
+
+app.get('/category', (req, res) => {
+	res.sendFile(parentDirectory + '/HTML/category-page.html');
+});
+
+// app.get('/reviews', (req, res) => {
+// 	res.sendFile(parentDirectory + '/HTML/reviews.html');
+// });
+
+// app.get('/reading', (req, res) => {
+// 	res.sendFile(parentDirectory + '/HTML/readingpage.html');
+// });
 
 // Authentication (xac thuc dc chua) ////////////////////////////////////////////////////////////////////////////////////////////////
 app.post('/xacthuc', async (req, res) => {
@@ -301,18 +341,10 @@ app.post('/xacthuc', async (req, res) => {
 	}
 });
 
-
-// Get chap ////////////////////////////////////////////////////////////////////////////////////////////////
-app.post('/give_me_chap', async (req, res) => {
-	console.log('ok bro');
-	res.sendStatus(200);
-});
-
-
 app.get('/get_ds', async (req, res) => {
 	try {
 		let result = await storage.getItem('novellist');
-
+		// console.log('SYSTEM | GET_POPULAR_NOVEL | Danh sach id truyen ', reuslt._id);
 		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
 		res.end(JSON.stringify(result));
 		// console.log('SYSTEM | GET_POPULAR_NOVEL | Dữ liệu ', result, ' trên mongDB');
@@ -693,18 +725,25 @@ app.get('/auth/facebook/callback',
 	});
 
 // Reviews page ---------------------------------------------------------------------------------------------------------------------------------------------------
+app.get('/reviews/:id', async (req, res) => {
+	// const data = req.body;
+	// console.log('SYSTEM | REVIEWS |', id_truyen);
+	try {
+		res.sendFile(parentDirectory + '/HTML/reviews.html');
+	} catch (err) {
+		console.log('SYSTEM | REVIEWS | ERROR | ', err);
+		res.sendStatus(500);
+	}
+});
+
 app.post('/reviews', async (req, res) => {
 	const data = req.body;
-	// data = {
-	// 	name: "ten truyen",
-	// }
-	console.log('SYSTEM | REVIEWS | Dữ liệu nhận được: ', data);
+	console.log('SYSTEM | REVIEWS |', data);
 	try {
 		let result = await server.find_all_Data({
-			table: "truyen", 
-			query: {name: data.name}, 
+			table: "truyen",
+			query: { "_id": new ObjectId(data.id) },
 			projection: {
-				_id: 0, 
 				name: 1,
 				author: 1,
 				no_chapters: 1,
@@ -716,32 +755,37 @@ app.post('/reviews', async (req, res) => {
 			},
 			limit: 1
 		});
-
-		// Gửi data về client
-		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
 		console.log('SYSTEM | REVIEWS | Trả về thông tin reviews truyện ', result[0].name);
-		res.end(JSON.stringify(result[0]));
+		res.writeHead(200, { 'Content-Type': 'application/json' });
 
+		res.end(JSON.stringify(result));
 	} catch (err) {
 		console.log('SYSTEM | REVIEWS | ERROR | ', err);
 		res.sendStatus(500);
 	}
 });
 
+app.use('/', router);
+
+// app.get('/reviews/:idtruyen', function (req, res) {
+// 	// review/okbro
+// 	// truy cập http://
+// 	const idtruyen = req.params.idtruyen;
+// 	// Đọc nội dung truyện từ cơ sở dữ liệu hoặc từ các tệp tin
+// 	const content = "Nội dung của truyện";
+// 	res.render('read.html', { content: content });
+// });
+
 // Reading page --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.post('/reading', async (req, res) => {
-	const data = req.body;
-	// data = {
-	// 	novel_name: 'ten novel', 
-	// 	chapter: 'chapter muon doc (phan tu thu may trong lít chapters)',
-	// }
-	console.log('SYSTEM | READING | Dữ liệu nhận được: ', data);
+app.get('/reading/:id/:chap', async (req, res) => {
+	const id_truyen = req.params.id;
+	const chapter = req.params.chap;
 	try {
 		let result = await server.find_all_Data({
-			table: "truyen", 
-			query: {name: data.name}, 
+			table: "truyen",
+			query: { _id: id_truyen },
 			projection: {
-				_id: 0, 
+				_id: 0,
 				name: 1,
 				name_chaps: 1,
 				chap_ids: 1,
@@ -750,11 +794,11 @@ app.post('/reading', async (req, res) => {
 		});
 
 		// Gửi data về client
-		const chap_content = await server.downloadFileFromDrive(result.chap_ids[data.chapter] ,'.temp', 'txt');
+		const chap_content = await server.downloadFileFromDrive(result.chap_ids[chapter], '.temp', 'txt');
 
 		let send_back = {
 			name: result.name,
-			name_chaps: result.name_chaps[data.chapter],
+			name_chaps: result.name_chaps[chapter],
 			chap_content: chap_content
 		}
 
@@ -768,8 +812,14 @@ app.post('/reading', async (req, res) => {
 	}
 });
 
+// Get chap -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+app.post('/give_me_chap', async (req, res) => {
+	console.log('ok bro');
+	res.sendStatus(200);
+});
 
 
+// j e
 // Schedule the code execution at midnight (00:00)
 cron.schedule('0 0 * * *', async () => {
 	// update popular novel list 
