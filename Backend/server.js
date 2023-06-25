@@ -729,13 +729,13 @@ app.post('/reviews', async (req, res) => {
 });
 
 // Reading page --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.post('/reviews', async (req, res) => {
+app.post('/reading', async (req, res) => {
 	const data = req.body;
 	// data = {
 	// 	novel_name: 'ten novel', 
 	// 	chapter: 'chapter muon doc (phan tu thu may trong lít chapters)',
 	// }
-	console.log('SYSTEM | LOG_IN | Dữ liệu nhận được: ', data);
+	console.log('SYSTEM | READING | Dữ liệu nhận được: ', data);
 	try {
 		let result = await server.find_all_Data({
 			table: "truyen", 
@@ -757,13 +757,13 @@ app.post('/reviews', async (req, res) => {
 			name_chaps: result.name_chaps[data.chapter],
 			chap_content: chap_content
 		}
-		
+
 		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
-		console.log('SYSTEM | REVIEWS | Trả về nội dung truyện muốn đọc', result[0].name);
+		console.log('SYSTEM | READING | Trả về nội dung truyện muốn đọc', result[0].name);
 		res.end(JSON.stringify(send_back));
 
 	} catch (err) {
-		console.log('SYSTEM | REVIEWS | ERROR | ', err);
+		console.log('SYSTEM | READING | ERROR | ', err);
 		res.sendStatus(500);
 	}
 });
