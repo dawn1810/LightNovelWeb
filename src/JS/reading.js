@@ -1,8 +1,10 @@
 //xin chào bbp
 const background_color = document.getElementById("ss_reader_background")
+const background_color1 = document.getElementById("ss_reader_background1")
 // const currentURL = window.location.origin;
 
 const textColor = document.getElementById("ss_reader_textColor")
+const textColor1 = document.getElementById("ss_reader_textColor1")
 
 const font = document.getElementById("ss_reader_font")
 
@@ -10,7 +12,9 @@ const reader_size = document.getElementById("ss_reader_size")
 
 const line_height = document.getElementById("ss_reader_line_height")
 
+const main = document.querySelector("main")
 const body_main = document.querySelector(".main-body")
+
 
 const main_content = document.querySelector(".main-content")
 
@@ -20,26 +24,61 @@ const show_chapter = document.querySelector(".show-list")
 const show_list = document.querySelector('.show-list')
 const show_more = document.querySelector('#show_more')
 
+const reset_text_color = document.querySelector(".ss_reader_textColor_reset");
+
+const reset_background_color = document.querySelector(".ss_reader_background_reset");
+
+const themes = localStorage.getItem('theme');
+
+// if (themes == 'dark') {
+//     main.style.background = '#1e1e1e'
+//     body_main.style.color = "#9a8686"
+// }
+// else {
+//     main.style.background = '#9fcfca'
+//     body_main.style.color = "#000"
+// }
 show_list.onclick = function () {
     show_more.style.display = "block"
     show_list.style.display = "none"
 }
 background_color.onchange = function (event) {
-    body_main.style.background = background_color.value;
+    main.style.background = background_color.value;
+}
+background_color1.onchange = function (event) {
+    main.style.background = background_color1.value;
 }
 
+
+textColor1.onchange = function (event) {
+    // body_main.style.color = textColor.value;
+    body_main.style.color = textColor1.value;
+    document.querySelector(".novel-name-chapter").style.color = textColor1.value
+}
 textColor.onchange = function (event) {
+    // body_main.style.color = textColor.value;
     body_main.style.color = textColor.value;
-    document.querySelector('.novel-name-chapter').style.color = textColor.value;
-
+    document.querySelector(".novel-name-chapter").style.color = textColor.value
 }
 
-font.onchange = function (event) {
-    body_main.style.fontFamily = font.value;
-}
+
+reset_background_color.addEventListener("click", function () {
+    main.style.background = 'linear-gradient(to left, #5b0664, #210e68)'
+});
+
+
+reset_text_color.addEventListener("click", function () {
+    body_main.style.color = 'black';
+});
+
+
+
+// font.onchange = function (event) {
+//     body_main.style.fontFamily = font.value;
+// }
 
 reader_size.onchange = function (event) {
-    main_content.style.fontSize = reader_size.value;
+    main_content.style.fontSize = `${reader_size.value}px`;
 }
 
 line_height.onchange = function (event) {

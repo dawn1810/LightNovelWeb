@@ -190,9 +190,9 @@ def GPTtranslate(folder_path,check_resume = False):
 
         if filename.endswith('.txt'):  # Chỉ xử lý các tệp tin có phần mở rộng .txt
             file_path = os.path.join(folder_path, filename)
-
-
-            gens = ", ".join(data_info['Genre(s)'])
+            gens = 'None'
+            if 'Genre(s)' in data_info:
+                gens = ", ".join(data_info['Genre(s)'])
             if not check_resume:
                 sumsumlist = seperated_part(data_info['Summary'])
                 translate_vip(auth_token,len(sumsumlist),sumsumlist,gens,'info.txt',data_info)

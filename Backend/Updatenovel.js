@@ -6,7 +6,7 @@ const path = require('path');
 
 let dummy;
 
-exports.jsonReader = async function (filePath, cb) {
+async function jsonReader(filePath, cb) {
 	fs.readFile(filePath, (err, fileData) => {
 		if (err) {
 			return cb && cb(err);
@@ -20,7 +20,7 @@ exports.jsonReader = async function (filePath, cb) {
 	});
 }
 
-////////////////
+//-------------------------------------------------------------------------------------------------------------------------
 const directoryPath = path.join('trans', 'tonghop');
 
 async function get_full_id(directoryPath) {
@@ -32,10 +32,13 @@ async function get_full_id(directoryPath) {
 		// Lọc và lấy đường dẫn của các file có phần mở rộng là ".txt"
 		const txtFilePaths = files
 			.filter((file) => path.extname(file).toLowerCase() === '.txt')
-			.map((file) => path.join(directoryPath, file));
+			.map((file) => path.join(directoryPath, file))
+			.sort((a, b) => {
+				const indexA = parseInt(a.match(/(\d+)\./)[1]);
+				const indexB = parseInt(b.match(/(\d+)\./)[1]);
 
-		// Sắp xếp các đường dẫn theo tên
-		txtFilePaths.sort();
+				return indexA - indexB;
+			});
 
 
 		const processFiles = async () => {
@@ -73,30 +76,3 @@ exports.updateIds = async function (table, myobj) {
 		});
 	});
 }
-
-// update data to server
-// async function run() {
-// 	try {
-// 		const currentDate = new Date();
-
-// 		let myobj = {
-// 			name: "At The Beginning Of The Novel, The Heroine Begged The Retired Villain",
-// 			author: "Evil devil",
-// 			chapters: toDict(file_IDs),
-// 			no_chapters: file_IDs.length,
-// 			genres: "Romance, Urban, Villain",
-// 			summary: "Ye Tian xuyên không thành nhân vật phản diện trong tiểu thuyết. Dù có gia thế vững chắc nhưng nam chính lại thẳng tay tát anh không thương tiếc, cuối cùng gia đình tan nát vì anh đính hôn với nữ chính. Ye Tian đồng ý với yêu cầu của nữ chính và hủy bỏ hôn ước. Tuy nhiên, ngay sau đó, nữ chính nhận được một cuộc gọi video từ nhà. Trên màn hình, ông nội tức giận ngất xỉu, cha mắng chửi cô, mẹ quỳ gối khóc lóc… Người thân của cô đều tức giận như muốn ăn tươi nuốt sống cô… Đứng trước tình cảnh như vậy, nữ chính được mệnh danh là nữ chính nữ thần lạnh lùng, đã sợ hãi và khóc ngay tại chỗ! Cùng lúc đó, một dấu nhắc hệ thống vang lên bên tai Ye Tian. “Hệ thống nhân vật phản diện cấp Thần được kích hoạt…”",
-// 			image: "1nf1MDALcS1yEdfJ7fd7PzZulxJAqaP1a",
-// 			views: 0,
-// 			likes: 0,
-// 			update_date: currentDate,
-// 			keywords: ['Romance', 'Urban', 'Villain', 'Chinese', 'Webnovel']
-// 		};
-
-// 		await server.add_one_Data("truyen", myobj)
-
-// 	} catch (error) {
-// 		console.error('Error:', error);
-// 	}
-// }
-// run().catch(console.error);
