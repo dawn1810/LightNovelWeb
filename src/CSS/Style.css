@@ -32,6 +32,12 @@ body {
     --category_list: #068aaf;
     --category_bg: #889EAF;
     --novel_author: #ffb035;
+    --review_bg: antiquewhite;
+    --chapter_bg: rgb(158 138 111);
+    --cm_bg: #ceae80;
+    --cm_text: #26262c;
+    --same-propose-item_hv: #ff9805c2;
+    --chapter-item: #513a13
 }
 
 .toggle-switch {

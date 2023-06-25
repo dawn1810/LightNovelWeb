@@ -278,7 +278,7 @@ app.post('/xacthuc', async (req, res) => {
 
 			if (result != null && result.length != 0) {
 				let send_back = {
-					usr: result._id,
+					usr: result.displayName,
 					avt: result.avatarUrl
 				};
 

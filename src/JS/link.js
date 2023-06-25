@@ -46,6 +46,14 @@ $(document).ready(function () {
                 rootStyle.setProperty('--header-text', "#ecd9c2");
                 rootStyle.setProperty('--link-text', "#c24141");
                 rootStyle.setProperty('--novel_author', "#788afc");
+                rootStyle.setProperty('--review_bg', "#1e2643");
+                rootStyle.setProperty('--chapter_bg', "rgb(3 35 78)");
+                rootStyle.setProperty('--chap-item', "rgb(53 58 78)");
+                rootStyle.setProperty('--cm_bg', "#25304c");
+                rootStyle.setProperty('--cm_text', "#b6b6b7");
+                rootStyle.setProperty('--same-propose-item_hv', "#82786ac2");
+                rootStyle.setProperty('--chapter-item', "#08397d");
+
                 // home
 
                 // review
@@ -71,7 +79,17 @@ $(document).ready(function () {
                     rootStyle.setProperty('--header-text', "#884c05");
                     rootStyle.setProperty('--link-text', "#463797");
                     rootStyle.setProperty('--novel_author', "#ffb035");
+                    rootStyle.setProperty('--review_bg', "antiquewhite");
+                    rootStyle.setProperty('--chapter_bg', "rgb(158 138 111)");
+                    rootStyle.setProperty('--chap-item', "rgb(213 148 66)");
+                    rootStyle.setProperty('--cm_bg', "#ceae80");
+                    rootStyle.setProperty('--cm_text', "#26262c");
+                    rootStyle.setProperty('--same-propose-item_hv', "#ff9805c2");
+                    rootStyle.setProperty('--chapter-item', "#513a13");
+
+
                     localStorage.setItem('theme', 'light');
+
 
                 }
             }

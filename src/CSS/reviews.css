@@ -2,12 +2,15 @@
     --title-color: #2c5fc9;
     --chap-item: rgb(213 148 66);
 
+
 }
 
 main {
+    width: 80%;
     display: flex;
-    padding-right: 10%;
-    padding-left: 10%;
+    margin: 0 auto;
+    /* padding-right: 10%;
+    padding-left: 10%; */
     flex-direction: column;
 }
 
@@ -19,19 +22,29 @@ button:hover {
 .current-Titile_wrap {
     position: relative;
     width: 100%;
+    min-height: 520px;
+    background: var(--review_bg);
 }
 
 .current-Titile_main {
+    width: 100%;
     position: absolute;
     top: 3%;
     display: flex;
     flex-direction: column;
-    padding-left: 35px;
+    /* padding-left: 35px; */
 }
 
 .Titile_interact_siu {
     display: flex;
+    margin-top: 36px;
+    width: 100%;
+    justify-content: space-between;
 
+}
+
+.current_left {
+    margin-left: 60px;
 }
 
 .novel-backg {
@@ -59,21 +72,24 @@ button:hover {
     font-size: 35px;
     /* position: absolute; */
     bottom: 28vh;
-    color: rgb(92 52 195);
+    color: var(--login-btn);
 }
 
 .title-gr {
     width: 70%;
     position: relative;
-    margin-left: 50px;
+    /* margin-left: 50px; */
     color: var(--title-color);
 }
 
 .last-time-update {
-    padding: 7px;
+    padding: 7px 0;
+    color: var(--black-text);
+
 }
 
 .current-category-list {
+    margin: 16px 0;
     display: flex;
     padding: 0;
 }
@@ -116,33 +132,40 @@ button:hover {
     width: 100px !important;
     height: 31px !important;
     border-radius: 23px;
-    margin: 0 10px !important;
+    /* margin: 0 10px !important; */
 }
 
 .btn1 h4 {
-    color: #111;
+    color: #fff;
     font-weight: 600;
 }
 
 .btn1:hover {
     border: 2px solid #111;
-    box-shadow: 0px 0px 26px 8px hsla(323, 87%, 50%, 0.664);
-    background-color: #000428;
+    /* box-shadow: 0px 0px 26px 8px hsla(349, 71%, 37%, 0.664); */
+    background-color: #bc9a71;
 }
 
 .btn1:hover h4 {
-    color: hsla(323, 87%, 50%, 0.664);
+    color: hsla(349, 71%, 37%, 0.664);
 }
 
 
 .wrapper {
-    margin: 20px;
+    width: 33.333%;
+    margin: 20px 2%;
+    margin-left: 0;
 
+
+}
+
+.wrapper:first {
+    margin-left: 0;
 }
 
 .button-efect {
     display: block;
-    width: 200px;
+    width: 75%;
     height: 40px;
     line-height: 40px;
     font-size: 18px;
@@ -217,14 +240,23 @@ h4 {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: var(--item-color);
-    border-left: 5px solid;
+    background-color: var(--chapter_bg);
+    /* border-left: 5px solid; */
     margin: 5px;
+}
+
+.chapter_item_info {
+    color: var(--black-text);
 }
 
 .chapter-item:hover {
     cursor: pointer;
-    background-color: #513a13;
+    background-color: var(--chapter-item);
+}
+
+.chapter-item:hover .chapter_item_info {
+    color: #ddd;
+
 }
 
 .chapter-item div {
@@ -240,10 +272,15 @@ h4 {
     color: var(--login-btn);
 }
 
+.chapter-item h2 {
+    color: #f2bb79;
+}
+
 .listchap {
-    border-top: #007fcb 2px solid;
+    /* border-top: #007fcb 2px solid; */
     overflow-y: scroll;
     height: 700px;
+
 }
 
 .Similar {
@@ -259,6 +296,49 @@ h4 {
 
 }
 
+.function {
+    display: flex;
+    justify-content: space-around;
+    /* width: 100%;
+    margin-left: -65px; */
+}
+
+.function_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin-left: 30px; */
+
+}
+
+
+.function_item i {
+    margin-bottom: 5px;
+    font-size: 30px;
+}
+
+.function_item_folow i {
+    color: #e22556;
+}
+
+.function_item_star i {
+    color: #f5ab00;
+}
+
+.Titile_info {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 17px;
+    border: 2px solid #ddc2c2;
+    border-left: 0;
+    border-right: 0;
+    padding: 15px 0;
+    color: #884c05;
+
+    width: 100%;
+
+}
+
 .summary {
     width: 100%;
     /* background-color: #383838; */
@@ -270,12 +350,15 @@ h4 {
 .summary-Content {
     padding: 20px;
     font-size: 17px;
-    color: rgb(255, 255, 255);
+    color: var(--black-text);
 }
 
 .summary-btn {
     background-color: var(--button-color) !important;
     border-radius: 4px;
+    padding: 5px;
+    color: var(--white-text);
+    text-transform: capitalize;
 }
 
 
@@ -301,7 +384,7 @@ h4 {
 
 .same-propose-item:hover {
     cursor: pointer;
-    background-color: #ff9805c2;
+    background-color: var(--same-propose-item_hv);
 }
 
 .same-propose-item_title {
@@ -321,7 +404,7 @@ h4 {
 .same-last-time {
     margin-top: 10px;
     font-size: 14px;
-    color: #cb0000;
+    color: var(--title-color);
     cursor: auto;
     width: fit-content;
 }
@@ -337,6 +420,7 @@ h4 {
 }
 
 .button-group {
+    width: 100%;
     margin: 30px 0;
     display: flex;
 }
@@ -344,6 +428,7 @@ h4 {
 .current-Titile_interact {
     display: flex;
     align-items: center;
+    display: none;
 }
 
 .Titile_interact_like {
@@ -365,10 +450,25 @@ h4 {
 
 }
 
+.Titile_info_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Titile_info_item_title {
+    color: #d69538;
+    font-size: 14px;
+}
+
+.Titile_info_item_value {
+    font-size: 20px;
+}
+
 /* comment */
 .comment_container {
     width: 873px;
-    background-color: #ceae80;
+    background-color: var(--cm_bg);
 
 }
 
@@ -435,22 +535,22 @@ h4 {
 }
 
 .comment {
-    color: #26262c;
+    color: var(--cm_text);
     margin: 20px;
 }
 
 .nick-name {
-    color: #26262c;
+    /* color: #26262c; */
     margin: 0 10px;
 }
 
 .chapter-commnet {
-    color: #26262c;
+    /* color: #26262c; */
 }
 
 .date_posting {
     margin-left: 10px;
-    color: #38383875;
+    /* color: #38383875; */
 }
 
 .posting_time {
@@ -519,4 +619,39 @@ h4 {
 
 .Information {
     margin: 10px 0;
+    color: var(--cm_text);
+}
+
+.current-novel-actor {
+    color: #c55a5a;
+    margin-top: 20px;
+}
+
+/* 
+scrollbar */
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    /* display: none; */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+
+
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #dbc6b6;
+    /* background: linear-gradient(45deg, rgb(213 146 38 / 25%) 20%, #9b7f09 20%, #63390a 40%, rgb(136 93 12 / 25%) 40%, rgb(135 73 9 / 25%) 60%, #95780f 60%, #a58b32 80%, rgb(139 104 9 / 25%) 80%); */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    /* background: #aaaaaa; */
 }

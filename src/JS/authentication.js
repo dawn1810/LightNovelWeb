@@ -34,8 +34,9 @@ async function checkAuthentication() {
 
                     return response.text(); // Chuyển đổi phản hồi thành văn bản
 
-                } else {
-                    document.querySelector('.header_user').style.display = 'none'
+                } else if (response.status === 404) {
+                    window.location.href = `${currentURL}/error/404.html`;
+
                 }
             })
             .then(data => {
@@ -45,8 +46,12 @@ async function checkAuthentication() {
 
                     if (responseData.avt == 'unknown') {
                         document.querySelector('.header_user_logo_i').innerHTML = `<i class="fa-regular fa-circle-user"></i>
-                    ${responseData.usr}`;
+                    ${responseData.usr}`;//a zai sống đi a zai
                     }
+                    else {
+
+                    }
+
                 }
             }) // In nội dung phản hồi
             // Sử dụng responseData ở những nơi khác trong mã của b
