@@ -53,6 +53,9 @@ $(document).ready(function () {
                 rootStyle.setProperty('--cm_text', "#b6b6b7");
                 rootStyle.setProperty('--same-propose-item_hv', "#82786ac2");
                 rootStyle.setProperty('--chapter-item', "#08397d");
+                rootStyle.setProperty('--text_novel', "rgb(154, 134, 134)");
+                rootStyle.setProperty('--bg_novel', "#1e1e1e");
+                rootStyle.setProperty('--filter_search', "#12407e");
 
                 // home
 
@@ -86,6 +89,9 @@ $(document).ready(function () {
                     rootStyle.setProperty('--cm_text', "#26262c");
                     rootStyle.setProperty('--same-propose-item_hv', "#ff9805c2");
                     rootStyle.setProperty('--chapter-item', "#513a13");
+                    rootStyle.setProperty('--text_novel', "#000");
+                    rootStyle.setProperty('--bg_novel', "#ffffec");
+                    rootStyle.setProperty('--filter_search', "#884c05");
 
 
                     localStorage.setItem('theme', 'light');

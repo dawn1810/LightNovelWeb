@@ -37,7 +37,10 @@ body {
     --cm_bg: #ceae80;
     --cm_text: #26262c;
     --same-propose-item_hv: #ff9805c2;
-    --chapter-item: #513a13
+    --chapter-item: #513a13;
+    --text_novel: #000;
+    --bg_novel: #ffffec;
+    --filter_search: #884c05;
 }
 
 .toggle-switch {

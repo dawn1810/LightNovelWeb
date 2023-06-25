@@ -127,44 +127,51 @@ def normalize_string(input_string):
     return normalized_string
 
 if __name__ == '__main__':
-    url = 'https://wondernovels.com/novels/despite-being-pursued-as-a-villain-all-the-heroines-on-my-side/'
-    manga_name, manga_id, url_database, info_comon = get_info_ln(url)
-    # Tạo dữ liệu JSON
-    data = {
-        "name": manga_name,
-    }
-    # Chuyển đổi dữ liệu thành JSON
-    json_data = json.dumps(data)
+    list_url_truyen = ['https://wondernovels.com/novels/infinite-investments/',
+                        'https://wondernovels.com/novels/ive-never-seen-a-lucky-player/',
+                        'https://wondernovels.com/novels/instead-of-being-transported-to-another-world-directly-i-was-given-the-abilities-of-the-strongest-character-in-the-anime-world/',
+                        'https://wondernovels.com/novels/since-the-red-moon-appeared/',
+                        'https://wondernovels.com/novels/dog-days/',
+                        'https://wondernovels.com/novels/trainer-i-build-my-home-on-the-back-of-xuanwu/',
+                        'https://wondernovels.com/novels/daydreaming-about-me/',
+                        'https://wondernovels.com/novels/spiritual-masters/',
+                        'https://wondernovels.com/novels/folding-moon/',
+                        'https://wondernovels.com/novels/the-elysium-across-deep-space/',
+                        'https://wondernovels.com/novels/after-getting-a-job-in-the-nether-world-i-became-famous/']
+    for url in list_url_truyen:
+        manga_name, manga_id, url_database, info_comon = get_info_ln(url)
+        # Tạo dữ liệu JSON
+        data = {
+            "name": manga_name,
+        }
+        # Chuyển đổi dữ liệu thành JSON
+        json_data = json.dumps(data)
 
-    # Gửi request POST với JSON
+        # Gửi request POST với JSON 
     
+        path_save = os.path.join('trans','.data_stolen',normalize_string(manga_name))
+        create_directories(normalize_string(manga_name))
+        list_info = get_list_chapter(url_database,manga_id)
+        response = requests.post('http://localhost:6969/no_chaps', data=json_data, headers={'Content-Type': 'application/json'})
 
-
-
-
-    path_save = os.path.join('trans','.data_stolen',normalize_string(manga_name))
-    # create_directories(normalize_string(manga_name))
-    # list_info = get_list_chapter(url_database,manga_id)
-    # response = requests.post('http://localhost:6969/no_chaps', data=json_data, headers={'Content-Type': 'application/json'})
-
-    #     # Kiểm tra mã trạng thái của response
-    # if response.status_code == 200:
-    #     print('Update ',len(list_info[1]) - int(response.text) ,'chương')
-    #     list_info = list_info[int(response.text):]
-   
-    # info_comon['name_chap']= list_info[1]
-    # with open(os.path.join(path_save,'info.json'), "w", encoding="utf-8") as file:
-    #     json.dump(info_comon, file,indent=4)
-
-    # for i in range(len(list_info[0])):
-    #     with open(os.path.join(path_save,str(i)+'. '+normalize_string(list_info[1][i])+'.txt'), "w", encoding="utf-8") as file:
-    #         file.write(get_content_of_chapter(list_info[0][i]))  # Ghi nội dung yêu cầu vào tập tin
-    #         print("Dữ liệu đã được ghi vào tập tin", os.path.join(path_save,str(i)+'. '+normalize_string(list_info[1][i])+'.txt'))
+            # Kiểm tra mã trạng thái của response
+        if response.status_code == 200:
+            print('Update ',len(list_info[1]) - int(response.text) ,'chương')
+            list_info = list_info[int(response.text):]
     
-    # _ = input('PRESS ENTER TO TRANS >>>')
-    # del(_)
+        info_comon['name_chap']= list_info[1]
+        with open(os.path.join(path_save,'info.json'), "w", encoding="utf-8") as file:
+            json.dump(info_comon, file,indent=4)
 
-    translateGPT.GPTtranslate(path_save,True)
-    response_done = requests.get('http://localhost:6969/update_novel')
-    if response_done.status_code == 200:
-        print('Done trans, going to upload database')
+        for i in range(len(list_info[0])):
+            with open(os.path.join(path_save,str(i)+'. '+normalize_string(list_info[1][i])+'.txt'), "w", encoding="utf-8") as file:
+                file.write(get_content_of_chapter(list_info[0][i]))  # Ghi nội dung yêu cầu vào tập tin
+                print("Dữ liệu đã được ghi vào tập tin", os.path.join(path_save,str(i)+'. '+normalize_string(list_info[1][i])+'.txt'))
+        
+        # _ = input('PRESS ENTER TO TRANS >>>')
+        # del(_)
+
+        translateGPT.GPTtranslate(path_save,False)
+        response_done = requests.get('http://localhost:6969/update_novel')
+        if response_done.status_code == 200:
+            print('Done trans, going to upload database')

@@ -77,7 +77,7 @@ exports.find_one_Data = async function (table, myobj = undefined) {
 }
 
 
-exports.find_all_Data = async function ({ table, query = undefined, projection = undefined, skip = 0, limit = 0, sort = undefined}) {
+exports.find_all_Data = async function ({ table, query = undefined, projection = undefined, skip = 0, limit = 0, sort = undefined }) {
   try {
     await client.connect();
     // let query = { user_name: "Long Khoa Hoc"};
@@ -247,6 +247,7 @@ exports.uploadFileToDrive = async (filePath, id_folder = '1Tv80lyGA-rYIsN6nT9_A-
     name: fileName,
     parents: [id_folder]
   };
+  console.log('SYSTEM | DRIVE | Cbi úp lên');
 
   const media = {
     mimeType: 'application/octet-stream',
@@ -260,7 +261,7 @@ exports.uploadFileToDrive = async (filePath, id_folder = '1Tv80lyGA-rYIsN6nT9_A-
       media: media,
       fields: 'id',
     });
-    
+
 
     console.log('SYSTEM | DRIVE | File uploaded successfully! File ID:', res.data.id);
     return res.data.id;
@@ -294,7 +295,7 @@ exports.downloadFileFromDrive = async (fileId, destDirectory = '.temp',) => {
     { responseType: 'stream', auth }
   );
 
-  
+
   let fileName = getFileName(fileId);
   const destFilePath = path.join(destDirectory, fileName);
   const destFile = fs.createWriteStream(destFilePath);

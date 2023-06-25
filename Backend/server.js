@@ -14,7 +14,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const credentials = require('./client_secret_483084822625-jrf4t8tq5j272i8mugfk4qorgv3dg11o.apps.googleusercontent.com.json');
 const session = require('express-session');
-
+const fs = require("fs");
 
 ////////////////////////
 const app = express();
@@ -349,7 +349,15 @@ app.get('/update_novel', async (req, res) => {
 	try {
 
 		await updateNovel.updateIds();
-		let dummy = await updateNovel.jsonReader('./trans/tonghop/info.json');
+
+		// Đọc tệp JSON không đồng bộ
+		const data = fs.readFileSync('./trans/tonghop/info.json', 'utf8');
+
+		// Phân tích cú pháp tệp JSON và lưu vào biến dummy
+		let dummy = JSON.parse(data);
+
+		// Sử dụng biến dummy ở đây
+		console.log(dummy);
 
 		let myobj = {
 			name: dummy.title,
@@ -362,16 +370,30 @@ app.get('/update_novel', async (req, res) => {
 			image: dummy.img,
 			views: 0,
 			likes: 0,
-			update_date: currentDate,
+			update_date: new Date(),
 		};
 
-		await server.add_one_Data("truyen", myobj)
+		console.log('SYSTEM | UPDATE_NOVEL | Start upload novel to MongoDB');
+		await server.add_one_Data("truyen", myobj);
+		console.log('SYSTEM | UPDATE_NOVEL | Complete upload novel to MongoDB');
 
-		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
-		res.end(JSON.stringify(result));
-		// console.log('SYSTEM | GET_POPULAR_NOVEL | Dữ liệu ', result, ' trên mongDB');
+
+		// clear folder tong hop
+		const directory = "./trans/tonghop";
+
+		fs.readdir(directory, (err, files) => {
+			if (err) throw err;
+
+			for (const file of files) {
+				fs.unlink(path.join(directory, file), (err) => {
+					if (err) throw err;
+				});
+			}
+		});
+
+		res.sendStatus(200);
 	} catch (err) {
-		console.log('SYSTEM | GET_POPULAR_NOVEL | ERROR | ', err);
+		console.log('SYSTEM | UPDATE_NOVEL | ERROR | ', err);
 		res.sendStatus(500);
 	}
 });
@@ -668,6 +690,20 @@ app.get('/auth/facebook/callback',
 		// Successful authentication, redirect home.
 		res.send('<script>window.close();</script>');
 	});
+
+app.post('/reviews', async (req, res) => {
+	const data = req.body;
+	// data = {cookies}
+	console.log('SYSTEM | LOG_IN | Dữ liệu nhận được: ', data);
+	try {
+
+	} catch (err) {
+		console.log('SYSTEM | LOG_IN | ERROR | ', err);
+		res.sendStatus(500);
+	}
+});
+
+
 
 // Schedule the code execution at midnight (00:00)
 cron.schedule('0 0 * * *', async () => {
