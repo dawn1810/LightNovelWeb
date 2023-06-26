@@ -68,7 +68,6 @@ exports.updateIds = async function (table, myobj) {
 
 
 		// update file json
-
 		dummy['ids'] = await get_full_id(directoryPath);
 
 		fs.writeFile("./trans/tonghop/info.json", JSON.stringify(dummy), err => {
