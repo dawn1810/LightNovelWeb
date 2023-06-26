@@ -1,50 +1,45 @@
 const avtBtn = document.querySelector(".dropdown-trigger");
-const avtUpLoad = document.getElementById('file-upload');
-const avatar = document.querySelector('.your-avt');
-const dropZone = document.querySelector('.drop-zone');
+const avtUpLoad = document.getElementById("file-upload");
+const avatar = document.querySelector(".your-avt");
+const dropZone = document.querySelector(".drop-zone");
 
+const Setting_pageWrapper = document.querySelectorAll(".Setting_pageWrapper");
+const Setting_item = document.querySelectorAll(".Setting_sidebar-list_item");
 
-
-const Setting_pageWrapper  = document.querySelectorAll('.Setting_pageWrapper')
-const Setting_item = document.querySelectorAll('.Setting_sidebar-list_item')
-
-for(let i = 0; i < Setting_item.length; i++){
-    // console.log(Setting_item[i])
-	console.log(i)
-    Setting_item[i].onclick = function(){
-		for(const key of Setting_item){
-            key.style.backgroundColor = '#ebd6bd'
-            console.log(key )
-        }
-		Setting_item[i].style.backgroundColor = '#b0906b'
-        for(const key of Setting_pageWrapper){
-            key.style.display = 'none'
-            console.log(key )
-        }
-		if(i == Setting_pageWrapper.length  ){
-			Setting_pageWrapper[i].style.display = 'none'
-
-		}else{
-			Setting_pageWrapper[i].style.display = 'block'
-
-		}
-	console.log(i)
-
-	console.log(Setting_pageWrapper[i])
-
+for (let i = 0; i < Setting_item.length; i++) {
+  // console.log(Setting_item[i])
+  console.log(i);
+  Setting_item[i].onclick = function () {
+    for (const key of Setting_item) {
+      key.style.backgroundColor = "transparent";
+      console.log(key);
     }
-}
-const button_file = document.querySelectorAll('#button_file')
+    Setting_item[i].style.backgroundColor = "var(--st-pr-btn-bg)";
+    for (const key of Setting_pageWrapper) {
+      key.style.display = "none";
+      console.log(key);
+    }
+    if (i == Setting_pageWrapper.length) {
+      // Setting_pageWrapper[i].style.display = 'none'
+    } else {
+      Setting_pageWrapper[i].style.display = "block";
+    }
+    console.log(i);
 
-for(const button of button_file){
-	button.onclick = function(e){
-        e.preventDefault();
-        console.log('ok')
-        console.log(button.parentElement)
-        let file = button.parentElement.querySelector('input')
-		file.focus()
-        file.setSelectionRange(file.value.length, file.value.length);
-	}
+    console.log(Setting_pageWrapper[i]);
+  };
+}
+const button_file = document.querySelectorAll("#button_file");
+
+for (const button of button_file) {
+  button.onclick = function (e) {
+    e.preventDefault();
+    console.log("ok");
+    console.log(button.parentElement);
+    let file = button.parentElement.querySelector("input");
+    file.focus();
+    file.setSelectionRange(file.value.length, file.value.length);
+  };
 }
 // document.querySelector('.button_file').onclick = function(e){
 //     e.preventDefault();
@@ -63,77 +58,67 @@ for(const button of button_file){
 
 // change the avatar image
 avtBtn.addEventListener("click", function (event) {
-	avtUpLoad.click();
-	return false;
+  avtUpLoad.click();
+  return false;
 });
 
 avtUpLoad.addEventListener("change", function (event) {
-	const file = event.target.files[0];
-	const reader = new FileReader();
-	reader.onload = () => {
-		const base64 = reader.result
-		avatar.src = reader.result;
-	};
-	reader.readAsDataURL(file);
+  const file = event.target.files[0];
+  const reader = new FileReader();
+  reader.onload = () => {
+    const base64 = reader.result;
+    avatar.src = reader.result;
+  };
+  reader.readAsDataURL(file);
 
-	// disappear drop text
-	if (avatar.src !== '') {
-		dropZone.innerHTML = '';
-	} 
+  // disappear drop text
+  if (avatar.src !== "") {
+    dropZone.innerHTML = "";
+  }
 });
 
 function allowDrop(event) {
-	event.preventDefault();
+  event.preventDefault();
 }
 
 function drop(event) {
-	event.preventDefault();
-	const file = event.dataTransfer.files[0];
-	const reader = new FileReader();
-	reader.onload = () => {
-		const base64 = reader.result
-		avatar.src = reader.result;
-	};
-	reader.readAsDataURL(file);
+  event.preventDefault();
+  const file = event.dataTransfer.files[0];
+  const reader = new FileReader();
+  reader.onload = () => {
+    const base64 = reader.result;
+    avatar.src = reader.result;
+  };
+  reader.readAsDataURL(file);
 
-	// disappear drop text
-	if (avatar.src !== '') {
-		dropZone.innerHTML = '';
-	}
+  // disappear drop text
+  if (avatar.src !== "") {
+    dropZone.innerHTML = "";
+  }
 }
 
-
-
-
-
-
-
-
-
-
 function getRandomElement(list) {
-    const randomIndex = Math.floor(Math.random() * list.length);
-    return list[randomIndex];
-  }
-  
-  // Danh sách các phần tử
-  const myList = ['Súng ống đầy đủ', 'Ngực công, mông thủ', 'Thay đổi theo nồng độ cồn', '3D siêu chân thực', 'Không có giới tính', 'Sướng là được','Thú tính','Lưỡng long nhất thể','Quan trọng là thần thái'];
-  
-  
+  const randomIndex = Math.floor(Math.random() * list.length);
+  return list[randomIndex];
+}
 
+// Danh sách các phần tử
+const myList = [
+  "Súng ống đầy đủ",
+  "Ngực công, mông thủ",
+  "Thay đổi theo nồng độ cồn",
+  "3D siêu chân thực",
+  "Không có giới tính",
+  "Sướng là được",
+  "Thú tính",
+  "Lưỡng long nhất thể",
+  "Quan trọng là thần thái",
+];
 
-  document.querySelector('.button_random').onclick = function(e){
-    e.preventDefault();
-    // Gọi hàm để tạo số ngẫu nhiên
-    const randomElement = getRandomElement(myList);
-    console.log(randomElement);
-  document.querySelector('.sex_random').innerHTML = randomElement
-  }
-
-
-
-
-
-
-
-
+document.querySelector(".button_random").onclick = function (e) {
+  e.preventDefault();
+  // Gọi hàm để tạo số ngẫu nhiên
+  const randomElement = getRandomElement(myList);
+  console.log(randomElement);
+  document.querySelector(".sex_random").innerHTML = randomElement;
+};

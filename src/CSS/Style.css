@@ -41,6 +41,8 @@ body {
   --text_novel: #000;
   --bg_novel: #ffffec;
   --filter_search: #884c05;
+  --element-color: #ebd6bd;
+  --st-pr-btn-bg: #b0906b;
 }
 
 .toggle-switch {
