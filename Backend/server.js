@@ -726,8 +726,6 @@ app.get('/auth/facebook/callback',
 
 // Reviews page ---------------------------------------------------------------------------------------------------------------------------------------------------
 app.get('/reviews/:id', async (req, res) => {
-	// const data = req.body;
-	// console.log('SYSTEM | REVIEWS |', id_truyen);
 	try {
 		res.sendFile(parentDirectory + '/HTML/reviews.html');
 	} catch (err) {
@@ -742,7 +740,7 @@ app.post('/reviews', async (req, res) => {
 	try {
 		let result = await server.find_all_Data({
 			table: "truyen",
-			query: { "_id": new ObjectId(data.id) },
+			query: { _id: new ObjectId(data.id) },
 			projection: {
 				name: 1,
 				author: 1,
@@ -767,23 +765,24 @@ app.post('/reviews', async (req, res) => {
 
 app.use('/', router);
 
-// app.get('/reviews/:idtruyen', function (req, res) {
-// 	// review/okbro
-// 	// truy cập http://
-// 	const idtruyen = req.params.idtruyen;
-// 	// Đọc nội dung truyện từ cơ sở dữ liệu hoặc từ các tệp tin
-// 	const content = "Nội dung của truyện";
-// 	res.render('read.html', { content: content });
-// });
-
 // Reading page --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.get('/reading/:id/:chap', async (req, res) => {
-	const id_truyen = req.params.id;
-	const chapter = req.params.chap;
+	try {
+		res.sendFile(parentDirectory + '/HTML/readingpage.html');
+	} catch (err) {
+		console.log('SYSTEM | READING | ERROR | ', err);
+		res.sendStatus(500);
+	}
+});
+
+app.post('/reading', async (req, res) => {
+	const data = req.body;
+
+	console.log('SYSTEM | READING |', data);
 	try {
 		let result = await server.find_all_Data({
 			table: "truyen",
-			query: { _id: id_truyen },
+			query: { _id: new ObjectId(data.id) },
 			projection: {
 				_id: 0,
 				name: 1,
@@ -794,12 +793,12 @@ app.get('/reading/:id/:chap', async (req, res) => {
 		});
 
 		// Gửi data về client
-		const chap_content = await server.downloadFileFromDrive(result.chap_ids[chapter], '.temp', 'txt');
+		const chap_content = await server.downloadFileFromDrive(result.chap_ids[data.chap], '.temp', 'txt');
 
 		let send_back = {
 			name: result.name,
-			name_chaps: result.name_chaps[chapter],
-			chap_content: chap_content
+			name_chaps: result.name_chaps[dataproc.chap],
+			chap_content: convertToHtml(chap_content)
 		}
 
 		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
