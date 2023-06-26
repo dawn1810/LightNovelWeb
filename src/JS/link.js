@@ -51,6 +51,8 @@ $(document).ready(function () {
         rootStyle.setProperty("--filter_search", "#12407e");
         rootStyle.setProperty("--element-color", "#323558");
         rootStyle.setProperty("--st-pr-btn-bg", "#24263e");
+        rootStyle.setProperty("--border-btn-st", "#000");
+        rootStyle.setProperty("--button-colors", "#404593");
 
         // home
 
@@ -87,6 +89,8 @@ $(document).ready(function () {
           rootStyle.setProperty("--element-color", "#ebd6bd");
           rootStyle.setProperty("--filter_search", "#884c05");
           rootStyle.setProperty("--st-pr-btn-bg", "#b0906b");
+          rootStyle.setProperty("--border-btn-st", "#a0896e");
+          rootStyle.setProperty("--button-colors", "#b0906b");
 
           localStorage.setItem("theme", "light");
         }
