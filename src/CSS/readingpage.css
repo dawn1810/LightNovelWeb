@@ -258,6 +258,7 @@ h1 {
 
 .active {
   color: #9f9f9f;
+  margin: 0 25px;
 }
 
 .active a {
@@ -292,6 +293,10 @@ h1 {
     color: black;
 } */
 
+.main-content-container p{
+  text-align: justify;
+  margin-bottom: 15px;
+}
 .form_background,
 .form_color_text {
   display: flex;

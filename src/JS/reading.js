@@ -184,107 +184,147 @@ function autoScroll() {
 //     pageScroll();
 // }
 
-async function getchapdata() {
+// async function getchapdata() {
 
-    const url = `${currentURL}/give_me_chap`; // URL của máy chủ mục tiêu
-    const postData = JSON.stringify({
-        // thông tin đăng nhậpppp
-        'status': 'login',
-        // 'password': `${document.querySelector('#password').value}`,
-        // 'cccd': `${document.querySelector('#cccd').value}`,
+//     const url = `${currentURL}/give_me_chap`; // URL của máy chủ mục tiêu
+//     const postData = JSON.stringify({
+//         // thông tin đăng nhậpppp
+//         'status': 'login',
+//         // 'password': `${document.querySelector('#password').value}`,
+//         // 'cccd': `${document.querySelector('#cccd').value}`,
+//     });
+
+//     //bình minh khùng điêu điên
+//     // 
+//     const requestOptions = {
+//         method: 'POST',
+//         headers: {
+//             Accept: "applicaiton/json",
+//             "Content-Type": "application/json",
+//         },
+//         body: postData,
+//         withCredentials: true, // should be there
+//         credentials: 'include' // should be there
+//     };
+
+
+//     try {
+//         const response = await fetch(url, requestOptions)
+//         console.log(response)
+//         // if (response.status == 200) {
+//         //     document.querySelector('.popup').style.display = 'block';
+//         //     document.querySelector('.chat').style.display = 'inline-block';
+//         //     document.querySelector('.chat2').style.display = 'none';
+//         //     document.querySelector('.chat .message #noity-mess').innerHTML = 'Chào mừng ngươi đến địa ngục'
+
+//         //     setTimeout(function () {
+//         //         document.querySelector('.popup').style.display = 'none';
+//         //         document.querySelector('.chat').style.display = 'none';
+//         //     }, 5000)
+
+//         //     location.reload();
+//         // }
+//         // else if (response.status == 204) {
+//         //     document.querySelector('.popup').style.display = 'block';
+//         //     document.querySelector('.chat2').style.display = 'inline-block';
+//         //     document.querySelector('.chat').style.display = 'none';
+
+//         //     document.querySelector('.chat2 .message #noity-mess').innerHTML = 'Ngươi đã từng đến đây rồi'
+
+//         //     setTimeout(function () {
+//         //         document.querySelector('.popup').style.display = 'none';
+//         //         document.querySelector('.chat2').style.display = 'inline-block';
+//         //     }, 5000)
+
+//         // }
+//         // else if (response.status == 403) {
+//         //     document.querySelector('.popup').style.display = 'block';
+//         //     document.querySelector('.chat2').style.display = 'inline-block';
+//         //     document.querySelector('.chat').style.display = 'none';
+
+//         //     document.querySelector('#noity-mess').innerHTML = 'Thông điệp của ngươi không được hồi đáp'
+//         //     setTimeout(function () {
+//         //         document.querySelector('.popup').style.display = 'none';
+//         //         document.querySelector('.chat2').style.display = 'inline-block';
+
+//         //     }, 5000)
+
+//         // }
+//         // else if (response.status == '404') {
+//         //     document.querySelector('.popup').style.display = 'block';
+//         //     document.querySelector('.chat').style.display = 'none';
+
+//         //     document.querySelector('.chat2').style.display = 'inline-block';
+//         //     document.querySelector('.chat2 .message #noity-mess').innerHTML = 'Ngươi Không Tồn Tại'
+//         //     setTimeout(function () {
+//         //         document.querySelector('.popup').style.display = 'none';
+//         //         document.querySelector('.chat2').style.display = 'inline-block';
+
+//         //     }, 5000)
+
+//         // }
+//         // else {
+//         //     document.querySelector('.popup').style.display = 'block';
+//         //     document.querySelector('.chat').style.display = 'none';
+
+//         //     document.querySelector('.chat2').style.display = 'inline-block';
+//         //     setTimeout(function () {
+//         //         document.querySelector('.popup').style.display = 'none';
+//         //         document.querySelector('.chat2').style.display = 'none';
+//         //     }, 5000)
+
+//         // }
+//         // btn_login.disabled = false;
+//         // btn_login.textContent = "Login";
+//     } catch (error) {
+//         console.log('Error:', error);
+
+//     }
+
+
+// }
+
+// getchapdata()
+fetch(`${currentURL}/reading`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        id: window.location.href.split("/")[window.location.href.split("/").length - 2],
+        chap: window.location.href.split("/")[window.location.href.split("/").length - 1] 
+    })
+})
+    .then(response => {
+        if (response.status === 200) {
+            console.log(response)
+            // response.text()
+            return response.json();
+        } else if (response.status === 404) {
+            window.location.href = `${currentURL}/error/404.html`;
+
+        }
+    })
+    .then(data => {
+        console.log(data)
+
+        responseData = data; // Lưu trữ nội dung phản hồi vào biến
+        if (responseData) {
+            console.log(responseData)
+            const name_lv = document.querySelector('.name_lv')
+            const novel_name = document.querySelector('.novel-name')
+            const novel_name_chapter = document.querySelector('.novel-name-chapter')
+            const main_content = document.querySelector('.main-content')
+            name_lv.innerHTML = responseData.name
+            novel_name.innerHTML = responseData.name
+            novel_name_chapter.innerHTML = responseData.name_chaps
+            main_content.innerHTML = responseData.chap_content
+        }
+    }) // In nội dung phản hồi
+    // Sử dụng responseData ở những nơi khác trong mã của b
+    .catch(error => {
+        console.log(error)
     });
-
-    //bình minh khùng điêu điên
-    // 
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            Accept: "applicaiton/json",
-            "Content-Type": "application/json",
-        },
-        body: postData,
-        withCredentials: true, // should be there
-        credentials: 'include' // should be there
-    };
-
-
-    try {
-        const response = await fetch(url, requestOptions)
-        console.log(response)
-        // if (response.status == 200) {
-        //     document.querySelector('.popup').style.display = 'block';
-        //     document.querySelector('.chat').style.display = 'inline-block';
-        //     document.querySelector('.chat2').style.display = 'none';
-        //     document.querySelector('.chat .message #noity-mess').innerHTML = 'Chào mừng ngươi đến địa ngục'
-
-        //     setTimeout(function () {
-        //         document.querySelector('.popup').style.display = 'none';
-        //         document.querySelector('.chat').style.display = 'none';
-        //     }, 5000)
-
-        //     location.reload();
-        // }
-        // else if (response.status == 204) {
-        //     document.querySelector('.popup').style.display = 'block';
-        //     document.querySelector('.chat2').style.display = 'inline-block';
-        //     document.querySelector('.chat').style.display = 'none';
-
-        //     document.querySelector('.chat2 .message #noity-mess').innerHTML = 'Ngươi đã từng đến đây rồi'
-
-        //     setTimeout(function () {
-        //         document.querySelector('.popup').style.display = 'none';
-        //         document.querySelector('.chat2').style.display = 'inline-block';
-        //     }, 5000)
-
-        // }
-        // else if (response.status == 403) {
-        //     document.querySelector('.popup').style.display = 'block';
-        //     document.querySelector('.chat2').style.display = 'inline-block';
-        //     document.querySelector('.chat').style.display = 'none';
-
-        //     document.querySelector('#noity-mess').innerHTML = 'Thông điệp của ngươi không được hồi đáp'
-        //     setTimeout(function () {
-        //         document.querySelector('.popup').style.display = 'none';
-        //         document.querySelector('.chat2').style.display = 'inline-block';
-
-        //     }, 5000)
-
-        // }
-        // else if (response.status == '404') {
-        //     document.querySelector('.popup').style.display = 'block';
-        //     document.querySelector('.chat').style.display = 'none';
-
-        //     document.querySelector('.chat2').style.display = 'inline-block';
-        //     document.querySelector('.chat2 .message #noity-mess').innerHTML = 'Ngươi Không Tồn Tại'
-        //     setTimeout(function () {
-        //         document.querySelector('.popup').style.display = 'none';
-        //         document.querySelector('.chat2').style.display = 'inline-block';
-
-        //     }, 5000)
-
-        // }
-        // else {
-        //     document.querySelector('.popup').style.display = 'block';
-        //     document.querySelector('.chat').style.display = 'none';
-
-        //     document.querySelector('.chat2').style.display = 'inline-block';
-        //     setTimeout(function () {
-        //         document.querySelector('.popup').style.display = 'none';
-        //         document.querySelector('.chat2').style.display = 'none';
-        //     }, 5000)
-
-        // }
-        // btn_login.disabled = false;
-        // btn_login.textContent = "Login";
-    } catch (error) {
-        console.log('Error:', error);
-
-    }
-
-
-}
-
-getchapdata()
 
 
 

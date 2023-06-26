@@ -42,6 +42,30 @@ document.querySelector('.function_item_folow').onclick = function () {
 
     }
 }
+
+
+const lasted_chap_btn=document.querySelector(".lasted_chap");
+lasted_chap_btn.onclick=function(e){
+    e.preventDefault();
+}
+
+const random_chap_btn=document.querySelector(".random_chap");
+random_chap_btn.onclick=function(e){
+    e.preventDefault();
+    const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
+    console.log(chan)
+    window.location.href =`${currentURL}/reading/${chan}/0`
+}
+
+
+
+const first_chap = document.querySelector('.first_chap')
+first_chap.onclick = function(e){
+    e.preventDefault()
+    const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
+    console.log(chan)
+    window.location.href =`${currentURL}/reading/${chan}/0`
+}
 document.querySelector('.function_item_star').onclick = function () {
 
     if (sao == 1) {
@@ -74,25 +98,45 @@ fetch(`${currentURL}/reviews`, {
     .then(response => {
         if (response.status === 200) {
             console.log(response)
-            response.text()
+            return response.json();
+
         } else if (response.status === 404) {
             window.location.href = `${currentURL}/error/404.html`;
 
         }
     })
     .then(data => {
-        responseData = JSON.parse(data); // Lưu trữ nội dung phản hồi vào biến
+        responseData = data; // Lưu trữ nội dung phản hồi vào biến
         // console.log(responseData.usr)
         if (responseData) {
             console.log(responseData)
-            if (response.status === 200) {
-                console.log(response)
+            const current_novel_name = document.querySelector('.current-novel-name')
+            const current_novel_actor = document.querySelector('.current-novel-actor')
+            const current_category_list = document.querySelector('.current-category-list')
+            const novel_avt = document.querySelector('.novel-avt')
+            const function_item_folow = document.querySelector('.function_item_folow span')
 
-            } else if (response.status === 404) {
-                window.location.href = `${currentURL}/error/404.html`;
 
+            current_novel_name.innerHTML = responseData[0].name
+            current_novel_actor.innerHTML = responseData[0].author
+            novel_avt.src = responseData[0].image
+            function_item_folow.innerHTML = responseData[0].likes
+
+
+            let btn_category = ''
+            for(let i = 0; i < responseData[0].genres.length; i++) {
+                btn_category += `
+                <li id="action" class="current-category-list_item">
+                <a href="/HTML/category-page.html">
+                    <div class="btn btn1">
+                        <h4>${responseData[0].genres[i]}</h4>
+                    </div>
+                </a>
+            </li>
+                `
             }
-
+            console.log(btn_category)
+            current_category_list.innerHTML = btn_category
         }
     }) // In nội dung phản hồi
     // Sử dụng responseData ở những nơi khác trong mã của b

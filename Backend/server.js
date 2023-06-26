@@ -793,13 +793,15 @@ app.post('/reading', async (req, res) => {
 			},
 			limit: 1
 		});
-
+//lag wa ae
+// z hả
 		// Gửi data về client
-		const chap_content = await server.downloadFileFromDrive(result.chap_ids[data.chap], '.temp', 'txt');
+		// console.log(typeof(String(result[0].chap_ids[parseInt(data.chap)])))
+		const chap_content = await server.downloadFileFromDrive(String(result[0].chap_ids[parseInt(data.chap)]), '.temp', 'txt');
 
 		let send_back = {
-			name: result.name,
-			name_chaps: result.name_chaps[dataproc.chap],
+			name: result[0].name,
+			name_chaps: result[0].name_chaps[parseInt(data.chap)],
 			chap_content: convertToHtml(chap_content)
 		}
 
