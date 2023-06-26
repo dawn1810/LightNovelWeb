@@ -43,6 +43,8 @@ body {
   --filter_search: #884c05;
   --element-color: #ebd6bd;
   --st-pr-btn-bg: #b0906b;
+  --border-btn-st: #a0896e;
+  --button-colors: #b0906b;
 }
 
 .toggle-switch {
