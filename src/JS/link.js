@@ -56,6 +56,7 @@ $(document).ready(function () {
                 rootStyle.setProperty('--text_novel', "rgb(154, 134, 134)");
                 rootStyle.setProperty('--bg_novel', "#1e1e1e");
                 rootStyle.setProperty('--filter_search', "#12407e");
+                rootStyle.setProperty('--element-color', "#222e53");
 
                 // home
 
@@ -92,6 +93,7 @@ $(document).ready(function () {
                     rootStyle.setProperty('--text_novel', "#000");
                     rootStyle.setProperty('--bg_novel', "#ffffec");
                     rootStyle.setProperty('--filter_search', "#884c05");
+                    rootStyle.setProperty('--element-color', "ebd6bd");
 
 
                     localStorage.setItem('theme', 'light');

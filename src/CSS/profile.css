@@ -56,7 +56,7 @@ body {
 
 .Setting_sidebar-wrapper {
     width: 20%;
-    background-color: #ebd6bd;
+    background-color: var(--element-color);
 }
 
 .Setting_pageWrapper {
@@ -89,10 +89,12 @@ body {
     border-bottom-left-radius: 89px;
 
 }
-.Setting_sidebar-list_item_wrap{
+
+.Setting_sidebar-list_item_wrap {
     padding-left: 18px;
     font-size: 20px;
 }
+
 .Setting_sidebar-list_item:hover {
     cursor: pointer;
     background-color: rgb(170, 175, 166);
