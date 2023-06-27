@@ -383,13 +383,19 @@ app.get('/update_novel', async (req, res) => {
 		await updateNovel.updateIds();
 
 		// Đọc tệp JSON không đồng bộ
-		const data = fs.readFileSync('./trans/tonghop/info.json', 'utf8');
+		const data = fs.promises.readFile(destFilePath, 'utf8')
+			.then((fileContent) => {
+				resolve(fileContent);
+			})
+			.catch((err) => {
+				reject(err);
+			});
 
 		// Phân tích cú pháp tệp JSON và lưu vào biến dummy
 		let dummy = JSON.parse(data);
 
 		// Sử dụng biến dummy ở đây
-		console.log(dummy);
+		console.log(dummy.ids);
 
 		let myobj = {
 			name: dummy.title,
@@ -406,11 +412,6 @@ app.get('/update_novel', async (req, res) => {
 			comment_id: "unknown"
 		};
 
-		console.log('SYSTEM | UPDATE_NOVEL | Start upload novel to MongoDB');
-		await server.add_one_Data("truyen", myobj);
-		console.log('SYSTEM | UPDATE_NOVEL | Complete upload novel to MongoDB');
-
-
 		// clear folder tong hop
 		const directory = "./trans/tonghop";
 
@@ -423,6 +424,11 @@ app.get('/update_novel', async (req, res) => {
 				});
 			}
 		});
+
+		// upload to mongoDB
+		console.log('SYSTEM | UPDATE_NOVEL | Start upload novel to MongoDB');
+		await server.add_one_Data("truyen", myobj);
+		console.log('SYSTEM | UPDATE_NOVEL | Complete upload novel to MongoDB');
 
 		res.sendStatus(200);
 	} catch (err) {
@@ -715,19 +721,19 @@ app.get(
 );
 
 app.get('/auth/facebook',
-	passport.authenticate('facebook'));
+	passport.authenticate('facebook')
+);
 
 app.get('/auth/facebook/callback',
 	passport.authenticate('facebook', { failureRedirect: '/login' }),
 	function (req, res) {
 		// Successful authentication, redirect home.
 		res.send('<script>window.close();</script>');
-	});
+	}
+);
 
 // Reviews page ---------------------------------------------------------------------------------------------------------------------------------------------------
 app.get('/reviews/:id', async (req, res) => {
-	// const data = req.body;
-	// console.log('SYSTEM | REVIEWS |', id_truyen);
 	try {
 		res.sendFile(parentDirectory + '/HTML/reviews.html');
 	} catch (err) {
@@ -742,7 +748,7 @@ app.post('/reviews', async (req, res) => {
 	try {
 		let result = await server.find_all_Data({
 			table: "truyen",
-			query: { "_id": new ObjectId(data.id) },
+			query: { _id: new ObjectId(data.id) },
 			projection: {
 				name: 1,
 				author: 1,
@@ -750,15 +756,17 @@ app.post('/reviews', async (req, res) => {
 				genres: 1,
 				summary: 1,
 				image: 1,
+				name_chaps: 1,
 				views: 1,
-				likes: 1
+				likes: 1,
+				name_chaps: 1
 			},
 			limit: 1
 		});
-		console.log('SYSTEM | REVIEWS | Trả về thông tin reviews truyện ', result[0].name);
+		// console.log('SYSTEM | REVIEWS | Trả về thông tin reviews truyện ', result[0].name);
 		res.writeHead(200, { 'Content-Type': 'application/json' });
 
-		res.end(JSON.stringify(result));
+		res.end(JSON.stringify(result[0]));
 	} catch (err) {
 		console.log('SYSTEM | REVIEWS | ERROR | ', err);
 		res.sendStatus(500);
@@ -767,23 +775,24 @@ app.post('/reviews', async (req, res) => {
 
 app.use('/', router);
 
-// app.get('/reviews/:idtruyen', function (req, res) {
-// 	// review/okbro
-// 	// truy cập http://
-// 	const idtruyen = req.params.idtruyen;
-// 	// Đọc nội dung truyện từ cơ sở dữ liệu hoặc từ các tệp tin
-// 	const content = "Nội dung của truyện";
-// 	res.render('read.html', { content: content });
-// });
-
 // Reading page --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.get('/reading/:id/:chap', async (req, res) => {
-	const id_truyen = req.params.id;
-	const chapter = req.params.chap;
+	try {
+		res.sendFile(parentDirectory + '/HTML/readingpage.html');
+	} catch (err) {
+		console.log('SYSTEM | READING | ERROR | ', err);
+		res.sendStatus(500);
+	}
+});
+
+app.post('/reading', async (req, res) => {
+	const data = req.body;
+
+	console.log('SYSTEM | READING |', data);
 	try {
 		let result = await server.find_all_Data({
 			table: "truyen",
-			query: { _id: id_truyen },
+			query: { _id: new ObjectId(data.id) },
 			projection: {
 				_id: 0,
 				name: 1,
@@ -792,18 +801,19 @@ app.get('/reading/:id/:chap', async (req, res) => {
 			},
 			limit: 1
 		});
-
 		// Gửi data về client
-		const chap_content = await server.downloadFileFromDrive(result.chap_ids[chapter], '.temp', 'txt');
+		// console.log(typeof(String(result[0].chap_ids[parseInt(data.chap)])))
+		// console.log(result);
+		const chap_content = await server.downloadFileFromDrive(String(result[0].chap_ids[parseInt(data.chap)]));
 
 		let send_back = {
-			name: result.name,
-			name_chaps: result.name_chaps[chapter],
-			chap_content: chap_content
+			name: result[0].name,
+			name_chaps: result[0].name_chaps[parseInt(data.chap)],
+			chap_content: convertToHtml(chap_content)
 		}
 
 		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
-		console.log('SYSTEM | READING | Trả về nội dung truyện muốn đọc', result[0].name);
+		console.log('SYSTEM | READING | Trả về nội dung truyện muốn đọc', send_back.name);
 		res.end(JSON.stringify(send_back));
 
 	} catch (err) {
@@ -830,7 +840,7 @@ cron.schedule('0 0 * * *', async () => {
 
 // Run the code immediately
 // update popular novel list 
-// getNovelList();
+getNovelList();
 
 
 app.listen(port, () => {

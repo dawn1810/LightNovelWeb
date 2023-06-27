@@ -288,8 +288,9 @@ async function getFileName(fileId) {
     throw error;
   }
 }
+
 // Download the file from Google Drive
-exports.downloadFileFromDrive = async (fileId, destDirectory = '.temp',) => {
+exports.downloadFileFromDrive = async (fileId) => {
   await initStorage();
   await getAccessToken();
   const res = await drive.files.get(
@@ -297,17 +298,30 @@ exports.downloadFileFromDrive = async (fileId, destDirectory = '.temp',) => {
     { responseType: 'stream', auth }
   );
 
+  // let fileName = await getFileName(fileId);
+  // const destFilePath = path.join(destDirectory, fileName);
+  // const destFile = fs.createWriteStream(destFilePath);
 
-  let fileName = getFileName(fileId);
-  const destFilePath = path.join(destDirectory, fileName);
-  const destFile = fs.createWriteStream(destFilePath);
-  res.data
-    .on('end', () => {
-      console.log('SYSTEM | DRIVE | File downloaded successfully!');
-    })
-    .on('error', (err) => {
-      console.error('SYSTEM | DRIVE | Error downloading file:', err);
-    })
-    .pipe(destFile);
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+
+    res.data
+      .on('data', (chunk) => {
+        chunks.push(chunk);
+      })
+      .on('end', () => {
+        console.log('SYSTEM | DRIVE | File downloaded successfully!');
+        const fileContent = Buffer.concat(chunks).toString('utf8');
+        resolve(fileContent);
+      })
+      .on('error', (err) => {
+        console.error('SYSTEM | DRIVE | Error downloading file:', err);
+        reject(err);
+      })
+    // .pipe(destFile);
+
+    console.log('SYSTEM | DRIVE | File reading successfully!');
+  });
 };
 
+// ------------------------------------------------------------------------------------------------------

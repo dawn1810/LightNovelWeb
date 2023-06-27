@@ -62,7 +62,7 @@
                         <div class="current_left">
 
                             <img src="https://m.media-amazon.com/images/M/MV5BODM0NmVjMzUtOTJhNi00N2ZhLWFkYmMtYmZmNjRiY2M1YWY4XkEyXkFqcGdeQXVyOTgxOTA5MDg@._V1_.jpg"
-                                alt="" class="novel-avt">
+                                alt="" referrerpolicy="no-referrer" class="novel-avt">
                         </div>
 
                         <div class="title-gr">
@@ -101,17 +101,17 @@
                             <div class="button-group main_operation">
 
                                 <div class="wrapper">
-                                    <a href="/HTML/readingpage.html" class="button-efect" href="#"><span>Đọc từ chap
+                                    <a class="button-efect first_chap" href="#"><span>Đọc từ chap
                                             1</span></a>
                                 </div>
 
                                 <div class="wrapper">
-                                    <a href="/HTML/readingpage.html" class="button-efect" href="#"><span>Chap mới
+                                    <a class="button-efect lasted_chap" href="#"><span>Chap mới
                                             nhất</span></a>
                                 </div>
 
                                 <div class="wrapper">
-                                    <a class="button-efect" href="#"><span>Đọc ngẫu nhiên</span></a>
+                                    <a class="button-efect random_chap" href="#"><span>Đọc ngẫu nhiên</span></a>
                                 </div>
 
                             </div>
@@ -313,100 +313,53 @@
     margin: 21px;
 "></i>
                     </div>
-                    <div class="chapter-item">
-                        <div class="chapter_item_info">
-                            <h2 style="margin: 15px;">chap 1</h2>
-                            <div style="
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-">
-                                <div>khong co tieu de</div>
-                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
+
+
+                </div>
+
+                <h1>Dynamic Pagination</h1>
+                <div class="page-container">
+                    <button class="first-page" disabled>
+                        <i class="fas fa-angle-double-left"></i>
+                    </button>
+                    <button class="prev-page" disabled>
+                        <i class="fas fa-angle-left"></i>
+                    </button>
+                    <div id="pagination"></div>
+                    <button class="next-page">
+                        <i class="fas fa-angle-right"></i>
+                    </button>
+                    <button class="last-page">
+                        <i class="fas fa-angle-double-right"></i>
+                    </button>
+                </div>
+
+                <div class="settings">
+                    <div class="form-input">
+                        <label for="">Truncation</label>
+                        <div class="wrapper-form-check">
+                            <div class="form-check">
+                                <input class="check" type="radio" checked name="enable" id="enable" />
+                                <label for="enable">Enable</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="check" type="radio" name="enable" id="disable" />
+                                <label for="disable">Disable</label>
                             </div>
                         </div>
-                        <i class="fa-solid fa-circle-down" style="
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 21px;
-"></i>
                     </div>
-                    <div class="chapter-item">
-                        <div class="chapter_item_info">
-                            <h2 style="margin: 15px;">chap 1</h2>
-                            <div style="
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-">
-                                <div>khong co tieu de</div>
-                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-circle-down" style="
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 21px;
-"></i>
+                    <div class="form-input">
+                        <label for="pages">Number of pages:</label>
+                        <input type="number" min="1" id="pages" value="10" />
                     </div>
-                    <div class="chapter-item">
-                        <div class="chapter_item_info">
-                            <h2 style="margin: 15px;">chap 1</h2>
-                            <div style="
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-">
-                                <div>khong co tieu de</div>
-                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-circle-down" style="
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 21px;
-"></i>
+                    <div class="form-input">
+                        <label for="curpage">Current page:</label>
+                        <input type="number" min="1" id="curpage" value="1" />
                     </div>
-                    <div class="chapter-item">
-                        <div class="chapter_item_info">
-                            <h2 style="margin: 15px;">chap 1</h2>
-                            <div style="
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-">
-                                <div>khong co tieu de</div>
-                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-circle-down" style="
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 21px;
-"></i>
-                    </div>
-                    <div class="chapter-item">
-                        <div class="chapter_item_info">
-                            <h2 style="margin: 15px;">chap 1</h2>
-                            <div style="
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-">
-                                <div>khong co tieu de</div>
-                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-circle-down" style="
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 21px;
-"></i>
+
+                    <div class="form-input">
+                        <label for="delta">Number of links two side of current page</label>
+                        <input type="number" id="delta" min="1" max="5" value="1" />
                     </div>
                 </div>
             </div>
