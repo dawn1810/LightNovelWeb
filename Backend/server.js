@@ -21,7 +21,7 @@ const { ObjectId } = require('mongodb');
 const app = express();
 const router = express.Router();
 
-const port = 7000;
+const port = 6969;
 const secretKey = '5gB#2L1!8*1!0)$7vF@9';
 const authenticationKey = Buffer.from(secretKey.padEnd(32, '0'), 'utf8').toString('hex');
 
@@ -383,13 +383,19 @@ app.get('/update_novel', async (req, res) => {
 		await updateNovel.updateIds();
 
 		// Đọc tệp JSON không đồng bộ
-		const data = fs.readFileSync('./trans/tonghop/info.json', 'utf8');
+		const data = fs.promises.readFile(destFilePath, 'utf8')
+			.then((fileContent) => {
+				resolve(fileContent);
+			})
+			.catch((err) => {
+				reject(err);
+			});
 
 		// Phân tích cú pháp tệp JSON và lưu vào biến dummy
 		let dummy = JSON.parse(data);
 
 		// Sử dụng biến dummy ở đây
-		console.log(dummy);
+		console.log(dummy.ids);
 
 		let myobj = {
 			name: dummy.title,
@@ -406,11 +412,6 @@ app.get('/update_novel', async (req, res) => {
 			comment_id: "unknown"
 		};
 
-		console.log('SYSTEM | UPDATE_NOVEL | Start upload novel to MongoDB');
-		await server.add_one_Data("truyen", myobj);
-		console.log('SYSTEM | UPDATE_NOVEL | Complete upload novel to MongoDB');
-
-
 		// clear folder tong hop
 		const directory = "./trans/tonghop";
 
@@ -423,6 +424,11 @@ app.get('/update_novel', async (req, res) => {
 				});
 			}
 		});
+
+		// upload to mongoDB
+		console.log('SYSTEM | UPDATE_NOVEL | Start upload novel to MongoDB');
+		await server.add_one_Data("truyen", myobj);
+		console.log('SYSTEM | UPDATE_NOVEL | Complete upload novel to MongoDB');
 
 		res.sendStatus(200);
 	} catch (err) {
@@ -750,6 +756,7 @@ app.post('/reviews', async (req, res) => {
 				genres: 1,
 				summary: 1,
 				image: 1,
+				name_chaps: 1,
 				views: 1,
 				likes: 1,
 				name_chaps: 1

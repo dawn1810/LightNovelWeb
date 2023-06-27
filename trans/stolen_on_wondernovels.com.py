@@ -12,6 +12,7 @@ session = requests.Session()
 def get_info_ln(url):
     response = session.get(url,timeout=10)
     # Kiểm tra mã trạng thái của response
+    print(response.status_code )
     if response.status_code == 200:
         # Truy cập nội dung của trang web đã được tải về
         content = response.text
@@ -127,8 +128,8 @@ def normalize_string(input_string):
     return normalized_string
 
 if __name__ == '__main__':
-    list_url_truyen = ['https://wondernovels.com/novels/infinite-investments/',
-                        'https://wondernovels.com/novels/ive-never-seen-a-lucky-player/',
+    list_url_truyen = ['https://wondernovels.com/novels/eternal-life/',
+                       'https://wondernovels.com/novels/a-persons-doomsday/',
                         'https://wondernovels.com/novels/instead-of-being-transported-to-another-world-directly-i-was-given-the-abilities-of-the-strongest-character-in-the-anime-world/',
                         'https://wondernovels.com/novels/since-the-red-moon-appeared/',
                         'https://wondernovels.com/novels/dog-days/',
