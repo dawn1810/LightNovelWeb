@@ -21,7 +21,7 @@ const { ObjectId } = require('mongodb');
 const app = express();
 const router = express.Router();
 
-const port = 7000;
+const port = 6969;
 const secretKey = '5gB#2L1!8*1!0)$7vF@9';
 const authenticationKey = Buffer.from(secretKey.padEnd(32, '0'), 'utf8').toString('hex');
 
@@ -840,9 +840,10 @@ cron.schedule('0 0 * * *', async () => {
 
 // Run the code immediately
 // update popular novel list 
-getNovelList();
 
 
 app.listen(port, () => {
 	console.log(`SYSTEM | LOG | Đang chạy server siu cấp vip pro đa vũ trụ ở http://localhost:${port}`);
+	getNovelList();
+
 });

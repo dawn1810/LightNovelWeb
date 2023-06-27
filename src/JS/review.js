@@ -22,56 +22,6 @@ const valuePage = {
     numLinksTwoSide: 1,
     totalPages: 10
 };
-pagination();
-
-pg.onclick = (e) => {
-    const ele = e.target;
-
-    if (ele.dataset.page) {
-        const pageNumber = parseInt(e.target.dataset.page, 10);
-
-        valuePage.curPage = pageNumber;
-        curPage.value = pageNumber;
-        pagination(valuePage);
-
-        handleButtonLeft();
-        handleButtonRight();
-    }
-};
-
-pages.onchange = () => {
-    valuePage.totalPages = parseInt(pages.value, 10);
-    handleCheckTruncate();
-    handleCurPage();
-    pagination();
-    handleButtonLeft();
-    handleButtonRight();
-};
-curPage.onchange = () => {
-    handleCurPage();
-    pagination();
-    handleButtonLeft();
-    handleButtonRight();
-};
-numLinksTwoSide.onchange = function () {
-    if (this.value > 5) {
-        this.value = 1;
-        valuePage.numLinksTwoSide = 1;
-    } else {
-        valuePage.numLinksTwoSide = parseInt(this.value, 10);
-    }
-    pagination();
-};
-
-checks.forEach((check) => {
-    check.onclick = (e) => {
-        console.log(e.target);
-        handleCheckTruncate();
-        pagination();
-    };
-});
-
-// DYNAMIC PAGINATION
 function pagination() {
     const { totalPages, curPage, truncate, numLinksTwoSide: delta } = valuePage;
 
@@ -125,6 +75,44 @@ function pagination() {
         pg.innerHTML = render;
     }
 }
+pagination();
+
+
+
+pages.onchange = () => {
+    valuePage.totalPages = parseInt(pages.value, 10);
+    handleCheckTruncate();
+    handleCurPage();
+    pagination();
+    handleButtonLeft();
+    handleButtonRight();
+};
+curPage.onchange = () => {
+    handleCurPage();
+    pagination();
+    handleButtonLeft();
+    handleButtonRight();
+};
+numLinksTwoSide.onchange = function () {
+    if (this.value > 5) {
+        this.value = 1;
+        valuePage.numLinksTwoSide = 1;
+    } else {
+        valuePage.numLinksTwoSide = parseInt(this.value, 10);
+    }
+    pagination();
+};
+
+checks.forEach((check) => {
+    check.onclick = (e) => {
+        console.log(e.target);
+        handleCheckTruncate();
+        pagination();
+    };
+});
+
+// DYNAMIC PAGINATION
+
 
 function renderPage(index, active = "") {
     return ` <li class="pg-item ${active}" data-page="${index}">
@@ -196,7 +184,7 @@ function handleButtonLeft() {
 }
 function handleButtonRight() {
     if (valuePage.curPage === valuePage.totalPages) {
-        console.log(valuePage.curPage);
+
         btnNextPg.disabled = true;
         btnLastPg.disabled = true;
     } else {
@@ -290,44 +278,48 @@ document.querySelector('.function_item_star').onclick = function () {
 }
 console.log(window.location.href.split("/")[window.location.href.split("/").length - 1])
 const novel_id = localStorage.getItem('novel_id')
-fetch(`${currentURL}/reviews`, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ id: window.location.href.split("/")[window.location.href.split("/").length - 1] })
-})
-    .then(response => {
-        if (response.status === 200) {
-            console.log(response)
-            return response.json();
 
-        } else if (response.status === 404) {
-            window.location.href = `${currentURL}/error/404.html`;
+var list_chap = ''
+async function getReview() {
 
-        }
+    await fetch(`${currentURL}/reviews`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: window.location.href.split("/")[window.location.href.split("/").length - 1] })
     })
-    .then(data => {
-        responseData = data; // Lưu trữ nội dung phản hồi vào biến
-        // console.log(responseData.usr)
-        if (responseData) {
-            console.log(responseData)
-            const current_novel_name = document.querySelector('.current-novel-name')
-            const current_novel_actor = document.querySelector('.current-novel-actor')
-            const current_category_list = document.querySelector('.current-category-list')
-            const novel_avt = document.querySelector('.novel-avt')
-            const function_item_folow = document.querySelector('.function_item_folow span')
+        .then(response => {
+            if (response.status === 200) {
+                // console.log(response)
+                return response.json();
+
+            } else if (response.status === 404) {
+                window.location.href = `${currentURL}/error/404.html`;
+
+            }
+        })
+        .then(data => {
+            responseData = data; // Lưu trữ nội dung phản hồi vào biến
+            // console.log(responseData.usr)
+            if (responseData) {
+                // console.log(responseData)
+                const current_novel_name = document.querySelector('.current-novel-name')
+                const current_novel_actor = document.querySelector('.current-novel-actor')
+                const current_category_list = document.querySelector('.current-category-list')
+                const novel_avt = document.querySelector('.novel-avt')
+                const function_item_folow = document.querySelector('.function_item_folow span')
+                haha(responseData.name_chaps)
+                // console.log(data)
+                current_novel_name.innerHTML = responseData.name
+                current_novel_actor.innerHTML = responseData.author
+                novel_avt.src = responseData.image
+                function_item_folow.innerHTML = responseData.likes
 
 
-            current_novel_name.innerHTML = responseData.name
-            current_novel_actor.innerHTML = responseData.author
-            novel_avt.src = responseData.image
-            function_item_folow.innerHTML = responseData.likes
-
-
-            let btn_category = ''
-            for (let i = 0; i < responseData.genres.length; i++) {
-                btn_category += `
+                let btn_category = ''
+                for (let i = 0; i < responseData.genres.length; i++) {
+                    btn_category += `
                 <li id="action" class="current-category-list_item">
                 <a href="/HTML/category-page.html">
                     <div class="btn btn1">
@@ -336,12 +328,91 @@ fetch(`${currentURL}/reviews`, {
                 </a>
             </li>
                 `
+                }
+                // console.log(btn_category)
+                valuePage.totalPages = (responseData.name_chaps.length / 10).toFixed(0)
+                current_category_list.innerHTML = btn_category
+                const listchap = document.querySelector('.listchap')
+                let showlist = ''
+                console.log(showlist)
+                const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
+
+                for (let i = 0; i < 10; i++) {
+                    showlist += `
+                <a href='${currentURL}/reading/${chan}/${i}' class="chapter-item">
+                    <div class="chapter_item_info">
+                        <h2 style="margin: 15px;">${responseData.name_chaps[i].substring(0, responseData.name_chaps[i].indexOf(':'))}</h2>
+                        <div style="
+                            display: flex;
+                            flex-direction: column;
+                            flex-wrap: nowrap;
+                            justify-content: center;">
+                            <div>${responseData.name_chaps[i].substring(responseData.name_chaps[i].indexOf(':') + 1)}</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-circle-down" style="
+                        text-align: center;
+                        font-size: 1.5rem;
+                        margin: 21px;
+                    "></i>
+                </a>`
+                }
+                listchap.innerHTML = showlist
+                document.querySelector('.loaded').style.display = 'none'
             }
-            console.log(btn_category)
-            current_category_list.innerHTML = btn_category
+        }) // In nội dung phản hồi
+        // Sử dụng responseData ở những nơi khác trong mã của b
+        .catch(error => {
+            console.log(error)
+        });
+
+}
+function haha(data) {
+    console.log(data)
+    pg.onclick = (e) => {
+        const ele = e.target;
+        console.log('ok')
+        if (ele.dataset.page) {
+            const pageNumber = parseInt(e.target.dataset.page, 10);
+
+            valuePage.curPage = pageNumber;
+            curPage.value = pageNumber;
+            pagination(valuePage);
+
+            handleButtonLeft();
+            handleButtonRight();
+
+
+
+            const listchap = document.querySelector('.listchap')
+            let showlist = ''
+            const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
+
+            for (let i = pageNumber * 10 - 10; i < pageNumber * 10; i++) {
+                showlist += `
+                <a href='${currentURL}/reading/${chan}/${i}' class="chapter-item">
+                    <div class="chapter_item_info">
+                        <h2 style="margin: 15px;">${data[i].substring(0, data[i].indexOf(':'))}</h2>
+                        <div style="
+                            display: flex;
+                            flex-direction: column;
+                            flex-wrap: nowrap;
+                            justify-content: center;">
+                            <div>${data[i].substring(data[i].indexOf(':') + 1)}</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-circle-down" style="
+                        text-align: center;
+                        font-size: 1.5rem;
+                        margin: 21px;
+                    "></i>
+                </a>`
+            }
+            listchap.innerHTML = showlist
+
         }
-    }) // In nội dung phản hồi
-    // Sử dụng responseData ở những nơi khác trong mã của b
-    .catch(error => {
-        console.log(error)
-    });
+    };
+}
+
+getReview()
+
