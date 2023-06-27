@@ -751,7 +751,8 @@ app.post('/reviews', async (req, res) => {
 				summary: 1,
 				image: 1,
 				views: 1,
-				likes: 1
+				likes: 1,
+				name_chaps: 1
 			},
 			limit: 1
 		});
