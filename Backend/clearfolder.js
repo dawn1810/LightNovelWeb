@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const directory = "./.temp";
+const directory = "./trans/tonghop";
 
 fs.readdir(directory, (err, files) => {
     if (err) throw err;
