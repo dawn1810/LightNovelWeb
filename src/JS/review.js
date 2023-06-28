@@ -22,6 +22,7 @@ const valuePage = {
     numLinksTwoSide: 1,
     totalPages: 10
 };
+
 function pagination() {
     const { totalPages, curPage, truncate, numLinksTwoSide: delta } = valuePage;
 
@@ -79,29 +80,31 @@ pagination();
 
 
 
-pages.onchange = () => {
-    valuePage.totalPages = parseInt(pages.value, 10);
-    handleCheckTruncate();
-    handleCurPage();
-    pagination();
-    handleButtonLeft();
-    handleButtonRight();
-};
-curPage.onchange = () => {
-    handleCurPage();
-    pagination();
-    handleButtonLeft();
-    handleButtonRight();
-};
-numLinksTwoSide.onchange = function () {
-    if (this.value > 5) {
-        this.value = 1;
-        valuePage.numLinksTwoSide = 1;
-    } else {
-        valuePage.numLinksTwoSide = parseInt(this.value, 10);
-    }
-    pagination();
-};
+// pages.onchange = () => {
+//     // // valuePage.totalPages = parseInt(pages.value, 10);
+//     // handleCheckTruncate();
+//     // handleCurPage();
+//     // pagination();
+//     // handleButtonLeft();
+//     // handleButtonRight();
+//     const page = parseInt(pages.value, 10);
+//     showListLoad(page,data)
+// };
+// curPage.onchange = () => {
+//     handleCurPage();
+//     pagination();
+//     handleButtonLeft();
+//     handleButtonRight();
+// };
+// numLinksTwoSide.onchange = function () {
+//     if (this.value > 5) {
+//         this.value = 1;
+//         valuePage.numLinksTwoSide = 1;
+//     } else {
+//         valuePage.numLinksTwoSide = parseInt(this.value, 10);
+//     }
+//     pagination();
+// };
 
 checks.forEach((check) => {
     check.onclick = (e) => {
@@ -119,12 +122,12 @@ function renderPage(index, active = "") {
         <a class="pg-link" href="#">${index}</a>
     </li>`;
 }
-function handleCurPage() {
+function handleCurPage(data) {
     if (+curPage.value > pages.value) {
         curPage.value = 1;
         valuePage.curPage = 1;
     } else {
-        valuePage.curPage = parseInt(curPage.value, 10);
+        valuePage.curPage = parseInt(curPage.value, (data.length/10).toFixed(0));
     }
 }
 function handleCheckTruncate() {
@@ -148,48 +151,6 @@ function handleCheckTruncate() {
         } else {
             valuePage.truncate = false;
         }
-    }
-}
-
-document.querySelector(".page-container").onclick = function (e) {
-    handleButton(e.target);
-};
-
-function handleButton(element) {
-    if (element.classList.contains("first-page")) {
-        valuePage.curPage = 1;
-    } else if (element.classList.contains("last-page")) {
-        valuePage.curPage = parseInt(pages.value, 10);
-    } else if (element.classList.contains("prev-page")) {
-        valuePage.curPage--;
-        handleButtonLeft();
-        btnNextPg.disabled = false;
-        btnLastPg.disabled = false;
-    } else if (element.classList.contains("next-page")) {
-        valuePage.curPage++;
-        handleButtonRight();
-        btnPrevPg.disabled = false;
-        btnFirstPg.disabled = false;
-    }
-    pagination();
-}
-function handleButtonLeft() {
-    if (valuePage.curPage === 1) {
-        btnPrevPg.disabled = true;
-        btnFirstPg.disabled = true;
-    } else {
-        btnPrevPg.disabled = false;
-        btnFirstPg.disabled = false;
-    }
-}
-function handleButtonRight() {
-    if (valuePage.curPage === valuePage.totalPages) {
-
-        btnNextPg.disabled = true;
-        btnLastPg.disabled = true;
-    } else {
-        btnNextPg.disabled = false;
-        btnLastPg.disabled = false;
     }
 }
 
@@ -337,27 +298,7 @@ async function getReview() {
                 console.log(showlist)
                 const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
 
-                for (let i = 0; i < 10; i++) {
-                    showlist += `
-                <a href='${currentURL}/reading/${chan}/${i}' class="chapter-item">
-                    <div class="chapter_item_info">
-                        <h2 style="margin: 15px;">${responseData.name_chaps[i].substring(0, responseData.name_chaps[i].indexOf(':'))}</h2>
-                        <div style="
-                            display: flex;
-                            flex-direction: column;
-                            flex-wrap: nowrap;
-                            justify-content: center;">
-                            <div>${responseData.name_chaps[i].substring(responseData.name_chaps[i].indexOf(':') + 1)}</div>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-circle-down" style="
-                        text-align: center;
-                        font-size: 1.5rem;
-                        margin: 21px;
-                    "></i>
-                </a>`
-                }
-                listchap.innerHTML = showlist
+                showListLoad(1, responseData.name_chaps);
                 document.querySelector('.loaded').style.display = 'none'
             }
         }) // In nội dung phản hồi
@@ -367,6 +308,81 @@ async function getReview() {
         });
 
 }
+
+
+function showListLoad(pageNumber, data) {
+    const listchap = document.querySelector('.listchap')
+    let showlist = ''
+    const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
+
+    for (let i = pageNumber * 10 - 10; i < pageNumber * 10; i++) {
+        showlist += `
+        <a href='${currentURL}/reading/${chan}/${i}' class="chapter-item">
+            <div class="chapter_item_info">
+                <h2 style="margin: 15px;">${data[i].substring(0, data[i].indexOf(':'))}</h2>
+                <div style="
+                    display: flex;
+                    flex-direction: column;
+                    flex-wrap: nowrap;
+                    justify-content: center;">
+                    <div>${data[i].substring(data[i].indexOf(':') + 1)}</div>
+                </div>
+            </div>
+            <i class="fa-solid fa-circle-down" style="
+                text-align: center;
+                font-size: 1.5rem;
+                margin: 21px;
+            "></i>
+        </a>`
+    };
+    listchap.innerHTML = showlist;
+}
+
+function handleButton(element, data) {
+    if (element.classList.contains("first-page")) {
+        valuePage.curPage = 1;
+        showListLoad(1, data);
+    } else if (element.classList.contains("last-page")) {
+        valuePage.curPage = parseInt(pages.value, (data.length / 10).toFixed(0));
+        showListLoad((data.length / 10).toFixed(0), data);
+    } else if (element.classList.contains("prev-page")) {
+        valuePage.curPage--;
+        console.log("thg cho thinh-", valuePage.curPage);
+        showListLoad(valuePage.curPage, data);
+        handleButtonLeft();
+        btnNextPg.disabled = false;
+        btnLastPg.disabled = false;
+    } else if (element.classList.contains("next-page")) {
+        valuePage.curPage++;
+        console.log("thg cho thinh+", valuePage.curPage);
+        showListLoad(valuePage.curPage, data);
+        handleButtonRight();
+        btnPrevPg.disabled = false;
+        btnFirstPg.disabled = false;
+    }
+    pagination();
+}
+
+function handleButtonLeft() {
+    if (valuePage.curPage === 1) {
+        btnPrevPg.disabled = true;
+        btnFirstPg.disabled = true;
+    } else {
+        btnPrevPg.disabled = false;
+        btnFirstPg.disabled = false;
+    }
+}
+function handleButtonRight() {
+    if (valuePage.curPage === valuePage.totalPages) {
+
+        btnNextPg.disabled = true;
+        btnLastPg.disabled = true;
+    } else {
+        btnNextPg.disabled = false;
+        btnLastPg.disabled = false;
+    }
+}
+
 function haha(data) {
     console.log(data)
     pg.onclick = (e) => {
@@ -377,40 +393,35 @@ function haha(data) {
 
             valuePage.curPage = pageNumber;
             curPage.value = pageNumber;
-            pagination(valuePage);
+            pagination();
 
             handleButtonLeft();
             handleButtonRight();
 
-
-
-            const listchap = document.querySelector('.listchap')
-            let showlist = ''
-            const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
-
-            for (let i = pageNumber * 10 - 10; i < pageNumber * 10; i++) {
-                showlist += `
-                <a href='${currentURL}/reading/${chan}/${i}' class="chapter-item">
-                    <div class="chapter_item_info">
-                        <h2 style="margin: 15px;">${data[i].substring(0, data[i].indexOf(':'))}</h2>
-                        <div style="
-                            display: flex;
-                            flex-direction: column;
-                            flex-wrap: nowrap;
-                            justify-content: center;">
-                            <div>${data[i].substring(data[i].indexOf(':') + 1)}</div>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-circle-down" style="
-                        text-align: center;
-                        font-size: 1.5rem;
-                        margin: 21px;
-                    "></i>
-                </a>`
-            }
-            listchap.innerHTML = showlist
+            showListLoad(pageNumber, data);
 
         }
+    };
+
+    document.querySelector(".page-container").onclick = function (e) {
+        handleButton(e.target, data);
+    };
+
+    pages.onchange = () => {
+        const page = Math.ceil(parseInt(pages.value) / 10);
+        valuePage.curPage = page;
+        curPage.value = page;
+        pagination();
+
+        showListLoad(page, data)
+    };
+
+    curPage.onchange = () => {
+        handleCurPage(data);
+        pagination();
+        handleButtonLeft();
+        handleButtonRight();
+        showListLoad(curPage.value, data)
     };
 }
 

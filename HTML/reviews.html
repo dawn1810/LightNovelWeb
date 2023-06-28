@@ -179,6 +179,34 @@
         <div class="current-body">
             <div class="summary-listchap">
                 <h2>Danh Sách Chương</h2>
+                <div class="settings">
+                    <!-- <div class="form-input">
+                        <label for="">Truncation</label>
+                        <div class="wrapper-form-check">
+                            <div class="form-check">
+                                <input class="check" type="radio" checked name="enable" id="enable" />
+                                <label for="enable">Enable</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="check" type="radio" name="enable" id="disable" />
+                                <label for="disable">Disable</label>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="form-input">
+                        <label for="pages">Chapter muốn tới:</label>
+                        <input type="number" min="1" id="pages" value="10" />
+                    </div>
+                    <div class="form-input">
+                        <label for="curpage">Trang muốn tới:</label>
+                        <input type="number" min="1" id="curpage" value="1" />
+                    </div>
+<!-- 
+                    <div class="form-input">
+                        <label for="delta">Number of links two side of current page</label>
+                        <input type="number" id="delta" min="1" max="5" value="1" />
+                    </div> -->
+                </div>
                 <div class="listchap">
                     <div class="chapter-item">
                         <div class="chapter_item_info">
@@ -334,34 +362,7 @@
                     </button>
                 </div>
 
-                <div class="settings">
-                    <div class="form-input">
-                        <label for="">Truncation</label>
-                        <div class="wrapper-form-check">
-                            <div class="form-check">
-                                <input class="check" type="radio" checked name="enable" id="enable" />
-                                <label for="enable">Enable</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="check" type="radio" name="enable" id="disable" />
-                                <label for="disable">Disable</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-input">
-                        <label for="pages">Number of pages:</label>
-                        <input type="number" min="1" id="pages" value="10" />
-                    </div>
-                    <div class="form-input">
-                        <label for="curpage">Current page:</label>
-                        <input type="number" min="1" id="curpage" value="1" />
-                    </div>
-
-                    <div class="form-input">
-                        <label for="delta">Number of links two side of current page</label>
-                        <input type="number" id="delta" min="1" max="5" value="1" />
-                    </div>
-                </div>
+                
             </div>
 
             <div class="Similar novels">

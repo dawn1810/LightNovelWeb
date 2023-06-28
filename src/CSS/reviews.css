@@ -1147,6 +1147,7 @@ li {
 }
 
 .settings .form-input label {
+    color: var(--login-btn);
     font-size: 18px;
     font-weight: 600;
     display: block;
@@ -1157,6 +1158,7 @@ li {
 }
 
 .settings .form-input input {
+    background-color: var(--search-bg);
     font-size: 18px;
     outline: none;
     padding: 10px 17px;
