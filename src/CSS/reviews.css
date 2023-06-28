@@ -5,6 +5,10 @@
 
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 main {
     width: 80%;
     display: flex;

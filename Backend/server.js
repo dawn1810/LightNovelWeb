@@ -759,7 +759,8 @@ app.post('/reviews', async (req, res) => {
 				name_chaps: 1,
 				views: 1,
 				likes: 1,
-				name_chaps: 1
+				name_chaps: 1,
+				update_date: 1
 			},
 			limit: 1
 		});

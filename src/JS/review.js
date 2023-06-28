@@ -14,6 +14,16 @@ const btnNextPg = document.querySelector("button.next-page");
 const btnPrevPg = document.querySelector("button.prev-page");
 const btnFirstPg = document.querySelector("button.first-page");
 const btnLastPg = document.querySelector("button.last-page");
+const send_comment = document.querySelector(".send_your_cmt");
+
+
+
+document.querySelector('.function_item_share').onclick = () => {
+    const link = window.location.href
+    navigator.clipboard.writeText(link);
+    alert('Copy gòi nha em iuuuu <3');
+}
+
 // when page load
 // curPage.setAttribute('max', pages.value);
 const valuePage = {
@@ -127,7 +137,7 @@ function handleCurPage(data) {
         curPage.value = 1;
         valuePage.curPage = 1;
     } else {
-        valuePage.curPage = parseInt(curPage.value, (data.length/10).toFixed(0));
+        valuePage.curPage = parseInt(curPage.value, (data.length / 10).toFixed(0));
     }
 }
 function handleCheckTruncate() {
@@ -240,6 +250,55 @@ document.querySelector('.function_item_star').onclick = function () {
 console.log(window.location.href.split("/")[window.location.href.split("/").length - 1])
 const novel_id = localStorage.getItem('novel_id')
 
+function calTime(data) {
+    // Thời điểm hiện tại
+    const now = new Date();
+    console.log((data.update_date))
+
+    // Thời điểm trả về từ server
+    const serverTime = new Date(data.update_date);
+
+    // Tính số lượng năm chênh lệch
+    const yearsDiff = now.getFullYear() - serverTime.getFullYear();
+
+    // Tính số lượng tháng chênh lệch
+    const monthsDiff = (yearsDiff * 12) + (now.getMonth() - serverTime.getMonth());
+
+    // Tính số lượng ngày chênh lệch
+    const daysDiff = Math.floor((now - serverTime) / (1000 * 60 * 60 * 24));
+
+    // Tính số lượng giờ chênh lệch
+    const hoursDiff = now.getHours() - serverTime.getHours();
+
+    // Tính số lượng phút chênh lệch
+    const minutesDiff = now.getMinutes() - serverTime.getMinutes();
+
+    // Hiển thị kết quả chênh lệch thời gian
+    console.log(`Chênh lệch thời gian: ${yearsDiff} năm, ${monthsDiff} tháng, ${daysDiff} ngày, ${hoursDiff} giờ, ${minutesDiff} phút.`);
+
+    if (yearsDiff > 0) {
+        return yearsDiff + ' năm'
+    }
+    else if (monthsDiff > 0) {
+        return monthsDiff + ' tháng'
+    }
+    else if (daysDiff > 0) {
+        return daysDiff + ' ngày'
+    }
+    else if (hoursDiff > 0) {
+        return hoursDiff + ' giờ'
+    }
+    else if (minutesDiff > 0) {
+        return minutesDiff + ' phút'
+    }
+    else {
+        return 'Nóng như chuyện tình đôi ta <3'
+
+    }
+    return 'éo tính dc'
+}
+
+
 var list_chap = ''
 async function getReview() {
 
@@ -270,12 +329,39 @@ async function getReview() {
                 const current_category_list = document.querySelector('.current-category-list')
                 const novel_avt = document.querySelector('.novel-avt')
                 const function_item_folow = document.querySelector('.function_item_folow span')
+
+                document.querySelector('#last_update_time').innerHTML = calTime(responseData)
+
+                document.querySelector('#number_of_likes').innerHTML = responseData.likes
+                document.querySelector('#number_of_view').innerHTML = responseData.views
+
+                function scrollToComments() {
+                    // Lấy phần tử bình luận của bài đăng
+                    var commentContainer = document.getElementById("comment_container");
+
+                    // Nếu phần tử bình luận tồn tại, cuộn trang xuống phần tử đó
+                    if (commentContainer) {
+                        commentContainer.scrollIntoView();
+                    }
+                }
+
+                // Đăng ký sự kiện click cho nút bình luận
+                var commentButton = document.querySelector('.function_item_comment');
+                commentButton.addEventListener("click", function (event) {
+                    // Ngăn chặn hành động mặc định của nút bình luận (chuyển đến URL mới)
+                    event.preventDefault();
+
+                    // Cuộn trang xuống phần bình luận của bài đăng và hiển thị phần bình luận
+                    scrollToComments();
+                });
+
                 haha(responseData.name_chaps)
                 // console.log(data)
                 current_novel_name.innerHTML = responseData.name
                 current_novel_actor.innerHTML = responseData.author
                 novel_avt.src = responseData.image
                 function_item_folow.innerHTML = responseData.likes
+
 
 
                 let btn_category = ''
@@ -295,7 +381,7 @@ async function getReview() {
                 current_category_list.innerHTML = btn_category
                 const listchap = document.querySelector('.listchap')
                 let showlist = ''
-                console.log(showlist)
+                // console.log(showlist)
                 const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
 
                 showListLoad(1, responseData.name_chaps);
@@ -343,8 +429,8 @@ function handleButton(element, data) {
         valuePage.curPage = 1;
         showListLoad(1, data);
     } else if (element.classList.contains("last-page")) {
-        valuePage.curPage = parseInt(pages.value, (data.length / 10).toFixed(0));
-        showListLoad((data.length / 10).toFixed(0), data);
+        valuePage.curPage = parseInt((data.length / 10).toFixed(0));
+        showListLoad(parseInt((data.length / 10).toFixed(0)), data);
     } else if (element.classList.contains("prev-page")) {
         valuePage.curPage--;
         console.log("thg cho thinh-", valuePage.curPage);
@@ -356,7 +442,7 @@ function handleButton(element, data) {
         valuePage.curPage++;
         console.log("thg cho thinh+", valuePage.curPage);
         showListLoad(valuePage.curPage, data);
-        handleButtonRight();
+        handleButtonRight(data);
         btnPrevPg.disabled = false;
         btnFirstPg.disabled = false;
     }
@@ -372,9 +458,8 @@ function handleButtonLeft() {
         btnFirstPg.disabled = false;
     }
 }
-function handleButtonRight() {
-    if (valuePage.curPage === valuePage.totalPages) {
-
+function handleButtonRight(data) {
+    if (valuePage.curPage === parseInt((data.length / 10).toFixed(0))) {
         btnNextPg.disabled = true;
         btnLastPg.disabled = true;
     } else {
@@ -384,7 +469,7 @@ function handleButtonRight() {
 }
 
 function haha(data) {
-    console.log(data)
+    // console.log(data)
     pg.onclick = (e) => {
         const ele = e.target;
         console.log('ok')
@@ -396,7 +481,7 @@ function haha(data) {
             pagination();
 
             handleButtonLeft();
-            handleButtonRight();
+            handleButtonRight(data);
 
             showListLoad(pageNumber, data);
 
@@ -405,6 +490,8 @@ function haha(data) {
 
     document.querySelector(".page-container").onclick = function (e) {
         handleButton(e.target, data);
+        handleButtonLeft();
+        handleButtonRight(data);
     };
 
     pages.onchange = () => {
@@ -420,7 +507,7 @@ function haha(data) {
         handleCurPage(data);
         pagination();
         handleButtonLeft();
-        handleButtonRight();
+        handleButtonRight(data);
         showListLoad(curPage.value, data)
     };
 }
