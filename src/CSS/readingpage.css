@@ -7,6 +7,14 @@ body {
   text-align: center;
 }
 
+.right-btn {
+  background-color: rgb(207 163 119) !important;
+}
+
+.left-btn {
+  margin-right: 20px;
+}
+
 main {
   background: var(--bg_novel);
   margin-top: 70px;
@@ -196,11 +204,13 @@ h1 {
 .vienchien {
   z-index: 10;
   display: flex;
-  width: 250px;
+  /* width: 250px; */
   justify-content: space-between;
   align-items: center;
   margin: 20px auto;
 }
+
+
 
 .directional-btn {
   width: 50px !important;
@@ -208,7 +218,7 @@ h1 {
   background-color: rgb(0, 131, 87) !important;
   margin: 0px;
   border-radius: 50%;
-  margin: 0;
+  margin-right: 20px;
 }
 
 .main-body {
@@ -225,9 +235,7 @@ h1 {
   display: block;
 }
 
-.right-btn {
-  background-color: rgb(207 163 119) !important;
-}
+
 
 .btn-gr {
   position: relative;
@@ -247,6 +255,11 @@ h1 {
 
 .settings_siuuu {
   z-index: 9;
+  margin-right: 20px;
+}
+
+.chapter_list {
+  margin-right: 20px;
 }
 
 .menu-tag {
@@ -310,9 +323,9 @@ h1 {
   padding: 0;
 }
 
-.btn-gr select {
+/* .btn-gr select {
   max-width: 100px;
-}
+} */
 
 .ss_reader_background_reset,
 .ss_reader_textColor_reset {
@@ -402,7 +415,7 @@ h1 {
 }
 
 #show_more {
-  width: 75px;
+  width: 115px;
   height: 40px;
   /* border: 4px solid blue; */
   display: none;
@@ -421,7 +434,8 @@ h1 {
 .lame {
   width: 50px !important;
   height: 50px !important;
-  /* background-color: rgba(88, 88, 88, 0.589) !important; */
+  background-color: rgb(207 163 119)
+    /* background-color: rgba(88, 88, 88, 0.589) !important; */
 }
 
 .lame i {

@@ -227,6 +227,7 @@ first_chap.onclick = function (e) {
     console.log(chan)
     window.location.href = `${currentURL}/reading/${chan}/0`
 }
+
 document.querySelector('.function_item_star').onclick = function () {
 
     if (sao == 1) {
@@ -334,6 +335,14 @@ async function getReview() {
 
                 document.querySelector('#number_of_likes').innerHTML = responseData.likes
                 document.querySelector('#number_of_view').innerHTML = responseData.views
+
+                const lasted_chap = document.querySelector('.lasted_chap')
+                lasted_chap.onclick = function (e) {
+                    e.preventDefault()
+                    const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
+                    console.log(chan, responseData.name_chaps.length - 1)
+                    window.location.href = `${currentURL}/reading/${chan}/${responseData.name_chaps.length - 1}`
+                }
 
                 function scrollToComments() {
                     // Lấy phần tử bình luận của bài đăng

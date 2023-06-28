@@ -8,9 +8,9 @@ const textColor1 = document.getElementById("ss_reader_textColor1")
 
 const font = document.getElementById("ss_reader_font")
 
-const reader_size = document.getElementById("ss_reader_size")
+const reader_size = document.querySelectorAll("#ss_reader_size")
 
-const line_height = document.getElementById("ss_reader_line_height")
+const line_height = document.querySelectorAll("#ss_reader_line_height")
 
 const main = document.querySelector("main")
 const body_main = document.querySelector(".main-body")
@@ -19,9 +19,9 @@ const body_main = document.querySelector(".main-body")
 const main_content = document.querySelector(".main-content")
 
 
-const show_chapter = document.querySelector(".show-list")
+// const show_chapter = document.querySelector(".show-list")
 
-const show_list = document.querySelector('.show-list')
+const show_list = document.querySelectorAll('.show-list')
 const show_more = document.querySelector('#show_more')
 
 const reset_text_color = document.querySelector(".ss_reader_textColor_reset");
@@ -38,24 +38,28 @@ const themes = localStorage.getItem('theme');
 //     main.style.background = '#9fcfca'
 //     body_main.style.color = "#000"
 // }
-show_list.onclick = function () {
-    show_more.style.display = "block"
-    show_list.style.display = "none"
+
+
+for (const list_show of show_list) {
+    list_show.onclick = function () {
+        list_show.parentElement.querySelector('#show_more').style.display = "block"
+        list_show.style.display = "none"
+    }
 }
-background_color.onchange = function (event) {
+background_color.onchange = function () {
     main.style.background = background_color.value;
 }
-background_color1.onchange = function (event) {
+background_color1.onchange = function () {
     main.style.background = background_color1.value;
 }
 
 
-textColor1.onchange = function (event) {
+textColor1.onchange = function () {
     // body_main.style.color = textColor.value;
     body_main.style.color = textColor1.value;
     document.querySelector(".novel-name-chapter").style.color = textColor1.value
 }
-textColor.onchange = function (event) {
+textColor.onchange = function () {
     // body_main.style.color = textColor.value;
     body_main.style.color = textColor.value;
     document.querySelector(".novel-name-chapter").style.color = textColor.value
@@ -77,16 +81,55 @@ reset_text_color.addEventListener("click", function () {
 //     body_main.style.fontFamily = font.value;
 // }
 
-reader_size.onchange = function (event) {
-    main_content.style.fontSize = `${reader_size.value}px`;
+for (const font of reader_size) {
+    font.onchange = function () {
+        main_content.style.fontSize = `${font.value}px`;
+    }
 }
 
-line_height.onchange = function (event) {
-    main_content.style.lineHeight = line_height.value;
+
+for (const height of line_height) // roi do hai anh trai name chap cho ten chap hien tai, con name chaps la tat ca
+    height.onchange = function () {
+        main_content.style.lineHeight = line_height.value;
+    }
+
+// cai hai thg bay moi coii laf review nha
+// cais tao sua la reading coi chung lam duong lac loi
+const left_btn = document.querySelectorAll('.left-btn')
+for (const l_btn of left_btn) {
+    l_btn.onclick = function () {
+        const chap = parseInt((window.location.href).split('/').pop()) - 1;
+        const crUrl = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
+
+        window.location.href = `${crUrl}/${chap}`
+    }
+}
+const right_btn = document.querySelectorAll('.right-btn')
+for (const r_btn of right_btn) {
+    r_btn.onclick = function () {
+        const chap = parseInt((window.location.href).split('/').pop()) + 1;
+        const crUrl = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
+
+        window.location.href = `${crUrl}/${chap}`
+    }
 }
 
-const left_btn = document.querySelector('.left-btn')
-left_btn.onclick = fun
+
+const lame_right = document.querySelector('.lame-right');
+lame_right.onclick = function () {
+    const chap = parseInt((window.location.href).split('/').pop()) + 1;
+    const crUrl = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
+
+    window.location.href = `${crUrl}/${chap}`
+}
+
+const lame_left = document.querySelector('.lame-left');
+lame_left.onclick = function () {
+    const chap = parseInt((window.location.href).split('/').pop()) - 1;
+    const crUrl = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
+
+    window.location.href = `${crUrl}/${chap}`
+}
 
 const lame_up = document.querySelector('.lame-up');
 
@@ -175,7 +218,9 @@ async function getchapdata() {
         })
         .then(data => {
             console.log(data)
+            const chap = parseInt((window.location.href).split('/').pop());
 
+            // if(chap ==)
             responseData = data; // Lưu trữ nội dung phản hồi vào biến
             if (responseData) {
                 console.log(responseData)
@@ -183,11 +228,69 @@ async function getchapdata() {
                 const novel_name = document.querySelector('.novel-name')
                 const novel_name_chapter = document.querySelector('.novel-name-chapter')
                 const main_content = document.querySelector('.main-content')
-                name_lv.innerHTML = responseData.name
+                name_lv.innerHTML = `
+                 <a href = "${currentURL}/reviews/${window.location.href.split('/')[window.location.href.split('/').length - 2]}">
+                    ${responseData.name}
+                 </a>
+                `
                 novel_name.innerHTML = responseData.name
-                novel_name_chapter.innerHTML = responseData.name_chaps
+                novel_name_chapter.innerHTML = responseData.name_chap
                 main_content.innerHTML = responseData.chap_content
                 document.querySelector('.loaded').style.display = 'none'
+
+                const left_btn = document.querySelectorAll('.left-btn')
+                if (parseInt((window.location.href).split('/').pop()) == 0) {
+                    for (const l_btn of left_btn) {
+                        l_btn.style.display = 'none'
+                    }
+                }
+                const right_btn = document.querySelectorAll('.right-btn')
+
+                if (parseInt((window.location.href).split('/').pop()) == responseData.name_chaps.length - 1) {
+                    for (const r_btn of right_btn) {
+                        r_btn.style.display = 'none'
+                    }
+                }
+                const show_more = document.querySelectorAll('#show_more')
+                for (const show of show_more) {
+                    let show_list = ''
+                    for (let i = 0; i < responseData.name_chaps.length; i++) {
+                        if (parseInt((window.location.href).split('/').pop()) == i) {
+                            if (responseData.name_chaps[i].endsWith(")")) {
+                                show_list += `
+                            <option selected  value="${i}">${responseData.name_chaps[i].replace(/(Chapter \d+).*?(\d+)\)$/, "$1($2)")}</option>
+                            `
+                            }
+                            else {
+                                show_list += `
+                            <option selected value="${i}">${responseData.name_chaps[i].substring(0, responseData.name_chaps[i].indexOf(":"))}</option>
+                            `
+                            }
+                        }
+                        else {
+                            if (responseData.name_chaps[i].endsWith(")")) {
+                                show_list += `
+                            <option value="${i}">${responseData.name_chaps[i].replace(/(Chapter \d+).*?(\d+)\)$/, "$1($2)")}</option>
+                            `
+                            }
+                            else {
+                                show_list += `
+                            <option value="${i}">${responseData.name_chaps[i].substring(0, responseData.name_chaps[i].indexOf(":"))}</option>
+                            `
+                            }
+                        }
+
+                    }
+                    show.innerHTML = show_list
+
+                    show.onchange = function () {
+                        const crUrl = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
+                        window.location.href = `${crUrl}/${show.value}`
+                    }
+                }
+
+
+                document.querySelector('.rv-author-a').innerHTML = responseData.name_chap.substring(0, responseData.name_chap.indexOf(":"));;
             }
         }) // In nội dung phản hồi
         // Sử dụng responseData ở những nơi khác trong mã của b

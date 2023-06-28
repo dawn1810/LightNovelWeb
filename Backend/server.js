@@ -809,7 +809,8 @@ app.post('/reading', async (req, res) => {
 
 		let send_back = {
 			name: result[0].name,
-			name_chaps: result[0].name_chaps[parseInt(data.chap)],
+			name_chaps: result[0].name_chaps,
+			name_chap: result[0].name_chaps[parseInt(data.chap)],
 			chap_content: convertToHtml(chap_content)
 		}
 
