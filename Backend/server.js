@@ -589,11 +589,13 @@ passport.use(new GoogleStrategy({
 				// update new data for tt_nguoi_dung database
 				await server.update_one_Data("tt_nguoi_dung", { _id: profile.id },
 					{
-						email: profile.emails[0].value,
-						displayName: profile.displayName,
-						avatarUrl: profile.photos[0].value,
-						sex: "unknown",
-						likeNovels: [],
+						$set: {
+							email: profile.emails[0].value,
+							displayName: profile.displayName,
+							avatarUrl: profile.photos[0].value,
+							sex: "unknown",
+							likeNovels: [],
+						}
 					});
 
 				return done(null, existingUser);
@@ -741,16 +743,12 @@ app.post('/updatelike', async (req, res) => {
 			if (parseInt(data.status)) { // like
 				// up one like for current novel
 				await server.update_one_Data('truyen',
-					{
-						_id: new ObjectId(data.id_truyen)
-					},
-					{ $inc: { likes: -1 } }
+					{ _id: new ObjectId(data.id_truyen) },
+					{ $inc: { likes: 1 } }
 				);
 				// add current nodel to like list of current user
 				await server.update_one_Data('tt_nguoi_dung',
-					{
-						_id: decode[1]
-					},
+					{ _id: decodeList[1] },
 					{ $push: { likeNovels: data.id_truyen } }
 				);
 				// response client
@@ -761,16 +759,12 @@ app.post('/updatelike', async (req, res) => {
 			else { // unlike
 				// down on like for current novel
 				await server.update_one_Data('truyen',
-					{
-						_id: new ObjectId(data.id_truyen)
-					},
-					{ $inc: { likes: 1 } }
+					{ _id: new ObjectId(data.id_truyen) },
+					{ $inc: { likes: -1 } }
 				);
 				// remove current nodel from like list of current user
 				await server.update_one_Data('tt_nguoi_dung',
-					{
-						_id: decode[1]
-					},
+					{ _id: decodeList[1] },
 					{ $pull: { likeNovels: data.id_truyen } }
 				);
 				// response client
@@ -796,7 +790,7 @@ app.get('/reviews/:id', async (req, res) => {
 	}
 });
 
-app.post('/reviews', async (req, res) => {// lam jz anh zai
+app.post('/reviews', async (req, res) => {
 	const data = req.body;
 	console.log('SYSTEM | REVIEWS |', data);
 	try {
@@ -849,26 +843,26 @@ app.post('/reviews', async (req, res) => {// lam jz anh zai
 					limit: 1
 				});
 
-				// 	// check does novel was liked by current user or not
-				// 	const like_list = await server.find_all_Data({
-				// 		table: "tt_nguoi_dung",
-				// 		query: { _id: new ObjectId(decode[1]) },
-				// 		projection: {
-				// 			_id: 0,
-				// 			likeNovels: 1
-				// 		},
-				// 		limit: 1
-				// 	});
+				// check does novel was liked by current user or not
+				const like_list = await server.find_all_Data({
+					table: "tt_nguoi_dung",
+					query: { _id: decodeList[1] },
+					projection: {
+						_id: 0,
+						likeNovels: 1
+					},
+					limit: 1
+				});
 
-				// 	if (like_list.includes(data.id)) { // liked
-				// 		result[0].status = 1;
-				// 	}
-				// 	else { // not like
-				// 		result[0].status = 0;
-				// 	}
+				if (like_list[0].likeNovels.includes(data.id)) { // liked
+					result[0].status = 1;
+				}
+				else { // not like
+					result[0].status = 0;
+				}
 
 
-				// console.log('SYSTEM | REVIEWS | Trả về thông tin reviews truyện ', result[0].name);
+				console.log('SYSTEM | REVIEWS | Trả về thông tin reviews truyện ', result[0].name);
 				res.writeHead(200, { 'Content-Type': 'application/json' });
 
 				res.end(JSON.stringify(result[0]));

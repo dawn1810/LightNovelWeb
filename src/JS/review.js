@@ -261,7 +261,6 @@ dislike.onclick = function () {
     Evaluate()
     dislike.style.color = '#1877f2'
     //abcdef
-
 }
 let tim = 0
 let sao = 0
@@ -280,7 +279,7 @@ document.querySelector('.function_item_folow').onclick = function () {
             document.querySelector('.function_item_folow').innerHTML = `
                 <i class="fa-regular fa-heart"></i>
                 <span>${parseInt(tym) - 1}</span>`
-            // like_novel(0)
+            like_novel(0)
 
         } else {
             tim = 1
@@ -289,10 +288,7 @@ document.querySelector('.function_item_folow').onclick = function () {
                 <span>${parseInt(tym) + 1}</span>`
             console.log('ok ko')
 
-            // like_novel(1)
-
-
-
+            like_novel(1)
         }
     }
 }
@@ -430,6 +426,7 @@ async function getReview() {
                 const current_category_list = document.querySelector('.current-category-list')
                 const novel_avt = document.querySelector('.novel-avt')
                 const function_item_folow = document.querySelector('.function_item_folow span')
+                const function_item_folow_heard = document.querySelector('.function_item_folow i')
                 const summary = document.querySelector('.summary-Content')
                 document.querySelector('#last_update_time').innerHTML = calTime(responseData)
 
@@ -443,6 +440,20 @@ async function getReview() {
                     console.log(chan, responseData.name_chaps.length - 1)
                     window.location.href = `${currentURL}/reading/${chan}/${responseData.name_chaps.length - 1}`
                 }
+
+                // Xét xem người dùng đã like hay chưa:
+                if (responseData.status) { // đã like
+                    function_item_folow_heard.classList.replace('fa-regular', 'fa-solid');
+                    // function_item_folow_heard.classList.remove('fa-regular');
+                    // function_item_folow_heard.classList.add('fa-solid');
+                }
+                else { // chưa like
+                    function_item_folow_heard.classList.replace('fa-solid', 'fa-regular');
+                    
+                    // function_item_folow_heard.classList.add('fa-regular');
+                    // function_item_folow_heard.classList.remove('fa-solid');
+                }
+
 
                 function scrollToComments() {
                     // Lấy phần tử bình luận của bài đăng
