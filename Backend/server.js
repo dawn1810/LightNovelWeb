@@ -359,8 +359,11 @@ app.post('/no_chaps', async (req, res) => {
 	const data = req.body;
 	console.log('SYSTEM | NO_CHAP | Dữ liệu nhận được: ', data);
 	try {
-		let query = { name: data.name };
-		const result = await server.find_all_Data({ query: query, table: "truyen", projection: { _id: 0, no_chapters: 1 }, limit: 1 });
+		const result = await server.find_all_Data({
+			query: { name: data.name },
+			table: "truyen",
+			projection: { _id: 0, no_chapters: 1 }, limit: 1
+		});
 		// if array emty return zero
 		if (result.length === 0) {
 			res.writeHead(200, { 'Content-Type': 'text/plain' });
@@ -511,8 +514,6 @@ app.post('/login', async (req, res) => {
 						avatarUrl: 'unknown',
 						sex: "unknown",
 						likeNovels: [],
-						monitorNovels: [],
-						commentIds: []
 					};
 
 					// them mot nguoi dung moi
@@ -593,8 +594,6 @@ passport.use(new GoogleStrategy({
 						avatarUrl: profile.photos[0].value,
 						sex: "unknown",
 						likeNovels: [],
-						monitorNovels: [],
-						commentIds: []
 					});
 
 				return done(null, existingUser);
@@ -609,8 +608,6 @@ passport.use(new GoogleStrategy({
 					avatarUrl: profile.photos[0].value,
 					sex: "unknown",
 					likeNovels: [],
-					monitorNovels: [],
-					commentIds: []
 				};
 
 				// dang_nhap data base:
@@ -682,8 +679,6 @@ passport.use(new FacebookStrategy({
 		// 			avatarUrl: profile.photos[0].value,
 		// 			sex: "unknown",
 		// 			likeNovels: [],
-		// 			monitorNovels: [],
-		// 			commentIds: []
 		// 		});
 
 		// 		return done(null, existingUser._id);
@@ -699,8 +694,6 @@ passport.use(new FacebookStrategy({
 		// 		avatarUrl: profile.photos[0].value,
 		// 		sex: "unknown",
 		// 		likeNovels: [],
-		// 		monitorNovels: [],
-		// 		commentIds: []
 		// 	};
 
 		// 		await server.add_one_Data("tt_nguoi_dung", newUser._id);
@@ -732,6 +725,67 @@ app.get('/auth/facebook/callback',
 	}
 );
 
+app.post('/updatelike', async (req, res) => {
+	try {
+		const data = req.body;
+		console.log('SYSTEM | UPDATE_LIKE | Dữ liệu nhận được: ', data);
+		const decode = decrypt(data.account, authenticationKey);
+		const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
+		console.log(`SYSTEM | UPDATE_LIKE | Dữ liệu đã giải mã ${decodeList}`);
+		// decodeList = authenticationKey:id:pass
+		if (decodeList[0] == authenticationKey) {
+			//account: accountCookie,
+			//status: status (0/1)
+			//id_truyen
+
+			if (parseInt(data.status)) { // like
+				// up one like for current novel
+				await server.update_one_Data('truyen',
+					{
+						_id: new ObjectId(data.id_truyen)
+					},
+					{ $inc: { likes: -1 } }
+				);
+				// add current nodel to like list of current user
+				await server.update_one_Data('tt_nguoi_dung',
+					{
+						_id: decode[1]
+					},
+					{ $push: { likeNovels: data.id_truyen } }
+				);
+				// response client
+				res.writeHead(200, { 'Content-Type': 'text/plain' });
+				console.log(`SYSTEM | UPDATE_LIKE | Like cho truyen hien tai`);
+				res.end(JSON.stringify('Liked!!!'));
+			}
+			else { // unlike
+				// down on like for current novel
+				await server.update_one_Data('truyen',
+					{
+						_id: new ObjectId(data.id_truyen)
+					},
+					{ $inc: { likes: 1 } }
+				);
+				// remove current nodel from like list of current user
+				await server.update_one_Data('tt_nguoi_dung',
+					{
+						_id: decode[1]
+					},
+					{ $pull: { likeNovels: data.id_truyen } }
+				);
+				// response client
+				res.writeHead(200, { 'Content-Type': 'text/plain' });
+				console.log(`SYSTEM | UPDATE_LIKE | Unlike cho truyen hien tai`);
+				res.end(JSON.stringify('Unliked!!!'));
+			}
+		}
+	} catch (err) {
+		console.log('SYSTEM | UPDATE_LIKE | ERROR | ', err);
+		res.sendStatus(500);
+	}
+})
+
+
 // Reviews page ---------------------------------------------------------------------------------------------------------------------------------------------------
 app.get('/reviews/:id', async (req, res) => {
 	try {
@@ -742,32 +796,84 @@ app.get('/reviews/:id', async (req, res) => {
 	}
 });
 
-app.post('/reviews', async (req, res) => {
+app.post('/reviews', async (req, res) => {// lam jz anh zai
 	const data = req.body;
 	console.log('SYSTEM | REVIEWS |', data);
 	try {
-		let result = await server.find_all_Data({
-			table: "truyen",
-			query: { _id: new ObjectId(data.id) },
-			projection: {
-				name: 1,
-				author: 1,
-				no_chapters: 1,
-				genres: 1,
-				summary: 1,
-				image: 1,
-				name_chaps: 1,
-				views: 1,
-				likes: 1,
-				name_chaps: 1,
-				update_date: 1
-			},
-			limit: 1
-		});
-		// console.log('SYSTEM | REVIEWS | Trả về thông tin reviews truyện ', result[0].name);
-		res.writeHead(200, { 'Content-Type': 'application/json' });
+		if (data.account == null) { // if don't have account
+			let result = await server.find_all_Data({
+				table: "truyen",
+				query: { _id: new ObjectId(data.id) },
+				projection: {
+					name: 1,
+					author: 1,
+					no_chapters: 1,
+					genres: 1,
+					summary: 1,
+					image: 1,
+					name_chaps: 1,
+					views: 1,
+					likes: 1,
+					name_chaps: 1,
+					update_date: 1
+				},
+				limit: 1
+			});
 
-		res.end(JSON.stringify(result[0]));
+			// console.log('SYSTEM | REVIEWS | Trả về thông tin reviews truyện ', result[0].name);
+			res.writeHead(200, { 'Content-Type': 'application/json' });
+
+			res.end(JSON.stringify(result[0]));
+		}
+		else { // if have account
+			const decode = decrypt(data.account, authenticationKey);
+			const decodeList = decode.split(':');
+			console.log(`SYSTEM | REVIEWS | Dữ liệu đã giải mã ${decodeList}`);
+			if (decodeList[0] == authenticationKey) {
+				let result = await server.find_all_Data({
+					table: "truyen",
+					query: { _id: new ObjectId(data.id) },
+					projection: {
+						name: 1,
+						author: 1,
+						no_chapters: 1,
+						genres: 1,
+						summary: 1,
+						image: 1,
+						name_chaps: 1,
+						views: 1,
+						likes: 1,
+						name_chaps: 1,
+						update_date: 1
+					},
+					limit: 1
+				});
+
+				// 	// check does novel was liked by current user or not
+				// 	const like_list = await server.find_all_Data({
+				// 		table: "tt_nguoi_dung",
+				// 		query: { _id: new ObjectId(decode[1]) },
+				// 		projection: {
+				// 			_id: 0,
+				// 			likeNovels: 1
+				// 		},
+				// 		limit: 1
+				// 	});
+
+				// 	if (like_list.includes(data.id)) { // liked
+				// 		result[0].status = 1;
+				// 	}
+				// 	else { // not like
+				// 		result[0].status = 0;
+				// 	}
+
+
+				// console.log('SYSTEM | REVIEWS | Trả về thông tin reviews truyện ', result[0].name);
+				res.writeHead(200, { 'Content-Type': 'application/json' });
+
+				res.end(JSON.stringify(result[0]));
+			}
+		}
 	} catch (err) {
 		console.log('SYSTEM | REVIEWS | ERROR | ', err);
 		res.sendStatus(500);
@@ -829,7 +935,6 @@ app.post('/give_me_chap', async (req, res) => {
 	console.log('ok bro');
 	res.sendStatus(200);
 });
-
 
 // j e
 // Schedule the code execution at midnight (00:00)

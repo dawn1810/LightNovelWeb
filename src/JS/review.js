@@ -15,7 +15,89 @@ const btnPrevPg = document.querySelector("button.prev-page");
 const btnFirstPg = document.querySelector("button.first-page");
 const btnLastPg = document.querySelector("button.last-page");
 const send_comment = document.querySelector(".send_your_cmt");
+const summary_btn = document.querySelector('.summary-btn');
+const summary_Content = document.querySelector('.summary-Content');
+summary_btn.onclick = () => {
+    if (summary_Content.style.display == "none") {
+        summary_Content.style.display = "block";
+        summary_btn.innerHTML =
+            '<i class="fa-solid fa-angles-up"></i> Ẩn Tóm Tắt';//gi day a zai
+    } else {
+        summary_Content.style.display = "none";
 
+        summary_btn.innerHTML =
+
+            '<i class="fa-solid fa-bars"></i> HIỆN TÓM TẮT';
+    }
+}
+
+function getCookie(name) {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith(name + '=')) {
+            return cookie.substring(name.length + 1);
+        }
+    }
+    return null;
+}
+
+
+async function like_novel(status) {
+    const accountCookie = getCookie('account');
+    if (accountCookie) {
+        // Gửi cookie "account" lên máy chủ
+        // Sử dụng XMLHttpRequest hoặc Fetch API để thực hiện request
+        // Ví dụ sử dụng Fetch API:
+        await fetch(`${currentURL}/updatelike`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                account: accountCookie,
+                status: status,
+                id_truyen: window.location.href.split("/")[window.location.href.split("/").length - 1]
+            })
+        })
+            .then(response => {
+                // if (response.status === 200) {
+                //     document.querySelector('.header_user').style.display = 'flex'
+                //     document.querySelector('.header_noUser').style.display = 'none'
+
+                //     // document.querySelector('.curent_user').style.display = 'block'
+
+                //     return response.text(); // Chuyển đổi phản hồi thành văn bản
+
+                // } else if (response.status === 404) {
+                //     window.location.href = `${currentURL}/error/404.html`;
+
+                // }
+            })
+            .then(data => {
+                // responseData = JSON.parse(data); // Lưu trữ nội dung phản hồi vào biến
+                // // console.log(responseData.usr)
+                // if (responseData) {
+
+                //     if (responseData.avt == 'unknown') {
+                //         document.querySelector('.header_user_logo_i').innerHTML = `<i class="fa-regular fa-circle-user"></i>
+                //     ${responseData.usr}`;//a zai sống đi a zai
+                //     }
+                //     else {
+
+                //     }
+
+                // }
+            }) // In nội dung phản hồi
+            // Sử dụng responseData ở những nơi khác trong mã của b
+            .catch(error => {
+                console.log(error)
+            });
+    }
+    else {
+        document.querySelector('.header_user').style.display = 'none'
+    }
+}
 
 
 document.querySelector('.function_item_share').onclick = () => {
@@ -133,10 +215,11 @@ function renderPage(index, active = "") {
     </li>`;
 }
 function handleCurPage(data) {
-    if (+curPage.value > pages.value) {
+    if (+curPage.value > (data.length / 10).toFixed(0)) {
         curPage.value = 1;
         valuePage.curPage = 1;
     } else {
+        console.log(parseInt(curPage.value, (data.length / 10).toFixed(0)))
         valuePage.curPage = parseInt(curPage.value, (data.length / 10).toFixed(0));
     }
 }
@@ -185,22 +268,32 @@ let sao = 0
 document.querySelector('.function_item_folow').onclick = function () {
     const tym = document.querySelector('.function_item_folow span').innerHTML
 
-    if (tim == 1) {
-        tim = 0
-        console.log('ok ha')
+    const user_status = document.querySelector('.header_user_logo')
+    if (user_status.style.display == 'none') {
+        alert('Bạn phải đăng nhập')
 
-        document.querySelector('.function_item_folow').innerHTML = `
-    <i class="fa-regular fa-heart"></i>
-    <span>${parseInt(tym) - 1}</span>
-    `
     } else {
-        tim = 1
-        document.querySelector('.function_item_folow').innerHTML = `
-    <i class="fa-solid fa-heart"></i>
-    <span>${parseInt(tym) + 1}</span>
-    `
-        console.log('ok ko')
+        if (tim == 1) {
+            tim = 0
+            console.log('ok ha')
 
+            document.querySelector('.function_item_folow').innerHTML = `
+                <i class="fa-regular fa-heart"></i>
+                <span>${parseInt(tym) - 1}</span>`
+            // like_novel(0)
+
+        } else {
+            tim = 1
+            document.querySelector('.function_item_folow').innerHTML = `
+                <i class="fa-solid fa-heart"></i>
+                <span>${parseInt(tym) + 1}</span>`
+            console.log('ok ko')
+
+            // like_novel(1)
+
+
+
+        }
     }
 }
 
@@ -302,13 +395,20 @@ function calTime(data) {
 
 var list_chap = ''
 async function getReview() {
+    const accountCookie = getCookie('account');
+    // if()
+
 
     await fetch(`${currentURL}/reviews`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id: window.location.href.split("/")[window.location.href.split("/").length - 1] })
+        body: JSON.stringify({
+            id: window.location.href.split("/")[window.location.href.split("/").length - 1],
+            account: accountCookie,
+
+        })
     })
         .then(response => {
             if (response.status === 200) {
@@ -330,12 +430,12 @@ async function getReview() {
                 const current_category_list = document.querySelector('.current-category-list')
                 const novel_avt = document.querySelector('.novel-avt')
                 const function_item_folow = document.querySelector('.function_item_folow span')
-
+                const summary = document.querySelector('.summary-Content')
                 document.querySelector('#last_update_time').innerHTML = calTime(responseData)
 
                 document.querySelector('#number_of_likes').innerHTML = responseData.likes
                 document.querySelector('#number_of_view').innerHTML = responseData.views
-
+                summary.innerHTML = responseData.summary
                 const lasted_chap = document.querySelector('.lasted_chap')
                 lasted_chap.onclick = function (e) {
                     e.preventDefault()
@@ -523,3 +623,61 @@ function haha(data) {
 
 getReview()
 
+
+
+// ẩn comment
+
+$(document).ready(function () {
+    // Ẩn tất cả các bình luận thứ 6 trở đi
+    $(".comment_item_container:gt(4)").hide();
+
+    // Thêm nút "Xem thêm"
+    $(".comment_list").append('<button id="loadMore" class="load-more">Xem thêm</button>');
+
+    // Khi nhấn nút "Xem thêm"
+    $("#loadMore").on("click", function () {
+        // Hiển thị thêm 5 bình luận
+        $(".comment_item_container:hidden:lt(5)").slideDown();
+
+        // Nếu không còn bình luận nào ẩn, ẩn nút "Xem thêm"
+        if ($(".comment_item_container:hidden").length === 0) {
+            $("#loadMore").hide();
+        }
+    });
+});
+// ẩn comment
+
+
+var comments = document.querySelectorAll(".comment_item_container");
+var loadMoreBtn = document.querySelector("#loadMoreBtn");
+var numCommentsToShow = 5;
+var numCommentsVisible = 0;
+
+// Ẩn tất cả các bình luận thứ numCommentsToShow trở đi
+for (var i = numCommentsToShow; i < comments.length; i++) {
+    comments[i].classList.add("hidden");
+}
+
+// Cập nhật số lượng bình luận đang hiển thị
+numCommentsVisible = numCommentsToShow;
+
+// Hiển thị nút "Xem thêm" nếu có nhiều hơn numCommentsToShow bình luận
+if (comments.length > numCommentsToShow) {
+    loadMoreBtn.classList.remove("hidden");
+}
+
+// Khi nhấn nút "Xem thêm"
+loadMoreBtn.addEventListener("click", function () {
+    // Tăng số lượng bình luận đang hiển thị lên numCommentsToShow
+    numCommentsVisible += numCommentsToShow;
+
+    // Hiển thị tất cả các bình luận trong phạm vi đang hiển thị
+    for (var i = 0; i < numCommentsVisible && i < comments.length; i++) {
+        comments[i].classList.remove("hidden");
+    }
+
+    // Ẩn nút "Xem thêm" nếu tất cả các bình luận đã được hiển thị
+    if (numCommentsVisible >= comments.length) {
+        loadMoreBtn.classList.add("hidden");
+    }
+});

@@ -18,41 +18,41 @@ function getCookie(name) {
   return null;
 }
 // // cho nay cua tao cua t nua//
-async function checkAuthentication() {
-  const accountCookie = getCookie("account");
-  if (accountCookie) {
-    // Gửi cookie "account" lên máy chủ
-    // Sử dụng XMLHttpRequest hoặc Fetch API để thực hiện request
-    // Ví dụ sử dụng Fetch API:
-    await fetch(`${currentURL}/xacthuc`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ account: accountCookie }),
-    }).then((response) => {
-      if (response.status === 200) {
-        //     document.querySelector('.header_1 ').style.display = 'none'
-        //     return response.text(); // Chuyển đổi phản hồi thành văn bản
-        // } else {
-        //     document.querySelector('.header_2 ').style.display = 'none'
-      }
-    });
-    //         .then(data => {
-    //             responseData = data; // Lưu trữ nội dung phản hồi vào biến
-    //             if (responseData) {
-    //                 document.querySelector('.header_2 #User-btn').innerHTML = responseData;
-    //             }
-    //         }) // In nội dung phản hồi
-    //         // Sử dụng responseData ở những nơi khác trong mã của b
-    //         .catch(error => {
-    //             console.log(error)
-    //         });
-    // }
-    // else {
-    //     document.querySelector('.header_2 ').style.display = 'none'
-  }
-}
+// async function checkAuthentication() {
+//   const accountCookie = getCookie("account");
+//   if (accountCookie) {
+//     // Gửi cookie "account" lên máy chủ
+//     // Sử dụng XMLHttpRequest hoặc Fetch API để thực hiện request
+//     // Ví dụ sử dụng Fetch API:
+//     await fetch(`${currentURL}/xacthuc`, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ account: accountCookie }),
+//     }).then((response) => {
+//       if (response.status === 200) {
+//         //     document.querySelector('.header_1 ').style.display = 'none'
+//         //     return response.text(); // Chuyển đổi phản hồi thành văn bản
+//         // } else {
+//         //     document.querySelector('.header_2 ').style.display = 'none'
+//       }
+//     });
+//     //         .then(data => {
+//     //             responseData = data; // Lưu trữ nội dung phản hồi vào biến
+//     //             if (responseData) {
+//     //                 document.querySelector('.header_2 #User-btn').innerHTML = responseData;
+//     //             }
+//     //         }) // In nội dung phản hồi
+//     //         // Sử dụng responseData ở những nơi khác trong mã của b
+//     //         .catch(error => {
+//     //             console.log(error)
+//     //         });
+//     // }
+//     // else {
+//     //     document.querySelector('.header_2 ').style.display = 'none'
+//   }
+// }
 
 ///////////////////////////
 
@@ -106,16 +106,16 @@ const category = document.querySelector(".category");
 //     console.log('ok')
 // }
 
-function toggleSummary() {
-  if (summary_Content.style.display == "none") {
-    summary_Content.style.display = "block";
-    summary_btn.innerHTML = '<i class="fa-solid fa-bars"></i> TÓM TẮT TRUYỆN';
-  } else {
-    summary_Content.style.display = "none";
+// function toggleSummary() {
+//   if (summary_Content.style.display == "none") {
+//     summary_Content.style.display = "block";
+//     summary_btn.innerHTML = '<i class="fa-solid fa-bars"></i> TÓM TẮT TRUYỆN';
+//   } else {
+//     summary_Content.style.display = "none";
 
-    summary_btn.innerHTML = '<i class="fa-solid fa-angles-up"></i> Ẩn tóm tắt';
-  }
-}
+//     summary_btn.innerHTML = '<i class="fa-solid fa-angles-up"></i> Ẩn tóm tắt';
+//   }
+// }
 // document.querySelector('body').onclick = function () {
 //     left_item.classList.add('close')
 // }

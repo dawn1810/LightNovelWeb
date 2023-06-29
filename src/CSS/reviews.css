@@ -344,10 +344,11 @@ h4 {
 }
 
 .summary {
-    width: 100%;
+    /* width: 100%; */
     /* background-color: #383838; */
     margin: 20px 0;
     font-size: 20px;
+    padding: 0 5%;
 }
 
 
@@ -360,9 +361,10 @@ h4 {
 .summary-btn {
     background-color: var(--button-color) !important;
     border-radius: 4px;
-    padding: 5px;
+    padding: 10px;
     color: var(--white-text);
     text-transform: capitalize;
+    font-family: monospace;
 }
 
 
@@ -473,6 +475,7 @@ h4 {
 .comment_container {
     width: 873px;
     background-color: var(--cm_bg);
+    margin-top: 30px;
 
 }
 
@@ -1192,4 +1195,13 @@ li {
     .settings {
         flex-direction: column;
     }
+}
+
+
+.comment_item_container.hidden {
+    display: none;
+}
+
+.load-more.hidden {
+    display: none;
 }

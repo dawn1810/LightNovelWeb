@@ -5,10 +5,11 @@
 import json
 from time import sleep
 import tiktoken
+import re
 import os
+import shutil
 #/////////////////////////////////my space///////////////////////////////
-import poe
-
+from revChatGPT.V1 import Chatbot 
 # python3 -m pip install --upgrade revChatGPT --user
 # try it bro
 
@@ -47,13 +48,25 @@ def seperated_part(input_text):
     result.append(input_text[start:])
     return result
 
-def summarize(client,content):
+def summarize(chatbot,content):
     print("Đang tóm tắt....")
+
+    response = ''
     response_bk = None
-    for chunk in client.send_message("chinchilla", content):
-        pass
-    response_bk = chunk["text"]
-    return response_bk
+    uuid = None
+    for data in chatbot.ask(prompt = 'Summarize the following passage in a concise manner (show summarized part only do not talk any thing else): \n%s' % (content), auto_continue= True):
+        uuid = data['conversation_id']
+        response_bk = data["message"]
+    print(data['finish_details'])
+    while data['finish_details'] == 'max_tokens':
+        print('Do',data['finish_details'],'nên dịch tiếp')
+        for data in chatbot.continue_write(conversation_id = uuid, auto_continue  = True):
+            response = data["message"]
+            uuid = data['conversation_id']
+    #when everything done then
+    chatbot.delete_conversation(uuid)
+    chatbot.reset_chat()
+    return response_bk+ response
     
 
 def translate(content, genres, sum_content = None, part = True):
@@ -106,35 +119,46 @@ def translate_vip(auth_token,num_of_part,list_part,gens,filename,data_info = Non
     index = 0
 
     while index <= num_of_part-1:
-        client = poe.Client(auth_token[number_try])
+        chatbot = Chatbot(config={"access_token": auth_token[number_try]
+    })
     # for i in range(num_of_part):
     # for i in range(1):
+        response = ''
         response_bk = None
+        conversation_id = None
         try:
             if index == 0:
                 pompt = translate(list_part[index],gens)
             else: 
-                sumsum_content = summarize(client,list_part[index-1])
+                sumsum_content = summarize(chatbot,list_part[index-1])
                 pompt = translate(list_part[index],gens,sumsum_content,False)
             print("Đang dịch phần đầu....")
 
-            for chunk in client.send_message("chinchilla", pompt):
-                pass
-            response_bk = chunk["text"]
+            for data in chatbot.ask(prompt = pompt, auto_continue= True):
+                conversation_id = data['conversation_id']
+                response_bk = data["message"]
+            print("Dịch xong")
+            while data['finish_details'] == 'max_tokens':
+                print('Do',data['finish_details'],'nên dịch tiếp')
+
+                for data in chatbot.continue_write(conversation_id = conversation_id, auto_continue  = True):
+                    response = data["message"]
+                print('Done')
 
             with open(os.path.join('trans','GPTcommunication','text'+str(index)+'.txt'), "w", encoding='utf-8') as file:
-                file.write(response_bk)
+                file.write(response_bk+response)
             file_list.append(os.path.join('trans','GPTcommunication','text'+str(index)+'.txt'))
             #when everything done then
-            client.send_chat_break("chinchilla")
-
+            chatbot.delete_conversation(conversation_id)
+            chatbot.reset_chat()
+            conversation_id = None
         except Exception:
             print('\n========================================err=================================\n')
             if number_try == len(auth_token)-1:
                 number_try = 0
                 print('\ngoing to timeout\n')
 
-                sleep(15*60)
+                sleep(60*60)
             else:
                 number_try += 1 
             index -= 1
@@ -153,8 +177,10 @@ def translate_vip(auth_token,num_of_part,list_part,gens,filename,data_info = Non
 
 def GPTtranslate(folder_path,check_resume = False):
     auth_token = [
-       'lYvUkq4tHptd1-yL7OChaA%3D%3D',
-       'NFuBQziYKJtkGkjVoJrcug%3D%3D'
+        "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJuYm1pbmgyMTAxMzgxQHN0dWRlbnQuY3R1ZXQuZWR1LnZuIiwiZW1haWxfdmVyaWZpZWQiOnRydWV9LCJodHRwczovL2FwaS5vcGVuYWkuY29tL2F1dGgiOnsidXNlcl9pZCI6InVzZXItWkFCTXlremplUm0wV0VFdGlUMjMwVVNNIn0sImlzcyI6Imh0dHBzOi8vYXV0aDAub3BlbmFpLmNvbS8iLCJzdWIiOiJhdXRoMHw2M2Q5YmM5NzlmZTE4ZWZkOWM0ZjI3ZGUiLCJhdWQiOlsiaHR0cHM6Ly9hcGkub3BlbmFpLmNvbS92MSIsImh0dHBzOi8vb3BlbmFpLm9wZW5haS5hdXRoMGFwcC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjg3NDMwMTI2LCJleHAiOjE2ODg2Mzk3MjYsImF6cCI6IlRkSkljYmUxNldvVEh0Tjk1bnl5d2g1RTR5T282SXRHIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCBtb2RlbC5yZWFkIG1vZGVsLnJlcXVlc3Qgb3JnYW5pemF0aW9uLnJlYWQgb3JnYW5pemF0aW9uLndyaXRlIn0.SbKF468gkmof48c7IybNiP44dIg4PNNtjl3qvom6Qxy1nc4kZl81MadAA5o89fFGPPipXo0MEbOytY4MzY2mi34PulR4eT45mjPwWevItG6OeFOqEC9r-bofbFeKvBwnROav1hzef8c0Z1-YPIm6Xco4ZbhSWc7Po_DuSBakC3906NE6_EDSdo8WduwrkkJTM9nONSDTc0-NSItqEi99-AOpS8gGKTH1XMlcSCG2TNKIkDojppD6rikCAy9Z6zUxKTXkmFPi3K4Of2Mc_oTEJj-G_6zFK36Hlbm1CHO9xVyrtBSF01V7UtKEbKkyEvVW5REF40CwzfF0XUsPDHBHeQ",
+        "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJjaGFuZG9yYWxvbmdAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWV9LCJodHRwczovL2FwaS5vcGVuYWkuY29tL2F1dGgiOnsidXNlcl9pZCI6InVzZXItTUZkOWxwVGFZcWtDaEM4SEhwYjBWeUszIn0sImlzcyI6Imh0dHBzOi8vYXV0aDAub3BlbmFpLmNvbS8iLCJzdWIiOiJhdXRoMHw2M2Q4NGYyZTc0Zjk0YWM1MmJiZDNkYjgiLCJhdWQiOlsiaHR0cHM6Ly9hcGkub3BlbmFpLmNvbS92MSIsImh0dHBzOi8vb3BlbmFpLm9wZW5haS5hdXRoMGFwcC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjg2ODQ2MjgwLCJleHAiOjE2ODgwNTU4ODAsImF6cCI6IlRkSkljYmUxNldvVEh0Tjk1bnl5d2g1RTR5T282SXRHIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCBtb2RlbC5yZWFkIG1vZGVsLnJlcXVlc3Qgb3JnYW5pemF0aW9uLnJlYWQgb3JnYW5pemF0aW9uLndyaXRlIn0.tCsugOarLpeJeC8kDGtRwzbqNwI7pu-q5JdBr0tkGhVbYBMiKEL_umKUrH2j00AKkpdzFsbGqiG5i9bWyBbtVD9BCmBlw9lkHKSRNSHwQDPfti2gJxNiRXtsB7l2ckzlfbxWOe4mMCZGB4-NG9dTFHYn8V_zuWTPpUier1DBORFJJQmNqUh9dEtHWJCFmP4vfDIdMJvFGv-eIiaVI22pbmA-HCoovJmhOZ8C3MqxYLvR9DlrjyL2122q4nt7l-SKmo0DhBaY2i0eeT8XR4a5cyX3BoTuBcwQYHLjyS7BIty9jXA5OERvdbwnbUQLfoGxeSeNENJMf068q2sEnndi3A",
+        "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJsYWNoaW5oNTUxMUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZX0sImh0dHBzOi8vYXBpLm9wZW5haS5jb20vYXV0aCI6eyJ1c2VyX2lkIjoidXNlci1GODgyM1BqUFhPN25iTW80TDZRWjRhQkUifSwiaXNzIjoiaHR0cHM6Ly9hdXRoMC5vcGVuYWkuY29tLyIsInN1YiI6ImF1dGgwfDYzZDhkZTdjMjc3NzY0NTZjOTJmYTllMCIsImF1ZCI6WyJodHRwczovL2FwaS5vcGVuYWkuY29tL3YxIiwiaHR0cHM6Ly9vcGVuYWkub3BlbmFpLmF1dGgwYXBwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2ODYxMjIzMjIsImV4cCI6MTY4NzMzMTkyMiwiYXpwIjoiVGRKSWNiZTE2V29USHROOTVueXl3aDVFNHlPbzZJdEciLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG1vZGVsLnJlYWQgbW9kZWwucmVxdWVzdCBvcmdhbml6YXRpb24ucmVhZCBvcmdhbml6YXRpb24ud3JpdGUifQ.pEFR-pcHReAohJNreJCEOaNdX0eMqfSSxq2QUv8ZoYBTDAPxMReBqwGQCStDys_FByj4ITmtjyRYh2mv6nUmQk7OoYw5eayzrgS2jxl1GxcDaa82jc_9Pw7ymgzHjSPWdcYNszymAR7USk0WX0ldVKi-lqAXdjK0FV7JzdQszx1GgEpHGVonROnb4i0L9JVpK7WBo4bFtK_GLoFLcJWQUhRMmLSzuDNtWfh586Fxb7rdhffHC3h5HoEXDvaeBL70V0EHzax_FENglI94BwbontxPPl8G3Kkvo2PQLqAjgYUbyFwBC7YuL6-utXsLy1TRe5GWIcID5Tt1grAmMEJWng",
+        "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJodW5ndGhpbmhoMjAwM0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZX0sImh0dHBzOi8vYXBpLm9wZW5haS5jb20vYXV0aCI6eyJ1c2VyX2lkIjoidXNlci1mendnRXpobjZGNGMyMG95N2MxaEcyODIifSwiaXNzIjoiaHR0cHM6Ly9hdXRoMC5vcGVuYWkuY29tLyIsInN1YiI6ImF1dGgwfDYzZGI3NzM1ZDQ4MGMzNzc5ZmI3OTA5MCIsImF1ZCI6WyJodHRwczovL2FwaS5vcGVuYWkuY29tL3YxIiwiaHR0cHM6Ly9vcGVuYWkub3BlbmFpLmF1dGgwYXBwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2ODY4MDI1MzMsImV4cCI6MTY4ODAxMjEzMywiYXpwIjoiVGRKSWNiZTE2V29USHROOTVueXl3aDVFNHlPbzZJdEciLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIG1vZGVsLnJlYWQgbW9kZWwucmVxdWVzdCBvcmdhbml6YXRpb24ucmVhZCBvcmdhbml6YXRpb24ud3JpdGUifQ.RSvrrrvdur8PyH7vwnSxQWRVC9_7teO72v6gwv6pyrtYsjywEV3Av8pBBaXzoGDlblo530daa5l0H8cnMXq3yJCEH0NJGEY7gwnGzaZaJgOlgw-hQA7NHUgL4lpV1ex1Bd298YQwsdB6gmw45QkYU-pKq2ei06VVEnNPsUg-d3VRcxaKy3KESmB_43rIHXg6uchhCsACN30QkahxjjQLlggAk1kgM5Bw_0ODy8kH-LTHsAXyfJd2nB2uylWs7T2aMmgYwai12ijqJjNGUPQeEgNwm8j3rSyvBK5F9UWEtYzUaTZ7HUSYGNGig0j-zd0JdU72NKSeQsflEGHjsu0YFw",
     ]
     with open(os.path.join(folder_path,'info.json'), 'r', encoding='utf-8') as file:
         data_info = json.load(file)

@@ -102,7 +102,7 @@ exports.update_one_Data = async function (table, myquery, newvalues) {
     // let myquery = { user_name: "Long Khoa Hoc"};
     // let newvalues = { $set: {name: "Mickey", address: "Canyon 123" } };
     // có nhiều toán từ  $set, $inc, $push, $pull, tự google
-    await client.db('wtfn').collection(table).updateOne(myquery, { $set: newvalues });
+    await client.db('wtfn').collection(table).updateOne(myquery, newvalues);
 
     console.log('SYSTEM | UPDATE_ONE_DATA | Update document', myquery, 'to', newvalues, 'successfull');
 
@@ -119,7 +119,7 @@ exports.update_many_Data = async function (table, myquery, newvalues) {
     // let myquery = { user_name: "Long Khoa Hoc"};
     // let newvalues = { $set: {name: "Mickey", address: "Canyon 123" } };
     // có nhiều toán từ  $set, $inc, $push, $pull, tự google
-    await client.db('wtfn').collection(table).updateMany(myquery, { $set: newvalues });
+    await client.db('wtfn').collection(table).updateMany(myquery, newvalues);
 
     console.log('SYSTEM | UPDATE_MANY_DATA | Update documents', myquery, 'to', newvalues, 'successfull');
 
