@@ -153,18 +153,6 @@ $(document).ready(function () {
       console.log("ok");
     };
 
-    function toggleSummary() {
-      if (summary_Content.style.display == "none") {
-        summary_Content.style.display = "block";
-        summary_btn.innerHTML =
-          '<i class="fa-solid fa-bars"></i> TÓM TẮT TRUYỆN';
-      } else {
-        summary_Content.style.display = "none";
-
-        summary_btn.innerHTML =
-          '<i class="fa-solid fa-angles-up"></i> Ẩn tóm tắt';
-      }
-    }
   });
 });
 
@@ -175,3 +163,4 @@ $(document).ready(function () {
 //     e.preventDefault();
 //     console.log('hahaaha')
 // }
+
