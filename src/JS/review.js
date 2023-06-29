@@ -444,14 +444,9 @@ async function getReview() {
                 // Xét xem người dùng đã like hay chưa:
                 if (responseData.status) { // đã like
                     function_item_folow_heard.classList.replace('fa-regular', 'fa-solid');
-                    // function_item_folow_heard.classList.remove('fa-regular');
-                    // function_item_folow_heard.classList.add('fa-solid');
                 }
                 else { // chưa like
                     function_item_folow_heard.classList.replace('fa-solid', 'fa-regular');
-                    
-                    // function_item_folow_heard.classList.add('fa-regular');
-                    // function_item_folow_heard.classList.remove('fa-solid');
                 }
 
 
