@@ -43,6 +43,7 @@ function getCookie(name) {
 }
 
 
+
 async function like_novel(status) {
     const accountCookie = getCookie('account');
     if (accountCookie) {
@@ -419,8 +420,8 @@ async function getReview() {
         .then(data => {
             responseData = data; // Lưu trữ nội dung phản hồi vào biến
             // console.log(responseData.usr)
-            if (responseData) {
-                // console.log(responseData)
+            if (data) {
+                // console.log(data)
                 const current_novel_name = document.querySelector('.current-novel-name')
                 const current_novel_actor = document.querySelector('.current-novel-actor')
                 const current_category_list = document.querySelector('.current-category-list')
@@ -428,21 +429,97 @@ async function getReview() {
                 const function_item_folow = document.querySelector('.function_item_folow span')
                 const function_item_folow_heard = document.querySelector('.function_item_folow i')
                 const summary = document.querySelector('.summary-Content')
-                document.querySelector('#last_update_time').innerHTML = calTime(responseData)
+                document.querySelector('#last_update_time').innerHTML = calTime(data)
 
-                document.querySelector('#number_of_likes').innerHTML = responseData.likes
-                document.querySelector('#number_of_view').innerHTML = responseData.views
-                summary.innerHTML = responseData.summary
+                document.querySelector('#number_of_likes').innerHTML = data.likes
+                document.querySelector('#number_of_view').innerHTML = data.views
+                summary.innerHTML = data.summary
                 const lasted_chap = document.querySelector('.lasted_chap')
                 lasted_chap.onclick = function (e) {
                     e.preventDefault()
                     const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
-                    console.log(chan, responseData.name_chaps.length - 1)
-                    window.location.href = `${currentURL}/reading/${chan}/${responseData.name_chaps.length - 1}`
+                    console.log(data)
+                    window.location.href = `${currentURL}/reading/${chan}/${data.no_chapters - 1}`
+                }
+
+                const random_chap = document.querySelector('.random_chap')
+                const jackpot = document.querySelector('.jackpot')
+                // const wid_jack = jackpot.offsetWidth;
+                // jackpot.style.left = `calc((100vw - ${wid_jack})/2)`
+
+                random_chap.onclick = function (e) {
+                    let audio = new Audio('/src/audio/nhac-xo-so-2.mp3');
+                    audio.volume = 0.5;
+                    audio.addEventListener('ended', function () {
+                        audio.currentTime = 0;
+                        audio.play();
+                    });
+                    audio.play();
+
+                    e.preventDefault()
+                    jackpot.style.display = 'flex'
+                    function getRndInteger(min, max) {
+                        return Math.floor(Math.random() * (max - min + 1)) + min;
+                    }
+                    const ranchap = String(getRndInteger(0, data.no_chapters - 1));
+                    console.log(ranchap);
+                    if (ranchap.length >= 3) {
+                        first_num = ranchap.charAt(0);
+                        mid_num = ranchap.charAt(1);
+                        last_num = ranchap.charAt(2);
+                    }
+                    else if (ranchap >= 2) {
+                        first_num = 0
+                        mid_num = ranchap.charAt(0);
+                        last_num = ranchap.charAt(1);
+                    }
+                    else {
+                        first_num = 0
+                        mid_num = 0;
+                        last_num = ranchap.charAt(0);
+                    }
+
+                    const slots = document.querySelectorAll('.slots span')
+                    for (let i = 0; i < slots.length; i++) {
+                        setTimeout(function () {
+                            switch (i) {
+                                case 0:
+                                    slots[i].classList.add('spin');
+                                    slots[i].innerHTML = first_num;
+                                    break;
+                                case 1:
+                                    setTimeout(function () {
+                                        slots[i].classList.add('spin');
+                                        slots[i].innerHTML = mid_num;
+                                    }, 100 * i);
+                                    break;
+                                case 2:
+                                    setTimeout(function () {
+                                        slots[i].classList.add('spin');
+                                        slots[i].innerHTML = last_num;
+                                    }, 100 * i);
+                                    break;
+                            }
+                        }, 100 * i);
+
+                        
+
+                        const jackpot_btn = document.querySelector('.jackpot button')
+
+                        setTimeout(function () {
+                            jackpot_btn.style.display = 'flex'
+                        },5000)
+                        jackpot_btn.onclick = function () {
+                            const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
+                            console.log(chan)
+                            window.location.href = `${currentURL}/reading/${chan}/${ranchap}`   
+                        }
+                    }
+
                 }
 
                 // Xét xem người dùng đã like hay chưa:
-                if (responseData.status) { // đã like
+                if (data.status) { // đã like
                     function_item_folow_heard.classList.replace('fa-regular', 'fa-solid');
                 }
                 else { // chưa like
@@ -470,36 +547,36 @@ async function getReview() {
                     scrollToComments();
                 });
 
-                haha(responseData.name_chaps)
+                haha(data.name_chaps)
                 // console.log(data)
-                current_novel_name.innerHTML = responseData.name
-                current_novel_actor.innerHTML = responseData.author
-                novel_avt.src = responseData.image
-                function_item_folow.innerHTML = responseData.likes
+                current_novel_name.innerHTML = data.name
+                current_novel_actor.innerHTML = data.author
+                novel_avt.src = data.image
+                function_item_folow.innerHTML = data.likes
 
 
 
                 let btn_category = ''
-                for (let i = 0; i < responseData.genres.length; i++) {
+                for (let i = 0; i < data.genres.length; i++) {
                     btn_category += `
                 <li id="action" class="current-category-list_item">
                 <a href="/HTML/category-page.html">
                     <div class="btn btn1">
-                        <h4>${responseData.genres[i]}</h4>
+                        <h4>${data.genres[i]}</h4>
                     </div>
                 </a>
             </li>
                 `
                 }
                 // console.log(btn_category)
-                valuePage.totalPages = (responseData.name_chaps.length / 10).toFixed(0)
+                valuePage.totalPages = (data.name_chaps.length / 10).toFixed(0)
                 current_category_list.innerHTML = btn_category
                 const listchap = document.querySelector('.listchap')
                 let showlist = ''
                 // console.log(showlist)
                 const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
 
-                showListLoad(1, responseData.name_chaps);
+                showListLoad(1, data.name_chaps);
                 document.querySelector('.loaded').style.display = 'none'
             }
         }) // In nội dung phản hồi

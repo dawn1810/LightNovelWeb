@@ -1205,3 +1205,120 @@ li {
 .load-more.hidden {
     display: none;
 }
+
+
+/* jackpot */
+.slots {
+    overflow: auto;
+    /* width: 310px; */
+    margin: auto;
+}
+
+.slots span {
+    color: #000;
+    cursor: default;
+    background: #C0C0C0;
+    border-radius: 5px;
+    border: 1px solid #333;
+    box-shadow: 0px 0px 10px #000;
+    float: left;
+    font-size: 64px;
+    font-weight: bold;
+    height: 100px;
+    line-height: 100px;
+    margin-left: 5px;
+    width: 100px;
+    -webkit-transition: all 1.5s ease;
+    transition: all 5s ease;
+}
+
+.slots span.spin {
+    transform: rotateX(10800deg);
+}
+
+.slots span:first-child {
+    margin-left: 0;
+}
+
+#hitMe {
+    background: var(--button-color);
+    border-radius: 5px;
+    border: 1px solid var(--button-color);
+    box-shadow: 0px 0px 10px #111;
+    color: #fff;
+    display: inline-block;
+    font-weight: bold;
+    line-height: 40px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0px 1px 2px #333;
+    width: 100px;
+}
+
+#hitMe:hover {
+    box-shadow: 0px 0px 20px #111;
+    background-color: var(--button-color);
+    border-color: var(--button-color);
+    color: #eee;
+}
+
+.jackpot {
+    display: none;
+    flex-direction: column;
+    z-index: 100;
+    position: fixed;
+    top: 25%;
+    left: calc((100vw - 439px)/2);
+    padding: 30px;
+    background-color: var(--header-background);
+    box-sizing: border-box;
+    border-radius: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.slots {
+    text-align: center;
+}
+
+.jackpot h1 {
+    color: var(--login-btn);
+}
+
+
+.jackpot button {
+    cursor: pointer;
+    font-weight: 700;
+    font-family: Helvetica, "sans-serif";
+    transition: all .2s;
+    padding: 10px 20px;
+    border-radius: 100px;
+    background: var(--login-btn) !important;
+    border: 1px solid transparent;
+    display: none;
+    align-items: center;
+    text-align: center;
+    font-size: 15px;
+    width: 145px;
+    text-align: center;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.jackpot button:hover {
+    background: var(--login-btn);
+}
+
+.jackpot button>svg {
+    width: 34px;
+    margin-left: 10px;
+    transition: transform .3s ease-in-out;
+}
+
+.jackpot button:hover svg {
+    transform: translateX(5px);
+}
+
+.jackpot button:active {
+    transform: scale(0.95);
+}

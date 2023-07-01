@@ -9,22 +9,25 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   }
 });
-
+async function connectMGDB() {
+  await client.connect();
+}
+connectMGDB();
 exports.add_one_Data = async function (table, myobj) {
   try {
-    await client.connect();
+    // await client.connect();
     // let myobj = { user_name: "Long Khoa Hoc", user_id: "longdd", password: "Nl<3Bp"};
     await client.db('wtfn').collection(table).insertOne(myobj);
     console.log('SYSTEM | ADD_ONE_DATA | Add document', myobj, 'successfull');
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
 
 exports.add_many_Data = async function (table, myobj) {
   try {
-    await client.connect();
+    // await client.connect();
     // let myobj = [
     //   { user_name: "Long Khoa Hoc", user_id: "longpb", password: "29092006"},
     //   { user_name: "Long Nghien", user_id: "longdd", password: "Nl<3Bp"}
@@ -33,37 +36,37 @@ exports.add_many_Data = async function (table, myobj) {
     console.log('SYSTEM | ADD_MANY_DATA | Add many documents', myobj, 'successfull');
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
 
 exports.delete_one_Data = async function (table, myobj) {
   try {
-    await client.connect();
+    // await client.connect();
     // let myobj = { user_name: "Long Khoa Hoc"};
     await client.db('wtfn').collection(table).deleteOne(myobj);
     console.log('SYSTEM | DELETE_ONE_DATA | Delete document', myobj, 'successfull');
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
 
 exports.delete_many_Data = async function (table, myobj) {
   try {
-    await client.connect();
+    // await client.connect();
     // let myobj = { user_name: "Long Khoa Hoc"};
     await client.db('wtfn').collection(table).deleteMany(myobj);
     console.log('SYSTEM | DELETE_MANY_DATA | Delete many documents', myobj, 'successfull');
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
 
 exports.find_one_Data = async function (table, myobj = undefined) {
   try {
-    await client.connect();
+    // await client.connect();
     // let myobj = { user_name: "Long Khoa Hoc"};
     let result = await client.db('wtfn').collection(table).findOne(myobj);
 
@@ -72,14 +75,14 @@ exports.find_one_Data = async function (table, myobj = undefined) {
     return result;
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
 
 
 exports.find_all_Data = async function ({ table, query = undefined, projection = undefined, skip = 0, limit = 0, sort = undefined }) {
   try {
-    await client.connect();
+    // await client.connect();
     // let query = { user_name: "Long Khoa Hoc"};
     // sort go here: https://www.w3schools.com/nodejs/nodejs_mongodb_sort.asp
     let result = await client.db('wtfn').collection(table).find(query, { 'projection': projection }).sort(sort).skip(skip).limit(limit).toArray();
@@ -92,13 +95,13 @@ exports.find_all_Data = async function ({ table, query = undefined, projection =
 
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
 
 exports.update_one_Data = async function (table, myquery, newvalues) {
   try {
-    await client.connect();
+    // await client.connect();
     // let myquery = { user_name: "Long Khoa Hoc"};
     // let newvalues = { $set: {name: "Mickey", address: "Canyon 123" } };
     // có nhiều toán từ  $set, $inc, $push, $pull, tự google
@@ -109,13 +112,13 @@ exports.update_one_Data = async function (table, myquery, newvalues) {
 
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
 
 exports.update_many_Data = async function (table, myquery, newvalues) {
   try {
-    await client.connect();
+    // await client.connect();
     // let myquery = { user_name: "Long Khoa Hoc"};
     // let newvalues = { $set: {name: "Mickey", address: "Canyon 123" } };
     // có nhiều toán từ  $set, $inc, $push, $pull, tự google
@@ -125,7 +128,7 @@ exports.update_many_Data = async function (table, myquery, newvalues) {
 
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
 
@@ -133,7 +136,7 @@ exports.update_many_Data = async function (table, myquery, newvalues) {
 exports.atomic = async function (databaseName, password) {
   if (password === '18102003') {
     try {
-      await client.connect();
+      // await client.connect();
       const database = client.db(databaseName);
 
       // Lấy danh sách tên các collection hiện có
@@ -152,7 +155,7 @@ exports.atomic = async function (databaseName, password) {
 
       // Các công việc khác, ví dụ: tạo các index, khởi tạo dữ liệu, vv.
     } finally {
-      await client.close();
+      // await client.close();
     }
   }
   else {

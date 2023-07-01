@@ -277,7 +277,9 @@ async function get_popular_novel() {
       function siuu(helop) {
         info_novel = "";
         for (let i = 0; i < helop.length; i++) {
-          info_novel += `<div class="novel_item">
+          info_novel += `
+                <div class="novel_item">
+                  <a href="/reviews/${helop[i]._id}">
                     <div class="novel_item_main">
                         <img src="https://st.nettruyenplus.com/data/comics/171/gay-go-cap-99-5344.jpg" alt="image">
                         <div class="novel_title" onclick="myFunction()">
@@ -292,6 +294,7 @@ async function get_popular_novel() {
     
                         </div>
                     </div>
+                    </a>
                 </div>`;
         }
       }
