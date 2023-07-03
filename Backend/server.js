@@ -407,6 +407,7 @@ app.get('/update_novel', async (req, res) => {
 			chap_ids: dummy.ids,
 			no_chapters: dummy.ids.length,
 			genres: dummy['Genre(s)'],
+			status: "Đang ra",
 			summary: dummy.Summary,
 			image: dummy.img,
 			views: 0,
@@ -924,13 +925,89 @@ app.post('/reading', async (req, res) => {
 	}
 });
 
+// Upload novel ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+app.post('/uploadnovel', async (req, res) => {
+	const data = req.body;
+	// data = {
+	// 	id: 0, // already exist novel use current id, else use 0
+	// 	name: dummy.title, // ten truyen
+	// 	author: "1810s team", // tac gia
+	// 	name_chaps: dummy.name_chap, // list name of chapter follow struture "Chapter (number): (name of chapter)".
+	// 	chap_ids: dummy.ids, // call drive upload and get list of id on follow chapters. (we'll add this)
+	// 	no_chapters: dummy.ids.length, // chap_ids || name_chaps length. (we'll add this)
+	// 	genres: dummy['Genre(s)'], // kind of novel (list of tag).
+	//  status: // trang thai
+	// 	summary: dummy.Summary, // summary of novel 
+	// 	image: dummy.img, // avatar of novel
+	// 	views: 0, //  we will add this.
+	// 	likes: 0, // we will add this.
+	// 	update_date: new Date(), // we will add this.
+	// };
+	console.log('SYSTEM | UPLOAD NOVEL |', data);
+
+	try {
+		if (!data.id) { // already exist 
+			// tai len drive
+			// nem cai doc bien day di HL
+			// tui nos lam sao de cos the nem file len drive lay id ha
+
+			server.update_one_Data("truyen", {_id: new ObjectId(data.id)}, {
+				$set: {
+					update_date: new Date()
+				},
+				$push: {// lam them 1 cai update one data di a za
+					name_chaps: { $each: data.name_chaps },
+					chap_ids: { $each: data.chap_ids }
+				},
+				$inc: {
+					no_chapters: data.name_chaps.length
+				}
+			})
+		} else { // first time
+
+			// create a new comment document
+			await server.add_one_Data("comment", {
+				_id: data.id,
+				content: {
+					// user_name: content (do what to add)
+				}
+			});
+// where r u now?
+
+			let up_content = {
+				name: data.name,
+				author: data.author,
+				name_chaps: data.name_chaps,
+				chap_ids: dummy.ids, // cho nay can them
+				status: data.status,
+				no_chapters: data.name_chaps.length,
+				genres: data.genres,
+				summary: data.summary,
+				image: data.image,
+				views: 0,
+				likes: 0,
+				update_date: new Date(),
+			};
+
+			await server.add_one_Data("truyen", up_content);
+		}
+
+		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
+		console.log('SYSTEM | UPLOAD NOVEL | Trả về nội dung truyện muốn đọc', send_back.name);
+		res.end(JSON.stringify(send_back));
+
+	} catch (err) {
+		console.log('SYSTEM | UPLOAD NOVEL | ERROR | ', err);
+		res.sendStatus(500);
+	}
+});
+
 // Get chap -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.post('/give_me_chap', async (req, res) => {
 	console.log('ok bro');
 	res.sendStatus(200);
 });
 
-// j e
 // Schedule the code execution at midnight (00:00)
 cron.schedule('0 0 * * *', async () => {
 	// update popular novel list 
