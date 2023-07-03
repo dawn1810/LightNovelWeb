@@ -28,7 +28,6 @@ async function get_full_id(directoryPath) {
 	try {
 		// Đọc các file trong thư mục một cách đồng bộ
 		const files = fs.readdirSync(directoryPath);
-		//gọi hàm đi anh zai
 		// Lọc và lấy đường dẫn của các file có phần mở rộng là ".txt"
 		const txtFilePaths = files
 			.filter((file) => path.extname(file).toLowerCase() === '.txt')
@@ -39,8 +38,7 @@ async function get_full_id(directoryPath) {
 
 				return indexA - indexB;
 			});
-
-
+			
 		const processFiles = async () => {
 			for (const filePath of txtFilePaths) {
 				console.log(filePath);
