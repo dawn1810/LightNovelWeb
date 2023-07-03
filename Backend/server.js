@@ -16,6 +16,16 @@ const credentials = require('./client_secret_483084822625-jrf4t8tq5j272i8mugfk4q
 const session = require('express-session');
 const fs = require("fs");
 const { ObjectId } = require('mongodb');
+// ----------------------------------------------------------------
+const { Client } = require('@notionhq/client');
+const mammoth = require('mammoth');
+
+// Initialize Notion client with your integration token
+const notion = new Client({ auth: 'YOUR_NOTION_API_TOKEN' });
+
+// ID of the Notion file you want to read
+const notionFileId = 'YOUR_NOTION_FILE_ID';
+// ----------------------------------------------------------------
 
 ////////////////////////
 const app = express();
@@ -267,6 +277,79 @@ function set_cookies(res, id, pass) {
 	res.writeHead(200, { 'Content-Type': 'text/html' });
 	console.log(`SYSTEM | SET_COOKIES | User ${id} login!`);
 }
+// ------------------------------------------------------------------------------------------------
+// const directoryPath = path.join('trans', 'tonghop');
+
+async function readNotionFile() {
+	try {
+		// Retrieve the content of the Notion file
+		const response = await notion.blocks.children.list({ block_id: notionFileId });
+		const blocks = response.results;
+
+		// Extract text from each block
+		const textContent = blocks.map(block => block.type === 'paragraph' ? block.paragraph.text.map(text => text.plain_text).join('') : '').join('\n');
+
+		// Save the text content to a file
+		fs.writeFile('notion_contents.txt', textContent, 'utf8', (err) => {
+			if (err) {
+				console.error('An error occurred while writing the file:', err);
+			} else {
+				console.log('Notion file contents saved to notion_contents.txt');
+			}
+		});
+	} catch (error) {
+		console.error('An error occurred while reading the Notion file:', error);
+	}
+}
+
+async function readDocFile(docFilePath) {
+	try {
+		const { value } = await mammoth.extractRawText({ path: docFilePath });
+
+		// Save the extracted text to a file
+		fs.writeFile('doc_contents.txt', value, 'utf8', (err) => {
+			if (err) {
+				console.error('An error occurred while writing the file:', err);
+			} else {
+				console.log('DOC file contents saved to doc_contents.txt');
+			}
+		});
+	} catch (error) {
+		console.error('An error occurred while reading the DOC file:', error);
+	}
+}
+
+async function get_full_id(directoryPath) {
+	let list_id = [];
+	try {
+		// Đọc các file trong thư mục một cách đồng bộ
+		const files = fs.readdirSync(directoryPath);
+		// Lọc và lấy đường dẫn của các file có phần mở rộng là ".txt"
+		const txtFilePaths = files
+			.filter((file) => path.extname(file).toLowerCase() === '.txt')
+			.map((file) => path.join(directoryPath, file))
+			.sort((a, b) => {
+				const indexA = parseInt(a.match(/(\d+)\./)[1]);
+				const indexB = parseInt(b.match(/(\d+)\./)[1]);
+
+				return indexA - indexB;
+			});
+			
+		const processFiles = async () => {
+			for (const filePath of txtFilePaths) {
+				console.log(filePath);
+				list_id.push(await server.uploadFileToDrive(filePath));
+			}
+		};
+		await processFiles();
+
+		return list_id;
+	} catch (err) {
+		console.error('Lỗi khi đọc thư mục:', err);
+	}
+
+}
+// ------------------------------------------------------------------------------------------------
 
 // Lắng nghe các yêu cầu POST tới localhost:6969
 app.use(bodyParser.json());
@@ -946,12 +1029,17 @@ app.post('/uploadnovel', async (req, res) => {
 	console.log('SYSTEM | UPLOAD NOVEL |', data);
 
 	try {
-		if (!data.id) { // already exist 
-			// tai len drive
-			// nem cai doc bien day di HL
-			// tui nos lam sao de cos the nem file len drive lay id ha
+		// ----------------------------------------------------------------
+		// if (data.type == 'notion') {} 
+		// else if (data.type == 'doc') {}
+		// else if (data.type == 'txt') {}
+		// else if (data.type == 'content') {}
+		// const directoryPath = path.join('trans', 'tonghop');
+		// const drive_id = await get_full_id(directoryPath);
+		// ----------------------------------------------------------------
 
-			server.update_one_Data("truyen", {_id: new ObjectId(data.id)}, {
+		if (!data.id) { // already exist 
+			server.update_one_Data("truyen", { _id: new ObjectId(data.id) }, {
 				$set: {
 					update_date: new Date()
 				},
@@ -964,7 +1052,6 @@ app.post('/uploadnovel', async (req, res) => {
 				}
 			})
 		} else { // first time
-
 			// create a new comment document
 			await server.add_one_Data("comment", {
 				_id: data.id,
@@ -972,7 +1059,6 @@ app.post('/uploadnovel', async (req, res) => {
 					// user_name: content (do what to add)
 				}
 			});
-// where r u now?
 
 			let up_content = {
 				name: data.name,
