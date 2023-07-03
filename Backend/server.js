@@ -972,8 +972,7 @@ app.post('/uploadnovel', async (req, res) => {
 					// user_name: content (do what to add)
 				}
 			});
-// where r u now?
-
+			
 			let up_content = {
 				name: data.name,
 				author: data.author,
