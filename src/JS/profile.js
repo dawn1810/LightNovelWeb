@@ -125,31 +125,13 @@ document.querySelector(".button_random").onclick = function (e) {
 
 
 
-const progress = document.getElementById("progress");
-const stepCircles = document.querySelectorAll(".circle");
-let currentActive = 1;
-
-//NOTE CHANGE HERE TO 1-4
-//1=25%
-//2=50%
-//3=75%
-//4=100%
-update(3);
-
-function update(currentActive) {
-  stepCircles.forEach((circle, i) => {
-    if (i < currentActive) {
-      circle.classList.add("active");
-    } else {
-      circle.classList.remove("active");
-    }
-  });
-
-  const activeCircles = document.querySelectorAll(".active");
-  progress.style.width =
-    ((activeCircles.length - 1) / (stepCircles.length - 1)) * 100 + "%";
-
-  
-
-    // https://codepen.io/alvarotrigo/pen/RwLWxJJ
+const add_new = document.querySelector('.add_new')
+const page5_home = document.querySelector('.page5_home')
+const page5_a = document.querySelector('.page5_a')
+add_new.onclick = function () {
+  page5_home.style.display = 'none'
+  page5_a.style.display = 'block'
 }
+
+
+
