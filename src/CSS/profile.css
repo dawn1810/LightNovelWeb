@@ -482,6 +482,9 @@ body {
   text-transform: uppercase;
 }
 
+.page5_chap {
+  display: none;
+}
 
 .novel_conntroller_btn {
   display: flex;
@@ -512,6 +515,7 @@ body {
   text-align: center;
   justify-content: center;
   align-items: center;
+  margin: 3px;
 }
 
 /* page5 */
@@ -520,7 +524,7 @@ body {
   background-color: #333;
   width: 800px;
   height: 30px;
-  transform: skew(30deg);
+  /* transform: skew(30deg); */
   font-family: 'Orbitron', monospace;
 
   &:before {
@@ -553,6 +557,14 @@ body {
     line-height: 1.5;
   }
 }
+.range img {
+  width: 100px;
+    margin-top: -75px;
+    transform: rotate3d(0, 4, 0, 190deg);
+    position: absolute;
+    left: -55px;
+    top: -6px;
+}
 
 @keyframes load {
   to {
@@ -560,32 +572,9 @@ body {
   }
 }
 
-@keyframes glitch {
-
-  0%,
-  5% {
-    transform: translate(0, 0);
-  }
-
-  1% {
-    transform: translate(-5%, -10%);
-  }
-
-  2% {
-    transform: translate(10%, 30%);
-  }
-
-  3% {
-    transform: translate(-43%, 10%);
-  }
-
-  4% {
-    transform: translate(2%, -23%);
-  }
-}
-
 .page5_a {
   display: none;
+  padding: 30px;
 }
 
 
@@ -606,4 +595,18 @@ body {
 
 textarea {
   height: 200px;
+}
+
+
+
+.my_novel_item {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px;
+}
+
+.list_chapter_head{
+  display: flex;
+  justify-content: space-between;
 }

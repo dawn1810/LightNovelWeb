@@ -21,7 +21,7 @@ const { Client } = require('@notionhq/client');
 const mammoth = require('mammoth');
 
 // Initialize Notion client with your integration token
-const notion = new Client({ auth: 'YOUR_NOTION_API_TOKEN' });
+const notion = new Client({ auth: 'secret_773isnmzBUbd1TFIympgLAewkvvXufZXxdDyt5vl1mw' });
 
 // ID of the Notion file you want to read
 const notionFileId = 'YOUR_NOTION_FILE_ID';

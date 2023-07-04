@@ -128,10 +128,18 @@ document.querySelector(".button_random").onclick = function (e) {
 const add_new = document.querySelector('.add_new')
 const page5_home = document.querySelector('.page5_home')
 const page5_a = document.querySelector('.page5_a')
+const page5_chap = document.querySelector('.page5_chap')
+const page5_info = document.querySelector('.page5_info')
 add_new.onclick = function () {
   page5_home.style.display = 'none'
   page5_a.style.display = 'block'
 }
+
+document.querySelector('.page5_info .next_btn').onclick = function () {
+  page5_info.style.display = 'none'
+  page5_chap.style.display = 'block'
+}
+
 
 
 
