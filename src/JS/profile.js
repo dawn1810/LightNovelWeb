@@ -126,18 +126,68 @@ document.querySelector(".button_random").onclick = function (e) {
 
 
 const add_new = document.querySelector('.add_new')
+const add_new_chapter = document.querySelector('.add_new_chapter')
+const show_list = document.querySelector('.showlist_novel')
 const page5_home = document.querySelector('.page5_home')
 const page5_a = document.querySelector('.page5_a')
+const page5_b = document.querySelector('.page5_b')
 const page5_chap = document.querySelector('.page5_chap')
 const page5_info = document.querySelector('.page5_info')
+const page5_post = document.querySelector('.page5_post')
+const page5_last = document.querySelector('.page5_last')
+
+const range = document.querySelector('.range')
 add_new.onclick = function () {
   page5_home.style.display = 'none'
   page5_a.style.display = 'block'
 }
 
+add_new_chapter.onclick = function () {
+  page5_b.style.display = 'none'
+  page5_a.style.display = 'block'
+}
+
+show_list.onclick = function () {
+  page5_home.style.display = 'none'
+  page5_b.style.display = 'block'
+}
 document.querySelector('.page5_info .next_btn').onclick = function () {
   page5_info.style.display = 'none'
   page5_chap.style.display = 'block'
+  range.style.setProperty('--p', '50');
+
+}
+document.querySelector('.page5_chap .next_btn').onclick = function () {
+  page5_chap.style.display = 'none'
+  page5_post.style.display = 'block'
+  range.style.setProperty('--p', '75');
+
+}
+document.querySelector('.page5_post .post_btn').onclick = function () {
+  page5_post.style.display = 'none'
+  page5_last.style.display = 'block'
+
+  let audio = new Audio('/src/audio/naruto-trap.mp3');
+  audio.volume = 0.5;
+  audio.play();
+
+  range.style.setProperty('--p', '100');
+
+}
+
+let check = 0
+const page5_post_check = document.querySelector('.page5_post_check')
+page5_post_check.onclick = function () {
+  if (check == 0) {
+    page5_post_check.innerHTML = `<i class="fa-regular fa-square-check"></i>`
+    check = 1
+  }
+  else {
+
+    page5_post_check.innerHTML = `<i class="fa-regular fa-square"></i>`
+    check = 0
+  }
+
 }
 
 
