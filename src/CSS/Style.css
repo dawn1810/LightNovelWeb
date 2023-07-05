@@ -708,9 +708,9 @@ yt-icon.ytd-logo {
   width: 100%;
 }
 
-.header_search_wrap:focus-within {
+/* .header_search_wrap:focus-within {
   border: 1px solid #1c62b9;
-}
+} */
 
 .header_search_logo {
   width: 30px;
@@ -726,8 +726,8 @@ yt-icon.ytd-logo {
   color: #506d84;
 }
 
-.header_search_logo:hover {
-  background-color: rgb(72, 72, 72);
+.header_search_logo:hover i {
+  opacity: .5;
 }
 
 .header_end {
@@ -1398,6 +1398,7 @@ html .body_main {
 
 ::placeholder {
   color: var(--black-text);
+  opacity: .7;
   text-align: center;
 }
 
