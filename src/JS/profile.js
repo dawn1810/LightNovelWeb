@@ -10,6 +10,68 @@ for (let i = 0; i < Setting_item.length; i++) {
 	// console.log(Setting_item[i])
 	console.log(i);
 	Setting_item[i].onclick = function () {
+
+		if (Setting_item[i].classList[1] == 'yourinfo') {
+			const currentURL = window.location.href;
+			const currentPath = currentURL.substring(currentURL.lastIndexOf('/'));
+
+			if (currentPath == '/profile') {
+				var newURL = currentURL + '/my-info';
+				history.pushState(null, null, newURL);
+			} else {
+				// Thay thế phần cuối của URL bằng "/change_pass"
+				const newURL = currentURL.replace(currentPath, '/my_info');
+
+				// Thực hiện thay đổi URL
+				history.pushState(null, null, newURL);
+			}
+		}
+		if (Setting_item[i].classList[1] == 'yourfollow') {
+			const currentURL = window.location.href;
+			const currentPath = currentURL.substring(currentURL.lastIndexOf('/'));
+			if (currentPath == '/profile') {
+				var newURL = currentURL + '/novel_following';
+				history.pushState(null, null, newURL);
+			} else {
+				// Thay thế phần cuối của URL bằng "/change_pass"
+				const newURL = currentURL.replace(currentPath, '/novel_following');
+
+				// Thực hiện thay đổi URL
+				history.pushState(null, null, newURL);
+			}
+
+		}
+		if (Setting_item[i].classList[1] == 'yourchangepass') {
+			const currentURL = window.location.href;
+			const currentPath = currentURL.substring(currentURL.lastIndexOf('/'));
+
+			if (currentPath == '/profile') {
+				var newURL = currentURL + '/change_pass';
+				history.pushState(null, null, newURL);
+			} else {
+				// Thay thế phần cuối của URL bằng "/change_pass"
+				const newURL = currentURL.replace(currentPath, '/change_pass');
+
+				// Thực hiện thay đổi URL
+				history.pushState(null, null, newURL);
+			}
+		}
+
+		if (Setting_item[i].classList[1] == 'up_novel') {
+			const currentURL = window.location.href;
+			const currentPath = currentURL.substring(currentURL.lastIndexOf('/'));
+
+			if (currentPath == '/profile') {
+				var newURL = currentURL + '/my_novel';
+				history.pushState(null, null, newURL);
+			} else {
+				// Thay thế phần cuối của URL bằng "/change_pass"
+				const newURL = currentURL.replace(currentPath, '/my_novel');
+
+				// Thực hiện thay đổi URL
+				history.pushState(null, null, newURL);
+			}
+		}
 		for (const key of Setting_item) {
 			key.style.backgroundColor = "transparent";
 			console.log(key);
@@ -142,12 +204,17 @@ const novel_descript = document.querySelector('.novel_descript');
 const novel_types = document.querySelector('.novel_types select');
 
 const range = document.querySelector('.range')
-
+const range__label = document.querySelector('.range__label');
 add_new.onclick = function () {
 	page5_home.style.display = 'none'
 	page5_a.style.display = 'block'
 	setTimeout(function () {
 		range.style.setProperty('--p', '25');
+		// range.style.setProperty('--widthbf', '0');
+
+		range__label.classList.remove('anima')
+
+		range__label.classList.add('anima')
 	}, 100)
 }
 
@@ -165,18 +232,31 @@ document.querySelector('.page5_info .next_btn').onclick = function () {
 	page5_info.style.display = 'none'
 	page5_chap.style.display = 'block'
 	range.style.setProperty('--p', '50');
+	range.style.setProperty('--widthbf', '25%');
+
+	range__label.classList.remove('anima')
+
+	setTimeout(function () {
+		range__label.classList.add('anima')
+	}, 50)
 
 
-sessionStorage.setItem("novel_name", novel_name.value);
-sessionStorage.setItem("author_name", author_name.value);
-sessionStorage.setItem("novel_descript", novel_descript.valu);
-sessionStorage.setItem("novel_types", novel_types.options[novel_types.selectedIndex].text);
-sessionStorage.setItem("novel_status", novel_status.options[novel_status.selectedIndex].text);
+	sessionStorage.setItem("novel_name", novel_name.value);
+	sessionStorage.setItem("author_name", author_name.value);
+	sessionStorage.setItem("novel_descript", novel_descript.valu);
+	sessionStorage.setItem("novel_types", novel_types.options[novel_types.selectedIndex].text);
+	sessionStorage.setItem("novel_status", novel_status.options[novel_status.selectedIndex].text);
 }
 document.querySelector('.page5_chap .next_btn').onclick = function () {
 	page5_chap.style.display = 'none'
 	page5_post.style.display = 'block'
 	range.style.setProperty('--p', '75');
+	range.style.setProperty('--widthbf', '50%');
+	range__label.classList.remove('anima')
+
+	setTimeout(function () {
+		range__label.classList.add('anima')
+	}, 50)
 }
 document.querySelector('.page5_post .post_btn').onclick = function () {
 	page5_post.style.display = 'none'
@@ -187,6 +267,13 @@ document.querySelector('.page5_post .post_btn').onclick = function () {
 	audio.play();
 
 	range.style.setProperty('--p', '100');
+	range.style.setProperty('--widthbf', '75%');
+
+	range__label.classList.remove('anima')
+
+	setTimeout(function () {
+		range__label.classList.add('anima')
+	}, 50)
 }
 
 let check = 0
@@ -203,6 +290,10 @@ page5_post_check.onclick = function () {
 	}
 
 }
+
+
+
+// xử lí page
 
 
 

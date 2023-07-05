@@ -7,6 +7,8 @@ main {
   --background-color: #ffffec;
   --text-color: black;
   --button-colors: #b0906b;
+  --widthbf: calc(0 * 1%);
+
 }
 
 body {
@@ -574,9 +576,10 @@ body {
 
   &:before {
     --width: calc(var(--p) * 1%);
+    /* --widthbf: 0; */
 
     content: '';
-    position: absolute;
+    /* position: absolute;
     top: 0;
     left: 0;
     width: 0;
@@ -584,7 +587,7 @@ body {
     background-color: #F3E600;
     z-index: 0;
     animation: load 1s forwards linear;
-    animation-delay: 0.1s;
+    animation-delay: 0.1s; */
   }
 
   &:after {
@@ -603,11 +606,25 @@ body {
     line-height: 1.5;
   }
 
-  &.animate:before {
-    --width: calc(var(--p) * 1%);
 
-    animation: load 1s forwards linear;
-  }
+}
+
+.range__label {
+  --width: calc(var(--p) * 1%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #F3E600;
+  z-index: 0;
+  /* animation: load 1s forwards linear; */
+  animation-delay: 0.1s;
+}
+
+.anima {
+  animation: load 1s forwards linear;
+
 }
 
 .range img {
@@ -621,6 +638,10 @@ body {
 }
 
 @keyframes load {
+  from {
+    width: var(--widthbf);
+  }
+
   to {
     width: var(--width);
   }
