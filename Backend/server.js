@@ -374,6 +374,42 @@ app.get('/', (req, res) => {
 app.get('/profile', (req, res) => {
 	res.sendFile(parentDirectory + '/HTML/profile.html');
 });
+// profile route
+
+app.get('/profile/novel_following', (req, res) => {
+	res.sendFile(parentDirectory + '/HTML/profile.html');
+});
+
+app.get('/profile/change_pass', (req, res) => {
+	res.sendFile(parentDirectory + '/HTML/profile.html');
+});
+
+app.get('/profile/my_novel', (req, res) => {
+	res.sendFile(parentDirectory + '/HTML/profile.html');
+});
+
+// up novel
+
+app.get('/profile/add_novel', (req, res) => {
+	res.sendFile(parentDirectory + '/HTML/profile.html');
+});
+app.get('/profile/add_content', (req, res) => {
+	res.sendFile(parentDirectory + '/HTML/profile.html');
+});
+app.get('/profile/post_novel', (req, res) => {
+	res.sendFile(parentDirectory + '/HTML/profile.html');
+});
+app.get('/profile/congratulation', (req, res) => {
+	res.sendFile(parentDirectory + '/HTML/profile.html');
+});
+
+app.get('/profile/update', (req, res) => {
+	res.sendFile(parentDirectory + '/HTML/profile.html');
+});
+
+// up novel
+
+// profile route
 
 app.get('/category', (req, res) => {
 	res.sendFile(parentDirectory + '/HTML/category-page.html');

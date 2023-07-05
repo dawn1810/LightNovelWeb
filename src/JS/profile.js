@@ -6,89 +6,68 @@ const dropZone = document.querySelector(".drop-zone");
 const Setting_pageWrapper = document.querySelectorAll(".Setting_pageWrapper");
 const Setting_item = document.querySelectorAll(".Setting_sidebar-list_item");
 
+const update_current_novel = document.querySelector(".update_current_novel")
+const delete_chapter = document.querySelector(".delete_chapter")
+
 for (let i = 0; i < Setting_item.length; i++) {
+	const currentURL = 'http://localhost:6969/profile';
+
 	// console.log(Setting_item[i])
 	console.log(i);
 	Setting_item[i].onclick = function () {
 
-		if (Setting_item[i].classList[1] == 'yourinfo') {
-			const currentURL = window.location.href;
-			const currentPath = currentURL.substring(currentURL.lastIndexOf('/'));
-
-			if (currentPath == '/profile') {
-				var newURL = currentURL + '/my-info';
-				history.pushState(null, null, newURL);
-			} else {
-				// Thay thế phần cuối của URL bằng "/change_pass"
-				const newURL = currentURL.replace(currentPath, '/my_info');
-
-				// Thực hiện thay đổi URL
-				history.pushState(null, null, newURL);
+		function hihi() {
+			for (const key of Setting_pageWrapper) {
+				key.style.display = "none";
+				console.log(key);
 			}
 		}
-		if (Setting_item[i].classList[1] == 'yourfollow') {
-			const currentURL = window.location.href;
-			const currentPath = currentURL.substring(currentURL.lastIndexOf('/'));
-			if (currentPath == '/profile') {
-				var newURL = currentURL + '/novel_following';
-				history.pushState(null, null, newURL);
-			} else {
-				// Thay thế phần cuối của URL bằng "/change_pass"
-				const newURL = currentURL.replace(currentPath, '/novel_following');
-
-				// Thực hiện thay đổi URL
-				history.pushState(null, null, newURL);
+		function hoho() {
+			for (const key of Setting_item) {
+				key.style.backgroundColor = "transparent"
 			}
+		}
+		hoho()
+
+		if (Setting_item[i].classList[1] == 'yourinfo') {
+			hihi()
+			Setting_pageWrapper[0].style.display = 'block';
+			var newURL = currentURL
+			history.pushState(null, null, newURL);
+		}
+		if (Setting_item[i].classList[1] == 'yourfollow') {
+
+			var newURL = currentURL + '/novel_following';
+			history.pushState(null, null, newURL);
+			hihi()
+			Setting_pageWrapper[1].style.display = 'block';
+
+
 
 		}
 		if (Setting_item[i].classList[1] == 'yourchangepass') {
-			const currentURL = window.location.href;
-			const currentPath = currentURL.substring(currentURL.lastIndexOf('/'));
 
-			if (currentPath == '/profile') {
-				var newURL = currentURL + '/change_pass';
-				history.pushState(null, null, newURL);
-			} else {
-				// Thay thế phần cuối của URL bằng "/change_pass"
-				const newURL = currentURL.replace(currentPath, '/change_pass');
 
-				// Thực hiện thay đổi URL
-				history.pushState(null, null, newURL);
-			}
+
+			var newURL = currentURL + '/change_pass';
+			history.pushState(null, null, newURL);
+			hihi()
+			Setting_pageWrapper[2].style.display = 'block';
 		}
 
 		if (Setting_item[i].classList[1] == 'up_novel') {
-			const currentURL = window.location.href;
-			const currentPath = currentURL.substring(currentURL.lastIndexOf('/'));
 
-			if (currentPath == '/profile') {
-				var newURL = currentURL + '/my_novel';
-				history.pushState(null, null, newURL);
-			} else {
-				// Thay thế phần cuối của URL bằng "/change_pass"
-				const newURL = currentURL.replace(currentPath, '/my_novel');
 
-				// Thực hiện thay đổi URL
-				history.pushState(null, null, newURL);
-			}
+
+			var newURL = currentURL + '/my_novel';
+			history.pushState(null, null, newURL);
+			hihi()
+			Setting_pageWrapper[3].style.display = 'block';
 		}
-		for (const key of Setting_item) {
-			key.style.backgroundColor = "transparent";
-			console.log(key);
-		}
+
 		Setting_item[i].style.backgroundColor = "var(--st-pr-btn-bg)";
-		for (const key of Setting_pageWrapper) {
-			key.style.display = "none";
-			console.log(key);
-		}
-		if (i == Setting_pageWrapper.length) {
-			// Setting_pageWrapper[i].style.display = 'none'
-		} else {
-			Setting_pageWrapper[i].style.display = "block";
-		}
-		console.log(i);
 
-		console.log(Setting_pageWrapper[i]);
+
 	};
 }
 const button_file = document.querySelectorAll("#button_file");
@@ -202,12 +181,51 @@ const author_name = document.querySelector('.author_name');
 const novel_status = document.querySelector('.novel_status select');
 const novel_descript = document.querySelector('.novel_descript');
 const novel_types = document.querySelector('.novel_types select');
-
+const page5_composed = document.querySelectorAll('.page5_composed')
+const page5_a_up = document.querySelectorAll('.page5_a_up')
 const range = document.querySelector('.range')
 const range__label = document.querySelector('.range__label');
+
+function huhu() {
+	// ẩn page5_composed
+	for (const key of page5_composed) {
+		key.style.display = 'none'
+	}
+}
+function hoho() {
+	for (const key of page5_a_up) {
+		key.style.display = 'none'
+	}
+}
+
 add_new.onclick = function () {
-	page5_home.style.display = 'none'
-	page5_a.style.display = 'block'
+	huhu()
+	var newURL = currentURL + '/add_novel';
+	history.pushState(null, null, newURL);
+	// Setting_pageWrapper[4].style.display = 'block';
+	// document.querySelector()
+
+	page5_composed[1].style.display = 'block'
+	page5_a_up[0].style.display = 'flex'
+	setTimeout(function () {
+		range.style.setProperty('--p', '25');
+		// range.style.setProperty('--widthbf', '0');
+
+		range__label.classList.remove('anima')
+
+		range__label.classList.add('anima')
+	}, 100)
+}
+
+update_current_novel.onclick = function () {
+	huhu()
+	var newURL = currentURL + '/update';
+	history.pushState(null, null, newURL);
+	// Setting_pageWrapper[4].style.display = 'block';
+	// document.querySelector()
+
+	page5_composed[3].style.display = 'block'
+	page5_a_up[0].style.display = 'flex'
 	setTimeout(function () {
 		range.style.setProperty('--p', '25');
 		// range.style.setProperty('--widthbf', '0');
@@ -229,7 +247,9 @@ show_list.onclick = function () {
 }
 
 document.querySelector('.page5_info .next_btn').onclick = function () {
-	page5_info.style.display = 'none'
+	hoho()
+	var newURL = currentURL + '/add_content';
+	history.pushState(null, null, newURL);
 	page5_chap.style.display = 'block'
 	range.style.setProperty('--p', '50');
 	range.style.setProperty('--widthbf', '25%');
@@ -248,7 +268,9 @@ document.querySelector('.page5_info .next_btn').onclick = function () {
 	sessionStorage.setItem("novel_status", novel_status.options[novel_status.selectedIndex].text);
 }
 document.querySelector('.page5_chap .next_btn').onclick = function () {
-	page5_chap.style.display = 'none'
+	hoho()
+	var newURL = currentURL + '/post_novel';
+	history.pushState(null, null, newURL);
 	page5_post.style.display = 'block'
 	range.style.setProperty('--p', '75');
 	range.style.setProperty('--widthbf', '50%');
@@ -259,7 +281,10 @@ document.querySelector('.page5_chap .next_btn').onclick = function () {
 	}, 50)
 }
 document.querySelector('.page5_post .post_btn').onclick = function () {
-	page5_post.style.display = 'none'
+
+	hoho()
+	var newURL = currentURL + '/congratulation';
+	history.pushState(null, null, newURL);
 	page5_last.style.display = 'block'
 
 	let audio = new Audio('/src/audio/naruto-trap.mp3');
