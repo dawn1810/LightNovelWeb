@@ -583,7 +583,8 @@ body {
     height: 100%;
     background-color: #F3E600;
     z-index: 0;
-    animation: load .5s forwards linear;
+    animation: load 1s forwards linear;
+    animation-delay: 0.1s;
   }
 
   &:after {
@@ -601,6 +602,12 @@ body {
     transform: skew(-30deg) translateY(-100%);
     line-height: 1.5;
   }
+
+  &.animate:before {
+    --width: calc(var(--p) * 1%);
+
+    animation: load 1s forwards linear;
+  }
 }
 
 .range img {
@@ -610,6 +617,7 @@ body {
   position: absolute;
   left: calc(var(--p) * 1% - 50px);
   top: -6px;
+  transition: 1s linear;
 }
 
 @keyframes load {

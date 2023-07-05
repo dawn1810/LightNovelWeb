@@ -334,7 +334,7 @@ async function get_full_id(directoryPath) {
 
 				return indexA - indexB;
 			});
-			
+
 		const processFiles = async () => {
 			for (const filePath of txtFilePaths) {
 				console.log(filePath);
@@ -598,6 +598,7 @@ app.post('/login', async (req, res) => {
 						avatarUrl: 'unknown',
 						sex: "unknown",
 						likeNovels: [],
+						mynovel: []
 					};
 
 					// them mot nguoi dung moi
@@ -638,6 +639,29 @@ app.post('/login', async (req, res) => {
 	} catch (err) {
 		console.log('SYSTEM | LOG_IN | ERROR | ', err);
 		res.sendStatus(500);
+	}
+});
+
+// Logout /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+app.post('/logout', async (req, res) => {
+	try {
+		const data = req.body;
+		console.log('SYSTEM | LOGOUT | Dữ liệu nhận được: ', data);
+		const expirationDate = new Date('2018-12-31');
+		res.cookie('account', data.account, {
+			expires: expirationDate, // Cookie will permernently expire
+			secure: true,
+			sameSite: 'none',
+			domain: 'localhost',
+			// domain: 'c22c-2a09-bac5-d44d-18d2-00-279-87.ngrok-free.app',
+			path: '/'
+		});
+		res.writeHead(200, { 'Content-Type': 'text/plain' });
+		console.log(`SYSTEM | LOGOUT | Dang xuat thành công`);
+		res.end('Da dang xuat!');
+	} catch (err) {
+		res.sendStatus(500);
+		console.log('SYSTEM | LOGOUT | ERROR | ', err);
 	}
 });
 
@@ -694,6 +718,7 @@ passport.use(new GoogleStrategy({
 					avatarUrl: profile.photos[0].value,
 					sex: "unknown",
 					likeNovels: [],
+					mynovel: []
 				};
 
 				// dang_nhap data base:

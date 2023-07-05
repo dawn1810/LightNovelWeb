@@ -163,6 +163,33 @@ exports.atomic = async function (databaseName, password) {
   }
 }
 
+exports.atomic_table = async function (databaseName, tableList ,  password) {
+  if (password === '18102003') {
+    try {
+      // await client.connect();
+      const database = client.db(databaseName);
+      for (const collectionName of tableList) {
+        await database.dropCollection(collectionName);
+        console.log('SYSTEM | ATOMIC | Recreate collection:', collectionName, 'successfull');
+      }
+      // Xoá cơ sở dữ liệu hiện tại
+      console.log("SYSTEM | ATOMIC |\n______             _      ______ _            ______         _                   \n| ___ \\           | |     | ___ | |           |  _  \\       | |                  \n| |_/ / __ _ _ __ | |__   | |_/ | |__   ___   | | | |___ ___| |_ _ __ ___  _   _ \n| ___ \\/ _` | \'_ \\| \'_ \\  |  __/| \'_ \\ / _ \\  | | | / _ / __| __| \'__/ _ \\| | | |\n| |_/ | (_| | | | | | | | | |   | | | | (_) | | |/ |  __\\__ | |_| | | (_) | |_| |\n\\____/ \\__,_|_| |_|_| |_| \\_|   |_| |_|\\___/  |___/ \\___|___/\\__|_|  \\___/ \\__, |\n                                                                            __/ |\n                                                                           |___/ \n");
+
+      for (const collectionName of tableList) {
+        await database.createCollection(collectionName);
+        console.log('SYSTEM | ATOMIC | Recreate collection:', collectionName, 'successfull');
+      }
+
+      // Các công việc khác, ví dụ: tạo các index, khởi tạo dữ liệu, vv.
+    } finally {
+      // await client.close();
+    }
+  }
+  else {
+    console.log('SYSTEM | ATOMIC | Fail, admin comming to you (╬▔皿▔)╯!!!');
+  }
+}
+
 
 /////////////////////////this is drive....//////////////////////////////
 const fs = require('fs');
