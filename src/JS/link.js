@@ -5,7 +5,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-  $("#header-element").load("/HTML/header.html", function () {
+  // $("#header-element").load("/HTML/header.html", function () {
     const header_menu = document.querySelector(".header_menu");
     const left_item = document.querySelector(".left_item");
     const category_btn = document.getElementById("category");
@@ -154,7 +154,7 @@ $(document).ready(function () {
     };
 
   });
-});
+// });
 
 
 

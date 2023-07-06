@@ -27,7 +27,7 @@ const page5_composed = document.querySelectorAll('.page5_composed');
 const page5_a_up = document.querySelectorAll('.page5_a_up');
 const range = document.querySelector('.range');
 const range__label = document.querySelector('.range__label');
-
+const back_btn = document.querySelectorAll('.back_btn')
 
 window.addEventListener('popstate', function (event) {
 	// if (event.persisted) {
@@ -60,6 +60,7 @@ function hoho() {
 		key.style.display = 'none'
 	}
 }
+
 var currentPath = window.location.href.substring(window.location.href.lastIndexOf('/'));
 console.log(currentPath)
 if (currentPath == "/novel_following") {
@@ -302,11 +303,6 @@ document.querySelector(".button_random").onclick = function (e) {
 };
 
 
-
-
-
-
-
 add_new.onclick = function () {
 	huhu()
 	var newURL = currentURL + '/add_novel';
@@ -326,6 +322,11 @@ add_new.onclick = function () {
 	}, 100)
 }
 
+// for(const element of back_btn){
+// 	element.onclick = function(){
+// 		history.back();
+// 	}
+// }
 update_current_novel.onclick = function () {
 	huhu()
 	var newURL = currentURL + '/update';
@@ -378,8 +379,9 @@ document.querySelector('.page5_info .next_btn').onclick = function () {
 }
 
 document.querySelector('.page5_chap .more_chap_btn').onclick = function () {
-	document.querySelector('.page5_chap .page5_info_main').innerHTML += `
-	<div class="info-wrapper-container">
+	const newElement = document.createElement('div');
+	newElement.className = 'info-wrapper-container';
+	newElement.innerHTML = `
 		<div class="laocacho" style="display: flex; justify-content: flex-end;"> 
 			<button class="delete_chap">
 				<i class="fa-solid fa-xmark"></i>
@@ -389,7 +391,7 @@ document.querySelector('.page5_chap .more_chap_btn').onclick = function () {
 		<div class="information_name_wrap">
 			<h3>Thứ tự chương</h3>
 			<div class="information_name">
-				<input class="profile_input" type="text" id="name_novel"
+				<input class="profile_input chap_num" type="text" id="name_novel"
 					placeholder="Nhập thứ tự chương(e.g. 1, 1.1, 1.5, 2,...)" />
 			</div>
 		</div>
@@ -397,7 +399,7 @@ document.querySelector('.page5_chap .more_chap_btn').onclick = function () {
 		<div class="information_name_wrap">
 			<h3>Tên chương</h3>
 			<div class="information_name">
-				<input class="profile_input" type="text" id="fullname"
+				<input class="profile_input chap_name" type="text" id="fullname"
 					placeholder="Nhập tên chương" />
 			</div>
 		</div>
@@ -413,20 +415,28 @@ document.querySelector('.page5_chap .more_chap_btn').onclick = function () {
 			</div>
 		</div>
 		
-		<p style="text-align: center;">------------------------------------ (‿ˠ‿)( ͡⚆ ͜ʖ ͡⚆ )(‿ˠ‿) ------------------------------------</p>
-	</div>`
+		<p style="text-align: center;">[------------------------------------ 🦊🍜🍥 ------------------------------------]</p>
+	`;
+	document.querySelector('.page5_chap .page5_info_main').appendChild(newElement);
 };
+
 
 $(document).ready(function () {
 	// Add event listener to all buttons
 	$(document).on('click', '.page5_chap .delete_chap', function () {
-		console.log('delete_chap');
-		// Delete the parent node
+		// Delete the grandparent node
 		$(this).parent().parent().remove();
 	});
+
+	$(document).on('click', '.page5_chap .upfile', function () {
+		console.log('upfile');
+	});
+
+	$(document).on('click', '.back_btn', function () {
+		history.back();
+	});
+
 });
-
-
 
 document.querySelector('.page5_chap .next_btn').onclick = function () {
 	hoho()
@@ -440,7 +450,22 @@ document.querySelector('.page5_chap .next_btn').onclick = function () {
 	setTimeout(function () {
 		range__label.classList.add('anima')
 	}, 50)
+
+	// -----------------------------------------------------------------------------------------
+	let name_chapters = [];
+	// Loop through all elements
+	$('.page5_chap .info-wrapper-container').each(function () {
+		// Get the input element inside the current element
+		let chapNum = $(this).find('.chap_num').val();
+		let chapName = $(this).find('.chap_name').val();
+
+		name_chapters.push(`Chương ${chapNum}: ${chapName}`);
+	});
+
+	sessionStorage.setItem("name_chapters", JSON.stringify(name_chapters));
+	// -----------------------------------------------------------------------------------------
 }
+
 document.querySelector('.page5_post .post_btn').onclick = function () {
 
 	hoho()
@@ -462,6 +487,7 @@ document.querySelector('.page5_post .post_btn').onclick = function () {
 	}, 50)
 }
 
+
 let check = 0
 const page5_post_check = document.querySelector('.page5_post_check')
 page5_post_check.onclick = function () {
@@ -476,6 +502,8 @@ page5_post_check.onclick = function () {
 	}
 
 }
+
+
 
 
 

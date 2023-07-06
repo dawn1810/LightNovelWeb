@@ -15,6 +15,10 @@ body {
   color: var(--text-color) !important;
 }
 
+.group2{
+  display: flex;
+  flex-direction: column;
+}
 #button_file {
   background-color: var(--button-colors) !important;
   width: 13% !important;
@@ -418,7 +422,7 @@ body {
   width: 50%;
   font-size: 1rem;
   line-height: 2rem;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   border-radius: 10px;
   border: 2px solid rgb(187, 169, 169);
 }
@@ -554,9 +558,9 @@ body {
 .page5_home_info_wrap_item:last-child {
   border: 0;
 }
-.page5_info  .page5_info_main{
+/* .page5_info  .page5_info_main{
   width: 60%;
-}
+} */
 .page5_info_main input,
 .page5_info_main textarea{
   width: 100%;
@@ -759,7 +763,9 @@ body {
   display: none;
   padding: 30px;
 }
-
+.page5_a form{
+  width: 60%;
+}
 .page5_b {
   display: none;
 }
@@ -900,6 +906,33 @@ textarea {
   align-items: center;
 }
 
+.next_btn {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.back_btn {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.post_btn {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
 .page5_last_btn {
   width: 100px;
   text-align: center;
@@ -912,4 +945,14 @@ textarea {
 
 .copy {
   flex-direction: column;
+}
+
+.group2{
+  display: flex;
+  flex-direction: column;
+}
+
+input:required:focus {
+  border: 2px solid red;
+  outline: none;
 }

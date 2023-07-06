@@ -31,7 +31,7 @@ const notionFileId = 'YOUR_NOTION_FILE_ID';
 const app = express();
 const router = express.Router();
 
-const port = 6969;
+const port = 7000;
 const secretKey = '5gB#2L1!8*1!0)$7vF@9';
 const authenticationKey = Buffer.from(secretKey.padEnd(32, '0'), 'utf8').toString('hex');
 
@@ -351,6 +351,63 @@ async function get_full_id(directoryPath) {
 }
 // ------------------------------------------------------------------------------------------------
 
+async function checkCookieLoglUser(req, res, next) {
+	try {
+		const data = req.cookies;
+		if (!data.account) {
+			res.locals.avt = 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg';
+			res.locals.username = '';
+			next();
+		}
+		else {
+
+
+			console.log('SYSTEM | AUTHENTICATION | Dữ liệu nhận được: ', data);
+			const decode = decrypt(data.account, authenticationKey);
+			const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
+			console.log(`SYSTEM | AUTHENTICATION | Dữ liệu đã giải mã ${decodeList}`);
+			// decodeList = authenticationKey:id:pass
+			if (decodeList[0] == authenticationKey) {
+				const result = await server.find_one_Data("tt_nguoi_dung", { _id: decodeList[1] })
+
+				if (result != null && result.length != 0) {
+					res.locals.avt = result.avatarUrl;
+					res.locals.username = result.displayName;
+					next();
+				}
+				else if (result == null) {
+					res.locals.avt = 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg';
+					res.locals.username = '';
+					next();
+				}
+				else {
+					res.locals.avt = 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg';
+					res.locals.username = '';
+					next();
+				}
+			}
+		}
+
+	} catch (error) {
+		// Xử lý lỗi nếu có
+		res.status(500).send('Internal Server Error');
+	}
+}
+
+
+async function checkCoookieIfOK(req, res, next) {
+	const data = req.cookies;
+	if (!data.account) {
+		// Cookie không tồn tại, chặn truy cập
+		return res.redirect('/');
+	}
+	else {
+		next();
+	}
+
+}
+
+
 // Lắng nghe các yêu cầu POST tới localhost:6969
 app.use(bodyParser.json());
 app.use(cors({ origin: true, credentials: true }));
@@ -364,46 +421,63 @@ app.use(preventSessionFixation);
 app.use(express.json());
 const parentDirectory = path.dirname(__dirname);
 app.use(express.static(parentDirectory));
+app.set('view engine', 'ejs');
+// Đặt thư mục chứa các tệp template
+app.set('views', path.join(parentDirectory, 'EJS'));
+console.log(path.join(parentDirectory, 'EJS'))
 
+// app.get('/', checkCookieLoglUser, (req, res) => {
+// 	res.sendFile(parentDirectory + '/HTML/index.html');
+// });
+app.get('/', checkCookieLoglUser, (req, res) => {
+	res.render('index', {
+		headerFile: 'header'
+	});
+});
+// app.get('/profile', checkCookieMiddleware, (req, res) => {
+// 	res.sendFile(parentDirectory + '/HTML/profile.html');
+// });
 
-
-app.get('/', (req, res) => {
-	res.sendFile(parentDirectory + '/HTML/index.html');
+app.get('/profile', checkCoookieIfOK, checkCookieLoglUser, (req, res) => {
+	res.render('profile', {
+		headerFile: 'header'
+	});
 });
 
-app.get('/profile', (req, res) => {
-	res.sendFile(parentDirectory + '/HTML/profile.html');
-});
 // profile route
 
-app.get('/profile/novel_following', (req, res) => {
+app.get('/404', (req, res) => {
+	res.sendFile(parentDirectory + '/error/404.html');
+});
+
+app.get('/profile/novel_following', checkCoookieIfOK, (req, res) => {
 	res.sendFile(parentDirectory + '/HTML/profile.html');
 });
 
-app.get('/profile/change_pass', (req, res) => {
+app.get('/profile/change_pass', checkCoookieIfOK, (req, res) => {
 	res.sendFile(parentDirectory + '/HTML/profile.html');
 });
 
-app.get('/profile/my_novel', (req, res) => {
+app.get('/profile/my_novel', checkCoookieIfOK, (req, res) => {
 	res.sendFile(parentDirectory + '/HTML/profile.html');
 });
 
 // up novel
 
-app.get('/add_novel', (req, res) => {
+app.get('/add_novel', checkCoookieIfOK, (req, res) => {
 	res.sendFile(parentDirectory + '/HTML/profile.html');
 });
-app.get('/add_content', (req, res) => {
+app.get('/add_content', checkCoookieIfOK, (req, res) => {
 	res.sendFile(parentDirectory + '/HTML/profile.html');
 });
-app.get('/post_novel', (req, res) => {
+app.get('/post_novel', checkCoookieIfOK, (req, res) => {
 	res.sendFile(parentDirectory + '/HTML/profile.html');
 });
-app.get('/congratulation', (req, res) => {
+app.get('/congratulation', checkCoookieIfOK, (req, res) => {
 	res.sendFile(parentDirectory + '/HTML/profile.html');
 });
 
-app.get('/profile/update', (req, res) => {
+app.get('/profile/update', checkCoookieIfOK, (req, res) => {
 	res.sendFile(parentDirectory + '/HTML/profile.html');
 });
 
@@ -411,8 +485,14 @@ app.get('/profile/update', (req, res) => {
 
 // profile route
 
-app.get('/category', (req, res) => {
-	res.sendFile(parentDirectory + '/HTML/category-page.html');
+// app.get('/category', (req, res) => {
+// 	res.sendFile(parentDirectory + '/HTML/category-page.html');
+// });
+
+app.get('/category', checkCookieLoglUser, (req, res) => {
+	res.render('category-page', {
+		headerFile: 'header'
+	});
 });
 
 // app.get('/reviews', (req, res) => {
@@ -728,6 +808,7 @@ passport.use(new GoogleStrategy({
 			// console.log(refreshToken);
 			// console.log(request);
 			// Kiểm tra xem thông tin người dùng đã tồn tại chưa
+			console.log('huhu')
 			const existingUser = await server.find_one_Data("tt_nguoi_dung", { _id: profile.id });
 			if (existingUser) {
 				// update new data for tt_nguoi_dung database
@@ -802,6 +883,7 @@ app.get('/auth/google/callback',
 		res.write('</script>');
 		// dùng chung
 		res.end('Login thanh cong!');
+		// res.sendStatus(404);
 	}
 );
 

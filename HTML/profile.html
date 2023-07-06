@@ -60,7 +60,7 @@
 					<div class="Setting_pageWrapper page1" id="user" style="display: block">
 						<h1 class="Setting_pageWrapper_titlte">Thông tin cá nhân</h1>
 						<div class="Setting_pageWrapper_main">
-							<form action="">
+							<form action="" id="form-userInfo">
 								<div class="FieldWrapper_wrapper">
 									<div class="avt-wrapper-container">
 										<div class="information_name_wrap">
@@ -71,7 +71,8 @@
 													<button class="dropdown-trigger" type="button">
 														<div class="dropdown-content">
 															<label>Choose image</label>
-															<input id="file-upload" type="file" style="display: none" />
+															<input id="file-upload" type="file" required
+																style="display: none" />
 														</div>
 														<div class="drop-zone" ondrop="drop(event)"
 															ondragover="allowDrop(event)">
@@ -90,8 +91,8 @@
 										<div class="information_name_wrap">
 											<h3>User</h3>
 											<div class="information_name">
-												<input class="profile_input" type="text" id="username"
-													value="Thịnh_khủng_bố" />
+												<input class="profile_input" type="text" required id="username"
+													placeholder="Nickname" />
 												<button id="button_file">Chỉnh Sửa</button>
 											</div>
 										</div>
@@ -99,8 +100,8 @@
 										<div class="information_name_wrap">
 											<h3>Họ tên</h3>
 											<div class="information_name">
-												<input class="profile_input" type="text" id="fullname"
-													value="Kẻ hủy diệt, Nguyễn Hưng Thịnh" />
+												<input class="profile_input" type="text" required id="fullname"
+													placeholder="Họ và tên" />
 												<button id="button_file">Chỉnh Sửa</button>
 											</div>
 										</div>
@@ -108,8 +109,7 @@
 										<div class="information_name_wrap">
 											<h3>Email</h3>
 											<div class="information_name">
-												<input class="profile_input" type="text" id="email"
-													value="Thinhterrorist@gmail.com" />
+												<input class="profile_input" type="text" required id="email" value="" />
 												<button id="button_file">Chỉnh Sửa</button>
 											</div>
 										</div>
@@ -247,17 +247,30 @@
 					</div>
 
 					<div class="Setting_pageWrapper page4" id="change_pass">
-						<h2>Đổi Mật Khẩu</h2>
-						<div class="change-pass">
-							<p>Mật Khẩu Cũ</p>
-							<input class="old-password pass" placeholder="nhập mật khẩu bạn đã quên" type="text" />
-							<p>Mật Khẩu Mới</p>
-							<input class="new-password pass" placeholder="nhập mật khẩu mới" type="text" />
-							<p>Xác nhận mật khẩu mới</p>
-							<input class="new-password pass" placeholder="nhập lại mật khẩu mới" type="text" />
+						<form action="" id="change_pass">
+							<h2>Đổi Mật Khẩu</h2>
+							<div class="change-pass">
+								<div class="group2">
+									<p>Mật Khẩu Cũ</p>
+									<input class="old-password pass" placeholder="nhập mật khẩu bạn đã quên"
+										type="text" />
+									<span class="form-message"></span>
+								</div>
+								<div class="group2">
+									<p>Mật Khẩu Mới</p>
+									<input class="new-password pass" placeholder="nhập mật khẩu mới" type="text" />
+									<span class="form-message"></span>
+								</div>
+								<div class="group2">
+									<p>Xác nhận mật khẩu mới</p>
+									<input class="again-password pass" placeholder="nhập lại mật khẩu mới"
+										type="text" />
+									<span class="form-message"></span>
+								</div>
 
-							<button class="change-pass-btn">ĐỔI MẬT KHẨU</button>
-						</div>
+								<button class="change-pass-btn" type="submit">ĐỔI MẬT KHẨU</button>
+							</div>
+						</form>
 					</div>
 
 					<div class="Setting_pageWrapper page5" id='my_novel'>
@@ -385,63 +398,67 @@
 										</div>
 									</div>
 								</div>
-								<div class="page5_info_main">
+								<form action="">
+									<div class="page5_info_main">
 
-									<div class="info-wrapper-container">
-										<div class="information_name_wrap">
-											<h3>Tên truyện</h3>
-											<div class="information_name">
-												<input class="profile_input n_name" type="text" id="name_novel"
-													value="Nguyễn Hưng Thịnh là kẻ hủy diệt " />
-											</div>
-										</div>
-
-										<div class="information_name_wrap">
-											<h3>Tác giả</h3>
-											<div class="information_name">
-												<input class="profile_input author_name" type="text" id="fullname"
-													value="Kẻ hủy diệt Nguyễn Hưng Thịnh" />
-											</div>
-										</div>
-
-										<div class="" style="display: flex; justify-content: space-between;">
-											<div class="information_name_wrap" style="width: 50%;">
-												<h3>Trạng thái</h3>
-												<div class="information_name novel_status">
-													<select>
-														<option value="0">Đang ra</option>
-														<option value="1">Hoàn thành</option>
-														<option value="2">Tạm dừng</option>
-													</select>
+										<div class="info-wrapper-container">
+											<div class="information_name_wrap">
+												<h3>Tên truyện</h3>
+												<div class="information_name">
+													<input class="profile_input n_name" type="text" required
+														id="name_novel" />
 												</div>
 											</div>
 
-											<div class="information_name_wrap" style="width: 50%;">
-												<h3>Thể loại</h3>
-												<div class="information_name novel_types">
-													<select>
-														<option value="0">NTR</option>
-														<option value="1">BDSM</option>
-														<option value="2">Harem</option>
-													</select>
+											<div class="information_name_wrap">
+												<h3>Tác giả</h3>
+												<div class="information_name">
+													<input class="profile_input author_name" type="text" required
+														id="fullname" />
 												</div>
 											</div>
-										</div>
 
-										<div class="information_name_wrap">
-											<h3>Giới thiệu truyện</h3>
-											<div class="information_name" style="display:flex;flex-direction: column;">
-												<textarea class="profile_input novel_descript" id="fullname"
-													placeholder="Kẻ hủy diệt Nguyễn Hưng Thịnh">  </textarea>
+											<div class="" style="display: flex; justify-content: space-between;">
+												<div class="information_name_wrap" style="width: 50%;">
+													<h3>Trạng thái</h3>
+													<div class="information_name novel_status">
+														<select>
+															<option value="0">Đang ra</option>
+															<option value="1">Hoàn thành</option>
+															<option value="2">Tạm dừng</option>
+														</select>
+													</div>
+												</div>
+
+												<div class="information_name_wrap" style="width: 50%;">
+													<h3>Thể loại</h3>
+													<div class="information_name novel_types">
+														<select>
+															<option value="0">NTR</option>
+															<option value="1">BDSM</option>
+															<option value="2">Harem</option>
+														</select>
+													</div>
+												</div>
 											</div>
-										</div>
-										<div class="page5_info_main_btn">
-											<button class="close_btn">Hủy</button>
-											<button class="save_btn">Lưu tạm</button>
-											<button class="next_btn">Tiếp theo</button>
+
+											<div class="information_name_wrap">
+												<h3>Giới thiệu truyện</h3>
+												<div class="information_name"
+													style="display:flex;flex-direction: column;">
+													<textarea class="profile_input novel_descript" id="fullname"
+														placeholder="Kẻ hủy diệt Nguyễn Hưng Thịnh">  </textarea>
+												</div>
+											</div>
+											<div class="page5_info_main_btn">
+												<button class="close_btn">Hủy</button>
+												<button class="save_btn" type="submit">Lưu tạm</button>
+												<button class="next_btn"><i
+														class="fa-solid fa-chevron-right"></i></button>
+											</div>
 										</div>
 									</div>
-								</div>
+								</form>
 							</div>
 							<div class="page5_chap page5_a_up" id="add_chap">
 
@@ -450,7 +467,8 @@
 										<div class="information_name_wrap">
 											<h3>Thứ tự chương</h3>
 											<div class="information_name">
-												<input class="profile_input" type="text" id="name_novel"
+												<input class="profile_input chap_num" type="text" required
+													id="name_novel"
 													placeholder="Nhập thứ tự chương(e.g. 1, 1.1, 1.5, 2,...)" />
 											</div>
 										</div>
@@ -458,12 +476,10 @@
 										<div class="information_name_wrap">
 											<h3>Tên chương</h3>
 											<div class="information_name">
-												<input class="profile_input" type="text" id="fullname"
-													placeholder="Nhập tên chương" />
+												<input class="profile_input chap_name" type="text" required
+													id="fullname" placeholder="Nhập tên chương" />
 											</div>
 										</div>
-
-
 
 										<div class="information_name_wrap">
 											<div class="head">
@@ -472,14 +488,17 @@
 													<i class="fa-solid fa-upload"></i> tải lên</button>
 											</div>
 										</div>
-										<p style="text-align: center;">------------------------------------ (‿ˠ‿)( ͡⚆ ͜ʖ ͡⚆ )(‿ˠ‿) ------------------------------------</p>
+
+										<p style="text-align: center;">[------------------------------------ 🦊🍜🍥
+											------------------------------------]</p>
 									</div>
 								</div>
 								<div class="page5_info_main_btn">
+									<button class="back_btn"><i class="fa-solid fa-chevron-left"></i></button>
 									<button class="close_btn">Hủy</button>
 									<button class="more_chap_btn">Thêm chương</button>
 									<button class="save_btn">Lưu tạm</button>
-									<button class="next_btn">Tiếp theo</button>
+									<button class="next_btn"><i class="fa-solid fa-chevron-right"></i></button>
 								</div>
 
 							</div>
@@ -500,9 +519,10 @@
 									<span>Tôi đồng ý với Quy định Nội dung và Chính sách quyền lợi của WtfNovel.</span>
 								</div>
 								<div class="page5_info_main_btn">
+									<button class="back_btn"><i class="fa-solid fa-chevron-left"></i></button>
 									<button class="close_btn">Hủy</button>
 									<button class="save_btn">Lưu tạm</button>
-									<button class="post_btn">Đăng truyện</button>
+									<button class="post_btn"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
 								</div>
 							</div>
 							<div class="page5_last page5_a_up" id="congratulation">
@@ -615,16 +635,16 @@
 											<div class="information_name_wrap">
 												<h3>Tên truyện</h3>
 												<div class="information_name">
-													<input class="profile_input n_name" type="text" id="name_novel"
-														value="Nguyễn Hưng Thịnh là kẻ hủy diệt " />
+													<input class="profile_input n_name" type="text" required
+														id="name_novel" />
 												</div>
 											</div>
 
 											<div class="information_name_wrap">
 												<h3>Tác giả</h3>
 												<div class="information_name">
-													<input class="profile_input author_name" type="text" id="fullname"
-														value="Kẻ hủy diệt Nguyễn Hưng Thịnh" />
+													<input class="profile_input author_name" type="text" required
+														id="fullname" />
 												</div>
 											</div>
 
@@ -658,7 +678,7 @@
 													style="display:flex;flex-direction: column;">
 
 													<textarea class="profile_input novel_descript" id="fullname"
-														placeholder="Kẻ hủy diệt Nguyễn Hưng Thịnh">  </textarea>
+														placeholder="Kẻ hủy diệt Nguyễn Hưng Thịnh" required>  </textarea>
 												</div>
 											</div>
 											<div class="page5_info_main_btn">
@@ -1034,5 +1054,6 @@
 	</div>
 </div>
 <script src="/src/JS/index.js"></script>
+<script src="/src/JS/validator.js"></script>
 
 </html>
