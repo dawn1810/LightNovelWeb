@@ -390,16 +390,16 @@ app.get('/profile/my_novel', (req, res) => {
 
 // up novel
 
-app.get('/profile/add_novel', (req, res) => {
+app.get('/add_novel', (req, res) => {
 	res.sendFile(parentDirectory + '/HTML/profile.html');
 });
-app.get('/profile/add_content', (req, res) => {
+app.get('/add_content', (req, res) => {
 	res.sendFile(parentDirectory + '/HTML/profile.html');
 });
-app.get('/profile/post_novel', (req, res) => {
+app.get('/post_novel', (req, res) => {
 	res.sendFile(parentDirectory + '/HTML/profile.html');
 });
-app.get('/profile/congratulation', (req, res) => {
+app.get('/congratulation', (req, res) => {
 	res.sendFile(parentDirectory + '/HTML/profile.html');
 });
 
@@ -659,7 +659,7 @@ app.post('/login', async (req, res) => {
 					res.end('Log in fail!!!');
 				}
 			}
-		}
+		}//chao e
 		else {
 			// log in next time: (log in database)
 			const n_result = await server.find_one_Data("dang_nhap", { _id: data.usr });

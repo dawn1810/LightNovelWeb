@@ -125,7 +125,7 @@ body {
 }
 
 .profile_input {
-  padding-left: 10px;
+  /* padding-left: 10px; */
   border: 0;
   background-color: var(--input-color);
   color: var(--text-color);
@@ -134,6 +134,8 @@ body {
   width: 460px;
   font-size: 1rem;
   line-height: 2rem;
+  box-sizing: border-box;
+  padding: 5px 10px;
 }
 
 .information_name {
@@ -552,6 +554,13 @@ body {
 .page5_home_info_wrap_item:last-child {
   border: 0;
 }
+.page5_info  .page5_info_main{
+  width: 60%;
+}
+.page5_info_main input,
+.page5_info_main textarea{
+  width: 100%;
+}
 
 .page5_info_main_btn {
   margin: 30px 5px;
@@ -602,7 +611,7 @@ body {
 .page5_post_check {
   width: auto;
   height: 20px;
-  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .page5_post_check input {
@@ -764,6 +773,7 @@ body {
   margin: 30px;
   display: flex;
   justify-content: space-between;
+
 }
 
 .page5_info_main {
@@ -862,6 +872,32 @@ textarea {
 .head {
   display: flex;
   justify-content: space-between;
+  margin: 30px 5px;
+}
+
+.upfile {
+  width: 24%;
+  margin: 0 20px;
+  padding: 10px 20px;
+  font-size: 15px;
+  border-radius: 20px;
+  color: var(--black-text);
+  background-color: var(--button-colors) !important;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.delete_chap {
+  width: 40px;
+  height: 40px;
+  margin: 0 20px;
+  padding: 10px 20px;
+  border-radius: 50%;
+  background-color: var(--button-colors) !important;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .page5_last_btn {
@@ -872,4 +908,8 @@ textarea {
   background-color: var(--button-colors);
   border-radius: 5px;
   margin: 0 auto;
+}
+
+.copy {
+  flex-direction: column;
 }
