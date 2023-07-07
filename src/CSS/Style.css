@@ -736,6 +736,11 @@ yt-icon.ytd-logo {
   justify-content: space-between;
 }
 
+.Error_mess {
+  color: black;
+  text-align: center;
+}
+
 .header_login,
 .header_signup {
   cursor: pointer;

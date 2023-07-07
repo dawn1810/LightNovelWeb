@@ -274,6 +274,7 @@ function set_cookies(res, id, pass) {
 
 		path: '/'
 	});
+	console.log('( • )( • ) ԅ(‾⌣‾ԅ)');
 	res.writeHead(200, { 'Content-Type': 'text/html' });
 	console.log(`SYSTEM | SET_COOKIES | User ${id} login!`);
 }
@@ -368,9 +369,9 @@ async function checkCookieLoglUser(req, res, next) {
 			console.log(`SYSTEM | AUTHENTICATION | Dữ liệu đã giải mã ${decodeList}`);
 			// decodeList = authenticationKey:id:pass
 			if (decodeList[0] == authenticationKey) {
-				const result = await server.find_one_Data("tt_nguoi_dung", { _id: decodeList[1] })
-
+				const result = await server.find_one_Data("tt_nguoi_dung", { _id: decodeList[1] });
 				if (result != null && result.length != 0) {
+					// neu dang nhap = google thi 2 bien avt va display name co gia tri, nhung login = tk,mk thi k co 2 bien nay
 					res.locals.avt = result.avatarUrl;
 					res.locals.username = result.displayName;
 					next();
@@ -710,8 +711,8 @@ app.post('/login', async (req, res) => {
 					const newUser = {
 						_id: data.usr,
 						email: f_result.email,
-						displayName: 'unknown',
-						avatarUrl: 'unknown',
+						displayName: data.usr,
+						avatarUrl: 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg',
 						sex: "unknown",
 						likeNovels: [],
 						mynovel: []
@@ -745,7 +746,8 @@ app.post('/login', async (req, res) => {
 			const n_result = await server.find_one_Data("dang_nhap", { _id: data.usr });
 
 			if (n_result.pass == data.pass) {
-				res.writeHead(200, { 'Content-Type': 'text/plain' });
+				set_cookies(res, data.usr, data.pass); // set cookies
+
 				res.end('Log in success!!!');
 			} else {
 				res.writeHead(403, { 'Content-Type': 'text/plain' });
