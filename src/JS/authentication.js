@@ -35,7 +35,7 @@ async function checkAuthentication() {
                     return response.text(); // Chuyển đổi phản hồi thành văn bản
 
                 } else if (response.status === 404) {
-                    window.location.href = `${currentURL}/error/404.html`;
+                    window.location.href = `${currentURL}/404`;
 
                 }
             })
@@ -65,4 +65,4 @@ async function checkAuthentication() {
 }
 
 
-checkAuthentication();
+// checkAuthentication();

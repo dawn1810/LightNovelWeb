@@ -131,22 +131,21 @@ const swiper = new Swiper(".swiper", {
     disableOnInteraction: false,
   },
   centeredSlides: true,
-  clickable: true,
-
+  mousewheel: {
+    enabled: true, // Cho phép sử dụng chuột để kéo ảnh
+  },
   // If we need pagination
   pagination: {
     el: ".swiper-pagination",
+    clickable: true,
+    dynamicBullets: true,
   },
+ 
 
-  // Navigation arrows
-  // navigation: {
-  //     nextEl: '.swiper-button-next',
-  //     prevEl: '.swiper-button-prev',
-  // },
-
-  // And if we need scrollbar
+  // // And if we need scrollbar
   scrollbar: {
     el: ".swiper-scrollbar",
+    draggable: true,
   },
 });
 
@@ -281,7 +280,7 @@ async function get_popular_novel() {
                 <div class="novel_item">
                   <a href="/reviews/${helop[i]._id}">
                     <div class="novel_item_main">
-                        <img src="https://st.nettruyenplus.com/data/comics/171/gay-go-cap-99-5344.jpg" alt="image">
+                        <img src="${helop[i].image}" referrerpolicy="no-referrer alt="image">
                         <div class="novel_title" onclick="myFunction()">
                             <a href="/reviews/${helop[i]._id}" class="novel_name">${helop[i].name}</a>
                             <div class="novel_author">

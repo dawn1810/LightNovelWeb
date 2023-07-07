@@ -274,6 +274,7 @@ function set_cookies(res, id, pass) {
 
 		path: '/'
 	});
+	console.log('( • )( • ) ԅ(‾⌣‾ԅ)');
 	res.writeHead(200, { 'Content-Type': 'text/html' });
 	console.log(`SYSTEM | SET_COOKIES | User ${id} login!`);
 }
@@ -334,7 +335,7 @@ async function get_full_id(directoryPath) {
 
 				return indexA - indexB;
 			});
-			
+
 		const processFiles = async () => {
 			for (const filePath of txtFilePaths) {
 				console.log(filePath);
@@ -351,6 +352,63 @@ async function get_full_id(directoryPath) {
 }
 // ------------------------------------------------------------------------------------------------
 
+async function checkCookieLoglUser(req, res, next) {
+	try {
+		const data = req.cookies;
+		if (!data.account) {
+			res.locals.avt = 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg';
+			res.locals.username = '';
+			next();
+		}
+		else {
+
+
+			console.log('SYSTEM | AUTHENTICATION | Dữ liệu nhận được: ', data);
+			const decode = decrypt(data.account, authenticationKey);
+			const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
+			console.log(`SYSTEM | AUTHENTICATION | Dữ liệu đã giải mã ${decodeList}`);
+			// decodeList = authenticationKey:id:pass
+			if (decodeList[0] == authenticationKey) {
+				const result = await server.find_one_Data("tt_nguoi_dung", { _id: decodeList[1] });
+				if (result != null && result.length != 0) {
+					// neu dang nhap = google thi 2 bien avt va display name co gia tri, nhung login = tk,mk thi k co 2 bien nay
+					res.locals.avt = result.avatarUrl;
+					res.locals.username = result.displayName;
+					next();
+				}
+				else if (result == null) {
+					res.locals.avt = 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg';
+					res.locals.username = '';
+					next();
+				}
+				else {
+					res.locals.avt = 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg';
+					res.locals.username = '';
+					next();
+				}
+			}
+		}
+
+	} catch (error) {
+		// Xử lý lỗi nếu có
+		res.status(500).send('Internal Server Error');
+	}
+}
+
+
+async function checkCoookieIfOK(req, res, next) {
+	const data = req.cookies;
+	if (!data.account) {
+		// Cookie không tồn tại, chặn truy cập
+		return res.redirect('/');
+	}
+	else {
+		next();
+	}
+
+}
+
+
 // Lắng nghe các yêu cầu POST tới localhost:6969
 app.use(bodyParser.json());
 app.use(cors({ origin: true, credentials: true }));
@@ -364,19 +422,78 @@ app.use(preventSessionFixation);
 app.use(express.json());
 const parentDirectory = path.dirname(__dirname);
 app.use(express.static(parentDirectory));
+app.set('view engine', 'ejs');
+// Đặt thư mục chứa các tệp template
+app.set('views', path.join(parentDirectory, 'EJS'));
+console.log(path.join(parentDirectory, 'EJS'))
 
+// app.get('/', checkCookieLoglUser, (req, res) => {
+// 	res.sendFile(parentDirectory + '/HTML/index.html');
+// });
+app.get('/', checkCookieLoglUser, (req, res) => {
+	res.render('index', {
+		headerFile: 'header'
+	});
+});
+// app.get('/profile', checkCookieMiddleware, (req, res) => {
+// 	res.sendFile(parentDirectory + '/HTML/profile.html');
+// });
 
-
-app.get('/', (req, res) => {
-	res.sendFile(parentDirectory + '/HTML/index.html');
+app.get('/profile', checkCoookieIfOK, checkCookieLoglUser, (req, res) => {
+	res.render('profile', {
+		headerFile: 'header'
+	});
 });
 
-app.get('/profile', (req, res) => {
+// profile route
+
+app.get('/404', (req, res) => {
+	res.sendFile(parentDirectory + '/error/404.html');
+});
+
+app.get('/profile/novel_following', checkCoookieIfOK, (req, res) => {
 	res.sendFile(parentDirectory + '/HTML/profile.html');
 });
 
-app.get('/category', (req, res) => {
-	res.sendFile(parentDirectory + '/HTML/category-page.html');
+app.get('/profile/change_pass', checkCoookieIfOK, (req, res) => {
+	res.sendFile(parentDirectory + '/HTML/profile.html');
+});
+
+app.get('/profile/my_novel', checkCoookieIfOK, (req, res) => {
+	res.sendFile(parentDirectory + '/HTML/profile.html');
+});
+
+// up novel
+
+app.get('/add_novel', checkCoookieIfOK, (req, res) => {
+	res.sendFile(parentDirectory + '/HTML/profile.html');
+});
+app.get('/add_content', checkCoookieIfOK, (req, res) => {
+	res.sendFile(parentDirectory + '/HTML/profile.html');
+});
+app.get('/post_novel', checkCoookieIfOK, (req, res) => {
+	res.sendFile(parentDirectory + '/HTML/profile.html');
+});
+app.get('/congratulation', checkCoookieIfOK, (req, res) => {
+	res.sendFile(parentDirectory + '/HTML/profile.html');
+});
+
+app.get('/profile/update', checkCoookieIfOK, (req, res) => {
+	res.sendFile(parentDirectory + '/HTML/profile.html');
+});
+
+// up novel
+
+// profile route
+
+// app.get('/category', (req, res) => {
+// 	res.sendFile(parentDirectory + '/HTML/category-page.html');
+// });
+
+app.get('/category', checkCookieLoglUser, (req, res) => {
+	res.render('category-page', {
+		headerFile: 'header'
+	});
 });
 
 // app.get('/reviews', (req, res) => {
@@ -594,10 +711,11 @@ app.post('/login', async (req, res) => {
 					const newUser = {
 						_id: data.usr,
 						email: f_result.email,
-						displayName: 'unknown',
-						avatarUrl: 'unknown',
+						displayName: data.usr,
+						avatarUrl: 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg',
 						sex: "unknown",
 						likeNovels: [],
+						mynovel: []
 					};
 
 					// them mot nguoi dung moi
@@ -622,13 +740,14 @@ app.post('/login', async (req, res) => {
 					res.end('Log in fail!!!');
 				}
 			}
-		}
+		}//chao e
 		else {
 			// log in next time: (log in database)
 			const n_result = await server.find_one_Data("dang_nhap", { _id: data.usr });
 
 			if (n_result.pass == data.pass) {
-				res.writeHead(200, { 'Content-Type': 'text/plain' });
+				set_cookies(res, data.usr, data.pass); // set cookies
+
 				res.end('Log in success!!!');
 			} else {
 				res.writeHead(403, { 'Content-Type': 'text/plain' });
@@ -638,6 +757,29 @@ app.post('/login', async (req, res) => {
 	} catch (err) {
 		console.log('SYSTEM | LOG_IN | ERROR | ', err);
 		res.sendStatus(500);
+	}
+});
+
+// Logout /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+app.post('/logout', async (req, res) => {
+	try {
+		const data = req.body;
+		console.log('SYSTEM | LOGOUT | Dữ liệu nhận được: ', data);
+		const expirationDate = new Date('2018-12-31');
+		res.cookie('account', data.account, {
+			expires: expirationDate, // Cookie will permernently expire
+			secure: true,
+			sameSite: 'none',
+			domain: 'localhost',
+			// domain: 'c22c-2a09-bac5-d44d-18d2-00-279-87.ngrok-free.app',
+			path: '/'
+		});
+		res.writeHead(200, { 'Content-Type': 'text/plain' });
+		console.log(`SYSTEM | LOGOUT | Dang xuat thành công`);
+		res.end('Da dang xuat!');
+	} catch (err) {
+		res.sendStatus(500);
+		console.log('SYSTEM | LOGOUT | ERROR | ', err);
 	}
 });
 
@@ -664,10 +806,13 @@ passport.use(new GoogleStrategy({
 },
 	async function (request, accessToken, refreshToken, profile, done) {
 		try {
+			console.log('ẹc');
+
 			// console.log(accessToken);
 			// console.log(refreshToken);
 			// console.log(request);
 			// Kiểm tra xem thông tin người dùng đã tồn tại chưa
+			console.log('huhu')
 			const existingUser = await server.find_one_Data("tt_nguoi_dung", { _id: profile.id });
 			if (existingUser) {
 				// update new data for tt_nguoi_dung database
@@ -694,6 +839,7 @@ passport.use(new GoogleStrategy({
 					avatarUrl: profile.photos[0].value,
 					sex: "unknown",
 					likeNovels: [],
+					mynovel: []
 				};
 
 				// dang_nhap data base:
@@ -721,6 +867,7 @@ app.get(
 app.get('/auth/google/callback',
 	passport.authenticate('google', { failureRedirect: '/login' }),
 	function (req, res) {
+		console.log('ẹc');
 		// req.user = {
 		// 	_id: '113263126602180653712',
 		// 	email: 'binhminh19112003@gmail.com',
@@ -741,6 +888,7 @@ app.get('/auth/google/callback',
 		res.write('</script>');
 		// dùng chung
 		res.end('Login thanh cong!');
+		// res.sendStatus(404);
 	}
 );
 
