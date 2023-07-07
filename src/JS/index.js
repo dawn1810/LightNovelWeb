@@ -105,9 +105,6 @@ document.addEventListener("DOMContentLoaded", function () {
   //     }
   // }
   console.log(document.querySelector("#form1"));
-
-
-
   function Validator(options) {
     const username = document.getElementById("username");
     const email = document.getElementById("email");
@@ -560,28 +557,34 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       };
       options.rules.forEach(function (rule) {
-        // const inputElement = formElement.querySelector(rule.selector);
-           if (Array.isArray(selectorRules[rule.selector])) {
-                selectorRules[rule.selector].push(rule.test);
-            } else {
-                selectorRules[rule.selector] = [rule.test];
-            }
+        const inputElement = formElement.querySelector(rule.selector);
+        if (Array.isArray(selectorRules[rule.selector])) {
+          selectorRules[rule.selector].push(rule.test);
+        } else {
+          selectorRules[rule.selector] = [rule.test];
+        }
+        if (inputElement) {
+          // Xử lí khi blur ra ngoài
+          inputElement.onblur = function () {
+            Validate(inputElement, rule);
+            getParent(inputElement, options.formGroupSelector).classList.remove(
+              "oninput"
+            );
+          };
 
-            var inputElements = formElement.querySelectorAll(rule.selector);
-
-            Array.from(inputElements).forEach(function (inputElement) {
-               // Xử lý trường hợp blur khỏi input
-                inputElement.onblur = function () {
-                    validate(inputElement, rule);
-                }
-
-                // Xử lý mỗi khi người dùng nhập vào input
-                inputElement.oninput = function () {
-                    var errorElement = getParent(inputElement, options.formGroupSelector).querySelector(options.errorSelector);
-                    errorElement.innerText = '';
-                    getParent(inputElement, options.formGroupSelector).classList.remove('invalid');
-                } 
-            });
+          inputElement.onclick = function () {
+            const errorElement = getParent(
+              inputElement,
+              options.formGroupSelector
+            ).querySelector(options.errorSelector);
+            errorElement.innerText = "";
+            inputElement.classList.remove("invalid");
+            getParent(inputElement, options.formGroupSelector).classList.add(
+              "oninput"
+            );
+            // document.querySelector('.form-error').classList.add('displayed')
+          };
+        }
       });
     }
   }
