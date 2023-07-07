@@ -231,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // }
             btn_reg.disabled = false;
-            btn_reg.textContent = "Register";
+            btn_reg.textContent = "Submit";
           } catch (error) {
             console.log("Error:", error);
           }

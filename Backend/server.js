@@ -31,7 +31,7 @@ const notionFileId = 'YOUR_NOTION_FILE_ID';
 const app = express();
 const router = express.Router();
 
-const port = 7000;
+const port = 6969;
 const secretKey = '5gB#2L1!8*1!0)$7vF@9';
 const authenticationKey = Buffer.from(secretKey.padEnd(32, '0'), 'utf8').toString('hex');
 
@@ -804,6 +804,8 @@ passport.use(new GoogleStrategy({
 },
 	async function (request, accessToken, refreshToken, profile, done) {
 		try {
+			console.log('ẹc');
+
 			// console.log(accessToken);
 			// console.log(refreshToken);
 			// console.log(request);
@@ -863,6 +865,7 @@ app.get(
 app.get('/auth/google/callback',
 	passport.authenticate('google', { failureRedirect: '/login' }),
 	function (req, res) {
+		console.log('ẹc');
 		// req.user = {
 		// 	_id: '113263126602180653712',
 		// 	email: 'binhminh19112003@gmail.com',

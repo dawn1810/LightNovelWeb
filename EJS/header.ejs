@@ -496,111 +496,125 @@
 </body>
 
 <script>
+    
+function getCookie(name) {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith(name + '=')) {
+            return cookie.substring(name.length + 1);
+        }
+    }
+    return null;
+}
+    document.addEventListener('DOMContentLoaded', function () {
+        const login = document.querySelector('.header_login')
+        login.onclick = function () {
+            console.log('Login')
+            modal.style.display = 'block'
+            if (modal2.style.display == 'block') {
+                modal2.style.display = 'none'
+            }
+        }
+        document.querySelector('.no_login a').onclick = function (e) {
+            e.preventDefault();
+
+            login.click()
+        }
+
+        const sg = document.querySelector('.header_signup')
+        sg.onclick = function () {
+            console.log('Login')
+            modal2.style.display = 'block'
+            if (modal.style.display == 'block') {
+                modal.style.display = 'none'
+            }
+        }
+        document.querySelector('.no_signup a').onclick = function (e) {
+            e.preventDefault();
+
+            sg.click()
+        }
+        modal.onclick = function (event) {
+            if (!event.target.closest('.modal_wrap')) {
+                modal.style.display = 'none';
+            }
+        }
+        modal2.onclick = function (event) {
+            if (!event.target.closest('.modal_wrap')) {
+                modal2.style.display = 'none';
+            }
+        }
+        const logout = document.querySelector('.logout')
+        logout.onclick = async function (e) {
+            e.preventDefault();
+            console.log('hahaaha')
+            const accountCookie = getCookie('account');
+            if (accountCookie) {
+                await fetch(`${currentURL}/logout`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ account: accountCookie })
+                })
+                    .then(response => {
+                        if (response.status === 200) {
+                            location.href = "/";
+                        }
+                    });
+
+            }
+        }
+
+
+        const header_logo = document.querySelector('.header_logo');
+        let count_logo = 0
+        header_logo.addEventListener("mouseover", (event) => {
+            let audio = new Audio('/src/audio/yamate-kudesai.mp3');
+            switch (count_logo) {
+                case 3:
+                    audio.volume = 0.1;
+                    audio.play();
+                    break;
+                case 4:
+                    audio.volume = 0.2;
+                    audio.play();
+                    break;
+                case 5:
+                    audio.volume = 0.4;
+                    audio.play();
+                    break;
+                case 6:
+                    audio.volume = 0.7;
+                    audio.play();
+                    break;
+                case 7:
+                    audio.volume = 1;
+                    audio.play();
+                    count_logo--;
+                    break;
+            };
+            count_logo++;
+        });
+
+    });
+
+
+</script>
+
+<script>
     document.addEventListener('DOMContentLoaded', function () {
 
-        <% if (username == '' && avt == 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg') { %>
+    <% if (username == '' && avt == 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg') { %>
             document.querySelector('.header_user').style.display = 'none';
             document.querySelector('.header_noUser').style.display = 'flex';
       <% } else { %>
-        document.querySelector('.header_user').style.display = 'flex';
-        document.querySelector('.header_noUser').style.display = 'none';
+            document.querySelector('.header_user').style.display = 'flex';
+            document.querySelector('.header_noUser').style.display = 'none';
             
       <% } %>
-
-
-        const login = document.querySelector('.header_login')
-    login.onclick = function () {
-        console.log('Login')
-        modal.style.display = 'block'
-        if (modal2.style.display == 'block') {
-            modal2.style.display = 'none'
-        }
-    }
-    document.querySelector('.no_login a').onclick = function (e) {
-        e.preventDefault();
-
-        login.click()
-    }
-
-    const sg = document.querySelector('.header_signup')
-    sg.onclick = function () {
-        console.log('Login')
-        modal2.style.display = 'block'
-        if (modal.style.display == 'block') {
-            modal.style.display = 'none'
-        }
-    }
-    document.querySelector('.no_signup a').onclick = function (e) {
-        e.preventDefault();
-
-        sg.click()
-    }
-    modal.onclick = function (event) {
-        if (!event.target.closest('.modal_wrap')) {
-            modal.style.display = 'none';
-        }
-    }
-    modal2.onclick = function (event) {
-        if (!event.target.closest('.modal_wrap')) {
-            modal2.style.display = 'none';
-        }
-    }
-    const logout = document.querySelector('.logout')
-    logout.onclick = async function (e) {
-        e.preventDefault();
-        console.log('hahaaha')
-        const accountCookie = getCookie('account');
-        if (accountCookie) {
-            await fetch(`${currentURL}/logout`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ account: accountCookie })
-            })
-                .then(response => {
-                    if (response.status === 200) {
-                        location.href = "/";
-                    }
-                });
-
-        }
-    }
-
-
-    const header_logo = document.querySelector('.header_logo');
-    let count_logo = 0
-    header_logo.addEventListener("mouseover", (event) => {
-        let audio = new Audio('/src/audio/yamate-kudesai.mp3');
-        switch (count_logo) {
-            case 3:
-                audio.volume = 0.1;
-                audio.play();
-                break;
-            case 4:
-                audio.volume = 0.2;
-                audio.play();
-                break;
-            case 5:
-                audio.volume = 0.4;
-                audio.play();
-                break;
-            case 6:
-                audio.volume = 0.7;
-                audio.play();
-                break;
-            case 7:
-                audio.volume = 1;
-                audio.play();
-                count_logo--;
-                break;
-        };
-        count_logo++;
-    });
-
-});
-
-
+      });
 </script>
 
 </html>

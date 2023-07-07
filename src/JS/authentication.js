@@ -65,4 +65,4 @@ async function checkAuthentication() {
 }
 
 
-checkAuthentication();
+// checkAuthentication();
