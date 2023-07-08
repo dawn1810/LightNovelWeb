@@ -1742,6 +1742,14 @@ html .body_main {
   flex-direction: row;
 }
 
+.progress {
+  width: 12px;
+  height: 12px;
+  background: black;
+  border-radius: 50%;
+  margin: 0 5px;
+}
+
 
 
 .d-l_theme {

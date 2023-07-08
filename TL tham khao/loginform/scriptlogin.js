@@ -1,3 +1,7 @@
+// tao đã ở đây hhehee
+// fix thahf côg nhé :)))) 💢💌💥
+
+
 // Đối tượng `Validator`
 function Validator(options) {
     function getParent(element, selector) {
@@ -21,19 +25,19 @@ function Validator(options) {
 
         // Lặp qua từng rule & kiểm tra
         // Nếu có lỗi thì dừng việc kiểm
-        // for (var i = 0; i < rules.length; ++i) {
-        //     switch (inputElement.type) {
-        //         case 'radio':
-        //         case 'checkbox':
-        //             errorMessage = rules[i](
-        //                 formElement.querySelector(rule.selector + ':checked')
-        //             );
-        //             break;
-        //         default:
-        //             errorMessage = rules[i](inputElement.value);
-        //     }
-        //     if (errorMessage) break;
-        // }
+        for (var i = 0; i < rules.length; ++i) {
+            switch (inputElement.type) {
+                case 'radio':
+                case 'checkbox':
+                    errorMessage = rules[i](
+                        formElement.querySelector(rule.selector + ':checked')
+                    );
+                    break;
+                default:
+                    errorMessage = rules[i](inputElement.value);
+            }
+            if (errorMessage) break;
+        }
 
         if (errorMessage) {
             errorElement.innerText = errorMessage;
@@ -65,6 +69,7 @@ function Validator(options) {
             });
 
             if (isFormValid) {
+                console.log('haha')
                 // Trường hợp submit với javascript
                 if (typeof options.onSubmit === 'function') {
                     var enableInputs = formElement.querySelectorAll('[name]');
@@ -97,7 +102,8 @@ function Validator(options) {
                 }
                 // Trường hợp submit với hành vi mặc định
                 else {
-                    formElement.submit();
+                    // formElement.submit();
+                    console.log('kaka')
                 }
             }
         }
@@ -177,36 +183,117 @@ Validator.isConfirmed = function (selector, getConfirmValue, message) {
 
 
 
-Validator({
-    form: "#form1",
-    formGroupSelector: ".group1",
-    errorSelector: ".form-message",
-    rules: [
-        Validator.isRequired("#Username", "Vui lòng nhập nội dung này"),
 
-        Validator.minLength("#Password", 6),
-    ],
-    onSubmid: function (data) {
-        console.log(data);
-    },
-});
-Validator({
-    form: "#form2",
-    formGroupSelector: ".group1",
-    errorSelector: ".form-message",
-    rules: [
-        Validator.isRequired("#Username", "Vui lòng nhập nội dung này"),
 
-        Validator.minLength("#Password", 6),
-        Validator.isEmail("#email"),
-        // Validator.isRequired('#new-Password-again')
-        // Validator.isConfirmed('#new-Password-again', function () {
-        //     return document.querySelector('#form-3 #new-Password').value;
-        // }, 'Mật khẩu nhập lại không chính xác')
-    ],
-    onSubmit: function (data) {
-        // Call API
-        console.log(data);
-    },
+document.addEventListener('DOMContentLoaded', function () {
+    // Mong muốn của chúng ta
+    Validator({
+        form: "#form1",
+        formGroupSelector: ".group1",
+        errorSelector: ".form-message",
+        rules: [
+            Validator.isRequired("#Username", "Vui lòng nhập nội dung này"),
+
+            Validator.minLength("#Password", 6),
+        ],
+        onSubmit: async function (data) {
+            console.log(data);
+            console.log("cut di bn oi");
+            // gửi request tới csdl server
+            const url = `${currentURL}/login`; // URL của máy chủ mục tiêu
+            const postData = JSON.stringify({
+                // thông tin đăng ký
+                usr: `${document.querySelector("#form1 #Username").value}`,
+                pass: `${document.querySelector("#form1 #Password").value}`,
+            });
+
+            //bình minh bị đẹp trai
+            const requestOptions = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: postData,
+            };
+
+
+            try {
+                const response = await fetch(url, requestOptions);
+                console.log(response.status);
+                if (response.status == 200) {
+                    console.log("e sơ");
+                    window.location.reload();
+                }
+            } catch (error) {
+                console.log("Error:", error);
+            }
+
+        },
+    });
+
+
+    Validator({
+        form: "#form2",
+        formGroupSelector: ".group1",
+        errorSelector: ".form-message",
+        rules: [
+            Validator.isRequired("#Username", "Vui lòng nhập nội dung này"),
+            Validator.isRequired("#Password", "Vui lòng nhập nội dung này"),
+            Validator.isRequired("#email", "Vui lòng nhập nội dung này"),
+            Validator.isEmail("#email"),
+            Validator.minLength("#Password", 6),
+            // Validator.isConfirmed('#new-Password-again', function () {
+            //     return document.querySelector('#form-3 #new-Password').value;
+            // }, 'Mật khẩu nhập lại không chính xác')
+
+
+        ],
+        onSubmit: async function (data) {
+            // Call API
+            const reg_btn = document.querySelector(".signup");
+            console.log(data);
+            console.log("cut di bn oi");
+            //gửi request tới csdl server
+            const url = `${currentURL}/signup`; // URL của máy chủ mục tiêu
+            const postData = JSON.stringify({
+                // thông tin đăng kýýý
+                email: `${document.querySelector("#form2 #email").value}`,
+                usr: `${document.querySelector("#form2 #Username").value}`,
+                pass: `${document.querySelector("#form2 #Password").value}`,
+            });
+
+            //bình minh bị đẹp trai
+            const requestOptions = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: postData,
+            };
+
+            reg_btn.disabled = true;
+            reg_btn.innerHTML = `<div class="load">
+                    <div class="progress"></div>
+                    <div class="progress"></div>
+                    <div class="progress"></div>
+                </div>`;
+            try {
+                const response = await fetch(url, requestOptions);
+                console.log(response.status);
+                if (response.status == "200") {
+
+                    document.querySelector(".no_login a").click();
+                }
+
+                // btn_reg.disabled = false;
+                // btn_reg.textContent = "Register";
+            } catch (error) {
+                console.log("Error:", error);
+            }
+        },
+    });
 });
+
+//
+
 
