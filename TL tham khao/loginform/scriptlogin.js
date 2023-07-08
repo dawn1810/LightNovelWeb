@@ -54,6 +54,64 @@ function Validator(options) {
     var formElement = document.querySelector(options.form);
     if (formElement) {
         // Khi submit form
+
+        // con mắt login
+        const eyea = document.querySelector("#form1 .eye");
+        const eye1a = document.querySelector("#form1 .eye-icon1");
+        const eye2a = document.querySelector("#form1 .eye-icon2");
+        const eye3a = document.querySelector("#form1 .eye-icon3");
+        let go = 0;
+        eyea.onclick = function () {
+            console.log(123);
+
+            if (go >= 5) {
+                eye3a.classList.remove("displayed");
+                eye2a.classList.add("displayed");
+                eye1a.classList.add("displayed");
+                document.querySelector("#form1 #Password").type = "password";
+            } else {
+                if (eye2a.classList.contains("displayed")) {
+                    eye2a.classList.remove("displayed");
+                    eye1a.classList.add("displayed");
+                    document.querySelector("#form1 #Password").type = "text";
+                    go += 1;
+                } else {
+                    eye1a.classList.remove("displayed");
+                    eye2a.classList.add("displayed");
+                    document.querySelector("#form1 #Password").type = "password";
+                    go += 1;
+                }
+            }
+        };
+
+        // con mắt signup
+        const eyeb = document.querySelector("#form2 .eye");
+        const eye1b = document.querySelector("#form2 .eye-icon1");
+        const eye2b = document.querySelector("#form2 .eye-icon2");
+        const eye3b = document.querySelector("#form2 .eye-icon3");
+        let jo = 0;
+        eyeb.onclick = function () {
+            console.log(123);
+
+            if (jo >= 3) {
+                eye3b.classList.remove("displayed");
+                eye2b.classList.add("displayed");
+                eye1b.classList.add("displayed");
+                document.querySelector("#form2 #Password").type = "password";
+            } else {
+                if (eye2b.classList.contains("displayed")) {
+                    eye2b.classList.remove("displayed");
+                    eye1b.classList.add("displayed");
+                    document.querySelector("#form2 #Password").type = "text";
+                    jo += 1;
+                } else {
+                    eye1b.classList.remove("displayed");
+                    eye2b.classList.add("displayed");
+                    document.querySelector("#form2 #new-Password").type = "password";
+                    jo += 1;
+                }
+            }
+        };
         formElement.onsubmit = function (e) {
             e.preventDefault();
 
@@ -70,8 +128,10 @@ function Validator(options) {
 
             if (isFormValid) {
                 console.log('haha')
+
                 // Trường hợp submit với javascript
                 if (typeof options.onSubmit === 'function') {
+
                     var enableInputs = formElement.querySelectorAll('[name]');
                     var formValues = Array.from(enableInputs).reduce(function (values, input) {
 
