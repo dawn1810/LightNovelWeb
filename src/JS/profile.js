@@ -7,7 +7,6 @@ const dropZone5 = document.querySelector(".page5_info_img .drop-zone");
 const avtBtn5 = document.querySelector(".dropdown-trigger");
 const avtUpLoad5 = document.getElementById("file-upload");
 
-
 const Setting_pageWrapper = document.querySelectorAll(".Setting_pageWrapper");
 const Setting_item = document.querySelectorAll(".Setting_sidebar-list_item");
 
@@ -38,26 +37,24 @@ window.addEventListener('popstate', function (event) {
 	location.reload();
 });
 
-
-
-function hihi() {
+function Setting_pageWrapper_drop() {
 	for (const key of Setting_pageWrapper) {
 		key.style.display = "none";
 		console.log(key);
 	}
 }
-function haha() {
+function Setting_item_drop() {
 	for (const key of Setting_item) {
 		key.style.backgroundColor = "transparent"
 	}
 }
-function huhu() {
+function page5_composed_drop() {
 	// ẩn page5_composed
 	for (const key of page5_composed) {
 		key.style.display = 'none'
 	}
 }
-function hoho() {
+function page5_a_up_drop() {
 	for (const key of page5_a_up) {
 		key.style.display = 'none'
 	}
@@ -66,29 +63,29 @@ function hoho() {
 var currentPath = window.location.href.substring(window.location.href.lastIndexOf('/'));
 console.log(currentPath)
 if (currentPath == "/novel_following") {
-	hihi()
-	haha()
+	Setting_pageWrapper_drop()
+	Setting_item_drop()
 	Setting_pageWrapper[1].style.display = 'block';
 	Setting_item[1].style.backgroundColor = "var(--st-pr-btn-bg)";
 }
 else if (currentPath == '/change_pass') {
-	hihi()
-	haha()
+	Setting_pageWrapper_drop()
+	Setting_item_drop()
 	Setting_item[2].style.backgroundColor = "var(--st-pr-btn-bg)";
 
 	Setting_pageWrapper[2].style.display = 'block';
 }
 else if (currentPath == '/my_novel') {
-	hihi()
-	haha()
+	Setting_pageWrapper_drop()
+	Setting_item_drop()
 	Setting_item[3].style.backgroundColor = "var(--st-pr-btn-bg)";
 
 	Setting_pageWrapper[3].style.display = 'block';
 }
 else if (currentPath == '/add_novel') {
-	huhu()
-	hihi()
-	hoho()
+	page5_composed_drop()
+	Setting_pageWrapper_drop()
+	page5_a_up_drop()
 	Setting_pageWrapper[3].style.display = 'block'
 	page5_composed[1].style.display = 'block'
 	page5_a_up[0].style.display = 'flex'
@@ -102,9 +99,9 @@ else if (currentPath == '/add_novel') {
 	}, 100)
 }
 else if (currentPath == '/add_content') {
-	huhu()
-	hihi()
-	hoho()
+	page5_composed_drop()
+	Setting_pageWrapper_drop()
+	page5_a_up_drop()
 	Setting_pageWrapper[3].style.display = 'block'
 	page5_composed[1].style.display = 'block'
 	// page5_a_up[0].style.display = 'flex'
@@ -119,9 +116,9 @@ else if (currentPath == '/add_content') {
 	}, 50)
 }
 else if (currentPath == '/post_novel') {
-	huhu()
-	hihi()
-	hoho()
+	page5_composed_drop()
+	Setting_pageWrapper_drop()
+	page5_a_up_drop()
 	Setting_pageWrapper[3].style.display = 'block'
 	page5_composed[1].style.display = 'block'
 	// page5_a_up[0].style.display = 'flex'
@@ -135,9 +132,9 @@ else if (currentPath == '/post_novel') {
 	}, 50)
 }
 else if (currentPath == '/congratulation') {
-	huhu()
-	hihi()
-	hoho()
+	page5_composed_drop()
+	Setting_pageWrapper_drop()
+	page5_a_up_drop()
 	Setting_pageWrapper[3].style.display = 'block'
 	page5_composed[1].style.display = 'block'
 	// page5_a_up[0].style.display = 'flex'
@@ -166,9 +163,9 @@ for (let i = 0; i < Setting_item.length; i++) {
 	Setting_item[i].onclick = function () {
 
 
-		haha()
+		Setting_item_drop()
 		if (Setting_item[i].classList[1] == 'yourinfo') {
-			hihi()
+			Setting_pageWrapper_drop()
 			Setting_pageWrapper[0].style.display = 'block';
 			history.pushState(null, null, currentURL);
 		}
@@ -178,7 +175,7 @@ for (let i = 0; i < Setting_item.length; i++) {
 
 
 			history.pushState(null, null, newURL);
-			hihi()
+			Setting_pageWrapper_drop()
 			Setting_pageWrapper[1].style.display = 'block';
 
 
@@ -190,7 +187,7 @@ for (let i = 0; i < Setting_item.length; i++) {
 
 			var newURL = currentURL + '/change_pass';
 			history.pushState(null, null, newURL);
-			hihi()
+			Setting_pageWrapper_drop()
 			Setting_pageWrapper[2].style.display = 'block';
 		}
 
@@ -200,9 +197,9 @@ for (let i = 0; i < Setting_item.length; i++) {
 
 			var newURL = currentURL + '/my_novel';
 			history.pushState(null, null, newURL);
-			hihi()
-			huhu()
-			hoho()
+			Setting_pageWrapper_drop()
+			page5_composed_drop()
+			page5_a_up_drop()
 			page5_composed[0].style.display = 'block';
 			page5_a_up[0].style.display = 'flex';
 			Setting_pageWrapper[3].style.display = 'block';
@@ -256,7 +253,7 @@ avtUpLoad5.addEventListener("change", function (event) {
 	const reader = new FileReader();
 	reader.onload = () => {
 		const base64 = reader.result;
-		avatar5.src = reader.result;
+		avatar5.src = reader.result;// live stream di a zai
 	};
 	reader.readAsDataURL(file);
 
@@ -327,9 +324,115 @@ document.querySelector(".button_random").onclick = function (e) {
 	document.querySelector(".sex_random").innerHTML = randomElement;
 };
 
+// update info
+const Save_btn = document.querySelector('.Save_btn')
+Save_btn.onclick = function () {
+	const url = `${currentURL}/updateInfo`; // URL của máy chủ mục tiêu
+	let sex = 0
+	if (document.querySelector('#nam').checked) {
+		sex = 0
+	}
+	else {
+		sex = 1
+	}
+	const postData = JSON.stringify({
+		// thông tin đăng kýýý
+		img: `${avatar.src}`,
+		usr: `${document.querySelector("#username").value}`,
+		pass: `${document.querySelector("#fullname").value}`,
+		email: `${document.querySelector("#email").value}`,
+		sex: `${sex}`,
+	});
+
+	//gửi lên 
+	const requestOptions = {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: postData,
+	};
+
+
+	try {
+		const response = fetch(url, requestOptions);
+		console.log(response.status);
+		if (response.status == "200") {
+
+			location.reload()
+		}
+
+		// btn_reg.disabled = false;
+		// btn_reg.textContent = "Register";
+	} catch (error) {
+		console.log("Error:", error);
+	}
+
+}
+
+// change pass
+document.querySelector('.change-pass-btn').onclick = async function (e) {
+	console.log('cut di bn oi');
+	e.preventDefault();
+	//gửi request tới csdl server
+	const accountCookie = getCookie('account')
+	const url = `${currentURL}changepass`; // URL của máy chủ mục tiêu
+	const postData = JSON.stringify({
+		// thông tin đăng kýýý
+		'status': 'Change Pass',
+		'account': `${accountCookie}`,
+		'Old-Password': `${document.querySelector('#old-Password').value}`,
+		'new-Password': `${document.querySelector('#new-Password').value}`,
+		'new-Password-again': `${document.querySelector('#new-Password-again').value}`
+	});
+
+
+	//bình minh bị gà
+	const requestOptions = {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: postData
+	};
+
+	let btn_reg = document.querySelector('.change-pass-btn');
+	btn_reg.disabled = true;
+	btn_reg.textContent = "LOADING...";
+	try {
+		const response = await fetch(url, requestOptions)
+		// taì khoan hơp lệ 
+		if (response.status == '200') {
+			location.reload();
+		}
+
+		else if (response.status == '204') {
+
+		}
+
+		else if (response.status == '403') {
+
+		}
+		else if (response.status == '404') {
+
+		}
+		else {
+
+		}
+		btn_reg.disabled = false;
+		// btn_reg.textContent = "Register";
+	} catch (error) {
+		console.log('Error:', error);
+
+	}
+}
+
+// change pass
+
+
 
 add_new.onclick = function () {
-	huhu()
+	page5_composed_drop()
 	var newURL = currentURL + '/profile' + '/add_novel';
 	history.pushState(null, null, newURL);
 	page5_composed[1].style.display = 'block'
@@ -345,7 +448,7 @@ add_new.onclick = function () {
 }
 
 update_current_novel.onclick = function () {
-	huhu()
+	page5_composed_drop()
 	var newURL = currentURL + '/profile' + '/update';
 	history.pushState(null, null, newURL);
 
@@ -371,7 +474,7 @@ show_list.onclick = function () {
 }
 
 document.querySelector('.page5_info .next_btn').onclick = function () {
-	hoho()
+	page5_a_up_drop()
 	var newURL = currentURL + '/profile/add_content';
 	history.pushState(null, null, newURL);
 	page5_chap.style.display = 'block'
@@ -387,7 +490,7 @@ document.querySelector('.page5_info .next_btn').onclick = function () {
 
 	sessionStorage.setItem("novel_name", novel_name.value);
 	sessionStorage.setItem("author_name", author_name.value);
-	sessionStorage.setItem("novel_descript", novel_descript.valu);
+	sessionStorage.setItem("novel_descript", novel_descript.value);
 	sessionStorage.setItem("novel_types", novel_types.options[novel_types.selectedIndex].text);
 	sessionStorage.setItem("novel_status", novel_status.options[novel_status.selectedIndex].text);
 }
@@ -423,8 +526,10 @@ document.querySelector('.page5_chap .more_chap_btn').onclick = function () {
 		<div class="information_name_wrap">
 			<div class="head">
 				<h3>Nội Dung</h3>
+				<pre class="file-content" style="margin: 1rem 20px;"></pre>
+				<input type="file" class="file-input" style="display:none;" />
 				<button class="upfile">
-					<i class="fa-solid fa-upload"></i> tải lên
+					<i class="fa-solid fa-upload"></i>
 				</button>
 			</div>
 		</div>
@@ -450,11 +555,28 @@ $(document).ready(function () {
 		history.back();
 	});
 
+	// upload content file
+	$(document).on('click', '.page5_chap .upfile', function () {
+		$(this).parent().find('.file-input').click()
+	});
+
+	$(document).on('change', '.page5_chap .file-input', function () {
+		const file = $(this)[0].files[0];
+		const reader = new FileReader();
+		// set file upload name
+		$(this).parent().find('.file-content').text(file.name)
+
+		reader.onload = () => {
+			console.log(reader.result);
+		};
+
+		reader.readAsText(file);
+	});
 });
 
 // next page
 document.querySelector('.page5_chap .next_btn').onclick = function () {
-	hoho()
+	page5_a_up_drop()
 	var newURL = currentURL + '/profile/post_novel';
 	history.pushState(null, null, newURL);
 	page5_post.style.display = 'block'
@@ -468,13 +590,17 @@ document.querySelector('.page5_chap .next_btn').onclick = function () {
 
 	// -----------------------------------------------------------------------------------------
 	let name_chapters = [];
+	let chapters_content = [];
 	// Loop through all elements
 	$('.page5_chap .info-wrapper-container').each(function () {
 		// Get the input element inside the current element
 		let chapNum = $(this).find('.chap_num').val();
 		let chapName = $(this).find('.chap_name').val();
 
+
 		name_chapters.push(`Chương ${chapNum}: ${chapName}`);
+
+		let upFile = $(this).find('.chap_num');
 	});
 
 	sessionStorage.setItem("name_chapters", JSON.stringify(name_chapters));
@@ -483,7 +609,7 @@ document.querySelector('.page5_chap .next_btn').onclick = function () {
 
 document.querySelector('.page5_post .post_btn').onclick = function () {
 
-	hoho()
+	page5_a_up_drop()
 	var newURL = currentURL + '/profile/congratulation';
 	history.pushState(null, null, newURL);
 	page5_last.style.display = 'block'
@@ -518,9 +644,25 @@ page5_post_check.onclick = function () {
 
 }
 
+// upload file:
+// const loadFileButton = document.querySelector('.page5_chap .upfile');
+// const fileInput = document.querySelector('.page5_chap .file-input');
+// const fileContent = document.querySelector('.page5_chap .file-content');
 
+// loadFileButton.addEventListener('click', () => {
+// 	fileInput.click();
+// });
 
+// fileInput.addEventListener('change', () => {
+// 	const file = fileInput.files[0];
+// 	const reader = new FileReader();
+// 	// set file upload name
+// 	fileContent.textContent = file.name;
 
+// 	reader.onload = () => {
+// 		console.log(reader.result);
+// 	};
 
-
+// 	reader.readAsText(file);
+// });
 

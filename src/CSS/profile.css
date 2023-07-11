@@ -31,6 +31,10 @@ body {
   cursor: pointer;
 }
 
+.information_name {
+  margin-top: 20px;
+}
+
 .information_name_wrap {
   margin: 5px;
   display: flex;
@@ -553,6 +557,11 @@ body {
   width: 100%;
 }
 
+.page5_info_img .dropdown {
+  width: 335px;
+  height: 335px;
+}
+
 .page5_info_main_btn {
   margin: 30px 5px;
   display: flex;
@@ -845,20 +854,25 @@ textarea {
 
 .head {
   display: flex;
-  justify-content: space-between;
   margin: 30px 5px;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .upfile {
-  width: 24%;
+  width: 40px;
+  height: 40px;
   margin: 0 20px;
   padding: 10px 20px;
   font-size: 15px;
-  border-radius: 20px;
+  border-radius: 50%;
   color: var(--black-text);
   background-color: var(--button-colors) !important;
   cursor: pointer;
   text-transform: uppercase;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
 
 .delete_chap {

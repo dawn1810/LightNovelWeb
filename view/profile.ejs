@@ -116,9 +116,16 @@
 
 											<div class="information_name_wrap">
 												<h3>Giới tính</h3>
+												<div class="">
+													<input type="radio" name="gender" id="nam" value="nam" checked>
+													<label for="nam">Nam</label>
+													<input type="radio" name="gender" id="nu" value="nu">
+													<label for="nữ">Nữ</label>
+
+												</div>
 												<div class="information_name">
 													<div class="sex_wrapper">
-														<div class="sex_random">100</div>
+														<div class="sex_random">Nam</div>
 													</div>
 													<button id="button_file" class="button_random">
 														Random
@@ -470,9 +477,10 @@
 											<div class="information_name_wrap">
 												<div class="head">
 													<h3>Nội Dung</h3>
-													<input type="file" class="file" style="display:none;" />
+													<pre class="file-content" style="margin: 1rem 20px;"></pre>
+													<input type="file" class="file-input" style="display:none;" />
 													<button class="upfile">
-														<i class="fa-solid fa-upload"></i> tải lên
+														<i class="fa-solid fa-upload"></i>
 													</button>
 												</div>
 											</div>

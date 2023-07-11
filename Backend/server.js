@@ -396,6 +396,7 @@ async function checkCookieLoglUser(req, res, next) {
 }
 
 
+
 async function checkCoookieIfOK(req, res, next) {
 	const data = req.cookies;
 	if (!data.account) {
@@ -407,7 +408,19 @@ async function checkCoookieIfOK(req, res, next) {
 	}
 
 }
+const blockUnwantedPaths = (req, res, next) => {
+	const unwantedPaths = ['/Backend/', '/.temp/', '/.credentials/'];
 
+	for (const path of unwantedPaths) {
+		if (req.url.includes(path)) {
+			return res.status(403).send('<h1 style="font-size: 46px;">cut di bn oi, <a href="/404">to mo</a> </a> lam d j? </h1> \n<img src ="https://cdn.discordapp.com/attachments/1128270011346210826/1128288383316271204/sticker.webp"><iframe src="https://giphy.com/embed/qs4ll1FSxKnNHeSmom" width="480" height="475" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/DogeBONK-bonk-dobo-dogebonk-qs4ll1FSxKnNHeSmom">via GIPHY</a></p>');
+		}
+	}
+	next();
+};
+
+// Áp dụng middleware để chặn truy cập
+app.use(blockUnwantedPaths);
 
 // Lắng nghe các yêu cầu POST tới localhost:6969
 app.use(bodyParser.json());
@@ -426,6 +439,7 @@ app.set('view engine', 'ejs');
 // Đặt thư mục chứa các tệp template
 app.set('views', path.join(parentDirectory, 'view'));
 console.log(path.join(parentDirectory, 'view'))
+
 
 app.get('/', checkCookieLoglUser, (req, res) => {
 	res.render('index', {
@@ -1158,7 +1172,12 @@ app.post('/give_me_chap', async (req, res) => {
 	console.log('ok bro');
 	res.sendStatus(200);
 });
-
+app.get('*', checkCookieLoglUser, function (req, res) {
+	res.render('index', {
+		headerFile: 'header',
+		footerFile: 'footer'
+	});
+})
 // Schedule the code execution at midnight (00:00)
 cron.schedule('0 0 * * *', async () => {
 	// update popular novel list 
