@@ -562,15 +562,15 @@ $(document).ready(function () {
 
 	$(document).on('change', '.page5_chap .file-input', function () {
 		const file = $(this)[0].files[0];
-		const reader = new FileReader();
+		// const file = $(this).find('.file-input').prop('files')[0];
+		// const reader = new FileReader();
 		// set file upload name
 		$(this).parent().find('.file-content').text(file.name)
+		// reader.onload = () => {
+		// 	console.log(reader.result);
+		// };
 
-		reader.onload = () => {
-			console.log(reader.result);
-		};
-
-		reader.readAsText(file);
+		// reader.readAsText(file);
 	});
 });
 
@@ -600,7 +600,15 @@ document.querySelector('.page5_chap .next_btn').onclick = function () {
 
 		name_chapters.push(`Chương ${chapNum}: ${chapName}`);
 
-		let upFile = $(this).find('.chap_num');
+		const file = $(this).find('.file-input')[0].files[0];
+		const reader = new FileReader();
+
+		reader.onload = () => {
+			name_chapters.push(``);
+			console.log(reader.result);
+		};
+
+		reader.readAsText(file);
 	});
 
 	sessionStorage.setItem("name_chapters", JSON.stringify(name_chapters));

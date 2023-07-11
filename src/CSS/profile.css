@@ -755,8 +755,12 @@ body {
 }
 
 .page5_info_main {
-  margin-left: 30px;
+  margin: 0 !important;
   width: 60%;
+}
+
+#post_novel {
+  margin-top: 100px;
 }
 
 .page5_chap .page5_info_main {
