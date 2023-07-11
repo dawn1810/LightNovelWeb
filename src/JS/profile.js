@@ -604,14 +604,17 @@ document.querySelector('.page5_chap .next_btn').onclick = function () {
 		const reader = new FileReader();
 
 		reader.onload = () => {
-			name_chapters.push(``);
-			console.log(reader.result);
+			// chapters_content.push(reader.result);
+			// console.log(reader.result);
+			console.log(reader.result)
 		};
+
 
 		reader.readAsText(file);
 	});
 
 	sessionStorage.setItem("name_chapters", JSON.stringify(name_chapters));
+	sessionStorage.setItem("chapters_content", JSON.stringify(chapters_content));
 	// -----------------------------------------------------------------------------------------
 }
 

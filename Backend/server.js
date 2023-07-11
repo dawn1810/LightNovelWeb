@@ -834,60 +834,6 @@ app.get('/auth/google/callback',
 	}
 );
 
-//////////LOG IN WITH FACEBOOK////////////////////////////////////////////////////////////////////////////////////////////////
-passport.use(new FacebookStrategy({
-	clientID: credentials.facebook.client_id,
-	clientSecret: credentials.facebook.client_secret,
-	callbackURL: "http://localhost:6969/auth/facebook/callback",
-	passReqToCallback: true
-},
-	async function (request, accessToken, refreshToken, profile, done) {
-		// console.log(profile);
-		return done(null, profile.id);
-		// try {
-		// 	// Kiểm tra xem thông tin người dùng đã tồn tại chưa
-		// 	const existingUser = await server.find_one_Data("tt_nguoi_dung", { _id: profile.id });
-		// 	if (existingUser) {
-		// 		// update new data for tt_nguoi_dung database
-		// 		await server.update_one_Data("tt_nguoi_dung", { _id: profile.id }, {
-		// 			email: profile.emails[0].value,
-		// 			displayName: profile.displayName,
-		// 			avatarUrl: profile.photos[0].value,
-		// 			sex: "unknown",
-		// 			likeNovels: [],
-		// 		});
-
-		// 		return done(null, existingUser._id);
-		// 		/// set cookie cho vào tài khoảng
-		// 	}
-		// else {
-		// 	// Tạo mới một người dùng
-		// 	const newUser = {
-		// 		_id: profile.id,
-		// 		lgway: 'google',
-		// 		email: profile.emails[0].value,
-		// 		displayName: profile.displayName,
-		// 		avatarUrl: profile.photos[0].value,
-		// 		sex: "unknown",
-		// 		likeNovels: [],
-		// 	};
-
-		// 		await server.add_one_Data("tt_nguoi_dung", newUser._id);
-		// 		/// set cookie cho vào tài khoảng
-		// 		return done(null, newUser);
-		// 	}
-		// } catch (err) {
-		// 	return done(err);
-		// }
-	}
-));
-
-app.get(
-	'/auth/facebook',
-	passport.authenticate('facebook', {
-		scope: ['public_profile', 'email'] // không biết đúng không làm đại
-	})
-);
 
 app.post('/updatelike', async (req, res) => {
 	try {
@@ -1172,7 +1118,7 @@ app.post('/give_me_chap', async (req, res) => {
 	console.log('ok bro');
 	res.sendStatus(200);
 });
-app.get('*', checkCookieLoglUser, function (req, res) {
+app.get('*', function (req, res) {
 	res.render('index', {
 		headerFile: 'header',
 		footerFile: 'footer'
