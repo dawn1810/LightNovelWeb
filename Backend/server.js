@@ -424,122 +424,50 @@ const parentDirectory = path.dirname(__dirname);
 app.use(express.static(parentDirectory));
 app.set('view engine', 'ejs');
 // Đặt thư mục chứa các tệp template
-app.set('views', path.join(parentDirectory, 'EJS'));
-console.log(path.join(parentDirectory, 'EJS'))
+app.set('views', path.join(parentDirectory, 'view'));
+console.log(path.join(parentDirectory, 'view'))
 
-// app.get('/', checkCookieLoglUser, (req, res) => {
-// 	res.sendFile(parentDirectory + '/HTML/index.html');
-// });
 app.get('/', checkCookieLoglUser, (req, res) => {
 	res.render('index', {
-		headerFile: 'header'
-	});
-});
-// app.get('/profile', checkCookieMiddleware, (req, res) => {
-// 	res.sendFile(parentDirectory + '/HTML/profile.html');
-// });
-
-app.get('/profile', checkCoookieIfOK, checkCookieLoglUser, (req, res) => {
-	res.render('profile', {
-		headerFile: 'header'
+		headerFile: 'header',
+		footerFile: 'footer'
 	});
 });
 
 // profile route
+app.get('/profile', checkCoookieIfOK, checkCookieLoglUser, (req, res) => {
+	res.render('profile', {
+		headerFile: 'header',
+		footerFile: 'footer'
+	});
+});
 
+app.get('/profile/:anything', checkCoookieIfOK, checkCookieLoglUser, (req, res) => {
+	res.render('profile', {
+		headerFile: 'header',
+		footerFile: 'footer'
+	});
+});
+
+app.get('/login/twitter', (req, res) => {
+	res.sendFile(parentDirectory + '/view/money.html');
+});
+//////////
+
+
+// 404 route
 app.get('/404', (req, res) => {
 	res.sendFile(parentDirectory + '/error/404.html');
 });
 
-app.get('/profile/novel_following', checkCoookieIfOK, (req, res) => {
-	res.sendFile(parentDirectory + '/HTML/profile.html');
-});
-
-app.get('/profile/change_pass', checkCoookieIfOK, (req, res) => {
-	res.sendFile(parentDirectory + '/HTML/profile.html');
-});
-
-app.get('/profile/my_novel', checkCoookieIfOK, (req, res) => {
-	res.sendFile(parentDirectory + '/HTML/profile.html');
-});
-
-// up novel
-
-app.get('/add_novel', checkCoookieIfOK, (req, res) => {
-	res.sendFile(parentDirectory + '/HTML/profile.html');
-});
-app.get('/add_content', checkCoookieIfOK, (req, res) => {
-	res.sendFile(parentDirectory + '/HTML/profile.html');
-});
-app.get('/post_novel', checkCoookieIfOK, (req, res) => {
-	res.sendFile(parentDirectory + '/HTML/profile.html');
-});
-app.get('/congratulation', checkCoookieIfOK, (req, res) => {
-	res.sendFile(parentDirectory + '/HTML/profile.html');
-});
-
-app.get('/profile/update', checkCoookieIfOK, (req, res) => {
-	res.sendFile(parentDirectory + '/HTML/profile.html');
-});
-
-// up novel
-
-// profile route
-
-// app.get('/category', (req, res) => {
-// 	res.sendFile(parentDirectory + '/HTML/category-page.html');
-// });
-
+// category route
 app.get('/category', checkCookieLoglUser, (req, res) => {
 	res.render('category-page', {
-		headerFile: 'header'
+		headerFile: 'header',
+		footerFile: 'footer'
 	});
 });
 
-// app.get('/reviews', (req, res) => {
-// 	res.sendFile(parentDirectory + '/HTML/reviews.html');
-// });
-
-// app.get('/reading', (req, res) => {
-// 	res.sendFile(parentDirectory + '/HTML/readingpage.html');
-// });
-
-// Authentication (xac thuc dc chua) ////////////////////////////////////////////////////////////////////////////////////////////////
-app.post('/xacthuc', async (req, res) => {
-	try {
-		const data = req.body;
-		console.log('SYSTEM | AUTHENTICATION | Dữ liệu nhận được: ', data);
-		const decode = decrypt(data.account, authenticationKey);
-		const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
-		console.log(`SYSTEM | AUTHENTICATION | Dữ liệu đã giải mã ${decodeList}`);
-		// decodeList = authenticationKey:id:pass
-		if (decodeList[0] == authenticationKey) {
-			const result = await server.find_one_Data("tt_nguoi_dung", { _id: decodeList[1] })
-
-			if (result != null && result.length != 0) {
-				let send_back = {
-					usr: result.displayName,
-					avt: result.avatarUrl
-				};
-
-				res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
-				console.log(`SYSTEM | AUTHENTICATION | Trả về tên user ${result.displayName}`);
-				res.end(JSON.stringify(send_back));
-			}
-			else if (result == null) {
-				res.sendStatus(404);
-				console.log(`SYSTEM | AUTHENTICATION | User ${decodeList[1]} không tìm thấy trong database (không tìm thấy trong mongoDB)`);
-			}
-			else {
-				res.sendStatus(404);
-				console.log(`SYSTEM | AUTHENTICATION | User ${decodeList[1]} không tìm thấy trong database (không tìm thấy trong mongoDB)`);
-			}
-		}
-	} catch (err) {
-		console.log('SYSTEM | AUTHENTICATION | ERROR | ', err);
-		res.sendStatus(500);
-	}
-});
 
 app.get('/get_ds', async (req, res) => {
 	try {
@@ -947,18 +875,6 @@ app.get(
 	})
 );
 
-app.get('/auth/facebook',
-	passport.authenticate('facebook')
-);
-
-app.get('/auth/facebook/callback',
-	passport.authenticate('facebook', { failureRedirect: '/login' }),
-	function (req, res) {
-		// Successful authentication, redirect home.
-		res.send('<script>window.close();</script>');
-	}
-);
-
 app.post('/updatelike', async (req, res) => {
 	try {
 		const data = req.body;
@@ -1185,6 +1101,7 @@ app.post('/uploadnovel', async (req, res) => {
 		// const directoryPath = path.join('trans', 'tonghop');
 		// const drive_id = await get_full_id(directoryPath);
 		// ----------------------------------------------------------------
+
 
 		if (!data.id) { // already exist 
 			server.update_one_Data("truyen", { _id: new ObjectId(data.id) }, {

@@ -2,6 +2,11 @@ const avtBtn = document.querySelector(".dropdown-trigger");
 const avtUpLoad = document.getElementById("file-upload");
 const avatar = document.querySelector(".your-avt");
 const dropZone = document.querySelector(".drop-zone");
+const avatar5 = document.querySelector(".page5_info_img .your-avt");
+const dropZone5 = document.querySelector(".page5_info_img .drop-zone");
+const avtBtn5 = document.querySelector(".dropdown-trigger");
+const avtUpLoad5 = document.getElementById("file-upload");
+
 
 const Setting_pageWrapper = document.querySelectorAll(".Setting_pageWrapper");
 const Setting_item = document.querySelectorAll(".Setting_sidebar-list_item");
@@ -30,10 +35,7 @@ const range__label = document.querySelector('.range__label');
 const back_btn = document.querySelectorAll('.back_btn')
 
 window.addEventListener('popstate', function (event) {
-	// if (event.persisted) {
-	// Xử lý việc reload trang ở đây
 	location.reload();
-	// }
 });
 
 
@@ -168,8 +170,7 @@ for (let i = 0; i < Setting_item.length; i++) {
 		if (Setting_item[i].classList[1] == 'yourinfo') {
 			hihi()
 			Setting_pageWrapper[0].style.display = 'block';
-			// var newURL = currentURL
-			// history.pushState(null, null, newURL);
+			history.pushState(null, null, currentURL);
 		}
 		if (Setting_item[i].classList[1] == 'yourfollow') {
 
@@ -200,6 +201,10 @@ for (let i = 0; i < Setting_item.length; i++) {
 			var newURL = currentURL + '/my_novel';
 			history.pushState(null, null, newURL);
 			hihi()
+			huhu()
+			hoho()
+			page5_composed[0].style.display = 'block';
+			page5_a_up[0].style.display = 'flex';
 			Setting_pageWrapper[3].style.display = 'block';
 		}
 
@@ -220,23 +225,14 @@ for (const button of button_file) {
 		file.setSelectionRange(file.value.length, file.value.length);
 	};
 }
-// document.querySelector('.button_file').onclick = function(e){
-//     e.preventDefault();
-//     console.log('ok')
-//     button.parentElement.querySelector('#fullname').click()
-// }
 
-// // Set avt as default:
-// if (localStorage.getItem('avt')) {
-// 	setAvtDefault(localStorage.getItem('avt'));
-// }
-
-// function setAvtDefault(base64Data) {
-// 	avatar.src = base64Data;
-// }
 
 // change the avatar image
 avtBtn.addEventListener("click", function (event) {
+	avtUpLoad.click();
+	return false;
+});
+avtBtn5.addEventListener("click", function (event) {
 	avtUpLoad.click();
 	return false;
 });
@@ -255,12 +251,41 @@ avtUpLoad.addEventListener("change", function (event) {
 		dropZone.innerHTML = "";
 	}
 });
+avtUpLoad5.addEventListener("change", function (event) {
+	const file = event.target.files[0];
+	const reader = new FileReader();
+	reader.onload = () => {
+		const base64 = reader.result;
+		avatar5.src = reader.result;
+	};
+	reader.readAsDataURL(file);
+
+	// disappear drop text
+	if (avatar5.src !== "") {
+		dropZone5.innerHTML = "";
+	}
+});
 
 function allowDrop(event) {
 	event.preventDefault();
 }
 
 function drop(event) {
+	event.preventDefault();
+	const file = event.dataTransfer.files[0];
+	const reader = new FileReader();
+	reader.onload = () => {
+		const base64 = reader.result;
+		avatar.src = reader.result;
+	};
+	reader.readAsDataURL(file);
+
+	// disappear drop text
+	if (avatar.src !== "") {
+		dropZone.innerHTML = "";
+	}
+}
+function drop5(event) {
 	event.preventDefault();
 	const file = event.dataTransfer.files[0];
 	const reader = new FileReader();
@@ -305,11 +330,8 @@ document.querySelector(".button_random").onclick = function (e) {
 
 add_new.onclick = function () {
 	huhu()
-	var newURL = currentURL + '/add_novel';
+	var newURL = currentURL + '/profile' + '/add_novel';
 	history.pushState(null, null, newURL);
-	// Setting_pageWrapper[4].style.display = 'block';
-	// document.querySelector()
-
 	page5_composed[1].style.display = 'block'
 	page5_a_up[0].style.display = 'flex'
 	setTimeout(function () {
@@ -322,23 +344,15 @@ add_new.onclick = function () {
 	}, 100)
 }
 
-// for(const element of back_btn){
-// 	element.onclick = function(){
-// 		history.back();
-// 	}
-// }
 update_current_novel.onclick = function () {
 	huhu()
-	var newURL = currentURL + '/update';
+	var newURL = currentURL + '/profile' + '/update';
 	history.pushState(null, null, newURL);
-	// Setting_pageWrapper[4].style.display = 'block';
-	// document.querySelector()
 
 	page5_composed[3].style.display = 'block'
 	page5_a_up[0].style.display = 'flex'
 	setTimeout(function () {
 		range.style.setProperty('--p', '25');
-		// range.style.setProperty('--widthbf', '0');
 
 		range__label.classList.remove('anima')
 
@@ -358,7 +372,7 @@ show_list.onclick = function () {
 
 document.querySelector('.page5_info .next_btn').onclick = function () {
 	hoho()
-	var newURL = currentURL + '/add_content';
+	var newURL = currentURL + '/profile/add_content';
 	history.pushState(null, null, newURL);
 	page5_chap.style.display = 'block'
 	range.style.setProperty('--p', '50');
@@ -438,9 +452,10 @@ $(document).ready(function () {
 
 });
 
+// next page
 document.querySelector('.page5_chap .next_btn').onclick = function () {
 	hoho()
-	var newURL = currentURL + '/post_novel';
+	var newURL = currentURL + '/profile/post_novel';
 	history.pushState(null, null, newURL);
 	page5_post.style.display = 'block'
 	range.style.setProperty('--p', '75');
@@ -469,7 +484,7 @@ document.querySelector('.page5_chap .next_btn').onclick = function () {
 document.querySelector('.page5_post .post_btn').onclick = function () {
 
 	hoho()
-	var newURL = currentURL + '/congratulation';
+	var newURL = currentURL + '/profile/congratulation';
 	history.pushState(null, null, newURL);
 	page5_last.style.display = 'block'
 
@@ -504,10 +519,6 @@ page5_post_check.onclick = function () {
 }
 
 
-
-
-
-// xử lí page
 
 
 

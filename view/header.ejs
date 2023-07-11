@@ -94,7 +94,7 @@
                     <div class="header_user_logo">
                         <div class="header_user_logo_i">
                             <div class="curent-avt">
-                                <img src="<%= avt %>" alt="" class="avt_user">
+                                <img src="<%= avt %>" referrerpolicy="no-referrer" alt="" class="avt_user">
                             </div>
                             <%= username %>
                         </div>
@@ -496,17 +496,17 @@
 </body>
 
 <script>
-    
-function getCookie(name) {
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        if (cookie.startsWith(name + '=')) {
-            return cookie.substring(name.length + 1);
+
+    function getCookie(name) {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.startsWith(name + '=')) {
+                return cookie.substring(name.length + 1);
+            }
         }
+        return null;
     }
-    return null;
-}
     document.addEventListener('DOMContentLoaded', function () {
         const login = document.querySelector('.header_login')
         login.onclick = function () {

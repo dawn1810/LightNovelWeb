@@ -15,10 +15,11 @@ body {
   color: var(--text-color) !important;
 }
 
-.group2{
+.group2 {
   display: flex;
   flex-direction: column;
 }
+
 #button_file {
   background-color: var(--button-colors) !important;
   width: 13% !important;
@@ -39,7 +40,6 @@ body {
 }
 
 .containner_wrap {
-  /* width: 1200px; */
   margin: 0 auto;
   display: flex;
 }
@@ -83,22 +83,16 @@ body {
 
 .Setting_pageWrapper__PM {
   width: 70%;
-  /* padding-left: 50px; */
-  /* margin-top: 50px; */
   margin: 20px auto;
 }
 
 .Setting_sidebar-list {
-  /* width: 75%;
-    border-right: 2px solid;
-    height: 500px; */
   padding-left: 10px;
   margin-left: 45px;
 }
 
 .Setting_sidebar-list_item {
   padding: 8% 2%;
-  /* border-radius: 10px; */
   -webkit-border-top-left-radius: 89px;
   -webkit-border-bottom-left-radius: 89px;
   -moz-border-radius-topleft: 89px;
@@ -129,7 +123,6 @@ body {
 }
 
 .profile_input {
-  /* padding-left: 10px; */
   border: 0;
   background-color: var(--input-color);
   color: var(--text-color);
@@ -248,8 +241,6 @@ body {
   position: absolute;
   display: flex;
 }
-
-/* nghe nhac di: https://youtu.be/2EnHPuNqjjA */
 
 .drop-zone p {
   color: transparent;
@@ -373,7 +364,6 @@ body {
 }
 
 .name-novel {
-  /* margin-bottom: 10%; */
   display: flex;
   flex-direction: column;
   margin-left: 20px;
@@ -422,7 +412,6 @@ body {
   width: 50%;
   font-size: 1rem;
   line-height: 2rem;
-  /* margin-bottom: 20px; */
   border-radius: 10px;
   border: 2px solid rgb(187, 169, 169);
 }
@@ -434,7 +423,6 @@ body {
 
 .avt-wrapper-container {
   flex: 1;
-  /* padding-left: 90px; */
 }
 
 .info-wrapper-container {
@@ -462,7 +450,7 @@ body {
 }
 
 .page_5_title h2 {
-  color: #000000;
+  color: var(--black-text);
 }
 
 .page5_home_main {
@@ -471,8 +459,8 @@ body {
 
 .page5_home_main_item {
   display: flex;
-  background: antiquewhite;
   padding: 10px 30px;
+  border: 1px solid;
 }
 
 .page5_home_main_logo {
@@ -526,7 +514,8 @@ body {
 
 .page5_home_info_date {
   margin-top: 5px;
-  color: #333;
+  color: var(--black-text);
+  opacity: .7;
   font-size: 14px;
 }
 
@@ -558,11 +547,9 @@ body {
 .page5_home_info_wrap_item:last-child {
   border: 0;
 }
-/* .page5_info  .page5_info_main{
-  width: 60%;
-} */
+
 .page5_info_main input,
-.page5_info_main textarea{
+.page5_info_main textarea {
   width: 100%;
 }
 
@@ -638,19 +625,6 @@ body {
   display: flex;
 }
 
-/* .novel_conntroller_btn button {
-  background-color: var(--button-colors);
-  width: 20% !important;
-  height: 47px !important;
-  border-radius: 20px !important;
-}
-
-.add_novel_more_chap button {
-  background-color: var(--button-colors);
-  width: 20% !important;
-  height: 47px !important;
-  border-radius: 20px !important;
-} */
 .controller_btn {
   background-color: var(--button-colors) !important;
   width: 100% !important;
@@ -683,23 +657,11 @@ body {
   width: 800px;
   height: 30px;
   margin: 0 auto;
-  /* transform: skew(30deg); */
   font-family: 'Orbitron', monospace;
 
   &:before {
     --width: calc(var(--p) * 1%);
-    /* --widthbf: 0; */
-
     content: '';
-    /* position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    background-color: #F3E600;
-    z-index: 0;
-    animation: load 1s forwards linear;
-    animation-delay: 0.1s; */
   }
 
   &:after {
@@ -730,7 +692,6 @@ body {
   height: 100%;
   background-color: #F3E600;
   z-index: 0;
-  /* animation: load 1s forwards linear; */
   animation-delay: 0.1s;
 }
 
@@ -763,9 +724,11 @@ body {
   display: none;
   padding: 30px;
 }
-.page5_a form{
+
+.page5_a form {
   width: 60%;
 }
+
 .page5_b {
   display: none;
 }
@@ -784,6 +747,11 @@ body {
 
 .page5_info_main {
   margin-left: 30px;
+  width: 60%;
+}
+
+.page5_chap .page5_info_main {
+  width: 100%;
 }
 
 .page5_info_main form {
@@ -947,7 +915,7 @@ textarea {
   flex-direction: column;
 }
 
-.group2{
+.group2 {
   display: flex;
   flex-direction: column;
 }

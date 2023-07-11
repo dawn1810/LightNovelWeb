@@ -284,6 +284,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.log("e sơ");
                     window.location.reload();
                 }
+                else if (response.status == 403) {
+                    console.log("e sơ");
+                    document.querySelector('.Error_mess').innerHTML = 'Em iu hãy xem lại tài khoản đã nhập'
+                }
             } catch (error) {
                 console.log("Error:", error);
             }

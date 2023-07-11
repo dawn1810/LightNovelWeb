@@ -76,7 +76,9 @@ async function get_popular_novel() {
                 <div class="novel_item">
                   <a href="/reviews/${helop[i]._id}">
                     <div class="novel_item_main">
-                        <img src="${helop[i].image}" referrerpolicy="no-referrer alt="image">
+                    <div class="novel_item_main_img">
+                    <img src="${helop[i].image}" referrerpolicy="no-referrer alt="image">
+                </div>
                         <div class="novel_title" onclick="myFunction()">
                             <a href="/reviews/${helop[i]._id}" class="novel_name">${helop[i].name}</a>
                             <div class="novel_author">

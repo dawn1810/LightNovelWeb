@@ -1,11 +1,4 @@
 $(document).ready(function () {
-  $("#footer-element").load("/HTML/footer.html", function () {
-    // your script
-  });
-});
-
-$(document).ready(function () {
-  // $("#header-element").load("/HTML/header.html", function () {
   const header_menu = document.querySelector(".header_menu");
   const left_item = document.querySelector(".left_item");
   const category_btn = document.getElementById("category");
@@ -97,9 +90,6 @@ $(document).ready(function () {
     }
   }
 
-  // const theme = localStorage.getItem(theme);
-  // console.log(theme)
-
   $("document").ready(function () {
     let trigger = $("#hamburger"),
       isClosed = false;
@@ -154,13 +144,5 @@ $(document).ready(function () {
   };
 
 });
-// });
 
-
-
-// const logout = document.querySelector('.logout')
-// logout.onclick = function(e){
-//     e.preventDefault();
-//     console.log('hahaaha')
-// }
 

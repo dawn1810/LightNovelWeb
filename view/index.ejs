@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/b8977956b3.js" crossorigin="anonymous"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
     <link rel="stylesheet" href="/src/CSS/Style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="/src/CSS/reviews.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-    <title>Review</title>
+    <title>Home</title>
     <script>
         const currentURL = window.location.origin;
     </script>
@@ -19,823 +19,561 @@
 <body>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="/src/JS/link.js"></script>
-    <div id="header-element"></div>
-    <div class="body_wrap">
-    </div>
-    <main>
-        <div class="current-Titile">
-            <div class="current-Titile_wrap">
-                <!-- <img src="https://d.newsweek.com/en/full/2004093/jujutsu-kaisen-0.jpg?w=790&f=5464bdf376f666f94cd2ac5bd0e9e7d1" alt="" class="novel-backg"> -->
-                <div class="current-Titile_main">
-                    <div class="current-Titile_interact">
-                        <div class="Titile_interact_like">
-                            <i class="fa-solid fa-thumbs-up"></i>
-                            Thích
-                            <span>1</span>
-                        </div>
-                        <div class="Titile_interact_share">
-                            Chia sẻ
-                        </div>
-                        <div id="full-stars-example">
-                            <div class="rating-group">
-                                <input class="rating__input rating__input--none" name="rating" id="rating-none"
-                                    value="0" type="radio">
-                                <label aria-label="1 star" class="rating__label" for="rating-1"><i
-                                        class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                <input class="rating__input" name="rating" id="rating-1" value="1" type="radio">
-                                <label aria-label="2 stars" class="rating__label" for="rating-2"><i
-                                        class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                <input class="rating__input" name="rating" id="rating-2" value="2" type="radio">
-                                <label aria-label="3 stars" class="rating__label" for="rating-3"><i
-                                        class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                <input class="rating__input" name="rating" id="rating-3" value="3" type="radio">
-                                <label aria-label="4 stars" class="rating__label" for="rating-4"><i
-                                        class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                <input class="rating__input" name="rating" id="rating-4" value="4" type="radio">
-                                <label aria-label="5 stars" class="rating__label" for="rating-5"><i
-                                        class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                <input class="rating__input" name="rating" id="rating-5" value="5" type="radio" checked>
+
+    <%- include(headerFile) %>
+
+        <div class="body_wrap">
+            <div class="novel_container">
+                <div class="trending-container">
+                    <div class="swiper" style="height: 637px;">
+                        <!-- Additional required wrapper -->
+                        <div class="swiper-wrapper" navigation="true" pagination="true" keyboard="true"
+                            mousewheel="true" css-mode="true">
+                            <!-- Slides -->
+
+                            <div class="swiper-slide" style="border: none; margin: 0; padding: 0;">
+                                <div class="trending_novel_item">
+                                    <img referrerpolicy="no-referrer"
+                                        src="https://media.discordapp.net/attachments/1119222655392940033/1126350212810678312/354934291_1318522422087942_4605232520875049341_n.png?width=1060&height=1044"
+                                        alt="image" referrerpolicy="no-referrer" class="trending_backg">
+                                </div>
                             </div>
+                            <div class="swiper-slide" style="border: none; margin: 0; padding: 0;">
+                                <div class="trending_novel_item">
+                                    <img referrerpolicy="no-referrer"
+                                        src="https://media.discordapp.net/attachments/1119222655392940033/1126350213158817822/344545504_150982487942329_6764332066683413504_n.png?width=1042&height=1044"
+                                        alt="image" referrerpolicy="no-referrer" class="trending_backg">
+                                </div>
+                            </div>
+                            <div class="swiper-slide" style="border: none; margin: 0; padding: 0;">
+                                <div class="trending_novel_item">
+                                    <img referrerpolicy="no-referrer"
+                                        src="https://media.discordapp.net/attachments/1119222655392940033/1126350213464989796/337021832_765997928224397_7582517827674452501_n.png?width=1054&height=1044"
+                                        alt="image" referrerpolicy="no-referrer" class="trending_backg">
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide" style="border: none; margin: 0; padding: 0;">
+                                <div class="trending_novel_item">
+                                    <img referrerpolicy="no-referrer"
+                                        src="https://media.discordapp.net/attachments/1119222655392940033/1126350213813129307/324722225_903382070700318_1753115775416712567_n.png?width=1040&height=1044"
+                                        alt="image" referrerpolicy="no-referrer" class="trending_backg">
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide" style="border: none; margin: 0; padding: 0;">
+                                <div class="trending_novel_item">
+                                    <img referrerpolicy="no-referrer"
+                                        src="https://media.discordapp.net/attachments/1119222655392940033/1126350214178021406/324751286_1570000650097117_7834988819883096846_n.png?width=1046&height=1044"
+                                        alt="image" referrerpolicy="no-referrer" class="trending_backg">
+                                </div>
+                            </div>
+
+                            ...
                         </div>
+                        <!-- If we need pagination -->
+                        <div class="swiper-pagination"></div>
+
+                        <div class="swiper-scrollbar"></div>
                     </div>
-                    <div class="Titile_interact_siu">
-                        <div class="current_left">
 
-                            <img src="https://m.media-amazon.com/images/M/MV5BODM0NmVjMzUtOTJhNi00N2ZhLWFkYmMtYmZmNjRiY2M1YWY4XkEyXkFqcGdeQXVyOTgxOTA5MDg@._V1_.jpg"
-                                alt="" referrerpolicy="no-referrer" class="novel-avt">
+                </div>
+                <div class="fix1"></div>
+                <div class="fix2"></div>
+            </div>
+            <div class="body_main">
+                <div class="top_popular">
+                    <div class="top_popular_top">
+                        <div class="top_popular_top_title">
+                            Top thịnh hành
                         </div>
 
-                        <div class="title-gr">
-
-                            <span class="current-novel-name">Nước Lèo và X</span>
-                            <div class="current-novel-actor">
-                                terrorism Nguyễn Ngọc Long Yêu X Nghệ danh hơi quàng nhưng kệ cmn
+                        <div class="top_popular_top_time">
+                            <div class="radio-input">
+                                <label>
+                                    <input type="radio" id="value-1" name="value-radio" value="1" checked>
+                                    <span>Tuần</span>
+                                </label>
+                                <label>
+                                    <input type="radio" id="value-2" name="value-radio" value="2">
+                                    <span>Tháng</span>
+                                </label>
+                                <label>
+                                    <input type="radio" id="value-3" name="value-radio" value="3">
+                                    <span>Năm</span>
+                                </label>
+                                <span class="selection"></span>
                             </div>
+                        </div>
 
-                            <div class="last-time-update">Tình trạng: <span>Đang tiến hành</span></div>
 
-                            <ul class="current-category-list">
-                                <li id="action" class="current-category-list_item">
-                                    <a href="/HTML/category-page.html">
-                                        <div class="btn btn1">
-                                            <h4>Action</h4>
+                    </div>
+                    <div class="novel_wrap">
+                        <div class="novel">
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://st.nettruyenplus.com/data/comics/171/gay-go-cap-99-5344.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <a href="/HTML/reviews.html" class="novel_name">GẬY GỖ CÁP 99+</a>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
                                         </div>
-                                    </a>
-                                </li>
-                                <li id="drama" class="current-category-list_item">
-                                    <a href="/HTML/category-page.html">
-                                        <div class="btn btn1">
-                                            <h4>Drama</h4>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
                                         </div>
-                                    </a>
-                                </li>
-                                <li id="comedy" class="current-category-list_item">
-                                    <a href="/HTML/category-page.html">
-                                        <div class="btn btn1">
-                                            <h4>Comedy</h4>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://st.nettruyenplus.com/data/comics/188/dai-quan-gia-la-ma-hoang.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            ĐẠI QUẢNG GIA LÀ MA HOÀNG</div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
                                         </div>
-                                    </a>
-                                </li>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
 
-                            </ul>
-                            <div class="button-group main_operation">
-
-                                <div class="wrapper">
-                                    <a class="button-efect first_chap" href=""><span>Đọc từ chap
-                                            1</span></a>
-                                </div>
-
-                                <div class="wrapper">
-                                    <a class="button-efect lasted_chap" href=""><span>Chap mới
-                                            nhất</span></a>
-                                </div>
-
-                                <div class="wrapper">
-                                    <a class="button-efect random_chap" href=""><span>Đọc ngẫu nhiên</span></a>
-                                </div>
-
-                            </div>
-
-
-                            <div class="function">
-                                <div class="function_item function_item_folow ">
-                                    <i class="fa-regular fa-heart"></i>
-                                    <span>1000</span>
-                                </div>
-                                <div class="function_item function_item_star">
-                                    <i class="fa-regular fa-star"></i>
-                                    <span>Đánh giá</span>
-                                </div>
-                                <div class="function_item function_item_comment">
-                                    <i class="fa-regular fa-comment"></i>
-                                    <span>Bình luận</span>
-                                </div>
-                                <div class="function_item function_item_share ">
-                                    <i class="fa-solid fa-share-nodes"></i>
-                                    <span>Chia sẻ</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="summary">
-                        <button class="summary-btn" onclick="toggleSummary()"><i class="fa-solid fa-bars"></i>
-                            HIỆN TÓM TẮT </button>
-                        <div style="display: none;" class="summary-Content">
-                            NaN
-                        </div>
-                    </div>
-                    <div class="Titile_info">
-                        <div class="Titile_info_item">
-                            <div class="Titile_info_item_title">
-                                Lần cuối
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://static.hidive.com/welcome/custom/q2-2023/Exclusives/ONK_01_350x400.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            Oshi No Ko</div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
-                            <div id="last_update_time" class="Titile_info_item_value ">
-                                20 giờ
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://images1.wionews.com/images/wion/900x1600/2023/5/8/1683542368815_desktopwallpaperdeathnoteiphone.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            DEATH NOTE</div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="Titile_info_item">
-                            <div class="Titile_info_item_title">
-                                Lượt thích
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://ecdn.game4v.com/g4v-content/uploads/2022/07/04084406/Solo-1-game4v-1656899043-96.png"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            SOLO LEVELING</div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
-                            <div id="number_of_likes" class="Titile_info_item_value">
-                                NaN
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://static.8cache.com/cover/eJwNzkcWojAAANAT8YYSkCxmIUVFpDdh4yNUgVCkBDj9zD_B72ruT9-JVrOIGDGAM-ZyWZNKsx7eRpSwI4Bk-D32QPdMS7A_JqACxbbu-B0oqH-SjkhRzvBsIVHXe8ltN7m7OhMHDbEfqlj2idVTTRY_gPPcBD9nx5yhOq-SbX5UAvyFGAVOoaan4d5M83U_7QmLGzTzWfGN1v_FOwvyb1jYWlte_YzS1Yk_MUGAZlQTRB3Jpstzh3XaGkEkLQYpb6l8P7DCZ6BH-RnDFQqyFNmRU0vEWu8zd2ZdBvEOpccIN7d1rTLp9hC5I0OCaXCxrinhtdEOX_L1cBTVTohuE2QgJSHpeyyf_beuepxG31hIfi3tGXJvHKlBkaVDzXwumlTyXaQr_bC_p0dKx4uu-nQayyEGupPu4TQ45l6Vh6jTLCaclR68E8E8PpclWZwLbEb0sehS7vvGP1kt-JxbVte9malcZoQsqNDLGOXVo23809uEo09kChqn51W26luYFVXJranwgKrbuOnqvFvJdXx0M-zcMy_Tb1m8n1jqzutDURt53SLUHvXc7K-EvuQvFrCGT0vxO2yAZ0Lt6CyPYZZVakfU-WeCJ2e1bYUuV0HPlnY3rzDlnXljxwuowxlrQ1FUcs7eWzeWxove2EyPijCR_s_8vL62RRIrdvMswuFQZyZYo3d_W4VJzC08geFgQuc9WO0A_XsNlMvjqIO8uNa1kRM2yf7O9D_DnetE/su-troi-day-cua-khien-hiep-si.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            The Rising Of The Shield Hero</div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="Titile_info_item">
-                            <div class="Titile_info_item_title">
-                                Lượt xem
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://st.nettruyenplus.com/data/comics/188/tro-choi-ma-quai.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
+                                        </div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
-                            <div id="number_of_view" class="Titile_info_item_value">
-                                176.185
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://st.nettruyenplus.com/data/comics/139/san-dau-cua-thay-ma.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
+                                        </div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://st.nettruyenplus.com/data/comics/96/sieu-cap-than-co-nhan.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            SIÊU CẤP THẦN CƠ NHÂN</div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://st.nettruyenplus.com/data/comics/239/pha-bo-gioi-han.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            PHÁ BỎ GIỚI HẠNG</div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://st.nettruyenplus.com/data/comics/127/toan-chuc-phap-su.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            TOÀN CHỨC PHÁP SƯ</div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://upload.wikimedia.org/wikipedia/vi/6/6c/Hi%E1%BB%87p_s%C4%A9_l%C6%B0u_ban_%28light_novel%29_cover.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            SỬ THI VỀ MỘT HIỆP SĨ LƯU BAN </div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="top_popular">
+                    <div class="top_popular_top">
+                        <div class="top_popular_top_title">
+                            Truyện mới cập nhật
+                        </div>
 
-        </div>
-        <div class="current-body">
-            <div class="summary-listchap">
-                <h2>Danh Sách Chương</h2>
-                <div class="settings">
-                    <!-- <div class="form-input">
-                        <label for="">Truncation</label>
-                        <div class="wrapper-form-check">
-                            <div class="form-check">
-                                <input class="check" type="radio" checked name="enable" id="enable" />
-                                <label for="enable">Enable</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="check" type="radio" name="enable" id="disable" />
-                                <label for="disable">Disable</label>
-                            </div>
-                        </div>
-                    </div> -->
-                    <div class="form-input">
-                        <label for="pages">Chapter muốn tớ (gần đúng):</label>
-                        <input type="number" min="1" id="pages" value="1" />
                     </div>
-                    <div class="form-input">
-                        <label for="curpage">Trang muốn tới:</label>
-                        <input type="number" min="1" id="curpage" value="1" />
-                    </div>
-                    <!-- 
-                    <div class="form-input">
-                        <label for="delta">Number of links two side of current page</label>
-                        <input type="number" id="delta" min="1" max="5" value="1" />
-                    </div> -->
-                </div>
-                <div class="listchap">
-                    <div class="chapter-item">
-                        <div class="chapter_item_info">
-                            <h2 style="margin: 15px;">chap 1</h2>
-                            <div style="
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-">
-                                <div>khong co tieu de</div>
-                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-circle-down" style="
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 21px;
-"></i>
-                    </div>
-                    <div class="chapter-item">
-                        <div class="chapter_item_info">
-                            <h2 style="margin: 15px;">chap 1</h2>
-                            <div style="
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-">
-                                <div>khong co tieu de</div>
-                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-circle-down" style="
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 21px;
-"></i>
-                    </div>
-                    <div class="chapter-item">
-                        <div class="chapter_item_info">
-                            <h2 style="margin: 15px;">chap 1</h2>
-                            <div style="
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-">
-                                <div>khong co tieu de</div>
-                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-circle-down" style="
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 21px;
-"></i>
-                    </div>
-                    <div class="chapter-item">
-                        <div class="chapter_item_info">
-                            <h2 style="margin: 15px;">chap 1</h2>
-                            <div style="
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-">
-                                <div>khong co tieu de</div>
-                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-circle-down" style="
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 21px;
-"></i>
-                    </div>
-                    <div class="chapter-item">
-                        <div class="chapter_item_info">
-                            <h2 style="margin: 15px;">chap 1</h2>
-                            <div style="
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-">
-                                <div>khong co tieu de</div>
-                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-circle-down" style="
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 21px;
-"></i>
-                    </div>
-                    <div class="chapter-item">
-                        <div class="chapter_item_info">
-                            <h2 style="margin: 15px;">chap 1</h2>
-                            <div style="
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-">
-                                <div>khong co tieu de</div>
-                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-circle-down" style="
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 21px;
-"></i>
-                    </div>
-                    <div class="chapter-item">
-                        <div class="chapter_item_info">
-                            <h2 style="margin: 15px;">chap 1</h2>
-                            <div style="
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-">
-                                <div>khong co tieu de</div>
-                                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-circle-down" style="
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 21px;
-"></i>
-                    </div>
+                    <div class="novel_wrap">
+                        <div class="novel">
 
 
-                </div>
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://st.nettruyenplus.com/data/comics/171/gay-go-cap-99-5344.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">GẬY GỖ CÁP 99+</div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
 
-                <!-- <h1>Dynamic Pagination</h1> -->
-                <div class="page-container">
-                    <button class="first-page" disabled>
-                        <i class="fas fa-angle-double-left"></i>
-                    </button>
-                    <button class="prev-page" disabled>
-                        <i class="fas fa-angle-left"></i>
-                    </button>
-                    <div id="pagination"></div>
-                    <button class="next-page">
-                        <i class="fas fa-angle-right"></i>
-                    </button>
-                    <button class="last-page">
-                        <i class="fas fa-angle-double-right"></i>
-                    </button>
-                </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://st.nettruyenplus.com/data/comics/188/dai-quan-gia-la-ma-hoang.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            ĐẠI QUẢNG GIA LÀ MA HOÀNG</div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://static.hidive.com/welcome/custom/q2-2023/Exclusives/ONK_01_350x400.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            Oshi No Ko</div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
 
-            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://images1.wionews.com/images/wion/900x1600/2023/5/8/1683542368815_desktopwallpaperdeathnoteiphone.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            DEATH NOTE</div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
 
-            <div class="Similar novels">
-                <div class="Similar_title">Có thể bạn sẽ thích</div>
-                <div class="same-propose">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://ecdn.game4v.com/g4v-content/uploads/2022/07/04084406/Solo-1-game4v-1656899043-96.png"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            SOLO LEVELING</div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
 
-                    <div class="same-propose-item">
-                        <img src="https://st.nettruyenvt.com/data/comics/44/the-gioi-cua-game-otome-that-kho-khan-ch-2944.jpg"
-                            alt="">
-                        <div class="same-propose-item_title">
-                            <div class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu</div>
-                            <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://static.8cache.com/cover/eJwNzkcWojAAANAT8YYSkCxmIUVFpDdh4yNUgVCkBDj9zD_B72ruT9-JVrOIGDGAM-ZyWZNKsx7eRpSwI4Bk-D32QPdMS7A_JqACxbbu-B0oqH-SjkhRzvBsIVHXe8ltN7m7OhMHDbEfqlj2idVTTRY_gPPcBD9nx5yhOq-SbX5UAvyFGAVOoaan4d5M83U_7QmLGzTzWfGN1v_FOwvyb1jYWlte_YzS1Yk_MUGAZlQTRB3Jpstzh3XaGkEkLQYpb6l8P7DCZ6BH-RnDFQqyFNmRU0vEWu8zd2ZdBvEOpccIN7d1rTLp9hC5I0OCaXCxrinhtdEOX_L1cBTVTohuE2QgJSHpeyyf_beuepxG31hIfi3tGXJvHKlBkaVDzXwumlTyXaQr_bC_p0dKx4uu-nQayyEGupPu4TQ45l6Vh6jTLCaclR68E8E8PpclWZwLbEb0sehS7vvGP1kt-JxbVte9malcZoQsqNDLGOXVo23809uEo09kChqn51W26luYFVXJranwgKrbuOnqvFvJdXx0M-zcMy_Tb1m8n1jqzutDURt53SLUHvXc7K-EvuQvFrCGT0vxO2yAZ0Lt6CyPYZZVakfU-WeCJ2e1bYUuV0HPlnY3rzDlnXljxwuowxlrQ1FUcs7eWzeWxove2EyPijCR_s_8vL62RRIrdvMswuFQZyZYo3d_W4VJzC08geFgQuc9WO0A_XsNlMvjqIO8uNa1kRM2yf7O9D_DnetE/su-troi-day-cua-khien-hiep-si.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            The Rising Of The Shield Hero</div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://st.nettruyenplus.com/data/comics/188/tro-choi-ma-quai.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
+                                        </div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://st.nettruyenplus.com/data/comics/139/san-dau-cua-thay-ma.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
+                                        </div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://st.nettruyenplus.com/data/comics/96/sieu-cap-than-co-nhan.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            SIÊU CẤP THẦN CƠ NHÂN</div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://st.nettruyenplus.com/data/comics/239/pha-bo-gioi-han.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            PHÁ BỎ GIỚI HẠNG</div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://st.nettruyenplus.com/data/comics/127/toan-chuc-phap-su.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            TOÀN CHỨC PHÁP SƯ</div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="novel_item">
+                                <div class="novel_item_main">
+                                    <img src="https://upload.wikimedia.org/wikipedia/vi/6/6c/Hi%E1%BB%87p_s%C4%A9_l%C6%B0u_ban_%28light_novel%29_cover.jpg"
+                                        alt="image">
+                                    <div class="novel_title">
+                                        <div class="novel_name">
+                                            SỬ THI VỀ MỘT HIỆP SĨ LƯU BAN </div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>Nguyễn Hưng Thịnh</span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>100</span>
+                                            <div>Full</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="same-propose-item">
-                        <img src="https://st.nettruyenvt.com/data/comics/44/the-gioi-cua-game-otome-that-kho-khan-ch-2944.jpg"
-                            alt="">
-                        <div class="same-propose-item_title">
-                            <div class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu</div>
-                            <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
-                        </div>
-                    </div>
-                    <div class="same-propose-item">
-                        <img src="https://st.nettruyenvt.com/data/comics/44/the-gioi-cua-game-otome-that-kho-khan-ch-2944.jpg"
-                            alt="">
-                        <div class="same-propose-item_title">
-                            <div class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu</div>
-                            <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
-                        </div>
-                    </div>
-                    <div class="same-propose-item">
-                        <img src="https://st.nettruyenvt.com/data/comics/44/the-gioi-cua-game-otome-that-kho-khan-ch-2944.jpg"
-                            alt="">
-                        <div class="same-propose-item_title">
-                            <div class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu</div>
-                            <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
-                        </div>
-                    </div>
-                    <div class="same-propose-item">
-                        <img src="https://st.nettruyenvt.com/data/comics/44/the-gioi-cua-game-otome-that-kho-khan-ch-2944.jpg"
-                            alt="">
-                        <div class="same-propose-item_title">
-                            <div class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu</div>
-                            <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
-                        </div>
-                    </div>
-                    <div class="same-propose-item">
-                        <img src="https://st.nettruyenvt.com/data/comics/44/the-gioi-cua-game-otome-that-kho-khan-ch-2944.jpg"
-                            alt="">
-                        <div class="same-propose-item_title">
-                            <div class="same-name">Otome Game Sekai wa Mob ni Kibishii Sekai Desu</div>
-                            <div class="same-last-time"> C. 90 - 2 GIỜ TRƯỚC</div>
-                        </div>
-                    </div>
-
                 </div>
 
-            </div>
-
-        </div>
-        </div>
-
-        <!-- comment -->
-        <div class="comment_container" id="comment_container">
-            <div class="comment_container_wrap">
-
-                <!-- you -->
-                <div class="your-avt-container">
-                    <img class="your_avt"
-                        src="https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg" alt="">
-                    <div class="input-gr">
-                        <input class="your_comment" type="text" placeholder="Bình luận vào đây nhé !!! hihi đồ ngốc...">
-                        <button class="send_your_cmt">Gửi</button>
-                    </div>
-                </div>
-                <!-- you -->
-                <!-- they -->
-                <div class="comment_list">
-
-                    <!-- commentitem -->
-                    <div class="comment_item_container">
-                        <img class="comment_avt"
-                            src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg"
-                            alt="">
-                        <div class="comment_content-gr">
-                            <div class="Information">
-                                <span class="nick-name">long</span>
-                                <span class="chapter-commnet"> chap 200</span>
-                                <span class="date_posting">2023/06/09</span>
-                                <span class="posting_time"> 07:19</span>
-                            </div>
-                            <div class="comment">truyện như cái đ*u Bu*i </div>
-                            <div class="Evaluate">
-                                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                                    thích</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- commentitem -->
-
-                    <!-- commentitem -->
-                    <div class="comment_item_container">
-                        <img class="comment_avt"
-                            src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg"
-                            alt="">
-                        <div class="comment_content-gr">
-                            <div class="Information">
-                                <span class="nick-name">long</span>
-                                <span class="chapter-commnet"> chap 200</span>
-                                <span class="date_posting">2023/06/09</span>
-                                <span class="posting_time"> 07:19</span>
-                            </div>
-                            <div class="comment">truyện như cái đ*u Bu*i </div>
-                            <div class="Evaluate">
-                                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                                    thích</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- commentitem -->
-
-                    <!-- commentitem -->
-                    <div class="comment_item_container">
-                        <img class="comment_avt"
-                            src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg"
-                            alt="">
-                        <div class="comment_content-gr">
-                            <div class="Information">
-                                <span class="nick-name">long</span>
-                                <span class="chapter-commnet"> chap 200</span>
-                                <span class="date_posting">2023/06/09</span>
-                                <span class="posting_time"> 07:19</span>
-                            </div>
-                            <div class="comment">truyện như cái đ*u Bu*i </div>
-                            <div class="Evaluate">
-                                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                                    thích</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- commentitem -->
-
-                    <!-- commentitem -->
-                    <div class="comment_item_container">
-                        <img class="comment_avt"
-                            src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg"
-                            alt="">
-                        <div class="comment_content-gr">
-                            <div class="Information">
-                                <span class="nick-name">long</span>
-                                <span class="chapter-commnet"> chap 200</span>
-                                <span class="date_posting">2023/06/09</span>
-                                <span class="posting_time"> 07:19</span>
-                            </div>
-                            <div class="comment">truyện như cái đ*u Bu*i </div>
-                            <div class="Evaluate">
-                                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                                    thích</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- commentitem -->
-
-                    <!-- commentitem -->
-                    <div class="comment_item_container">
-                        <img class="comment_avt"
-                            src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg"
-                            alt="">
-                        <div class="comment_content-gr">
-                            <div class="Information">
-                                <span class="nick-name">long</span>
-                                <span class="chapter-commnet"> chap 200</span>
-                                <span class="date_posting">2023/06/09</span>
-                                <span class="posting_time"> 07:19</span>
-                            </div>
-                            <div class="comment">truyện như cái đ*u Bu*i </div>
-                            <div class="Evaluate">
-                                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                                    thích</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- commentitem -->
-
-                    <!-- commentitem -->
-                    <div class="comment_item_container">
-                        <img class="comment_avt"
-                            src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg"
-                            alt="">
-                        <div class="comment_content-gr">
-                            <div class="Information">
-                                <span class="nick-name">long</span>
-                                <span class="chapter-commnet"> chap 200</span>
-                                <span class="date_posting">2023/06/09</span>
-                                <span class="posting_time"> 07:19</span>
-                            </div>
-                            <div class="comment">truyện như cái đ*u Bu*i </div>
-                            <div class="Evaluate">
-                                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                                    thích</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- commentitem -->
-
-                    <!-- commentitem -->
-                    <div class="comment_item_container">
-                        <img class="comment_avt"
-                            src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg"
-                            alt="">
-                        <div class="comment_content-gr">
-                            <div class="Information">
-                                <span class="nick-name">long</span>
-                                <span class="chapter-commnet"> chap 200</span>
-                                <span class="date_posting">2023/06/09</span>
-                                <span class="posting_time"> 07:19</span>
-                            </div>
-                            <div class="comment">truyện như cái đ*u Bu*i </div>
-                            <div class="Evaluate">
-                                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                                    thích</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- commentitem -->
-
-                    <!-- commentitem -->
-                    <div class="comment_item_container">
-                        <img class="comment_avt"
-                            src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg"
-                            alt="">
-                        <div class="comment_content-gr">
-                            <div class="Information">
-                                <span class="nick-name">long</span>
-                                <span class="chapter-commnet"> chap 200</span>
-                                <span class="date_posting">2023/06/09</span>
-                                <span class="posting_time"> 07:19</span>
-                            </div>
-                            <div class="comment">truyện như cái đ*u Bu*i </div>
-                            <div class="Evaluate">
-                                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                                    thích</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- commentitem -->
-                    <!-- commentitem -->
-                    <div class="comment_item_container">
-                        <img class="comment_avt"
-                            src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg"
-                            alt="">
-                        <div class="comment_content-gr">
-                            <div class="Information">
-                                <span class="nick-name">long</span>
-                                <span class="chapter-commnet"> chap 200</span>
-                                <span class="date_posting">2023/06/09</span>
-                                <span class="posting_time"> 07:19</span>
-                            </div>
-                            <div class="comment">truyện như cái đ*u Bu*i </div>
-                            <div class="Evaluate">
-                                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                                    thích</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- commentitem -->
-
-                    <!-- commentitem -->
-                    <div class="comment_item_container">
-                        <img class="comment_avt"
-                            src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg"
-                            alt="">
-                        <div class="comment_content-gr">
-                            <div class="Information">
-                                <span class="nick-name">long</span>
-                                <span class="chapter-commnet"> chap 200</span>
-                                <span class="date_posting">2023/06/09</span>
-                                <span class="posting_time"> 07:19</span>
-                            </div>
-                            <div class="comment">truyện như cái đ*u Bu*i </div>
-                            <div class="Evaluate">
-                                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                                    thích</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- commentitem -->
-                    <!-- commentitem -->
-                    <div class="comment_item_container">
-                        <img class="comment_avt"
-                            src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg"
-                            alt="">
-                        <div class="comment_content-gr">
-                            <div class="Information">
-                                <span class="nick-name">long</span>
-                                <span class="chapter-commnet"> chap 200</span>
-                                <span class="date_posting">2023/06/09</span>
-                                <span class="posting_time"> 07:19</span>
-                            </div>
-                            <div class="comment">truyện như cái đ*u Bu*i </div>
-                            <div class="Evaluate">
-                                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                                    thích</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- commentitem -->
-                    <!-- commentitem -->
-                    <div class="comment_item_container">
-                        <img class="comment_avt"
-                            src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg"
-                            alt="">
-                        <div class="comment_content-gr">
-                            <div class="Information">
-                                <span class="nick-name">long</span>
-                                <span class="chapter-commnet"> chap 200</span>
-                                <span class="date_posting">2023/06/09</span>
-                                <span class="posting_time"> 07:19</span>
-                            </div>
-                            <div class="comment">truyện như cái đ*u Bu*i </div>
-                            <div class="Evaluate">
-                                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                                    thích</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- commentitem -->
-                    <!-- commentitem -->
-                    <div class="comment_item_container">
-                        <img class="comment_avt"
-                            src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg"
-                            alt="">
-                        <div class="comment_content-gr">
-                            <div class="Information">
-                                <span class="nick-name">long</span>
-                                <span class="chapter-commnet"> chap 200</span>
-                                <span class="date_posting">2023/06/09</span>
-                                <span class="posting_time"> 07:19</span>
-                            </div>
-                            <div class="comment">truyện như cái đ*u Bu*i </div>
-                            <div class="Evaluate">
-                                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                                    thích</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- commentitem -->
-
-                    <!-- commentitem -->
-                    <div class="comment_item_container">
-                        <img class="comment_avt"
-                            src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg"
-                            alt="">
-                        <div class="comment_content-gr">
-                            <div class="Information">
-                                <span class="nick-name">long</span>
-                                <span class="chapter-commnet"> chap 200</span>
-                                <span class="date_posting">2023/06/09</span>
-                                <span class="posting_time"> 07:19</span>
-                            </div>
-                            <div class="comment">truyện như cái đ*u Bu*i </div>
-                            <div class="Evaluate">
-                                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                                    thích</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- commentitem -->
-                    <!-- commentitem -->
-                    <div class="comment_item_container">
-                        <img class="comment_avt"
-                            src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg"
-                            alt="">
-                        <div class="comment_content-gr">
-                            <div class="Information">
-                                <span class="nick-name">long</span>
-                                <span class="chapter-commnet"> chap 200</span>
-                                <span class="date_posting">2023/06/09</span>
-                                <span class="posting_time"> 07:19</span>
-                            </div>
-                            <div class="comment">truyện như cái đ*u Bu*i </div>
-                            <div class="Evaluate">
-                                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                                    thích</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- commentitem -->
-                    <!-- commentitem -->
-                    <div class="comment_item_container">
-                        <img class="comment_avt"
-                            src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg"
-                            alt="">
-                        <div class="comment_content-gr">
-                            <div class="Information">
-                                <span class="nick-name">long</span>
-                                <span class="chapter-commnet"> chap 200</span>
-                                <span class="date_posting">2023/06/09</span>
-                                <span class="posting_time"> 07:19</span>
-                            </div>
-                            <div class="comment">truyện như cái đ*u Bu*i </div>
-                            <div class="Evaluate">
-                                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                                    thích</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- commentitem -->
-                    <!-- commentitem -->
-                    <div class="comment_item_container">
-                        <img class="comment_avt"
-                            src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg"
-                            alt="">
-                        <div class="comment_content-gr">
-                            <div class="Information">
-                                <span class="nick-name">long</span>
-                                <span class="chapter-commnet"> chap 200</span>
-                                <span class="date_posting">2023/06/09</span>
-                                <span class="posting_time"> 07:19</span>
-                            </div>
-                            <div class="comment">truyện như cái đ*u Bu*i </div>
-                            <div class="Evaluate">
-                                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                                    thích</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- commentitem -->
-
-
-                </div>
             </div>
         </div>
-        <!-- comment -->
-    </main>
-    <div id="footer-element"></div>
+        </div>
+
+        <%- include(footerFile) %>
 </body>
 <div class="modal">
     <div class="modal_wrap">
         <form class="form" id="form1">
             <p class="heading">LOGIN</p>
+            <div class="Error_mess"></div>
+
             <div class="group1">
                 <input placeholder="Username" class="input" type="text" id="Username">
                 <span class="form-message"></span>
@@ -990,20 +728,12 @@
                 <span class="form-message"></span>
             </div>
             <div class="group1">
-                <button class="btn " id="logins">Submit</button>
+                <button class="btn login " id="logins">Submit</button>
             </div>
             <div class="login_more">
                 <div class="login_more_item login_gg">
                     <i class="fa-brands fa-google"></i>
                     <!-- Google -->
-                </div>
-                <div class="login_more_item login_fa">
-                    <i class="fa-brands fa-facebook"></i>
-                    <!-- Facebook -->
-                </div>
-                <div class="login_more_item login_tw">
-                    <i class="fa-brands fa-twitter"></i>
-                    <!-- Twitter -->
                 </div>
             </div>
             <div class="no_signup Noo ">
@@ -1018,6 +748,8 @@
     <div class="modal_wrap">
         <form class="form" id="form2">
             <p class="heading">SignUp</p>
+            <div class="Error_mess"></div>
+
             <div class="group1">
                 <input placeholder="Username" class="input" type="text" id="Username">
                 <span class="form-message"></span>
@@ -1047,7 +779,21 @@
                             <path fill="#000000" opacity="1.00"
                                 d=" M 593.43 420.60 C 601.07 420.18 609.07 419.63 616.27 422.76 C 630.90 427.22 642.19 439.74 646.88 454.08 C 649.22 459.77 648.53 466.01 648.59 472.00 C 648.75 477.75 646.37 483.11 644.17 488.29 C 641.65 494.32 636.79 498.84 632.77 503.85 C 628.45 509.31 621.34 510.84 615.13 513.16 C 600.38 518.66 583.17 514.68 571.25 504.73 C 567.89 501.82 563.62 499.54 561.92 495.19 C 558.08 488.98 555.35 482.12 553.88 474.97 C 551.62 460.34 556.78 444.71 567.37 434.35 C 570.64 431.21 573.32 427.04 577.86 425.63 C 583.07 424.03 588.00 421.45 593.43 420.60 Z" />
                             <path fill="#000000" opacity="1.00"
-                                d=" M 697.28 498.26 C 703.19 496.00 709.57 493.72 715.99 494.89 C 721.77 496.01 727.55 497.99 732.04 501.93 C 739.43 506.68 745.45 513.55 749.39 521.38 C 750.89 526.44 754.89 530.57 755.07 536.02 C 755.46 541.32 757.08 546.62 756.05 551.94 C 755.38 555.56 755.57 559.29 754.78 562.89 C 751.84 569.02 748.81 575.19 744.20 580.28 C 738.05 587.36 729.89 592.19 721.98 597.02 C 719.97 598.38 717.51 598.64 715.37 597.45 C 721.28 590.17 727.56 582.51 729.23 573.00 C 729.89 569.28 732.16 564.36 728…2 637.90 C 237.74 645.20 234.86 652.01 233.68 659.20 C 225.36 650.32 217.32 641.18 209.44 631.91 C 210.22 626.99 211.39 622.13 213.36 617.54 C 216.64 609.81 218.70 601.63 221.92 593.89 C 224.42 587.94 229.31 582.36 236.06 581.58 C 243.89 580.85 252.44 583.11 257.71 589.26 C 264.41 595.30 268.39 603.51 274.21 610.28 C 276.87 599.33 277.82 588.00 281.14 577.21 C 284.18 570.37 287.06 561.75 295.03 559.37 Z" />
+                                d=" M 697.28 498.26 C 703.19 496.00 709.57 493.72 715.99 494.89 C 721.77 496.01 727.55 497.99 732.04 501.93 C 739.43 506.68 745.45 513.55 749.39 521.38 C 750.89 526.44 754.89 530.57 755.07 536.02 C 755.46 541.32 757.08 546.62 756.05 551.94 C 755.38 555.56 755.57 559.29 754.78 562.89 C 751.84 569.02 748.81 575.19 744.20 580.28 C 738.05 587.36 729.89 592.19 721.98 597.02 C 719.97 598.38 717.51 598.64 715.37 597.45 C 721.28 590.17 727.56 582.51 729.23 573.00 C 729.89 569.28 732.16 564.36 728.63 561.41 C 725.94 560.84 723.38 562.08 720.91 562.94 C 715.85 564.89 710.32 564.26 705.03 564.24 C 698.47 564.42 692.96 560.43 687.41 557.54 C 683.00 553.36 680.07 547.85 677.50 542.41 C 674.70 537.15 675.38 530.99 675.33 525.25 C 675.28 521.06 677.83 517.58 679.42 513.89 C 682.56 506.20 690.08 501.64 697.28 498.26 Z" />
+                            <path fill="#000000" opacity="1.00"
+                                d=" M 480.96 497.60 C 486.17 496.49 491.59 494.78 496.93 496.12 C 502.41 497.46 508.30 498.38 512.86 501.98 C 518.62 506.42 523.04 512.52 525.77 519.25 C 528.09 524.86 527.54 531.10 527.03 537.00 C 526.48 543.89 522.68 549.84 519.93 556.00 C 516.82 561.81 510.03 563.66 504.50 566.36 C 498.47 569.37 491.60 569.40 485.04 570.10 C 479.67 570.64 474.32 569.75 469.00 569.11 C 463.44 568.50 458.44 565.84 453.53 563.36 C 447.41 560.18 442.24 555.37 438.29 549.75 C 431.08 540.07 428.36 527.81 427.69 515.97 C 427.30 509.40 427.29 502.40 430.63 496.51 C 432.21 499.66 433.45 502.97 434.57 506.32 C 436.99 513.72 441.98 519.87 446.83 525.82 C 448.45 527.95 449.72 530.42 451.79 532.17 C 453.60 533.00 456.12 531.94 456.99 530.19 C 459.40 525.43 460.03 520.03 462.03 515.11 C 463.69 510.79 466.86 507.29 470.21 504.20 C 473.35 501.39 476.68 498.41 480.96 497.60 Z" />
+                        </g>
+                        <g id="#ff0000ff">
+                            <path fill="#ff0000" opacity="1.00"
+                                d=" M 370.29 165.48 C 384.57 157.18 399.21 149.50 414.20 142.56 C 423.80 144.49 433.36 146.65 442.92 148.80 C 447.35 149.64 451.45 152.36 453.56 156.41 C 455.68 160.07 455.55 164.43 455.25 168.51 C 461.03 170.71 465.91 175.61 466.90 181.88 C 468.56 189.23 463.49 197.29 456.08 198.83 C 451.29 200.39 446.82 197.18 442.06 197.27 C 433.71 197.12 425.34 197.55 417.00 197.11 C 409.71 196.76 403.30 190.34 403.26 182.99 C 402.89 178.55 405.25 174.60 407.87 171.24 C 395.28 169.73 382.66 168.35 370.29 165.48 Z" />
+                            <path fill="#ff0000" opacity="1.00"
+                                d=" M 858.54 243.43 C 861.99 237.43 867.40 231.08 874.92 231.08 C 880.26 230.61 885.08 233.70 888.41 237.63 C 895.37 245.68 902.74 253.45 908.52 262.43 C 915.08 271.52 920.14 281.56 925.68 291.28 C 932.58 304.74 939.36 318.28 944.84 332.39 C 946.96 326.75 949.12 321.06 950.08 315.08 C 951.61 306.11 953.51 297.17 956.49 288.56 C 958.43 283.06 961.59 278.11 964.26 272.95 L 964.72 272.73 C 967.04 274.21 968.73 276.43 970.59 278.41 C 975.64 283.90 980.64 289.42 985.51 295.06 L 985.37 295.44 C 981.31 305.12 980.02 315.60 977.89 325.79 C 974.84 337.16 970.61 348.18 965.87 358.95 C 963.52 363.90 960.10 368.35 956.02 371.99 C 948.37 378.47 935.69 375.89 930.25 367.76 C 927.16 363.03 924.58 357.99 921.82 353.06 C 917.21 343.78 914.13 333.83 909.45 324.59 C 900.34 306.03 891.11 287.27 878.33 270.91 C 874.66 276.15 874.56 282.88 873.22 288.94 C 871.50 296.14 872.67 303.62 871.45 310.87 C 870.14 317.85 863.10 323.07 856.05 322.34 C 849.56 321.87 843.85 316.53 843.00 310.08 C 841.99 299.76 842.94 289.33 845.12 279.20 C 846.75 266.38 852.97 254.88 858.54 243.43 Z" />
+                            <path fill="#ff0000" opacity="1.00"
+                                d=" M 203.42 369.36 C 209.20 365.91 217.29 367.22 221.60 372.41 C 224.49 375.52 225.36 379.89 225.35 384.01 C 225.37 394.80 225.32 405.59 225.36 416.38 C 229.88 412.60 235.15 409.57 238.70 404.76 C 242.21 400.26 248.39 397.79 253.98 399.29 C 259.53 400.55 264.15 405.39 264.81 411.10 C 265.89 418.48 261.11 425.19 255.87 429.85 C 250.45 434.06 245.13 438.41 239.57 442.45 C 233.91 445.94 228.03 450.05 221.11 450.12 C 214.11 450.24 205.75 451.07 200.46 445.48 C 195.57 440.79 196.03 433.55 196.02 427.35 C 193.25 432.00 190.33 436.68 186.02 440.06 C 178.99 445.72 174.02 453.46 167.08 459.18 C 160.80 463.49 151.66 465.73 144.99 461.01 C 140.08 457.84 138.68 451.87 135.92 447.09 C 133.04 442.05 131.24 436.51 128.94 431.21 C 127.93 428.60 126.54 425.99 126.66 423.12 C 132.41 412.38 139.11 402.12 145.10 391.50 L 145.37 391.67 C 145.76 391.89 146.52 392.34 146.90 392.56 C 149.24 404.07 154.29 414.71 158.33 425.67 C 162.50 421.07 168.12 417.72 170.87 411.96 C 176.04 401.89 184.01 393.75 190.66 384.72 C 194.32 379.19 197.50 372.85 203.42 369.36 Z" />
+                            <path fill="#ff0000" opacity="1.00"
+                                d=" M 967.30 460.33 C 971.07 456.21 977.24 455.17 982.44 456.79 C 989.05 459.03 993.00 466.26 992.11 473.05 C 992.03 479.25 987.68 484.16 986.68 490.13 C 983.88 503.89 979.88 517.41 974.82 530.50 C 973.06 536.75 971.75 543.17 971.47 549.67 C 976.26 548.12 980.85 545.99 985.76 544.82 C 994.27 542.85 1002.53 539.93 1011.00 537.80 C 1023.57 534.89 1034.77 528.14 1046.97 524.14 C 1054.35 522.37 1062.27 519.81 1069.71 522.79 C 1063.44 533.41 1057.21 544.08 1050.23 554.24 C 1040.33 558.44 1030.57 563.25 1020.06 565.80 C 1010.63 568.22 1001.38 571.33 991.91 573.63 C 981.33 577.38 970.45 581.61 959.01 580.83 C 953.18 580.81 947.31 577.67 944.62 572.42 C 941.93 567.40 942.28 561.54 942.22 556.04 C 942.30 550.02 941.78 543.92 943.08 537.99 C 944.49 531.23 945.41 524.31 948.07 517.89 C 951.12 510.50 953.20 502.78 955.41 495.12 C 957.63 487.14 958.37 478.71 961.91 471.15 C 963.56 467.49 964.29 463.22 967.30 460.33 Z" />
+                            <path fill="#ff0000" opacity="1.00"
+                                d=" M 295.03 559.37 C 303.41 556.37 313.40 563.03 313.73 571.94 C 314.53 578.91 309.05 584.27 307.91 590.83 C 305.55 602.19 304.18 613.80 300.67 624.89 C 298.47 631.98 293.38 638.30 286.53 641.32 C 279.97 643.89 272.52 643.94 265.79 641.98 C 260.67 640.46 256.85 636.44 253.81 632.23 C 250.68 627.83 247.21 623.69 244.09 619.28 C 242.03 625.44 238.93 631.34 238.32 637.90 C 237.74 645.20 234.86 652.01 233.68 659.20 C 225.36 650.32 217.32 641.18 209.44 631.91 C 210.22 626.99 211.39 622.13 213.36 617.54 C 216.64 609.81 218.70 601.63 221.92 593.89 C 224.42 587.94 229.31 582.36 236.06 581.58 C 243.89 580.85 252.44 583.11 257.71 589.26 C 264.41 595.30 268.39 603.51 274.21 610.28 C 276.87 599.33 277.82 588.00 281.14 577.21 C 284.18 570.37 287.06 561.75 295.03 559.37 Z" />
                             <path fill="#ff0000" opacity="1.00"
                                 d=" M 699.01 761.18 C 711.03 761.39 722.99 759.98 734.96 759.09 C 740.52 758.67 746.20 757.98 751.73 759.16 C 757.04 760.30 761.53 764.59 762.74 769.91 C 763.78 773.49 762.72 777.16 761.97 780.68 C 772.96 780.68 783.95 780.61 794.95 780.68 C 798.88 780.58 802.60 782.04 805.88 784.12 C 792.66 791.26 778.83 797.21 764.91 802.84 C 758.25 805.29 751.73 808.26 744.85 810.02 C 736.81 810.11 727.92 810.81 720.97 805.97 C 715.82 802.49 712.91 796.49 712.80 790.33 C 698.52 790.43 684.24 790.91 669.96 790.68 C 662.45 790.37 655.82 783.60 656.13 776.00 C 655.79 768.37 662.49 761.57 670.03 761.30 C 679.68 761.15 689.35 761.33 699.01 761.18 Z" />
                         </g>
@@ -1162,7 +908,7 @@
                 <span class="form-message"></span>
             </div>
             <div class="group1">
-                <button class="btn" id="logins signup">Submit</button>
+                <button class="btn signup" id="logins">Submit</button>
             </div>
 
             <div class="no_login Noo">
@@ -1172,36 +918,16 @@
 
     </div>
 </div>
-<div class="loaded">
-    <div class="loaded_wrap">
-        <div class="loader book">
-            <figure class="page"></figure>
-            <figure class="page"></figure>
-            <figure class="page"></figure>
-        </div>
 
-        <h1>Loading</h1>
-    </div>
-</div>
-<div class="jackpot">
-    <h1>Chúc em yêu may mắn!!!</h1>
-    <div class="slots" id="slots">
-        <span>X</span>
-        <span>X</span>
-        <span>X</span>
-    </div>
-    <button>
-        <span>Continue</span>
-        <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="37" cy="37" r="35.5" stroke="black" stroke-width="3"></circle>
-            <path d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z" fill="black"></path>
-        </svg>
-    </button>
-</div>
-<!-- <script src="/src/JS/script.js"></script> -->
+<script src="/src/JS/script.js"></script>
 <script src="/src/JS/index.js"></script>
+<script src="/src/JS/scriptlogin.js"></script>
 
-<script src="/src/JS/review.js"></script>
+
+<script>
+
+</script>
+</body>
 
 
 </html>
