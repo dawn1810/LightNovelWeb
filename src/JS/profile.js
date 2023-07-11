@@ -601,6 +601,7 @@ document.querySelector('.page5_chap .next_btn').onclick = function () {
 		name_chapters.push(`Chương ${chapNum}: ${chapName}`);
 
 		const file = $(this).find('.file-input')[0].files[0];
+		console.log(file)
 		const reader = new FileReader();
 
 		reader.onload = () => {
