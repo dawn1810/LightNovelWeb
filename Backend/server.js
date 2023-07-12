@@ -11,7 +11,6 @@ const NodePersist = require('node-persist');
 const path = require('path');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const FacebookStrategy = require('passport-facebook').Strategy;
 const credentials = require('./client_secret_483084822625-jrf4t8tq5j272i8mugfk4qorgv3dg11o.apps.googleusercontent.com.json');
 const session = require('express-session');
 const fs = require("fs");
@@ -26,14 +25,37 @@ const notion = new Client({ auth: 'secret_773isnmzBUbd1TFIympgLAewkvvXufZXxdDyt5
 // ID of the Notion file you want to read
 const notionFileId = 'YOUR_NOTION_FILE_ID';
 // ----------------------------------------------------------------
+const allowedMimeTypes = ['text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
 
 ////////////////////////
 const app = express();
 const router = express.Router();
+const multer = require('multer'); // Thư viện để xử lý file upload
 
 const port = 6969;
 const secretKey = '5gB#2L1!8*1!0)$7vF@9';
 const authenticationKey = Buffer.from(secretKey.padEnd(32, '0'), 'utf8').toString('hex');
+const uploadDirectory = path.join('.upload_temp', 'files');
+
+// Định nghĩa nơi lưu trữ file tạm thời
+const storage_file = multer.diskStorage({
+	destination: function (req, file, cb) {
+	  // Kiểm tra định dạng file
+	  if (!allowedMimeTypes.includes(file.mimetype)) {
+		console.log('SYSTEM | GET_NOVEL_LIST | ERROR | Lỗi định dạng file không đúng');
+
+		return cb(new Error('Invalid file type.'), null);
+	  }
+  
+	  cb(null, uploadDirectory);
+	},
+	filename: function (req, file, cb) {
+	  cb(null, file.originalname);
+	}
+  });
+
+// Thiết lập middleware multer cho việc xử lý upload file
+const upload = multer({ storage: storage_file });
 
 
 function sendEmail(password, email, usr_name) {
@@ -199,6 +221,7 @@ const storage = NodePersist.create({
 async function getNovelList() {
 	try {
 		// by week:
+		console.log('vi sao loi :)')
 		let query_by_week = { update_date: { $gte: getFirstAndLastDayOfWeek().firstDay, $lt: getFirstAndLastDayOfWeek().lastDay } };
 		const by_week = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { views: 1 }, limit: 50 });
 		// by month:
@@ -315,6 +338,7 @@ async function readDocFile(docFilePath) {
 				console.log('DOC file contents saved to doc_contents.txt');
 			}
 		});
+
 	} catch (error) {
 		console.error('An error occurred while reading the DOC file:', error);
 	}
@@ -463,9 +487,6 @@ app.get('/profile/:anything', checkCoookieIfOK, checkCookieLoglUser, (req, res) 
 	});
 });
 
-app.get('/login/twitter', (req, res) => {
-	res.sendFile(parentDirectory + '/view/money.html');
-});
 //////////
 
 
@@ -524,7 +545,7 @@ app.post('/no_chaps', async (req, res) => {
 // Update mongDB novel data ////////////////////////////////////////////////////////////////////////////////////////////////
 app.get('/update_novel', async (req, res) => {
 	try {
-
+		console.log('abc')
 		await updateNovel.updateIds();
 
 		// Đọc tệp JSON không đồng bộ
@@ -1113,17 +1134,40 @@ app.post('/uploadnovel', async (req, res) => {
 	}
 });
 
+
+// Route xử lý yêu cầu upload file
+app.post('/uploadFile', upload.single('file'), function (req, res) {
+	// Truy cập thông tin về file đã upload thông qua req.file
+	if (!req.file) {
+		return res.status(400).send('No file uploaded.');
+	}
+	// Kiểm tra kiểu dữ liệu của file
+	if (!allowedMimeTypes.includes(req.file.mimetype)) {
+		return res.status(400).send('Invalid file type.');
+	}
+	// Xử lý file đã upload ở đây
+	console.log('File uploaded:', req.file);
+
+	// Gửi phản hồi về thành công
+	res.writeHead(200, { 'Content-Type': 'text/plain' });
+	res.end('abc');
+});
+
+
+
+
 // Get chap -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.post('/give_me_chap', async (req, res) => {
 	console.log('ok bro');
 	res.sendStatus(200);
 });
-app.get('*', function (req, res) {
+app.get('*', checkCookieLoglUser, function (req, res) {
 	res.render('index', {
 		headerFile: 'header',
 		footerFile: 'footer'
 	});
 })
+
 // Schedule the code execution at midnight (00:00)
 cron.schedule('0 0 * * *', async () => {
 	// update popular novel list 

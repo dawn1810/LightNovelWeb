@@ -33,6 +33,17 @@ const range = document.querySelector('.range');
 const range__label = document.querySelector('.range__label');
 const back_btn = document.querySelectorAll('.back_btn')
 
+let finalDataToServer = {
+	novel_name: "",
+	author_name: "",
+	novel_descript: "",
+	novel_types: "",
+	novel_status: "",
+	name_chapters: [],
+	chapters_content: [],
+	chapter_content_remove : []
+};
+
 window.addEventListener('popstate', function (event) {
 	location.reload();
 });
@@ -302,6 +313,43 @@ function getRandomElement(list) {
 	const randomIndex = Math.floor(Math.random() * list.length);
 	return list[randomIndex];
 }
+function generateUUID() {
+	// Hàm tạo chuỗi UUID
+	// Tham khảo: https://stackoverflow.com/a/2117523/13347726
+	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+	  var r = (Math.random() * 16) | 0,
+		v = c === 'x' ? r : (r & 0x3) | 0x8;
+	  return v.toString(16);
+	});
+  }
+function uploadFile(file) {
+	let formData = new FormData();
+
+	let extension = file.name.substring(file.name.lastIndexOf('.'));
+	let newName = generateUUID() + extension;
+	let renamedFile = new File([file], newName, { type: file.type });
+	formData.append('file', renamedFile);
+
+	fetch('/uploadFile', {
+		method: 'POST',
+		body: formData
+	})
+		.then(function (response) {
+			if (response.ok) {
+				// File uploaded successfully
+				// luu id vao chap content
+				// finalDataToServer.chapters_content.push(response.text())
+				console.log('File uploaded!');
+			} else {
+				// Error occurred during upload
+				console.error('Error uploading file.');
+			}
+		})
+		.catch(function (error) {
+			// Error occurred during the request
+			console.error('Error uploading file.');
+		});
+}
 
 // Danh sách các phần tử
 const myList = [
@@ -429,8 +477,6 @@ document.querySelector('.change-pass-btn').onclick = async function (e) {
 
 // change pass
 
-
-
 add_new.onclick = function () {
 	page5_composed_drop()
 	var newURL = currentURL + '/profile' + '/add_novel';
@@ -488,11 +534,11 @@ document.querySelector('.page5_info .next_btn').onclick = function () {
 	}, 50)
 
 
-	sessionStorage.setItem("novel_name", novel_name.value);
-	sessionStorage.setItem("author_name", author_name.value);
-	sessionStorage.setItem("novel_descript", novel_descript.value);
-	sessionStorage.setItem("novel_types", novel_types.options[novel_types.selectedIndex].text);
-	sessionStorage.setItem("novel_status", novel_status.options[novel_status.selectedIndex].text);
+	finalDataToServer["novel_name"] = novel_name.value;
+	finalDataToServer["author_name"] = author_name.value;
+	finalDataToServer["novel_descript"] = novel_descript.value;
+	finalDataToServer["novel_types"] = novel_types.options[novel_types.selectedIndex].text;
+	finalDataToServer["novel_status"] = novel_status.options[novel_status.selectedIndex].text;
 }
 
 document.querySelector('.page5_chap .more_chap_btn').onclick = function () {
@@ -539,7 +585,6 @@ document.querySelector('.page5_chap .more_chap_btn').onclick = function () {
 	document.querySelector('.page5_chap .page5_info_main').appendChild(newElement);
 };
 
-
 $(document).ready(function () {
 	// Add event listener to all buttons
 	$(document).on('click', '.page5_chap .delete_chap', function () {
@@ -562,19 +607,14 @@ $(document).ready(function () {
 
 	$(document).on('change', '.page5_chap .file-input', function () {
 		const file = $(this)[0].files[0];
-		// const file = $(this).find('.file-input').prop('files')[0];
-		// const reader = new FileReader();
-		// set file upload name
+		// up file len drive
+		uploadFile(file);
 		$(this).parent().find('.file-content').text(file.name)
-		// reader.onload = () => {
-		// 	console.log(reader.result);
-		// };
 
-		// reader.readAsText(file);
 	});
 });
 
-// next page
+// next page btn of .page5_chap
 document.querySelector('.page5_chap .next_btn').onclick = function () {
 	page5_a_up_drop()
 	var newURL = currentURL + '/profile/post_novel';
@@ -589,37 +629,19 @@ document.querySelector('.page5_chap .next_btn').onclick = function () {
 	}, 50)
 
 	// -----------------------------------------------------------------------------------------
-	let name_chapters = [];
-	let chapters_content = [];
 	// Loop through all elements
 	$('.page5_chap .info-wrapper-container').each(function () {
 		// Get the input element inside the current element
 		let chapNum = $(this).find('.chap_num').val();
 		let chapName = $(this).find('.chap_name').val();
 
+		finalDataToServer["name_chapters"].push(`Chương ${chapNum}: ${chapName}`);
 
-		name_chapters.push(`Chương ${chapNum}: ${chapName}`);
-
-		const file = $(this).find('.file-input')[0].files[0];
-		console.log(file)
-		const reader = new FileReader();
-
-		reader.onload = () => {
-			// chapters_content.push(reader.result);
-			// console.log(reader.result);
-			console.log(reader.result)
-		};
-
-
-		reader.readAsText(file);
 	});
-
-	sessionStorage.setItem("name_chapters", JSON.stringify(name_chapters));
-	sessionStorage.setItem("chapters_content", JSON.stringify(chapters_content));
 	// -----------------------------------------------------------------------------------------
 }
 
-document.querySelector('.page5_post .post_btn').onclick = function () {
+document.querySelector('.page5_post .post_btn').onclick = async function () {
 
 	page5_a_up_drop()
 	var newURL = currentURL + '/profile/congratulation';
@@ -638,6 +660,8 @@ document.querySelector('.page5_post .post_btn').onclick = function () {
 	setTimeout(function () {
 		range__label.classList.add('anima')
 	}, 50)
+
+	// POST ALL DATA TO SERVER--------------------------------------------------------------------------------------------------
 }
 
 
@@ -655,26 +679,3 @@ page5_post_check.onclick = function () {
 	}
 
 }
-
-// upload file:
-// const loadFileButton = document.querySelector('.page5_chap .upfile');
-// const fileInput = document.querySelector('.page5_chap .file-input');
-// const fileContent = document.querySelector('.page5_chap .file-content');
-
-// loadFileButton.addEventListener('click', () => {
-// 	fileInput.click();
-// });
-
-// fileInput.addEventListener('change', () => {
-// 	const file = fileInput.files[0];
-// 	const reader = new FileReader();
-// 	// set file upload name
-// 	fileContent.textContent = file.name;
-
-// 	reader.onload = () => {
-// 		console.log(reader.result);
-// 	};
-
-// 	reader.readAsText(file);
-// });
-
