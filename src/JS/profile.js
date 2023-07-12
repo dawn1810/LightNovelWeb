@@ -1,11 +1,18 @@
-const avtBtn = document.querySelector(".dropdown-trigger");
-const avtUpLoad = document.getElementById("file-upload");
-const avatar = document.querySelector(".your-avt");
-const dropZone = document.querySelector(".drop-zone");
-const avatar5 = document.querySelector(".page5_info_img .your-avt");
-const dropZone5 = document.querySelector(".page5_info_img .drop-zone");
-const avtBtn5 = document.querySelector(".dropdown-trigger");
-const avtUpLoad5 = document.getElementById("file-upload");
+// avt page1
+const avtBtn = document.querySelector(".page1 .dropdown-trigger");
+const avtUpLoad = document.querySelector(".page1 #file-upload");
+const avatar = document.querySelector(".page1 .your-avt");
+const dropZone = document.querySelector(".page1 .drop-zone");
+// avt page1
+
+
+// avt page5
+const avatar5 = document.querySelector(".page5_a_up .your-avt");
+const dropZone5 = document.querySelector(".page5_a_up .drop-zone");
+const avtBtn5 = document.querySelector(".page5_a_up .dropdown-trigger");
+const avtUpLoad5 = document.querySelector(".page5_a_up #file-upload");
+// avt page5
+
 
 const Setting_pageWrapper = document.querySelectorAll(".Setting_pageWrapper");
 const Setting_item = document.querySelectorAll(".Setting_sidebar-list_item");
@@ -33,15 +40,22 @@ const range = document.querySelector('.range');
 const range__label = document.querySelector('.range__label');
 const back_btn = document.querySelectorAll('.back_btn')
 
+// toast 
+const toast = document.querySelector(".toast");
+const closeIcon = document.querySelector(".close");
+const progress = document.querySelector(".progress");
+// toast
+
+
 let finalDataToServer = {
 	novel_name: "",
 	author_name: "",
 	novel_descript: "",
 	novel_types: "",
 	novel_status: "",
+	novel_avt: "",
 	name_chapters: [],
-	chapters_content: [],
-	chapter_content_remove : []
+	chapters_content: []
 };
 
 window.addEventListener('popstate', function (event) {
@@ -51,7 +65,6 @@ window.addEventListener('popstate', function (event) {
 function Setting_pageWrapper_drop() {
 	for (const key of Setting_pageWrapper) {
 		key.style.display = "none";
-		console.log(key);
 	}
 }
 function Setting_item_drop() {
@@ -97,7 +110,11 @@ else if (currentPath == '/add_novel') {
 	page5_composed_drop()
 	Setting_pageWrapper_drop()
 	page5_a_up_drop()
+	Setting_item_drop()
+
 	Setting_pageWrapper[3].style.display = 'block'
+	Setting_item[3].style.backgroundColor = "var(--st-pr-btn-bg)";
+
 	page5_composed[1].style.display = 'block'
 	page5_a_up[0].style.display = 'flex'
 	setTimeout(function () {
@@ -113,6 +130,10 @@ else if (currentPath == '/add_content') {
 	page5_composed_drop()
 	Setting_pageWrapper_drop()
 	page5_a_up_drop()
+	Setting_item_drop()
+
+	Setting_item[3].style.backgroundColor = "var(--st-pr-btn-bg)";
+
 	Setting_pageWrapper[3].style.display = 'block'
 	page5_composed[1].style.display = 'block'
 	// page5_a_up[0].style.display = 'flex'
@@ -130,6 +151,10 @@ else if (currentPath == '/post_novel') {
 	page5_composed_drop()
 	Setting_pageWrapper_drop()
 	page5_a_up_drop()
+	Setting_item_drop()
+
+	Setting_item[3].style.backgroundColor = "var(--st-pr-btn-bg)";
+
 	Setting_pageWrapper[3].style.display = 'block'
 	page5_composed[1].style.display = 'block'
 	// page5_a_up[0].style.display = 'flex'
@@ -146,6 +171,10 @@ else if (currentPath == '/congratulation') {
 	page5_composed_drop()
 	Setting_pageWrapper_drop()
 	page5_a_up_drop()
+	Setting_item_drop()
+
+	Setting_item[3].style.backgroundColor = "var(--st-pr-btn-bg)";
+
 	Setting_pageWrapper[3].style.display = 'block'
 	page5_composed[1].style.display = 'block'
 	// page5_a_up[0].style.display = 'flex'
@@ -170,7 +199,7 @@ for (let i = 0; i < Setting_item.length; i++) {
 	const currentURL = 'http://localhost:6969/profile';
 
 	// console.log(Setting_item[i])
-	console.log(i);
+	// console.log(i);
 	Setting_item[i].onclick = function () {
 
 
@@ -241,15 +270,17 @@ avtBtn.addEventListener("click", function (event) {
 	return false;
 });
 avtBtn5.addEventListener("click", function (event) {
-	avtUpLoad.click();
+	avtUpLoad5.click();
 	return false;
 });
 
 avtUpLoad.addEventListener("change", function (event) {
+
 	const file = event.target.files[0];
 	const reader = new FileReader();
 	reader.onload = () => {
 		const base64 = reader.result;
+		console.log(reader.result)
 		avatar.src = reader.result;
 	};
 	reader.readAsDataURL(file);
@@ -260,11 +291,14 @@ avtUpLoad.addEventListener("change", function (event) {
 	}
 });
 avtUpLoad5.addEventListener("change", function (event) {
+	console.log("avtUpLoad5");
 	const file = event.target.files[0];
 	const reader = new FileReader();
 	reader.onload = () => {
 		const base64 = reader.result;
-		avatar5.src = reader.result;// live stream di a zai
+		console.log(reader.result)
+
+		avatar5.src = reader.result;
 	};
 	reader.readAsDataURL(file);
 
@@ -290,7 +324,7 @@ function drop(event) {
 
 	// disappear drop text
 	if (avatar.src !== "") {
-		dropZone.innerHTML = "";
+		dropZone.innerHTML = "haha";
 	}
 }
 function drop5(event) {
@@ -299,13 +333,13 @@ function drop5(event) {
 	const reader = new FileReader();
 	reader.onload = () => {
 		const base64 = reader.result;
-		avatar.src = reader.result;
+		avatar5.src = reader.result;
 	};
 	reader.readAsDataURL(file);
 
 	// disappear drop text
-	if (avatar.src !== "") {
-		dropZone.innerHTML = "";
+	if (avatar5.src !== "") {
+		dropZone5.innerHTML = "haha";
 	}
 }
 
@@ -316,19 +350,22 @@ function getRandomElement(list) {
 function generateUUID() {
 	// Hàm tạo chuỗi UUID
 	// Tham khảo: https://stackoverflow.com/a/2117523/13347726
-	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-	  var r = (Math.random() * 16) | 0,
-		v = c === 'x' ? r : (r & 0x3) | 0x8;
-	  return v.toString(16);
+	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+		var r = (Math.random() * 16) | 0,
+			v = c === 'x' ? r : (r & 0x3) | 0x8;
+		return v.toString(16);
 	});
-  }
-function uploadFile(file) {
-	let formData = new FormData();
+}
 
-	let extension = file.name.substring(file.name.lastIndexOf('.'));
-	let newName = generateUUID() + extension;
-	let renamedFile = new File([file], newName, { type: file.type });
-	formData.append('file', renamedFile);
+function uploadFiles(files) {
+	var formData = new FormData();
+
+	for (var i = 0; i < files.length; i++) {
+		let extension = files[i].name.substring(files[i].name.lastIndexOf('.'));
+		let newName = `${i} ` + generateUUID() + extension;
+		let renamedFile = new File([files[i]], newName, { type: files[i].type });
+		formData.append('files[]', renamedFile);
+	}
 
 	fetch('/uploadFile', {
 		method: 'POST',
@@ -336,18 +373,31 @@ function uploadFile(file) {
 	})
 		.then(function (response) {
 			if (response.ok) {
-				// File uploaded successfully
-				// luu id vao chap content
-				// finalDataToServer.chapters_content.push(response.text())
-				console.log('File uploaded!');
-			} else {
+				return response.json;
+			} else if (response.status == "400") {
 				// Error occurred during upload
-				console.error('Error uploading file.');
+				window.alert('Em yêu có file sai định dạng kìa!!!')
+				toast.classList.add("active");
+				progress.classList.add("active");
+
+				timer1 = setTimeout(() => {
+					toast.classList.remove("active");
+				}, 5000); //1s = 1000 milliseconds
+
+				timer2 = setTimeout(() => {
+					progress.classList.remove("active");
+				}, 5300);
+				console.error('Error uploading files.');
 			}
+		})
+		.then(function (responseData) {
+			console.log('File uploaded!');
+			finalDataToServer["chapters_content"] = responseData
+			console.log(responseData);
 		})
 		.catch(function (error) {
 			// Error occurred during the request
-			console.error('Error uploading file.');
+			console.error('Error uploading files.');
 		});
 }
 
@@ -374,7 +424,8 @@ document.querySelector(".button_random").onclick = function (e) {
 
 // update info
 const Save_btn = document.querySelector('.Save_btn')
-Save_btn.onclick = function () {
+Save_btn.onclick = function (e) {
+	e.preventDefault()
 	const url = `${currentURL}/updateInfo`; // URL của máy chủ mục tiêu
 	let sex = 0
 	if (document.querySelector('#nam').checked) {
@@ -520,25 +571,40 @@ show_list.onclick = function () {
 }
 
 document.querySelector('.page5_info .next_btn').onclick = function () {
-	page5_a_up_drop()
-	var newURL = currentURL + '/profile/add_content';
-	history.pushState(null, null, newURL);
-	page5_chap.style.display = 'block'
-	range.style.setProperty('--p', '50');
-	range.style.setProperty('--widthbf', '25%');
+	if (novel_name.value != '' && author_name.value != '' && novel_descript.value) {
+		page5_a_up_drop()
+		let newURL = currentURL + '/profile/add_content';
+		history.pushState(null, null, newURL);
+		page5_chap.style.display = 'block'
+		range.style.setProperty('--p', '50');
+		range.style.setProperty('--widthbf', '25%');
 
-	range__label.classList.remove('anima')
+		range__label.classList.remove('anima')
 
-	setTimeout(function () {
-		range__label.classList.add('anima')
-	}, 50)
+		setTimeout(function () {
+			range__label.classList.add('anima')
+		}, 50)
 
 
-	finalDataToServer["novel_name"] = novel_name.value;
-	finalDataToServer["author_name"] = author_name.value;
-	finalDataToServer["novel_descript"] = novel_descript.value;
-	finalDataToServer["novel_types"] = novel_types.options[novel_types.selectedIndex].text;
-	finalDataToServer["novel_status"] = novel_status.options[novel_status.selectedIndex].text;
+		finalDataToServer["novel_name"] = novel_name.value;
+		finalDataToServer["author_name"] = author_name.value;
+		finalDataToServer["novel_descript"] = novel_descript.value;
+		finalDataToServer["novel_types"] = novel_types.options[novel_types.selectedIndex].text;
+		finalDataToServer["novel_status"] = novel_status.options[novel_status.selectedIndex].text;
+		finalDataToServer["novel_avt"] = document.querySelector('.page5_info_img .your-avt').src
+	} else {
+		// window.alert("Là một nhẫn giả chân chính hãy điển đủ thông tin ¯\(◉◡◔)/¯")
+		toast.classList.add("active");
+		progress.classList.add("active");
+
+		timer1 = setTimeout(() => {
+			toast.classList.remove("active");
+		}, 5000); //1s = 1000 milliseconds
+
+		timer2 = setTimeout(() => {
+			progress.classList.remove("active");
+		}, 5300);
+	}
 }
 
 document.querySelector('.page5_chap .more_chap_btn').onclick = function () {
@@ -573,7 +639,7 @@ document.querySelector('.page5_chap .more_chap_btn').onclick = function () {
 			<div class="head">
 				<h3>Nội Dung</h3>
 				<pre class="file-content" style="margin: 1rem 20px;"></pre>
-				<input type="file" class="file-input" style="display:none;" />
+				<input type="file" class="file-input" style="display:none;" accept=".txt, .docx"/>
 				<button class="upfile">
 					<i class="fa-solid fa-upload"></i>
 				</button>
@@ -607,8 +673,6 @@ $(document).ready(function () {
 
 	$(document).on('change', '.page5_chap .file-input', function () {
 		const file = $(this)[0].files[0];
-		// up file len drive
-		uploadFile(file);
 		$(this).parent().find('.file-content').text(file.name)
 
 	});
@@ -616,29 +680,42 @@ $(document).ready(function () {
 
 // next page btn of .page5_chap
 document.querySelector('.page5_chap .next_btn').onclick = function () {
-	page5_a_up_drop()
-	var newURL = currentURL + '/profile/post_novel';
-	history.pushState(null, null, newURL);
-	page5_post.style.display = 'block'
-	range.style.setProperty('--p', '75');
-	range.style.setProperty('--widthbf', '50%');
-	range__label.classList.remove('anima')
-
-	setTimeout(function () {
-		range__label.classList.add('anima')
-	}, 50)
-
-	// -----------------------------------------------------------------------------------------
+	let files = []
+	let full = false
 	// Loop through all elements
 	$('.page5_chap .info-wrapper-container').each(function () {
 		// Get the input element inside the current element
 		let chapNum = $(this).find('.chap_num').val();
 		let chapName = $(this).find('.chap_name').val();
-
-		finalDataToServer["name_chapters"].push(`Chương ${chapNum}: ${chapName}`);
-
+		let curr_file = $(this).find('.file-input')[0].files[0];
+		if (chapNum != '' && chapName != '' && curr_file) {
+			finalDataToServer["name_chapters"].push(`Chương ${chapNum}: ${chapName}`);
+			files.push(curr_file);
+			full = true;
+		} else {
+			full = false;
+		};
 	});
-	// -----------------------------------------------------------------------------------------
+
+	if (full) {
+		uploadFiles(files);
+		// -----------------------------------------------------------------------------------------
+
+		page5_a_up_drop()
+		var newURL = currentURL + '/profile/post_novel';
+		history.pushState(null, null, newURL);
+		page5_post.style.display = 'block'
+		range.style.setProperty('--p', '75');
+		range.style.setProperty('--widthbf', '50%');
+		range__label.classList.remove('anima')
+
+		setTimeout(function () {
+			range__label.classList.add('anima')
+		}, 50)
+	} else {
+		window.alert("Là một nhẫn giả chân chính hãy điển đủ thông tin ¯\(◉◡◔)/¯")
+	}
+
 }
 
 document.querySelector('.page5_post .post_btn').onclick = async function () {
@@ -662,6 +739,51 @@ document.querySelector('.page5_post .post_btn').onclick = async function () {
 	}, 50)
 
 	// POST ALL DATA TO SERVER--------------------------------------------------------------------------------------------------
+	//gửi request tới csdl server
+	const url = `${currentURL}upload_novel`; // URL của máy chủ mục tiêu
+
+	const postData = JSON.stringify({
+		name: finalDataToServer["novel_name"],
+		author: finalDataToServer["author_name"],
+		name_chaps: finalDataToServer["name_chapters"],
+		chap_ids: finalDataToServer["chapters_content"],
+		genres: finalDataToServer["novel_types"],
+		status: finalDataToServer["novel_status"],
+		summary: finalDataToServer["novel_descript"], // summary of novel 
+		image: finalDataToServer["novel_avt"], // avatar of novel
+	});
+
+	const requestOptions = {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: postData
+	};
+
+	try {
+		const response = await fetch(url, requestOptions)
+		// taì khoan hơp lệ 
+		if (response.status == '200') {
+			console.log('đăng truyện thành công!!!')
+		}
+
+		else if (response.status == '204') {
+
+		}
+
+		else if (response.status == '403') {
+
+		}
+		else if (response.status == '404') {
+
+		}
+		else {
+
+		}
+	} catch (error) {
+		console.log('Error:', error);
+	}
 }
 
 

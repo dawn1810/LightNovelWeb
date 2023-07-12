@@ -18,14 +18,14 @@ const { ObjectId } = require('mongodb');
 // ----------------------------------------------------------------
 const { Client } = require('@notionhq/client');
 const mammoth = require('mammoth');
-
+const { v4: uuidv4 } = require('uuid');
 // Initialize Notion client with your integration token
 const notion = new Client({ auth: 'secret_773isnmzBUbd1TFIympgLAewkvvXufZXxdDyt5vl1mw' });
 
 // ID of the Notion file you want to read
 const notionFileId = 'YOUR_NOTION_FILE_ID';
 // ----------------------------------------------------------------
-const allowedMimeTypes = ['text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+const allowedMimeTypes = ['text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
 
 ////////////////////////
 const app = express();
@@ -37,73 +37,24 @@ const secretKey = '5gB#2L1!8*1!0)$7vF@9';
 const authenticationKey = Buffer.from(secretKey.padEnd(32, '0'), 'utf8').toString('hex');
 const uploadDirectory = path.join('.upload_temp', 'files');
 
-// Định nghĩa nơi lưu trữ file tạm thời
 const storage_file = multer.diskStorage({
 	destination: function (req, file, cb) {
-	  // Kiểm tra định dạng file
-	  if (!allowedMimeTypes.includes(file.mimetype)) {
-		console.log('SYSTEM | GET_NOVEL_LIST | ERROR | Lỗi định dạng file không đúng');
+		if (!allowedMimeTypes.includes(file.mimetype)) {
+			console.log('SYSTEM | GET_NOVEL_LIST | ERROR | Lỗi định dạng file không đúng');
 
-		return cb(new Error('Invalid file type.'), null);
-	  }
-  
-	  cb(null, uploadDirectory);
+			return cb(new Error('Invalid file type.'), null);
+		}
+
+		// Trả về đường dẫn đến thư mục mới
+		cb(null, uploadDirectory);
 	},
 	filename: function (req, file, cb) {
-	  cb(null, file.originalname);
+		cb(null, file.originalname);
 	}
-  });
+});
 
 // Thiết lập middleware multer cho việc xử lý upload file
 const upload = multer({ storage: storage_file });
-
-
-function sendEmail(password, email, usr_name) {
-	const transporter = nodemailer.createTransport({
-		service: 'gmail',
-		auth: {
-			user: 'nguytuan04@gmail.com',
-			pass: 'unjwfrdskgezbmym'
-		}
-	});
-
-	const mailOptions = {
-		from: 'nguytuan04@gmail.com',
-		to: `${email}`,
-		subject: 'CHÀO MỪNG BẠN ĐẾN VỚI ĐỊA NGỤC',
-		text: 'Email content',
-		html:
-			`<!DOCTYPE html>
-      <html>
-      <head>
-         <meta charset="utf-8">
-         <title>NodeMailer Email Template</title>
-      </head>
-      <body>
-         <div class="container" style= "width: 100%; height: 100%; padding: 20px; display: flex; justify-content: center; align-content: center; background-color: #f4f4f4;">
-            <div class="email" style= "width: 500px; height: 750px; margin: 0 auto; background-image: url(https://i.imgur.com/rKOdysI.png); background-repeat: no-repeat; background-attachment: content; background-size: 100% 100%; background-position: center; padding: 20px; position: relative;">
-               <div class="email-header" style="background-color: transparent; color: black; padding-top: 90px; text-align: center;">
-                  <h1 style="font-size:40px;">${usr_name.toUpperCase()}</h1>
-                  <div style="padding-top:68%;text-align: center;font-size:30px;" >
-                     <span>${password}</span>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </body>
-   </html>`
-	};
-
-	transporter.sendMail(mailOptions, function (error, info) {
-		if (error) {
-			console.log('SYSTEM | SEND_EMAIL | ', error);
-		} else {
-			console.log(`SYSTEM | SEND_EMAIL | ${info.response}`);
-			// do something useful
-		}
-	});
-}
-
 
 function encrypt(data, secretKey) {
 	const algorithm = 'aes-256-cbc';
@@ -131,26 +82,6 @@ function decrypt(encryptedDataWithIV, secretKey) {
 	console.log('SYSTEM | DECRYPT | OK');
 
 	return decryptedData;
-}
-
-function randompass() {
-	const lowerCase = "abcdefghijklmnopqrstuvwxyz";
-	const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	const number = "0123456789";
-	const symbol = "!@#$%^&*_-+="
-	const allChars = upperCase + lowerCase + number + symbol
-
-	let password = "";
-	password += upperCase[Math.floor(Math.random() * upperCase.length)];
-	password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
-	password += number[Math.floor(Math.random() * number.length)];
-	password += symbol[Math.floor(Math.random() * symbol.length)];
-
-	while (password.length < 8) {
-		password += allChars[Math.floor(Math.random() * allChars.length)];
-	}
-	console.log('SYSTEM | GEN_PASSWORD | OK')
-	return password;
 }
 
 function convertToHtml(text) {
@@ -221,7 +152,6 @@ const storage = NodePersist.create({
 async function getNovelList() {
 	try {
 		// by week:
-		console.log('vi sao loi :)')
 		let query_by_week = { update_date: { $gte: getFirstAndLastDayOfWeek().firstDay, $lt: getFirstAndLastDayOfWeek().lastDay } };
 		const by_week = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { views: 1 }, limit: 50 });
 		// by month:
@@ -297,7 +227,6 @@ function set_cookies(res, id, pass) {
 
 		path: '/'
 	});
-	console.log('( • )( • ) ԅ(‾⌣‾ԅ)');
 	res.writeHead(200, { 'Content-Type': 'text/html' });
 	console.log(`SYSTEM | SET_COOKIES | User ${id} login!`);
 }
@@ -326,40 +255,42 @@ async function readNotionFile() {
 	}
 }
 
-async function readDocFile(docFilePath) {
+async function readDocxFile(docxFilePath) {
 	try {
-		const { value } = await mammoth.extractRawText({ path: docFilePath });
+		const extname = path.extname(docxFilePath).toLowerCase();
+		const outputFilePath = docxFilePath.replace(extname, '.txt');
 
-		// Save the extracted text to a file
-		fs.writeFile('doc_contents.txt', value, 'utf8', (err) => {
+		const { value } = await mammoth.extractRawText({ path: docxFilePath });
+		const text = value.trim();
+
+		fs.writeFile(outputFilePath, text, 'utf8', (err) => {
 			if (err) {
 				console.error('An error occurred while writing the file:', err);
 			} else {
-				console.log('DOC file contents saved to doc_contents.txt');
+				console.log(`File contents saved to ${outputFilePath}`);
+				fs.unlink(docxFilePath, (err) => {
+					if (err) {
+						console.error('An error occurred while deleting the file:', err);
+					} else {
+						console.log(`Deleted ${docxFilePath}`);
+					}
+				});
 			}
 		});
-
 	} catch (error) {
-		console.error('An error occurred while reading the DOC file:', error);
+		console.error('An error occurred:', error);
 	}
 }
 
-async function get_full_id(directoryPath) {
+async function get_full_id(directoryPath, listName) {
 	let list_id = [];
 	try {
 		// Đọc các file trong thư mục một cách đồng bộ
-		const files = fs.readdirSync(directoryPath);
-		// Lọc và lấy đường dẫn của các file có phần mở rộng là ".txt"
-		const txtFilePaths = files
-			.filter((file) => path.extname(file).toLowerCase() === '.txt')
-			.map((file) => path.join(directoryPath, file))
-			.sort((a, b) => {
-				const indexA = parseInt(a.match(/(\d+)\./)[1]);
-				const indexB = parseInt(b.match(/(\d+)\./)[1]);
-
-				return indexA - indexB;
-			});
-
+		let txtFilePaths = []
+		for (const name of listName) {
+			txtFilePaths.push(path.join(directoryPath, name))
+		}
+		console.log(txtFilePaths)
 		const processFiles = async () => {
 			for (const filePath of txtFilePaths) {
 				console.log(filePath);
@@ -370,10 +301,12 @@ async function get_full_id(directoryPath) {
 
 		return list_id;
 	} catch (err) {
-		console.error('Lỗi khi đọc thư mục:', err);
+		console.error('SYSTEM | GET_ID | ERR | ', err);
 	}
 
 }
+
+
 // ------------------------------------------------------------------------------------------------
 
 async function checkCookieLoglUser(req, res, next) {
@@ -419,8 +352,6 @@ async function checkCookieLoglUser(req, res, next) {
 	}
 }
 
-
-
 async function checkCoookieIfOK(req, res, next) {
 	const data = req.cookies;
 	if (!data.account) {
@@ -432,6 +363,7 @@ async function checkCoookieIfOK(req, res, next) {
 	}
 
 }
+
 const blockUnwantedPaths = (req, res, next) => {
 	const unwantedPaths = ['/Backend/', '/.temp/', '/.credentials/'];
 
@@ -1054,8 +986,51 @@ app.post('/reading', async (req, res) => {
 });
 
 // Upload novel ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.post('/uploadnovel', async (req, res) => {
+app.post('/upload_novel', async (req, res) => {
 	const data = req.body;
+	console.log('SYSTEM | UPLOAD NOVEL |', data);
+
+	try {
+		// create a new comment document
+		await server.add_one_Data("comment", {
+			_id: data.id,
+			content: {
+				// user_name: content (do what to add)
+			}
+		});
+
+		// upload novel content
+		let up_content = {
+			name: data.name,
+			author: data.author,
+			name_chaps: data.name_chaps,
+			chap_ids: dummy.ids, // cho nay can them
+			status: data.status,
+			no_chapters: data.name_chaps.length,
+			genres: data.genres,
+			summary: data.summary,
+			image: data.image,
+			views: 0,
+			likes: 0,
+			update_date: new Date(),
+		};
+
+		await server.add_one_Data("truyen", up_content);
+
+
+		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
+		console.log('SYSTEM | UPLOAD NOVEL | Trả về nội dung truyện muốn đọc', send_back.name);
+		res.end(JSON.stringify(send_back));
+
+	} catch (err) {
+		console.log('SYSTEM | UPLOAD NOVEL | ERROR | ', err);
+		res.sendStatus(500);
+	}
+});
+
+app.post('/update_novel', async (req, res) => {
+	const data = req.body;
+	console.log('SYSTEM | UPLOAD NOVEL |', data);
 	// data = {
 	// 	id: 0, // already exist novel use current id, else use 0
 	// 	name: dummy.title, // ten truyen
@@ -1071,58 +1046,19 @@ app.post('/uploadnovel', async (req, res) => {
 	// 	likes: 0, // we will add this.
 	// 	update_date: new Date(), // we will add this.
 	// };
-	console.log('SYSTEM | UPLOAD NOVEL |', data);
-
 	try {
-		// ----------------------------------------------------------------
-		// if (data.type == 'notion') {} 
-		// else if (data.type == 'doc') {}
-		// else if (data.type == 'txt') {}
-		// else if (data.type == 'content') {}
-		// const directoryPath = path.join('trans', 'tonghop');
-		// const drive_id = await get_full_id(directoryPath);
-		// ----------------------------------------------------------------
-
-
-		if (!data.id) { // already exist 
-			server.update_one_Data("truyen", { _id: new ObjectId(data.id) }, {
-				$set: {
-					update_date: new Date()
-				},
-				$push: {// lam them 1 cai update one data di a za
-					name_chaps: { $each: data.name_chaps },
-					chap_ids: { $each: data.chap_ids }
-				},
-				$inc: {
-					no_chapters: data.name_chaps.length
-				}
-			})
-		} else { // first time
-			// create a new comment document
-			await server.add_one_Data("comment", {
-				_id: data.id,
-				content: {
-					// user_name: content (do what to add)
-				}
-			});
-
-			let up_content = {
-				name: data.name,
-				author: data.author,
-				name_chaps: data.name_chaps,
-				chap_ids: dummy.ids, // cho nay can them
-				status: data.status,
-				no_chapters: data.name_chaps.length,
-				genres: data.genres,
-				summary: data.summary,
-				image: data.image,
-				views: 0,
-				likes: 0,
-				update_date: new Date(),
-			};
-
-			await server.add_one_Data("truyen", up_content);
-		}
+		server.update_one_Data("truyen", { _id: new ObjectId(data.id) }, {
+			$set: {
+				update_date: new Date()
+			},
+			$push: {// lam them 1 cai update one data di a za
+				name_chaps: { $each: data.name_chaps },
+				chap_ids: { $each: data.chap_ids }
+			},
+			$inc: {
+				no_chapters: data.name_chaps.length
+			}
+		})
 
 		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
 		console.log('SYSTEM | UPLOAD NOVEL | Trả về nội dung truyện muốn đọc', send_back.name);
@@ -1136,24 +1072,39 @@ app.post('/uploadnovel', async (req, res) => {
 
 
 // Route xử lý yêu cầu upload file
-app.post('/uploadFile', upload.single('file'), function (req, res) {
-	// Truy cập thông tin về file đã upload thông qua req.file
-	if (!req.file) {
+app.post('/uploadFile', upload.array('files[]'), async function (req, res) {
+	if (!req.files) {
 		return res.status(400).send('No file uploaded.');
 	}
-	// Kiểm tra kiểu dữ liệu của file
-	if (!allowedMimeTypes.includes(req.file.mimetype)) {
-		return res.status(400).send('Invalid file type.');
-	}
-	// Xử lý file đã upload ở đây
-	console.log('File uploaded:', req.file);
+	let list_name = [];
 
-	// Gửi phản hồi về thành công
-	res.writeHead(200, { 'Content-Type': 'text/plain' });
-	res.end('abc');
+	// Kiểm tra kiểu dữ liệu của các tệp
+	for (let i = 0; i < req.files.length; i++) {
+
+		if (!allowedMimeTypes.includes(req.files[i].mimetype)) {
+			return res.status(400).send('Invalid file type.');
+		}
+		else if (allowedMimeTypes.indexOf(req.files[i].mimetype) == 1) {
+			await readDocxFile(path.join(uploadDirectory, req.files[i].originalname));
+		}
+		const fileName = req.files[i].originalname.replace('.docx', '.txt');
+		list_name.push(fileName);
+
+	}
+
+	// Xử lý các tệp đã tải lên ở đây
+	console.log('SYSTEM | UPLOAD_FILE | Files uploaded:', req.files);
+	res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
+	// res.end('ok bro');
+
+	res.end(JSON.stringify(await get_full_id(uploadDirectory, list_name)));
 });
 
-
+app.post('/cancel', async (req, res) => {
+	const data = req.body;
+	console.log('SYSTEM | UPLOAD NOVEL |', data);
+	///// 
+});
 
 
 // Get chap -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

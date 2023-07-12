@@ -163,7 +163,7 @@ exports.atomic = async function (databaseName, password) {
   }
 }
 
-exports.atomic_table = async function (databaseName, tableList ,  password) {
+exports.atomic_table = async function (databaseName, tableList, password) {
   if (password === '18102003') {
     try {
       // await client.connect();
@@ -296,11 +296,19 @@ exports.uploadFileToDrive = async (filePath, id_folder = '1Tv80lyGA-rYIsN6nT9_A-
 
 
     console.log('SYSTEM | DRIVE | File uploaded successfully! File ID:', res.data.id);
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error('SYSTEM | DRIVE | ERR |', err);
+        return;
+      }
+      console.log('SYSTEM | DRIVE | File local deleted successfully');
+    });
     return res.data.id;
   } catch (err) {
-    console.error('SYSTEM | DRIVE | Error uploading file:', err);
+    console.error('SYSTEM | DRIVE | ERR | uploading file:', err);
   }
 };
+
 async function getFileName(fileId) {
   const drive = google.drive({ version: 'v3', auth });
 
@@ -354,4 +362,18 @@ exports.downloadFileFromDrive = async (fileId) => {
   });
 };
 
+exports.deleteFileFromDrive = async (fileId) => {
+  await initStorage();
+  await getAccessToken();
+  try {
+    await drive.files.delete({
+      fileId: fileId,
+      auth: auth,
+    });
+    console.log('SYSTEM | DRIVE | File deleted successfully!');
+  } catch (err) {
+    console.error('SYSTEM | DRIVE | Error deleting file:', err);
+    throw err;
+  }
+};
 // ------------------------------------------------------------------------------------------------------

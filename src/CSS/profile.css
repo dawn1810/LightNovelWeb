@@ -2,6 +2,11 @@ main {
   margin-top: 70px;
 }
 
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
 :root {
   --input-color: #ffffff;
   --background-color: #ffffec;
@@ -277,7 +282,7 @@ body {
 
   margin: 0 auto;
   font-size: 20px;
-  color: #fff;
+  color: var(--black-text);
   border-radius: 10px;
   cursor: pointer;
   margin-top: 50px;
@@ -401,12 +406,12 @@ body {
 
 .change-pass-btn {
   background-color: var(--button-colors) !important;
-  width: 300px;
+  width: 35%;
   height: 58px;
   border-radius: 10px;
   margin-top: 20px;
   cursor: pointer;
-  margin: 35px 180px;
+  margin: 50px 21%;
   font-size: 20px;
 }
 
@@ -465,6 +470,7 @@ body {
   display: flex;
   padding: 10px 30px;
   border: 1px solid;
+  margin: 20px 0;
 }
 
 .page5_home_main_logo {
@@ -942,3 +948,102 @@ input:required:focus {
   border: 2px solid red;
   outline: none;
 }
+
+
+
+/* popup */
+.toast {
+  display: flex;
+  position: fixed;
+  top: 17%;
+  right: 30px;
+  border-radius: 12px;
+  background: var(--white-text);
+  padding: 20px 35px 20px 25px;
+  box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transform: translateX(calc(100% + 30px));
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+}
+
+.toast.active {
+  transform: translateX(0%);
+}
+
+.toast .toast-content {
+  display: flex;
+  align-items: center;
+}
+
+.toast-content .check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  min-width: 35px;
+  background-color: var(--button-colors);
+  color: var(--white-text);
+  font-size: 20px;
+  border-radius: 50%;
+}
+
+.toast-content .message {
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px;
+}
+
+.message .text {
+  font-size: 16px;
+  font-weight: 400;
+  color: #666666;
+}
+
+.message .text.text-1 {
+  font-weight: 600;
+  color: #333;
+}
+
+.toast .close {
+  position: absolute;
+  top: 10px;
+  right: 57%;
+  padding: 5px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.toast .close:hover {
+  opacity: 1;
+}
+
+.toast .progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+
+}
+
+.toast .progress:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--button-colors);
+}
+
+.progress.active:before {
+  animation: progress 5s linear forwards;
+}
+
+@keyframes progress {
+  100% {
+    right: 100%;
+  }
+}
+
+/* popup */
