@@ -436,6 +436,7 @@ app.get('/category', checkCookieLoglUser, (req, res) => {
 });
 
 
+
 app.get('/get_ds', async (req, res) => {
 	try {
 		let result = await storage.getItem('novellist');
@@ -935,26 +936,85 @@ app.post('/reviews', async (req, res) => {
 	}
 });
 
-app.use('/', router);
-
-// Reading page --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.get('/reading/:id/:chap', async (req, res) => {
+app.get('/reviews/:id', async (req, res) => {
 	try {
-		res.sendFile(parentDirectory + '/HTML/readingpage.html');
+		const account = req.cookies.account
+		const decode = decrypt(account, authenticationKey);
+		const decodeList = decode.split(':');
+
+		// Get novel information:
+		let result = await server.find_all_Data({
+			table: "truyen",
+			query: { _id: new ObjectId(req.params.id) },
+			projection: {
+				name: 1,
+				author: 1,
+				no_chapters: 1,
+				genres: 1,
+				summary: 1,
+				image: 1,
+				name_chaps: 1,
+				views: 1,
+				likes: 1,
+				update_date: 1,
+				status: 1
+			},
+			limit: 1
+		});
+
+		if (account) {
+			// check does novel was liked by current user or not
+			const like_list = await server.find_all_Data({
+				table: "tt_nguoi_dung",
+				query: { _id: decodeList[1] },
+				projection: {
+					_id: 0,
+					likeNovels: 1
+				},
+				limit: 1
+			});
+	
+			if (like_list[0].likeNovels.includes(req.params.id)) { // liked
+				result[0].liked = 1;
+			}
+			else { // not like
+				result[0].liked = 0;
+			}
+		}
+
+		res.render('readingpage.ejs', {
+			headerFile: 'header',
+			footerFile: 'footer',
+			name: result[0].name,
+			name_chaps: result[0].name_chaps,
+			no_chapters: result[0].no_chapters,
+			genres: result[0].genres,
+			summary: result[0].summary,
+			image: result[0].image,
+			views: result[0].views,
+			likes: result[0].likes,
+			update_date: result[0].update_date,
+			status: result[0].status
+			liked: result[0].liked
+		});
+
+
+		
 	} catch (err) {
-		console.log('SYSTEM | READING | ERROR | ', err);
+		console.log('SYSTEM | REVIEWS | ERROR | ', err);
 		res.sendStatus(500);
 	}
 });
 
-app.post('/reading', async (req, res) => {
-	const data = req.body;
 
-	console.log('SYSTEM | READING |', data);
+app.use('/', router);
+
+// Reading page --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+app.get('/reading/:id/:chap', checkCookieLoglUser, async (req, res) => {
 	try {
 		let result = await server.find_all_Data({
 			table: "truyen",
-			query: { _id: new ObjectId(data.id) },
+			query: { _id: new ObjectId(req.params.id) },
 			projection: {
 				_id: 0,
 				name: 1,
@@ -966,23 +1026,32 @@ app.post('/reading', async (req, res) => {
 		// Gửi data về client
 		// console.log(typeof(String(result[0].chap_ids[parseInt(data.chap)])))
 		// console.log(result);
-		const chap_content = await server.downloadFileFromDrive(String(result[0].chap_ids[parseInt(data.chap)]));
+		const chap_content = await server.downloadFileFromDrive(String(result[0].chap_ids[parseInt(req.params.chap)]));
 
-		let send_back = {
+		res.render('readingpage.ejs', {
+			headerFile: 'header',
+			footerFile: 'footer',
 			name: result[0].name,
 			name_chaps: result[0].name_chaps,
-			name_chap: result[0].name_chaps[parseInt(data.chap)],
-			chap_content: convertToHtml(chap_content)
-		}
-
-		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
-		console.log('SYSTEM | READING | Trả về nội dung truyện muốn đọc', send_back.name);
-		res.end(JSON.stringify(send_back));
+			name_chap: result[0].name_chaps[parseInt(req.params.chap)],
+			chap_content: convertToHtml(chap_content),
+			number_chap: req.params.chap
+		});
 
 	} catch (err) {
 		console.log('SYSTEM | READING | ERROR | ', err);
 		res.sendStatus(500);
 	}
+
+
+
+});
+
+app.post('/reading', async (req, res) => {
+	const data = req.body;
+
+	console.log('SYSTEM | READING |', data);
+
 });
 
 // Upload novel ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -998,7 +1067,7 @@ app.post('/upload_novel', async (req, res) => {
 
 	try {
 		if (decodeList[0] == authenticationKey) {
-			let rand_id = uuidv4();
+			const rand_id = uuidv4();
 			// create a new comment document
 			await server.add_one_Data("comment", {
 				_id: rand_id,
@@ -1009,7 +1078,7 @@ app.post('/upload_novel', async (req, res) => {
 
 			// upload novel content
 			let up_content = {
-				_id: rand_id,
+				_id: new ObjectID(rand_id),
 				name: data.name,
 				author: data.author,
 				name_chaps: data.name_chaps,
@@ -1027,7 +1096,7 @@ app.post('/upload_novel', async (req, res) => {
 			await server.add_one_Data("truyen", up_content);
 
 			// update user's novel list
-			
+			await server.update_one_Data('tt_nguoi_dung', { _id: decodeList[1] }, { $push: { mynovel: rand_id } });
 
 			res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
 			console.log('SYSTEM | UPLOAD NOVEL | Trả về nội dung truyện muốn đọc', send_back.name);

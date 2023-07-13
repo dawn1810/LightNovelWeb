@@ -8,1055 +8,349 @@
   <script src="https://kit.fontawesome.com/b8977956b3.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/src/CSS/Style.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-  <link rel="stylesheet" href="/src/CSS/profile.css" />
-  <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
+  <link rel="stylesheet" href="/src/CSS/readingpage.css" />
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-  <title>Document</title>
+  <title>Reading</title>
   <script>
     const currentURL = window.location.origin;
   </script>
 </head>
 
 <body>
+  <script src="/src/JS/link.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <%- include(headerFile) %>
 
   <main>
-    <div class="containner_wrap">
-      <div class="container">
-        <div class="Setting_sidebar-wrapper">
-          <h1 class="Setting_sidebar_title">Cài đặt</h1>
-          <div class="Setting_sidebar-list">
-            <div class="Setting_sidebar-list_item yourinfo">
-              <div class="Setting_sidebar-list_item_wrap">
-                <i class="fa-solid fa-user"></i> Thông tin cá nhân
-              </div>
-            </div>
-            <div class="Setting_sidebar-list_item yourfollow">
-              <div class="Setting_sidebar-list_item_wrap">
-                <i class="fa-solid fa-book"></i> Truyện đã theo dõi
-              </div>
-            </div>
-            <div class="Setting_sidebar-list_item yourchangepass">
-              <div class="Setting_sidebar-list_item_wrap">
-                <i class="fa-solid fa-shield-halved"></i> Đổi mật khẩu
-              </div>
-            </div>
+    <ul class="menu-tag">
+      <li class="active">
+        <a href="/HTML/reviews.html" title="doc truyen">
+          <i class="fa-solid fa-house"></i> Truyện</a>
+      </li>
+      >
+      <li class="active name_lv">
+        <a href="/HTML/reviews.html"><%= name %></a>
+      </li>
+      >
+      <li class="active rv-author-a">Chương 2</li>
+    </ul>
+    <div class="main-body">
+      <div class="title">
+        <span class="novel-name"><%= name %></span>
+        <span class="novel-name-chapter"><%= name_chap %></span>
+      </div>
 
-            <div class="Setting_sidebar-list_item up_novel">
-              <div class="Setting_sidebar-list_item_wrap">
-                <i class="fa-solid fa-pen-nib"></i> Sáng tác
-              </div>
-            </div>
-
-
-            <a href="/" class="Setting_sidebar-list_item logout">
-              <div class="Setting_sidebar-list_item_wrap">
-                <i class="fa-solid fa-right-from-bracket"></i> Thoát
-              </div>
-            </a>
-
-          </div>
-        </div>
-        <div class="Setting_pageWrapper__PM">
-          <div class="Setting_pageWrapper page1" id="user" style="display: block">
-            <h1 class="Setting_pageWrapper_titlte">Thông tin cá nhân</h1>
-            <div class="Setting_pageWrapper_main">
-              <form action="" id="update_info">
-                <div class="FieldWrapper_wrapper">
-                  <div class="avt-wrapper-container">
-                    <div class="information_name_wrap">
-                      <h3>Avatar</h3>
-
-                      <div class="information_name">
-                        <div class="dropdown">
-                          <button class="dropdown-trigger" type="button">
-                            <div class="dropdown-content">
-                              <label>Choose image</label>
-                              <input id="file-upload" type="file" style="display: none" />
-                            </div>
-                            <div class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)">
-                              <p>Drop / Choose Avatar</p>
-                            </div>
-                            <img class="your-avt" src="<%= avt %>" alt="" />
-                          </button>
-                        </div>
-                      </div>
+      <div class="head btn-gr">
+        <div class="linevienchien"></div>
+        <div class="vienchien">
+          <button class="directional-btn left-btn">
+            <i class="fa-solid fa-angles-left"></i>
+          </button>
+          <div class="settings_siuuu">
+            <button class="directional-btn setting-btn">
+              <i class="fa-solid fa-sun"></i>
+            </button>
+            <div class="sub-menu wrap-settings">
+              <div class="colors">
+                <ul>
+                  <p>Màu nền</p>
+                  <div class="form_color_text">
+                    <div class="ss_reader_background_reset">
+                      <i class="fa-solid fa-rotate"></i>
+                    </div>
+                    <ul>
+                      <select name="ss_reader_background" id="ss_reader_background1">
+                        <option value="#DFDFE3">Xám Đậm</option>
+                        <option value="linear-gradient(to left, #5b0664, #210e68)">
+                          GALAXY
+                        </option>
+                        show-list
+                        <option value="#E9EBEE">Xanh nhạt</option>
+                        <option value="#F4F4E4">Vàng nhạt</option>
+                        <option value="#EAE4D3">Màu sepia</option>
+                        <option value="#D5D8DC">Xanh đậm</option>
+                        <option value="#FAFAC8">Vàng đậm</option>
+                        <option value="#EFEFAB">Vàng ố</option>
+                        <option value="#FFF">Màu trắng</option>
+                        <option value="#eaeaea">Hạt sạn</option>
+                        <option value="#bfb197">Sách cũ</option>
+                        <option value="#232323">Màu tối</option>
+                      </select>
+                    </ul>
+                    <div class="form_background">
+                      <input type="color" name="" id="ss_reader_background" />
                     </div>
                   </div>
-
-                  <div class="info-wrapper-container">
-                    <div class="information_name_wrap">
-                      <h3>User</h3>
-                      <div class="information_name">
-                        <div class="profile_input" type="text" id="username">
-                          <%= user %>
-                        </div>
-                      </div>
+                </ul>
+                <ul>
+                  <p>Màu chữ</p>
+                  <div class="form_color_text">
+                    <div class="ss_reader_textColor_reset">
+                      <i class="fa-solid fa-rotate"></i>
                     </div>
+                    <ul>
+                      <select name="ss_reader_textColor" id="ss_reader_textColor1">
+                        <option selected value="#222">Đen</option>
+                        <option value="#2B2B2B">Benly</option>
+                        <option value="#373D3F">Raven</option>
+                        <option value="#555F61">Asher</option>
+                        <option value="#fff">Trắng</option>
+                        <option value="#007f61">SSTruyen</option>
+                      </select>
+                    </ul>
 
-                    <div class="information_name_wrap">
-                      <h3>Họ tên</h3>
-                      <div class="information_name">
-                        <input class="profile_input" type="text" id="fullname" value="<%= username %>" />
-                      </div>
-                    </div>
-
-                    <div class="information_name_wrap">
-                      <h3>Email</h3>
-                      <div class="information_name">
-                        <input class="profile_input" type="text" id="email" value="<%= email %>" />
-                      </div>
-                    </div>
-
-                    <div class="information_name_wrap">
-                      <h3>Giới tính</h3>
-                      <div class="">
-                        <% if (sex == 'nam') { %>
-                        <input type="radio" name="gender" id="nam" value="nam" checked>
-                        <label for="nam">Nam</label>
-
-                        <input type="radio" name="gender" id="nu" value="nu">
-                        <label for="nữ">Nữ</label>
-
-                        <% } else if (sex == 'nu'){ %>
-                        <input type="radio" name="gender" id="nam" value="nam">
-                        <label for="nam">Nam</label>
-
-                        <input type="radio" name="gender" id="nu" value="nu" checked>
-                        <label for="nữ">Nữ</label>
-
-                        <% } else {%>
-                        <input type="radio" name="gender" id="nam" value="nam">
-                        <label for="nam">Nam</label>
-
-                        <input type="radio" name="gender" id="nu" value="nu">
-                        <label for="nữ">Nữ</label>
-
-                        <% } %>
-                      </div>
-
-
-
-                      <div class="information_name">
-                        <div class="sex_wrapper">
-                          <div class="sex_random">Nam</div>
-                        </div>
-                        <button id="button_file" class="button_random">
-                          Random
-                        </button>
-                      </div>
-                    </div>
-                    <div class="information_name_wrap">
-                      <button id="Save_btn" class="Save_btn">
-                        Lưu
-                      </button>
-                    </div>
+                    <input type="color" name="" id="ss_reader_textColor" />
                   </div>
-                </div>
-              </form>
-            </div>
-          </div>
-          <div class="Setting_pageWrapper page2" id="novel_following">
-            <h2>Truyện đã theo dõi</h2>
-            <div class="followed-container">
-              <div class="followed-item">
-                <div class="name-container">
-                  <img src="https://nettruyenco.vn/public/images/comics/thien-kim-mu-pha-san-va-tong-tai-diem-vuong.jpg" alt="" class="avt" />
-                  <div class="name-novel">
-                    <div class="name-novel-top">
-                      <h2>con heo xin xan</h2>
-                      <button class="delete-follow">Bỏ Theo Dõi</button>
-
-                    </div>
-                    <p>
-                      Nước Lèo vốn không đi với X nhưng ở một tình cảnh trớ
-                      trêu đã kéo họ lại gần nhau (close up) trong một thế
-                      giới đầy đau thương. Liều họ có quyết định cùng nương
-                      tựa nhau và vượt qua khó khắn? Liệu có chuyện tình đẹp
-                      vcl nào ở đây?
-                    </p>
-
-                    <div class="last-time-container">
-                      <div class="chapter"><a href="">Chap 100</a></div>
-                      <div class="time">23h truoc</div>
-                    </div>
-                  </div>
-                </div>
-
+                </ul>
               </div>
-
-              <div class="followed-item">
-                <div class="name-container">
-                  <img src="https://nettruyenco.vn/public/images/comics/thien-kim-mu-pha-san-va-tong-tai-diem-vuong.jpg" alt="" class="avt" />
-                  <div class="name-novel">
-                    <div class="name-novel-top">
-                      <h2>con heo xin xan</h2>
-                      <button class="delete-follow">Bỏ Theo Dõi</button>
-
-                    </div>
-                    <p>
-                      Nước Lèo vốn không đi với X nhưng ở một tình cảnh trớ
-                      trêu đã kéo họ lại gần nhau (close up) trong một thế
-                      giới đầy đau thương. Liều họ có quyết định cùng nương
-                      tựa nhau và vượt qua khó khắn? Liệu có chuyện tình đẹp
-                      vcl nào ở đây?
-                    </p>
-
-                    <div class="last-time-container">
-                      <div class="chapter"><a href="">Chap 100</a></div>
-                      <div class="time">23h truoc</div>
-                    </div>
-                  </div>
-                </div>
-
+              <div class="size">
+                <ul>
+                  <p>Size chữ</p>
+                  <input type="range" min="0" max="100" value="20" step="1" name="" id="ss_reader_size" />
+                </ul>
               </div>
-              <div class="followed-item">
-                <div class="name-container">
-                  <img src="https://nettruyenco.vn/public/images/comics/thien-kim-mu-pha-san-va-tong-tai-diem-vuong.jpg" alt="" class="avt" />
-                  <div class="name-novel">
-                    <div class="name-novel-top">
-                      <h2>con heo xin xan</h2>
-                      <button class="delete-follow">Bỏ Theo Dõi</button>
-
-                    </div>
-                    <p>
-                      Nước Lèo vốn không đi với X nhưng ở một tình cảnh trớ
-                      trêu đã kéo họ lại gần nhau (close up) trong một thế
-                      giới đầy đau thương. Liều họ có quyết định cùng nương
-                      tựa nhau và vượt qua khó khắn? Liệu có chuyện tình đẹp
-                      vcl nào ở đây?
-                    </p>
-
-                    <div class="last-time-container">
-                      <div class="chapter"><a href="">Chap 100</a></div>
-                      <div class="time">23h truoc</div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-              <div class="followed-item">
-                <div class="name-container">
-                  <img src="https://nettruyenco.vn/public/images/comics/thien-kim-mu-pha-san-va-tong-tai-diem-vuong.jpg" alt="" class="avt" />
-                  <div class="name-novel">
-                    <div class="name-novel-top">
-                      <h2>con heo xin xan</h2>
-                      <button class="delete-follow">Bỏ Theo Dõi</button>
-
-                    </div>
-                    <p>
-                      Nước Lèo vốn không đi với X nhưng ở một tình cảnh trớ
-                      trêu đã kéo họ lại gần nhau (close up) trong một thế
-                      giới đầy đau thương. Liều họ có quyết định cùng nương
-                      tựa nhau và vượt qua khó khắn? Liệu có chuyện tình đẹp
-                      vcl nào ở đây?
-                    </p>
-
-                    <div class="last-time-container">
-                      <div class="chapter"><a href="">Chap 100</a></div>
-                      <div class="time">23h truoc</div>
-                    </div>
-                  </div>
-                </div>
-
+              <div class="line-height">
+                <ul>
+                  <p>Chiều cao dòng</p>
+                  <select name="ss_reader_line_height" id="ss_reader_line_height">
+                    <option value="1">1.0</option>
+                    <option value="1.2">1.2</option>
+                    <option value="1.4">1.4</option>
+                    <option value="1.6">1.6</option>
+                    <option value="1.8">1.8</option>
+                    <option value="2.0">2.0</option>
+                    <option value="2.2">2.2</option>
+                    <option value="2.5">2.5</option>
+                  </select>
+                </ul>
               </div>
             </div>
           </div>
-
-          <div class="Setting_pageWrapper page4" id="change_pass">
-            <h2>Đổi Mật Khẩu</h2>
-
-            <form id="change-pass">
-              <p>Mật Khẩu Cũ</p>
-
-			  <div class="group11">
-				<input class="old-password pass" placeholder="nhập mật khẩu bạn đã quên" type="text" />
-				<span class="form-message1"></span>
-			  </div>
-
-              <p>Mật Khẩu Mới</p>
-
-			  <div class="group11">
-				<input class="new-password pass" placeholder="nhập mật khẩu mới" type="text" />
-				<span class="form-message1"></span>
-			  </div>
-
-            
-
-              <p>Xác nhận mật khẩu mới</p>
-
-			  <div class="group11">
-				<input class="new-password-again pass" placeholder="nhập lại mật khẩu mới" type="text" />
-				<span class="form-message1"></span>
-			  </div>
-            
-
-              <button type="submit" class="change-pass-btn">ĐỔI MẬT KHẨU</button>
-            </form>
-
-          </div>
-
-          <div class="Setting_pageWrapper page5" id='my_novel'>
-
-            <div class="page5_home page5_composed">
-              <div class="page_5_title">
-
-                <h2 class="my_novel_title"><i class="fa-solid fa-book-open-cover"></i> Truyện của
-                  tôi</h2>
-
-                <button class="add_new">+ THÊM TRUYỆN MỚI</button>
-
-              </div>
-
-              <div class="page5_home_main">
-
-                <!-- my novel item -->
-                <div class="page5_home_main_item">
-                  <div class="page5_home_main_logo">
-                    <img src="data:image/jpeg;base64,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" alt="">
-                  </div>
-                  <div class="page5_home_info">
-                    <div class="page5_home_info_top">
-                      <div class="page5_home_info_name">Các mối qua hệ 18+</div>
-                      <div class="page5_home_info_status">
-                        Đang ra
-                      </div>
-                    </div>
-                    <div class="page5_home_info_date">
-                      Cập nhật <span> 15:32 02/07/2023</span>
-                    </div>
-
-
-                    <div class="page5_home_info_wrap">
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-solid fa-list-ul"></i>
-                          Chương
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-regular fa-eye"></i>
-                          Lượt đọc
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-regular fa-heart"></i>
-                          Theo dõi
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-regular fa-star"></i>
-                          Đề cử
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                    </div>
-                    <div class="page5_home_info_foot">
-                      <h4>
-                        Trạng thái xuất bản
-                      </h4>
-                      <span>Lưu tạm</span>
-                      <span>Có thể xuất bản</span>
-                    </div>
-                  </div>
-
-                  <div class="item_btn_gr">
-
-                    <div class="novel_conntroller_btn">
-                      <button class="update_current_novel controller_btn">Chỉnh Sửa</button>
-                      <button class="delete_chapter controller_btn">Xóa</button>
-                    </div>
-
-                    <div class="add_novel">
-                      <button class="add_novel_more_chap controller_btn"> + Thêm
-                        chương</button>
-                      <button class="showlist_novel controller_btn">Danh sách chương</button>
-                      <!-- <button class="export_curent_novel controller_btn">Xuất Bản</button> -->
-                    </div>
-
-                  </div>
-                </div>
-                <!-- my novel item -->
-
-                <!-- my novel item -->
-                <div class="page5_home_main_item">
-                  <div class="page5_home_main_logo">
-                    <img src="https://popsimg.akamaized.net/api/v2/containers/file2/cms_topic/doraemons9_05_seriesdetailimagemobile-80424f74d030-1609395371290-iZgELVcX.png?v=0" alt="">
-                  </div>
-                  <div class="page5_home_info">
-                    <div class="page5_home_info_top">
-                      <div class="page5_home_info_name">Các mối qua hệ 18+</div>
-                      <div class="page5_home_info_status">
-                        Đang ra
-                      </div>
-                    </div>
-                    <div class="page5_home_info_date">
-                      Cập nhật <span> 15:32 02/07/2023</span>
-                    </div>
-
-
-                    <div class="page5_home_info_wrap">
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-solid fa-list-ul"></i>
-                          Chương
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-regular fa-eye"></i>
-                          Lượt đọc
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-regular fa-heart"></i>
-                          Theo dõi
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-regular fa-star"></i>
-                          Đề cử
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                    </div>
-                    <div class="page5_home_info_foot">
-                      <h4>
-                        Trạng thái xuất bản
-                      </h4>
-                      <span>Lưu tạm</span>
-                      <span>Có thể xuất bản</span>
-                    </div>
-                  </div>
-
-                  <div class="item_btn_gr">
-
-                    <div class="novel_conntroller_btn">
-                      <button class="update_current_novel controller_btn">Chỉnh Sửa</button>
-                      <button class="delete_chapter controller_btn">Xóa</button>
-                    </div>
-
-                    <div class="add_novel">
-                      <button class="add_novel_more_chap controller_btn"> + Thêm
-                        chương</button>
-                      <button class="showlist_novel controller_btn">Danh sách chương</button>
-                      <!-- <button class="export_curent_novel controller_btn">Xuất Bản</button> -->
-                    </div>
-
-                  </div>
-                </div>
-                <!-- my novel item -->
-
-                <!-- my novel item -->
-                <div class="page5_home_main_item">
-                  <div class="page5_home_main_logo">
-                    <img src="https://toplist.vn/images/800px/movie-6-the-phantom-of-baker-street-bong-ma-pho-baker-213929.jpg" alt="">
-                  </div>
-                  <div class="page5_home_info">
-                    <div class="page5_home_info_top">
-                      <div class="page5_home_info_name">Các mối qua hệ 18+</div>
-                      <div class="page5_home_info_status">
-                        Đang ra
-                      </div>
-                    </div>
-                    <div class="page5_home_info_date">
-                      Cập nhật <span> 15:32 02/07/2023</span>
-                    </div>
-
-
-                    <div class="page5_home_info_wrap">
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-solid fa-list-ul"></i>
-                          Chương
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-regular fa-eye"></i>
-                          Lượt đọc
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-regular fa-heart"></i>
-                          Theo dõi
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-regular fa-star"></i>
-                          Đề cử
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                    </div>
-                    <div class="page5_home_info_foot">
-                      <h4>
-                        Trạng thái xuất bản
-                      </h4>
-                      <span>Lưu tạm</span>
-                      <span>Có thể xuất bản</span>
-                    </div>
-                  </div>
-
-                  <div class="item_btn_gr">
-
-                    <div class="novel_conntroller_btn">
-                      <button class="update_current_novel controller_btn">Chỉnh Sửa</button>
-                      <button class="delete_chapter controller_btn">Xóa</button>
-                    </div>
-
-                    <div class="add_novel">
-                      <button class="add_novel_more_chap controller_btn"> + Thêm
-                        chương</button>
-                      <button class="showlist_novel controller_btn">Danh sách chương</button>
-                      <!-- <button class="export_curent_novel controller_btn">Xuất Bản</button> -->
-                    </div>
-
-                  </div>
-                </div>
-                <!-- my novel item -->
-
-                <!-- my novel item -->
-                <div class="page5_home_main_item">
-                  <div class="page5_home_main_logo">
-                    <img src="https://image.lag.vn/upload/news/21/04/19/review-conan-vien-dan-do-3_ILAE.jpg" alt="">
-                  </div>
-                  <div class="page5_home_info">
-                    <div class="page5_home_info_top">
-                      <div class="page5_home_info_name">Các mối qua hệ 18+</div>
-                      <div class="page5_home_info_status">
-                        Đang ra
-                      </div>
-                    </div>
-                    <div class="page5_home_info_date">
-                      Cập nhật <span> 15:32 02/07/2023</span>
-                    </div>
-
-
-                    <div class="page5_home_info_wrap">
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-solid fa-list-ul"></i>
-                          Chương
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-regular fa-eye"></i>
-                          Lượt đọc
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-regular fa-heart"></i>
-                          Theo dõi
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-regular fa-star"></i>
-                          Đề cử
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                    </div>
-                    <div class="page5_home_info_foot">
-                      <h4>
-                        Trạng thái xuất bản
-                      </h4>
-                      <span>Lưu tạm</span>
-                      <span>Có thể xuất bản</span>
-                    </div>
-                  </div>
-
-                  <div class="item_btn_gr">
-
-                    <div class="novel_conntroller_btn">
-                      <button class="update_current_novel controller_btn">Chỉnh Sửa</button>
-                      <button class="delete_chapter controller_btn">Xóa</button>
-                    </div>
-
-                    <div class="add_novel">
-                      <button class="add_novel_more_chap controller_btn"> + Thêm
-                        chương</button>
-                      <button class="showlist_novel controller_btn">Danh sách chương</button>
-                      <!-- <button class="export_curent_novel controller_btn">Xuất Bản</button> -->
-                    </div>
-
-                  </div>
-                </div>
-                <!-- my novel item -->
-
-                <!-- my novel item -->
-                <div class="page5_home_main_item">
-                  <div class="page5_home_main_logo">
-                    <img src="https://ss-images.saostar.vn/w800/pc/1683447904045/saostar-2a4vqa2zuloo0hnp.png" alt="">
-                  </div>
-                  <div class="page5_home_info">
-                    <div class="page5_home_info_top">
-                      <div class="page5_home_info_name">Các mối qua hệ 18+</div>
-                      <div class="page5_home_info_status">
-                        Đang ra
-                      </div>
-                    </div>
-                    <div class="page5_home_info_date">
-                      Cập nhật <span> 15:32 02/07/2023</span>
-                    </div>
-
-
-                    <div class="page5_home_info_wrap">
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-solid fa-list-ul"></i>
-                          Chương
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-regular fa-eye"></i>
-                          Lượt đọc
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-regular fa-heart"></i>
-                          Theo dõi
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                      <div class="page5_home_info_wrap_item">
-                        <div class="page5_home_info_wrap_item_title">
-                          <i class="fa-regular fa-star"></i>
-                          Đề cử
-                        </div>
-                        <div class="page5_home_info_wrap_item_value">
-                          1
-                        </div>
-                      </div>
-                    </div>
-                    <div class="page5_home_info_foot">
-                      <h4>
-                        Trạng thái xuất bản
-                      </h4>
-                      <span>Lưu tạm</span>
-                      <span>Có thể xuất bản</span>
-                    </div>
-                  </div>
-
-                  <div class="item_btn_gr">
-
-                    <div class="novel_conntroller_btn">
-                      <button class="update_current_novel controller_btn">Chỉnh Sửa</button>
-                      <button class="delete_chapter controller_btn">Xóa</button>
-                    </div>
-
-                    <div class="add_novel">
-                      <button class="add_novel_more_chap controller_btn"> + Thêm
-                        chương</button>
-                      <button class="showlist_novel controller_btn">Danh sách chương</button>
-                      <!-- <button class="export_curent_novel controller_btn">Xuất Bản</button> -->
-                    </div>
-
-                  </div>
-                </div>
-                <!-- my novel item -->
-
-              </div>
-
-            </div>
-
-
-            <div class="page5_a page5_composed" id="add_novel">
-              <div class="range" style="--p:0">
-                <div class="range__label"></div>
-
-                <img class="naruto" src="https://orig00.deviantart.net/455e/f/2017/139/6/5/webp_net_gifmaker__1__by_andri10-db9py2k.gif" alt="">
-              </div>
-              <div class="page5_info page5_a_up" id="info_novel_add">
-                <div class="page5_info_img">
-                  <div class="information_name">
-                    <div class="dropdown">
-                      <button class="dropdown-trigger" type="button">
-                        <div class="dropdown-content">
-                          <label>Choose image</label>
-                          <input id="file-upload" type="file" style="display: none" />
-                        </div>
-                        <div class="drop-zone" ondrop="drop5(event)" ondragover="allowDrop(event)">
-                          <p>Drop / Choose Avatar</p>
-                        </div>
-                        <img class="your-avt" src="https://image-us.24h.com.vn/upload/4-2018/images/2018-12-28/1545991050-295-anh-1-1545980578-width660height660.jpg" alt="" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div class="page5_info_main">
-
-                  <div class="info-wrapper-container">
-                    <div class="information_name_wrap">
-                      <h3>Tên truyện</h3>
-                      <div class="information_name">
-                        <input class="profile_input n_name" type="text" required id="name_novel" placeholder="Nhập tên truyện" />
-                      </div>
-                    </div>
-
-                    <div class="information_name_wrap">
-                      <h3>Tác giả</h3>
-                      <div class="information_name">
-                        <input class="profile_input author_name" type="text" required id="fullname" placeholder="Nhập tên tác giải" />
-                      </div>
-                    </div>
-
-                    <div class="" style="display: flex; justify-content: space-between;">
-                      <div class="information_name_wrap" style="width: 50%;">
-                        <h3>Trạng thái</h3>
-                        <div class="information_name novel_status">
-                          <select>
-                            <option value="0">Đang ra</option>
-                            <option value="1">Hoàn thành</option>
-                            <option value="2">Tạm dừng</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="information_name_wrap" style="width: 50%;">
-                        <h3>Thể loại</h3>
-                        <div class="information_name novel_types">
-                          <select>
-                            <option value="0">NTR</option>
-                            <option value="1">BDSM</option>
-                            <option value="2">Harem</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="information_name_wrap">
-                      <h3>Giới thiệu truyện</h3>
-                      <div class="information_name" style="display:flex;flex-direction: column;">
-                        <textarea class="profile_input novel_descript" id="fullname" placeholder="Nhập nôi dung giới thiệu truyện của bạn">  </textarea>
-                      </div>
-                    </div>
-                    <div class="page5_info_main_btn">
-                      <button class="close_btn">Hủy</button>
-                      <button class="next_btn"><i class="fa-solid fa-chevron-right"></i></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="page5_chap page5_a_up" id="add_chap">
-
-                <div class="page5_info_main">
-                  <div class="info-wrapper-container">
-                    <div class="information_name_wrap">
-                      <h3>Thứ tự chương</h3>
-                      <div class="information_name">
-                        <input class="profile_input chap_num" type="text" required id="name_novel" placeholder="Nhập thứ tự chương(e.g. 1, 1.1, 1.5, 2,...)" />
-                      </div>
-                    </div>
-
-                    <div class="information_name_wrap">
-                      <h3>Tên chương</h3>
-                      <div class="information_name">
-                        <input class="profile_input chap_name" type="text" required id="fullname" placeholder="Nhập tên chương" />
-                      </div>
-                    </div>
-
-                    <div class="information_name_wrap">
-                      <div class="head">
-                        <h3>Nội Dung</h3>
-                        <pre class="file-content" style="margin: 1rem 20px;"></pre>
-                        <input type="file" class="file-input" style="display:none;" accept=".txt, .docx" />
-                        <button class="upfile">
-                          <i class="fa-solid fa-upload"></i>
-                        </button>
-                      </div>
-                    </div>
-
-                    <p style="text-align: center;">[------------------------------------ 🦊🍜🍥
-                      ------------------------------------]</p>
-                  </div>
-                </div>
-                <div class="page5_info_main_btn">
-                  <button class="back_btn"><i class="fa-solid fa-chevron-left"></i></button>
-                  <button class="close_btn">Hủy</button>
-                  <button class="more_chap_btn">Thêm chương</button>
-                  <button class="next_btn"><i class="fa-solid fa-chevron-right"></i></button>
-                </div>
-
-              </div>
-              <div class="page5_post page5_a_up" id="post_novel">
-                <span>Bạn đã đăng đủ 1 chương truyện
-                  <br>
-                  Bạn có thể Đăng truyện ngay bây giờ hoặc tiếp tục thêm Chương</span>
-                <span>Khi tiến hành đăng truyện, bạn đã chấp nhận các chính sách và quy định của
-                  WTFNovel về <a href="">
-                    Quy
-                    định Nội dung
-                    và Chính sách chia sẻ quyền lợi</a>
-                </span>
-                <div class="page5_post_check_wrap">
-                  <div class="page5_post_check">
-                    <i id="Agree" class="fa-regular fa-square"></i>
-                  </div>
-                  <span>Tôi đồng ý với Quy định Nội dung và Chính sách quyền lợi của
-                    WtfNovel.</span>
-                </div>
-                <div class="page5_info_main_btn">
-                  <button class="back_btn"><i class="fa-solid fa-chevron-left"></i></button>
-                  <button class="close_btn">Hủy</button>
-                  <button class="post_btn"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
-                </div>
-              </div>
-              <div class="page5_last page5_a_up" id="congratulation">
-                <div class="card">
-                  <img src="https://fotografias-neox.atresmedia.com/clipping/cmsimages01/2022/03/04/6F3E2E33-8AAF-4607-8B3E-80261F00FB86/naruto_98.jpg?crop=1920,1080,x0,y0&width=1900&height=1069&optimize=high&format=webply">
-                  <div class="card__content">
-                    <p class="card__title">Thank kiu em yêu!!!</p>
-                    <p class="card__description">Chúng tôi xin gửi lời cảm ơn chân thành đến các
-                      nhà
-                      văn đã đăng tải
-                      tiểu
-                      thuyết của mình trên trang web của chúng tôi. Bằng cách chia sẻ tác phẩm
-                      văn
-                      học của mình, các bạn
-                      đã tạo ra một không gian đầy phong phú và đa dạng cho cộng đồng đọc giả.
-                      Chúng tôi biết rằng việc
-                      viết và chia sẻ là một quá trình đòi hỏi công sức và tâm huyết, và chúng
-                      tôi
-                      đánh giá cao sự đóng
-                      góp và sự kiên nhẫn của các bạn. Cảm ơn bạn đã làm cho trang web của
-                      chúng
-                      tôi trở thành một điểm
-                      đến tuyệt vời cho những người yêu thích tiểu thuyết của người Việt.</p>
-                  </div>
-                </div>
-                <div class="page5_last_btn">
-                  Hoàn thành
-                </div>
-              </div>
-
-            </div>
-
-            <div class="page5_b page5_composed" id="list_chaper">
-              <div class="page5_list_chapter_Author">
-                <div class="list_chapter_head">
-                  <h2 class="list_title">Nguyễn Hưng Thịnh là kẻ hủy diệt </h2>
-                  <button class="add_new_chapter">+ THÊM CHAP MỚI</button>
-                </div>
-                <div class="list_chapter_body">
-                  <div class="my_novel_item">
-                    <div class="chapter">Chap1</div>
-                    <div class="post_time">Cập nhật 09:56:50 04/07/2023</div>
-                    <div class="btn_gritem">
-                      <div class="novel_conntroller_btn">
-                        <button class="update_current_novel controller_btn">Chỉnh
-                          Sửa</button>
-                        <button class="delete_chapter controller_btn">Xóa Chap</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="my_novel_item">
-                    <div class="chapter">Chap1</div>
-                    <div class="post_time">Cập nhật 09:56:50 04/07/2023</div>
-                    <div class="btn_gritem">
-                      <div class="novel_conntroller_btn">
-                        <button class="update_current_novel controller_btn">Chỉnh
-                          Sửa</button>
-                        <button class="delete_chapter controller_btn">Xóa Chap</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="my_novel_item">
-                    <div class="chapter">Chap1</div>
-                    <div class="post_time">Cập nhật 09:56:50 04/07/2023</div>
-                    <div class="btn_gritem">
-                      <div class="novel_conntroller_btn">
-                        <button class="update_current_novel controller_btn">Chỉnh
-                          Sửa</button>
-                        <button class="delete_chapter controller_btn">Xóa Chap</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="my_novel_item">
-                    <div class="chapter">Chap1</div>
-                    <div class="post_time">Cập nhật 09:56:50 04/07/2023</div>
-                    <div class="btn_gritem">
-                      <div class="novel_conntroller_btn">
-                        <button class="update_current_novel controller_btn">Chỉnh
-                          Sửa</button>
-                        <button class="delete_chapter controller_btn">Xóa Chap</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-
-            <div class="page5_c page5_composed">
-
-              <div class="page5_info page5_a_up copy" id="info_novel_add">
-                <h2>Câp Nhật Thông Tin</h2>
-                <div style="display: flex;">
-                  <div class="page5_info_img">
-                    <div class="information_name">
-                      <div class="dropdown">
-                        <button class="dropdown-trigger" type="button">
-                          <div class="dropdown-content">
-                            <label>Choose image</label>
-                            <input id="file-upload" type="file" style="display: none" />
-                          </div>
-                          <div class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)">
-                            <p>Drop / Choose Avatar</p>
-                          </div>
-                          <img class="your-avt" src="https://image-us.24h.com.vn/upload/4-2018/images/2018-12-28/1545991050-295-anh-1-1545980578-width660height660.jpg" alt="" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="page5_info_main">
-
-                    <div class="info-wrapper-container">
-                      <div class="information_name_wrap">
-                        <h3>Tên truyện</h3>
-                        <div class="information_name">
-                          <input class="profile_input n_name" type="text" id="name_novel" value="Nguyễn Hưng Thịnh là kẻ hủy diệt " />
-                        </div>
-                      </div>
-
-                      <div class="information_name_wrap">
-                        <h3>Tác giả</h3>
-                        <div class="information_name">
-                          <input class="profile_input author_name" type="text" id="fullname" value="Kẻ hủy diệt Nguyễn Hưng Thịnh" />
-                        </div>
-                      </div>
-
-                      <div class="" style="display: flex;">
-                        <div class="information_name_wrap" style="width: 50%;">
-                          <h3>Trạng thái</h3>
-                          <div class="information_name novel_status">
-                            <select>
-                              <option value="0">Đang ra</option>
-                              <option value="1">Hoàn thành</option>
-                              <option value="2">Tạm dừng</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div class="information_name_wrap" style="width: 50%;">
-                          <h3>Thể loại</h3>
-                          <div class="information_name novel_types">
-                            <select>
-                              <option value="0">NTR</option>
-                              <option value="1">BDSM</option>
-                              <option value="2">Harem</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="information_name_wrap">
-                        <h3>Giới thiệu truyện</h3>
-                        <div class="information_name" style="display:flex;flex-direction: column;">
-
-                          <textarea class="profile_input novel_descript" id="fullname" placeholder="Kẻ hủy diệt Nguyễn Hưng Thịnh">  </textarea>
-                        </div>
-                      </div>
-                      <div class="page5_info_main_btn">
-                        <button class="savecurent_btn">Lưu</button>
-                        <button class="cancel_btn">Hủy</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div class="chapter_list">
+            <button class="directional-btn show-list">
+              <i class="fa-solid fa-list"></i>
+            </button>
+            <div class="chapter_list_wrap">
+              <select name="show_more" id="show_more">
+                <% for (let i = 0; i < name_chaps.length; i++) { %>
+                <% if (number_chap == i) { %>
+                <% if (name_chaps[i].endsWith(")")) { %>
+                <option selected value="<%= i %>"><%= name_chaps[i].replace(/(Chapter \d+).*?(\d+)\)$/, "$1($2)") %></option>
+                <% } else { %>
+                <option selected value="<%= i %>"><%= name_chaps[i].substring(0, name_chaps[i].indexOf(":")) %></option>
+                <% } %>
+                <% } else { %>
+                <% if (name_chaps[i].endsWith(")")) { %>
+                <option value="<%= i %>"><%= name_chaps[i].replace(/(Chapter \d+).*?(\d+)\)$/, "$1($2)") %></option>
+                <% } else { %>
+                <option value="<%= i %>"><%= name_chaps[i].substring(0, name_chaps[i].indexOf(":")) %></option>
+                <% } %>
+                <% } %>
+                <% } %>
+              </select>
             </div>
           </div>
+          <button class="directional-btn right-btn">
+            <i class="fa-solid fa-angles-right"></i>
+          </button>
         </div>
       </div>
-    </div>
+      <div class="main-content-container">
+        <div class="main-content">
+          <%- chap_content %>
+        </div>
+      </div>
+
+      <div class="head btn-gr">
+        <div class="linevienchien"></div>
+        <div class="vienchien">
+          <button class="directional-btn left-btn">
+            <i class="fa-solid fa-angles-left"></i>
+          </button>
+          <div class="settings_siuuu">
+            <button class="directional-btn setting-btn">
+              <i class="fa-solid fa-sun"></i>
+            </button>
+            <div class="sub-menu wrap-settings">
+              <div class="colors">
+                <ul>
+                  <p>Màu nền</p>
+                  <div class="form_color_text">
+                    <div class="ss_reader_background_reset">
+                      <i class="fa-solid fa-rotate"></i>
+                    </div>
+                    <ul>
+                      <select name="ss_reader_background" id="ss_reader_background1">
+                        <option value="#DFDFE3">Xám Đậm</option>
+                        <option value="linear-gradient(to left, #5b0664, #210e68)">
+                          GALAXY
+                        </option>
+                        show-list
+                        <option value="#E9EBEE">Xanh nhạt</option>
+                        <option value="#F4F4E4">Vàng nhạt</option>
+                        <option value="#EAE4D3">Màu sepia</option>
+                        <option value="#D5D8DC">Xanh đậm</option>
+                        <option value="#FAFAC8">Vàng đậm</option>
+                        <option value="#EFEFAB">Vàng ố</option>
+                        <option value="#FFF">Màu trắng</option>
+                        <option value="#eaeaea">Hạt sạn</option>
+                        <option value="#bfb197">Sách cũ</option>
+                        <option value="#232323">Màu tối</option>
+                      </select>
+                    </ul>
+                    <div class="form_background">
+                      <input type="color" name="" id="ss_reader_background" />
+                    </div>
+                  </div>
+                </ul>
+                <ul>
+                  <p>Màu chữ</p>
+                  <div class="form_color_text">
+                    <div class="ss_reader_textColor_reset">
+                      <i class="fa-solid fa-rotate"></i>
+                    </div>
+                    <ul>
+                      <select name="ss_reader_textColor" id="ss_reader_textColor1">
+                        <option selected value="#222">Đen</option>
+                        <option value="#2B2B2B">Benly</option>
+                        <option value="#373D3F">Raven</option>
+                        <option value="#555F61">Asher</option>
+                        <option value="#fff">Trắng</option>
+                        <option value="#007f61">SSTruyen</option>
+                      </select>
+                    </ul>
+
+                    <input type="color" name="" id="ss_reader_textColor" />
+                  </div>
+                </ul>
+              </div>
+              <div class="size">
+                <ul>
+                  <p>Size chữ</p>
+                  <input type="range" min="0" max="100" value="20" step="1" name="" id="ss_reader_size" />
+                </ul>
+              </div>
+              <div class="line-height">
+                <ul>
+                  <p>Chiều cao dòng</p>
+                  <select name="ss_reader_line_height" id="ss_reader_line_height">
+                    <option value="1">1.0</option>
+                    <option value="1.2">1.2</option>
+                    <option value="1.4">1.4</option>
+                    <option value="1.6">1.6</option>
+                    <option value="1.8">1.8</option>
+                    <option value="2.0">2.0</option>
+                    <option value="2.2">2.2</option>
+                    <option value="2.5">2.5</option>
+                  </select>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="chapter_list">
+            <button class="directional-btn show-list">
+              <i class="fa-solid fa-list"></i>
+            </button>
+            <div class="chapter_list_wrap">
+              <select name="show_more" id="show_more">
+                <% for (let i = 0; i < name_chaps.length; i++) { %>
+                <% if (number_chap == i) { %>
+                <% if (name_chaps[i].endsWith(")")) { %>
+                <option selected value="<%= i %>"><%= name_chaps[i].replace(/(Chapter \d+).*?(\d+)\)$/, "$1($2)") %></option>
+                <% } else { %>
+                <option selected value="<%= i %>"><%= name_chaps[i].substring(0, name_chaps[i].indexOf(":")) %></option>
+                <% } %>
+                <% } else { %>
+                <% if (name_chaps[i].endsWith(")")) { %>
+                <option value="<%= i %>"><%= name_chaps[i].replace(/(Chapter \d+).*?(\d+)\)$/, "$1($2)") %></option>
+                <% } else { %>
+                <option value="<%= i %>"><%= name_chaps[i].substring(0, name_chaps[i].indexOf(":")) %></option>
+                <% } %>
+                <% } %>
+                <% } %>
+              </select>
+
+            </div>
+          </div>
+          <button class="directional-btn right-btn">
+            <i class="fa-solid fa-angles-right"></i>
+          </button>
+        </div>
+      </div>
     </div>
   </main>
-  <!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
-  <div class="toast">
 
-    <div class="toast-content">
-      <i class="fas fa-solid fa-check check"></i>
+  <div class="allbtn">
+    <nav class="menu">
+      <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
+      <label class="menu-open-button" for="menu-open">
+        <span class="hamburger hamburger-1"></span>
+        <span class="hamburger hamburger-2"></span>
+        <span class="hamburger hamburger-3"></span>
+      </label>
 
-      <div class="message">
-        <span class="text text-1">Chottomatte</span>
-        <span class="text text-2">Là một nhẫn giả chân chính hãy điển đủ thông tin ¯\(◉◡◔)/¯</span>
-      </div>
-    </div>
-    <i class="fa-solid fa-xmark close" id="close"></i>
+      <a href="#" class="menu-item ">
+        <button class="lame-left lame ">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+      </a>
+      <a href="#" class="menu-item">
+        <button class="lame-down lame">
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+      </a>
+      <a href="#" class="menu-item">
+        <button class="lame-up lame">
+          <i class="fa-solid fa-chevron-up"></i></button></a>
 
-    <!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
-    <div class="progress active"></div>
+      <a href="#" class="menu-item ">
+        <button class="lame-right lame ">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </a>
+      <a href="#" class="menu-item">
+        <button class="lame-auto lame playing">
+          <i class="fa-solid fa-caret-right play"></i>
+          <i class="fa-solid fa-pause pause" style="display: none"></i>
+        </button>
+      </a>
+    </nav>
+
+    <!-- filters -->
+    <svg style="display: none" xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <defs>
+        <filter id="shadowed-goo">
+          <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+          <feGaussianBlur in="goo" stdDeviation="3" result="shadow" />
+          <feColorMatrix in="shadow" mode="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2" result="shadow" />
+          <feOffset in="shadow" dx="1" dy="1" result="shadow" />
+          <feComposite in2="shadow" in="goo" result="goo" />
+          <feComposite in2="goo" in="SourceGraphic" result="mix" />
+        </filter>
+        <filter id="goo">
+          <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+          <feComposite in2="goo" in="SourceGraphic" result="mix" />
+        </filter>
+      </defs>
+    </svg>
   </div>
 
   <%- include(footerFile) %>
-  <script src="/src/JS/profile.js"></script>
+
 </body>
+<div class="loaded">
+  <div class="loaded_wrap">
+    <div class="loader book">
+      <figure class="page"></figure>
+      <figure class="page"></figure>
+      <figure class="page"></figure>
+    </div>
+
+    <h1>Loading</h1>
+  </div>
+</div>
 <div class="modal">
   <div class="modal_wrap">
     <form class="form" id="form1">
@@ -1174,17 +468,20 @@
         <span class="form-message"></span>
       </div>
       <div class="group1">
-        <button class="btn login" id="logins">Submit</button>
+        <button class="btn" id="logins">Submit</button>
       </div>
       <div class="login_more">
         <div class="login_more_item login_gg">
           <i class="fa-brands fa-google"></i>
+          <!-- Google -->
         </div>
         <div class="login_more_item login_fa">
           <i class="fa-brands fa-facebook"></i>
+          <!-- Facebook -->
         </div>
         <div class="login_more_item login_tw">
           <i class="fa-brands fa-twitter"></i>
+          <!-- Twitter -->
         </div>
       </div>
       <div class="no_signup Noo">
@@ -1314,78 +611,17 @@
         <span class="form-message"></span>
       </div>
       <div class="group1">
-        <button class="btn signup" id="logins">Submit</button>
+        <button class="btn" id="logins signup">Submit</button>
       </div>
 
       <div class="no_login Noo">Bạn đã có tài khoản <a href="">Login</a></div>
     </form>
   </div>
 </div>
+
+<footer footer-tag="/HTML/footer.html"></footer>
 <script src="/src/JS/index.js"></script>
 
-<script src="/src/JS/link.js"></script>
-
-<script src="/src/JS/scriptlogin.js"></script>
-<script>
-	    Validator({
-        form: "#change-pass",
-        formGroupSelector: ".group11",
-        errorSelector: ".form-message1",
-        rules: [
-            Validator.isRequired(".old-password", "Vui lòng nhập nội dung này"),
-			Validator.isRequired(".new-password-again", "Vui lòng nhập nội dung này"),
-			Validator.isRequired(".new-password", "Vui lòng nhập nội dung này"),
-            Validator.minLength(".new-password", 6),
-			Validator.minLength(".new-password-again", 6),
-            Validator.isConfirmed('.new-password-again', function () {
-                return document.querySelector('.new-password').value;
-            }, 'Mật khẩu nhập lại không chính xác')
-
-        ],
-        onSubmit: async function (data) {
-            // Call API
-            const reg_btn = document.querySelector(".change-pass-btn");
-            console.log(data);
-            console.log("cut di bn oi");
-            //gửi request tới csdl server
-            const url = `${currentURL}/signup`; // URL của máy chủ mục tiêu
-            const postData = JSON.stringify({
-                // thông tin đăng kýýý
-                email: `${document.querySelector("#form2 #email").value}`,
-                usr: `${document.querySelector("#form2 #Username").value}`,
-                pass: `${document.querySelector("#form2 #Password").value}`,
-            });
-
-            //bình minh bị đẹp trai nhất thế giới
-            const requestOptions = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: postData,
-            };
-
-            reg_btn.disabled = true;
-            reg_btn.innerHTML = `<div class="load">
-                    <div class="progress"></div>
-                    <div class="progress"></div>
-                    <div class="progress"></div>
-                </div>`;
-            try {
-                const response = await fetch(url, requestOptions);
-                console.log(response.status);
-                if (response.status == "200") {
-
-                    document.querySelector(".no_login a").click();
-                }
-
-                // btn_reg.disabled = false;
-                // btn_reg.textContent = "Register";
-            } catch (error) {
-                console.log("Error:", error);
-            }
-        },
-    });
-</script>
+<script src="/src/JS/reading.js"></script>
 
 </html>

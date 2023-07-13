@@ -478,6 +478,14 @@ Save_btn.onclick = function (e) {
 }
 
 // change pass
+
+
+	// validate
+										
+	// validate
+
+
+
 document.querySelector('.change-pass-btn').onclick = async function (e) {
 	console.log('cut di bn oi');
 	e.preventDefault();
@@ -488,13 +496,13 @@ document.querySelector('.change-pass-btn').onclick = async function (e) {
 		// thông tin đăng kýýý
 		'status': 'Change Pass',
 		'account': `${accountCookie}`,
-		'Old-Password': `${document.querySelector('#old-Password').value}`,
-		'new-Password': `${document.querySelector('#new-Password').value}`,
-		'new-Password-again': `${document.querySelector('#new-Password-again').value}`
+		'Old-Password': `${document.querySelector('.old-password').value}`,
+		'new-Password': `${document.querySelector('.new-password').value}`,
+		'new-Password-again': `${document.querySelector('.new-password-again').value}`
 	});
 
 
-	//bình minh bị gà
+	//BM  _______
 	const requestOptions = {
 		method: 'POST',
 		headers: {

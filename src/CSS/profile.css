@@ -1047,3 +1047,19 @@ input:required:focus {
 }
 
 /* popup */
+.group11{
+  display: flex;
+  flex-direction: column  ;
+}
+.group11:visited {
+  border-color: #f33a58;
+}
+
+.form-message1 {
+  color: #ff3753;
+  padding-top: 3px;
+}
+
+.group11.invalid {
+  border-color: #f33a58;
+}

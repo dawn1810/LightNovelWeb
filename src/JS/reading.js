@@ -18,6 +18,7 @@ const body_main = document.querySelector(".main-body")
 
 const main_content = document.querySelector(".main-content")
 
+document.querySelector('.loaded').style.display = 'none'
 
 // const show_chapter = document.querySelector(".show-list")
 
@@ -44,6 +45,10 @@ for (const list_show of show_list) {
     list_show.onclick = function () {
         list_show.parentElement.querySelector('#show_more').style.display = "block"
         list_show.style.display = "none"
+        setTimeout(function () {
+            list_show.parentElement.querySelector('#show_more').style.display = "none"
+        list_show.style.display = "block"
+        },5000)
     }
 }
 background_color.onchange = function () {
@@ -195,110 +200,14 @@ function autoScroll() {
     pageScroll();
 }
 
-async function getchapdata() {
-    await fetch(`${currentURL}/reading`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            id: window.location.href.split("/")[window.location.href.split("/").length - 2],
-            chap: window.location.href.split("/")[window.location.href.split("/").length - 1]
-        })
-    })
-        .then(response => {
-            if (response.status === 200) {
-                console.log(response)
-                // response.text()
-                return response.json();
-            } else if (response.status === 404) {
-                window.location.href = `${currentURL}/error/404.html`;
 
-            }
-        })
-        .then(data => {
-            console.log(data)
-            const chap = parseInt((window.location.href).split('/').pop());
+// go chap
+show_more.onchange = function(){
+    const chap = show_more.value
+        const crUrl = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
 
-            // if(chap ==)
-            responseData = data; // Lưu trữ nội dung phản hồi vào biến
-            if (responseData) {
-                console.log(responseData)
-                const name_lv = document.querySelector('.name_lv')
-                const novel_name = document.querySelector('.novel-name')
-                const novel_name_chapter = document.querySelector('.novel-name-chapter')
-                const main_content = document.querySelector('.main-content')
-                name_lv.innerHTML = `
-                 <a href = "${currentURL}/reviews/${window.location.href.split('/')[window.location.href.split('/').length - 2]}">
-                    ${responseData.name}
-                 </a>
-                `
-                novel_name.innerHTML = responseData.name
-                novel_name_chapter.innerHTML = responseData.name_chap
-                main_content.innerHTML = responseData.chap_content
-                document.querySelector('.loaded').style.display = 'none'
-
-                const left_btn = document.querySelectorAll('.left-btn')
-                if (parseInt((window.location.href).split('/').pop()) == 0) {
-                    for (const l_btn of left_btn) {
-                        l_btn.style.display = 'none'
-                    }
-                }
-                const right_btn = document.querySelectorAll('.right-btn')
-
-                if (parseInt((window.location.href).split('/').pop()) == responseData.name_chaps.length - 1) {
-                    for (const r_btn of right_btn) {
-                        r_btn.style.display = 'none'
-                    }
-                }
-                const show_more = document.querySelectorAll('#show_more')
-                for (const show of show_more) {
-                    let show_list = ''
-                    for (let i = 0; i < responseData.name_chaps.length; i++) {
-                        if (parseInt((window.location.href).split('/').pop()) == i) {
-                            if (responseData.name_chaps[i].endsWith(")")) {
-                                show_list += `
-                            <option selected  value="${i}">${responseData.name_chaps[i].replace(/(Chapter \d+).*?(\d+)\)$/, "$1($2)")}</option>
-                            `
-                            }
-                            else {
-                                show_list += `
-                            <option selected value="${i}">${responseData.name_chaps[i].substring(0, responseData.name_chaps[i].indexOf(":"))}</option>
-                            `
-                            }
-                        }
-                        else {
-                            if (responseData.name_chaps[i].endsWith(")")) {
-                                show_list += `
-                            <option value="${i}">${responseData.name_chaps[i].replace(/(Chapter \d+).*?(\d+)\)$/, "$1($2)")}</option>
-                            `
-                            }
-                            else {
-                                show_list += `
-                            <option value="${i}">${responseData.name_chaps[i].substring(0, responseData.name_chaps[i].indexOf(":"))}</option>
-                            `
-                            }
-                        }
-
-                    }
-                    show.innerHTML = show_list
-
-                    show.onchange = function () {
-                        const crUrl = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
-                        window.location.href = `${crUrl}/${show.value}`
-                    }
-                }
-
-
-                document.querySelector('.rv-author-a').innerHTML = responseData.name_chap.substring(0, responseData.name_chap.indexOf(":"));;
-            }
-        }) // In nội dung phản hồi
-        // Sử dụng responseData ở những nơi khác trong mã của b
-        .catch(error => {
-            console.log(error)
-        });
+        window.location.href = `${crUrl}/${chap}`
 }
-getchapdata()
 
 
 
