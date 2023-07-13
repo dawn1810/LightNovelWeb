@@ -20,7 +20,6 @@ const Setting_item = document.querySelectorAll(".Setting_sidebar-list_item");
 const update_current_novel = document.querySelector(".update_current_novel")
 const delete_chapter = document.querySelector(".delete_chapter")
 const add_new = document.querySelector('.add_new')
-const add_new_chapter = document.querySelector('.add_new_chapter')
 const show_list = document.querySelector('.showlist_novel')
 const page5_home = document.querySelector('.page5_home')
 const page5_a = document.querySelector('.page5_a')
@@ -49,10 +48,7 @@ closeIcon.addEventListener("click", () => {
 })
 // toast
 
-// add chap in show list
 
-
-// add chap in show list
 
 // dieu khoan dich vu
 const checked = document.getElementById("Agree");
@@ -289,7 +285,7 @@ for (const button of avtBtn) {
 // 	return false;
 // });
 
-for(const button of avtUpLoad) {
+for (const button of avtUpLoad) {
 	button.addEventListener("change", function (event) {
 
 		const file = event.target.files[0];
@@ -300,7 +296,7 @@ for(const button of avtUpLoad) {
 			button.parentElement.parentElement.querySelector('.your-avt').src = reader.result;
 		};
 		reader.readAsDataURL(file);
-	
+
 		// disappear drop text
 		if (button.parentElement.parentElement.querySelector('.your-avt').src !== "") {
 			button.parentElement.parentElement.querySelector('.drop-zone').innerHTML = "";
@@ -313,22 +309,22 @@ function allowDrop(event) {
 	event.preventDefault();
 }
 
-for(const button of dropZone)
-button.ondrop = function(event) {
-	event.preventDefault();
-	const file = event.dataTransfer.files[0];
-	const reader = new FileReader();
-	reader.onload = () => {
-		const base64 = reader.result;
-		button.parentElement.querySelector('.your-avt').src = reader.result;
-	};
-	reader.readAsDataURL(file);
+for (const button of dropZone)
+	button.ondrop = function (event) {
+		event.preventDefault();
+		const file = event.dataTransfer.files[0];
+		const reader = new FileReader();
+		reader.onload = () => {
+			const base64 = reader.result;
+			button.parentElement.querySelector('.your-avt').src = reader.result;
+		};
+		reader.readAsDataURL(file);
 
-	// disappear drop text
-	if (avatar5.src !== "") {
-		button.parentElement.querySelector('.your-avt').innerHTML = "haha";
+		// disappear drop text
+		if (avatar5.src !== "") {
+			button.parentElement.querySelector('.your-avt').innerHTML = "haha";
+		}
 	}
-}
 
 function getRandomElement(list) {
 	const randomIndex = Math.floor(Math.random() * list.length);
@@ -360,7 +356,19 @@ function uploadFiles(files) {
 	})
 		.then(function (response) {
 			if (response.ok) {
-				return response.json(); 
+				// go to next page
+				page5_a_up_drop()
+				var newURL = currentURL + '/profile/post_novel';
+				history.pushState(null, null, newURL);
+				page5_post.style.display = 'block'
+				range.style.setProperty('--p', '75');
+				range.style.setProperty('--widthbf', '50%');
+				range__label.classList.remove('anima')
+
+				setTimeout(function () {
+					range__label.classList.add('anima')
+				}, 50)
+				return response.json();
 			} else if (response.status == "400") {
 				// Error occurred during upload
 				window.alert('Em yêu có file sai định dạng kìa!!!')
@@ -386,6 +394,98 @@ function uploadFiles(files) {
 			console.error('Error uploading files.');
 		});
 }
+
+
+// tag----------------------------------------------------------------
+
+
+// select tag
+
+const tags = document.querySelectorAll('#myUL li')
+const input = document.querySelector('.novel_types_search')
+input.querySelector('input').onfocus = function (){
+	console.log('heheheheheheheheheheheheheheheheheheh');
+	document.getElementById('myUL').style.display = 'block'
+}
+for (const tag of tags) {
+	tag.onclick = function () {
+		document.getElementById('myUL').style.display = 'none'
+		for (const tag of tags) {
+			tag.style.display = 'block'
+		}
+		tag.classList.add('displayed');
+		// Tạo thẻ div con mới
+		const newDiv = document.createElement('div');
+		newDiv.classList.add('add-tag');
+		// Lấy thẻ con 'ga'
+		const child = input.querySelector('input');
+		child.value = ''
+		// Thêm nội dung vào thẻ div con mới
+		// newDiv.textContent = `${tag.innerText}`;
+		const text = document.createElement('div')
+		text.textContent = `${tag.innerText}`;
+		const linkElement = document.createElement('i');
+		linkElement.className = "fa-regular fa-circle-xmark"
+		newDiv.appendChild(text);
+
+		newDiv.appendChild(linkElement);
+
+		// Thêm thẻ div con mới vào div cha
+		input.insertBefore(newDiv, child);
+		remove()
+	}
+}
+
+
+function remove() {
+	const remove_tags = document.querySelectorAll('.add-tag i');
+	for (const remove_tag of remove_tags) {
+		remove_tag.onclick = function () {
+			remove_tag.parentElement.remove();
+			for (const tag of tags) {
+				console.log(tag.querySelector('div').textContent)
+				console.log(remove_tag.parentElement.querySelector('div').textContent)
+				if (tag.querySelector('div').textContent == remove_tag.parentElement.querySelector('div').textContent.replace(/\s/g, '')) {
+					tag.classList.remove('displayed')
+					console.log(tag.querySelector('div').textContent)
+				}
+			}
+		}
+	}
+}
+
+function myFunction() {
+	const input = document.querySelector('.novel_types_search input'),
+		filter = input.value.toUpperCase(),
+		ul = document.getElementById("myUL"),
+		li = ul.getElementsByTagName('li')
+
+	// Loop through all list items, and hide those who don't match the search query
+	for (i = 0; i < li.length; i++) {
+		item = li[i].querySelector('.selectize-dropdown_item')
+
+		txtValue = item.textContent || item.innerText;
+		if (txtValue.toUpperCase().indexOf(filter) > -1) {
+			li[i].style.display = "";
+			console.log(txtValue)
+
+		} else {
+			li[i].style.display = "none";
+			console.log(txtValue)
+		}
+	}
+
+
+	remove();
+
+
+}
+
+
+
+
+// tag----------------------------------------------------------------
+
 
 // Danh sách các phần tử
 const myList = [
@@ -569,10 +669,6 @@ document.querySelector('.add_novel_more_chap ').onclick = function () {
 	}, 100)
 }
 
-add_new_chapter.onclick = function () {
-	page5_b.style.display = 'none'
-	page5_a.style.display = 'block'
-}
 
 show_list.onclick = function () {
 	page5_home.style.display = 'none'
@@ -580,6 +676,7 @@ show_list.onclick = function () {
 }
 
 document.querySelector('.page5_info .next_btn').onclick = function () {
+	console.log("Click")
 	if (novel_name.value != '' && author_name.value != '' && novel_descript.value) {
 		page5_a_up_drop()
 		let newURL = currentURL + '/profile/add_content';
@@ -630,7 +727,7 @@ document.querySelector('.page5_chap .more_chap_btn').onclick = function () {
 		<div class="information_name_wrap">
 			<h3>Thứ tự chương</h3>
 			<div class="information_name">
-				<input class="profile_input chap_num" type="text" id="name_novel"
+				<input class="profile_input chap_num" type="number" id="name_novel"
 					placeholder="Nhập thứ tự chương(e.g. 1, 1.1, 1.5, 2,...)" />
 			</div>
 		</div>
@@ -690,6 +787,7 @@ $(document).ready(function () {
 
 // next page btn of .page5_chap
 document.querySelector('.page5_chap .next_btn').onclick = function () {
+	console.log("Click")
 	let files = []
 	let full = false
 	// Loop through all elements
@@ -708,20 +806,8 @@ document.querySelector('.page5_chap .next_btn').onclick = function () {
 	});
 
 	if (full) {
-		uploadFiles(files);
-		// -----------------------------------------------------------------------------------------
-
-		page5_a_up_drop()
-		var newURL = currentURL + '/profile/post_novel';
-		history.pushState(null, null, newURL);
-		page5_post.style.display = 'block'
-		range.style.setProperty('--p', '75');
-		range.style.setProperty('--widthbf', '50%');
-		range__label.classList.remove('anima')
-
-		setTimeout(function () {
-			range__label.classList.add('anima')
-		}, 50)
+		document.querySelector('.page5_chap .next_btn').innerHTML = `<img src="https://cdn.discordapp.com/attachments/1128184786347905054/1129065224998227968/icons8-sharingan-100.png">`
+		// uploadFiles(files);
 	} else {
 		// window.alert("Là một nhẫn giả chân chính hãy điển đủ thông tin ¯\(◉◡◔)/¯")
 		toast.classList.add("active");

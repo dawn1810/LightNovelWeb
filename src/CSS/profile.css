@@ -908,6 +908,21 @@ textarea {
   align-items: center !important;
 }
 
+.next_btn img {
+  width: 56px;
+  height: 56px;
+  animation: rotation 2s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
 .back_btn {
   width: 40px !important;
   height: 40px !important;
@@ -1065,27 +1080,55 @@ input:required:focus {
   border-color: #f33a58;
 }
 
-
-
-
 /* tag css */
 
 .selectize-dropdown_item{
-  display: none;
-  background-color: #7d71ff;
+  /* display: none; */
+  background-color: var(--element-color);;
   border-radius: 5px;
   margin: 5px;
   color: var(--black-text);
   text-align: center;
   padding: 2px;
 }
+
+.add-tag{
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  background-color: var(--element-color);;
+  border-radius: 5px;
+  margin: 5px;
+  color: var(--black-text);
+  text-align: center;
+  padding: 0px 3px 0 9px;
+  font-size: 15px;
+
+}
+.add-tag div{
+  width: 60px;
+  overflow: hidden; /* Ẩn đoạn văn bản vượt quá độ dài */
+  text-overflow: ellipsis; /* Thêm ký tự '...' vào cuối đoạn văn bản */
+  white-space: nowrap; 
+}
+.add-tag i{
+  margin-left: 5px;
+  cursor: pointer;
+}
+.displayed{
+  display: none!important;
+}
+
 .novel_types_search{
   border: 2px solid #bba9a9 ;
   padding: 4px;
   background-color: var(--input-color);
   border-radius: 6px;
+  display: flex;
+  min-height: 40px;
 }
 .novel_types_search input{
+  box-sizing: border-box;
   border: 0;
   background-color: transparent;
   padding: 0 10px;
@@ -1093,7 +1136,23 @@ input:required:focus {
   color: var(--text-color);
 }
 
-.novel_types_search input:focus{
-  
+.novel_types{
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
+
+#myUL{
+  position: absolute;
+  background-color: #3623ff;
+  z-index: 10;
+  width: 100%;
+  padding: 0;
+  top: 70%;
+  display: none;
+}
+#myUL li{
+  cursor: pointer;
+}
+
 /* tag css */
