@@ -828,7 +828,7 @@ a {
   height: 200px;
   background-color: var(--category_bg);
   position: absolute;
-  top: 30px;
+  top:48px;
   z-index: 9999;
   right: -40px;
   border-radius: 5px;
@@ -905,7 +905,7 @@ a {
   height: 156px;
   background-color: var(--category_bg);
   position: absolute;
-  top: 38px;
+  top: 55px;
   z-index: 99990;
   right: -8%;
   border-radius: 5px;
