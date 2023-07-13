@@ -385,7 +385,6 @@
                       <button class="add_novel_more_chap controller_btn"> + Thêm
                         chương</button>
                       <button class="showlist_novel controller_btn">Danh sách chương</button>
-                      <!-- <button class="export_curent_novel controller_btn">Xuất Bản</button> -->
                     </div>
 
                   </div>
@@ -743,7 +742,7 @@
                         <div class="drop-zone" ondrop="drop5(event)" ondragover="allowDrop(event)">
                           <p>Drop / Choose Avatar</p>
                         </div>
-                        <img class="your-avt" src="https://image-us.24h.com.vn/upload/4-2018/images/2018-12-28/1545991050-295-anh-1-1545980578-width660height660.jpg" alt="" />
+                        <img class="your-avt" src="https://media.discordapp.net/attachments/1119222655392940033/1126350213464989796/337021832_765997928224397_7582517827674452501_n.png?width=1052&height=1042" alt="" />
                       </button>
                     </div>
                   </div>
@@ -780,11 +779,23 @@
                       <div class="information_name_wrap" style="width: 50%;">
                         <h3>Thể loại</h3>
                         <div class="information_name novel_types">
-                          <select>
-                            <option value="0">NTR</option>
-                            <option value="1">BDSM</option>
-                            <option value="2">Harem</option>
-                          </select>
+                          <div class="novel_types_search">
+                            <input type="text" tabindex>
+                          </div>
+
+                          <!-- tag -->
+                          <div class="selectize-dropdown">
+                            <div class="selectize-dropdown-content">
+                                <div class="selectize-dropdown_item">NTR</div>
+                                <div class="selectize-dropdown_item">Fantasy</div>
+                                <div class="selectize-dropdown_item">rape</div>
+                                <div class="selectize-dropdown_item">incest</div>
+                                <div class="selectize-dropdown_item">milf</div>
+                                <div class="selectize-dropdown_item">sota</div>
+                            </div>
+                          </div>
+                          <!-- tag -->
+                          
                         </div>
                       </div>
                     </div>
@@ -792,7 +803,7 @@
                     <div class="information_name_wrap">
                       <h3>Giới thiệu truyện</h3>
                       <div class="information_name" style="display:flex;flex-direction: column;">
-                        <textarea class="profile_input novel_descript" id="fullname" placeholder="Nhập nôi dung giới thiệu truyện của bạn">  </textarea>
+                        <textarea class="profile_input novel_descript" id="fullname" placeholder="Nhập nôi dung giới thiệu truyện của bạn"></textarea>
                       </div>
                     </div>
                     <div class="page5_info_main_btn">
@@ -899,8 +910,7 @@
             <div class="page5_b page5_composed" id="list_chaper">
               <div class="page5_list_chapter_Author">
                 <div class="list_chapter_head">
-                  <h2 class="list_title">Nguyễn Hưng Thịnh là kẻ hủy diệt </h2>
-                  <button class="add_new_chapter">+ THÊM CHAP MỚI</button>
+                  <h2 class="list_title">Nguyễn Hưng Thịnh là kẻ hủy diệt </h2> 
                 </div>
                 <div class="list_chapter_body">
                   <div class="my_novel_item">
@@ -957,7 +967,7 @@
 
               <div class="page5_info page5_a_up copy" id="info_novel_add">
                 <h2>Câp Nhật Thông Tin</h2>
-                <div style="display: flex;">
+                <div style="display: flex;flex-direction: row;justify-content: space-between;">
                   <div class="page5_info_img">
                     <div class="information_name">
                       <div class="dropdown">
@@ -1031,6 +1041,49 @@
                 </div>
               </div>
             </div>
+<!-- add_chap -->
+            <div class="page5_d page5_composed">
+              <div class="page5_chap page5_a_up" id="add_chap">
+
+                <div class="page5_info_main">
+                  <div class="info-wrapper-container">
+                    <div class="information_name_wrap">
+                      <h3>Thứ tự chương</h3>
+                      <div class="information_name">
+                        <input class="profile_input chap_num" type="text" required id="name_novel" placeholder="Nhập thứ tự chương(e.g. 1, 1.1, 1.5, 2,...)" />
+                      </div>
+                    </div>
+
+                    <div class="information_name_wrap">
+                      <h3>Tên chương</h3>
+                      <div class="information_name">
+                        <input class="profile_input chap_name" type="text" required id="fullname" placeholder="Nhập tên chương" />
+                      </div>
+                    </div>
+
+                    <div class="information_name_wrap">
+                      <div class="head">
+                        <h3>Nội Dung</h3>
+                        <pre class="file-content" style="margin: 1rem 20px;"></pre>
+                        <input type="file" class="file-input" style="display:none;" accept=".txt, .docx" />
+                        <button class="upfile">
+                          <i class="fa-solid fa-upload"></i>
+                        </button>
+                      </div>
+                    </div>
+
+                    <p style="text-align: center;">[------------------------------------ 🦊🍜🍥-------------------------------------]</p>
+                  </div>
+                </div>
+                <div class="page5_info_main_btn">
+                  <button class="close_btn">Hủy</button>
+                  <button class="more_chap_btn">Thêm chương</button>
+                  <button class="more_chap_btn">Lưu</button>
+                </div>
+
+              </div>
+            </div>
+<!-- add_chap -->
           </div>
         </div>
       </div>

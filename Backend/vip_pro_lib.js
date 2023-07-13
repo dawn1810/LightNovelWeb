@@ -17,8 +17,9 @@ exports.add_one_Data = async function (table, myobj) {
   try {
     // await client.connect();
     // let myobj = { user_name: "Long Khoa Hoc", user_id: "longdd", password: "Nl<3Bp"};
-    await client.db('wtfn').collection(table).insertOne(myobj);
+    const resual = await client.db('wtfn').collection(table).insertOne(myobj);
     console.log('SYSTEM | ADD_ONE_DATA | Add document', myobj, 'successfull');
+    return resual;
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();

@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.log("e sơ");
                     window.location.reload();
                 }
-                else if (response.status == 403) {
+                else if (response.status == 403 || response.status == 500) {
                     console.log("e sơ");
                     document.querySelector('.Error_mess').innerHTML = 'Em iu hãy xem lại tài khoản đã nhập'
                 }
@@ -348,6 +348,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     document.querySelector(".no_login a").click();
                 }
+               
 
                 // btn_reg.disabled = false;
                 // btn_reg.textContent = "Register";

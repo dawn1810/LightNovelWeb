@@ -851,7 +851,7 @@ app.post('/updatelike', async (req, res) => {
 			//status: status (0/1)
 			//id_truyen
 
-			if (parseInt(data.status)) { // like
+			if (parseInt(data.liked)) { // like
 				// up one like for current novel
 				await server.update_one_Data('truyen',
 					{ _id: new ObjectId(data.id_truyen) },
@@ -891,10 +891,8 @@ app.post('/updatelike', async (req, res) => {
 })
 
 // Review page --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.get('/reviews/:id', checkCookieLoglUser,async (req, res) => {
+app.get('/reviews/:id', checkCookieLoglUser ,async (req, res) => {
 	try {
-		const account = req.cookies.account
-
 		// Get novel information:
 		let result = await server.find_all_Data({
 			table: "truyen",
@@ -914,31 +912,9 @@ app.get('/reviews/:id', checkCookieLoglUser,async (req, res) => {
 			},
 			limit: 1
 		});
-
+		console.log(result)
 		// default if they don't have an account
-		result[0].liked = 0;
 		result[0].update_date = calTime(result[0].update_date);
-
-		if (account) {
-			const decode = decrypt(account, authenticationKey);
-			const decodeList = decode.split(':');
-			if (decodeList[0] == authenticationKey) {
-				// check does novel was liked by current user or not
-				const like_list = await server.find_all_Data({
-					table: "tt_nguoi_dung",
-					query: { _id: decodeList[1] },
-					projection: {
-						_id: 0,
-						likeNovels: 1
-					},
-					limit: 1
-				});
-		
-				if (like_list[0].likeNovels.includes(req.params.id)) { // liked
-					result[0].liked = 1;
-				}
-			}
-		}
 
 		res.render('reviews.ejs', {
 			headerFile: 'header',
@@ -966,7 +942,9 @@ app.get('/reviews/:id', checkCookieLoglUser,async (req, res) => {
 
 app.post('/reviews', async (req, res) => {
 	const data = req.body;
+	const account = req.cookies.account
 	console.log('SYSTEM | REVIEWS |', data);
+	console.log('SYSTEM | REVIEWS |', account);
 	try {
 		let result = await server.find_all_Data({
 			table: "truyen",
@@ -977,7 +955,29 @@ app.post('/reviews', async (req, res) => {
 			},
 			limit: 1
 		});
-
+		
+		result[0].liked = 0; ///here
+		
+		if (account) {
+			const decode = decrypt(account, authenticationKey);
+			const decodeList = decode.split(':');
+			if (decodeList[0] == authenticationKey) {
+				// check does novel was liked by current user or not
+				const like_list = await server.find_all_Data({
+					table: "tt_nguoi_dung",
+					query: { _id: decodeList[1] },
+					projection: {
+						_id: 0,
+						likeNovels: 1
+					},
+					limit: 1
+				});
+		
+				if (like_list[0].likeNovels.includes(req.params.id)) { // liked
+					result[0].liked = 1;
+				}
+			}
+		}
 		// console.log('SYSTEM | REVIEWS | Trả về thông tin reviews truyện ', result[0].name);
 		res.writeHead(200, { 'Content-Type': 'application/json' });
 
@@ -1039,22 +1039,12 @@ app.post('/upload_novel', async (req, res) => {
 
 	try {
 		if (decodeList[0] == authenticationKey) {
-			const rand_id = uuidv4();
-			// create a new comment document
-			await server.add_one_Data("comment", {
-				_id: rand_id,
-				content: {
-					// user_name: content (do what to add)
-				}
-			});
-
 			// upload novel content
 			let up_content = {
-				_id: new ObjectID(rand_id),
 				name: data.name,
 				author: data.author,
 				name_chaps: data.name_chaps,
-				chap_ids: dummy.ids, // cho nay can them
+				chap_ids: data.chap_ids,
 				status: data.status,
 				no_chapters: data.name_chaps.length,
 				genres: data.genres,
@@ -1065,14 +1055,20 @@ app.post('/upload_novel', async (req, res) => {
 				update_date: new Date(),
 			};
 
-			await server.add_one_Data("truyen", up_content);
+			const id_check = await server.add_one_Data("truyen", up_content);
+			
+			console.log(id_check);
+			// create a new comment document
+		 	await server.add_one_Data("comment", {
+				_id : id_check.insertedId,
+				content: {
+					// user_name: content (do what to add)
+				}
+			});
 
 			// update user's novel list
-			await server.update_one_Data('tt_nguoi_dung', { _id: decodeList[1] }, { $push: { mynovel: rand_id } });
-
-			res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
-			console.log('SYSTEM | UPLOAD NOVEL | Trả về nội dung truyện muốn đọc', send_back.name);
-			res.end(JSON.stringify(send_back));
+			await server.update_one_Data('tt_nguoi_dung', { _id: decodeList[1] }, { $push: { mynovel: id_check.insertedId.toString()} });
+			res.sendStatus(200);
 		}
 
 	} catch (err) {
@@ -1081,7 +1077,7 @@ app.post('/upload_novel', async (req, res) => {
 	}
 });
 
-app.post('/update_novel', async (req, res) => {
+app.post('/update_upload_novel', async (req, res) => {
 	const data = req.body;
 	console.log('SYSTEM | UPLOAD NOVEL |', data);
 	try {

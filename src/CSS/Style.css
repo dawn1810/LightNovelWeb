@@ -137,11 +137,11 @@ a {
 }
 
 .category_list {
-  height: 500px;
+  height: 550px;
   background-color: var(--category_list);
-  position: fixed;
+  position: absolute;
   top: 13%;
-  left: 11.3%;
+  left: 100%;
   display: none;
   color: #fff;
 }
@@ -799,7 +799,7 @@ a {
   position: absolute;
   top: 82%;
   left: -206%;
-  width: 67px;
+  width: 85px;
   height: 100%;
   background-color: transparent;
 }
@@ -871,7 +871,7 @@ a {
   position: absolute;
   top: 50%;
   left: 41%;
-  width: 68px;
+  width: 170px;
   height: 100%;
   background-color: transparent;
   display: flex;
@@ -1183,7 +1183,7 @@ html .body_main {
   height: 260px;
   border-radius: 10px;
   transition: 0.5s ease-in-out;
-  object-position: 80% 100%;
+  object-position: 50% 100%;
   object-fit: cover;
 }
 

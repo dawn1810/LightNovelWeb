@@ -1,8 +1,8 @@
 // avt page1
-const avtBtn = document.querySelector(".page1 .dropdown-trigger");
-const avtUpLoad = document.querySelector(".page1 #file-upload");
+const avtBtn = document.querySelectorAll(".dropdown-trigger");
+const avtUpLoad = document.querySelectorAll(" #file-upload");
 const avatar = document.querySelector(".page1 .your-avt");
-const dropZone = document.querySelector(".page1 .drop-zone");
+const dropZone = document.querySelectorAll(".drop-zone");
 // avt page1
 
 
@@ -44,10 +44,15 @@ const back_btn = document.querySelectorAll('.back_btn')
 const toast = document.querySelector(".toast");
 const closeIcon = document.getElementById("close");
 const progress = document.querySelector(".progress");
-closeIcon.addEventListener("click", () =>{
+closeIcon.addEventListener("click", () => {
 	toast.classList.remove("active");
 })
 // toast
+
+// add chap in show list
+
+
+// add chap in show list
 
 // dieu khoan dich vu
 const checked = document.getElementById("Agree");
@@ -273,81 +278,55 @@ for (const button of button_file) {
 
 
 // change the avatar image
-avtBtn.addEventListener("click", function (event) {
-	avtUpLoad.click();
-	return false;
-});
-avtBtn5.addEventListener("click", function (event) {
-	avtUpLoad5.click();
-	return false;
-});
+for (const button of avtBtn) {
+	button.addEventListener("click", function (event) {
+		button.querySelector('#file-upload').click();
+		return false;
+	});
+}
+// avtBtn5.addEventListener("click", function (event) {
+// 	avtUpLoad5.click();
+// 	return false;
+// });
 
-avtUpLoad.addEventListener("change", function (event) {
+for(const button of avtUpLoad) {
+	button.addEventListener("change", function (event) {
 
-	const file = event.target.files[0];
-	const reader = new FileReader();
-	reader.onload = () => {
-		const base64 = reader.result;
-		console.log(reader.result)
-		avatar.src = reader.result;
-	};
-	reader.readAsDataURL(file);
+		const file = event.target.files[0];
+		const reader = new FileReader();
+		reader.onload = () => {
+			const base64 = reader.result;
+			console.log(reader.result)
+			button.parentElement.parentElement.querySelector('.your-avt').src = reader.result;
+		};
+		reader.readAsDataURL(file);
+	
+		// disappear drop text
+		if (button.parentElement.parentElement.querySelector('.your-avt').src !== "") {
+			button.parentElement.parentElement.querySelector('.drop-zone').innerHTML = "";
+		}
+	});
+}
 
-	// disappear drop text
-	if (avatar.src !== "") {
-		dropZone.innerHTML = "";
-	}
-});
-avtUpLoad5.addEventListener("change", function (event) {
-	console.log("avtUpLoad5");
-	const file = event.target.files[0];
-	const reader = new FileReader();
-	reader.onload = () => {
-		const base64 = reader.result;
-		console.log(reader.result)
-
-		avatar5.src = reader.result;
-	};
-	reader.readAsDataURL(file);
-
-	// disappear drop text
-	if (avatar5.src !== "") {
-		dropZone5.innerHTML = "";
-	}
-});
 
 function allowDrop(event) {
 	event.preventDefault();
 }
 
-function drop(event) {
+for(const button of dropZone)
+button.ondrop = function(event) {
 	event.preventDefault();
 	const file = event.dataTransfer.files[0];
 	const reader = new FileReader();
 	reader.onload = () => {
 		const base64 = reader.result;
-		avatar.src = reader.result;
-	};
-	reader.readAsDataURL(file);
-
-	// disappear drop text
-	if (avatar.src !== "") {
-		dropZone.innerHTML = "haha";
-	}
-}
-function drop5(event) {
-	event.preventDefault();
-	const file = event.dataTransfer.files[0];
-	const reader = new FileReader();
-	reader.onload = () => {
-		const base64 = reader.result;
-		avatar5.src = reader.result;
+		button.parentElement.querySelector('.your-avt').src = reader.result;
 	};
 	reader.readAsDataURL(file);
 
 	// disappear drop text
 	if (avatar5.src !== "") {
-		dropZone5.innerHTML = "haha";
+		button.parentElement.querySelector('.your-avt').innerHTML = "haha";
 	}
 }
 
@@ -381,7 +360,7 @@ function uploadFiles(files) {
 	})
 		.then(function (response) {
 			if (response.ok) {
-				return response.json;
+				return response.json(); 
 			} else if (response.status == "400") {
 				// Error occurred during upload
 				window.alert('Em yêu có file sai định dạng kìa!!!')
@@ -400,8 +379,7 @@ function uploadFiles(files) {
 		})
 		.then(function (responseData) {
 			console.log('File uploaded!');
-			finalDataToServer["chapters_content"] = responseData
-			console.log(responseData);
+			finalDataToServer["chapters_content"] = responseData;
 		})
 		.catch(function (error) {
 			// Error occurred during the request
@@ -480,9 +458,9 @@ Save_btn.onclick = function (e) {
 // change pass
 
 
-	// validate
-										
-	// validate
+// validate
+
+// validate
 
 
 
@@ -491,7 +469,7 @@ document.querySelector('.change-pass-btn').onclick = async function (e) {
 	e.preventDefault();
 	//gửi request tới csdl server
 	const accountCookie = getCookie('account')
-	const url = `${currentURL}changepass`; // URL của máy chủ mục tiêu
+	const url = `${currentURL}/changepass`; // URL của máy chủ mục tiêu
 	const postData = JSON.stringify({
 		// thông tin đăng kýýý
 		'status': 'Change Pass',
@@ -566,7 +544,22 @@ update_current_novel.onclick = function () {
 	history.pushState(null, null, newURL);
 
 	page5_composed[3].style.display = 'block'
-	page5_a_up[0].style.display = 'flex'
+	page5_a_up[4].style.display = 'flex'
+	setTimeout(function () {
+		range.style.setProperty('--p', '25');
+
+		range__label.classList.remove('anima')
+
+		range__label.classList.add('anima')
+	}, 100)
+}
+document.querySelector('.add_novel_more_chap ').onclick = function () {
+	page5_composed_drop()
+	var newURL = currentURL + '/profile' + '/morechap';
+	history.pushState(null, null, newURL);
+
+	page5_composed[4].style.display = 'block'
+	page5_a_up[5].style.display = 'block'
 	setTimeout(function () {
 		range.style.setProperty('--p', '25');
 
@@ -620,7 +613,7 @@ document.querySelector('.page5_info .next_btn').onclick = function () {
 		timer2 = setTimeout(() => {
 			progress.classList.remove("active");
 		}, 5300);
-		
+
 	}
 }
 
@@ -700,7 +693,7 @@ document.querySelector('.page5_chap .next_btn').onclick = function () {
 	let files = []
 	let full = false
 	// Loop through all elements
-	$('.page5_chap .info-wrapper-container').each(function () {
+	$('.page5_a .page5_chap .info-wrapper-container').each(function () {
 		// Get the input element inside the current element
 		let chapNum = $(this).find('.chap_num').val();
 		let chapName = $(this).find('.chap_name').val();
@@ -767,19 +760,19 @@ document.querySelector('.page5_post .post_btn').onclick = async function () {
 
 	// POST ALL DATA TO SERVER--------------------------------------------------------------------------------------------------
 	//gửi request tới csdl server
-	const url = `${currentURL}upload_novel`; // URL của máy chủ mục tiêu
+	const url = `${currentURL}/upload_novel`; // URL của máy chủ mục tiêu
 
 	const postData = JSON.stringify({
 		name: finalDataToServer["novel_name"],
 		author: finalDataToServer["author_name"],
 		name_chaps: finalDataToServer["name_chapters"],
 		chap_ids: finalDataToServer["chapters_content"],
-		genres: finalDataToServer["novel_types"],
+		genres: [finalDataToServer["novel_types"]],
 		status: finalDataToServer["novel_status"],
-		summary: finalDataToServer["novel_descript"], // summary of novel 
-		image: finalDataToServer["novel_avt"], // avatar of novel
+		summary: finalDataToServer["novel_descript"],
+		image: finalDataToServer["novel_avt"],
 	});
-
+	console.log(postData)
 	const requestOptions = {
 		method: 'POST',
 		headers: {

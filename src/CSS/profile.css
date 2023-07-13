@@ -638,6 +638,7 @@ body {
 
 .add_novel_more_chap {
   display: flex;
+  background-color: #ffffff00 !important;
 }
 
 .controller_btn {
@@ -1063,3 +1064,36 @@ input:required:focus {
 .group11.invalid {
   border-color: #f33a58;
 }
+
+
+
+
+/* tag css */
+
+.selectize-dropdown_item{
+  display: none;
+  background-color: #7d71ff;
+  border-radius: 5px;
+  margin: 5px;
+  color: var(--black-text);
+  text-align: center;
+  padding: 2px;
+}
+.novel_types_search{
+  border: 2px solid #bba9a9 ;
+  padding: 4px;
+  background-color: var(--input-color);
+  border-radius: 6px;
+}
+.novel_types_search input{
+  border: 0;
+  background-color: transparent;
+  padding: 0 10px;
+  outline: transparent;
+  color: var(--text-color);
+}
+
+.novel_types_search input:focus{
+  
+}
+/* tag css */

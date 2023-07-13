@@ -57,7 +57,7 @@ async function like_novel(status) {
             },
             body: JSON.stringify({
                 account: accountCookie,
-                status: status,
+                liked: status,
                 id_truyen: window.location.href.split("/")[window.location.href.split("/").length - 1]
             })
         })
