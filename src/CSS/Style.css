@@ -140,8 +140,8 @@ a {
   height: 500px;
   background-color: var(--category_list);
   position: fixed;
-  top: 9%;
-  left: 14%;
+  top: 13%;
+  left: 11.3%;
   display: none;
   color: #fff;
 }

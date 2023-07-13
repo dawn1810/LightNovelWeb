@@ -1,9 +1,9 @@
 // const { getItem } = require("node-persist")
 
-const like = document.querySelector('.like')
-const dislike = document.querySelector('.dislike')
+
 const Evaluate_btn = document.querySelectorAll('.Evaluate_btn')
 // import "/";
+document.querySelector('.loaded').style.display = 'none'
 
 const pg = document.getElementById("pagination");
 const pages = document.getElementById("pages");
@@ -254,21 +254,13 @@ function Evaluate() {
         iterator.style.color = '#fff'
     }
 }
-like.onclick = function () {
-    Evaluate()
-    like.style.color = '#1877f2'
-}
-dislike.onclick = function () {
-    Evaluate()
-    dislike.style.color = '#1877f2'
-    //abcdef
-}
+
 let tim = 0
 let sao = 0
 document.querySelector('.function_item_folow').onclick = function () {
     const tym = document.querySelector('.function_item_folow span').innerHTML
 
-    const user_status = document.querySelector('.header_user_logo')
+    const user_status = document.querySelector('.header_user')
     if (user_status.style.display == 'none') {
         alert('Bạn phải đăng nhập')
 
@@ -341,53 +333,7 @@ document.querySelector('.function_item_star').onclick = function () {
 console.log(window.location.href.split("/")[window.location.href.split("/").length - 1])
 const novel_id = localStorage.getItem('novel_id')
 
-function calTime(data) {
-    // Thời điểm hiện tại
-    const now = new Date();
-    console.log((data.update_date))
 
-    // Thời điểm trả về từ server
-    const serverTime = new Date(data.update_date);
-
-    // Tính số lượng năm chênh lệch
-    const yearsDiff = now.getFullYear() - serverTime.getFullYear();
-
-    // Tính số lượng tháng chênh lệch
-    const monthsDiff = (yearsDiff * 12) + (now.getMonth() - serverTime.getMonth());
-
-    // Tính số lượng ngày chênh lệch
-    const daysDiff = Math.floor((now - serverTime) / (1000 * 60 * 60 * 24));
-
-    // Tính số lượng giờ chênh lệch
-    const hoursDiff = now.getHours() - serverTime.getHours();
-
-    // Tính số lượng phút chênh lệch
-    const minutesDiff = now.getMinutes() - serverTime.getMinutes();
-
-    // Hiển thị kết quả chênh lệch thời gian
-    console.log(`Chênh lệch thời gian: ${yearsDiff} năm, ${monthsDiff} tháng, ${daysDiff} ngày, ${hoursDiff} giờ, ${minutesDiff} phút.`);
-
-    if (yearsDiff > 0) {
-        return yearsDiff + ' năm'
-    }
-    else if (monthsDiff > 0) {
-        return monthsDiff + ' tháng'
-    }
-    else if (daysDiff > 0) {
-        return daysDiff + ' ngày'
-    }
-    else if (hoursDiff > 0) {
-        return hoursDiff + ' giờ'
-    }
-    else if (minutesDiff > 0) {
-        return minutesDiff + ' phút'
-    }
-    else {
-        return 'Nóng như chuyện tình đôi ta <3'
-
-    }
-    return 'éo tính dc'
-}
 
 
 var list_chap = ''
@@ -413,7 +359,7 @@ async function getReview() {
                 return response.json();
 
             } else if (response.status === 404) {
-                window.location.href = `${currentURL}/error/404.html`;
+                // window.location.href = `${currentURL}/error/404.html`;
 
             }
         })
@@ -421,19 +367,11 @@ async function getReview() {
             responseData = data; // Lưu trữ nội dung phản hồi vào biến
             // console.log(responseData.usr)
             if (data) {
-                // console.log(data)
-                const current_novel_name = document.querySelector('.current-novel-name')
-                const current_novel_actor = document.querySelector('.current-novel-actor')
-                const current_category_list = document.querySelector('.current-category-list')
-                const novel_avt = document.querySelector('.novel-avt')
-                const function_item_folow = document.querySelector('.function_item_folow span')
-                const function_item_folow_heard = document.querySelector('.function_item_folow i')
-                const summary = document.querySelector('.summary-Content')
-                document.querySelector('#last_update_time').innerHTML = calTime(data)
+                console.log(data)
+      
 
-                document.querySelector('#number_of_likes').innerHTML = data.likes
-                document.querySelector('#number_of_view').innerHTML = data.views
-                summary.innerHTML = data.summary
+           
+          
                 const lasted_chap = document.querySelector('.lasted_chap')
                 lasted_chap.onclick = function (e) {
                     e.preventDefault()
@@ -519,60 +457,29 @@ async function getReview() {
                 }
 
                 // Xét xem người dùng đã like hay chưa:
-                if (data.status) { // đã like
-                    function_item_folow_heard.classList.replace('fa-regular', 'fa-solid');
-                }
-                else { // chưa like
-                    function_item_folow_heard.classList.replace('fa-solid', 'fa-regular');
-                }
+                // if (data.status) { // đã like
+                //     function_item_folow_heard.classList.replace('fa-regular', 'fa-solid');
+                // }
+                // else { // chưa like
+                //     function_item_folow_heard.classList.replace('fa-solid', 'fa-regular');
+                // }
 
 
-                function scrollToComments() {
-                    // Lấy phần tử bình luận của bài đăng
-                    var commentContainer = document.getElementById("comment_container");
+               
 
-                    // Nếu phần tử bình luận tồn tại, cuộn trang xuống phần tử đó
-                    if (commentContainer) {
-                        commentContainer.scrollIntoView();
-                    }
-                }
-
-                // Đăng ký sự kiện click cho nút bình luận
-                var commentButton = document.querySelector('.function_item_comment');
-                commentButton.addEventListener("click", function (event) {
-                    // Ngăn chặn hành động mặc định của nút bình luận (chuyển đến URL mới)
-                    event.preventDefault();
-
-                    // Cuộn trang xuống phần bình luận của bài đăng và hiển thị phần bình luận
-                    scrollToComments();
-                });
+                
 
                 haha(data.name_chaps)
                 // console.log(data)
-                current_novel_name.innerHTML = data.name
-                current_novel_actor.innerHTML = data.author
-                novel_avt.src = data.image
-                function_item_folow.innerHTML = data.likes
+      
 
 
 
-                let btn_category = ''
-                for (let i = 0; i < data.genres.length; i++) {
-                    btn_category += `
-                <li id="action" class="current-category-list_item">
-                <a href="/HTML/category-page.html">
-                    <div class="btn btn1">
-                        <h4>${data.genres[i]}</h4>
-                    </div>
-                </a>
-            </li>
-                `
-                }
+               
                 // console.log(btn_category)
                 valuePage.totalPages = (data.name_chaps.length / 10).toFixed(0)
-                current_category_list.innerHTML = btn_category
-                const listchap = document.querySelector('.listchap')
-                let showlist = ''
+                // current_category_list.innerHTML = btn_category
+                
                 // console.log(showlist)
                 const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
 
@@ -589,6 +496,7 @@ async function getReview() {
 
 
 function showListLoad(pageNumber, data) {
+    console.log('ahaaaa')
     const listchap = document.querySelector('.listchap')
     let showlist = ''
     const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
@@ -704,7 +612,7 @@ function haha(data) {
     };
 }
 
-getReview()
+getReview();
 
 
 
@@ -749,18 +657,3 @@ if (comments.length > numCommentsToShow) {
     loadMoreBtn.classList.remove("hidden");
 }
 
-// Khi nhấn nút "Xem thêm"
-loadMoreBtn.addEventListener("click", function () {
-    // Tăng số lượng bình luận đang hiển thị lên numCommentsToShow
-    numCommentsVisible += numCommentsToShow;
-
-    // Hiển thị tất cả các bình luận trong phạm vi đang hiển thị
-    for (var i = 0; i < numCommentsVisible && i < comments.length; i++) {
-        comments[i].classList.remove("hidden");
-    }
-
-    // Ẩn nút "Xem thêm" nếu tất cả các bình luận đã được hiển thị
-    if (numCommentsVisible >= comments.length) {
-        loadMoreBtn.classList.add("hidden");
-    }
-});

@@ -55,7 +55,7 @@
           <div class="Titile_interact_siu">
             <div class="current_left">
 
-              <img src="https://m.media-amazon.com/images/M/MV5BODM0NmVjMzUtOTJhNi00N2ZhLWFkYmMtYmZmNjRiY2M1YWY4XkEyXkFqcGdeQXVyOTgxOTA5MDg@._V1_.jpg" alt="" referrerpolicy="no-referrer" class="novel-avt">
+              <img src="<%= image %>" alt="" referrerpolicy="no-referrer" class="novel-avt">
             </div>
 
             <div class="title-gr">
@@ -104,10 +104,6 @@
                   <i class="fa-regular fa-star"></i>
                   <span>Đánh giá</span>
                 </div>
-                <div class="function_item function_item_comment">
-                  <i class="fa-regular fa-comment"></i>
-                  <span>Bình luận</span>
-                </div>
                 <div class="function_item function_item_share ">
                   <i class="fa-solid fa-share-nodes"></i>
                   <span>Chia sẻ</span>
@@ -119,16 +115,16 @@
             <button class="summary-btn" onclick="toggleSummary()"><i class="fa-solid fa-bars"></i>
               HIỆN TÓM TẮT </button>
             <div style="display: none;" class="summary-Content">
-              NaN
+                <%= summary %>
             </div>
           </div>
           <div class="Titile_info">
             <div class="Titile_info_item">
               <div class="Titile_info_item_title">
-                Lần cuối
+                Lần cuối ta bên nhau
               </div>
               <div id="last_update_time" class="Titile_info_item_value ">
-                20 giờ
+                <%= update_date %>
               </div>
             </div>
             <div class="Titile_info_item">
@@ -136,7 +132,7 @@
                 Lượt thích
               </div>
               <div id="number_of_likes" class="Titile_info_item_value">
-                NaN
+                <%= likes %>
               </div>
             </div>
             <div class="Titile_info_item">
@@ -144,7 +140,7 @@
                 Lượt xem
               </div>
               <div id="number_of_view" class="Titile_info_item_value">
-                176.185
+                <%= views %>
               </div>
             </div>
           </div>
@@ -166,139 +162,7 @@
           </div>
         </div>
         <div class="listchap">
-          <div class="chapter-item">
-            <div class="chapter_item_info">
-              <h2 style="margin: 15px;">chap 1</h2>
-              <div style="
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-">
-                <div>khong co tieu de</div>
-                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
-              </div>
-            </div>
-            <i class="fa-solid fa-circle-down" style="
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 21px;
-"></i>
-          </div>
-          <div class="chapter-item">
-            <div class="chapter_item_info">
-              <h2 style="margin: 15px;">chap 1</h2>
-              <div style="
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-">
-                <div>khong co tieu de</div>
-                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
-              </div>
-            </div>
-            <i class="fa-solid fa-circle-down" style="
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 21px;
-"></i>
-          </div>
-          <div class="chapter-item">
-            <div class="chapter_item_info">
-              <h2 style="margin: 15px;">chap 1</h2>
-              <div style="
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-">
-                <div>khong co tieu de</div>
-                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
-              </div>
-            </div>
-            <i class="fa-solid fa-circle-down" style="
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 21px;
-"></i>
-          </div>
-          <div class="chapter-item">
-            <div class="chapter_item_info">
-              <h2 style="margin: 15px;">chap 1</h2>
-              <div style="
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-">
-                <div>khong co tieu de</div>
-                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
-              </div>
-            </div>
-            <i class="fa-solid fa-circle-down" style="
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 21px;
-"></i>
-          </div>
-          <div class="chapter-item">
-            <div class="chapter_item_info">
-              <h2 style="margin: 15px;">chap 1</h2>
-              <div style="
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-">
-                <div>khong co tieu de</div>
-                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
-              </div>
-            </div>
-            <i class="fa-solid fa-circle-down" style="
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 21px;
-"></i>
-          </div>
-          <div class="chapter-item">
-            <div class="chapter_item_info">
-              <h2 style="margin: 15px;">chap 1</h2>
-              <div style="
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-">
-                <div>khong co tieu de</div>
-                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
-              </div>
-            </div>
-            <i class="fa-solid fa-circle-down" style="
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 21px;
-"></i>
-          </div>
-          <div class="chapter-item">
-            <div class="chapter_item_info">
-              <h2 style="margin: 15px;">chap 1</h2>
-              <div style="
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-">
-                <div>khong co tieu de</div>
-                <div>14 Ngày Trước-2b Lượt Xem - 7 bình luận</div>
-              </div>
-            </div>
-            <i class="fa-solid fa-circle-down" style="
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 21px;
-"></i>
-          </div>
+        
 
 
         </div>
@@ -377,377 +241,6 @@
     </div>
     </div>
 
-    <!-- comment -->
-    <div class="comment_container" id="comment_container">
-      <div class="comment_container_wrap">
-
-        <!-- you -->
-        <div class="your-avt-container">
-          <img class="your_avt" src="https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg" alt="">
-          <div class="input-gr">
-            <input class="your_comment" type="text" placeholder="Bình luận vào đây nhé !!! hihi đồ ngốc...">
-            <button class="send_your_cmt">Gửi</button>
-          </div>
-        </div>
-        <!-- you -->
-        <!-- they -->
-        <div class="comment_list">
-
-          <!-- commentitem -->
-          <div class="comment_item_container">
-            <img class="comment_avt" src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg" alt="">
-            <div class="comment_content-gr">
-              <div class="Information">
-                <span class="nick-name">long</span>
-                <span class="chapter-commnet"> chap 200</span>
-                <span class="date_posting">2023/06/09</span>
-                <span class="posting_time"> 07:19</span>
-              </div>
-              <div class="comment">truyện như cái đ*u Bu*i </div>
-              <div class="Evaluate">
-                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                  thích</button>
-              </div>
-            </div>
-          </div>
-          <!-- commentitem -->
-
-          <!-- commentitem -->
-          <div class="comment_item_container">
-            <img class="comment_avt" src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg" alt="">
-            <div class="comment_content-gr">
-              <div class="Information">
-                <span class="nick-name">long</span>
-                <span class="chapter-commnet"> chap 200</span>
-                <span class="date_posting">2023/06/09</span>
-                <span class="posting_time"> 07:19</span>
-              </div>
-              <div class="comment">truyện như cái đ*u Bu*i </div>
-              <div class="Evaluate">
-                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                  thích</button>
-              </div>
-            </div>
-          </div>
-          <!-- commentitem -->
-
-          <!-- commentitem -->
-          <div class="comment_item_container">
-            <img class="comment_avt" src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg" alt="">
-            <div class="comment_content-gr">
-              <div class="Information">
-                <span class="nick-name">long</span>
-                <span class="chapter-commnet"> chap 200</span>
-                <span class="date_posting">2023/06/09</span>
-                <span class="posting_time"> 07:19</span>
-              </div>
-              <div class="comment">truyện như cái đ*u Bu*i </div>
-              <div class="Evaluate">
-                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                  thích</button>
-              </div>
-            </div>
-          </div>
-          <!-- commentitem -->
-
-          <!-- commentitem -->
-          <div class="comment_item_container">
-            <img class="comment_avt" src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg" alt="">
-            <div class="comment_content-gr">
-              <div class="Information">
-                <span class="nick-name">long</span>
-                <span class="chapter-commnet"> chap 200</span>
-                <span class="date_posting">2023/06/09</span>
-                <span class="posting_time"> 07:19</span>
-              </div>
-              <div class="comment">truyện như cái đ*u Bu*i </div>
-              <div class="Evaluate">
-                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                  thích</button>
-              </div>
-            </div>
-          </div>
-          <!-- commentitem -->
-
-          <!-- commentitem -->
-          <div class="comment_item_container">
-            <img class="comment_avt" src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg" alt="">
-            <div class="comment_content-gr">
-              <div class="Information">
-                <span class="nick-name">long</span>
-                <span class="chapter-commnet"> chap 200</span>
-                <span class="date_posting">2023/06/09</span>
-                <span class="posting_time"> 07:19</span>
-              </div>
-              <div class="comment">truyện như cái đ*u Bu*i </div>
-              <div class="Evaluate">
-                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                  thích</button>
-              </div>
-            </div>
-          </div>
-          <!-- commentitem -->
-
-          <!-- commentitem -->
-          <div class="comment_item_container">
-            <img class="comment_avt" src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg" alt="">
-            <div class="comment_content-gr">
-              <div class="Information">
-                <span class="nick-name">long</span>
-                <span class="chapter-commnet"> chap 200</span>
-                <span class="date_posting">2023/06/09</span>
-                <span class="posting_time"> 07:19</span>
-              </div>
-              <div class="comment">truyện như cái đ*u Bu*i </div>
-              <div class="Evaluate">
-                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                  thích</button>
-              </div>
-            </div>
-          </div>
-          <!-- commentitem -->
-
-          <!-- commentitem -->
-          <div class="comment_item_container">
-            <img class="comment_avt" src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg" alt="">
-            <div class="comment_content-gr">
-              <div class="Information">
-                <span class="nick-name">long</span>
-                <span class="chapter-commnet"> chap 200</span>
-                <span class="date_posting">2023/06/09</span>
-                <span class="posting_time"> 07:19</span>
-              </div>
-              <div class="comment">truyện như cái đ*u Bu*i </div>
-              <div class="Evaluate">
-                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                  thích</button>
-              </div>
-            </div>
-          </div>
-          <!-- commentitem -->
-
-          <!-- commentitem -->
-          <div class="comment_item_container">
-            <img class="comment_avt" src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg" alt="">
-            <div class="comment_content-gr">
-              <div class="Information">
-                <span class="nick-name">long</span>
-                <span class="chapter-commnet"> chap 200</span>
-                <span class="date_posting">2023/06/09</span>
-                <span class="posting_time"> 07:19</span>
-              </div>
-              <div class="comment">truyện như cái đ*u Bu*i </div>
-              <div class="Evaluate">
-                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                  thích</button>
-              </div>
-            </div>
-          </div>
-          <!-- commentitem -->
-          <!-- commentitem -->
-          <div class="comment_item_container">
-            <img class="comment_avt" src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg" alt="">
-            <div class="comment_content-gr">
-              <div class="Information">
-                <span class="nick-name">long</span>
-                <span class="chapter-commnet"> chap 200</span>
-                <span class="date_posting">2023/06/09</span>
-                <span class="posting_time"> 07:19</span>
-              </div>
-              <div class="comment">truyện như cái đ*u Bu*i </div>
-              <div class="Evaluate">
-                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                  thích</button>
-              </div>
-            </div>
-          </div>
-          <!-- commentitem -->
-
-          <!-- commentitem -->
-          <div class="comment_item_container">
-            <img class="comment_avt" src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg" alt="">
-            <div class="comment_content-gr">
-              <div class="Information">
-                <span class="nick-name">long</span>
-                <span class="chapter-commnet"> chap 200</span>
-                <span class="date_posting">2023/06/09</span>
-                <span class="posting_time"> 07:19</span>
-              </div>
-              <div class="comment">truyện như cái đ*u Bu*i </div>
-              <div class="Evaluate">
-                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                  thích</button>
-              </div>
-            </div>
-          </div>
-          <!-- commentitem -->
-          <!-- commentitem -->
-          <div class="comment_item_container">
-            <img class="comment_avt" src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg" alt="">
-            <div class="comment_content-gr">
-              <div class="Information">
-                <span class="nick-name">long</span>
-                <span class="chapter-commnet"> chap 200</span>
-                <span class="date_posting">2023/06/09</span>
-                <span class="posting_time"> 07:19</span>
-              </div>
-              <div class="comment">truyện như cái đ*u Bu*i </div>
-              <div class="Evaluate">
-                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                  thích</button>
-              </div>
-            </div>
-          </div>
-          <!-- commentitem -->
-          <!-- commentitem -->
-          <div class="comment_item_container">
-            <img class="comment_avt" src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg" alt="">
-            <div class="comment_content-gr">
-              <div class="Information">
-                <span class="nick-name">long</span>
-                <span class="chapter-commnet"> chap 200</span>
-                <span class="date_posting">2023/06/09</span>
-                <span class="posting_time"> 07:19</span>
-              </div>
-              <div class="comment">truyện như cái đ*u Bu*i </div>
-              <div class="Evaluate">
-                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                  thích</button>
-              </div>
-            </div>
-          </div>
-          <!-- commentitem -->
-          <!-- commentitem -->
-          <div class="comment_item_container">
-            <img class="comment_avt" src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg" alt="">
-            <div class="comment_content-gr">
-              <div class="Information">
-                <span class="nick-name">long</span>
-                <span class="chapter-commnet"> chap 200</span>
-                <span class="date_posting">2023/06/09</span>
-                <span class="posting_time"> 07:19</span>
-              </div>
-              <div class="comment">truyện như cái đ*u Bu*i </div>
-              <div class="Evaluate">
-                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                  thích</button>
-              </div>
-            </div>
-          </div>
-          <!-- commentitem -->
-
-          <!-- commentitem -->
-          <div class="comment_item_container">
-            <img class="comment_avt" src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg" alt="">
-            <div class="comment_content-gr">
-              <div class="Information">
-                <span class="nick-name">long</span>
-                <span class="chapter-commnet"> chap 200</span>
-                <span class="date_posting">2023/06/09</span>
-                <span class="posting_time"> 07:19</span>
-              </div>
-              <div class="comment">truyện như cái đ*u Bu*i </div>
-              <div class="Evaluate">
-                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                  thích</button>
-              </div>
-            </div>
-          </div>
-          <!-- commentitem -->
-          <!-- commentitem -->
-          <div class="comment_item_container">
-            <img class="comment_avt" src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg" alt="">
-            <div class="comment_content-gr">
-              <div class="Information">
-                <span class="nick-name">long</span>
-                <span class="chapter-commnet"> chap 200</span>
-                <span class="date_posting">2023/06/09</span>
-                <span class="posting_time"> 07:19</span>
-              </div>
-              <div class="comment">truyện như cái đ*u Bu*i </div>
-              <div class="Evaluate">
-                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                  thích</button>
-              </div>
-            </div>
-          </div>
-          <!-- commentitem -->
-          <!-- commentitem -->
-          <div class="comment_item_container">
-            <img class="comment_avt" src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg" alt="">
-            <div class="comment_content-gr">
-              <div class="Information">
-                <span class="nick-name">long</span>
-                <span class="chapter-commnet"> chap 200</span>
-                <span class="date_posting">2023/06/09</span>
-                <span class="posting_time"> 07:19</span>
-              </div>
-              <div class="comment">truyện như cái đ*u Bu*i </div>
-              <div class="Evaluate">
-                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                  thích</button>
-              </div>
-            </div>
-          </div>
-          <!-- commentitem -->
-          <!-- commentitem -->
-          <div class="comment_item_container">
-            <img class="comment_avt" src="https://antimatter.vn/wp-content/uploads/2023/02/hinh-anh-avatar-bua-anime-mat-xau.jpg" alt="">
-            <div class="comment_content-gr">
-              <div class="Information">
-                <span class="nick-name">long</span>
-                <span class="chapter-commnet"> chap 200</span>
-                <span class="date_posting">2023/06/09</span>
-                <span class="posting_time"> 07:19</span>
-              </div>
-              <div class="comment">truyện như cái đ*u Bu*i </div>
-              <div class="Evaluate">
-                <button class="reply Evaluate_btn"><i class="fa-solid fa-comment"></i> trả lời</button>
-                <button class="like Evaluate_btn"><i class="fa-solid fa-thumbs-up"></i> Thích</button>
-                <button class="dislike Evaluate_btn"><i class="fa-solid fa-thumbs-down"></i> Không
-                  thích</button>
-              </div>
-            </div>
-          </div>
-          <!-- commentitem -->
-
-
-        </div>
-      </div>
-    </div>
-    <!-- comment -->
   </main>
 
   <%- include(footerFile) %>
