@@ -306,7 +306,6 @@ async function get_full_id(directoryPath, listName) {
 
 }
 
-
 // ------------------------------------------------------------------------------------------------
 
 async function checkCookieLoglUser(req, res, next) {
@@ -318,8 +317,6 @@ async function checkCookieLoglUser(req, res, next) {
 			next();
 		}
 		else {
-
-
 			console.log('SYSTEM | AUTHENTICATION | Dữ liệu nhận được: ', data);
 			const decode = decrypt(data.account, authenticationKey);
 			const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
@@ -331,6 +328,9 @@ async function checkCookieLoglUser(req, res, next) {
 					// neu dang nhap = google thi 2 bien avt va display name co gia tri, nhung login = tk,mk thi k co 2 bien nay
 					res.locals.avt = result.avatarUrl;
 					res.locals.username = result.displayName;
+					res.locals.user = result._id;
+					res.locals.sex = result.sex;
+					res.locals.email = result.email;
 					next();
 				}
 				else if (result == null) {
@@ -988,39 +988,51 @@ app.post('/reading', async (req, res) => {
 // Upload novel ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.post('/upload_novel', async (req, res) => {
 	const data = req.body;
-	console.log('SYSTEM | UPLOAD NOVEL |', data);
+	const account = req.cookies.account
+	console.log('SYSTEM | UPLOAD_NOVEL | Dữ liệu nhận được: ', data);
+	console.log('SYSTEM | UPLOAD_NOVEL | Cookie nhận được: ', account);
+	const decode = decrypt(account, authenticationKey);
+	const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
+	console.log(`SYSTEM | UPLOAD_NOVEL | Dữ liệu đã giải mã ${decodeList}`);
+	// decodeList = authenticationKey:id:pass
 
 	try {
-		// create a new comment document
-		await server.add_one_Data("comment", {
-			_id: data.id,
-			content: {
-				// user_name: content (do what to add)
-			}
-		});
+		if (decodeList[0] == authenticationKey) {
+			let rand_id = uuidv4();
+			// create a new comment document
+			await server.add_one_Data("comment", {
+				_id: rand_id,
+				content: {
+					// user_name: content (do what to add)
+				}
+			});
 
-		// upload novel content
-		let up_content = {
-			name: data.name,
-			author: data.author,
-			name_chaps: data.name_chaps,
-			chap_ids: dummy.ids, // cho nay can them
-			status: data.status,
-			no_chapters: data.name_chaps.length,
-			genres: data.genres,
-			summary: data.summary,
-			image: data.image,
-			views: 0,
-			likes: 0,
-			update_date: new Date(),
-		};
+			// upload novel content
+			let up_content = {
+				_id: rand_id,
+				name: data.name,
+				author: data.author,
+				name_chaps: data.name_chaps,
+				chap_ids: dummy.ids, // cho nay can them
+				status: data.status,
+				no_chapters: data.name_chaps.length,
+				genres: data.genres,
+				summary: data.summary,
+				image: data.image,
+				views: 0,
+				likes: 0,
+				update_date: new Date(),
+			};
 
-		await server.add_one_Data("truyen", up_content);
+			await server.add_one_Data("truyen", up_content);
 
+			// update user's novel list
+			
 
-		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
-		console.log('SYSTEM | UPLOAD NOVEL | Trả về nội dung truyện muốn đọc', send_back.name);
-		res.end(JSON.stringify(send_back));
+			res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
+			console.log('SYSTEM | UPLOAD NOVEL | Trả về nội dung truyện muốn đọc', send_back.name);
+			res.end(JSON.stringify(send_back));
+		}
 
 	} catch (err) {
 		console.log('SYSTEM | UPLOAD NOVEL | ERROR | ', err);
@@ -1031,21 +1043,6 @@ app.post('/upload_novel', async (req, res) => {
 app.post('/update_novel', async (req, res) => {
 	const data = req.body;
 	console.log('SYSTEM | UPLOAD NOVEL |', data);
-	// data = {
-	// 	id: 0, // already exist novel use current id, else use 0
-	// 	name: dummy.title, // ten truyen
-	// 	author: "1810s team", // tac gia
-	// 	name_chaps: dummy.name_chap, // list name of chapter follow struture "Chapter (number): (name of chapter)".
-	// 	chap_ids: dummy.ids, // call drive upload and get list of id on follow chapters. (we'll add this)
-	// 	no_chapters: dummy.ids.length, // chap_ids || name_chaps length. (we'll add this)
-	// 	genres: dummy['Genre(s)'], // kind of novel (list of tag).
-	//  status: // trang thai
-	// 	summary: dummy.Summary, // summary of novel 
-	// 	image: dummy.img, // avatar of novel
-	// 	views: 0, //  we will add this.
-	// 	likes: 0, // we will add this.
-	// 	update_date: new Date(), // we will add this.
-	// };
 	try {
 		server.update_one_Data("truyen", { _id: new ObjectId(data.id) }, {
 			$set: {
