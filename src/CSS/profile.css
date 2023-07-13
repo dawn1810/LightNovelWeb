@@ -1006,8 +1006,8 @@ input:required:focus {
 
 .toast .close {
   position: absolute;
-  top: 10px;
-  right: 57%;
+  top: 4px;
+  right: -37%;
   padding: 5px;
   cursor: pointer;
   opacity: 0.7;

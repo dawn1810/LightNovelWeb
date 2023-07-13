@@ -42,9 +42,17 @@ const back_btn = document.querySelectorAll('.back_btn')
 
 // toast 
 const toast = document.querySelector(".toast");
-const closeIcon = document.querySelector(".close");
+const closeIcon = document.getElementById("close");
 const progress = document.querySelector(".progress");
+closeIcon.addEventListener("click", () =>{
+	toast.classList.remove("active");
+})
 // toast
+
+// dieu khoan dich vu
+const checked = document.getElementById("Agree");
+// dieu khoan dich vu
+
 
 
 let finalDataToServer = {
@@ -604,6 +612,7 @@ document.querySelector('.page5_info .next_btn').onclick = function () {
 		timer2 = setTimeout(() => {
 			progress.classList.remove("active");
 		}, 5300);
+		
 	}
 }
 
@@ -713,7 +722,17 @@ document.querySelector('.page5_chap .next_btn').onclick = function () {
 			range__label.classList.add('anima')
 		}, 50)
 	} else {
-		window.alert("Là một nhẫn giả chân chính hãy điển đủ thông tin ¯\(◉◡◔)/¯")
+		// window.alert("Là một nhẫn giả chân chính hãy điển đủ thông tin ¯\(◉◡◔)/¯")
+		toast.classList.add("active");
+		progress.classList.add("active");
+
+		timer1 = setTimeout(() => {
+			toast.classList.remove("active");
+		}, 5000); //1s = 1000 milliseconds
+
+		timer2 = setTimeout(() => {
+			progress.classList.remove("active");
+		}, 5300);
 	}
 
 }

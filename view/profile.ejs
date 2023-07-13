@@ -80,7 +80,7 @@
 																<p>Drop / Choose Avatar</p>
 															</div>
 															<img class="your-avt"
-																src="https://down-vn.img.susercontent.com/file/53b83ea8b2e789a02bc3f7df5c487c61"
+																src="<%= avt %>" 
 																alt="" />
 														</button>
 													</div>
@@ -92,9 +92,8 @@
 											<div class="information_name_wrap">
 												<h3>User</h3>
 												<div class="information_name">
-													<input class="profile_input" type="text" id="username"
-														value="Thịnh_khủng_bố" />
-													<button id="button_file">Chỉnh Sửa</button>
+													<div class="profile_input" type="text" id="username"
+														><%= user %></div>
 												</div>
 											</div>
 
@@ -102,8 +101,7 @@
 												<h3>Họ tên</h3>
 												<div class="information_name">
 													<input class="profile_input" type="text" id="fullname"
-														value="Kẻ hủy diệt, Nguyễn Hưng Thịnh" />
-													<button id="button_file">Chỉnh Sửa</button>
+														value="<%= username %>" />
 												</div>
 											</div>
 
@@ -111,20 +109,30 @@
 												<h3>Email</h3>
 												<div class="information_name">
 													<input class="profile_input" type="text" id="email"
-														value="Thinhterrorist@gmail.com" />
-													<button id="button_file">Chỉnh Sửa</button>
+														value="<%= email %>" />
 												</div>
 											</div>
 
 											<div class="information_name_wrap">
 												<h3>Giới tính</h3>
+												<% if (username == '' && avt == 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg') { %>
+													<div class="">
+														<input type="radio" name="gender" id="nam" value="nam" checked>
+														<label for="nam">Nam</label>
+														<input type="radio" name="gender" id="nu" value="nu">
+														<label for="nữ">Nữ</label>
+													</div>
+											  <% } else { %>
 												<div class="">
-													<input type="radio" name="gender" id="nam" value="nam" checked>
+													<input type="radio" name="gender" id="nam" value="nam">
 													<label for="nam">Nam</label>
-													<input type="radio" name="gender" id="nu" value="nu">
+													<input type="radio" name="gender" id="nu" value="nu" checked>
 													<label for="nữ">Nữ</label>
-
 												</div>
+											  <% } %>
+
+
+											
 												<div class="information_name">
 													<div class="sex_wrapper">
 														<div class="sex_random">Nam</div>
@@ -257,7 +265,8 @@
 
 						<div class="Setting_pageWrapper page4" id="change_pass">
 							<h2>Đổi Mật Khẩu</h2>
-							<div class="change-pass">
+
+							<form class="change-pass">
 								<p>Mật Khẩu Cũ</p>
 								<input class="old-password pass" placeholder="nhập mật khẩu bạn đã quên" type="text" />
 								<p>Mật Khẩu Mới</p>
@@ -265,8 +274,9 @@
 								<p>Xác nhận mật khẩu mới</p>
 								<input class="new-password pass" placeholder="nhập lại mật khẩu mới" type="text" />
 
-								<button class="change-pass-btn">ĐỔI MẬT KHẨU</button>
-							</div>
+								<button type="submit" class="change-pass-btn">ĐỔI MẬT KHẨU</button>
+							</form>
+							
 						</div>
 
 						<div class="Setting_pageWrapper page5" id='my_novel'>
@@ -847,7 +857,7 @@
 									</span>
 									<div class="page5_post_check_wrap">
 										<div class="page5_post_check">
-											<i class="fa-regular fa-square"></i>
+											<i id="Agree" class="fa-regular fa-square"></i>
 										</div>
 										<span>Tôi đồng ý với Quy định Nội dung và Chính sách quyền lợi của
 											WtfNovel.</span>
@@ -1039,17 +1049,17 @@
 			</div>
 		</main>
 		<!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
-		<div class="toast ">
+		<div class="toast">
 
 			<div class="toast-content">
 				<i class="fas fa-solid fa-check check"></i>
 
 				<div class="message">
-					<span class="text text-1">Success</span>
-					<span class="text text-2">Your changes has been saved</span>
+					<span class="text text-1">Chottomatte</span>
+					<span class="text text-2">Là một nhẫn giả chân chính hãy điển đủ thông tin ¯\(◉◡◔)/¯</span>
 				</div>
 			</div>
-			<i class="fa-solid fa-xmark close"></i>
+			<i class="fa-solid fa-xmark close" id="close"></i>
 
 			<!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
 			<div class="progress active"></div>
