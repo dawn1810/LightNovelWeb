@@ -407,6 +407,15 @@ input.querySelector('input').onfocus = function (){
 	console.log('heheheheheheheheheheheheheheheheheheh');
 	document.getElementById('myUL').style.display = 'block'
 }
+
+input.querySelector('input').onblur= function (){
+	console.log('heheheheheheheheheheheheheheheheheheh');
+	setTimeout(() => {
+		document.getElementById('myUL').style.display = 'none'
+	}, 500);
+	
+}
+
 for (const tag of tags) {
 	tag.onclick = function () {
 		document.getElementById('myUL').style.display = 'none'
