@@ -994,7 +994,7 @@ app.get('/reviews/:id', async (req, res) => {
 			views: result[0].views,
 			likes: result[0].likes,
 			update_date: result[0].update_date,
-			status: result[0].status
+			status: result[0].status,
 			liked: result[0].liked
 		});
 
