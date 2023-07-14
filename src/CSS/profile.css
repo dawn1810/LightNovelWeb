@@ -1086,11 +1086,22 @@ input:required:focus {
 
 #container {
   margin: 0px auto;
-  width: 100%;
-  border: 1 solid;
-  visibility: visible;
-  background-color: white;
-  border-radius: 4px;
+    width: 100%;
+    visibility: visible !important;
+    border: 2px solid #bba9a9 !important;
+    background-color: white !important;
+    border-radius: 6px;
 }
 
+.e-multi-select-wrapper{
+  background-color: white !important;
+}
+.e-input-group.e-control-wrapper:not(.e-disabled):not(.e-float-icon-left)::before,
+.e-input-group:not(.e-float-icon-left):not(.e-float-input)::before{
+  background: var(--header-background) !important;
+}
+.e-multi-select-wrapper{
+  display: flex;
+  align-items: center;
+}
 /* tag css */

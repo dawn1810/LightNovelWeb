@@ -396,106 +396,6 @@ function uploadFiles(files) {
 }
 
 
-// tag----------------------------------------------------------------
-
-
-// select tag
-
-// const tags = document.querySelectorAll('#myUL li')
-// const input = document.querySelector('.novel_types_search')
-// input.querySelector('input').onfocus = function (){
-// 	document.getElementById('myUL').style.display = 'block'
-// }
-
-// input.querySelector('input').onblur= function (){
-// 	setTimeout(() => {
-// 		document.getElementById('myUL').style.display = 'none'
-// 	}, 500);
-// }
-
-// for (const tag of tags) {
-// 	tag.onclick = function () {
-// 		document.getElementById('myUL').style.display = 'none'
-// 		for (const tag of tags) {
-// 			tag.style.display = 'block'
-// 		}
-// 		tag.classList.add('displayed');
-// 		// Tạo thẻ div con mới
-// 		const newDiv = document.createElement('div');
-// 		newDiv.classList.add('add-tag');
-// 		// Lấy thẻ con 'ga'
-// 		const child = input.querySelector('input');
-// 		child.value = ''
-// 		// Thêm nội dung vào thẻ div con mới
-// 		// newDiv.textContent = `${tag.innerText}`;
-// 		const text = document.createElement('div')
-// 		text.textContent = `${tag.innerText}`;
-// 		const linkElement = document.createElement('i');
-// 		linkElement.className = "fa-regular fa-circle-xmark"
-// 		newDiv.appendChild(text);
-
-// 		newDiv.appendChild(linkElement);
-
-// 		// Thêm thẻ div con mới vào div cha
-// 		input.insertBefore(newDiv, child);
-// 		remove()
-// 	}
-// }
-
-
-// function remove() {
-// 	const remove_tags = document.querySelectorAll('.add-tag i');
-// 	for (const remove_tag of remove_tags) {
-// 		remove_tag.onclick = function () {
-// 			remove_tag.parentElement.remove();
-// 			for (const tag of tags) {
-// 				console.log(tag.querySelector('div').textContent)
-// 				console.log(remove_tag.parentElement.querySelector('div').textContent)
-// 				if (tag.querySelector('div').textContent == remove_tag.parentElement.querySelector('div').textContent.replace(/\s/g, '')) {
-// 					tag.classList.remove('displayed')
-// 					console.log(tag.querySelector('div').textContent)
-// 				}
-// 			}
-// 		}
-// 	}
-// }
-
-// function myFunction() {
-// 	const input = document.querySelector('.novel_types_search input'),
-// 		filter = input.value.toUpperCase(),
-// 		ul = document.getElementById("myUL"),
-// 		li = ul.getElementsByTagName('li')
-
-// 	// Loop through all list items, and hide those who don't match the search query
-// 	for (i = 0; i < li.length; i++) {
-// 		item = li[i].querySelector('.selectize-dropdown_item')
-
-// 		txtValue = item.textContent || item.innerText;
-// 		if (txtValue.toUpperCase().indexOf(filter) > -1) {
-// 			li[i].style.display = "";
-// 			console.log(txtValue)
-
-// 		} else {
-// 			li[i].style.display = "none";
-// 			console.log(txtValue)
-// 		}
-// 	}
-
-
-// 	remove();
-
-
-// }
-
-
-var listObj = new ej.dropdowns.MultiSelect({
-	// set placeholder to MultiSelect input element
-	placeholder: "Select games"});
-listObj.appendTo('#selectElement');
-
-// tag----------------------------------------------------------------
-
-
 // Danh sách các phần tử
 const myList = [
 	"Súng ống đầy đủ",
@@ -685,8 +585,7 @@ show_list.onclick = function () {
 }
 
 document.querySelector('.page5_info .next_btn').onclick = function () {
-	console.log("Click")
-	if (novel_name.value != '' && author_name.value != '' && novel_descript.value) {
+	if (novel_name.value != '' && author_name.value != '' && novel_descript.value && listObj.tempValues) {
 		page5_a_up_drop()
 		let newURL = currentURL + '/profile/add_content';
 		history.pushState(null, null, newURL);
@@ -700,11 +599,10 @@ document.querySelector('.page5_info .next_btn').onclick = function () {
 			range__label.classList.add('anima')
 		}, 50)
 
-
 		finalDataToServer["novel_name"] = novel_name.value;
 		finalDataToServer["author_name"] = author_name.value;
 		finalDataToServer["novel_descript"] = novel_descript.value;
-		finalDataToServer["novel_types"] = novel_types.options[novel_types.selectedIndex].text;
+		finalDataToServer["novel_types"] = listObj.tempValues;
 		finalDataToServer["novel_status"] = novel_status.options[novel_status.selectedIndex].text;
 		finalDataToServer["novel_avt"] = document.querySelector('.page5_info_img .your-avt').src
 	} else {
@@ -816,7 +714,22 @@ document.querySelector('.page5_chap .next_btn').onclick = function () {
 
 	if (full) {
 		document.querySelector('.page5_chap .next_btn').innerHTML = `<img src="https://cdn.discordapp.com/attachments/1128184786347905054/1129065224998227968/icons8-sharingan-100.png">`
-		// uploadFiles(files);
+		
+		// window.alert("Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)")
+		toast.classList.add("active");
+		toast.querySelector('.text-1').innerHTML  = 'Rasengan'
+		toast.querySelector('.text-2').innerHTML = 'Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)'
+		progress.classList.add("active");
+
+		timer1 = setTimeout(() => {
+			toast.classList.remove("active");
+		}, 5000); //1s = 1000 milliseconds
+
+		timer2 = setTimeout(() => {
+			progress.classList.remove("active");
+		}, 5300);
+
+		uploadFiles(files);
 	} else {
 		// window.alert("Là một nhẫn giả chân chính hãy điển đủ thông tin ¯\(◉◡◔)/¯")
 		toast.classList.add("active");
@@ -862,7 +775,7 @@ document.querySelector('.page5_post .post_btn').onclick = async function () {
 		author: finalDataToServer["author_name"],
 		name_chaps: finalDataToServer["name_chapters"],
 		chap_ids: finalDataToServer["chapters_content"],
-		genres: [finalDataToServer["novel_types"]],
+		genres: finalDataToServer["novel_types"],
 		status: finalDataToServer["novel_status"],
 		summary: finalDataToServer["novel_descript"],
 		image: finalDataToServer["novel_avt"],
