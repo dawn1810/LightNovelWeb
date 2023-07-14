@@ -404,15 +404,13 @@ function uploadFiles(files) {
 const tags = document.querySelectorAll('#myUL li')
 const input = document.querySelector('.novel_types_search')
 input.querySelector('input').onfocus = function (){
-	console.log('heheheheheheheheheheheheheheheheheheh');
 	document.getElementById('myUL').style.display = 'block'
 }
 
 input.querySelector('input').onblur= function (){
-	console.log('heheheheheheheheheheheheheheheheheheh');
 	setTimeout(() => {
 		document.getElementById('myUL').style.display = 'none'
-	}, 500);
+	}, 100);
 	
 }
 
