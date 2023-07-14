@@ -401,95 +401,97 @@ function uploadFiles(files) {
 
 // select tag
 
-const tags = document.querySelectorAll('#myUL li')
-const input = document.querySelector('.novel_types_search')
-input.querySelector('input').onfocus = function (){
-	document.getElementById('myUL').style.display = 'block'
-}
+// const tags = document.querySelectorAll('#myUL li')
+// const input = document.querySelector('.novel_types_search')
+// input.querySelector('input').onfocus = function (){
+// 	document.getElementById('myUL').style.display = 'block'
+// }
 
-input.querySelector('input').onblur= function (){
-	setTimeout(() => {
-		document.getElementById('myUL').style.display = 'none'
-	}, 100);
-	
-}
+// input.querySelector('input').onblur= function (){
+// 	setTimeout(() => {
+// 		document.getElementById('myUL').style.display = 'none'
+// 	}, 500);
+// }
 
-for (const tag of tags) {
-	tag.onclick = function () {
-		document.getElementById('myUL').style.display = 'none'
-		for (const tag of tags) {
-			tag.style.display = 'block'
-		}
-		tag.classList.add('displayed');
-		// Tạo thẻ div con mới
-		const newDiv = document.createElement('div');
-		newDiv.classList.add('add-tag');
-		// Lấy thẻ con 'ga'
-		const child = input.querySelector('input');
-		child.value = ''
-		// Thêm nội dung vào thẻ div con mới
-		// newDiv.textContent = `${tag.innerText}`;
-		const text = document.createElement('div')
-		text.textContent = `${tag.innerText}`;
-		const linkElement = document.createElement('i');
-		linkElement.className = "fa-regular fa-circle-xmark"
-		newDiv.appendChild(text);
+// for (const tag of tags) {
+// 	tag.onclick = function () {
+// 		document.getElementById('myUL').style.display = 'none'
+// 		for (const tag of tags) {
+// 			tag.style.display = 'block'
+// 		}
+// 		tag.classList.add('displayed');
+// 		// Tạo thẻ div con mới
+// 		const newDiv = document.createElement('div');
+// 		newDiv.classList.add('add-tag');
+// 		// Lấy thẻ con 'ga'
+// 		const child = input.querySelector('input');
+// 		child.value = ''
+// 		// Thêm nội dung vào thẻ div con mới
+// 		// newDiv.textContent = `${tag.innerText}`;
+// 		const text = document.createElement('div')
+// 		text.textContent = `${tag.innerText}`;
+// 		const linkElement = document.createElement('i');
+// 		linkElement.className = "fa-regular fa-circle-xmark"
+// 		newDiv.appendChild(text);
 
-		newDiv.appendChild(linkElement);
+// 		newDiv.appendChild(linkElement);
 
-		// Thêm thẻ div con mới vào div cha
-		input.insertBefore(newDiv, child);
-		remove()
-	}
-}
-
-
-function remove() {
-	const remove_tags = document.querySelectorAll('.add-tag i');
-	for (const remove_tag of remove_tags) {
-		remove_tag.onclick = function () {
-			remove_tag.parentElement.remove();
-			for (const tag of tags) {
-				console.log(tag.querySelector('div').textContent)
-				console.log(remove_tag.parentElement.querySelector('div').textContent)
-				if (tag.querySelector('div').textContent == remove_tag.parentElement.querySelector('div').textContent.replace(/\s/g, '')) {
-					tag.classList.remove('displayed')
-					console.log(tag.querySelector('div').textContent)
-				}
-			}
-		}
-	}
-}
-
-function myFunction() {
-	const input = document.querySelector('.novel_types_search input'),
-		filter = input.value.toUpperCase(),
-		ul = document.getElementById("myUL"),
-		li = ul.getElementsByTagName('li')
-
-	// Loop through all list items, and hide those who don't match the search query
-	for (i = 0; i < li.length; i++) {
-		item = li[i].querySelector('.selectize-dropdown_item')
-
-		txtValue = item.textContent || item.innerText;
-		if (txtValue.toUpperCase().indexOf(filter) > -1) {
-			li[i].style.display = "";
-			console.log(txtValue)
-
-		} else {
-			li[i].style.display = "none";
-			console.log(txtValue)
-		}
-	}
+// 		// Thêm thẻ div con mới vào div cha
+// 		input.insertBefore(newDiv, child);
+// 		remove()
+// 	}
+// }
 
 
-	remove();
+// function remove() {
+// 	const remove_tags = document.querySelectorAll('.add-tag i');
+// 	for (const remove_tag of remove_tags) {
+// 		remove_tag.onclick = function () {
+// 			remove_tag.parentElement.remove();
+// 			for (const tag of tags) {
+// 				console.log(tag.querySelector('div').textContent)
+// 				console.log(remove_tag.parentElement.querySelector('div').textContent)
+// 				if (tag.querySelector('div').textContent == remove_tag.parentElement.querySelector('div').textContent.replace(/\s/g, '')) {
+// 					tag.classList.remove('displayed')
+// 					console.log(tag.querySelector('div').textContent)
+// 				}
+// 			}
+// 		}
+// 	}
+// }
+
+// function myFunction() {
+// 	const input = document.querySelector('.novel_types_search input'),
+// 		filter = input.value.toUpperCase(),
+// 		ul = document.getElementById("myUL"),
+// 		li = ul.getElementsByTagName('li')
+
+// 	// Loop through all list items, and hide those who don't match the search query
+// 	for (i = 0; i < li.length; i++) {
+// 		item = li[i].querySelector('.selectize-dropdown_item')
+
+// 		txtValue = item.textContent || item.innerText;
+// 		if (txtValue.toUpperCase().indexOf(filter) > -1) {
+// 			li[i].style.display = "";
+// 			console.log(txtValue)
+
+// 		} else {
+// 			li[i].style.display = "none";
+// 			console.log(txtValue)
+// 		}
+// 	}
 
 
-}
+// 	remove();
 
 
+// }
 
+
+var listObj = new ej.dropdowns.MultiSelect({
+	// set placeholder to MultiSelect input element
+	placeholder: "Select games"});
+listObj.appendTo('#selectElement');
 
 // tag----------------------------------------------------------------
 
