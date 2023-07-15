@@ -468,8 +468,13 @@ async function getReview() {
                 // console.log(data)
 
                 // console.log(btn_category)
-                valuePage.totalPages = (data.name_chaps.length / 10).toFixed(0)
-                console.log(valuePage.totalPages)
+                if (data.name_chaps.length > 10) {
+                    valuePage.totalPages = (data.name_chaps.length / 10).toFixed(0);
+                } 
+                else {
+                    valuePage.totalPages = 1;
+                }
+                pagination()
                 // current_category_list.innerHTML = btn_category
 
                 // console.log(showlist)
