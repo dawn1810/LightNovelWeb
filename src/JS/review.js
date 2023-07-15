@@ -368,10 +368,10 @@ async function getReview() {
             // console.log(responseData.usr)
             if (data) {
                 console.log(data)
-      
 
-           
-          
+
+
+
                 const lasted_chap = document.querySelector('.lasted_chap')
                 lasted_chap.onclick = function (e) {
                     e.preventDefault()
@@ -440,17 +440,17 @@ async function getReview() {
                             }
                         }, 100 * i);
 
-                        
+
 
                         const jackpot_btn = document.querySelector('.jackpot button')
 
                         setTimeout(function () {
                             jackpot_btn.style.display = 'flex'
-                        },5000)
+                        }, 5000)
                         jackpot_btn.onclick = function () {
                             const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
                             console.log(chan)
-                            window.location.href = `${currentURL}/reading/${chan}/${ranchap}`   
+                            window.location.href = `${currentURL}/reading/${chan}/${ranchap}`
                         }
                     }
 
@@ -464,22 +464,14 @@ async function getReview() {
                 //     function_item_folow_heard.classList.replace('fa-solid', 'fa-regular');
                 // }
 
-
-               
-
-                
-
                 haha(data.name_chaps)
                 // console.log(data)
-      
 
-
-
-               
                 // console.log(btn_category)
                 valuePage.totalPages = (data.name_chaps.length / 10).toFixed(0)
+                console.log(valuePage.totalPages)
                 // current_category_list.innerHTML = btn_category
-                
+
                 // console.log(showlist)
                 const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
 
@@ -501,26 +493,53 @@ function showListLoad(pageNumber, data) {
     let showlist = ''
     const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
 
-    for (let i = pageNumber * 10 - 10; i < pageNumber * 10; i++) {
-        showlist += `
-        <a href='${currentURL}/reading/${chan}/${i}' class="chapter-item">
-            <div class="chapter_item_info">
-                <h2 style="margin: 15px;">${data[i].substring(0, data[i].indexOf(':'))}</h2>
-                <div style="
-                    display: flex;
-                    flex-direction: column;
-                    flex-wrap: nowrap;
-                    justify-content: center;">
-                    <div>${data[i].substring(data[i].indexOf(':') + 1)}</div>
+    if (data.length > 10) {
+        console.log('> 1')
+
+        for (let i = pageNumber * 10 - 10; i < pageNumber * 10; i++) {
+            showlist += `
+            <a href='${currentURL}/reading/${chan}/${i}' class="chapter-item">
+                <div class="chapter_item_info">
+                    <h2 style="margin: 15px;">${data[i].substring(0, data[i].indexOf(':'))}</h2>
+                    <div style="
+                        display: flex;
+                        flex-direction: column;
+                        flex-wrap: nowrap;
+                        justify-content: center;">
+                        <div>${data[i].substring(data[i].indexOf(':') + 1)}</div>
+                    </div>
                 </div>
-            </div>
-            <i class="fa-solid fa-circle-down" style="
-                text-align: center;
-                font-size: 1.5rem;
-                margin: 21px;
-            "></i>
-        </a>`
-    };
+                <i class="fa-solid fa-circle-down" style="
+                    text-align: center;
+                    font-size: 1.5rem;
+                    margin: 21px;
+                "></i>
+            </a>`
+        };
+    }
+    else {
+        console.log('<= 1')
+        for (let i = 0; i < data.length; i++) {
+            showlist += `
+            <a href='${currentURL}/reading/${chan}/0' class="chapter-item">
+                <div class="chapter_item_info">
+                    <h2 style="margin: 15px;">${data[i].substring(0, data[i].indexOf(':'))}</h2>
+                    <div style="
+                        display: flex;
+                        flex-direction: column;
+                        flex-wrap: nowrap;
+                        justify-content: center;">
+                        <div>${data[i].substring(data[i].indexOf(':') + 1)}</div>
+                    </div>
+                </div>
+                <i class="fa-solid fa-circle-down" style="
+                    text-align: center;
+                    font-size: 1.5rem;
+                    margin: 21px;
+                "></i>
+            </a>`
+        }
+    }
     listchap.innerHTML = showlist;
 }
 
