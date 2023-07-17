@@ -13,7 +13,7 @@ body {
   --search-bg: #f3d5c0;
   --white-color: #dbd9d9;
   --background-color: #ffffec;
-  --white-text: white;
+  --white-text: #fff;
   --black-text: black;
   --button-color: #884c05;
   --item-color: rgb(151 107 51);
@@ -1396,6 +1396,21 @@ html .body_main {
 /* // FORM */
 
 .form {
+  /* display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 3em;
+  padding-left: 2.8em;
+  padding-right: 2.8em;
+  padding-bottom: 2.1em;
+  border: 2px dashed var(--login-btn);
+  border-radius: 15px;
+  background-image: var(--header-background);
+  box-shadow: 0 0 0 4px var(--header-background), 2px 2px 4px 2px rgba(0, 0, 0, 0.5);
+  transition: 0.4s ease-in-out; */
+
+
+  /* d */
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -1403,13 +1418,18 @@ html .body_main {
   padding-left: 2.8em;
   padding-right: 2.8em;
   padding-bottom: 2.1em;
-  border: 2px dashed #daa06d;
+  border: 2px dashed var(--login-btn);
   border-radius: 15px;
-  background-color: #eaddca;
-  box-shadow: 0 0 0 4px #eaddca, 2px 2px 4px 2px rgba(0, 0, 0, 0.5);
+  background-image: url(/image/phuong.png);
+  box-shadow: 0 0 0 4px var(--header-background), 2px 2px 4px 2px rgba(0, 0, 0, 0.5);
   transition: 0.4s ease-in-out;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-
+.login_gg{
+  width: 90%;
+  color: var(--black-text);
+}
 ::placeholder {
   color: var(--black-text);
   opacity: .7;

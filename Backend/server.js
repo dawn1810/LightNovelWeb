@@ -1017,7 +1017,8 @@ app.get('/reading/:id/:chap', checkCookieLoglUser, async (req, res) => {
 			name_chaps: result[0].name_chaps,
 			name_chap: result[0].name_chaps[parseInt(req.params.chap)],
 			chap_content: convertToHtml(chap_content),
-			number_chap: req.params.chap
+			number_chap: req.params.chap,
+			id: req.params.id
 		});
 
 	} catch (err) {

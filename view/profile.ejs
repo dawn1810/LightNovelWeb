@@ -127,29 +127,61 @@
                         <h3>Giới tính</h3>
                         <div class="">
                           <% if (sex=='nam' ) { %>
-                            <input type="radio" name="gender" id="nam" value="nam" checked>
-                            <label for="nam">Nam</label>
-
-                            <input type="radio" name="gender" id="nu" value="nu">
-                            <label for="nữ">Nữ</label>
+                            <div class="sex_container">
+                              <form>
+                                <label>
+                                  <input type="radio" name="radio" id="nam" value="nam" checked>
+                                  <span>Nam</span>
+                                </label>
+                                <label>
+                                  <input type="radio" name="radio" id="nu" value="nu">
+                                  <span>Nữ</span>
+                                </label>
+                                <label>
+                                  <input type="radio" name="radio" id="o" value="o">
+                                  <span>Khac</span>
+                                </label>
+                              </form>
+                            </div>
 
                             <% } else if (sex=='nu' ){ %>
-                              <input type="radio" name="gender" id="nam" value="nam">
-                              <label for="nam">Nam</label>
-
-                              <input type="radio" name="gender" id="nu" value="nu" checked>
-                              <label for="nữ">Nữ</label>
+                              <div class="sex_container">
+                                <form>
+                                  <label>
+                                    <input type="radio" name="radio" id="nam" value="nam">
+                                    <span>Nam</span>
+                                  </label>
+                                  <label>
+                                    <input type="radio" name="radio" id="nu" value="nu" checked>
+                                    <span>Nữ</span>
+                                  </label>
+                                  <label>
+                                    <input type="radio" name="radio" id="o" value="o">
+                                    <span>Khac</span>
+                                  </label>
+                                </form>
+                              </div>
 
                               <% } else {%>
-                                <input type="radio" name="gender" id="nam" value="nam">
-                                <label for="nam">Nam</label>
-
-                                <input type="radio" name="gender" id="nu" value="nu">
-                                <label for="nữ">Nữ</label>
+                                <div class="sex_container">
+                                  <form>
+                                    <label>
+                                      <input type="radio" name="radio" id="nam" value="nam">
+                                      <span>Nam</span>
+                                    </label>
+                                    <label>
+                                      <input type="radio" name="radio" id="nu" value="nu">
+                                      <span>Nữ</span>
+                                    </label>
+                                    <label>
+                                      <input type="radio" name="radio" id="o" value="o" checked>
+                                      <span>Khac</span>
+                                    </label>
+                                  </form>
+                                </div>
 
                                 <% } %>
                         </div>
-
 
 
                         <div class="information_name">
@@ -868,14 +900,57 @@
 
                           <div id="container">
                             <ul id="ulElement">
+                              <li>Action</li>
+                              <li>Adult</li>
+                              <li>Adventure</li>
+                              <li>Anime</li>
+                              <li>Chuyển Sinh</li>
+                              <li>Comedy</li>
+                              <li>Comic</li>
+                              <li>Cooking</li>
+                              <li>Cổ Đại</li>
+                              <li>Doujinshi</li>
+                              <li>Drama</li>
+                              <li>Đam Mỹ</li>
+                              <li>Ecchi</li>
                               <li>Fantasy</li>
-                              <li>Rape</li>
-                              <li>Incest</li>
-                              <li>Milf</li>
-                              <li>Sota</li>
-                              <li>Uri</li>
-                              <li>Scat</li>
-                              <li>Yandere</li>
+                              <li>Gender Bender</li>
+                              <li>Harem</li>
+                              <li>Historical</li>
+                              <li>Horror</li>
+                              <li>Josei</li>
+                              <li>Live action</li>
+                              <li>Manga</li>
+                              <li>Manhua</li>
+                              <li>Manhwa</li>
+                              <li>Martial Arts</li>
+                              <li>Mature</li>
+                              <li>Mecha</li>
+                              <li>Mystery</li>
+                              <li>Ngôn Tình</li>
+                              <li>One shot</li>
+                              <li>Psychological</li>
+                              <li>Romance</li>
+                              <li>School Life</li>
+                              <li>Sci-fi</li>
+                              <li>Seinen</li>
+                              <li>Shoujo</li>
+                              <li>Shoujo Ai</li>
+                              <li>Shounen</li>
+                              <li>Shounen Ai</li>
+                              <li>Slice of Life</li>
+                              <li>Smut</li>
+                              <li>Soft Yaoi</li>
+                              <li>Soft Yuri</li>
+                              <li>Sports</li>
+                              <li>Supernatural</li>
+                              <li>Thiếu Nhi</li>
+                              <li>Tragedy</li>
+                              <li>Trinh Thám</li>
+                              <li>Truyện scan</li>
+                              <li>Truyện Màu</li>
+                              <li>Webtoon</li>
+                              <li>Xuyên Không</li>
 
                             </ul>
                           </div>
@@ -903,7 +978,7 @@
                       <div class="information_name_wrap">
                         <h3>Thứ tự chương</h3>
                         <div class="information_name">
-                          <input class="profile_input chap_num" type="num" required id="name_novel"
+                          <input class="profile_input chap_num" type="number" required id="name_novel"
                             placeholder="Nhập thứ tự chương(e.g. 1, 1.1, 1.5, 2,...)" />
                         </div>
                       </div>

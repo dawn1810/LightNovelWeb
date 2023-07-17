@@ -46,6 +46,7 @@ $(document).ready(function () {
       rootStyle.setProperty("--st-pr-btn-bg", "#24263e");
       rootStyle.setProperty("--border-btn-st", "#000");
       rootStyle.setProperty("--button-colors", "#404593");
+      rootStyle.setProperty("--white-text", "#000");
     }
     else {
       if (themes) {
@@ -77,6 +78,7 @@ $(document).ready(function () {
         rootStyle.setProperty("--st-pr-btn-bg", "#b0906b");
         rootStyle.setProperty("--border-btn-st", "#a0896e");
         rootStyle.setProperty("--button-colors", "#b0906b");
+        rootStyle.setProperty("--white-text", "#fff");
 
         localStorage.setItem("theme", "light");
       }

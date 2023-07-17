@@ -31,6 +31,8 @@ const reset_background_color = document.querySelector(".ss_reader_background_res
 
 const themes = localStorage.getItem('theme');
 
+
+
 // if (themes == 'dark') {
 //     main.style.background = '#1e1e1e'
 //     body_main.style.color = "#9a8686"

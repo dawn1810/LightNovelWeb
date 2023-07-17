@@ -44,7 +44,7 @@ h1 {
 
 .menu-item,
 .menu-open-button {
-  background: #d4b499;
+  background: var(--header-background);
   border-radius: 100%;
   width: 65px;
   height: 65px;
@@ -214,7 +214,8 @@ h1 {
 .directional-btn {
   width: 50px !important;
   height: 50px !important;
-  background-color: rgb(0, 131, 87) !important;
+  background-color: var(--login-btn) !important;
+  color: var(--white-text);
   margin: 0px;
   border-radius: 50%;
   margin-right: 20px;
@@ -351,13 +352,13 @@ h1 {
 }
 
 .wrap-settings {
-  background-color: rgb(100, 14, 14);
+  background-color: var(--header-background);
   position: absolute;
   width: 300px;
   border-radius: 8px;
   left: -145%;
   display: none;
-  color: aliceblue;
+  color: var(--black-text);
 }
 
 .wrap-settings::after {
@@ -377,13 +378,13 @@ h1 {
 }
 
 .setting-btn {
-  background-color: rgb(255, 126, 169) !important;
+  background-color: var(--login-btn) !important;
   margin: 0;
   padding: 0;
 }
 
 .show-list {
-  background-color: aqua !important;
+  background-color: var(--login-btn) !important;
   margin: 0;
   padding: 0;
 }
@@ -406,6 +407,7 @@ h1 {
 }
 
 #show_more {
+  background: antiquewhite;
   width: 115px;
   height: 40px;
   display: none;
