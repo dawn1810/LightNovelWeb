@@ -214,7 +214,8 @@ a {
   top: 0;
   left: 0;
   z-index: 9999999999;
-  width: 97%;
+  width: 100vw;
+  box-sizing: border-box;
   background-color: var(--header-background);
 }
 
@@ -828,7 +829,7 @@ a {
   height: 200px;
   background-color: var(--category_bg);
   position: absolute;
-  top:48px;
+  top: 48px;
   z-index: 9999;
   right: -40px;
   border-radius: 5px;
@@ -1422,10 +1423,12 @@ html .body_main {
   background-repeat: no-repeat;
   background-size: cover;
 }
-.login_gg{
+
+.login_gg {
   width: 90%;
   color: var(--black-text);
 }
+
 ::placeholder {
   color: var(--black-text);
   opacity: .7;

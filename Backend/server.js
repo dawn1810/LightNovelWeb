@@ -153,14 +153,14 @@ async function getNovelList() {
 	try {
 		// by week:
 		let query_by_week = { update_date: { $gte: getFirstAndLastDayOfWeek().firstDay, $lt: getFirstAndLastDayOfWeek().lastDay } };
-		const by_week = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { views: 1 }, limit: 50 });
+		const by_week = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1 }, sort: { views: 1 }, limit: 50 });
 		// by month:
 		let query_by_month = { update_date: { $gte: getFirstAndLastDayOfMonth().firstDay, $lt: getFirstAndLastDayOfMonth().lastDay } };
-		const by_month = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { views: 1 }, limit: 50 });
+		const by_month = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1 }, sort: { views: 1 }, limit: 50 });
 		// all time
-		const all_time = await server.find_all_Data({ table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { views: 1 }, limit: 50 });
+		const all_time = await server.find_all_Data({ table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1 }, sort: { views: 1 }, limit: 50 });
 		// update nearby:
-		const nearby = await server.find_all_Data({ table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1 }, sort: { update_date: 1 }, limit: 50 });
+		const nearby = await server.find_all_Data({ table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1 }, sort: { update_date: 1 }, limit: 50 });
 
 		// Change all id to string:
 		const by_week_new = by_week.map(doc => {
@@ -427,6 +427,8 @@ function calTime(update_date) {
 app.use(blockUnwantedPaths);
 
 // Lắng nghe các yêu cầu POST tới localhost:6969
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb' }));
 app.use(bodyParser.json());
 app.use(cors({ origin: true, credentials: true }));
 app.use(cookieParser());
@@ -469,7 +471,6 @@ app.get('/profile/:anything', checkCoookieIfOK, checkCookieLoglUser, (req, res) 
 });
 
 //////////
-
 
 // 404 route
 app.get('/404', (req, res) => {
@@ -751,13 +752,11 @@ passport.use(new GoogleStrategy({
 },
 	async function (request, accessToken, refreshToken, profile, done) {
 		try {
-			console.log('ẹc');
-
 			// console.log(accessToken);
 			// console.log(refreshToken);
 			// console.log(request);
 			// Kiểm tra xem thông tin người dùng đã tồn tại chưa
-			console.log('huhu')
+			console.log(profile)
 			const existingUser = await server.find_one_Data("tt_nguoi_dung", { _id: profile.id });
 			if (existingUser) {
 				// update new data for tt_nguoi_dung database
@@ -767,8 +766,6 @@ passport.use(new GoogleStrategy({
 							email: profile.emails[0].value,
 							displayName: profile.displayName,
 							avatarUrl: profile.photos[0].value,
-							sex: "unknown",
-							likeNovels: [],
 						}
 					});
 
@@ -812,7 +809,7 @@ app.get(
 app.get('/auth/google/callback',
 	passport.authenticate('google', { failureRedirect: '/login' }),
 	function (req, res) {
-		console.log('ẹc');
+		console.log('ẹc'); // thg nào làm cái này - dawn1810
 		// req.user = {
 		// 	_id: '113263126602180653712',
 		// 	email: 'binhminh19112003@gmail.com',
@@ -1150,9 +1147,9 @@ app.post('/cancel', async (req, res) => {
 });
 
 // Delete novel page --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.post('/delete_my_novel', async (req, res) => {
+app.post('/delete_my_novels', async (req, res) => {
 	const data = req.body;
-	console.log('SYSTEM | DELETE MY NOVEL |', data);
+	console.log('SYSTEM | DELETE MY NOVELS |', data);
 	try {
 		let result = await server.find_one_Data('truyen', { _id: data.id });
 
@@ -1167,16 +1164,58 @@ app.post('/delete_my_novel', async (req, res) => {
 		res.sendStatus(200);
 
 	} catch (err) {
-		console.log('SYSTEM | DELETE MY NOVEL | ERROR | ', err);
+		console.log('SYSTEM | DELETE MY NOVELS | ERROR | ', err);
 		res.sendStatus(500);
 	}
 });
 
+// Hiển thị tất cả truyện đã đăng.
+app.post('/list_my_novels', async (req, res) => {
+	const account = req.cookies.account
+	console.log('SYSTEM | LIST MY NOVELS | Cookie nhận được: ', account);
+	const decode = decrypt(account, authenticationKey);
+	const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
+	console.log(`SYSTEM | LIST MY NOVELS | Dữ liệu đã giải mã ${decodeList}`);
+	console.log('SYSTEM | LIST MY NOVELS |', data);
+	try {
+		let novels = await server.find_one_Data('tt_nguoi_dung', { _id: decodeList[1] })
+		let result = [];
 
-// Get chap -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.post('/give_me_chap', async (req, res) => {
-	console.log('ok bro');
-	res.sendStatus(200);
+		for (let id of novels.mynovel) {
+			result.push(await server.find_one_Data('truyen', { _id: id }))
+		};
+
+		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
+		console.log('SYSTEM | LIST MY NOVELS | Trả về thông tin nhưng truyện đã đẵng', result);
+		res.end(JSON.stringify(result));
+
+	} catch (err) {
+		console.log('SYSTEM | LIST MY NOVELS | ERROR | ', err);
+		res.sendStatus(500);
+	}
+});
+
+// Thay đổi info -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+app.post('/updateInfo', async (req, res) => {
+	try {
+		const data = req.body;
+		console.log('SYSTEM | UPDATE INFO |', data);
+
+		await server.update_one_Data("tt_nguoi_dung", { _id: data.usr },
+			{
+				$set: {
+					email: data.email,
+					displayName: data.hoten,
+					avatarUrl: data.img,
+					sex: data.sex,
+				}
+			});
+		res.sendStatus(200);
+	} catch (err) {
+		console.log('SYSTEM | UPDATE INFO | ERROR | ', err);
+		res.sendStatus(500);
+	}
+
 });
 app.get('*', checkCookieLoglUser, function (req, res) {
 	res.render('index', {
