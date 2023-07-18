@@ -446,19 +446,20 @@ body {
 
 
 /* sex */
-.sex_container{
+.sex_container {
   display: flex;
 }
+
 .sex_container form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 
 .sex_container label {
@@ -470,21 +471,21 @@ body {
   position: relative;
   overflow: hidden;
   margin-bottom: 0.375em;
- }
+}
 
-.sex_container  label input {
+.sex_container label input {
   position: absolute;
   left: -9999px;
 }
 
-.sex_container label input:checked + span {
+.sex_container label input:checked+span {
   background-color: #414181;
   color: white;
 }
 
-.sex_container label input:checked + span:before {
+.sex_container label input:checked+span:before {
   -webkit-box-shadow: inset 0 0 0 0.4375em #00005c;
-          box-shadow: inset 0 0 0 0.4375em #00005c;
+  box-shadow: inset 0 0 0 0.4375em #00005c;
 }
 
 .sex_container label span {
@@ -492,8 +493,8 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 0.375em 0.75em 0.375em 0.375em;
   border-radius: 99em;
   -webkit-transition: 0.25s ease;
@@ -510,7 +511,7 @@ body {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-negative: 0;
-      flex-shrink: 0;
+  flex-shrink: 0;
   content: "";
   background-color: #fff;
   width: 1.5em;
@@ -520,7 +521,7 @@ body {
   -webkit-transition: 0.25s ease;
   transition: 0.25s ease;
   -webkit-box-shadow: inset 0 0 0 0.125em #00005c;
-          box-shadow: inset 0 0 0 0.125em #00005c;
+  box-shadow: inset 0 0 0 0.125em #00005c;
 }
 
 /* sexx */
@@ -1166,42 +1167,59 @@ input:required:focus {
 
 #container {
   margin: 0px auto;
-    width: 100%;
-    visibility: visible !important;
-    border: 2px solid #bba9a9 !important;
-    background-color: white !important;
-    border-radius: 6px;
+  width: 100%;
+  visibility: visible !important;
+  border: 2px solid #bba9a9 !important;
+  background-color: white !important;
+  border-radius: 6px;
 }
 
-.e-multi-select-wrapper{
+.e-multi-select-wrapper {
   background-color: white !important;
   padding-left: 10px;
   margin: 5px 10px;
 }
-.e-input-group.e-control-wrapper:not(.e-success):not(.e-warning):not(.e-error):not(.e-float-icon-left){
+
+.e-input-group.e-control-wrapper:not(.e-success):not(.e-warning):not(.e-error):not(.e-float-icon-left) {
   border-color: transparent !important;
 }
+
 .e-input-group.e-control-wrapper:not(.e-disabled):not(.e-float-icon-left)::before,
-.e-input-group:not(.e-float-icon-left):not(.e-float-input)::before{
+.e-input-group:not(.e-float-icon-left):not(.e-float-input)::before {
   background: var(--header-background) !important;
 }
-.e-multi-select-wrapper{
+
+.e-multi-select-wrapper {
   display: flex;
   align-items: center;
 }
-.e-input-group, .e-input-group.e-control-wrapper{
-  margin-bottom: 0;
+
+.e-input-group,
+.e-input-group.e-control-wrapper {
+  margin-bottom: 0 !important;
 }
 
-.e-control-wrapper{
+.e-control-wrapper {
   margin: 0;
 }
 
-.e-multi-select-wrapper input[type=text]{
+.e-multi-select-wrapper input[type=text] {
   font-size: 20px !important;
 }
 
-.e-multi-select-wrapper input[type=text]::placeholder{
+.e-multi-select-wrapper input[type=text]::placeholder {
   text-align: start !important;
 }
+
+.e-input-group:not(.e-float-icon-left):not(.e-float-input).e-input-focus::before,
+.e-input-group:not(.e-float-icon-left):not(.e-float-input).e-input-focus::after,
+.e-input-group.e-float-icon-left:not(.e-float-input).e-input-focus .e-input-in-wrap::before,
+.e-input-group.e-float-icon-left:not(.e-float-input).e-input-focus .e-input-in-wrap::after,
+.e-input-group.e-control-wrapper:not(.e-float-icon-left):not(.e-float-input).e-input-focus::before,
+.e-input-group.e-control-wrapper:not(.e-float-icon-left):not(.e-float-input).e-input-focus::after,
+.e-input-group.e-control-wrapper.e-float-icon-left:not(.e-float-input).e-input-focus .e-input-in-wrap::before,
+.e-input-group.e-control-wrapper.e-float-icon-left:not(.e-float-input).e-input-focus .e-input-in-wrap::after {
+  width: 0% !important;
+}
+
 /* tag css */

@@ -255,34 +255,30 @@ function Evaluate() {
     }
 }
 
-let tim = 0
-let sao = 0
 document.querySelector('.function_item_folow').onclick = function () {
-    const tym = document.querySelector('.function_item_folow span').innerHTML
+    const tym = document.getElementById('number_of_likes').innerText
 
     const user_status = document.querySelector('.header_user')
     if (user_status.style.display == 'none') {
         alert('Bạn phải đăng nhập')
 
     } else {
-        if (tim == 1) {
-            tim = 0
+        if (document.querySelector('.function_item_folow i').classList.contains('fa-solid')) {
             console.log('ok ha')
 
             document.querySelector('.function_item_folow').innerHTML = `
                 <i class="fa-regular fa-heart"></i>
                 <span>Like</span>`
-            document.querySelector('.Titile_info_item_value').innerHTML = parseInt(tym) - 1
+            document.querySelector('#number_of_likes').innerHTML = parseInt(tym) - 1
 
             like_novel(0)
 
         } else {
-            tim = 1
             document.querySelector('.function_item_folow').innerHTML = `
                 <i class="fa-solid fa-heart"></i>
                 <span>UnLike</span>`
             console.log('ok ko');
-            document.querySelector('.Titile_info_item_value').innerHTML = parseInt(tym) + 1
+            document.querySelector('#number_of_likes').innerHTML = parseInt(tym) + 1
             like_novel(1)
         }
     }
@@ -631,6 +627,7 @@ function haha(data) {
     curPage.onchange = () => {
         handleCurPage(data);
         pagination();
+        pages.value = curPage.value * 10 - 9
         handleButtonLeft();
         handleButtonRight(data);
         showListLoad(curPage.value, data)

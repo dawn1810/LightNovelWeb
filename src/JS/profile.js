@@ -472,8 +472,6 @@ Save_btn.onclick = function (e) {
 
 // validate
 
-
-
 document.querySelector('.change-pass-btn').onclick = async function (e) {
 	console.log('cut di bn oi');
 	e.preventDefault();
@@ -531,7 +529,6 @@ document.querySelector('.change-pass-btn').onclick = async function (e) {
 }
 
 // change pass
-
 add_new.onclick = function () {
 	page5_composed_drop()
 	var newURL = currentURL + '/profile' + '/add_novel';
@@ -620,6 +617,32 @@ document.querySelector('.page5_info .next_btn').onclick = function () {
 		}, 5300);
 
 	}
+}
+
+function cancel() {
+	if (confirm("Shinra tensei - Hủy diệt mọi thứ. Are you sure about that? ( ⚆ _ ⚆ )") == true) {
+		// back to novel list scene
+		page5_a_up_drop()
+		let newURL = currentURL + '/profile/my_novel';
+		window.location.href = newURL;
+		// reset finalDataToServer
+		finalDataToServer = {
+			novel_name: "",
+			author_name: "",
+			novel_descript: "",
+			novel_types: "",
+			novel_status: "",
+			novel_avt: "",
+			name_chapters: [],
+			chapters_content: []
+		};
+	} else {
+		text = "You canceled!";
+	}
+}
+
+document.querySelector('.page5_info .close_btn').onclick = function () {
+	cancel();
 }
 
 document.querySelector('.page5_chap .more_chap_btn').onclick = function () {
@@ -715,10 +738,10 @@ document.querySelector('.page5_chap .next_btn').onclick = function () {
 
 	if (full) {
 		document.querySelector('.page5_chap .next_btn').innerHTML = `<img src="https://cdn.discordapp.com/attachments/1128184786347905054/1129065224998227968/icons8-sharingan-100.png">`
-		
+
 		// window.alert("Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)")
 		toast.classList.add("active");
-		toast.querySelector('.text-1').innerHTML  = 'Rasengan'
+		toast.querySelector('.text-1').innerHTML = 'Rasengan'
 		toast.querySelector('.text-2').innerHTML = 'Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)'
 		progress.classList.add("active");
 
@@ -745,6 +768,11 @@ document.querySelector('.page5_chap .next_btn').onclick = function () {
 		}, 5300);
 	}
 
+}
+
+// cancel 2nd page
+document.querySelector('.page5_chap .close_btn').onclick = function () {
+	cancle();
 }
 
 document.querySelector('.page5_post .post_btn').onclick = async function () {

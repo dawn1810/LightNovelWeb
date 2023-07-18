@@ -376,51 +376,51 @@ const blockUnwantedPaths = (req, res, next) => {
 };
 
 function calTime(update_date) {
-    // Thời điểm hiện tại
-    const now = new Date();
-    console.log((update_date))
+	// Thời điểm hiện tại
+	const now = new Date();
+	console.log((update_date))
 
-    // Thời điểm trả về từ server
-    const serverTime = new Date(update_date);
+	// Thời điểm trả về từ server
+	const serverTime = new Date(update_date);
 
-    // Tính số lượng năm chênh lệch
-    const yearsDiff = now.getFullYear() - serverTime.getFullYear();
+	// Tính số lượng năm chênh lệch
+	const yearsDiff = now.getFullYear() - serverTime.getFullYear();
 
-    // Tính số lượng tháng chênh lệch
-    const monthsDiff = (yearsDiff * 12) + (now.getMonth() - serverTime.getMonth());
+	// Tính số lượng tháng chênh lệch
+	const monthsDiff = (yearsDiff * 12) + (now.getMonth() - serverTime.getMonth());
 
-    // Tính số lượng ngày chênh lệch
-    const daysDiff = Math.floor((now - serverTime) / (1000 * 60 * 60 * 24));
+	// Tính số lượng ngày chênh lệch
+	const daysDiff = Math.floor((now - serverTime) / (1000 * 60 * 60 * 24));
 
-    // Tính số lượng giờ chênh lệch
-    const hoursDiff = now.getHours() - serverTime.getHours();
+	// Tính số lượng giờ chênh lệch
+	const hoursDiff = now.getHours() - serverTime.getHours();
 
-    // Tính số lượng phút chênh lệch
-    const minutesDiff = now.getMinutes() - serverTime.getMinutes();
+	// Tính số lượng phút chênh lệch
+	const minutesDiff = now.getMinutes() - serverTime.getMinutes();
 
-    // Hiển thị kết quả chênh lệch thời gian
-    console.log(`Chênh lệch thời gian: ${yearsDiff} năm, ${monthsDiff} tháng, ${daysDiff} ngày, ${hoursDiff} giờ, ${minutesDiff} phút.`);
+	// Hiển thị kết quả chênh lệch thời gian
+	console.log(`Chênh lệch thời gian: ${yearsDiff} năm, ${monthsDiff} tháng, ${daysDiff} ngày, ${hoursDiff} giờ, ${minutesDiff} phút.`);
 
-    if (yearsDiff > 0) {
-        return yearsDiff + ' năm';
-    }
-    else if (monthsDiff > 0) {
-        return monthsDiff + ' tháng';
-    }
-    else if (daysDiff > 0) {
-        return daysDiff + ' ngày';
-    }
-    else if (hoursDiff > 0) {
-        return hoursDiff + ' giờ';
-    }
-    else if (minutesDiff > 0) {
-        return minutesDiff + ' phút';
-    }
-    else {
-        return 'Nóng như chuyện tình đôi ta <3';
+	if (yearsDiff > 0) {
+		return yearsDiff + ' năm';
+	}
+	else if (monthsDiff > 0) {
+		return monthsDiff + ' tháng';
+	}
+	else if (daysDiff > 0) {
+		return daysDiff + ' ngày';
+	}
+	else if (hoursDiff > 0) {
+		return hoursDiff + ' giờ';
+	}
+	else if (minutesDiff > 0) {
+		return minutesDiff + ' phút';
+	}
+	else {
+		return 'Nóng như chuyện tình đôi ta <3';
 
-    }
-    return 'éo tính dc';
+	}
+	return 'éo tính dc';
 }
 
 // Áp dụng middleware để chặn truy cập
@@ -891,8 +891,10 @@ app.post('/updatelike', async (req, res) => {
 })
 
 // Review page --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.get('/reviews/:id', checkCookieLoglUser ,async (req, res) => {
+app.get('/reviews/:id', checkCookieLoglUser, async (req, res) => {
 	try {
+		const account = req.cookies.account
+		console.log('SYSTEM | REVIEWS |', account);
 		// Get novel information:
 		let result = await server.find_all_Data({
 			table: "truyen",
@@ -915,6 +917,28 @@ app.get('/reviews/:id', checkCookieLoglUser ,async (req, res) => {
 		console.log(result)
 		// default if they don't have an account
 		result[0].update_date = calTime(result[0].update_date);
+		result[0].liked = 0; ///here
+
+		if (account) {
+			const decode = decrypt(account, authenticationKey);
+			const decodeList = decode.split(':');
+			if (decodeList[0] == authenticationKey) {
+				// check does novel was liked by current user or not
+				const like_list = await server.find_all_Data({
+					table: "tt_nguoi_dung",
+					query: { _id: decodeList[1] },
+					projection: {
+						_id: 0,
+						likeNovels: 1
+					},
+					limit: 1
+				});
+
+				if (like_list[0].likeNovels.includes(req.params.id)) { // liked
+					result[0].liked = 1;
+				}
+			}
+		}
 
 		res.render('reviews.ejs', {
 			headerFile: 'header',
@@ -932,7 +956,7 @@ app.get('/reviews/:id', checkCookieLoglUser ,async (req, res) => {
 			status: result[0].status,
 			liked: result[0].liked
 		});
-		
+
 	} catch (err) {
 		console.log('SYSTEM | REVIEWS | ERROR | ', err);
 		res.sendStatus(500);
@@ -942,9 +966,7 @@ app.get('/reviews/:id', checkCookieLoglUser ,async (req, res) => {
 
 app.post('/reviews', async (req, res) => {
 	const data = req.body;
-	const account = req.cookies.account
 	console.log('SYSTEM | REVIEWS |', data);
-	console.log('SYSTEM | REVIEWS |', account);
 	try {
 		let result = await server.find_all_Data({
 			table: "truyen",
@@ -955,29 +977,7 @@ app.post('/reviews', async (req, res) => {
 			},
 			limit: 1
 		});
-		
-		result[0].liked = 0; ///here
-		
-		if (account) {
-			const decode = decrypt(account, authenticationKey);
-			const decodeList = decode.split(':');
-			if (decodeList[0] == authenticationKey) {
-				// check does novel was liked by current user or not
-				const like_list = await server.find_all_Data({
-					table: "tt_nguoi_dung",
-					query: { _id: decodeList[1] },
-					projection: {
-						_id: 0,
-						likeNovels: 1
-					},
-					limit: 1
-				});
-		
-				if (like_list[0].likeNovels.includes(req.params.id)) { // liked
-					result[0].liked = 1;
-				}
-			}
-		}
+
 		// console.log('SYSTEM | REVIEWS | Trả về thông tin reviews truyện ', result[0].name);
 		res.writeHead(200, { 'Content-Type': 'application/json' });
 
@@ -987,9 +987,6 @@ app.post('/reviews', async (req, res) => {
 		res.sendStatus(500);
 	}
 });
-
-
-
 
 // Reading page --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.get('/reading/:id/:chap', checkCookieLoglUser, async (req, res) => {
@@ -1057,18 +1054,18 @@ app.post('/upload_novel', async (req, res) => {
 			};
 
 			const id_check = await server.add_one_Data("truyen", up_content);
-			
+
 			console.log(id_check);
 			// create a new comment document
-		 	await server.add_one_Data("comment", {
-				_id : id_check.insertedId,
+			await server.add_one_Data("comment", {
+				_id: id_check.insertedId,
 				content: {
 					// user_name: content (do what to add)
 				}
 			});
 
 			// update user's novel list
-			await server.update_one_Data('tt_nguoi_dung', { _id: decodeList[1] }, { $push: { mynovel: id_check.insertedId.toString()} });
+			await server.update_one_Data('tt_nguoi_dung', { _id: decodeList[1] }, { $push: { mynovel: id_check.insertedId.toString() } });
 			res.sendStatus(200);
 		}
 
@@ -1082,7 +1079,7 @@ app.post('/update_upload_novel', async (req, res) => {
 	const data = req.body;
 	console.log('SYSTEM | UPLOAD NOVEL |', data);
 	try {
-		server.update_one_Data("truyen", { _id: new ObjectId(data.id) }, {
+		await server.update_one_Data("truyen", { _id: new ObjectId(data.id) }, {
 			$set: {
 				update_date: new Date()
 			},
@@ -1106,7 +1103,7 @@ app.post('/update_upload_novel', async (req, res) => {
 });
 
 
-// Route xử lý yêu cầu upload file
+// Route xử lý yêu cầu upload file ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.post('/uploadFile', upload.array('files[]'), async function (req, res) {
 	if (!req.files) {
 		return res.status(400).send('No file uploaded.');
@@ -1135,10 +1132,44 @@ app.post('/uploadFile', upload.array('files[]'), async function (req, res) {
 	res.end(JSON.stringify(await get_full_id(uploadDirectory, list_name)));
 });
 
+// hủy
 app.post('/cancel', async (req, res) => {
 	const data = req.body;
-	console.log('SYSTEM | UPLOAD NOVEL |', data);
-	///// 
+	console.log('SYSTEM | CANCEL |', data);
+	try {
+		for (const id of data.chap_ids) {
+			await server.deleteFileFromDrive(id);
+		}
+
+		res.sendStatus(200);
+
+	} catch (err) {
+		console.log('SYSTEM | CANCEL | ERROR | ', err);
+		res.sendStatus(500);
+	}
+});
+
+// Delete novel page --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+app.post('/delete_my_novel', async (req, res) => {
+	const data = req.body;
+	console.log('SYSTEM | DELETE MY NOVEL |', data);
+	try {
+		let result = await server.find_one_Data('truyen', { _id: data.id });
+
+		// xóa file trên drive 
+		for (const id of result.chap_ids) {
+			await server.deleteFileFromDrive(id);
+		}
+
+		// xóa truyện trên server
+		await server.delete_one_Data('truyen', { _id: data.id })
+
+		res.sendStatus(200);
+
+	} catch (err) {
+		console.log('SYSTEM | DELETE MY NOVEL | ERROR | ', err);
+		res.sendStatus(500);
+	}
 });
 
 
