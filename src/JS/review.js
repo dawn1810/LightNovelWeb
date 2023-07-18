@@ -271,16 +271,18 @@ document.querySelector('.function_item_folow').onclick = function () {
 
             document.querySelector('.function_item_folow').innerHTML = `
                 <i class="fa-regular fa-heart"></i>
-                <span>${parseInt(tym) - 1}</span>`
+                <span>Like</span>`
+            document.querySelector('.Titile_info_item_value').innerHTML = parseInt(tym) - 1
+
             like_novel(0)
 
         } else {
             tim = 1
             document.querySelector('.function_item_folow').innerHTML = `
                 <i class="fa-solid fa-heart"></i>
-                <span>${parseInt(tym) + 1}</span>`
-            console.log('ok ko')
-
+                <span>UnLike</span>`
+            console.log('ok ko');
+            document.querySelector('.Titile_info_item_value').innerHTML = parseInt(tym) + 1
             like_novel(1)
         }
     }
@@ -470,7 +472,7 @@ async function getReview() {
                 // console.log(btn_category)
                 if (data.name_chaps.length > 10) {
                     valuePage.totalPages = (data.name_chaps.length / 10).toFixed(0);
-                } 
+                }
                 else {
                     valuePage.totalPages = 1;
                 }
@@ -499,8 +501,6 @@ function showListLoad(pageNumber, data) {
     const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
 
     if (data.length > 10) {
-        console.log('> 1')
-
         for (let i = pageNumber * 10 - 10; i < pageNumber * 10; i++) {
             showlist += `
             <a href='${currentURL}/reading/${chan}/${i}' class="chapter-item">
@@ -523,10 +523,9 @@ function showListLoad(pageNumber, data) {
         };
     }
     else {
-        console.log('<= 1')
         for (let i = 0; i < data.length; i++) {
             showlist += `
-            <a href='${currentURL}/reading/${chan}/0' class="chapter-item">
+            <a href='${currentURL}/reading/${chan}/${i}' class="chapter-item">
                 <div class="chapter_item_info">
                     <h2 style="margin: 15px;">${data[i].substring(0, data[i].indexOf(':'))}</h2>
                     <div style="
@@ -544,6 +543,8 @@ function showListLoad(pageNumber, data) {
                 "></i>
             </a>`
         }
+        // disappear change pages line
+        document.querySelector(".page-container").style.display = 'none'
     }
     listchap.innerHTML = showlist;
 }

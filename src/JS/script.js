@@ -73,26 +73,25 @@ async function get_popular_novel() {
         info_novel = "";
         for (let i = 0; i < helop.length; i++) {
           info_novel += `
-                <div class="novel_item">
-                  <a href="/reviews/${helop[i]._id}">
-                    <div class="novel_item_main">
-                    <div class="novel_item_main_img">
-                    <img src="${helop[i].image}" referrerpolicy="no-referrer alt="image">
-                </div>
-                        <div class="novel_title" onclick="myFunction()">
-                            <a href="/reviews/${helop[i]._id}" class="novel_name">${helop[i].name}</a>
-                            <div class="novel_author">
-                                Tác giả : <span>${helop[i].author}</span>
-                            </div>
-                            <div class="novel_chapter">
-                                Chap : <span>${helop[i].no_chapters}</span>
-                                <div>Full</div>
-                            </div>
-    
-                        </div>
-                    </div>
-                    </a>
-                </div>`;
+          <a href="/reviews/${helop[i]._id}" class="novel_item">
+              <div >
+                  <div class="novel_item_main">
+                      <div class="novel_item_main_img">
+                          <img src="${helop[i].image}" referrerpolicy="no-referrer alt=" image">
+                      </div>
+                      <div class="novel_title" onclick="myFunction()">
+                          <div class="novel_name">${helop[i].name}</div>
+                          <div class="novel_author">
+                              Tác giả : <span>${helop[i].author}</span>
+                          </div>
+                          <div class="novel_chapter">
+                              Chap : <span>${helop[i].no_chapters}</span>
+                              <div>Full</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </a>`;
         }
       }
 

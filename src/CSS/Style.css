@@ -1213,10 +1213,6 @@ html .body_main {
   line-height: 20px;
 }
 
-.novel_name:hover,
-.novel_author span:hover {
-  text-decoration: underline;
-}
 
 .novel_author {
   margin-top: 10px;
