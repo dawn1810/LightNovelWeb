@@ -314,6 +314,7 @@ async function checkCookieLoglUser(req, res, next) {
 		if (!data.account) {
 			res.locals.avt = 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg';
 			res.locals.username = '';
+			res.locals.login_way = 'null';
 			next();
 		}
 		else {
@@ -324,6 +325,7 @@ async function checkCookieLoglUser(req, res, next) {
 			// decodeList = authenticationKey:id:pass
 			if (decodeList[0] == authenticationKey) {
 				const result = await server.find_one_Data("tt_nguoi_dung", { _id: decodeList[1] });
+				const n_result = await server.find_one_Data("dang_nhap", { _id: decodeList[1] });
 				if (result != null && result.length != 0) {
 					// neu dang nhap = google thi 2 bien avt va display name co gia tri, nhung login = tk,mk thi k co 2 bien nay
 					res.locals.avt = result.avatarUrl;
@@ -331,6 +333,7 @@ async function checkCookieLoglUser(req, res, next) {
 					res.locals.user = result._id;
 					res.locals.sex = result.sex;
 					res.locals.email = result.email;
+					res.locals.login_way = n_result.lgway;
 					next();
 				}
 				else if (result == null) {
@@ -374,6 +377,36 @@ const blockUnwantedPaths = (req, res, next) => {
 	}
 	next();
 };
+
+async function processNovels(req, res) {
+	try {
+		const account = req.cookies.account;
+		console.log('SYSTEM | LIST MY NOVELS | Cookie nhận được: ', account);
+		const decode = decrypt(account, authenticationKey);
+		const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
+		console.log(`SYSTEM | LIST MY NOVELS | Dữ liệu đã giải mã ${decodeList}`);
+
+		let novels = await server.find_one_Data('tt_nguoi_dung', { _id: decodeList[1] });
+		let result = [];
+
+		for (let id of novels.mynovel) {
+			result.push(await server.find_one_Data('truyen', { _id: new ObjectId(id) }));
+		}
+
+		console.log(result);
+
+		res.render('profile.ejs', {
+			headerFile: 'header',
+			footerFile: 'footer',
+			novels: result,
+			update_time: calTime(result.update_date),
+		});
+	} catch (err) {
+		console.log('SYSTEM | LIST MY NOVELS | ERROR | ', err);
+		res.sendStatus(500);
+	}
+}
+
 
 function calTime(update_date) {
 	// Thời điểm hiện tại
@@ -457,62 +490,13 @@ app.get('/', checkCookieLoglUser, (req, res) => {
 
 // profile route
 app.get('/profile', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
-	const account = req.cookies.account
-	console.log('SYSTEM | LIST MY NOVELS | Cookie nhận được: ', account);
-	const decode = decrypt(account, authenticationKey);
-	const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
-	console.log(`SYSTEM | LIST MY NOVELS | Dữ liệu đã giải mã ${decodeList}`);
-	try {
-		let novels = await server.find_one_Data('tt_nguoi_dung', { _id: decodeList[1] })
-		let result = [];
-
-		for (let id of novels.mynovel) {
-			result.push(await server.find_one_Data('truyen', { _id: new ObjectId(id) }))
-		};
-
-		console.log(result);
-
-		res.render('profile.ejs', {
-			headerFile: 'header',
-			footerFile: 'footer',
-			novels: result,
-			update_time: calTime(result.update_date),
-		});
-
-	} catch (err) {
-		console.log('SYSTEM | LIST MY NOVELS | ERROR | ', err);
-		res.sendStatus(500);
-	}
+	await processNovels(req, res);
 });
 
 
 // Hiển thị tất cả truyện đã đăng.
 app.get('/profile/:anything', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
-	const account = req.cookies.account
-	console.log('SYSTEM | LIST MY NOVELS | Cookie nhận được: ', account);
-	const decode = decrypt(account, authenticationKey);
-	const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
-	console.log(`SYSTEM | LIST MY NOVELS | Dữ liệu đã giải mã ${decodeList}`);
-	try {
-		let novels = await server.find_one_Data('tt_nguoi_dung', { _id: decodeList[1] })
-		console.log('>>>>>>>>>>>>>>>>', novels.mynovel)
-		let result = [];
-
-		for (let id of novels.mynovel) {
-			result.push(await server.find_one_Data('truyen', { _id: new ObjectId(id) }))
-		};
-
-		res.render('profile.ejs', {
-			headerFile: 'header',
-			footerFile: 'footer',
-			novels: result,
-			update_time: calTime(result.update_date),
-		});
-
-	} catch (err) {
-		console.log('SYSTEM | LIST MY NOVELS | ERROR | ', err);
-		res.sendStatus(500);
-	}
+	await processNovels(req, res);
 });
 
 
@@ -648,8 +632,9 @@ app.post('/signup', async (req, res) => {
 	console.log('SYSTEM | SIGN_UP | Dữ liệu nhận được: ', data);
 	try {
 		// usr ton tai => thong bao
-		const result = await server.find_all_Data({ query: { usr: data.usr }, table: "dang_nhap", projection: { _id: 0, usr: 1 } });
-
+		console.log(data.usr);
+		const result = await server.find_all_Data({ query: { _id: data.usr }, table: "dang_nhap", projection: { _id: 1} });
+		console.log(result);
 		if (result.length != 0) {
 			res.writeHead(404, { 'Content-Type': 'text/plain' });
 			res.end('Ten đang nhập đã tồn tại');
@@ -692,8 +677,6 @@ app.post('/login', async (req, res) => {
 			}
 		});
 
-		let check = false;
-
 		if (f_result.length != 0) {
 			// log in first time: (sign up database)
 			for (let i = 0; i < f_result.length; i++) {
@@ -724,10 +707,6 @@ app.post('/login', async (req, res) => {
 					await server.delete_many_Data("dang_ky", { usr: data.usr });
 
 					set_cookies(res, data.usr, data.pass); // set cookies
-
-					// res.write('<script>');
-					// res.write('window.location.reload();'); // Reload the current window
-					// res.write('</script>');
 
 					res.end('Log in sucess!!!');
 

@@ -51,24 +51,25 @@
                   <i class="fa-solid fa-book"></i> Truyện đã theo dõi
                 </div>
               </div>
-              <div class="Setting_sidebar-list_item yourchangepass">
-                <div class="Setting_sidebar-list_item_wrap">
-                  <i class="fa-solid fa-shield-halved"></i> Đổi mật khẩu
+              <% if (login_way=='normal' ) { %>
+                <div class="Setting_sidebar-list_item yourchangepass">
+                  <div class="Setting_sidebar-list_item_wrap">
+                    <i class="fa-solid fa-shield-halved"></i> Đổi mật khẩu
+                  </div>
                 </div>
-              </div>
+                <%}%>
+                  <div class="Setting_sidebar-list_item up_novel">
+                    <div class="Setting_sidebar-list_item_wrap">
+                      <i class="fa-solid fa-pen-nib"></i> Sáng tác
+                    </div>
+                  </div>
 
-              <div class="Setting_sidebar-list_item up_novel">
-                <div class="Setting_sidebar-list_item_wrap">
-                  <i class="fa-solid fa-pen-nib"></i> Sáng tác
-                </div>
-              </div>
 
-
-              <a href="/" class="Setting_sidebar-list_item logout">
-                <div class="Setting_sidebar-list_item_wrap">
-                  <i class="fa-solid fa-right-from-bracket"></i> Thoát
-                </div>
-              </a>
+                  <a href="/" class="Setting_sidebar-list_item logout">
+                    <div class="Setting_sidebar-list_item_wrap">
+                      <i class="fa-solid fa-right-from-bracket"></i> Thoát
+                    </div>
+                  </a>
 
             </div>
           </div>

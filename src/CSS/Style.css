@@ -903,7 +903,8 @@ a {
 
 .header_user_more {
   width: 158px;
-  height: 156px;
+  /* height: 156px; */
+  height: auto;
   background-color: var(--category_bg);
   position: absolute;
   top: 55px;

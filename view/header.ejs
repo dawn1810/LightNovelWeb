@@ -106,8 +106,10 @@
               <div class="header_user_more_item"><a href="/profile">Thông tin tài khoản</a>
               </div>
               <div class="header_user_more_item"><a href="/profile/novel_following">Truyện đã lưu</a> </div>
-              <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
-              <div class="header_user_more_item logout">Đăng xuất </div>
+              <%if (login_way=='normal' ) { %>
+                <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
+                <%}%>
+                  <div class="header_user_more_item logout">Đăng xuất </div>
             </div>
           </div>
 
