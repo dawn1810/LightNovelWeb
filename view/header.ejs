@@ -75,56 +75,106 @@
         </div>
       </div>
       <div class="header_end">
+        <% if (login_way=='null' ) { %>
 
-        <div class="header_user">
-          <div class="header_notify">
-            <div class="header_notify_logo">
-              <i class="fa-solid fa-bell"></i>
-            </div>
-            <div class="header_notify_more">
-              <div class="header_notify_more_head">
-                <div class="header_notify_more_head_title">
-                  Thông báo
+          <div class="header_user" style="display: none;">
+            <div class="header_notify">
+              <div class="header_notify_logo">
+                <i class="fa-solid fa-bell"></i>
+              </div>
+              <div class="header_notify_more">
+                <div class="header_notify_more_head">
+                  <div class="header_notify_more_head_title">
+                    Thông báo
+                  </div>
+
                 </div>
-
-              </div>
-              <div class="header_notify_more_item">
-                Chưa có thông báo
+                <div class="header_notify_more_item">
+                  Chưa có thông báo
+                </div>
               </div>
             </div>
-          </div>
-          <div class="header_user_logo">
-            <div class="header_user_logo_i">
-              <div class="curent-avt">
-                <img src="<%= avt %>" referrerpolicy="no-referrer" alt="" class="avt_user">
+            <div class="header_user_logo">
+              <div class="header_user_logo_i">
+                <div class="curent-avt">
+                  <img src="<%= avt %>" referrerpolicy="no-referrer" alt="" class="avt_user">
+                </div>
+                <p>
+                  <%= username %>
+                </p>
               </div>
-              <p>
-                <%= username %>
-              </p>
-            </div>
-            <div class="header_user_more">
-              <div class="header_user_more_item"><a href="/profile">Thông tin tài khoản</a>
+              <div class="header_user_more">
+                <div class="header_user_more_item"><a href="/profile">Thông tin tài khoản</a>
+                </div>
+                <div class="header_user_more_item"><a href="/profile/novel_following">Truyện đã lưu</a> </div>
+                <%if (login_way=='normal' ) { %>
+                  <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
+                  <%}%>
+                    <div class="header_user_more_item logout">Đăng xuất </div>
               </div>
-              <div class="header_user_more_item"><a href="/profile/novel_following">Truyện đã lưu</a> </div>
-              <%if (login_way=='normal' ) { %>
-                <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
-                <%}%>
-                  <div class="header_user_more_item logout">Đăng xuất </div>
+            </div>
+
+
+
+          </div>
+          <div class="header_noUser" style="display: flex;">
+            <div class="header_login">
+              Login
+            </div>
+            <div class="header_signup">
+              Sign Up
             </div>
           </div>
+          <%} else {%>
+            <div class="header_user" style="display: flex;">
+              <div class="header_notify">
+                <div class="header_notify_logo">
+                  <i class="fa-solid fa-bell"></i>
+                </div>
+                <div class="header_notify_more">
+                  <div class="header_notify_more_head">
+                    <div class="header_notify_more_head_title">
+                      Thông báo
+                    </div>
+
+                  </div>
+                  <div class="header_notify_more_item">
+                    Chưa có thông báo
+                  </div>
+                </div>
+              </div>
+              <div class="header_user_logo">
+                <div class="header_user_logo_i">
+                  <div class="curent-avt">
+                    <img src="<%= avt %>" referrerpolicy="no-referrer" alt="" class="avt_user">
+                  </div>
+                  <p>
+                    <%= username %>
+                  </p>
+                </div>
+                <div class="header_user_more">
+                  <div class="header_user_more_item"><a href="/profile">Thông tin tài khoản</a>
+                  </div>
+                  <div class="header_user_more_item"><a href="/profile/novel_following">Truyện đã lưu</a> </div>
+                  <%if (login_way=='normal' ) { %>
+                    <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
+                    <%}%>
+                      <div class="header_user_more_item logout">Đăng xuất </div>
+                </div>
+              </div>
 
 
-        </div>
-        <div class="header_noUser">
-          <div class="header_login">
-            Login
-          </div>
-          <div class="header_signup">
-            Sign Up
-          </div>
-        </div>
 
-
+            </div>
+            <div class="header_noUser" style="display: none;">
+              <div class="header_login">
+                Login
+              </div>
+              <div class="header_signup">
+                Sign Up
+              </div>
+            </div>
+            <%}%>
 
       </div>
 
@@ -585,17 +635,7 @@
   });
 </script>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
 
-    <% if (username == '' && avt == 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg') { %>
-      document.querySelector('.header_user').style.display = 'none';
-      document.querySelector('.header_noUser').style.display = 'flex';
-    <% } else { %>
-      document.querySelector('.header_user').style.display = 'flex';
-      document.querySelector('.header_noUser').style.display = 'none';
-    <% } %>
-  });
-</script>
+
 
 </html>
