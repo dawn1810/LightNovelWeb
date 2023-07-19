@@ -191,6 +191,7 @@ function Validator(options) {
                     var errorElement = getParent(inputElement, options.formGroupSelector).querySelector(options.errorSelector);
                     errorElement.innerText = '';
                     getParent(inputElement, options.formGroupSelector).classList.remove('invalid');
+                    formElement.querySelector('.Error_mess').innerHTML = ''
                 }
             });
         });
@@ -243,7 +244,12 @@ Validator.isConfirmed = function (selector, getConfirmValue, message) {
 
 
 
-
+const toast = document.querySelector(".toast");
+const closeIcon = document.getElementById("close");
+const progress = document.querySelector(".progress");
+closeIcon.addEventListener("click", () => {
+    toast.classList.remove("active");
+})
 
 document.addEventListener('DOMContentLoaded', function () {
     // Mong muốn của chúng ta
@@ -286,7 +292,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 else if (response.status == 403 || response.status == 500) {
                     console.log("e sơ");
-                    document.querySelector('.Error_mess').innerHTML = 'Em iu hãy xem lại tài khoản đã nhập'
+                    toast.querySelector('.text-1').innerHTML = 'Lỗi';
+                    toast.querySelector('.text-2').innerHTML = 'Nhập cho đúng nhé em iuuu';
+                    toast.classList.add("active");
+                    progress.classList.add("active");
+
+                    timer1 = setTimeout(() => {
+                        toast.classList.remove("active");
+                    }, 5000); //1s = 1000 milliseconds
+
+                    timer2 = setTimeout(() => {
+                        progress.classList.remove("active");
+                    }, 5300);
                 }
             } catch (error) {
                 console.log("Error:", error);
@@ -348,7 +365,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     document.querySelector(".no_login a").click();
                 }
-               
+                else if (response.status == "404") {
+                    toast.querySelector('.text-1').innerHTML = 'Lỗi';
+                    toast.querySelector('.text-2').innerHTML = 'Tài khoản này có rồi á em iuu';
+                    toast.classList.add("active");
+                    progress.classList.add("active");
+
+                    timer1 = setTimeout(() => {
+                        toast.classList.remove("active");
+                    }, 5000); //1s = 1000 milliseconds
+
+                    timer2 = setTimeout(() => {
+                        progress.classList.remove("active");
+                    }, 5300);
+                }
+
 
                 // btn_reg.disabled = false;
                 // btn_reg.textContent = "Register";

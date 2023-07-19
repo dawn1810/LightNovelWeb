@@ -19,6 +19,7 @@ const { ObjectId } = require('mongodb');
 const { Client } = require('@notionhq/client');
 const mammoth = require('mammoth');
 const { v4: uuidv4 } = require('uuid');
+const sharp = require('sharp');
 // Initialize Notion client with your integration token
 const notion = new Client({ auth: 'secret_773isnmzBUbd1TFIympgLAewkvvXufZXxdDyt5vl1mw' });
 
@@ -26,6 +27,7 @@ const notion = new Client({ auth: 'secret_773isnmzBUbd1TFIympgLAewkvvXufZXxdDyt5
 const notionFileId = 'YOUR_NOTION_FILE_ID';
 // ----------------------------------------------------------------
 const allowedMimeTypes = ['text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+
 
 ////////////////////////
 const app = express();
@@ -82,6 +84,53 @@ function decrypt(encryptedDataWithIV, secretKey) {
 	console.log('SYSTEM | DECRYPT | OK');
 
 	return decryptedData;
+}
+// Hàm này sẽ nén ảnh base64 và trả về base64 của ảnh đã nén trong một Promise
+// Hàm xác định định dạng ảnh từ base64
+// Hàm xác định định dạng ảnh từ base64
+function detectImageFormatFromBase64(base64Data) {
+	const matches = base64Data.match(/^data:image\/([a-zA-Z+-.]+);base64,/);
+
+	if (!matches || matches.length < 2) {
+		throw new Error('Không thể xác định định dạng ảnh từ chuỗi base64.');
+	}
+
+	const imageFormat = matches[1].toLowerCase();
+	if (imageFormat !== 'png' && imageFormat !== 'jpeg' && imageFormat !== 'jpg') {
+		throw new Error('Định dạng ảnh không được hỗ trợ.');
+	}
+
+	return imageFormat;
+}
+
+// Hàm nén ảnh từ base64 và trả về base64 đã nén
+function compressImageBase64(inputBase64, quality) {
+	return new Promise((resolve, reject) => {
+		try {
+			// Xác định định dạng ảnh từ base64
+			const imageFormat = detectImageFormatFromBase64(inputBase64);
+			const base64WithoutHeader = inputBase64.replace(/^data:image\/\w+;base64,/, '');
+
+			// Decode base64 và tạo buffer từ dữ liệu ảnh
+			const buffer = Buffer.from(base64WithoutHeader, 'base64');
+
+			// Sử dụng thư viện sharp để nén ảnh
+			sharp(buffer)
+				.toFormat(imageFormat, { quality })
+				.toBuffer()
+				.then((outputBuffer) => {
+					// Convert buffer đã nén thành base64
+					const compressedBase64 = `data:image/${imageFormat};base64,${outputBuffer.toString('base64')}`;
+
+					resolve(compressedBase64);
+				})
+				.catch((error) => {
+					reject(error);
+				});
+		} catch (error) {
+			reject(error);
+		}
+	});
 }
 
 function convertToHtml(text) {
@@ -633,7 +682,7 @@ app.post('/signup', async (req, res) => {
 	try {
 		// usr ton tai => thong bao
 		console.log(data.usr);
-		const result = await server.find_all_Data({ query: { _id: data.usr }, table: "dang_nhap", projection: { _id: 1} });
+		const result = await server.find_all_Data({ query: { _id: data.usr }, table: "dang_nhap", projection: { _id: 1 } });
 		console.log(result);
 		if (result.length != 0) {
 			res.writeHead(404, { 'Content-Type': 'text/plain' });
@@ -1161,15 +1210,45 @@ app.post('/uploadFile', upload.array('files[]'), async function (req, res) {
 });
 
 // hủy
+// Delete novel page --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.post('/cancel', async (req, res) => {
 	const data = req.body;
 	console.log('SYSTEM | CANCEL |', data);
 	try {
-		for (const id of data.chap_ids) {
-			await server.deleteFileFromDrive(id);
+		if (data.status == 'cancel') {
+			for (const id of data.chap_ids) {
+				await server.deleteFileFromDrive(id);
+			}
+
+			res.sendStatus(200);
+		}
+		else if (data.status == 'delete') {
+			let result = await server.find_one_Data('truyen', { _id: new ObjectId(data.id) });
+
+			// xóa file trên drive 
+			for (const id of result.chap_ids) {
+				await server.deleteFileFromDrive(id);
+			}
+
+			// xóa truyện trên server
+			await server.delete_one_Data('truyen', { _id: new ObjectId(data.id) })
+			const decode = decrypt(req.cookies.account, authenticationKey);
+			const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
+			console.log(`SYSTEM | CANCEL | Dữ liệu đã giải mã ${decodeList}`);
+			// decodeList = authenticationKey:id:pass
+			if (decodeList[0] == authenticationKey) {
+				await server.update_one_Data("tt_nguoi_dung", { _id: decodeList[1] },
+					{
+						$pull: { mynovel: data.id }
+					});
+			}
+			else {
+				res.sendStatus(404)
+			}
+			res.sendStatus(200); 
+			console.log(data.id);
 		}
 
-		res.sendStatus(200);
 
 	} catch (err) {
 		console.log('SYSTEM | CANCEL | ERROR | ', err);
@@ -1177,28 +1256,7 @@ app.post('/cancel', async (req, res) => {
 	}
 });
 
-// Delete novel page --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.post('/delete_my_novels', async (req, res) => {
-	const data = req.body;
-	console.log('SYSTEM | DELETE MY NOVELS |', data);
-	try {
-		let result = await server.find_one_Data('truyen', { _id: data.id });
 
-		// xóa file trên drive 
-		for (const id of result.chap_ids) {
-			await server.deleteFileFromDrive(id);
-		}
-
-		// xóa truyện trên server
-		await server.delete_one_Data('truyen', { _id: data.id })
-
-		res.sendStatus(200);
-
-	} catch (err) {
-		console.log('SYSTEM | DELETE MY NOVELS | ERROR | ', err);
-		res.sendStatus(500);
-	}
-});
 
 
 // Thay đổi info -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1212,11 +1270,42 @@ app.post('/updateInfo', async (req, res) => {
 				$set: {
 					email: data.email,
 					displayName: data.hoten,
-					avatarUrl: data.img,
+					avatarUrl: await compressImageBase64(data.img, 5),
 					sex: data.sex,
 				}
 			});
 		res.sendStatus(200);
+	} catch (err) {
+		console.log('SYSTEM | UPDATE INFO | ERROR | ', err);
+		res.sendStatus(500);
+	}
+
+});
+
+app.post('/changepass', async (req, res) => {
+	try {
+		const data = req.body;
+		const decode = decrypt(req.cookies.account, authenticationKey);
+		const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
+		console.log(`SYSTEM | CHANGE_PASSWORD | Dữ liệu đã giải mã ${decodeList}`);
+		// decodeList = authenticationKey:id:pass
+		if (decodeList[0] == authenticationKey) {
+			console.log('SYSTEM | CHANGE_PASSWORD |', data);
+			const n_result = await server.find_one_Data("dang_nhap", { _id: decodeList[1] });
+			if (data['Old-Password'] == n_result.pass) {
+				await server.update_one_Data("dang_nhap", { _id: decodeList[1] },
+					{
+						$set: {
+							pass: data['new-Password']
+						}
+					});
+				res.sendStatus(200);
+			} else {
+				res.status(403).send('Sai pass cũ')
+			}
+		} else {
+			res.status(404).send('Sai xác thực')
+		}
 	} catch (err) {
 		console.log('SYSTEM | UPDATE INFO | ERROR | ', err);
 		res.sendStatus(500);
