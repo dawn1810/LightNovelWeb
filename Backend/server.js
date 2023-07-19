@@ -428,7 +428,7 @@ app.use(blockUnwantedPaths);
 
 // Lắng nghe các yêu cầu POST tới localhost:6969
 app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(bodyParser.json());
 app.use(cors({ origin: true, credentials: true }));
 app.use(cookieParser());
@@ -456,19 +456,72 @@ app.get('/', checkCookieLoglUser, (req, res) => {
 });
 
 // profile route
-app.get('/profile', checkCoookieIfOK, checkCookieLoglUser, (req, res) => {
-	res.render('profile', {
-		headerFile: 'header',
-		footerFile: 'footer'
-	});
+app.get('/profile', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
+	const account = req.cookies.account
+	console.log('SYSTEM | LIST MY NOVELS | Cookie nhận được: ', account);
+	const decode = decrypt(account, authenticationKey);
+	const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
+	console.log(`SYSTEM | LIST MY NOVELS | Dữ liệu đã giải mã ${decodeList}`);
+	try {
+		let novels = await server.find_one_Data('tt_nguoi_dung', { _id: decodeList[1] })
+		let result = [];
+
+		for (let id of novels.mynovel) {
+			result.push(await server.find_one_Data('truyen', { _id: new ObjectId(id) }))
+		};
+
+		console.log(result);
+
+		res.render('profile.ejs', {
+			headerFile: 'header',
+			footerFile: 'footer',
+			novels: result,
+			update_time: calTime(result.update_date),
+		});
+
+	} catch (err) {
+		console.log('SYSTEM | LIST MY NOVELS | ERROR | ', err);
+		res.sendStatus(500);
+	}
 });
 
-app.get('/profile/:anything', checkCoookieIfOK, checkCookieLoglUser, (req, res) => {
-	res.render('profile', {
-		headerFile: 'header',
-		footerFile: 'footer'
-	});
+
+// Hiển thị tất cả truyện đã đăng.
+app.get('/profile/:anything', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
+	const account = req.cookies.account
+	console.log('SYSTEM | LIST MY NOVELS | Cookie nhận được: ', account);
+	const decode = decrypt(account, authenticationKey);
+	const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
+	console.log(`SYSTEM | LIST MY NOVELS | Dữ liệu đã giải mã ${decodeList}`);
+	try {
+		let novels = await server.find_one_Data('tt_nguoi_dung', { _id: decodeList[1] })
+		console.log('>>>>>>>>>>>>>>>>', novels.mynovel)
+		let result = [];
+
+		for (let id of novels.mynovel) {
+			result.push(await server.find_one_Data('truyen', { _id: new ObjectId(id) }))
+		};
+
+		res.render('profile.ejs', {
+			headerFile: 'header',
+			footerFile: 'footer',
+			novels: result,
+			update_time: calTime(result.update_date),
+		});
+
+	} catch (err) {
+		console.log('SYSTEM | LIST MY NOVELS | ERROR | ', err);
+		res.sendStatus(500);
+	}
 });
+
+
+// app.get('/profile/:anything', checkCoookieIfOK, checkCookieLoglUser, (req, res) => {
+// 	res.render('profile', {
+// 		headerFile: 'header',
+// 		footerFile: 'footer'
+// 	});
+// });
 
 //////////
 
@@ -839,7 +892,7 @@ app.post('/updatelike', async (req, res) => {
 	try {
 		const data = req.body;
 		console.log('SYSTEM | UPDATE_LIKE | Dữ liệu nhận được: ', data);
-		const decode = decrypt(data.account, authenticationKey);
+		const decode = decrypt(req.cookies.account, authenticationKey);
 		const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
 		console.log(`SYSTEM | UPDATE_LIKE | Dữ liệu đã giải mã ${decodeList}`);
 		// decodeList = authenticationKey:id:pass
@@ -913,7 +966,6 @@ app.get('/reviews/:id', checkCookieLoglUser, async (req, res) => {
 		});
 		console.log(result)
 		// default if they don't have an account
-		result[0].update_date = calTime(result[0].update_date);
 		result[0].liked = 0; ///here
 
 		if (account) {
@@ -949,7 +1001,7 @@ app.get('/reviews/:id', checkCookieLoglUser, async (req, res) => {
 			image: result[0].image,
 			views: result[0].views,
 			likes: result[0].likes,
-			update_date: result[0].update_date,
+			update_date: calTime(result[0].update_date),
 			status: result[0].status,
 			liked: result[0].liked
 		});
@@ -1169,31 +1221,6 @@ app.post('/delete_my_novels', async (req, res) => {
 	}
 });
 
-// Hiển thị tất cả truyện đã đăng.
-app.post('/list_my_novels', async (req, res) => {
-	const account = req.cookies.account
-	console.log('SYSTEM | LIST MY NOVELS | Cookie nhận được: ', account);
-	const decode = decrypt(account, authenticationKey);
-	const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
-	console.log(`SYSTEM | LIST MY NOVELS | Dữ liệu đã giải mã ${decodeList}`);
-	console.log('SYSTEM | LIST MY NOVELS |', data);
-	try {
-		let novels = await server.find_one_Data('tt_nguoi_dung', { _id: decodeList[1] })
-		let result = [];
-
-		for (let id of novels.mynovel) {
-			result.push(await server.find_one_Data('truyen', { _id: id }))
-		};
-
-		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
-		console.log('SYSTEM | LIST MY NOVELS | Trả về thông tin nhưng truyện đã đẵng', result);
-		res.end(JSON.stringify(result));
-
-	} catch (err) {
-		console.log('SYSTEM | LIST MY NOVELS | ERROR | ', err);
-		res.sendStatus(500);
-	}
-});
 
 // Thay đổi info -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.post('/updateInfo', async (req, res) => {
@@ -1217,6 +1244,10 @@ app.post('/updateInfo', async (req, res) => {
 	}
 
 });
+
+// Đổi pass -------------------------------
+
+
 app.get('*', checkCookieLoglUser, function (req, res) {
 	res.render('index', {
 		headerFile: 'header',

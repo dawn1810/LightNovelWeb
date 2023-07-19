@@ -1,4 +1,9 @@
 @media screen and (max-width:600px) {
+
+    html {
+        font-size: 16px;
+    }
+
     .header_wrap {
         padding: 0;
         height: auto;
@@ -102,4 +107,104 @@
     .novel_item img {
         height: 150px;
     }
+
+    .novel_item img {
+        object-position: 50% 0%;
+    }
+
+    .left_item {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        height: 100%;
+        width: 215px;
+        background-color: var(--category_bg);
+        margin-top: 0;
+        padding: 0;
+        transition: all 0.5s ease;
+        z-index: 999999;
+    }
+
+    .left_item {
+        bottom: 0;
+        display: flex;
+        top: auto;
+        left: 0;
+        height: auto;
+        width: 100%;
+        background-color: var(--header-background);
+        margin: 0;
+    }
+
+    .close {
+        transform: none;
+    }
+
+    .left_li {
+        order: 0;
+        justify-content: center;
+        height: auto;
+        padding: 0;
+        color: var(--login-btn);
+    }
+
+    .left_li a {
+        color: var(--login-btn);
+
+    }
+
+    .left_li i {
+        padding: 0;
+    }
+
+    .left_li span {
+        display: none;
+    }
+
+    #history,
+    #trending_novel_btn {
+        order: 1
+    }
+
+    .d-l_theme {
+        position: unset;
+        transform: translateY(-5px);
+    }
+
+    .toggle-switch {
+        width: 50px;
+        height: 50px;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .switch-label {
+        width: 50px;
+        height: 50px;
+        border: 0;
+        position: relative;
+    }
+
+    .slider::before {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .checkbox:checked~.slider::before {
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+    }
+
+    .body_wrap {
+        margin-top: 50px;
+    }
+
+    .trending_novel_item {
+        width: 100%;
+    }
+
+
 }

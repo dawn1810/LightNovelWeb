@@ -47,9 +47,6 @@ const progress = document.querySelector(".progress");
 closeIcon.addEventListener("click", () => {
 	toast.classList.remove("active");
 })
-// toast
-
-
 
 // dieu khoan dich vu
 const checked = document.getElementById("Agree");
@@ -348,8 +345,6 @@ function validateFile(file, checkdoc = false) {
 
 
 
-
-
 for (const button of avtUpLoad) {
 	button.addEventListener("change", function (event) {
 
@@ -477,7 +472,8 @@ const myList = [
 	"Lưỡng long nhất thể",
 	"Quan trọng là thần thái",
 ];
-
+const randomElement = getRandomElement(myList);
+document.querySelector(".sex_random").innerHTML = randomElement;
 document.querySelector(".button_random").onclick = function (e) {
 	e.preventDefault();
 	// Gọi hàm để tạo số ngẫu nhiên
@@ -579,12 +575,10 @@ document.querySelector('.change-pass-btn').onclick = async function (e) {
 	console.log('cut di bn oi');
 	e.preventDefault();
 	//gửi request tới csdl server
-	const accountCookie = getCookie('account')
 	const url = `${currentURL}/changepass`; // URL của máy chủ mục tiêu
 	const postData = JSON.stringify({
 		// thông tin đăng kýýý
 		'status': 'Change Pass',
-		'account': `${accountCookie}`,
 		'Old-Password': `${document.querySelector('.old-password').value}`,
 		'new-Password': `${document.querySelector('.new-password').value}`,
 		'new-Password-again': `${document.querySelector('.new-password-again').value}`
@@ -607,7 +601,7 @@ document.querySelector('.change-pass-btn').onclick = async function (e) {
 		const response = await fetch(url, requestOptions)
 		// taì khoan hơp lệ 
 		if (response.status == '200') {
-			location.reload();
+			// location.reload();
 		}
 
 		else if (response.status == '204') {
@@ -751,6 +745,7 @@ function cancel() {
 			page5_a_up_drop()
 			let newURL = currentURL + '/profile/my_novel';
 			window.location.href = newURL;
+
 			// reset finalDataToServer
 			finalDataToServer = {
 				novel_name: "",
@@ -766,6 +761,12 @@ function cancel() {
 	} else {
 		text = "You canceled!";
 	}
+}
+
+function setupPrivateData(element) {
+	var private = 1;
+	element.setPrivate = function (d) { private = d; }
+	element.getPrivate = function () { return private; }
 }
 
 document.querySelector('.page5_info .close_btn').onclick = function () {
@@ -926,7 +927,7 @@ document.querySelector('.page5_post .post_btn').onclick = async function () {
 
 	// POST ALL DATA TO SERVER--------------------------------------------------------------------------------------------------
 	//gửi request tới csdl server
-	const url = `${currentURL} /upload_novel`; // URL của máy chủ mục tiêu
+	const url = `${currentURL}/upload_novel`; // URL của máy chủ mục tiêu
 
 	const postData = JSON.stringify({
 		name: finalDataToServer["novel_name"],
@@ -1025,7 +1026,22 @@ document.querySelector('.page5_post .close_btn').onclick = async function () {
 }
 
 document.querySelector('.page5_last .page5_last_btn').onclick = function () {
-	cancel()
+	// back to novel list scene
+	page5_a_up_drop()
+	let newURL = currentURL + '/profile/my_novel';
+	window.location.href = newURL;
+
+	// reset finalDataToServer
+	finalDataToServer = {
+		novel_name: "",
+		author_name: "",
+		novel_descript: "",
+		novel_types: "",
+		novel_status: "",
+		novel_avt: "",
+		name_chapters: [],
+		chapters_content: []
+	};
 }
 
 let check = 0

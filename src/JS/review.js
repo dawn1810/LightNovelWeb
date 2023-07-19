@@ -56,7 +56,6 @@ async function like_novel(status) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                account: accountCookie,
                 liked: status,
                 id_truyen: window.location.href.split("/")[window.location.href.split("/").length - 1]
             })
@@ -336,7 +335,6 @@ const novel_id = localStorage.getItem('novel_id')
 
 var list_chap = ''
 async function getReview() {
-    const accountCookie = getCookie('account');
     // if()
 
 
@@ -347,7 +345,6 @@ async function getReview() {
         },
         body: JSON.stringify({
             id: window.location.href.split("/")[window.location.href.split("/").length - 1],
-            account: accountCookie,
 
         })
     })

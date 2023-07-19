@@ -1,0 +1,81 @@
+@media screen and (max-width:600px) {
+    .Titile_interact_siu {
+        flex-direction: column;
+    }
+
+    .title-gr {
+        width: 100%;
+    }
+
+    .novels {
+        display: none;
+    }
+
+    .btn1 {
+        width: 90px !important;
+    }
+
+    .btn {
+        margin-right: 3px;
+    }
+
+    .novel-avt {
+        width: 190px;
+        height: 280px;
+    }
+
+    .current-novel-name {
+        font-size: 1.25rem;
+    }
+
+    .button-efect {
+        margin-left: 1em;
+        line-height: 1rem;
+        font-size: .75rem;
+    }
+
+    .last-time-update {
+        text-align: center;
+    }
+
+    .current-novel-actor {
+        text-align: center;
+    }
+
+    .current-category-list {
+        justify-content: center;
+    }
+
+    .chapter-item h2 {
+        font-size: 1rem;
+    }
+
+    .chapter-item div {
+        font-size: .8rem;
+    }
+
+    .current-body {
+        width: 22rem;
+    }
+
+    .settings .form-input>input {
+        width: 6rem;
+    }
+
+    .settings {
+        flex-direction: row !important;
+    }
+
+    main {
+        width: 100%;
+    }
+
+    .current_left {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .summary-listchap {
+        width: 100vw;
+    }
+}

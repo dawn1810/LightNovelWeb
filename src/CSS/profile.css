@@ -38,6 +38,12 @@ body {
 
 .information_name {
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-message-info {
+  color: red;
 }
 
 .information_name_wrap {
