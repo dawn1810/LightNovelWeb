@@ -323,35 +323,12 @@ function validateFile(file, checkdoc = false) {
 	const fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
 	if (!allowedFormats.includes(fileExtension)) {
 		// Invalid file format
-		toast.classList.add("active");
-		toast.querySelector('.text-1').innerHTML = 'Chú ý!'
-		toast.querySelector('.text-2').innerHTML = 'Sai định dạng file rồi người đẹp!.'
-		progress.classList.add("active");
-
-		timer1 = setTimeout(() => {
-			toast.classList.remove("active");
-		}, 5000); //1s = 1000 milliseconds
-
-		timer2 = setTimeout(() => {
-			progress.classList.remove("active");
-		}, 5300);
-
+		notify('Chú ý!', 'Sai định dạng file rồi người đẹp!.');
 		return false;
 	}
 	if (file.size > maxSize) {
 		// window.alert("Là một nhẫn giả chân chính hãy điển đủ thông tin ¯\(◉◡◔)/¯")
-		toast.classList.add("active");
-		toast.querySelector('.text-1').innerHTML = 'Chú ý!';
-		toast.querySelector('.text-2').innerHTML = message_arlet;
-		progress.classList.add("active");
-
-		timer1 = setTimeout(() => {
-			toast.classList.remove("active");
-		}, 5000); //1s = 1000 milliseconds
-
-		timer2 = setTimeout(() => {
-			progress.classList.remove("active");
-		}, 5300);
+		notify('Chú ý!', message_arlet);
 		return false;
 
 
@@ -361,8 +338,6 @@ function validateFile(file, checkdoc = false) {
 	// File is valid
 	return true;
 }
-
-
 
 for (const button of avtUpLoad) {
 	button.addEventListener("change", function (event) {
@@ -384,7 +359,6 @@ for (const button of avtUpLoad) {
 		}
 	});
 }
-
 
 function allowDrop(event) {
 	event.preventDefault();
@@ -447,32 +421,11 @@ async function uploadFiles(files) {
 			if (confirm("Khi tiến hành đăng truyện, bạn đã chấp nhận các chính sách và quy định của WTFNovel về Nội dung và Chính sách chia sẻ quyền lợi. Bạn có chắc sẽ đăng truyện này?") == true) {
 				await uploadNovel();
 			} else {
-				toast.querySelector('.text-1').innerHTML = 'Thông báo'
-				toast.querySelector('.text-2').innerHTML = 'Đã huỷ!'
-				toast.classList.add("active");
-				progress.classList.add("active");
-
-				timer1 = setTimeout(() => {
-					toast.classList.remove("active");
-				}, 5000); //1s = 1000 milliseconds
-
-				timer2 = setTimeout(() => {
-					progress.classList.remove("active");
-				}, 5300);
+				notify('Thông báo', 'Đã huỷ!');
 			}
 		} else if (response.status == 400) {
 			// Error occurred during upload
-			window.alert('Em yêu có file sai định dạng kìa!!!');
-			toast.classList.add('active');
-			progress.classList.add('active');
-
-			timer1 = setTimeout(() => {
-				toast.classList.remove('active');
-			}, 5000); // 1s = 1000 milliseconds
-
-			timer2 = setTimeout(() => {
-				progress.classList.remove('active');
-			}, 5300);
+			notify('Chú ý!', 'Sai định dạng file rồi người đẹp!.');
 			console.error('Error uploading files.');
 		}
 	} catch (error) {
@@ -531,6 +484,21 @@ async function uploadNovel() {
 	}
 }
 
+function notify(text_1, text_2) {
+	toast.classList.add("active");
+	toast.querySelector('.text-1').innerHTML = text_1;
+	toast.querySelector('.text-2').innerHTML = text_2;
+	progress.classList.add("active");
+
+	timer1 = setTimeout(() => {
+		toast.classList.remove("active");
+	}, 5000); //1s = 1000 milliseconds
+
+	timer2 = setTimeout(() => {
+		progress.classList.remove("active");
+	}, 5300);
+}
+
 // Danh sách các phần tử
 const myList = [
 	"Súng ống đầy đủ",
@@ -585,59 +553,18 @@ Save_btn.onclick = async function (e) {
 
 
 	try {
-		toast.classList.add("active");
-		toast.querySelector('.text-1').innerHTML = 'Thông báo!'
-		toast.querySelector('.text-2').innerHTML = 'Đang tải lên...chờ một tý!'
-		progress.classList.add("active");
-
-		timer1 = setTimeout(() => {
-			toast.classList.remove("active");
-		}, 5000); //1s = 1000 milliseconds
-
-		timer2 = setTimeout(() => {
-			progress.classList.remove("active");
-		}, 5300);
+		notify('Thông báo!', 'Đang tải lên...chờ một tý!');
 		const response = await fetch(url, requestOptions);
 		console.log(response.status);
 		if (response.status == "200") {
 			document.querySelector('.header_user_logo_i p').textContent = document.querySelector("#fullname").value
 			document.querySelector('.header_user_logo_i .curent-avt img').src = avatar.src
 
-
-
-
-
-
-			toast.classList.add("active");
-			toast.querySelector('.text-1').innerHTML = 'Thông báo!'
-			toast.querySelector('.text-2').innerHTML = 'Thay đổi thông tin người dùng thành công!'
-			progress.classList.add("active");
-
-			timer1 = setTimeout(() => {
-				toast.classList.remove("active");
-			}, 5000); //1s = 1000 milliseconds
-
-			timer2 = setTimeout(() => {
-				progress.classList.remove("active");
-			}, 5300);
+			notify('Thông báo!', 'Thay đổi thông tin người dùng thành công!');
 		}
-
-		// btn_reg.disabled = false;
-		// btn_reg.textContent = "Register";
 	} catch (error) {
 		console.log("Error:", error);
-		toast.classList.add("active");
-		toast.querySelector('.text-1').innerHTML = 'Lỗi!'
-		toast.querySelector('.text-2').innerHTML = 'Thay đổi thông tin người dùng không thành công!'
-		progress.classList.add("active");
-
-		timer1 = setTimeout(() => {
-			toast.classList.remove("active");
-		}, 5000); //1s = 1000 milliseconds
-
-		timer2 = setTimeout(() => {
-			progress.classList.remove("active");
-		}, 5300);
+		notify('Lỗi!', 'Thay đổi thông tin người dùng không thành công!');
 	}
 
 }
@@ -670,63 +597,16 @@ document.querySelector('.change-pass-btn').onclick = async function (e) {
 		const response = await fetch(url, requestOptions)
 		// taì khoan hơp lệ 
 		if (response.status == '200') {
-			toast.querySelector('.text-1').innerHTML = 'Thành công';
-			toast.querySelector('.text-2').innerHTML = 'Chúc mừng bạn đã đổi thành công mật khẩu!';
-			toast.classList.add("active");
-			progress.classList.add("active");
-
-			timer1 = setTimeout(() => {
-				toast.classList.remove("active");
-			}, 5000); //1s = 1000 milliseconds
-
-			timer2 = setTimeout(() => {
-				progress.classList.remove("active");
-			}, 5300);
+			notify('Thành công', 'Chúc mừng bạn đã đổi thành công mật khẩu!');
 		}
-
-
-
 		else if (response.status == '403') {
-			toast.querySelector('.text-1').innerHTML = 'Lỗi';
-			toast.querySelector('.text-2').innerHTML = 'Có phải bạn đã quên mật khẩu đã quên không ??';
-			toast.classList.add("active");
-			progress.classList.add("active");
-
-			timer1 = setTimeout(() => {
-				toast.classList.remove("active");
-			}, 5000); //1s = 1000 milliseconds
-
-			timer2 = setTimeout(() => {
-				progress.classList.remove("active");
-			}, 5300);
+			notify('Lỗi', 'Có phải bạn đã quên mật khẩu đã quên không ???');
 		}
 		else if (response.status == '404') {
-			toast.querySelector('.text-1').innerHTML = 'Lỗi';
-			toast.querySelector('.text-2').innerHTML = 'Anh bạn à !!!!';
-			toast.classList.add("active");
-			progress.classList.add("active");
-
-			timer1 = setTimeout(() => {
-				toast.classList.remove("active");
-			}, 5000); //1s = 1000 milliseconds
-
-			timer2 = setTimeout(() => {
-				progress.classList.remove("active");
-			}, 5300);
+			notify('Lỗi', 'Anh bạn à !!!');
 		}
 		else {
-			toast.querySelector('.text-1').innerHTML = 'Lỗi';
-			toast.querySelector('.text-2').innerHTML = 'Máy chủ đang có chút trục trặc !!!!';
-			toast.classList.add("active");
-			progress.classList.add("active");
-
-			timer1 = setTimeout(() => {
-				toast.classList.remove("active");
-			}, 5000); //1s = 1000 milliseconds
-
-			timer2 = setTimeout(() => {
-				progress.classList.remove("active");
-			}, 5300);
+			notify('Lỗi', 'Máy chủ đang có chút trục trặc !!!');
 		}
 	} catch (error) {
 		console.log('Error:', error);
@@ -752,30 +632,33 @@ add_new.onclick = function () {
 }
 
 
-if (document.querySelector('.add_novel_more_chap')) {
+// if (document.querySelector('.add_novel_more_chap')) {
 
-	document.querySelector('.add_novel_more_chap').onclick = function () {
-		page5_composed_drop()
-		var newURL = currentURL + '/profile' + '/morechap';
-		history.pushState(null, null, newURL);
+// 	// nút trang thêm chương
+// 	document.querySelector('.add_novel_more_chap').onclick = function () {
+// 		page5_composed_drop()
+// 		var newURL = currentURL + '/profile' + '/morechap';
+// 		history.pushState(null, null, newURL);
 
-		page5_composed[4].style.display = 'block'
-		page5_a_up[5].style.display = 'block'
-		setTimeout(function () {
-			range.style.setProperty('--p', '25');
+// 		page5_composed[4].style.display = 'block'
+// 		page5_a_up[5].style.display = 'block'
+// 		setTimeout(function () {
+// 			range.style.setProperty('--p', '25');
 
-			range__label.classList.remove('anima')
+// 			range__label.classList.remove('anima')
 
-			range__label.classList.add('anima')
-		}, 100)
-	}
-	show_list.onclick = function () {
-		var newURL = currentURL + '/profile' + '/listchap';
-		history.pushState(null, null, newURL);
-		page5_home.style.display = 'none'
-		page5_b.style.display = 'block'
-	}
-}
+// 			range__label.classList.add('anima')
+// 		}, 100)
+// 	}
+
+// 	// nút trang danh sách chương
+// 	show_list.onclick = function () {
+// 		var newURL = currentURL + '/profile' + '/listchap';
+// 		history.pushState(null, null, newURL);
+// 		page5_home.style.display = 'none'
+// 		page5_b.style.display = 'block'
+// 	}
+// }
 
 document.querySelector('.page5_info .next_btn').onclick = function () {
 	if (novel_name.value != '' && author_name.value != '' && novel_descript.value && listObj.tempValues) {
@@ -800,19 +683,7 @@ document.querySelector('.page5_info .next_btn').onclick = function () {
 		sessionStorage.setItem("novel_avt", document.querySelector('.page5_info_img .your-avt').src);
 	} else {
 		// window.alert("Là một nhẫn giả chân chính hãy điển đủ thông tin ¯\(◉◡◔)/¯")
-		toast.querySelector('.text-1').innerHTML = 'Lỗi'
-		toast.querySelector('.text-2').innerHTML = 'Hãy vui lòng điền đủ thông tin!'
-		toast.classList.add("active");
-		progress.classList.add("active");
-
-		timer1 = setTimeout(() => {
-			toast.classList.remove("active");
-		}, 5000); //1s = 1000 milliseconds
-
-		timer2 = setTimeout(() => {
-			progress.classList.remove("active");
-		}, 5300);
-
+		notify('Lỗi', 'Hãy vui lòng điền đủ thông tin!');
 	}
 }
 
@@ -882,18 +753,7 @@ async function cancel() {
 			}, 7000)
 		}
 	} else {
-		toast.querySelector('.text-1').innerHTML = 'Thông báo'
-		toast.querySelector('.text-2').innerHTML = 'Đã huỷ!'
-		toast.classList.add("active");
-		progress.classList.add("active");
-
-		timer1 = setTimeout(() => {
-			toast.classList.remove("active");
-		}, 5000); //1s = 1000 milliseconds
-
-		timer2 = setTimeout(() => {
-			progress.classList.remove("active");
-		}, 5300);
+		notify('Thông báo', 'Đã huỷ!');
 	}
 }
 
@@ -961,9 +821,6 @@ $(document).ready(function () {
 		$(this).parent().parent().remove();
 	});
 
-
-
-
 	$(document).on('click', '.page5_chap .upfile', function () {
 		console.log('upfile');
 	});
@@ -1002,48 +859,15 @@ $(document).ready(function () {
 		};
 
 		try {
-			toast.querySelector('.text-1').innerHTML = 'Thông báo'
-				toast.querySelector('.text-2').innerHTML = 'Đang xoá...!'
-				toast.classList.add("active");
-				progress.classList.add("active");
-
-				timer1 = setTimeout(() => {
-					toast.classList.remove("active");
-				}, 5000); //1s = 1000 milliseconds
-
-				timer2 = setTimeout(() => {
-					progress.classList.remove("active");
-				}, 5300);
+			notify('Thông báo', 'Đang xoá...!');
 			const response = await fetch(url, requestOptions)
 			// taì khoan hơp lệ 
 			if (response.status == '200') {
 				$(this).parent().parent().parent().remove();
-				toast.querySelector('.text-1').innerHTML = 'Thông báo'
-				toast.querySelector('.text-2').innerHTML = 'Xoá truyện thành công!'
-				toast.classList.add("active");
-				progress.classList.add("active");
-
-				timer1 = setTimeout(() => {
-					toast.classList.remove("active");
-				}, 5000); //1s = 1000 milliseconds
-
-				timer2 = setTimeout(() => {
-					progress.classList.remove("active");
-				}, 5300);
+				notify('Thông báo', 'Xoá truyện thành công!');
 			} else
 			{
-				toast.querySelector('.text-1').innerHTML = 'Lỗi'
-				toast.querySelector('.text-2').innerHTML = 'Xoá truyện không thành công!'
-				toast.classList.add("active");
-				progress.classList.add("active");
-
-				timer1 = setTimeout(() => {
-					toast.classList.remove("active");
-				}, 5000); //1s = 1000 milliseconds
-
-				timer2 = setTimeout(() => {
-					progress.classList.remove("active");
-				}, 5300);
+				notify('Lỗi', 'Xoá truyện không thành công!');
 			}
 		} catch (error) {
 			console.log('Error:', error);
@@ -1065,6 +889,19 @@ $(document).ready(function () {
 		console.log(grandparentID); // This will log 'grandparent'
 	});
 
+	$(document).on('click', '.add_novel_more_chap ', function () {
+		// change to add more chap page
+		page5_composed_drop()
+		var newURL = currentURL + '/profile' + '/morechap';
+		history.pushState(null, null, newURL);
+
+		page5_composed[4].style.display = 'block'
+		page5_a_up[5].style.display = 'block'
+		
+		// get novel id and store in session storage
+		let grandparentID = $(this).parent().parent().attr('id');
+		sessionStorage.setItem('currNovelID', grandparentID);
+	});
 });
 
 // next page btn of .page5_chap
@@ -1095,34 +932,12 @@ document.querySelector('.page5_chap .next_btn').onclick = async function () {
 		document.querySelector('.page5_chap .next_btn').innerHTML = `<img src = "https://cdn.discordapp.com/attachments/1128184786347905054/1129065224998227968/icons8-sharingan-100.png"> `
 
 		// window.alert("Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)")
-		toast.querySelector('.text-1').innerHTML = 'Rasengan'
-		toast.querySelector('.text-2').innerHTML = 'Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)'
-		toast.classList.add("active");
-		progress.classList.add("active");
-
-		timer1 = setTimeout(() => {
-			toast.classList.remove("active");
-		}, 5000); //1s = 1000 milliseconds
-
-		timer2 = setTimeout(() => {
-			progress.classList.remove("active");
-		}, 5300);
+		notify('Rasengan', 'Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)');
 
 		await uploadFiles(files);
 	} else {
 		// window.alert("Là một nhẫn giả chân chính hãy điển đủ thông tin ¯\(◉◡◔)/¯")
-		toast.querySelector('.text-1').innerHTML = 'Lỗi'
-		toast.querySelector('.text-2').innerHTML = 'Hãy vui lòng điền đủ thông tin!'
-		toast.classList.add("active");
-		progress.classList.add("active");
-
-		timer1 = setTimeout(() => {
-			toast.classList.remove("active");
-		}, 5000); //1s = 1000 milliseconds
-
-		timer2 = setTimeout(() => {
-			progress.classList.remove("active");
-		}, 5300);
+		notify('Lỗi',  'Hãy vui lòng điền đủ thông tin!');
 	}
 
 }
@@ -1132,8 +947,6 @@ document.querySelector('.page5_chap .close_btn').onclick = async function () {
 	await cancel();
 }
 
-
-
 document.querySelector('.page5_last .page5_last_btn').onclick = function () {
 	// back to novel list scene
 	page5_a_up_drop()
@@ -1142,6 +955,61 @@ document.querySelector('.page5_last .page5_last_btn').onclick = function () {
 
 	// reset sessionStorage
 	sessionStorage.clear();
+}
+
+// trang thêm chương 
+// nút hủy 
+document.querySelector('.page5_d .close_btn').onclick = function () {
+	cancel();
+}
+// nuts thêm trương
+document.querySelector('.page5_d .more_chap_btn').onclick = function () {
+	const newElement = document.createElement('div');
+	newElement.className = 'info-wrapper-container';
+	newElement.innerHTML = `
+		<div class="laocacho" style = "display: flex; justify-content: flex-end;" >
+				<button class="delete_chap">
+					<i class="fa-solid fa-xmark"></i>
+				</button>
+		</div>
+
+		<div class="information_name_wrap">
+			<h3>Thứ tự chương</h3>
+			<div class="information_name">
+				<input class="profile_input chap_num" type="number" id="name_novel"
+					placeholder="Nhập thứ tự chương(e.g. 1, 1.1, 1.5, 2,...)" />
+			</div>
+		</div>
+
+		<div class="information_name_wrap">
+			<h3>Tên chương</h3>
+			<div class="information_name">
+				<input class="profile_input chap_name" type="text" id="fullname"
+					placeholder="Nhập tên chương" />
+			</div>
+		</div>
+
+
+
+		<div class="information_name_wrap">
+			<div class="head">
+				<h3>Nội Dung</h3>
+				<pre class="file-content" style="margin: 1rem 20px;"></pre>
+				<input type="file" class="file-input" style="display:none;" accept=".txt, .docx"/>
+				<button class="upfile">
+					<i class="fa-solid fa-upload"></i>
+				</button>
+			</div>
+		</div>
+		
+		<p style="text-align: center;">[------------------------------------ 🦊🍜🍥 ------------------------------------]</p>
+		`;
+	document.querySelector('.page5_d .page5_info_main').appendChild(newElement);
+}
+
+// nut cập nhạt truyện
+document.querySelector('.page5_d .update_btn').onclick = function () {
+
 }
 
 let check = 0
