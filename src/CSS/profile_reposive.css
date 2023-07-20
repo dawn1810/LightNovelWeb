@@ -1,0 +1,46 @@
+@media screen and (max-width:600px) {
+    .FieldWrapper_wrapper {
+        display: flex;
+        padding: 0;
+        flex-direction: column;
+    }
+
+    .dropdown {
+        margin: auto;
+    }
+
+    .profile_input {
+        width: 21em;
+    }
+
+    .Setting_pageWrapper__PM {
+        width: 100%;
+        margin: 0;
+    }
+
+    #button_file {
+        width: 19%;
+    }
+
+    .avt {
+        width: 21%;
+    }
+
+    .last-time-container {
+        margin: 0;
+    }
+
+    .name-novel h2 {
+        font-size: 1rem;
+    }
+
+    .name-novel p {
+        display: none;
+    }
+
+    .page5_home_info_wrap_item {
+        padding: 0 !important;
+    }
+
+
+}

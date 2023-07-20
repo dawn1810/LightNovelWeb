@@ -1001,6 +1001,12 @@ textarea {
   animation: rotation 2s infinite linear;
 }
 
+.post_btn img {
+  width: 56px;
+  height: 56px;
+  animation: rotation 2s infinite linear;
+}
+
 @keyframes rotation {
   from {
     transform: rotate(0deg);

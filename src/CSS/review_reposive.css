@@ -36,6 +36,13 @@
         margin-left: 1em;
         line-height: 1rem;
         font-size: .75rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .listchap {
+        height: auto;
     }
 
     .last-time-update {
@@ -84,10 +91,12 @@
     .summary-listchap {
         width: 100vw;
     }
+
     .wrapper {
         margin: 0;
         margin-left: 0;
     }
+
     .function_item:first-child {
         width: 15%;
     }

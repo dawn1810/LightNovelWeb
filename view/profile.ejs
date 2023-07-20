@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="/src/CSS/Style.css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 	<link rel="stylesheet" href="/src/CSS/profile.css" />
+	<link rel="stylesheet" href="/src/CSS/profile_reposive.css">
 	<link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
@@ -678,8 +679,8 @@
 									<div class="page5_info_main_btn">
 										<button class="back_btn"><i class="fa-solid fa-chevron-left"></i></button>
 										<button class="close_btn">Hủy</button>
-										<button class="post_btn"><i
-												class="fa-solid fa-arrow-up-from-bracket"></i></button>
+										<button class="post_btn"><i class="fa-solid fa-arrow-up-from-bracket"></i>
+										</button>
 									</div>
 								</div>
 								<div class="page5_last page5_a_up" id="congratulation">
@@ -786,9 +787,7 @@
 															ondragover="allowDrop(event)">
 															<p>Drop / Choose Avatar</p>
 														</div>
-														<img class="your-avt"
-															src="https:media.discordapp.net/attachments/1119222655392940033/1126350213464989796/337021832_765997928224397_7582517827674452501_n.png?width=1052&height=1042"
-															alt="" />
+														<img class="your-avt" src="<%=edit_img%>" alt="" />
 													</button>
 												</div>
 											</div>
@@ -799,39 +798,106 @@
 												<div class="information_name_wrap">
 													<h3>Tên truyện</h3>
 													<div class="information_name">
-														<input class="profile_input n_name" type="text" id="name_novel"
-															value="Nguyễn Hưng Thịnh là kẻ hủy diệt " />
+														<input class="profile_input n_name" type="text" required
+															id="name_novel" placeholder="Nhập tên truyện"
+															value="<%=edit_name%>" />
 													</div>
 												</div>
 
 												<div class="information_name_wrap">
 													<h3>Tác giả</h3>
 													<div class="information_name">
-														<input class="profile_input author_name" type="text"
-															id="fullname" value="Kẻ hủy diệt Nguyễn Hưng Thịnh" />
+														<input class="profile_input author_name" type="text" required
+															id="fullname" placeholder="Nhập tên tác giả"
+															value="<%=edit_auth%>" />
 													</div>
 												</div>
 
-												<div class="" style="display: flex;">
-													<div class="information_name_wrap" style="width: 50%;">
+												<div class="">
+													<div class="information_name_wrap">
 														<h3>Trạng thái</h3>
 														<div class="information_name novel_status">
-															<select>
-																<option value="0">Đang ra</option>
-																<option value="1">Hoàn thành</option>
-																<option value="2">Tạm dừng</option>
-															</select>
+															<%if (edit_status=='Đang ra' ) {%>
+																<select>
+																	<option value="0" selected>Đang ra</option>
+																	<option value="1">Hoàn thành</option>
+																	<option value="2">Tạm dừng</option>
+																</select>
+																<%} else if (edit_status=='Hoàn thành' ) {%>
+																	<select>
+																		<option value="0">Đang ra</option>
+																		<option value="1" selected>Hoàn thành</option>
+																		<option value="2">Tạm dừng</option>
+																	</select>
+																	<%} else if (edit_status=='Tạm dừng' ) {%>
+																		<select>
+																			<option value="0">Đang ra</option>
+																			<option value="1">Hoàn thành</option>
+																			<option value="2" selected>Tạm dừng</option>
+																		</select>
+																		<%}%>
+
 														</div>
 													</div>
 
-													<div class="information_name_wrap" style="width: 50%;">
+													<div class="information_name_wrap">
+														<!-- tag -->
 														<h3>Thể loại</h3>
-														<div class="information_name novel_types">
-															<select>
-																<option value="0">NTR</option>
-																<option value="1">BDSM</option>
-																<option value="2">Harem</option>
-															</select>
+														<div id="container">
+															<ul id="ulElement">
+																<li>Action</li>
+																<li>Adult</li>
+																<li>Adventure</li>
+																<li>Anime</li>
+																<li>Chuyển Sinh</li>
+																<li>Comedy</li>
+																<li>Comic</li>
+																<li>Cooking</li>
+																<li>Cổ Đại</li>
+																<li>Doujinshi</li>
+																<li>Drama</li>
+																<li>Đam Mỹ</li>
+																<li>Ecchi</li>
+																<li>Fantasy</li>
+																<li>Gender Bender</li>
+																<li>Harem</li>
+																<li>Historical</li>
+																<li>Horror</li>
+																<li>Josei</li>
+																<li>Live action</li>
+																<li>Manga</li>
+																<li>Manhua</li>
+																<li>Manhwa</li>
+																<li>Martial Arts</li>
+																<li>Mature</li>
+																<li>Mecha</li>
+																<li>Mystery</li>
+																<li>Ngôn Tình</li>
+																<li>One shot</li>
+																<li>Psychological</li>
+																<li>Romance</li>
+																<li>School Life</li>
+																<li>Sci-fi</li>
+																<li>Seinen</li>
+																<li>Shoujo</li>
+																<li>Shoujo Ai</li>
+																<li>Shounen</li>
+																<li>Shounen Ai</li>
+																<li>Slice of Life</li>
+																<li>Smut</li>
+																<li>Soft Yaoi</li>
+																<li>Soft Yuri</li>
+																<li>Sports</li>
+																<li>Supernatural</li>
+																<li>Thiếu Nhi</li>
+																<li>Tragedy</li>
+																<li>Trinh Thám</li>
+																<li>Truyện scan</li>
+																<li>Truyện Màu</li>
+																<li>Webtoon</li>
+																<li>Xuyên Không</li>
+
+															</ul>
 														</div>
 													</div>
 												</div>
@@ -840,14 +906,14 @@
 													<h3>Giới thiệu truyện</h3>
 													<div class="information_name"
 														style="display:flex;flex-direction: column;">
-
 														<textarea class="profile_input novel_descript" id="fullname"
-															placeholder="Kẻ hủy diệt Nguyễn Hưng Thịnh">  </textarea>
+															placeholder="Nhập nôi dung giới thiệu truyện của bạn"><%=edit_review%></textarea>
 													</div>
 												</div>
 												<div class="page5_info_main_btn">
-													<button class="savecurent_btn">Lưu</button>
-													<button class="cancel_btn">Hủy</button>
+													<button class="close_btn">Hủy</button>
+													<button class="next_btn"><i
+															class="fa-solid fa-chevron-right"></i></button>
 												</div>
 											</div>
 										</div>
@@ -896,7 +962,9 @@
 									<div class="page5_info_main_btn">
 										<button class="close_btn">Hủy</button>
 										<button class="more_chap_btn">Thêm chương</button>
-										<button class="more_chap_btn update_btn">Cập nhât truyện</button>
+										<button class="post_btn">
+											<i class="fa-solid fa-arrow-up-from-bracket"></i>
+										</button>
 									</div>
 
 								</div>
@@ -1394,14 +1462,29 @@
 		});
 	}
 
-	listObj.appendTo('#ulElement');
-	var ele = document.getElementById('container');
+
+	var ele = document.querySelectorAll('#container');
 	if (ele) {
-		ele.style.visibility = "visible";
+		for (const a of ele) {
+			a.style.visibility = "visible";
+		}
 	}
 
+	const selectElements = document.querySelectorAll('#container');
+
+	// Lặp qua từng phần tử và tạo đối tượng MultiSelect riêng lẻ cho từng phần tử
+	selectElements.forEach(selectElement => {
+		const listObj = new ej.dropdowns.MultiSelect({
+			// Các tùy chọn khác cho MultiSelect
+			placeholder: "Chọn thể loại truyện"
+
+		}, selectElement);
+		selectElements.style.visibility = "visible";
+	});
+	listObj.appendTo('#ulElement');
+
 	// upload novel page 2:
-	
+
 </script>
 
 </html>

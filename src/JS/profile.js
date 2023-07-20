@@ -189,7 +189,7 @@ else if (currentPath == '/congratulation') {
 		range__label.classList.add('anima')
 	}, 50)
 }
-else if (currentPath == '/update') {
+else if (currentPath == '/edit') {
 	page5_composed_drop()
 	Setting_pageWrapper_drop()
 	page5_a_up_drop()
@@ -289,7 +289,6 @@ for (const button of button_file) {
 		file.setSelectionRange(file.value.length, file.value.length);
 	};
 }
-
 
 // change the avatar image
 for (const button of avtBtn) {
@@ -397,7 +396,7 @@ function generateUUID() {
 	});
 }
 
-async function uploadFiles(files) {
+async function uploadFiles(files, type) {
 	try {
 		var formData = new FormData();
 
@@ -417,11 +416,10 @@ async function uploadFiles(files) {
 			const responseData = await response.json();
 			console.log('File uploaded!');
 			sessionStorage.setItem('chapters_content', responseData);
-
-			if (confirm("Khi tiến hành đăng truyện, bạn đã chấp nhận các chính sách và quy định của WTFNovel về Nội dung và Chính sách chia sẻ quyền lợi. Bạn có chắc sẽ đăng truyện này?") == true) {
+			if (type) {
 				await uploadNovel();
 			} else {
-				notify('Thông báo', 'Đã huỷ!');
+				await updateNovel();
 			}
 		} else if (response.status == 400) {
 			// Error occurred during upload
@@ -478,6 +476,40 @@ async function uploadNovel() {
 			setTimeout(function () {
 				range__label.classList.add('anima')
 			}, 50)
+		}
+	} catch (error) {
+		console.log('Error:', error);
+	}
+}
+
+async function updateNovel() {
+	// POST ALL DATA TO SERVER--------------------------------------------------------------------------------------------------
+	//gửi request tới csdl server
+	const url = `${currentURL}/update_upload_novel`; // URL của máy chủ mục tiêu
+
+	const postData = JSON.stringify({
+		id: sessionStorage.getItem("currNovelID"),
+		name_chaps: sessionStorage.getItem("name_chapters").split(","),
+		chap_ids: sessionStorage.getItem("chapters_content").split(","),
+	});
+	const requestOptions = {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: postData
+	};
+
+	try {
+		const response = await fetch(url, requestOptions)
+		// taì khoan hơp lệ 
+		if (response.status == '200') {
+			// back to novel list scene
+			page5_a_up_drop()
+			let newURL = currentURL + '/profile/my_novel';
+			window.location.href = newURL;
+			// reset sessionStorage
+			sessionStorage.clear();
 		}
 	} catch (error) {
 		console.log('Error:', error);
@@ -811,9 +843,7 @@ document.querySelector('.page5_chap .more_chap_btn').onclick = function () {
 	document.querySelector('.page5_chap .page5_info_main').appendChild(newElement);
 };
 
-document.querySelector('.page5_a_up .back_btn').onclick = function () {
-	document.querySelector('.page5_info .next_btn').click()
-}
+
 $(document).ready(function () {
 	// Add event listener to all buttons
 	$(document).on('click', '.page5_chap .delete_chap', function () {
@@ -825,9 +855,9 @@ $(document).ready(function () {
 		console.log('upfile');
 	});
 
-	// $(document).on('click', '.back_btn', function () {
-	// 	history.back();
-	// });
+	$(document).on('click', '.back_btn', function () {
+		history.back();
+	});
 
 	// upload content file
 	$(document).on('click', '.page5_chap .upfile', function () {
@@ -844,33 +874,35 @@ $(document).ready(function () {
 	$(document).on('click', '.delete_chapter ', async function () {
 		// Delete the grandparent node
 		let id_truyen = $(this).parent().parent().attr('id');
-		const url = `${currentURL}/cancel`; // URL của máy chủ mục tiêu
+		if (confirm("Bạn có chắc chắn muốn xoá truyện?") == true) {
 
-		const postData = JSON.stringify({
-			id: id_truyen,
-			status: 'delete'
-		});
-		const requestOptions = {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: postData
-		};
+			const url = `${currentURL}/cancel`; // URL của máy chủ mục tiêu
 
-		try {
-			notify('Thông báo', 'Đang xoá...!');
-			const response = await fetch(url, requestOptions)
-			// taì khoan hơp lệ 
-			if (response.status == '200') {
-				$(this).parent().parent().parent().remove();
-				notify('Thông báo', 'Xoá truyện thành công!');
-			} else
-			{
-				notify('Lỗi', 'Xoá truyện không thành công!');
+			const postData = JSON.stringify({
+				id: id_truyen,
+				status: 'delete'
+			});
+			const requestOptions = {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: postData
+			};
+
+			try {
+				notify('Thông báo', 'Đang xoá...!');
+				const response = await fetch(url, requestOptions)
+				// taì khoan hơp lệ 
+				if (response.status == '200') {
+					$(this).parent().parent().parent().remove();
+					notify('Thông báo', 'Xoá truyện thành công!');
+				} else {
+					notify('Lỗi', 'Xoá truyện không thành công!');
+				}
+			} catch (error) {
+				console.log('Error:', error);
 			}
-		} catch (error) {
-			console.log('Error:', error);
 		}
 
 	});
@@ -879,7 +911,7 @@ $(document).ready(function () {
 		// Delete the grandparent node
 		let grandparentID = $(this).parent().parent().attr('id');
 		page5_composed_drop()
-		var newURL = currentURL + '/profile/update/' + grandparentID;
+		var newURL = currentURL + '/profile/update/' + grandparentID + '/edit';
 		window.location.href = newURL;
 
 		// history.pushState(null, null, newURL);
@@ -897,7 +929,7 @@ $(document).ready(function () {
 
 		page5_composed[4].style.display = 'block'
 		page5_a_up[5].style.display = 'block'
-		
+
 		// get novel id and store in session storage
 		let grandparentID = $(this).parent().parent().attr('id');
 		sessionStorage.setItem('currNovelID', grandparentID);
@@ -929,15 +961,18 @@ document.querySelector('.page5_chap .next_btn').onclick = async function () {
 	sessionStorage.setItem("name_chapters", name_chaprters);
 
 	if (full) {
-		document.querySelector('.page5_chap .next_btn').innerHTML = `<img src = "https://cdn.discordapp.com/attachments/1128184786347905054/1129065224998227968/icons8-sharingan-100.png"> `
 
-		// window.alert("Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)")
-		notify('Rasengan', 'Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)');
-
-		await uploadFiles(files);
+		if (confirm("Khi tiến hành đăng truyện, bạn đã chấp nhận các chính sách và quy định của WTFNovel về Nội dung và Chính sách chia sẻ quyền lợi. Bạn có chắc sẽ đăng truyện này?") == true) {
+			document.querySelector('.page5_chap .next_btn').innerHTML = `<img src = "https://cdn.discordapp.com/attachments/1128184786347905054/1129065224998227968/icons8-sharingan-100.png"> `
+			// window.alert("Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)")
+			notify('Rasengan', 'Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)');
+			await uploadFiles(files, true);
+		} else {
+			notify('Thông báo', 'Đã huỷ!');
+		}
 	} else {
 		// window.alert("Là một nhẫn giả chân chính hãy điển đủ thông tin ¯\(◉◡◔)/¯")
-		notify('Lỗi',  'Hãy vui lòng điền đủ thông tin!');
+		notify('Lỗi', 'Hãy vui lòng điền đủ thông tin!');
 	}
 
 }
@@ -1008,8 +1043,41 @@ document.querySelector('.page5_d .more_chap_btn').onclick = function () {
 }
 
 // nut cập nhạt truyện
-document.querySelector('.page5_d .update_btn').onclick = function () {
+document.querySelector('.page5_d .post_btn').onclick = async function () {
+	let files = []
+	let full = false
+	let name_chaprters = []
+	// Loop through all elements
+	$('.page5_d .page5_chap .info-wrapper-container').each(function () {
+		// Get the input element inside the current element
+		let chapNum = $(this).find('.chap_num').val();
+		let chapName = $(this).find('.chap_name').val();
+		let curr_file = $(this).find('.file-input')[0].files[0];
+		if (chapNum != '' && chapName != '' && curr_file) {
+			// finalDataToServer["name_chapters"].push(`Chương ${chapNum}: ${chapName} `);
+			name_chaprters.push(`Chương ${chapNum}: ${chapName} `);
+			files.push(curr_file);
+			full = true;
+		} else {
+			full = false;
+		};
+	});
 
+	sessionStorage.setItem("name_chapters", name_chaprters);
+
+	if (full) {
+		if (confirm("Bạn có chắc sẽ cập nhật truyện này?") == true) {
+			document.querySelector('.page5_chap .post_btn').innerHTML = `<img src = "https://cdn.discordapp.com/attachments/1128184786347905054/1129065224998227968/icons8-sharingan-100.png"> `
+			// window.alert("Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)")
+			notify('Rasengan', 'Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)');
+			await uploadFiles(files, false);
+		} else {
+			notify('Thông báo', 'Đã huỷ!');
+		}
+	} else {
+		// window.alert("Là một nhẫn giả chân chính hãy điển đủ thông tin ¯\(◉◡◔)/¯")
+		notify('Lỗi', 'Hãy vui lòng điền đủ thông tin!');
+	}
 }
 
 let check = 0

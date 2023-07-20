@@ -197,6 +197,14 @@ const storage = NodePersist.create({
 	dir: '.temp',
 });
 
+async function deleteItemsById(data, idToDelete) {
+	for (const key in data) {
+		if (Object.hasOwnProperty.call(data, key)) {
+			data[key] = data[key].filter(item => item._id !== idToDelete);
+		}
+	}
+	return data;
+}
 
 async function getNovelList() {
 	try {
@@ -427,7 +435,7 @@ const blockUnwantedPaths = (req, res, next) => {
 	next();
 };
 
-async function processNovels(req, res) {
+async function processNovels(req, res, id_truyen) {
 	try {
 		const account = req.cookies.account;
 		console.log('SYSTEM | LIST MY NOVELS | Cookie nhận được: ', account);
@@ -441,14 +449,39 @@ async function processNovels(req, res) {
 		for (let id of novels.mynovel) {
 			result.push(await server.find_one_Data('truyen', { _id: new ObjectId(id) }));
 		}
+		let edit_name = '';
+		let edit_auth = '';
+		let edit_status = '';
+		let edit_tag = '';
+		let edit_review = '';
+		let edit_img = ''
+		if (id_truyen) {
+			if (novels.mynovel.includes(id_truyen)) {
+				const reuuu = await server.find_one_Data('truyen', { _id: new ObjectId(id_truyen) })
+				edit_name = reuuu.name;
+				edit_auth = reuuu.author;
+				edit_status = reuuu.status;
+				edit_tag = reuuu.genres;
+				edit_review = reuuu.summary;
+				edit_img = reuuu.image;
+			}
+			else {
+				res.status(403).send('Lỗi, không có quyền truy cập!');
+			}
+		}
 
-		console.log(result);
 
 		res.render('profile.ejs', {
 			headerFile: 'header',
 			footerFile: 'footer',
 			novels: result,
 			update_time: calTime(result.update_date),
+			edit_name: edit_name,
+			edit_auth: edit_auth,
+			edit_status: edit_status,
+			edit_tag: edit_tag,
+			edit_review: edit_review,
+			edit_img: edit_img,
 		});
 	} catch (err) {
 		console.log('SYSTEM | LIST MY NOVELS | ERROR | ', err);
@@ -539,24 +572,19 @@ app.get('/', checkCookieLoglUser, (req, res) => {
 
 // profile route
 app.get('/profile', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
-	await processNovels(req, res);
+	await processNovels(req, res, null);
 });
 
 
 // Hiển thị tất cả truyện đã đăng.
 app.get('/profile/:anything', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
-	await processNovels(req, res);
+	await processNovels(req, res, null);
 });
 
+app.get('/profile/update/:id/edit', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
 
-// app.get('/profile/:anything', checkCoookieIfOK, checkCookieLoglUser, (req, res) => {
-// 	res.render('profile', {
-// 		headerFile: 'header',
-// 		footerFile: 'footer'
-// 	});
-// });
-
-//////////
+	await processNovels(req, res, req.params.id);
+});
 
 // 404 route
 app.get('/404', (req, res) => {
@@ -1154,7 +1182,7 @@ app.post('/upload_novel', async (req, res) => {
 
 app.post('/update_upload_novel', async (req, res) => {
 	const data = req.body;
-	console.log('SYSTEM | UPLOAD NOVEL |', data);
+	console.log('SYSTEM | UPDATE UPLOAD NOVEL |', data);
 	try {
 		await server.update_one_Data("truyen", { _id: new ObjectId(data.id) }, {
 			$set: {
@@ -1169,12 +1197,9 @@ app.post('/update_upload_novel', async (req, res) => {
 			}
 		})
 
-		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
-		console.log('SYSTEM | UPLOAD NOVEL | Trả về nội dung truyện muốn đọc', send_back.name);
-		res.end(JSON.stringify(send_back));
-
+		res.sendStatus(200);
 	} catch (err) {
-		console.log('SYSTEM | UPLOAD NOVEL | ERROR | ', err);
+		console.log('SYSTEM | UPDATE UPLOAD NOVEL | ERROR | ', err);
 		res.sendStatus(500);
 	}
 });
@@ -1241,11 +1266,14 @@ app.post('/cancel', async (req, res) => {
 					{
 						$pull: { mynovel: data.id }
 					});
+				let new_resual = await storage.getItem('novellist');
+				storage.setItem('novellist', await deleteItemsById(new_resual, data.id));
+
 			}
 			else {
 				res.sendStatus(404)
 			}
-			res.sendStatus(200); 
+			res.sendStatus(200);
 			console.log(data.id);
 		}
 
