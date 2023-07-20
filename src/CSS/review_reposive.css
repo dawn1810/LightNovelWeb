@@ -55,7 +55,7 @@
     }
 
     .current-body {
-        width: 22rem;
+        width: 100vw;
     }
 
     .settings .form-input>input {
@@ -63,6 +63,7 @@
     }
 
     .settings {
+        margin: 1em;
         flex-direction: row !important;
     }
 
@@ -71,11 +72,19 @@
     }
 
     .current_left {
+        margin: 0% auto !important;
         display: flex;
         flex-direction: column;
     }
 
     .summary-listchap {
         width: 100vw;
+    }
+    .wrapper {
+        margin: 0;
+        margin-left: 0;
+    }
+    .function_item:first-child {
+        width: 15%;
     }
 }

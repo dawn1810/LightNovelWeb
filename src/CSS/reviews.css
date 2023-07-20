@@ -243,6 +243,7 @@ h4 {
     justify-content: space-between;
     background-color: var(--chapter_bg);
     margin: 5px;
+    align-items: center;
 }
 
 .chapter_item_info {
