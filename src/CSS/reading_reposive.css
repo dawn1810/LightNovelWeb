@@ -1,0 +1,12 @@
+@media screen and (max-width:600px) {
+    .active a {
+        padding: 0 0em;
+    }
+    .menu-tag{
+        padding: 0%;
+    }
+    .menu{
+        top: 82%;
+        left: 92%;
+    }
+}
