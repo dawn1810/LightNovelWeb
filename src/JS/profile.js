@@ -1098,14 +1098,18 @@ page5_post_check.onclick = function () {
 // mobile menu 
 const menu = document.querySelector('.Setting_sidebar-wrapper')
 const menu_active = menu.querySelector('.Setting_sidebar_wrapper_active');
+
 let isLeftZero = true;
 
 menu_active.onclick = function () {
   if (isLeftZero) {
     menu.style.left = '-273px';
     isLeftZero = false;
+	menu_active.style.transform='rotate(0deg)';
   } else {
     menu.style.left = '-1em';
     isLeftZero = true;
+	menu_active.style.transform='rotate(180deg)';
   }
 };	
+	
