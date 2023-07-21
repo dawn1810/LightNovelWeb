@@ -244,12 +244,7 @@ Validator.isConfirmed = function (selector, getConfirmValue, message) {
 
 
 
-const toast = document.querySelector(".toast");
-const closeIcon = document.getElementById("close");
-const progress = document.querySelector(".progress");
-closeIcon.addEventListener("click", () => {
-    toast.classList.remove("active");
-})
+
 
 document.addEventListener('DOMContentLoaded', function () {
     // Mong muốn của chúng ta

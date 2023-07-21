@@ -110,8 +110,8 @@
                     </div>
                     <div class="novel_wrap">
                         <div class="novel">
-                            
-                           
+
+
                         </div>
                     </div>
                 </div>
@@ -312,18 +312,18 @@
 <div class="toast">
 
     <div class="toast-content">
-      <i class="fas fa-solid fa-check check"></i>
+        <i class="fas fa-solid fa-check check"></i>
 
-      <div class="message">
-        <span class="text text-1">null</span>
-        <span class="text text-2">null</span>
-      </div>
+        <div class="message">
+            <span class="text text-1">null</span>
+            <span class="text text-2">null</span>
+        </div>
     </div>
     <i class="fa-solid fa-xmark close" id="close"></i>
 
     <!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
     <div class="progress active"></div>
-  </div>
+</div>
 <div class="modal2">
     <div class="modal_wrap">
         <form class="form" id="form2">
@@ -502,7 +502,14 @@
 <script src="/src/JS/script.js"></script>
 <script src="/src/JS/index.js"></script>
 <script src="/src/JS/scriptlogin.js"></script>
-
+<script>
+    const toast = document.querySelector(".toast");
+    const closeIcon = document.getElementById("close");
+    const progress = document.querySelector(".progress");
+    closeIcon.addEventListener("click", () => {
+        toast.classList.remove("active");
+    })
+</script>
 
 <script>
 

@@ -844,7 +844,7 @@
 														<!-- tag -->
 														<h3>Thể loại</h3>
 														<div id="container">
-															<ul id="ulElement">
+															<ul id="ulElement2">
 																<li>Action</li>
 																<li>Adult</li>
 																<li>Adventure</li>
@@ -995,10 +995,12 @@
 
 		<%- include(footerFile) %>
 			<script>
-				var ele = document.getElementById('container');
+				var ele = document.querySelectorAll('#container');
 				if (ele) {
-					ele.style.visibility = "visible";
-				}   
+					ele.forEach(a => {
+						a.style.visibility = "visible";
+					});
+				}
 			</script>
 			<script src="/src/JS/profile.js"></script>
 </body>
@@ -1463,25 +1465,26 @@
 	}
 
 
+	// Gắn đối tượng vào phần tử có id là 'ulElement'
+	const listObj1 = new ej.dropdowns.MultiSelect({
+		// Các tùy chọn khác cho MultiSelect
+		placeholder: "Chọn thể loại truyện"
+	}, '#ulElement');
+
+	// Gắn đối tượng vào phần tử có id là 'ulElement2'
+	const listObj2 = new ej.dropdowns.MultiSelect({
+		// Các tùy chọn khác cho MultiSelect
+		placeholder: "Chọn thể loại truyện"
+	}, '#ulElement2');
 	var ele = document.querySelectorAll('#container');
 	if (ele) {
-		for (const a of ele) {
+		ele.forEach(a => {
 			a.style.visibility = "visible";
-		}
+		});
 	}
 
-	const selectElements = document.querySelectorAll('#container');
 
-	// Lặp qua từng phần tử và tạo đối tượng MultiSelect riêng lẻ cho từng phần tử
-	selectElements.forEach(selectElement => {
-		const listObj = new ej.dropdowns.MultiSelect({
-			// Các tùy chọn khác cho MultiSelect
-			placeholder: "Chọn thể loại truyện"
 
-		}, selectElement);
-		selectElements.style.visibility = "visible";
-	});
-	listObj.appendTo('#ulElement');
 
 	// upload novel page 2:
 
