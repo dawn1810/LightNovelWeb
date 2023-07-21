@@ -1357,7 +1357,7 @@
 
 <script src="/src/JS/link.js"></script>
 
-<script src="/src/JS/scriptlogin.js"></script>
+<!-- <script src="/src/JS/scriptlogin.js"></script>
 <script>
 	Validator({
 		form: "#change-pass",
@@ -1432,7 +1432,11 @@
 			console.log(data)
 		},
 	});
-</script>
+</script> -->
+
+
+
+
 <script>
 	// upload novel page 1:
 	if (sessionStorage.getItem("novel_name")) {
@@ -1453,34 +1457,40 @@
 			}
 		}
 	}
+
 	if (sessionStorage.getItem("novel_types")) {
 		var listObj = new ej.dropdowns.MultiSelect({
 			// set placeholder to MultiSelect input element
 			placeholder: "Chọn thể loại truyện",
 			value: sessionStorage.getItem("novel_types").split(",")
-		});
+		}, '#ulElement');
 	}
+
+
 	else {
 		var listObj = new ej.dropdowns.MultiSelect({
 			// set placeholder to MultiSelect input element
 			placeholder: "Chọn thể loại truyện"
-		});
+		}, '#ulElement');
 	}
-
-
-	// ok
-
-	// Gắn đối tượng vào phần tử có id là 'ulElement'
-	const listObj1 = new ej.dropdowns.MultiSelect({
-		// Các tùy chọn khác cho MultiSelect
-		placeholder: "Chọn thể loại truyện"
-	}, '#ulElement');
-
+	
+	
+	<%if (edit_tag) {%>
 	// Gắn đối tượng vào phần tử có id là 'ulElement2'
 	const listObj2 = new ej.dropdowns.MultiSelect({
 		// Các tùy chọn khác cho MultiSelect
-		placeholder: "Chọn thể loại truyện"
+		placeholder: "Chọn thể loại truyện",
+		value: <%- JSON.stringify(edit_tag) %>
+
 	}, '#ulElement2');
+<%} else {%>
+	var listObj2 = new ej.dropdowns.MultiSelect({
+			// set placeholder to MultiSelect input element
+			placeholder: "Chọn thể loại truyện"
+		}, '#ulElement2');
+	<%}%>
+
+
 	var ele = document.querySelectorAll('#container');
 	if (ele) {
 		ele.forEach(a => {

@@ -488,7 +488,19 @@ async function processNovels(req, res, id_truyen) {
 		res.sendStatus(500);
 	}
 }
+function isBase64(str) {
+	try {
+		// Kiểm tra xem chuỗi có thể được giải mã từ Base64 không
+		const decoded = Buffer.from(str, 'base64').toString('utf-8');
 
+		// Kiểm tra xem chuỗi ban đầu và chuỗi giải mã có giống nhau hay không
+		// Nếu giống nhau thì chuỗi đó có thể là Base64
+		return Buffer.from(decoded, 'utf-8').toString('base64') === str;
+	} catch (error) {
+		// Nếu có lỗi xảy ra trong quá trình giải mã, tức là chuỗi không phải Base64
+		return false;
+	}
+}
 
 function calTime(update_date) {
 	// Thời điểm hiện tại
@@ -1292,13 +1304,16 @@ app.post('/updateInfo', async (req, res) => {
 	try {
 		const data = req.body;
 		console.log('SYSTEM | UPDATE INFO |', data);
-
+		let avt_var = data.img
+		if (isBase64(data.img)) {
+			avt_var = await compressImageBase64(data.img, 5)
+		}
 		await server.update_one_Data("tt_nguoi_dung", { _id: data.usr },
 			{
 				$set: {
 					email: data.email,
 					displayName: data.hoten,
-					avatarUrl: await compressImageBase64(data.img, 5),
+					avatarUrl: avt_var,
 					sex: data.sex,
 				}
 			});
