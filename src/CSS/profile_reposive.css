@@ -67,7 +67,7 @@
     }
     .Setting_sidebar-wrapper {
         z-index: 100;
-        left: -273px;
+        left: -16em;
         position: fixed;
         width: 70%;
         transition: 1s left ease-in-out;
@@ -91,7 +91,7 @@
     .Setting_sidebar_wrapper_active {
         display: block;
         position: absolute;
-        right: -25px;
+        right: -2em;
         width: 2em;
         height: 3em;
         background-color: var(--element-color);

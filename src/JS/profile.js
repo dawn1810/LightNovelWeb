@@ -1103,7 +1103,7 @@ let isLeftZero = true;
 
 menu_active.onclick = function () {
   if (isLeftZero) {
-    menu.style.left = '-273px';
+    menu.style.left = '-16em';
     isLeftZero = false;
 	menu_active.style.transform='rotate(0deg)';
   } else {
