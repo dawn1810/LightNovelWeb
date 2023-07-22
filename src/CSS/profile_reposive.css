@@ -19,7 +19,7 @@
     }
 
     #button_file {
-        width: 19%;
+        width: 19% !important;
     }
 
     .avt {
