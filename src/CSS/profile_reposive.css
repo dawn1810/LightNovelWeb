@@ -102,7 +102,14 @@
         justify-content: center;
         align-content: center;
     }
-    #media{
+    #media {
         flex-direction: column;
+    }
+    .page5_info_main_btn button {
+        font-size: 0.7em;
+    }
+    .card {
+        width: 20em;
+        height: 11em;
     }
 }
