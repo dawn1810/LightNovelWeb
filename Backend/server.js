@@ -443,51 +443,52 @@ async function processNovels(req, res, id_truyen) {
 		const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
 		console.log(`SYSTEM | LIST MY NOVELS | Dữ liệu đã giải mã ${decodeList}`);
 
+		let render_data = {
+			headerFile: 'header',
+			footerFile: 'footer',
+			edit_name : "",
+			edit_auth: "",
+			edit_status: "",
+			edit_tag: "",
+			edit_review: "",
+			edit_img: "",
+			edit_chap_ids: "",
+			edit_name_chaps: ""
+		}
 		let novels = await server.find_one_Data('tt_nguoi_dung', { _id: decodeList[1] });
 		let result = [];
 
+		
 		for (let id of novels.mynovel) {
-			result.push(await server.find_one_Data('truyen', { _id: new ObjectId(id) }));
-		}
-		let edit_name = '';
-		let edit_auth = '';
-		let edit_status = '';
-		let edit_tag = '';
-		let edit_review = '';
-		let edit_img = ''
-		if (id_truyen) {
-			if (novels.mynovel.includes(id_truyen)) {
-				const reuuu = await server.find_one_Data('truyen', { _id: new ObjectId(id_truyen) })
-				edit_name = reuuu.name;
-				edit_auth = reuuu.author;
-				edit_status = reuuu.status;
-				edit_tag = reuuu.genres;
-				edit_review = reuuu.summary;
-				edit_img = reuuu.image;
+			const curr_novel = await server.find_one_Data('truyen', { _id: new ObjectId(id) })
+			result.push(curr_novel);
+			if (id == id_truyen) {
+				render_data.edit_name = curr_novel.name;
+				render_data.edit_auth = curr_novel.author;
+				render_data.edit_status = curr_novel.status;
+				render_data.edit_tag = curr_novel.genres;
+				render_data.edit_review = curr_novel.summary;
+				render_data.edit_img = curr_novel.image;
+				render_data.edit_chap_ids = curr_novel.chap_ids;
+				render_data.edit_name_chaps = curr_novel.name_chaps;
 			}
-			else {
+		}
+
+		render_data.novels = result;
+
+		if (id_truyen) {
+			if (!novels.mynovel.includes(id_truyen)) {
 				res.status(403).send('Lỗi, không có quyền truy cập!');
 			}
 		}
 
-
-		res.render('profile.ejs', {
-			headerFile: 'header',
-			footerFile: 'footer',
-			novels: result,
-			update_time: calTime(result.update_date),
-			edit_name: edit_name,
-			edit_auth: edit_auth,
-			edit_status: edit_status,
-			edit_tag: edit_tag,
-			edit_review: edit_review,
-			edit_img: edit_img,
-		});
+		res.render('profile.ejs', render_data);
 	} catch (err) {
 		console.log('SYSTEM | LIST MY NOVELS | ERROR | ', err);
 		res.sendStatus(500);
 	}
 }
+
 function isBase64(str) {
 	try {
 		// Kiểm tra xem chuỗi có thể được giải mã từ Base64 không
@@ -594,7 +595,14 @@ app.get('/profile/:anything', checkCoookieIfOK, checkCookieLoglUser, async (req,
 });
 
 app.get('/profile/update/:id/edit', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
+	await processNovels(req, res, req.params.id);
+});
 
+app.get('/profile/update/:id/listchap', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
+	await processNovels(req, res, req.params.id);
+});
+
+app.get('/profile/update/:id/morechap', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
 	await processNovels(req, res, req.params.id);
 });
 

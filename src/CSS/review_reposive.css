@@ -100,4 +100,10 @@
     .function_item:first-child {
         width: 15%;
     }
+    .jackpot{
+        left: auto;
+    }
+    .jackpot h1{
+        text-align: center;
+    }
 }

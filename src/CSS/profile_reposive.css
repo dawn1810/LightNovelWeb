@@ -40,83 +40,115 @@
 
     .page5_home_info_wrap_item {
         padding: 0 !important;
+        width: 25%;
+        text-align: center;
+    }
+
+    .page5_home_info_wrap_item span {
+        display: none;
     }
 
     .page5_home_main_logo img {
         width: 17.5em;
     }
+
     .page5_home_info_status {
         text-align: center;
     }
+
     .page5_home_info_wrap {
         width: 19em;
     }
+
     .item_btn_gr {
         width: 100%;
+        margin-top: 20px;
     }
+
     .page5_home_info {
         width: 100%;
         margin-left: 0;
     }
+
     .page5_home_main_logo {
         width: 100%;
     }
+
     .page5_home_main_item {
         flex-direction: column;
         align-items: center;
     }
+
     .Setting_sidebar-wrapper {
-        z-index: 100;
-        left: -16em;
-        position: fixed;
-        width: 70%;
-        transition: 1s left ease-in-out;
+        display: none;
     }
+
     .range {
         width: 100%;
     }
+
     .page5_info {
         margin: 0;
         flex-direction: column;
     }
+
     .page5_a {
         padding: 0px;
     }
+
     .Setting_pageWrapper {
         padding: 1em;
     }
+
     .page5_info_main {
         width: 100%;
     }
-    .Setting_sidebar_wrapper_active {
-        display: block;
-        position: absolute;
-        right: -2em;
-        width: 2em;
-        height: 3em;
-        background-color: var(--element-color);
-        border-radius: 5px;
-        text-align: center;
-        align-items: center;
-        display: flex;
-        justify-content: center;
-        align-content: center;
-    }
+
     #media {
         flex-direction: column;
     }
+
     .page5_info_main_btn button {
         font-size: 0.7em;
     }
+
     .card {
         width: 20em;
-        height: 11em;
+        height: auto;
+
     }
+
     .range img {
         width: 23%;
         margin-top: -46px;
     }
+
     .card__description {
         font-size: 0.57em;
+    }
+
+
+
+    .thank1 {
+        display: none;
+    }
+
+    .thank2 {
+        display: block;
+    }
+
+    .controller_btn {
+        margin: 3px 0;
+    }
+
+    .delete_chapter {
+        margin-left: 3px;
+    }
+
+    .update_current_novel {
+        margin-right: 3px;
+    }
+    .my_novel_item{
+        flex-direction: column;
     }
 }

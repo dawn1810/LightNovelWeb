@@ -117,7 +117,7 @@
         position: fixed;
         bottom: 0;
         left: 0;
-        height: 100%;
+        height: 50px;
         width: 215px;
         background-color: var(--category_bg);
         margin-top: 0;
@@ -131,7 +131,6 @@
         display: flex;
         top: auto;
         left: 0;
-        height: auto;
         width: 100%;
         background-color: var(--header-background);
         margin: 0;
@@ -166,10 +165,14 @@
     #trending_novel_btn {
         order: 1
     }
-
+   
     .d-l_theme {
-        position: unset;
-        transform: translateY(-5px);
+        position: absolute;
+        transform: translate(-50%,-62%);
+    left: 50%;
+    top: 50%;
+    height: fit-content;
+    width: fit-content;
     }
 
     .toggle-switch {
@@ -204,6 +207,25 @@
 
     .trending_novel_item {
         width: 100%;
+    }
+
+    .modal_wrap {
+        left: auto;
+    }
+
+    .slider::before {
+        background-image: url(https://cdn.discordapp.com/attachments/1119221555566751754/1132253715651367002/superman.png);
+        background-size: contain;
+        box-shadow: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: transparent
+    }
+
+    .checkbox:checked~.slider::before {
+        background-image: url(https://cdn.discordapp.com/attachments/1119221555566751754/1132253715429072907/comic.png);
+        background-color: transparent
     }
 
 

@@ -104,9 +104,10 @@
                 </p>
               </div>
               <div class="header_user_more">
-                <div class="header_user_more_item"><a href="/profile">Thông tin tài khoản</a>
+                <div class="header_user_more_item"><a href="/profile">Thông tin tài </a>
                 </div>
                 <div class="header_user_more_item"><a href="/profile/novel_following">Truyện đã lưu</a> </div>
+           
                 <%if (login_way=='normal' ) { %>
                   <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
                   <%}%>
@@ -156,6 +157,7 @@
                   <div class="header_user_more_item"><a href="/profile">Thông tin tài khoản</a>
                   </div>
                   <div class="header_user_more_item"><a href="/profile/novel_following">Truyện đã lưu</a> </div>
+                  
                   <%if (login_way=='normal' ) { %>
                     <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
                     <%}%>
@@ -184,7 +186,9 @@
   <ul class="left_item close">
 
     <li id="home_page" class=" left_li">
-      <div><i class="fa-solid fa-house"></i> <span>Trang Chủ</span></div>
+      <a href="/">
+        <div><i class="fa-solid fa-house"></i> <span>Trang Chủ</span></div>
+      </a>
     </li>
     <li id="category" class=" left_li">
       <div> <i class="fa-solid fa-table"></i> <span>Thể Loại</span></div>
@@ -457,9 +461,10 @@
         </div>
       </div>
     </li>
-    <li id="trending_novel_btn" class=" left_li">
-      <a href="/category"> <i class="fa-solid fa-chart-simple"></i> <span>Top
-          Thịnh Hành</span> </a>
+    <li id="category" class=" left_li">
+      <a href="/profile/my_novel">
+        <div> <i class="fa-solid fa-feather-pointed"></i> <span>Sáng Tác</span></div>
+      </a>
     </li>
     <li id="history" class=" left_li">
       <div><i class="fa-solid fa-clock-rotate-left"></i> <span>Lịch Sử</span></div>

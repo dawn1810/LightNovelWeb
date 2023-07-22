@@ -32,19 +32,19 @@
       >
       <li class="active name_lv">
         <a href="/reviews/<%= id %>">
-          <% if (name.length <= 20) { %>
+          <% if (name.length <= 8) { %>
           <%= name %>
           <% } else { %>
-          <%= name.substring(0, 20) %>...
+          <%= name.substring(0, 8) %>...
           <% } %>
         </a>
       </li>
       >
       <li class="active rv-author-a">
-        <% if (name_chap.length <= 20) { %>
+        <% if (name_chap.length <= 8) { %>
         <%= name_chap %>
         <% } else { %>
-        <%= name_chap.substring(0, 20) %>...
+        <%= name_chap.substring(0, 8) %>...
         <% } %>
       </li>
     </ul>

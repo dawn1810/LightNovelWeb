@@ -20,7 +20,6 @@ const Setting_item = document.querySelectorAll(".Setting_sidebar-list_item");
 
 const delete_chapter = document.querySelector(".delete_chapter")
 const add_new = document.querySelector('.add_new')
-const show_list = document.querySelector('.showlist_novel')
 const page5_home = document.querySelector('.page5_home')
 const page5_a = document.querySelector('.page5_a')
 const page5_b = document.querySelector('.page5_b')
@@ -663,35 +662,6 @@ add_new.onclick = function () {
 	}, 100)
 }
 
-
-// if (document.querySelector('.add_novel_more_chap')) {
-
-// 	// nút trang thêm chương
-// 	document.querySelector('.add_novel_more_chap').onclick = function () {
-// 		page5_composed_drop()
-// 		var newURL = currentURL + '/profile' + '/morechap';
-// 		history.pushState(null, null, newURL);
-
-// 		page5_composed[4].style.display = 'block'
-// 		page5_a_up[5].style.display = 'block'
-// 		setTimeout(function () {
-// 			range.style.setProperty('--p', '25');
-
-// 			range__label.classList.remove('anima')
-
-// 			range__label.classList.add('anima')
-// 		}, 100)
-// 	}
-
-// 	// nút trang danh sách chương
-// 	show_list.onclick = function () {
-// 		var newURL = currentURL + '/profile' + '/listchap';
-// 		history.pushState(null, null, newURL);
-// 		page5_home.style.display = 'none'
-// 		page5_b.style.display = 'block'
-// 	}
-// }
-
 document.querySelector('.page5_info .next_btn').onclick = function () {
 	if (novel_name.value != '' && author_name.value != '' && novel_descript.value && listObj.tempValues) {
 		page5_a_up_drop()
@@ -736,6 +706,7 @@ async function cancel() {
 				background:#000;
 				background-image: url('https://media.tenor.com/WNyMsbIJmBMAAAAC/naruto-shinra.gif');
 				`
+				// background-image: url('https://cdn.discordapp.com/attachments/1119221555566751754/1132280018534408233/thien.webp');
 		document.body.appendChild(elem);
 
 		let audio = new Audio('/src/audio/shinra.mp3');
@@ -921,18 +892,31 @@ $(document).ready(function () {
 		console.log(grandparentID); // This will log 'grandparent'
 	});
 
+	$(document).on('click', '.showlist_novel ', function () {
+		// Delete the grandparent node
+		let grandparentID = $(this).parent().parent().attr('id');
+		var newURL = currentURL + '/profile/update/' + grandparentID + '/listchap';
+		window.location.href = newURL;
+		// var newURL = currentURL + '/profile' + '/listchap';
+		// history.pushState(null, null, newURL);
+		// page5_home.style.display = 'none'
+		// page5_b.style.display = 'block'
+	});
+
 	$(document).on('click', '.add_novel_more_chap ', function () {
+		let grandparentID = $(this).parent().parent().attr('id');
 		// change to add more chap page
 		page5_composed_drop()
-		var newURL = currentURL + '/profile' + '/morechap';
-		history.pushState(null, null, newURL);
+		sessionStorage.setItem('currNovelID', grandparentID);
+		var newURL = currentURL + '/profile/update/' + grandparentID + '/morechap';
+		window.location.href = newURL;
+		// var newURL = currentURL + '/profile' + '/morechap';
+		// history.pushState(null, null, newURL);
 
-		page5_composed[4].style.display = 'block'
-		page5_a_up[5].style.display = 'block'
+		// page5_composed[4].style.display = 'block'
+		// page5_a_up[5].style.display = 'block'
 
 		// get novel id and store in session storage
-		let grandparentID = $(this).parent().parent().attr('id');
-		sessionStorage.setItem('currNovelID', grandparentID);
 	});
 });
 
@@ -1095,30 +1079,10 @@ page5_post_check.onclick = function () {
 
 }
 
-// mobile menu 
-const menu = document.querySelector('.Setting_sidebar-wrapper')
-const menu_active = menu.querySelector('.Setting_sidebar_wrapper_active');
-
-let isLeftZero = true;
-
-menu_active.onclick = function () {
-  if (isLeftZero) {
-    menu.style.left = '-16em';
-    isLeftZero = false;
-	menu_active.style.transform='rotate(0deg)';
-  } else {
-    menu.style.left = '-1em';
-    isLeftZero = true;
-	menu_active.style.transform='rotate(180deg)';
-  }
-};	
-	
-
-
 // change
 
 const accept_change_btn = document.getElementById('accept_change');
 
-accept_change_btn.onclick = function() {
+accept_change_btn.onclick = function () {
 	alert("THAY ĐỔI THÔNG TIN THÀNH CÔNG")
 };

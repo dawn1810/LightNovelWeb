@@ -1,0 +1,20 @@
+@media screen and (max-width:600px) {
+    .body_main{
+        padding: 0;
+    }
+    .search-btn{
+        width:6em;
+    }
+    main{
+        padding:0;
+    }
+    .sort-container{
+        width:100%;
+    }
+    .sort-menu{
+        flex-direction: column;
+    }
+    .sort-menu{
+        margin: 3%;
+    }
+}
