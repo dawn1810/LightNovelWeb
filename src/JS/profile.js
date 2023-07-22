@@ -1113,3 +1113,12 @@ menu_active.onclick = function () {
   }
 };	
 	
+
+
+// change
+
+const accept_change_btn = document.getElementById('accept_change');
+
+accept_change_btn.onclick = function() {
+	alert("THAY ĐỔI THÔNG TIN THÀNH CÔNG")
+};

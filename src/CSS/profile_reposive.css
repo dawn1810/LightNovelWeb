@@ -112,4 +112,11 @@
         width: 20em;
         height: 11em;
     }
+    .range img {
+        width: 23%;
+        margin-top: -46px;
+    }
+    .card__description {
+        font-size: 0.57em;
+    }
 }
