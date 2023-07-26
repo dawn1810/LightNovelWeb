@@ -165,14 +165,14 @@
     #trending_novel_btn {
         order: 1
     }
-   
+
     .d-l_theme {
         position: absolute;
-        transform: translate(-50%,-62%);
-    left: 50%;
-    top: 50%;
-    height: fit-content;
-    width: fit-content;
+        transform: translate(-50%, -62%);
+        left: 50%;
+        top: 50%;
+        height: fit-content;
+        width: fit-content;
     }
 
     .toggle-switch {
@@ -228,5 +228,64 @@
         background-color: transparent
     }
 
+    .right_item_mobile {
+        display: block !important;
+    }
 
+    .right_item_mobile {
+        right: -100%;
+        top: 50px;
+        position: fixed !important;
+        width: 100%;
+        height: 100%;
+        background-color: var(--category_bg);
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+    .header_user_logo:hover .right_item_mobile {
+        right: 0 !important;
+      }
+
+    .right_item_mobile_li {
+        width: 100%;
+        height: 3em;
+        padding-left: 1em;
+        font-size: 1.4em;
+        border-bottom: 1px solid;
+        display: flex;
+        align-items: center;
+    }
+
+    .header_notify_more {
+        top: 0em;
+        left: 0;
+        position: absolute;
+        width: 15em;
+        height: 200px;
+    }
+
+
+    .header_notify_more::after {
+        display: none;
+    }
+
+    .header_notify_logo {
+        margin: 0 20px;
+    }
+    .header_user_more{
+        display: none !important;
+    }
+    .right_item_mobile_close{
+        position: absolute;
+        bottom: 10%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
+    }
+    .right_item_mobile_close i {
+        font-size: 50px;
+        color: var(--login-btn);
+    }
 }

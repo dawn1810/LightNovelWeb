@@ -310,7 +310,7 @@ exports.uploadFileToDrive = async (filePath, id_folder = '1Tv80lyGA-rYIsN6nT9_A-
   }
 };
 
-async function getFileName(fileId) {
+const getFileName = async (fileId) => {
   const drive = google.drive({ version: 'v3', auth });
 
   try {
@@ -361,6 +361,36 @@ exports.downloadFileFromDrive = async (fileId) => {
 
     console.log('SYSTEM | DRIVE | File reading successfully!');
   });
+};
+
+exports.downloadFileFromDriveforUser = async (fileId, res) => {
+  await initStorage();
+  await getAccessToken();
+  const fileStream = await drive.files.get(
+    { fileId, alt: 'media' },
+    { responseType: 'stream', auth }
+  );
+
+  // Get the file name from Google Drive API or use a fixed filename
+  let fileName = await getFileName(fileId);
+  // Set the Content-Disposition header with the desired filename
+  res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+
+  // Pipe the file stream to the response object
+  fileStream.data
+    .on('data', (chunk) => {
+      res.write(chunk);
+    })
+    .on('end', () => {
+      console.log('SYSTEM | DRIVE | File sent successfully!');
+      res.end();
+    })
+    .on('error', (err) => {
+      console.error('SYSTEM | DRIVE | Error sending file:', err);
+      res.status(500).end(); // Or handle the error in an appropriate way
+    });
+
+  console.log('SYSTEM | DRIVE | File reading successfully!');
 };
 
 exports.deleteFileFromDrive = async (fileId) => {

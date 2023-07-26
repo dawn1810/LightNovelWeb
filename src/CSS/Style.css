@@ -825,6 +825,7 @@ a {
 }
 
 .header_notify_more {
+  margin: 30px 0;
   width: 200px;
   height: 200px;
   background-color: var(--category_bg);
@@ -899,6 +900,9 @@ a {
 
 .header_user_logo:hover .header_user_more {
   display: block;
+}
+.right_item_mobile{
+  display: none !important;
 }
 
 .header_user_more {
@@ -1942,3 +1946,7 @@ html .body_main {
 }
 
 /* popup */
+
+.right_item_mobile{
+  display: none !important;
+}

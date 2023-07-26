@@ -16,7 +16,12 @@
 
   <script src="https://kit.fontawesome.com/b8977956b3.js" crossorigin="anonymous"></script>
   <audio src="/src/audio/yamate-kudesai.mp3" preload="auto"></audio>
-  <link rel="icon" type="image/x-icon" href="/image/favicon.ico">
+  <!-- <link rel="icon" type="image/x-icon" href="/image/favicon_io/favicon.ico"> -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/image/favicon_io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/image/favicon_io/favicon-16x16.png">
+
+  <!-- <link rel="manifest" href="/image/favicon_io/site.webmanifest"> -->
+
 </head>
 
 <body>
@@ -103,16 +108,33 @@
                   <%= username %>
                 </p>
               </div>
+              <!-- pc -->
               <div class="header_user_more">
                 <div class="header_user_more_item"><a href="/profile">Thông tin tài </a>
                 </div>
                 <div class="header_user_more_item"><a href="/profile/novel_following">Truyện đã lưu</a> </div>
-           
+
                 <%if (login_way=='normal' ) { %>
                   <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
                   <%}%>
                     <div class="header_user_more_item logout">Đăng xuất </div>
               </div>
+
+              <!-- mobile -->
+              <div class="right_item_mobile">
+
+                <div class="right_item_mobile_li"><a href="/profile">Thông tin tài khoản</a></div>
+                <div class="right_item_mobile_li"><a href="/profile/novel_following">Truyện đã lưu</a></div>
+                <%if (login_way=='normal' ) { %>
+                  <div class="right_item_mobile_li">
+                    <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
+                  </div>
+                  <%}%>
+                    <div class="right_item_mobile_li">
+                      <div class="header_user_more_item logout">Đăng xuất </div>
+                    </div>
+              </div>
+              <!-- mobile -->
             </div>
 
 
@@ -153,16 +175,38 @@
                     <%= username %>
                   </p>
                 </div>
+
+                <!-- pc -->
                 <div class="header_user_more">
                   <div class="header_user_more_item"><a href="/profile">Thông tin tài khoản</a>
                   </div>
                   <div class="header_user_more_item"><a href="/profile/novel_following">Truyện đã lưu</a> </div>
-                  
+
                   <%if (login_way=='normal' ) { %>
                     <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
                     <%}%>
                       <div class="header_user_more_item logout">Đăng xuất </div>
                 </div>
+                <!-- pc -->
+
+                <!-- mobile -->
+                <div class="right_item_mobile">
+
+                  <div class="right_item_mobile_li"><a href="/profile">Thông tin tài khoản</a></div>
+                  <div class="right_item_mobile_li"><a href="/profile/novel_following">Truyện đã lưu</a></div>
+                  <%if (login_way=='normal' ) { %>
+                    <div class="right_item_mobile_li">
+                      <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
+                    </div>
+                    <%}%>
+                      <div class="right_item_mobile_li">
+                        <div class="header_user_more_item logout">Đăng xuất </div>
+                      </div>
+                      <button class="right_item_mobile_close"><i class="fa-solid fa-circle-xmark"></i></button>
+                </div>
+                <!-- mobile -->
+
+
               </div>
 
 
@@ -183,6 +227,7 @@
 
     </div>
   </header>
+
   <ul class="left_item close">
 
     <li id="home_page" class=" left_li">
@@ -480,6 +525,8 @@
   </ul>
 
 
+
+
   <script src="">
     $("document").ready(function () {
       let trigger = $("#hamburger"),
@@ -638,6 +685,16 @@
     });
 
   });
+
+  const right_item_mobile_close = document.querySelector('.right_item_mobile_close')
+  const right_item_mobile = document.querySelector('.right_item_mobile')
+
+
+  right_item_mobile_close.onclick = function () {
+    console.log("okssssss");
+    right_item_mobile.style.right = "-100% !important";
+  }
+
 </script>
 
 

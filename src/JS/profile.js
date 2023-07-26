@@ -38,6 +38,13 @@ const range = document.querySelector('.range');
 const range__label = document.querySelector('.range__label');
 const back_btn = document.querySelectorAll('.back_btn')
 
+
+// chinh sua 
+
+const accept_change_btn = document.getElementById('accept_change');
+const chaccept_drop = document.getElementById('accept_drop');
+// chinh sua 
+
 // toast 
 const toast = document.querySelector(".toast");
 const closeIcon = document.getElementById("close");
@@ -49,6 +56,10 @@ closeIcon.addEventListener("click", () => {
 // dieu khoan dich vu
 const checked = document.getElementById("Agree");
 // dieu khoan dich vu
+
+
+
+
 
 window.addEventListener('popstate', function (event) {
 	location.reload();
@@ -706,7 +717,7 @@ async function cancel() {
 				background:#000;
 				background-image: url('https://media.tenor.com/WNyMsbIJmBMAAAAC/naruto-shinra.gif');
 				`
-				// background-image: url('https://cdn.discordapp.com/attachments/1119221555566751754/1132280018534408233/thien.webp');
+		// background-image: url('https://cdn.discordapp.com/attachments/1119221555566751754/1132280018534408233/thien.webp');
 		document.body.appendChild(elem);
 
 		let audio = new Audio('/src/audio/shinra.mp3');
@@ -885,10 +896,6 @@ $(document).ready(function () {
 		var newURL = currentURL + '/profile/update/' + grandparentID + '/edit';
 		window.location.href = newURL;
 
-		// history.pushState(null, null, newURL);
-		// document.querySelector('.up_novel').style.backgroundColor = "var(--st-pr-btn-bg)";
-		// page5_composed[3].style.display = 'block'
-		// page5_a_up[4].style.display = 'flex'
 		console.log(grandparentID); // This will log 'grandparent'
 	});
 
@@ -897,10 +904,6 @@ $(document).ready(function () {
 		let grandparentID = $(this).parent().parent().attr('id');
 		var newURL = currentURL + '/profile/update/' + grandparentID + '/listchap';
 		window.location.href = newURL;
-		// var newURL = currentURL + '/profile' + '/listchap';
-		// history.pushState(null, null, newURL);
-		// page5_home.style.display = 'none'
-		// page5_b.style.display = 'block'
 	});
 
 	$(document).on('click', '.add_novel_more_chap ', function () {
@@ -910,14 +913,54 @@ $(document).ready(function () {
 		sessionStorage.setItem('currNovelID', grandparentID);
 		var newURL = currentURL + '/profile/update/' + grandparentID + '/morechap';
 		window.location.href = newURL;
-		// var newURL = currentURL + '/profile' + '/morechap';
-		// history.pushState(null, null, newURL);
 
-		// page5_composed[4].style.display = 'block'
-		// page5_a_up[5].style.display = 'block'
-
-		// get novel id and store in session storage
 	});
+
+	$(document).on('click', '.page5_b .post_btn', function () {
+		console.log('post btn')
+	});
+
+	$(document).on('click', '.page5_b .download_btn', async function () {
+		let grandGrandParentID = $(this).parent().parent().parent().attr('id');
+		const url = `${currentURL}/download_chap`; // URL của máy chủ mục tiêu
+
+		const postData = JSON.stringify({
+			id: grandGrandParentID
+		});
+
+		const requestOptions = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: postData
+		};
+
+		fetch(url, requestOptions)
+			.then(response => {
+				// extract the filename from the response header
+				const filename = response.headers.get('Content-Disposition').split('filename=')[1];
+
+				// create a new blob object from the response body
+				return response.blob().then(blob => {
+					// create a temporary URL for the blob object
+					const url = window.URL.createObjectURL(blob);
+
+					// create a new anchor element to download the file
+					const a = document.createElement('a');
+					a.href = url;
+					a.download = filename;
+					a.click();
+
+					// release the temporary URL
+					window.URL.revokeObjectURL(url);
+				});
+			})
+			.catch(error => {
+				console.error('Error downloading file:', error);
+			});
+	});
+
 });
 
 // next page btn of .page5_chap
@@ -1064,6 +1107,29 @@ document.querySelector('.page5_d .post_btn').onclick = async function () {
 	}
 }
 
+
+// change
+accept_change_btn.onclick = function () {
+
+
+	const postData = {
+		'novel_name': document.querySelector('.page5_c  .profile_input ').value,
+		'author_name': document.querySelector('.page5_c  .author_name').value,
+		'novel_descript': document.querySelector('.page5_c  .novel_descript').value,
+		'novel_types': listObj2.tempValues,
+		'novel_status': document.querySelector('.page5_c  .novel_status select').options[document.querySelector('.page5_c  .novel_status select').selectedIndex].text,
+		'novel_avt': document.querySelector('.page5_c  .page5_info_img .your-avt').src,
+	}
+	console.log(postData)
+	notify("Thông báo", "THAY ĐỔI THÔNG TIN THÀNH CÔNG")
+};
+chaccept_drop.onclick = function () {
+	if (confirm('Thay đổi sẽ không được lưu, huỷ thay đổi?')) {
+		window.location.href = currentURL + '/profile/my_novel'
+	}
+}
+
+
 let check = 0
 const page5_post_check = document.querySelector('.page5_post_check')
 page5_post_check.onclick = function () {
@@ -1078,11 +1144,3 @@ page5_post_check.onclick = function () {
 	}
 
 }
-
-// change
-
-const accept_change_btn = document.getElementById('accept_change');
-
-accept_change_btn.onclick = function () {
-	alert("THAY ĐỔI THÔNG TIN THÀNH CÔNG")
-};

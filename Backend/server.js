@@ -28,13 +28,13 @@ const notionFileId = 'YOUR_NOTION_FILE_ID';
 // ----------------------------------------------------------------
 const allowedMimeTypes = ['text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
 
-
 ////////////////////////
 const app = express();
 const router = express.Router();
 const multer = require('multer'); // Thư viện để xử lý file upload
 
 const port = 6969;
+let currentURL = `http://localhost:${port}`;
 const secretKey = '5gB#2L1!8*1!0)$7vF@9';
 const authenticationKey = Buffer.from(secretKey.padEnd(32, '0'), 'utf8').toString('hex');
 const uploadDirectory = path.join('.upload_temp', 'files');
@@ -446,7 +446,7 @@ async function processNovels(req, res, id_truyen) {
 		let render_data = {
 			headerFile: 'header',
 			footerFile: 'footer',
-			edit_name : "",
+			edit_name: "",
 			edit_auth: "",
 			edit_status: "",
 			edit_tag: "",
@@ -458,7 +458,7 @@ async function processNovels(req, res, id_truyen) {
 		let novels = await server.find_one_Data('tt_nguoi_dung', { _id: decodeList[1] });
 		let result = [];
 
-		
+
 		for (let id of novels.mynovel) {
 			const curr_novel = await server.find_one_Data('truyen', { _id: new ObjectId(id) })
 			result.push(curr_novel);
@@ -577,6 +577,8 @@ console.log(path.join(parentDirectory, 'view'))
 
 
 app.get('/', checkCookieLoglUser, (req, res) => {
+	currentURL = req.url;
+
 	res.render('index', {
 		headerFile: 'header',
 		footerFile: 'footer'
@@ -585,9 +587,9 @@ app.get('/', checkCookieLoglUser, (req, res) => {
 
 // profile route
 app.get('/profile', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
+
 	await processNovels(req, res, null);
 });
-
 
 // Hiển thị tất cả truyện đã đăng.
 app.get('/profile/:anything', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
@@ -876,7 +878,7 @@ passport.deserializeUser(async function (userId, done) {
 passport.use(new GoogleStrategy({
 	clientID: credentials.google.client_id,
 	clientSecret: credentials.google.client_secret,
-	callbackURL: "http://localhost:6969/auth/google/callback",
+	callbackURL: currentURL + "/auth/google/callback",
 	passReqToCallback: true
 },
 	async function (request, accessToken, refreshToken, profile, done) {
@@ -962,7 +964,6 @@ app.get('/auth/google/callback',
 		// res.sendStatus(404);
 	}
 );
-
 
 app.post('/updatelike', async (req, res) => {
 	try {
@@ -1224,7 +1225,6 @@ app.post('/update_upload_novel', async (req, res) => {
 	}
 });
 
-
 // Route xử lý yêu cầu upload file ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.post('/uploadFile', upload.array('files[]'), async function (req, res) {
 	if (!req.files) {
@@ -1304,9 +1304,6 @@ app.post('/cancel', async (req, res) => {
 	}
 });
 
-
-
-
 // Thay đổi info -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.post('/updateInfo', async (req, res) => {
 	try {
@@ -1333,6 +1330,7 @@ app.post('/updateInfo', async (req, res) => {
 
 });
 
+// Đổi pass ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.post('/changepass', async (req, res) => {
 	try {
 		const data = req.body;
@@ -1364,8 +1362,12 @@ app.post('/changepass', async (req, res) => {
 
 });
 
-// Đổi pass -------------------------------
-
+// Thay đổi tứng chapters -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+app.post("/download_chap", async (req, res) => {
+	const data = req.body;
+	console.log('SYSTEM | UPDATE UPLOAD NOVEL |', data);
+	server.downloadFileFromDriveforUser(data.id, res)
+});
 
 app.get('*', checkCookieLoglUser, function (req, res) {
 	res.render('index', {
