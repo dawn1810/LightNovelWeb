@@ -150,7 +150,6 @@ $(document).ready(function () {
   const header_user_logo = document.querySelector('.header_user_logo_i')
   
   right_item_mobile_close.onclick = function(){
-    console.log("okssssss");
     right_item_mobile.style.right="-100%";
   }
   header_user_logo.onclick= function (e) {

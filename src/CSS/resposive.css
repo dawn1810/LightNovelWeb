@@ -258,8 +258,8 @@
     }
 
     .header_notify_more {
-        top: 0em;
-        left: 0;
+        top: .33em;
+        right: 1em;
         position: absolute;
         width: 15em;
         height: 200px;

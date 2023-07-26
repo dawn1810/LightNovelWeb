@@ -232,111 +232,34 @@
 						<div class="Setting_pageWrapper page2" id="novel_following">
 							<h2>Truyện đã theo dõi</h2>
 							<div class="followed-container">
-								<div class="followed-item">
-									<div class="name-container">
-										<img src="https://nettruyenco.vn/public/images/comics/thien-kim-mu-pha-san-va-tong-tai-diem-vuong.jpg"
-											alt="" class="avt" />
-										<div class="name-novel">
-											<div class="name-novel-top">
-												<h2>con heo xinh xan</h2>
-												<button class="delete-follow">Bỏ Theo Dõi</button>
-
+								<% for (var i = 0; i < like_novel.length; i++) { %>	
+										  
+									<div class="followed-item <%=like_novel[i]%>">
+										<div class="name-container">
+											
+											<div class="name-container_img">
+												<img src="<%-like_novel_list[i].image%>"
+													alt="" class="avt" />
 											</div>
-											<p>
-												Nước Lèo vốn không đi với X nhưng ở một tình cảnh trớ
-												trêu đã kéo họ lại gần nhau (close up) trong một thế
-												giới đầy đau thương. Liều họ có quyết định cùng nương
-												tựa nhau và vượt qua khó khắn? Liệu có chuyện tình đẹp
-												vcl nào ở đây?
-											</p>
 
-											<div class="last-time-container">
-												<div class="chapter"><a href="">Chap 100</a></div>
-												<div class="time">23h trước</div>
-											</div>
-										</div>
-									</div>
-
-								</div>
-
-								<div class="followed-item">
-									<div class="name-container">
-										<img src="https://nettruyenco.vn/public/images/comics/thien-kim-mu-pha-san-va-tong-tai-diem-vuong.jpg"
-											alt="" class="avt" />
-										<div class="name-novel">
-											<div class="name-novel-top">
-												<h2>con heo xin xan</h2>
-												<button class="delete-follow">Bỏ Theo Dõi</button>
-
-											</div>
-											<p>
-												Nước Lèo vốn không đi với X nhưng ở một tình cảnh trớ
-												trêu đã kéo họ lại gần nhau (close up) trong một thế
-												giới đầy đau thương. Liều họ có quyết định cùng nương
-												tựa nhau và vượt qua khó khắn? Liệu có chuyện tình đẹp
-												vcl nào ở đây?
-											</p>
-
-											<div class="last-time-container">
-												<div class="chapter"><a href="">Chap 100</a></div>
-												<div class="time">23h truoc</div>
+											<div class="name-novel">
+												<div class="name-novel-top">
+													<h2><%-like_novel_list[i].name%></h2>
+													<button class="delete-follow">Bỏ Theo Dõi</button>
+												</div>
+												<p>
+													<%-like_novel_list[i].summary%>
+												</p>
+												<div class="last-time-container">
+													<div class="chapter"><a href="<%-'/reading/'+like_novel[i]+'/'+(like_novel_list[i].no_chapters - 1)%>">Chap <%-like_novel_list[i].no_chapters%></a></div>
+													<div class="time"><%-like_novel_list[i].update_date%> trước</div>
+												</div>
 											</div>
 										</div>
 									</div>
+								<% } %>		
 
-								</div>
-								<div class="followed-item">
-									<div class="name-container">
-										<img src="https://nettruyenco.vn/public/images/comics/thien-kim-mu-pha-san-va-tong-tai-diem-vuong.jpg"
-											alt="" class="avt" />
-										<div class="name-novel">
-											<div class="name-novel-top">
-												<h2>con heo xin xan</h2>
-												<button class="delete-follow">Bỏ Theo Dõi</button>
-
-											</div>
-											<p>
-												Nước Lèo vốn không đi với X nhưng ở một tình cảnh trớ
-												trêu đã kéo họ lại gần nhau (close up) trong một thế
-												giới đầy đau thương. Liều họ có quyết định cùng nương
-												tựa nhau và vượt qua khó khắn? Liệu có chuyện tình đẹp
-												vcl nào ở đây?
-											</p>
-
-											<div class="last-time-container">
-												<div class="chapter"><a href="">Chap 100</a></div>
-												<div class="time">23h truoc</div>
-											</div>
-										</div>
-									</div>
-
-								</div>
-								<div class="followed-item">
-									<div class="name-container">
-										<img src="https://nettruyenco.vn/public/images/comics/thien-kim-mu-pha-san-va-tong-tai-diem-vuong.jpg"
-											alt="" class="avt" />
-										<div class="name-novel">
-											<div class="name-novel-top">
-												<h2>con heo xin xan</h2>
-												<button class="delete-follow">Bỏ Theo Dõi</button>
-
-											</div>
-											<p>
-												Nước Lèo vốn không đi với X nhưng ở một tình cảnh trớ
-												trêu đã kéo họ lại gần nhau (close up) trong một thế
-												giới đầy đau thương. Liều họ có quyết định cùng nương
-												tựa nhau và vượt qua khó khắn? Liệu có chuyện tình đẹp
-												vcl nào ở đây?
-											</p>
-
-											<div class="last-time-container">
-												<div class="chapter"><a href="">Chap 100</a></div>
-												<div class="time">23h truoc</div>
-											</div>
-										</div>
-									</div>
-
-								</div>
+								
 							</div>
 						</div>
 
@@ -723,21 +646,48 @@
 									</div>
 									<div class="list_chapter_body">
 										<% for (var i = 0; i < edit_name_chaps.length; i++) { %>
-										  <div class="my_novel_item" id="<%= edit_chap_ids[i]%>">
-											<div class="chapter"><%= edit_name_chaps[i] %></div>
+										  <div class="my_novel_item" id="<%= edit_chap_ids[i] %>">
+											<div class="name_chapter" style="display: flex;">
+												<div class="chapter" style="
+												display: flex;
+												align-items: center;
+												justify-content: center;">
+													<%= edit_name_chaps[i].split(":")[0].slice(0, 6) %>
+												</div>
+												<span>&emsp;</span>
+												<input type="text" class="profile_input n_num" style="width: 10%;" value="<%= edit_name_chaps[i].split(":")[0].slice(6).trim() %>">
+												<div style="
+												display: flex;
+												align-items: center;
+												justify-content: center;">
+													&emsp;:&emsp;
+												</div>
+												<input type="text" class="profile_input n_name" value="<%= edit_name_chaps[i].split(":")[1].trim() %>">
+											</div>
 											<div class="btn_gritem">
 											  <div class="novel_conntroller_btn">
-												<button class="upfile post_btn">
-													<i class="fa-solid fa-upload"></i>
-												</button>
+												<div class="head_b">
+													<pre class="file-content" style="margin: 1rem 20px;"></pre>
+													<input type="file" class="file-input" style="display:none;"
+														accept=".txt, .docx" />
+													<button class="upfile edit_btn">
+														<i class="fa-solid fa-upload"></i>
+													</button>
+												</div>
 												<button class="upfile download_btn">
 													<i class="fa-solid fa-download"></i>
 												</button>
-												<button class="delete_chapter controller_btn">Xóa Chap</button>
+												<button class="remove_chap controller_btn">Xóa Chap</button>
 											  </div>
 											</div>
 										  </div>
 										<% } %>
+									</div>
+									<div class="page5_info_main_btn">
+										<button class="close_btn" id="accept_drop" >Hủy</button>
+										<button class="next_btn" id="accept_change">
+											<i class="fa-solid fa-check"></i>
+										</button>
 									</div>
 								</div>
 							</div>

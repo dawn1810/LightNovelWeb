@@ -236,7 +236,7 @@ else if (currentPath == '/listchap') {
 
 
 for (let i = 0; i < Setting_item.length; i++) {
-	const currentURL = 'http://localhost:6969/profile';
+	const currentURL = window.location.protocol + "//" + window.location.host+'/profile';
 
 	// console.log(Setting_item[i])
 	// console.log(i);
@@ -853,6 +853,8 @@ $(document).ready(function () {
 		}
 
 	});
+
+	// delete one file
 	$(document).on('click', '.delete_chapter ', async function () {
 		// Delete the grandparent node
 		let id_truyen = $(this).parent().parent().attr('id');
@@ -889,6 +891,7 @@ $(document).ready(function () {
 
 	});
 
+	// load update edit (chỉnh sửa) page
 	$(document).on('click', '.update_current_novel ', function () {
 		// Delete the grandparent node
 		let grandparentID = $(this).parent().parent().attr('id');
@@ -899,6 +902,7 @@ $(document).ready(function () {
 		console.log(grandparentID); // This will log 'grandparent'
 	});
 
+	// load update show list (danh sách chương) page
 	$(document).on('click', '.showlist_novel ', function () {
 		// Delete the grandparent node
 		let grandparentID = $(this).parent().parent().attr('id');
@@ -906,6 +910,7 @@ $(document).ready(function () {
 		window.location.href = newURL;
 	});
 
+	// load update add more chapter (thêm chương) page
 	$(document).on('click', '.add_novel_more_chap ', function () {
 		let grandparentID = $(this).parent().parent().attr('id');
 		// change to add more chap page
@@ -916,8 +921,15 @@ $(document).ready(function () {
 
 	});
 
-	$(document).on('click', '.page5_b .post_btn', function () {
-		console.log('post btn')
+	$(document).on('click', '.page5_b .edit_btn', function () {
+		$(this).parent().find('.file-input').click()
+	});
+
+	$(document).on('change', '.page5_b .file-input', function () {
+		const file = $(this)[0].files[0];
+		if (validateFile(file, true)) {
+			$(this).parent().find('.file-content').text(file.name)
+		}
 	});
 
 	$(document).on('click', '.page5_b .download_btn', async function () {
@@ -961,6 +973,9 @@ $(document).ready(function () {
 			});
 	});
 
+	$(document).on('click', '.page5_b .remove_chap', async function () {
+		console.log('aaaa')
+	});
 });
 
 // next page btn of .page5_chap
@@ -1111,17 +1126,44 @@ document.querySelector('.page5_d .post_btn').onclick = async function () {
 // change
 accept_change_btn.onclick = function () {
 
+	const regex = /\/([a-fA-F0-9]+)\/edit/;
 
-	const postData = {
+	// Use the exec method to extract the matching part from the URL
+	const match = regex.exec(window.location.href);
+	
+	// Extracted ID will be in match[1]
+	const extractedID = match ? match[1] : null;
+	
+	const postData = JSON.stringify({
+		'id':extractedID,
 		'novel_name': document.querySelector('.page5_c  .profile_input ').value,
 		'author_name': document.querySelector('.page5_c  .author_name').value,
 		'novel_descript': document.querySelector('.page5_c  .novel_descript').value,
 		'novel_types': listObj2.tempValues,
 		'novel_status': document.querySelector('.page5_c  .novel_status select').options[document.querySelector('.page5_c  .novel_status select').selectedIndex].text,
 		'novel_avt': document.querySelector('.page5_c  .page5_info_img .your-avt').src,
-	}
-	console.log(postData)
-	notify("Thông báo", "THAY ĐỔI THÔNG TIN THÀNH CÔNG")
+	});
+	const requestOptions = {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: postData
+	};
+	url = currentURL+'/api/edit_info_novel'
+	fetch(url, requestOptions)
+		.then(response => {
+			if (response.ok){
+				notify("Thông báo", "Thay đổi thông tin thành công!");
+			}
+			else {
+				notify("Lỗi", "Có lỗi xảy ra!");
+			}
+		})
+		.catch(error => {
+			console.error('Error downloading file:', error);
+		});
+
 };
 chaccept_drop.onclick = function () {
 	if (confirm('Thay đổi sẽ không được lưu, huỷ thay đổi?')) {

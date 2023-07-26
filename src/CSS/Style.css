@@ -830,7 +830,7 @@ a {
   height: 200px;
   background-color: var(--category_bg);
   position: absolute;
-  top: 47px;
+  top: 1em;
   z-index: 9999;
   right: -40px;
   border-radius: 5px;

@@ -117,7 +117,7 @@
                 <%if (login_way=='normal' ) { %>
                   <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
                   <%}%>
-                    <div class="header_user_more_item logout">Đăng xuất </div>
+                    <div class="header_user_more_item logout" id="logout">Đăng xuất </div>
               </div>
 
               <!-- mobile -->
@@ -185,7 +185,7 @@
                   <%if (login_way=='normal' ) { %>
                     <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
                     <%}%>
-                      <div class="header_user_more_item logout">Đăng xuất </div>
+                      <div class="header_user_more_item logout" id="logout">Đăng xuất </div>
                 </div>
                 <!-- pc -->
 
@@ -199,9 +199,9 @@
                       <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
                     </div>
                     <%}%>
-                      <div class="right_item_mobile_li">
-                        <div class="header_user_more_item logout">Đăng xuất </div>
-                      </div>
+                    <div class="right_item_mobile_li">
+                      <div class="header_user_more_item logout">Đăng xuất </div>
+                    </div>
                       <button class="right_item_mobile_close"><i class="fa-solid fa-circle-xmark"></i></button>
                 </div>
                 <!-- mobile -->
@@ -630,9 +630,10 @@
       }
     }
     const logout = document.querySelector('.logout')
+  
     logout.onclick = async function (e) {
       e.preventDefault();
-      console.log('hahaaha')
+      console.log('logout')
       const accountCookie = getCookie('account');
       if (accountCookie) {
         await fetch(`${currentURL}/logout`, {
