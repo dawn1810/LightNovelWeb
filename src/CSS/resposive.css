@@ -243,10 +243,9 @@
         display: flex;
         flex-direction: column;
         text-align: center;
+        transition: right 0.3s ease-in-out ;
     }
-    .header_user_logo:hover .right_item_mobile {
-        right: 0 !important;
-      }
+
 
     .right_item_mobile_li {
         width: 100%;

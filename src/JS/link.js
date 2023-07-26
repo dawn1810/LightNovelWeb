@@ -147,13 +147,17 @@ $(document).ready(function () {
 
   const right_item_mobile_close = document.querySelector('.right_item_mobile_close')
   const right_item_mobile = document.querySelector('.right_item_mobile')
-  const header_user_logo = document.querySelector('.header_user_logo')
+  const header_user_logo = document.querySelector('.header_user_logo_i')
   
   right_item_mobile_close.onclick = function(){
     console.log("okssssss");
     right_item_mobile.style.right="-100%";
   }
+  header_user_logo.onclick= function (e) {
 
+    console.log("ok la");
+    right_item_mobile.style.right="0%";
+  }
 });
 
 
