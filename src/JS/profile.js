@@ -53,8 +53,6 @@ const checked = document.getElementById("Agree");
 
 
 
-
-
 window.addEventListener('popstate', function (event) {
 	location.reload();
 });
@@ -105,6 +103,7 @@ else if (currentPath == '/my_novel') {
 	document.querySelector('.up_novel').style.backgroundColor = "var(--st-pr-btn-bg)";
 
 	document.querySelector('.page5').style.display = 'block';
+	sessionStorage.clear();
 }
 else if (currentPath == '/add_novel') {
 	page5_composed_drop()
@@ -274,6 +273,7 @@ for (let i = 0; i < Setting_item.length; i++) {
 			page5_composed[0].style.display = 'block';
 			page5_a_up[0].style.display = 'flex';
 			document.querySelector('.page5').style.display = 'block';
+			sessionStorage.clear();
 		}
 
 		Setting_item[i].style.backgroundColor = "var(--st-pr-btn-bg)";
@@ -487,12 +487,20 @@ async function uploadNovel() {
 }
 
 async function updateNovel() {
+	const regex = /\/([a-fA-F0-9]+)\/morechap/;
+
+	// Use the exec method to extract the matching part from the URL
+	const match = regex.exec(window.location.href);
+
+	// Extracted ID will be in match[1]
+	const extractedID = match ? match[1] : null;
+
 	// POST ALL DATA TO SERVER--------------------------------------------------------------------------------------------------
 	//gửi request tới csdl server
 	const url = `${currentURL}/update_upload_novel`; // URL của máy chủ mục tiêu
 
 	const postData = JSON.stringify({
-		id: sessionStorage.getItem("currNovelID"),
+		id: extractedID,
 		name_chaps: sessionStorage.getItem("name_chapters").split(","),
 		chap_ids: sessionStorage.getItem("chapters_content").split(","),
 	});
@@ -521,16 +529,32 @@ async function updateNovel() {
 }
 
 async function editNovel() {
+	// get novel id from 
+	const regex = /\/([a-fA-F0-9]+)\/listchap/;
+
+	// Use the exec method to extract the matching part from the URL
+	const match = regex.exec(window.location.href);
+
+	// Extracted ID will be in match[1]
+	const extractedID = match ? match[1] : null;
+
+	// get edit_indexes and chapters_content:
+	const name_chaps = sessionStorage.getItem("name_chapters");
+	const chapters_content = sessionStorage.getItem("chapters_content");
+	const edit_indexes = sessionStorage.getItem("edit_indexes");
+	const remove_list = sessionStorage.getItem("remove_list");
+
+
 	// POST ALL DATA TO SERVER--------------------------------------------------------------------------------------------------
 	//gửi request tới csdl server
-	const url = `${currentURL}/edit_novel`; // URL của máy chủ mục tiêu
+	const url = `${currentURL}/api/edit_novel`; // URL của máy chủ mục tiêu
 
 	const postData = JSON.stringify({
-		id: sessionStorage.getItem("currNovelID"),
-		name_chaps: sessionStorage.getItem("name_chapters").split(","),
-		chap_ids: sessionStorage.getItem("chapters_content").split(","),
-		edit_index: sessionStorage.getItem("edit_indexes").split(","),
-		remove_list:  sessionStorage.getItem("remove_list").split(",")
+		id: extractedID,
+		name_chaps: name_chaps ? name_chaps.split(",") : [],
+		chap_ids: chapters_content ? chapters_content.split(",") : [],
+		edit_index: edit_indexes ? edit_indexes.split(",") : [],
+		remove_list: remove_list ? remove_list.split(",") : []
 	});
 	const requestOptions = {
 		method: 'POST',
@@ -641,8 +665,6 @@ Save_btn.onclick = async function (e) {
 	}
 
 }
-
-
 
 // change pass
 add_new.onclick = function () {
@@ -837,8 +859,8 @@ $(document).ready(function () {
 	$(document).on('change', '.page5_chap .file-input', function () {
 		const file = $(this)[0].files[0];
 		if (validateFile(file, true)) {
-			$(this).parent().find('.file-content').text(file.name)
-		}
+			$(this).parent().find('.file-content').text(file.name);
+		};
 
 	});
 
@@ -883,7 +905,6 @@ $(document).ready(function () {
 	$(document).on('click', '.update_current_novel ', function () {
 		// Delete the grandparent node
 		let grandparentID = $(this).parent().parent().attr('id');
-		sessionStorage.setItem('currNovelID', grandparentID);
 		page5_composed_drop()
 		var newURL = currentURL + '/profile/update/' + grandparentID + '/edit';
 		window.location.href = newURL;
@@ -931,7 +952,6 @@ $(document).ready(function () {
 		// Delete the grandparent node
 		let grandparentID = $(this).parent().parent().attr('id');
 		page5_composed_drop()
-		sessionStorage.setItem('currNovelID', grandparentID);
 		var newURL = currentURL + '/profile/update/' + grandparentID + '/listchap';
 		window.location.href = newURL;
 	});
@@ -941,7 +961,6 @@ $(document).ready(function () {
 		let grandparentID = $(this).parent().parent().attr('id');
 		// change to add more chap page
 		page5_composed_drop()
-		sessionStorage.setItem('currNovelID', grandparentID);
 		var newURL = currentURL + '/profile/update/' + grandparentID + '/morechap';
 		window.location.href = newURL;
 
@@ -959,6 +978,7 @@ $(document).ready(function () {
 	});
 
 	$(document).on('click', '.page5_b .download_btn', async function () {
+		notify("Chờ tý!!!", "Đã bắt đầu quá trình tải.");
 		let grandGrandParentID = $(this).parent().parent().parent().attr('id');
 		const url = `${currentURL}/download_chap`; // URL của máy chủ mục tiêu
 
@@ -992,16 +1012,18 @@ $(document).ready(function () {
 
 					// release the temporary URL
 					window.URL.revokeObjectURL(url);
+
+					notify("Chúc mừng!!!", "Download thành công!!!");
 				});
 			})
 			.catch(error => {
+				notify("Lỗi!!!", "Download không thành công!!!");
 				console.error('Error downloading file:', error);
 			});
 	});
 
 	$(document).on('click', '.page5_b .remove_chap', async function () {
-		if (confirm("Hãy chắc chắn sẽ xóa chapter này? hành động của bạn là không thể thu hồi!!!") == true) {
-			let grandGrandParentID = $(this).parent().parent().parent().attr('id');
+		if (confirm("Bạn có chắc sẽ xóa chapter này?") == true) {
 			let remove_list = []
 			// if already have remove list
 			if (sessionStorage.getItem("remove_list")) {
@@ -1010,12 +1032,45 @@ $(document).ready(function () {
 			// set new remove to sessionStorage:
 			remove_list.push($(this).parent().parent().parent().index());
 			sessionStorage.setItem("remove_list", remove_list);
-			//////-----------nho set file ve rong-------------------///////
-			// // remove current chapter items
-			// $(this).parent().parent().parent().remove()
+
+			// unable input:
+			$(this).parent().parent().parent().find('.n_num').prop('disabled', true);
+			$(this).parent().parent().parent().find('.n_name').prop('disabled', true);
+			// unable download and uplaod button
+			$(this).parent().parent().parent().find('.edit_btn').prop('disabled', true);
+			$(this).parent().parent().parent().find('.download_btn').prop('disabled', true);
+			// change remove button to undo button
+			$(this).html(`<i class="fa-solid fa-arrow-rotate-left"></i>`);
+			$(this).toggleClass('remove_chap undo_btn');
+			// set file to null and file name to empty
+			$(this).parent().parent().parent().find('.file-input').val('');
+			$(this).parent().parent().parent().find('.file-content').text('');
 		} else {
 			notify('Thông báo', 'Đã huỷ!');
 		}
+	});
+	$(document).on('click', '.page5_b .undo_btn', async function () {
+		let remove_list = []
+		let curr_index = $(this).parent().parent().parent().index().toString();
+		// if already have remove list
+		if (sessionStorage.getItem("remove_list")) {
+			remove_list = sessionStorage.getItem("remove_list").split(",");
+		};
+		remove_list.splice(remove_list.indexOf(curr_index), 1);
+		sessionStorage.setItem("remove_list", remove_list);
+
+		// unable input:
+		$(this).parent().parent().parent().find('.n_num').prop('disabled', false);
+		$(this).parent().parent().parent().find('.n_name').prop('disabled', false);
+		// unable download and uplaod button
+		$(this).parent().parent().parent().find('.edit_btn').prop('disabled', false);
+		$(this).parent().parent().parent().find('.download_btn').prop('disabled', false);
+		// change remove button to undo button
+		$(this).html(`<i class="fa-solid fa-xmark"></i>`);
+		$(this).toggleClass('undo_btn remove_chap');
+		// set file to null and file name to empty
+		$(this).parent().parent().parent().find('.file-input').val('');
+		$(this).parent().parent().parent().find('.file-content').text('');
 	});
 });
 
@@ -1091,7 +1146,7 @@ document.querySelector('.page5_b .next_btn').onclick = async function () {
 		let chapNum = $(this).find('.n_num').val();
 		let chapName = $(this).find('.n_name').val();
 		let curr_file = $(this).find('.file-input')[0].files[0];
-		name_chaprters.push(`Chương ${chapNum}: ${chapName} `);
+		name_chaprters.push(`Chương ${chapNum}: ${chapName}`);
 		if (curr_file) {
 			files.push(curr_file);
 			edit_indexes.push($(this).index());
@@ -1101,6 +1156,7 @@ document.querySelector('.page5_b .next_btn').onclick = async function () {
 
 	sessionStorage.setItem("name_chapters", name_chaprters);
 	sessionStorage.setItem("edit_indexes", edit_indexes);
+
 
 	if (confirm("Khi tiến hành đăng truyện, bạn đã chấp nhận các chính sách và quy định của WTFNovel về Nội dung và Chính sách chia sẻ quyền lợi. Bạn có chắc sẽ đăng truyện này?") == true) {
 		document.querySelector('.page5_b .next_btn').innerHTML = `<img src = "https://cdn.discordapp.com/attachments/1128184786347905054/1129065224998227968/icons8-sharingan-100.png"> `

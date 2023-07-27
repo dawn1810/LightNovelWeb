@@ -1231,16 +1231,19 @@ app.post('/api/edit_novel', async (req, res) => {
 		
 		// remove all chap that
 		for (let i = 0; i < data.remove_list.length; i++) {
+			let remove_index = parseInt(data.remove_list[i]);
+			console.log(remove_index);
 			// delete remove id file from drive and remove id from chapid:
-			server.deleteFileFromDrive(new_chap_ids.splice(i, i));
+			await server.deleteFileFromDrive(new_chap_ids.splice(remove_index, 1)[0]);
 			// remove nam chap from name chaps
-			new_name_chaps.splice(i, i);
+			new_name_chaps.splice(remove_index, 1);
 		}
-
+		
+		console.log(data.edit_index.length);
 		for (let i = 0; i < data.edit_index.length; i++) {
-			let change_index = data.edit_index[i]
+			let change_index = parseInt(data.edit_index[i]);
 			// delete old id file from drive:
-			server.deleteFileFromDrive(new_chap_ids[change_index]);
+			await server.deleteFileFromDrive(new_chap_ids[change_index]);
 			// replace old id with new index:
 			new_chap_ids[change_index] = data.chap_ids[i];
 		}

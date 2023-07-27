@@ -238,7 +238,6 @@ document.querySelector('.function_item_folow').onclick = function () {
 
     } else {
         if (document.querySelector('.function_item_folow i').classList.contains('fa-solid')) {
-            console.log('ok ha')
 
             document.querySelector('.function_item_folow').innerHTML = `
                 <i class="fa-regular fa-heart"></i>
@@ -277,7 +276,6 @@ document.querySelector('.function_item_star').onclick = function () {
 
     if (sao == 1) {
         sao = 0
-        console.log('ok ha')
 
         document.querySelector('.function_item_star').innerHTML = `
         <i class="fa-regular fa-star"></i>
@@ -289,7 +287,6 @@ document.querySelector('.function_item_star').onclick = function () {
         <i class="fa-solid fa-star"></i>
     <span>Đánh giá</span>
     `
-        console.log('ok ko')
 
     }
 }

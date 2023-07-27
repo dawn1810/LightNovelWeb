@@ -324,7 +324,6 @@ const getFileName = async (fileId) => {
     return fileName;
   } catch (error) {
     console.error('Error retrieving file name:', error);
-    throw error;
   }
 }
 
@@ -404,7 +403,6 @@ exports.deleteFileFromDrive = async (fileId) => {
     console.log('SYSTEM | DRIVE | File deleted successfully!');
   } catch (err) {
     console.error('SYSTEM | DRIVE | Error deleting file:', err);
-    throw err;
   }
 };
 // ------------------------------------------------------------------------------------------------------

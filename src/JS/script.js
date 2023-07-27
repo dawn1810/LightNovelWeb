@@ -86,7 +86,7 @@ async function get_popular_novel() {
                           </div>
                           <div class="novel_chapter">
                               Chap : <span>${helop[i].no_chapters}</span>
-                              <div>Full</div>
+                              <div style="font-size: 13px;">${helop[i].status}</div>
                           </div>
                       </div>
                   </div>

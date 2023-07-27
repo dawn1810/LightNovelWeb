@@ -287,4 +287,9 @@
         font-size: 50px;
         color: var(--login-btn);
     }
+    .category_list{
+        top: -37em;
+        left: 0;
+        height:37em;
+    }
 }
