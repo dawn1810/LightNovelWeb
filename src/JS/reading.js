@@ -104,6 +104,10 @@ for (const height of line_height) // roi do hai anh trai name chap cho ten chap 
 // cais tao sua la reading coi chung lam duong lac loi
 const left_btn = document.querySelectorAll('.left-btn')
 for (const l_btn of left_btn) {
+    if(parseInt((window.location.href).split('/').pop()) == 0){
+        l_btn.style.display = 'none';
+        document.querySelector('.lame-left').disabled = true
+    }
     l_btn.onclick = function () {
         const chap = parseInt((window.location.href).split('/').pop()) - 1;
         const crUrl = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
@@ -113,6 +117,11 @@ for (const l_btn of left_btn) {
 }
 const right_btn = document.querySelectorAll('.right-btn')
 for (const r_btn of right_btn) {
+    if(parseInt((window.location.href).split('/').pop()) == last_chaps -1){
+        r_btn.style.display = 'none';
+        document.querySelector('.lame-right').disabled = true
+
+    }
     r_btn.onclick = function () {
         const chap = parseInt((window.location.href).split('/').pop()) + 1;
         const crUrl = window.location.href.substring(0, window.location.href.lastIndexOf("/"));

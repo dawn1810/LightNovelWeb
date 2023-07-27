@@ -290,27 +290,6 @@ function set_cookies(res, id, pass) {
 // ------------------------------------------------------------------------------------------------
 // const directoryPath = path.join('trans', 'tonghop');
 
-async function readNotionFile() {
-	try {
-		// Retrieve the content of the Notion file
-		const response = await notion.blocks.children.list({ block_id: notionFileId });
-		const blocks = response.results;
-
-		// Extract text from each block
-		const textContent = blocks.map(block => block.type === 'paragraph' ? block.paragraph.text.map(text => text.plain_text).join('') : '').join('\n');
-
-		// Save the text content to a file
-		fs.writeFile('notion_contents.txt', textContent, 'utf8', (err) => {
-			if (err) {
-				console.error('An error occurred while writing the file:', err);
-			} else {
-				console.log('Notion file contents saved to notion_contents.txt');
-			}
-		});
-	} catch (error) {
-		console.error('An error occurred while reading the Notion file:', error);
-	}
-}
 
 async function readDocxFile(docxFilePath) {
 	try {
@@ -725,18 +704,25 @@ app.get('/reading/:id/:chap', checkCookieLoglUser, async (req, res) => {
 				name: 1,
 				name_chaps: 1,
 				chap_ids: 1,
+				no_chapters: 1,
 			},
 			limit: 1
 		});
 		// Gửi data về client
 		// console.log(typeof(String(result[0].chap_ids[parseInt(data.chap)])))
 		// console.log(result);
+		if ((parseInt(result[0].no_chapters) <= parseInt(req.params.chap)) || (parseInt(req.params.chap) < 0))
+		{
+			res.status(404).send('Không tìm thấy chương!');
+			return;
+		}
 		const chap_content = await server.downloadFileFromDrive(String(result[0].chap_ids[parseInt(req.params.chap)]));
 
 		res.render('readingpage.ejs', {
 			headerFile: 'header',
 			footerFile: 'footer',
 			name: result[0].name,
+			no_chapters: result[0].no_chapters,
 			name_chaps: result[0].name_chaps,
 			name_chap: result[0].name_chaps[parseInt(req.params.chap)],
 			chap_content: convertToHtml(chap_content),
@@ -1233,6 +1219,46 @@ app.post('/update_upload_novel', async (req, res) => {
 	}
 });
 
+app.post('/api/edit_novel', async (req, res) => {
+	const data = req.body;
+	console.log('SYSTEM | EDIT_TRUYEN |', data);
+	try {
+		// get old _chap ids and name chaps
+		let curr_novel = await server.find_one_Data("truyen", { _id: new ObjectId(data.id) });
+		let new_chap_ids = curr_novel.chap_ids;
+		// set chap names as new name_chaps
+		let new_name_chaps = data.name_chaps;
+		
+		// remove all chap that
+		for (let i = 0; i < data.remove_list.length; i++) {
+			// delete remove id file from drive and remove id from chapid:
+			server.deleteFileFromDrive(new_chap_ids.splice(i, i));
+			// remove nam chap from name chaps
+			new_name_chaps.splice(i, i);
+		}
+
+		for (let i = 0; i < data.edit_index.length; i++) {
+			let change_index = data.edit_index[i]
+			// delete old id file from drive:
+			server.deleteFileFromDrive(new_chap_ids[change_index]);
+			// replace old id with new index:
+			new_chap_ids[change_index] = data.chap_ids[i];
+		}
+
+		await server.update_one_Data("truyen", { _id: new ObjectId(data.id) }, {
+			$set: {
+				name_chaps: new_name_chaps,
+				chap_ids: new_chap_ids
+			}
+		});
+
+		res.sendStatus(200);
+	} catch (err) {
+		console.log('SYSTEM | UPDATE UPLOAD NOVEL | ERROR | ', err);
+		res.sendStatus(500);
+	}
+});
+
 app.post('/api/edit_info_novel', async (req, res) => {
 	const data = req.body;
 	console.log('SYSTEM | EDIT_TRUYEN |', data);
@@ -1392,7 +1418,6 @@ app.post('/changepass', async (req, res) => {
 	}
 
 });
-
 
 // Thay đổi tứng chapters -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.post("/download_chap", async (req, res) => {

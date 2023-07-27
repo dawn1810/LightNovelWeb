@@ -168,220 +168,225 @@ function Validator(options) {
             }
         }
 
-        // Lặp qua mỗi rule và xử lý (lắng nghe sự kiện blur, input, ...)
-        options.rules.forEach(function (rule) {
 
-            // Lưu lại các rules cho mỗi input
-            if (Array.isArray(selectorRules[rule.selector])) {
-                selectorRules[rule.selector].push(rule.test);
-            } else {
-                selectorRules[rule.selector] = [rule.test];
-            }
+        
 
-            var inputElements = formElement.querySelectorAll(rule.selector);
+            // cai chuan 
 
-            Array.from(inputElements).forEach(function (inputElement) {
-                // Xử lý trường hợp blur khỏi input
-                inputElement.onblur = function () {
-                    validate(inputElement, rule);
+            // Lặp qua mỗi rule và xử lý (lắng nghe sự kiện blur, input, ...)
+            options.rules.forEach(function (rule) {
+
+                // Lưu lại các rules cho mỗi input
+                if (Array.isArray(selectorRules[rule.selector])) {
+                    selectorRules[rule.selector].push(rule.test);
+                } else {
+                    selectorRules[rule.selector] = [rule.test];
                 }
 
-                // Xử lý mỗi khi người dùng nhập vào input
-                inputElement.oninput = function () {
-                    var errorElement = getParent(inputElement, options.formGroupSelector).querySelector(options.errorSelector);
-                    errorElement.innerText = '';
-                    getParent(inputElement, options.formGroupSelector).classList.remove('invalid');
-                }
+                var inputElements = formElement.querySelectorAll(rule.selector);
+
+                Array.from(inputElements).forEach(function (inputElement) {
+                    // Xử lý trường hợp blur khỏi input
+                    inputElement.onblur = function () {
+                        validate(inputElement, rule);
+                    }
+
+                    // Xử lý mỗi khi người dùng nhập vào input
+                    inputElement.oninput = function () {
+                        var errorElement = getParent(inputElement, options.formGroupSelector).querySelector(options.errorSelector);
+                        errorElement.innerText = '';
+                        getParent(inputElement, options.formGroupSelector).classList.remove('invalid');
+                    }
+                });
             });
+        }
+
+    }
+
+
+
+    // Định nghĩa rules
+    // Nguyên tắc của các rules:
+    // 1. Khi có lỗi => Trả ra message lỗi
+    // 2. Khi hợp lệ => Không trả ra cái gì cả (undefined)
+    Validator.isRequired = function (selector, message) {
+        return {
+            selector: selector,
+            test: function (value) {
+                return value ? undefined : message || 'Vui lòng nhập trường này'
+            }
+        };
+    }
+
+    Validator.isEmail = function (selector, message) {
+        return {
+            selector: selector,
+            test: function (value) {
+                var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                return regex.test(value) ? undefined : message || 'Trường này phải là email';
+            }
+        };
+    }
+
+    Validator.minLength = function (selector, min, message) {
+        return {
+            selector: selector,
+            test: function (value) {
+                return value.length >= min ? undefined : message || `Vui lòng nhập tối thiểu ${min} kí tự`;
+            }
+        };
+    }
+
+    Validator.isConfirmed = function (selector, getConfirmValue, message) {
+        return {
+            selector: selector,
+            test: function (value) {
+                return value === getConfirmValue() ? undefined : message || 'Giá trị nhập vào không chính xác';
+            }
+        }
+    }
+
+
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mong muốn của chúng ta
+        Validator({
+            form: "#form1",
+            formGroupSelector: ".group1",
+            errorSelector: ".form-message",
+            rules: [
+                Validator.isRequired("#Username", "Vui lòng nhập nội dung này"),
+
+                Validator.minLength("#Password", 6),
+            ],
+            onSubmit: async function (data) {
+                console.log(data);
+                console.log("cut di bn oi");
+                // gửi request tới csdl server
+                const url = `${currentURL}/login`; // URL của máy chủ mục tiêu
+                const postData = JSON.stringify({
+                    // thông tin đăng ký
+                    usr: `${document.querySelector("#form1 #Username").value}`,
+                    pass: `${document.querySelector("#form1 #Password").value}`,
+                });
+
+                //bình minh bị đẹp trai
+                const requestOptions = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: postData,
+                };
+
+
+                try {
+                    const response = await fetch(url, requestOptions);
+                    console.log(response.status);
+                    if (response.status == 200) {
+                        console.log("e sơ");
+                        window.location.reload();
+                    }
+                    else if (response.status == 403 || response.status == 500) {
+                        console.log("e sơ");
+                        toast.querySelector('.text-1').innerHTML = 'Lỗi';
+                        toast.querySelector('.text-2').innerHTML = 'Nhập cho đúng nhé em iuuu';
+                        toast.classList.add("active");
+                        progress.classList.add("active");
+
+                        timer1 = setTimeout(() => {
+                            toast.classList.remove("active");
+                        }, 5000); //1s = 1000 milliseconds
+
+                        timer2 = setTimeout(() => {
+                            progress.classList.remove("active");
+                        }, 5300);
+                    }
+                } catch (error) {
+                    console.log("Error:", error);
+                }
+
+            },
         });
-    }
-
-}
 
 
-
-// Định nghĩa rules
-// Nguyên tắc của các rules:
-// 1. Khi có lỗi => Trả ra message lỗi
-// 2. Khi hợp lệ => Không trả ra cái gì cả (undefined)
-Validator.isRequired = function (selector, message) {
-    return {
-        selector: selector,
-        test: function (value) {
-            return value ? undefined : message || 'Vui lòng nhập trường này'
-        }
-    };
-}
-
-Validator.isEmail = function (selector, message) {
-    return {
-        selector: selector,
-        test: function (value) {
-            var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-            return regex.test(value) ? undefined : message || 'Trường này phải là email';
-        }
-    };
-}
-
-Validator.minLength = function (selector, min, message) {
-    return {
-        selector: selector,
-        test: function (value) {
-            return value.length >= min ? undefined : message || `Vui lòng nhập tối thiểu ${min} kí tự`;
-        }
-    };
-}
-
-Validator.isConfirmed = function (selector, getConfirmValue, message) {
-    return {
-        selector: selector,
-        test: function (value) {
-            return value === getConfirmValue() ? undefined : message || 'Giá trị nhập vào không chính xác';
-        }
-    }
-}
+        Validator({
+            form: "#form2",
+            formGroupSelector: ".group1",
+            errorSelector: ".form-message",
+            rules: [
+                Validator.isRequired("#Username", "Vui lòng nhập nội dung này"),
+                Validator.isRequired("#Password", "Vui lòng nhập nội dung này"),
+                Validator.isRequired("#email", "Vui lòng nhập nội dung này"),
+                Validator.isEmail("#email"),
+                Validator.minLength("#Password", 6),
+                // Validator.isConfirmed('#new-Password-again', function () {
+                //     return document.querySelector('#form-3 #new-Password').value;
+                // }, 'Mật khẩu nhập lại không chính xác')
 
 
+            ],
+            onSubmit: async function (data) {
+                // Call API
+                const reg_btn = document.querySelector(".signup");
+                console.log(data);
+                console.log("cut di bn oi");
+                //gửi request tới csdl server
+                const url = `${currentURL}/signup`; // URL của máy chủ mục tiêu
+                const postData = JSON.stringify({
+                    // thông tin đăng kýýý
+                    email: `${document.querySelector("#form2 #email").value}`,
+                    usr: `${document.querySelector("#form2 #Username").value}`,
+                    pass: `${document.querySelector("#form2 #Password").value}`,
+                });
 
+                //bình minh bị đẹp trai
+                const requestOptions = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: postData,
+                };
 
-
-document.addEventListener('DOMContentLoaded', function () {
-    // Mong muốn của chúng ta
-    Validator({
-        form: "#form1",
-        formGroupSelector: ".group1",
-        errorSelector: ".form-message",
-        rules: [
-            Validator.isRequired("#Username", "Vui lòng nhập nội dung này"),
-
-            Validator.minLength("#Password", 6),
-        ],
-        onSubmit: async function (data) {
-            console.log(data);
-            console.log("cut di bn oi");
-            // gửi request tới csdl server
-            const url = `${currentURL}/login`; // URL của máy chủ mục tiêu
-            const postData = JSON.stringify({
-                // thông tin đăng ký
-                usr: `${document.querySelector("#form1 #Username").value}`,
-                pass: `${document.querySelector("#form1 #Password").value}`,
-            });
-
-            //bình minh bị đẹp trai
-            const requestOptions = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: postData,
-            };
-
-
-            try {
-                const response = await fetch(url, requestOptions);
-                console.log(response.status);
-                if (response.status == 200) {
-                    console.log("e sơ");
-                    window.location.reload();
-                }
-                else if (response.status == 403 || response.status == 500) {
-                    console.log("e sơ");
-                    toast.querySelector('.text-1').innerHTML = 'Lỗi';
-                    toast.querySelector('.text-2').innerHTML = 'Nhập cho đúng nhé em iuuu';
-                    toast.classList.add("active");
-                    progress.classList.add("active");
-
-                    timer1 = setTimeout(() => {
-                        toast.classList.remove("active");
-                    }, 5000); //1s = 1000 milliseconds
-
-                    timer2 = setTimeout(() => {
-                        progress.classList.remove("active");
-                    }, 5300);
-                }
-            } catch (error) {
-                console.log("Error:", error);
-            }
-
-        },
-    });
-
-
-    Validator({
-        form: "#form2",
-        formGroupSelector: ".group1",
-        errorSelector: ".form-message",
-        rules: [
-            Validator.isRequired("#Username", "Vui lòng nhập nội dung này"),
-            Validator.isRequired("#Password", "Vui lòng nhập nội dung này"),
-            Validator.isRequired("#email", "Vui lòng nhập nội dung này"),
-            Validator.isEmail("#email"),
-            Validator.minLength("#Password", 6),
-            // Validator.isConfirmed('#new-Password-again', function () {
-            //     return document.querySelector('#form-3 #new-Password').value;
-            // }, 'Mật khẩu nhập lại không chính xác')
-
-
-        ],
-        onSubmit: async function (data) {
-            // Call API
-            const reg_btn = document.querySelector(".signup");
-            console.log(data);
-            console.log("cut di bn oi");
-            //gửi request tới csdl server
-            const url = `${currentURL}/signup`; // URL của máy chủ mục tiêu
-            const postData = JSON.stringify({
-                // thông tin đăng kýýý
-                email: `${document.querySelector("#form2 #email").value}`,
-                usr: `${document.querySelector("#form2 #Username").value}`,
-                pass: `${document.querySelector("#form2 #Password").value}`,
-            });
-
-            //bình minh bị đẹp trai
-            const requestOptions = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: postData,
-            };
-
-            reg_btn.disabled = true;
-            reg_btn.innerHTML = `<div class="load">
+                reg_btn.disabled = true;
+                reg_btn.innerHTML = `<div class="load">
                     <div class="progress"></div>
                     <div class="progress"></div>
                     <div class="progress"></div>
                 </div>`;
-            try {
-                const response = await fetch(url, requestOptions);
-                console.log(response.status);
-                if (response.status == "200") {
+                try {
+                    const response = await fetch(url, requestOptions);
+                    console.log(response.status);
+                    if (response.status == "200") {
 
-                    document.querySelector(".no_login a").click();
+                        document.querySelector(".no_login a").click();
+                    }
+                    else if (response.status == "404") {
+                        toast.querySelector('.text-1').innerHTML = 'Lỗi';
+                        toast.querySelector('.text-2').innerHTML = 'Tài khoản này có rồi á em iuu';
+                        toast.classList.add("active");
+                        progress.classList.add("active");
+
+                        timer1 = setTimeout(() => {
+                            toast.classList.remove("active");
+                        }, 5000); //1s = 1000 milliseconds
+
+                        timer2 = setTimeout(() => {
+                            progress.classList.remove("active");
+                        }, 5300);
+                    }
+
+
+                    // btn_reg.disabled = false;
+                    // btn_reg.textContent = "Register";
+                } catch (error) {
+                    console.log("Error:", error);
                 }
-                else if (response.status == "404") {
-                    toast.querySelector('.text-1').innerHTML = 'Lỗi';
-                    toast.querySelector('.text-2').innerHTML = 'Tài khoản này có rồi á em iuu';
-                    toast.classList.add("active");
-                    progress.classList.add("active");
-
-                    timer1 = setTimeout(() => {
-                        toast.classList.remove("active");
-                    }, 5000); //1s = 1000 milliseconds
-
-                    timer2 = setTimeout(() => {
-                        progress.classList.remove("active");
-                    }, 5300);
-                }
-
-
-                // btn_reg.disabled = false;
-                // btn_reg.textContent = "Register";
-            } catch (error) {
-                console.log("Error:", error);
-            }
-        },
+            },
+        });
     });
-});
 
 //

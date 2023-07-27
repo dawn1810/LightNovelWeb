@@ -151,4 +151,25 @@
     .my_novel_item{
         flex-direction: column;
     }
+    .name-container_img{
+        margin: 0 auto;
+        width: 55%;
+        width:55%;
+    }
+    .name-container{
+        flex-direction: column;
+    }
+    .novel_conntroller_btn{
+        margin-top: 2em;
+    }
+    .list_chapter_body{
+        width: 100%;
+    }
+    .n_num{
+        width: 25% !important;
+    }
+    .current-category-list{
+        width: 100%;
+        flex-wrap: wrap;
+    }
 }

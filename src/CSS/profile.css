@@ -92,7 +92,10 @@ body {
 }
 
 .page4 .pass {
-  width: 75%;
+  width: 100%;
+  box-sizing: border-box;
+  height: 58px;
+
 }
 
 .Setting_pageWrapper__PM {
@@ -325,10 +328,11 @@ body {
 
 /* da xem */
 .followed-item {
+  position: relative;
   display: flex;
   justify-content: space-between;
   background-color: var(--element-color);
-  margin: 20px;
+  margin: 30px;
   padding: 10px;
   align-content: center;
   flex-wrap: nowrap;
@@ -346,17 +350,18 @@ body {
   padding: 0 15px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
-.name-container_img{
-  width: 35%;
-  height: 22em;
+
+.name-container_img {
+  width: 20%;
+  height: 12em;
   overflow: hidden;
   border-radius: 10px;
 }
 
 .name-container img {
-  margin: 13px 0;
+  /* margin: 13px 0; */
   width: 100%;
   height: 100%;
   object-position: 50% 100%;
@@ -385,14 +390,29 @@ body {
 }
 
 .name-novel {
-  width:100%;
+  width: 95%;
+  height: 12em;
   display: flex;
   flex-direction: column;
   margin-left: 20px;
+  justify-content: space-between;
 }
 
 .name-novel h2 {
   text-transform: capitalize;
+  width: 95%;
+}
+
+.name-novel p {
+  /* height: 70%; */
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-height: 20px;
 }
 
 .last-time-container {
@@ -419,12 +439,11 @@ body {
 
 .change-pass-btn {
   background-color: var(--button-colors) !important;
-  width: 35%;
+  width: 100%;
   height: 58px;
-  border-radius: 10px;
-  margin-top: 20px;
+  border-radius: 20px;
+  margin-top: 50px;
   cursor: pointer;
-  margin: 50px 21%;
   font-size: 20px;
 }
 
@@ -586,7 +605,7 @@ body {
 }
 
 .item_btn_gr {
-  width: 30%;
+  width: 26%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -630,6 +649,7 @@ body {
 
 .page5_home_info_wrap_item_value {
   margin-top: 10px;
+  text-align: center;
 }
 
 .page5_home_info_foot {
@@ -1114,16 +1134,13 @@ input:required:focus {
   color: #333;
 }
 
-.toast .close {
-  position: absolute;
-  top: 4px;
-  right: -37%;
+.toast .close1 {
   padding: 5px;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.toast .close:hover {
+.toast .close1:hover {
   opacity: 1;
 }
 
@@ -1297,4 +1314,21 @@ input:required:focus {
 
 .Setting_sidebar_wrapper_active {
   display: none;
+}
+
+
+.delete_f {
+  font-size:20px;
+  position: absolute;
+  right: -1%;
+  top: -4%;
+  width: 40px;
+  height: 40px;
+  padding: 10px 20px;
+  border-radius: 50%;
+  background-color: var(--button-colors) !important;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

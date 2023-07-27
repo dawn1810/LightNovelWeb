@@ -61,33 +61,8 @@ async function like_novel(status) {
             })
         })
             .then(response => {
-                // if (response.status === 200) {
-                //     document.querySelector('.header_user').style.display = 'flex'
-                //     document.querySelector('.header_noUser').style.display = 'none'
-
-                //     // document.querySelector('.curent_user').style.display = 'block'
-
-                //     return response.text(); // Chuyển đổi phản hồi thành văn bản
-
-                // } else if (response.status === 404) {
-                //     window.location.href = `${currentURL}/error/404.html`;
-
-                // }
             })
             .then(data => {
-                // responseData = JSON.parse(data); // Lưu trữ nội dung phản hồi vào biến
-                // // console.log(responseData.usr)
-                // if (responseData) {
-
-                //     if (responseData.avt == 'unknown') {
-                //         document.querySelector('.header_user_logo_i').innerHTML = `<i class="fa-regular fa-circle-user"></i>
-                //     ${responseData.usr}`;//a zai sống đi a zai
-                //     }
-                //     else {
-
-                //     }
-
-                // }
             }) // In nội dung phản hồi
             // Sử dụng responseData ở những nơi khác trong mã của b
             .catch(error => {
@@ -289,15 +264,6 @@ lasted_chap_btn.onclick = function (e) {
     e.preventDefault();
 }
 
-const random_chap_btn = document.querySelector(".random_chap");
-random_chap_btn.onclick = function (e) {
-    e.preventDefault();
-    const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
-    console.log(chan)
-    window.location.href = `${currentURL}/reading/${chan}/0`
-}
-
-
 
 const first_chap = document.querySelector('.first_chap')
 first_chap.onclick = function (e) {
@@ -394,14 +360,13 @@ async function getReview() {
                     function getRndInteger(min, max) {
                         return Math.floor(Math.random() * (max - min + 1)) + min;
                     }
-                    const ranchap = String(getRndInteger(0, data.no_chapters - 1));
-                    console.log(ranchap);
+                    let ranchap = String(getRndInteger(0, data.no_chapters - 1));
                     if (ranchap.length >= 3) {
                         first_num = ranchap.charAt(0);
                         mid_num = ranchap.charAt(1);
                         last_num = ranchap.charAt(2);
                     }
-                    else if (ranchap >= 2) {
+                    else if (ranchap.length >= 2) {
                         first_num = 0
                         mid_num = ranchap.charAt(0);
                         last_num = ranchap.charAt(1);

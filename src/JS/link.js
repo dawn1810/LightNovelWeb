@@ -12,8 +12,6 @@ $(document).ready(function () {
   const themes = localStorage.getItem("theme");
 
   checkbox.addEventListener("change", () => {
-    console.log("Checkbox");
-
     if (checkbox.checked) {
       localStorage.setItem("theme", "dark");
 
@@ -49,44 +47,42 @@ $(document).ready(function () {
       rootStyle.setProperty("--white-text", "#000");
     }
     else {
-      if (themes) {
-        rootStyle.setProperty("--header-background", "#D4B499");
-        rootStyle.setProperty("--black-text", "#000");
-        rootStyle.setProperty("--white-color", "#dbd9d9");
-        rootStyle.setProperty("--background-color", "#ffffec");
-        rootStyle.setProperty("--category_bg", "#889EAF");
-        rootStyle.setProperty("--search-bg", "#F3D5C0");
-        rootStyle.setProperty("--menu-text", "#063458");
-        rootStyle.setProperty("--item-color", "rgb(151 107 51)");
-        rootStyle.setProperty("--button-color", "#884c05");
-        rootStyle.setProperty("--login-btn", "#884c05");
-        rootStyle.setProperty("--author-color", "#ffb035");
-        rootStyle.setProperty("--header-text", "#884c05");
-        rootStyle.setProperty("--link-text", "#463797");
-        rootStyle.setProperty("--novel_author", "#ffb035");
-        rootStyle.setProperty("--review_bg", "antiquewhite");
-        rootStyle.setProperty("--chapter_bg", "rgb(158 138 111)");
-        rootStyle.setProperty("--chap-item", "rgb(213 148 66)");
-        rootStyle.setProperty("--cm_bg", "#ceae80");
-        rootStyle.setProperty("--cm_text", "#26262c");
-        rootStyle.setProperty("--same-propose-item_hv", "#ff9805c2");
-        rootStyle.setProperty("--chapter-item", "#513a13");
-        rootStyle.setProperty("--text_novel", "#000");
-        rootStyle.setProperty("--bg_novel", "#ffffec");
-        rootStyle.setProperty("--element-color", "#ebd6bd");
-        rootStyle.setProperty("--filter_search", "#884c05");
-        rootStyle.setProperty("--st-pr-btn-bg", "#b0906b");
-        rootStyle.setProperty("--border-btn-st", "#a0896e");
-        rootStyle.setProperty("--button-colors", "#b0906b");
-        rootStyle.setProperty("--white-text", "#fff");
+      localStorage.setItem("theme", "light");
+      rootStyle.setProperty("--header-background", "#D4B499");
+      rootStyle.setProperty("--black-text", "#000");
+      rootStyle.setProperty("--white-color", "#dbd9d9");
+      rootStyle.setProperty("--background-color", "#ffffec");
+      rootStyle.setProperty("--category_bg", "#889EAF");
+      rootStyle.setProperty("--search-bg", "#F3D5C0");
+      rootStyle.setProperty("--menu-text", "#063458");
+      rootStyle.setProperty("--item-color", "rgb(151 107 51)");
+      rootStyle.setProperty("--button-color", "#884c05");
+      rootStyle.setProperty("--login-btn", "#884c05");
+      rootStyle.setProperty("--author-color", "#ffb035");
+      rootStyle.setProperty("--header-text", "#884c05");
+      rootStyle.setProperty("--link-text", "#463797");
+      rootStyle.setProperty("--novel_author", "#ffb035");
+      rootStyle.setProperty("--review_bg", "antiquewhite");
+      rootStyle.setProperty("--chapter_bg", "rgb(158 138 111)");
+      rootStyle.setProperty("--chap-item", "rgb(213 148 66)");
+      rootStyle.setProperty("--cm_bg", "#ceae80");
+      rootStyle.setProperty("--cm_text", "#26262c");
+      rootStyle.setProperty("--same-propose-item_hv", "#ff9805c2");
+      rootStyle.setProperty("--chapter-item", "#513a13");
+      rootStyle.setProperty("--text_novel", "#000");
+      rootStyle.setProperty("--bg_novel", "#ffffec");
+      rootStyle.setProperty("--element-color", "#ebd6bd");
+      rootStyle.setProperty("--filter_search", "#884c05");
+      rootStyle.setProperty("--st-pr-btn-bg", "#b0906b");
+      rootStyle.setProperty("--border-btn-st", "#a0896e");
+      rootStyle.setProperty("--button-colors", "#b0906b");
+      rootStyle.setProperty("--white-text", "#fff");
 
-        localStorage.setItem("theme", "light");
-      }
+
     }
   });
 
   if (themes) {
-    console.log(themes);
     if (themes == "dark") {
       checkbox.click();
     }
@@ -142,20 +138,19 @@ $(document).ready(function () {
 
   left_item.onclick = function (event) {
     event.stopPropagation();
-    console.log("ok");
   };
 
   const right_item_mobile_close = document.querySelector('.right_item_mobile_close')
   const right_item_mobile = document.querySelector('.right_item_mobile')
   const header_user_logo = document.querySelector('.header_user_logo_i')
-  
-  right_item_mobile_close.onclick = function(){
-    right_item_mobile.style.right="-100%";
+
+  right_item_mobile_close.onclick = function () {
+    right_item_mobile.style.right = "-100%";
   }
-  header_user_logo.onclick= function (e) {
+  header_user_logo.onclick = function (e) {
 
     console.log("ok la");
-    right_item_mobile.style.right="0%";
+    right_item_mobile.style.right = "0%";
   }
 });
 

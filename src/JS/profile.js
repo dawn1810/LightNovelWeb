@@ -39,12 +39,6 @@ const range__label = document.querySelector('.range__label');
 const back_btn = document.querySelectorAll('.back_btn')
 
 
-// chinh sua 
-
-const accept_change_btn = document.getElementById('accept_change');
-const chaccept_drop = document.getElementById('accept_drop');
-// chinh sua 
-
 // toast 
 const toast = document.querySelector(".toast");
 const closeIcon = document.getElementById("close");
@@ -236,7 +230,7 @@ else if (currentPath == '/listchap') {
 
 
 for (let i = 0; i < Setting_item.length; i++) {
-	const currentURL = window.location.protocol + "//" + window.location.host+'/profile';
+	const currentURL = window.location.protocol + "//" + window.location.host + '/profile';
 
 	// console.log(Setting_item[i])
 	// console.log(i);
@@ -426,10 +420,10 @@ async function uploadFiles(files, type) {
 			const responseData = await response.json();
 			console.log('File uploaded!');
 			sessionStorage.setItem('chapters_content', responseData);
-			if (type) {
-				await uploadNovel();
-			} else {
-				await updateNovel();
+			switch (type) {
+				case 0: await uploadNovel();
+				case 1: await updateNovel();
+				case 2: await editNovel();
 			}
 		} else if (response.status == 400) {
 			// Error occurred during upload
@@ -526,6 +520,43 @@ async function updateNovel() {
 	}
 }
 
+async function editNovel() {
+	// POST ALL DATA TO SERVER--------------------------------------------------------------------------------------------------
+	//gửi request tới csdl server
+	const url = `${currentURL}/edit_novel`; // URL của máy chủ mục tiêu
+
+	const postData = JSON.stringify({
+		id: sessionStorage.getItem("currNovelID"),
+		name_chaps: sessionStorage.getItem("name_chapters").split(","),
+		chap_ids: sessionStorage.getItem("chapters_content").split(","),
+		edit_index: sessionStorage.getItem("edit_indexes").split(","),
+		remove_list:  sessionStorage.getItem("remove_list").split(",")
+	});
+	const requestOptions = {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: postData
+	};
+
+	try {
+		const response = await fetch(url, requestOptions)
+		// taì khoan hơp lệ 
+		if (response.status == '200') {
+			// back to novel list scene
+			page5_a_up_drop()
+			let newURL = currentURL + '/profile/my_novel';
+			window.location.href = newURL;
+			// reset sessionStorage
+			sessionStorage.clear();
+		}
+	} catch (error) {
+		console.log('Error:', error);
+	}
+}
+
+
 function notify(text_1, text_2) {
 	toast.classList.add("active");
 	toast.querySelector('.text-1').innerHTML = text_1;
@@ -611,50 +642,7 @@ Save_btn.onclick = async function (e) {
 
 }
 
-document.querySelector('.change-pass-btn').onclick = async function (e) {
-	console.log('cut di bn oi');
-	e.preventDefault();
-	//gửi request tới csdl server
-	const url = `${currentURL}/changepass`; // URL của máy chủ mục tiêu
-	const postData = JSON.stringify({
-		// thông tin đăng kýýý
-		'status': 'Change Pass',
-		'Old-Password': `${document.querySelector('.old-password').value}`,
-		'new-Password': `${document.querySelector('.new-password').value}`,
-		'new-Password-again': `${document.querySelector('.new-password-again').value}`
-	});
 
-
-	//BM  _______
-	const requestOptions = {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: postData
-	};
-
-
-	try {
-		const response = await fetch(url, requestOptions)
-		// taì khoan hơp lệ 
-		if (response.status == '200') {
-			notify('Thành công', 'Chúc mừng bạn đã đổi thành công mật khẩu!');
-		}
-		else if (response.status == '403') {
-			notify('Lỗi', 'Có phải bạn đã quên mật khẩu đã quên không ???');
-		}
-		else if (response.status == '404') {
-			notify('Lỗi', 'Anh bạn à !!!');
-		}
-		else {
-			notify('Lỗi', 'Máy chủ đang có chút trục trặc !!!');
-		}
-	} catch (error) {
-		console.log('Error:', error);
-
-	}
-}
 
 // change pass
 add_new.onclick = function () {
@@ -895,6 +883,7 @@ $(document).ready(function () {
 	$(document).on('click', '.update_current_novel ', function () {
 		// Delete the grandparent node
 		let grandparentID = $(this).parent().parent().attr('id');
+		sessionStorage.setItem('currNovelID', grandparentID);
 		page5_composed_drop()
 		var newURL = currentURL + '/profile/update/' + grandparentID + '/edit';
 		window.location.href = newURL;
@@ -902,10 +891,47 @@ $(document).ready(function () {
 		console.log(grandparentID); // This will log 'grandparent'
 	});
 
+	// load update edit (chỉnh sửa) page
+	$(document).on('click', '.delete-follow', async function () {
+		// Delete the grandparent node
+		let grandparentID = $(this).parent().parent().parent().parent().attr("id");
+		page5_composed_drop();
+
+		const accountCookie = getCookie('account');
+		if (accountCookie) {
+			// Gửi cookie "account" lên máy chủ
+			// Sử dụng XMLHttpRequest hoặc Fetch API để thực hiện request
+			// Ví dụ sử dụng Fetch API:
+			await fetch(`${currentURL}/updatelike`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					liked: 0,
+					id_truyen: grandparentID
+				})
+			})
+				.then(response => {
+					if (response.ok) {
+						notify('Thông báo', 'Bỏ theo dõi thành công!')
+						$(this).parent().parent().parent().parent().remove();
+					}
+				})
+				.catch(error => {
+					notify('Lỗi', 'Có lỗi xảy ra!')
+					console.log(error)
+				});
+		}
+
+	});
+
 	// load update show list (danh sách chương) page
 	$(document).on('click', '.showlist_novel ', function () {
 		// Delete the grandparent node
 		let grandparentID = $(this).parent().parent().attr('id');
+		page5_composed_drop()
+		sessionStorage.setItem('currNovelID', grandparentID);
 		var newURL = currentURL + '/profile/update/' + grandparentID + '/listchap';
 		window.location.href = newURL;
 	});
@@ -974,13 +1000,27 @@ $(document).ready(function () {
 	});
 
 	$(document).on('click', '.page5_b .remove_chap', async function () {
-		console.log('aaaa')
+		if (confirm("Hãy chắc chắn sẽ xóa chapter này? hành động của bạn là không thể thu hồi!!!") == true) {
+			let grandGrandParentID = $(this).parent().parent().parent().attr('id');
+			let remove_list = []
+			// if already have remove list
+			if (sessionStorage.getItem("remove_list")) {
+				remove_list = sessionStorage.getItem("remove_list").split(",");
+			};
+			// set new remove to sessionStorage:
+			remove_list.push($(this).parent().parent().parent().index());
+			sessionStorage.setItem("remove_list", remove_list);
+			//////-----------nho set file ve rong-------------------///////
+			// // remove current chapter items
+			// $(this).parent().parent().parent().remove()
+		} else {
+			notify('Thông báo', 'Đã huỷ!');
+		}
 	});
 });
 
 // next page btn of .page5_chap
 document.querySelector('.page5_chap .next_btn').onclick = async function () {
-	console.log("Click")
 	let files = []
 	let full = false
 	let name_chaprters = []
@@ -991,7 +1031,6 @@ document.querySelector('.page5_chap .next_btn').onclick = async function () {
 		let chapName = $(this).find('.chap_name').val();
 		let curr_file = $(this).find('.file-input')[0].files[0];
 		if (chapNum != '' && chapName != '' && curr_file) {
-			// finalDataToServer["name_chapters"].push(`Chương ${chapNum}: ${chapName} `);
 			name_chaprters.push(`Chương ${chapNum}: ${chapName} `);
 			files.push(curr_file);
 			full = true;
@@ -1008,7 +1047,7 @@ document.querySelector('.page5_chap .next_btn').onclick = async function () {
 			document.querySelector('.page5_chap .next_btn').innerHTML = `<img src = "https://cdn.discordapp.com/attachments/1128184786347905054/1129065224998227968/icons8-sharingan-100.png"> `
 			// window.alert("Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)")
 			notify('Rasengan', 'Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)');
-			await uploadFiles(files, true);
+			await uploadFiles(files, 0);
 		} else {
 			notify('Thông báo', 'Đã huỷ!');
 		}
@@ -1034,12 +1073,51 @@ document.querySelector('.page5_last .page5_last_btn').onclick = function () {
 	sessionStorage.clear();
 }
 
+// trang danh sách chương:
+// nút hủy 
+document.querySelector('.page5_b .close_btn').onclick = function () {
+	cancel();
+};
+
+// nút chấp nhận
+document.querySelector('.page5_b .next_btn').onclick = async function () {
+	console.log('next_btn')
+	let files = []
+	let edit_indexes = []
+	let name_chaprters = []
+	// Loop through all elements
+	$('.page5_b .my_novel_item').each(function () {
+		// Get the input element inside the current element
+		let chapNum = $(this).find('.n_num').val();
+		let chapName = $(this).find('.n_name').val();
+		let curr_file = $(this).find('.file-input')[0].files[0];
+		name_chaprters.push(`Chương ${chapNum}: ${chapName} `);
+		if (curr_file) {
+			files.push(curr_file);
+			edit_indexes.push($(this).index());
+			console.log($(this).index());
+		}
+	});
+
+	sessionStorage.setItem("name_chapters", name_chaprters);
+	sessionStorage.setItem("edit_indexes", edit_indexes);
+
+	if (confirm("Khi tiến hành đăng truyện, bạn đã chấp nhận các chính sách và quy định của WTFNovel về Nội dung và Chính sách chia sẻ quyền lợi. Bạn có chắc sẽ đăng truyện này?") == true) {
+		document.querySelector('.page5_b .next_btn').innerHTML = `<img src = "https://cdn.discordapp.com/attachments/1128184786347905054/1129065224998227968/icons8-sharingan-100.png"> `
+		// window.alert("Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)")
+		notify('Rasengan', 'Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)');
+		await uploadFiles(files, 2);
+	} else {
+		notify('Thông báo', 'Đã huỷ!');
+	}
+}
+
 // trang thêm chương 
 // nút hủy 
 document.querySelector('.page5_d .close_btn').onclick = function () {
 	cancel();
 }
-// nuts thêm trương
+// nút thêm trương
 document.querySelector('.page5_d .more_chap_btn').onclick = function () {
 	const newElement = document.createElement('div');
 	newElement.className = 'info-wrapper-container';
@@ -1096,7 +1174,6 @@ document.querySelector('.page5_d .post_btn').onclick = async function () {
 		let chapName = $(this).find('.chap_name').val();
 		let curr_file = $(this).find('.file-input')[0].files[0];
 		if (chapNum != '' && chapName != '' && curr_file) {
-			// finalDataToServer["name_chapters"].push(`Chương ${chapNum}: ${chapName} `);
 			name_chaprters.push(`Chương ${chapNum}: ${chapName} `);
 			files.push(curr_file);
 			full = true;
@@ -1112,7 +1189,7 @@ document.querySelector('.page5_d .post_btn').onclick = async function () {
 			document.querySelector('.page5_chap .post_btn').innerHTML = `<img src = "https://cdn.discordapp.com/attachments/1128184786347905054/1129065224998227968/icons8-sharingan-100.png"> `
 			// window.alert("Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)")
 			notify('Rasengan', 'Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)');
-			await uploadFiles(files, false);
+			await uploadFiles(files, 1);
 		} else {
 			notify('Thông báo', 'Đã huỷ!');
 		}
@@ -1122,20 +1199,19 @@ document.querySelector('.page5_d .post_btn').onclick = async function () {
 	}
 }
 
-
 // change
-accept_change_btn.onclick = function () {
+document.querySelector('.page5_c .next_btn').onclick = function () {
 
 	const regex = /\/([a-fA-F0-9]+)\/edit/;
 
 	// Use the exec method to extract the matching part from the URL
 	const match = regex.exec(window.location.href);
-	
+
 	// Extracted ID will be in match[1]
 	const extractedID = match ? match[1] : null;
-	
+
 	const postData = JSON.stringify({
-		'id':extractedID,
+		'id': extractedID,
 		'novel_name': document.querySelector('.page5_c  .profile_input ').value,
 		'author_name': document.querySelector('.page5_c  .author_name').value,
 		'novel_descript': document.querySelector('.page5_c  .novel_descript').value,
@@ -1150,10 +1226,10 @@ accept_change_btn.onclick = function () {
 		},
 		body: postData
 	};
-	url = currentURL+'/api/edit_info_novel'
+	url = currentURL + '/api/edit_info_novel'
 	fetch(url, requestOptions)
 		.then(response => {
-			if (response.ok){
+			if (response.ok) {
 				notify("Thông báo", "Thay đổi thông tin thành công!");
 			}
 			else {
@@ -1165,10 +1241,9 @@ accept_change_btn.onclick = function () {
 		});
 
 };
-chaccept_drop.onclick = function () {
-	if (confirm('Thay đổi sẽ không được lưu, huỷ thay đổi?')) {
-		window.location.href = currentURL + '/profile/my_novel'
-	}
+// my space
+document.querySelector('.page5_c .close_btn').onclick = function () {
+	cancel()
 }
 
 
