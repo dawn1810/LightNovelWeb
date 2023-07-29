@@ -49,7 +49,7 @@
             </div>
             <div class="Setting_sidebar-list_item yourfollow">
               <div class="Setting_sidebar-list_item_wrap">
-                <i class="fa-solid fa-book"></i> Truyện đã theo dõi
+                <i class="fa-solid fa-book"></i> Truyện đã Thích
               </div>
             </div>
             <% if (login_way=='normal' ) { %>
@@ -1185,7 +1185,7 @@
 
       console.log('cut di bn oi');
       //gửi request tới csdl server
-      const url = `${currentURL}/changepass`; // URL của máy chủ mục tiêu
+      const url = `${currentURL}/api/changepass`; // URL của máy chủ mục tiêu
       const postData = JSON.stringify({
         // thông tin đăng kýýý
         'status': 'Change Pass',

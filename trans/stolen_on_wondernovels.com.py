@@ -153,7 +153,7 @@ if __name__ == '__main__':
         path_save = os.path.join('trans','.data_stolen',normalize_string(manga_name))
         create_directories(normalize_string(manga_name))
         list_info = get_list_chapter(url_database,manga_id)
-        response = requests.post('http://localhost:6969/no_chaps', data=json_data, headers={'Content-Type': 'application/json'})
+        response = requests.post('http://localhost:6969/api/no_chaps', data=json_data, headers={'Content-Type': 'application/json'})
 
             # Kiểm tra mã trạng thái của response
         if response.status_code == 200:
@@ -173,6 +173,6 @@ if __name__ == '__main__':
         # del(_)
 
         translateGPT.GPTtranslate(path_save,False)
-        response_done = requests.get('http://localhost:6969/update_novel')
+        response_done = requests.get('http://localhost:6969/api/update_novel')
         if response_done.status_code == 200:
             print('Done trans, going to upload database')

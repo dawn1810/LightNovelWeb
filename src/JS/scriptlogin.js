@@ -263,9 +263,8 @@ function Validator(options) {
             ],
             onSubmit: async function (data) {
                 console.log(data);
-                console.log("cut di bn oi");
                 // gửi request tới csdl server
-                const url = `${currentURL}/login`; // URL của máy chủ mục tiêu
+                const url = `${currentURL}/api/login`; // URL của máy chủ mục tiêu
                 const postData = JSON.stringify({
                     // thông tin đăng ký
                     usr: `${document.querySelector("#form1 #Username").value}`,
@@ -286,11 +285,9 @@ function Validator(options) {
                     const response = await fetch(url, requestOptions);
                     console.log(response.status);
                     if (response.status == 200) {
-                        console.log("e sơ");
                         window.location.reload();
                     }
                     else if (response.status == 403 || response.status == 500) {
-                        console.log("e sơ");
                         toast.querySelector('.text-1').innerHTML = 'Lỗi';
                         toast.querySelector('.text-2').innerHTML = 'Nhập cho đúng nhé em iuuu';
                         toast.classList.add("active");
@@ -332,9 +329,8 @@ function Validator(options) {
                 // Call API
                 const reg_btn = document.querySelector(".signup");
                 console.log(data);
-                console.log("cut di bn oi");
                 //gửi request tới csdl server
-                const url = `${currentURL}/signup`; // URL của máy chủ mục tiêu
+                const url = `${currentURL}/api/signup`; // URL của máy chủ mục tiêu
                 const postData = JSON.stringify({
                     // thông tin đăng kýýý
                     email: `${document.querySelector("#form2 #email").value}`,

@@ -286,7 +286,6 @@ const button_file = document.querySelectorAll("#button_file");
 for (const button of button_file) {
 	button.onclick = function (e) {
 		e.preventDefault();
-		console.log("ok");
 		console.log(button.parentElement);
 		let file = button.parentElement.querySelector("input");
 		file.focus();

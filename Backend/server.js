@@ -171,25 +171,25 @@ function getFirstAndLastDayOfWeek() {
 	lastDayOfWeek.setDate(currentDate.getDate() + (6 - currentDate.getDay()));
 
 	return {
-		firstDay: firstDayOfWeek.toISOString(),
-		lastDay: lastDayOfWeek.toISOString(),
+		firstDay: firstDayOfWeek,
+		lastDay: lastDayOfWeek,
 	};
 }
 
 function getFirstAndLastDayOfMonth() {
+	// Clone the current date object to avoid modifying the original
 	const currentDate = new Date();
 
-	// Calculate the first day of the month
+	// Get the first day of the month
 	const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-	const firstDayOfMonthISO = firstDayOfMonth.toISOString().split('T')[0];
 
-	// Calculate the last day of the month
-	const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-	const lastDayOfMonthISO = lastDayOfMonth.toISOString().split('T')[0];
-
+	// Move to the next month and get the last day of the current month
+	currentDate.setMonth(currentDate.getMonth() + 1);
+	currentDate.setDate(0);
+	const lastDayOfMonth = new Date(currentDate);
 	return {
-		firstDay: firstDayOfMonthISO,
-		lastDay: lastDayOfMonthISO,
+		firstDay: firstDayOfMonth,
+		lastDay: lastDayOfMonth,
 	};
 }
 
@@ -210,14 +210,14 @@ async function getNovelList() {
 	try {
 		// by week:
 		let query_by_week = { update_date: { $gte: getFirstAndLastDayOfWeek().firstDay, $lt: getFirstAndLastDayOfWeek().lastDay } };
-		const by_week = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1 }, sort: { views: 1 }, limit: 50 });
+		const by_week = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1 }, sort: { views: -1, likes: -1, name: 1 }, limit: 12 });
 		// by month:
 		let query_by_month = { update_date: { $gte: getFirstAndLastDayOfMonth().firstDay, $lt: getFirstAndLastDayOfMonth().lastDay } };
-		const by_month = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1 }, sort: { views: 1 }, limit: 50 });
+		const by_month = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1 }, sort: { views: -1, likes: -1, name: 1 }, limit: 12 });
 		// all time
-		const all_time = await server.find_all_Data({ table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1 }, sort: { views: 1 }, limit: 50 });
+		const all_time = await server.find_all_Data({ table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1 }, sort: { views: -1, likes: -1, name: 1 }, limit: 12 });
 		// update nearby:
-		const nearby = await server.find_all_Data({ table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1 }, sort: { update_date: 1 }, limit: 50 });
+		const nearby = await server.find_all_Data({ table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1 }, sort: { update_date: -1, views: -1, likes: -1, name: 1 }, limit: 12 });
 
 		// Change all id to string:
 		const by_week_new = by_week.map(doc => {
@@ -455,8 +455,7 @@ async function processNovels(req, res, id_truyen) {
 
 		render_data.novels = result;
 		render_data.like_novel = novels.likeNovels;
-		for (let id of novels.likeNovels)
-		{
+		for (let id of novels.likeNovels) {
 			let curr_novel = await server.find_one_Data('truyen', { _id: new ObjectId(id) })
 			curr_novel.update_date = calTime(curr_novel.update_date);
 			result_like.push(curr_novel);
@@ -493,7 +492,6 @@ function isBase64(str) {
 function calTime(update_date) {
 	// Thời điểm hiện tại
 	const now = new Date();
-	console.log((update_date))
 
 	// Thời điểm trả về từ server
 	const serverTime = new Date(update_date);
@@ -514,7 +512,7 @@ function calTime(update_date) {
 	const minutesDiff = now.getMinutes() - serverTime.getMinutes();
 
 	// Hiển thị kết quả chênh lệch thời gian
-	console.log(`Chênh lệch thời gian: ${yearsDiff} năm, ${monthsDiff} tháng, ${daysDiff} ngày, ${hoursDiff} giờ, ${minutesDiff} phút.`);
+	// console.log(`Chênh lệch thời gian: ${yearsDiff} năm, ${monthsDiff} tháng, ${daysDiff} ngày, ${hoursDiff} giờ, ${minutesDiff} phút.`);
 
 	if (yearsDiff > 0) {
 		return yearsDiff + ' năm';
@@ -562,13 +560,15 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(parentDirectory, 'view'));
 console.log(path.join(parentDirectory, 'view'))
 
-
-app.get('/', checkCookieLoglUser, (req, res) => {
+// index route
+app.get('/', checkCookieLoglUser, async (req, res) => {
+	let result = await storage.getItem('novellist');
 	currentURL = req.url;
 
 	res.render('index', {
 		headerFile: 'header',
-		footerFile: 'footer'
+		footerFile: 'footer',
+		jsontruyen: result
 	});
 });
 
@@ -578,7 +578,6 @@ app.get('/profile', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
 	await processNovels(req, res, null);
 });
 
-// Hiển thị tất cả truyện đã đăng.
 app.get('/profile/:anything', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
 	await processNovels(req, res, null);
 });
@@ -586,7 +585,6 @@ app.get('/profile/:anything', checkCoookieIfOK, checkCookieLoglUser, async (req,
 app.get('/profile/update/:id/edit', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
 	await processNovels(req, res, req.params.id);
 });
-
 
 app.get('/profile/update/:id/listchap', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
 	await processNovels(req, res, req.params.id);
@@ -596,7 +594,7 @@ app.get('/profile/update/:id/morechap', checkCoookieIfOK, checkCookieLoglUser, a
 	await processNovels(req, res, req.params.id);
 });
 
-// Review page --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Review route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.get('/reviews/:id', checkCookieLoglUser, async (req, res) => {
 	try {
 		const account = req.cookies.account
@@ -620,10 +618,22 @@ app.get('/reviews/:id', checkCookieLoglUser, async (req, res) => {
 			},
 			limit: 1
 		});
-		console.log(result)
+
+		//paste here
 		// default if they don't have an account
 		result[0].liked = 0; ///here
+		const maybeulike = await server.find_all_Data({
+			table: "truyen",
+			query: { genres: { $in: result[0].genres } },
+			projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1,update_date :1},
+			sort: { update_date: -1, views: -1, likes: -1, name: 1 },
+			limit: 6
+		});
 
+
+		for (let i = 0; i < maybeulike.length; i++) {
+			maybeulike[i].update_date = calTime(maybeulike[i].update_date);
+		}
 		if (account) {
 			const decode = decrypt(account, authenticationKey);
 			const decodeList = decode.split(':');
@@ -659,7 +669,8 @@ app.get('/reviews/:id', checkCookieLoglUser, async (req, res) => {
 			likes: result[0].likes,
 			update_date: calTime(result[0].update_date),
 			status: result[0].status,
-			liked: result[0].liked
+			liked: result[0].liked,
+			maybeulike: maybeulike
 		});
 
 	} catch (err) {
@@ -686,6 +697,7 @@ app.post('/reviews', async (req, res) => {
 		// console.log('SYSTEM | REVIEWS | Trả về thông tin reviews truyện ', result[0].name);
 		res.writeHead(200, { 'Content-Type': 'application/json' });
 
+
 		res.end(JSON.stringify(result[0]));
 	} catch (err) {
 		console.log('SYSTEM | REVIEWS | ERROR | ', err);
@@ -693,7 +705,7 @@ app.post('/reviews', async (req, res) => {
 	}
 });
 
-// Reading page --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Reading route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.get('/reading/:id/:chap', checkCookieLoglUser, async (req, res) => {
 	try {
 		let result = await server.find_all_Data({
@@ -711,8 +723,7 @@ app.get('/reading/:id/:chap', checkCookieLoglUser, async (req, res) => {
 		// Gửi data về client
 		// console.log(typeof(String(result[0].chap_ids[parseInt(data.chap)])))
 		// console.log(result);
-		if ((parseInt(result[0].no_chapters) <= parseInt(req.params.chap)) || (parseInt(req.params.chap) < 0))
-		{
+		if ((parseInt(result[0].no_chapters) <= parseInt(req.params.chap)) || (parseInt(req.params.chap) < 0)) {
 			res.status(404).send('Không tìm thấy chương!');
 			return;
 		}
@@ -736,12 +747,75 @@ app.get('/reading/:id/:chap', checkCookieLoglUser, async (req, res) => {
 	}
 });
 
-// 404 route
+// Search route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+app.get('/search', checkCookieLoglUser, async (req, res) => {
+	try {
+		const search = decodeURIComponent(req.query.search);
+		if (search) {
+			// get all novels name
+			let names = await server.find_all_Data({
+				table: "truyen",
+				query: { name: { $regex: new RegExp(search, 'i') } },
+				projection: {
+					name: 1,
+					author: 1,
+					image: 1,
+					status: 1,
+					no_chapters: 1,
+				},
+				limit: 30
+			});
+			// get all novels authors
+			let authors = await server.find_all_Data({
+				table: "truyen",
+				query: { author: { $regex: new RegExp(search, 'i') } },
+				projection: {
+					name: 1,
+					author: 1,
+					image: 1,
+					status: 1,
+					no_chapters: 1,
+				},
+				limit: 30
+			});
+			// get all novels genres
+			let genres = await server.find_all_Data({
+				table: "truyen",
+				query: { genres: { $in: [new RegExp(search, 'i')] } },
+				projection: {
+					name: 1,
+					author: 1,
+					image: 1,
+					status: 1,
+					no_chapters: 1,
+				},
+				limit: 30
+			});
+			// 
+			res.render('search.ejs', {
+				headerFile: 'header',
+				footerFile: 'footer',
+				names: names,
+				authors: authors,
+				genres: genres,
+				what_search: search
+			});
+		}
+		else {
+			res.sendStatus(404);
+		}
+	} catch (err) {
+		console.log('SYSTEM | READING | ERROR | ', err);
+		res.sendStatus(500);
+	}
+});
+
+// 404 route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.get('/404', (req, res) => {
 	res.sendFile(parentDirectory + '/error/404.html');
 });
 
-// category route
+// category route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.get('/category', checkCookieLoglUser, (req, res) => {
 	res.render('category-page', {
 		headerFile: 'header',
@@ -749,22 +823,21 @@ app.get('/category', checkCookieLoglUser, (req, res) => {
 	});
 });
 
-//////////API SPACE??????????????????????
-app.get('/get_ds', async (req, res) => {
-	try {
-		let result = await storage.getItem('novellist');
-		// console.log('SYSTEM | GET_POPULAR_NOVEL | Danh sach id truyen ', reuslt._id);
-		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
-		res.end(JSON.stringify(result));
-		// console.log('SYSTEM | GET_POPULAR_NOVEL | Dữ liệu ', result, ' trên mongDB');
-	} catch (err) {
-		console.log('SYSTEM | GET_POPULAR_NOVEL | ERROR | ', err);
-		res.sendStatus(500);
-	}
-});
 
-// Get no chapters ////////////////////////////////////////////////////////////////////////////////////////////////
-app.post('/no_chaps', async (req, res) => {
+// search route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// app.get('/search', checkCookieLoglUser, (req, res) => {
+// 	res.sendStatus(404);
+// 	// res.render('search', {
+// 	// 	headerFile: 'header',
+// 	// 	footerFile: 'footer'
+// 	// });
+// });
+
+// API SPACE ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// TRUYỆN DỊCH ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Get no chapters --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+app.post('/api/no_chaps', async (req, res) => {
 	const data = req.body;
 	console.log('SYSTEM | NO_CHAP | Dữ liệu nhận được: ', data);
 	try {
@@ -787,11 +860,9 @@ app.post('/no_chaps', async (req, res) => {
 		res.sendStatus(500);
 	}
 });
-
-// Update mongDB novel data ////////////////////////////////////////////////////////////////////////////////////////////////
-app.get('/update_novel', async (req, res) => {
+// Update mongDB novel data --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+app.get('api/update_novel', async (req, res) => {
 	try {
-		console.log('abc')
 		await updateNovel.updateIds();
 
 		// Đọc tệp JSON không đồng bộ
@@ -849,9 +920,10 @@ app.get('/update_novel', async (req, res) => {
 		res.sendStatus(500);
 	}
 });
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Sign up /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-app.post('/signup', async (req, res) => {
+// Sign up --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+app.post('/api/signup', async (req, res) => {
 	const data = req.body;
 	// 404: ten dang nhap ton tai
 	// data = {email: a@gmail.com, usr: bbp, pass: 1234567890}
@@ -882,8 +954,8 @@ app.post('/signup', async (req, res) => {
 	}
 });
 
-// Log in /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-app.post('/login', async (req, res) => {
+// Log in --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+app.post('/api/login', async (req, res) => {
 	const data = req.body;
 	// 403: sai mat khau
 	// log in database {
@@ -965,7 +1037,7 @@ app.post('/login', async (req, res) => {
 });
 
 // Logout /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-app.post('/logout', async (req, res) => {
+app.post('/api/logout', async (req, res) => {
 	try {
 		const data = req.body;
 		console.log('SYSTEM | LOGOUT | Dữ liệu nhận được: ', data);
@@ -1057,7 +1129,7 @@ passport.use(new GoogleStrategy({
 ));
 
 app.get(
-	'/auth/google',
+	'/api/auth/google',
 	passport.authenticate('google', {
 		scope: ['profile', 'email']
 	})
@@ -1065,7 +1137,7 @@ app.get(
 
 // lấy dữ liêu liệu về từ google
 app.get('/auth/google/callback',
-	passport.authenticate('google', { failureRedirect: '/login' }),
+	passport.authenticate('google', { failureRedirect: '/api/login' }),
 	function (req, res) {
 		console.log('ẹc'); // thg nào làm cái này - dawn1810
 		// req.user = {
@@ -1092,7 +1164,7 @@ app.get('/auth/google/callback',
 	}
 );
 
-app.post('/updatelike', async (req, res) => {
+app.post('/api/updatelike', async (req, res) => {
 	try {
 		const data = req.body;
 		console.log('SYSTEM | UPDATE_LIKE | Dữ liệu nhận được: ', data);
@@ -1144,8 +1216,29 @@ app.post('/updatelike', async (req, res) => {
 	}
 })
 
+app.post('/api/updateviews', async (req, res) => {
+	try {
+		const data = req.body;
+		console.log('SYSTEM | UPDATE_VIEWS | Dữ liệu nhận được: ', data);
+		// up one like for current novel
+		await server.update_one_Data('truyen',
+			{ _id: new ObjectId(data.id_truyen) },
+			{ $inc: { views: 1 } }
+		);
+		// response client
+		res.writeHead(200, { 'Content-Type': 'text/plain' });
+		console.log(`SYSTEM | UPDATE_VIEWS | Da tang view cho truyen hien tai`);
+		res.end(JSON.stringify('viewed!!!'));
+
+
+	} catch (err) {
+		console.log('SYSTEM | UPDATE_VIEWS | ERROR | ', err);
+		res.sendStatus(500);
+	}
+})
+
 // Upload novel ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.post('/upload_novel', async (req, res) => {
+app.post('/api/upload_novel', async (req, res) => {
 	const data = req.body;
 	const account = req.cookies.account
 	console.log('SYSTEM | UPLOAD_NOVEL | Dữ liệu nhận được: ', data);
@@ -1195,7 +1288,7 @@ app.post('/upload_novel', async (req, res) => {
 	}
 });
 
-app.post('/update_upload_novel', async (req, res) => {
+app.post('/api/update_upload_novel', async (req, res) => {
 	const data = req.body;
 	console.log('SYSTEM | UPDATE UPLOAD NOVEL |', data);
 	try {
@@ -1228,7 +1321,7 @@ app.post('/api/edit_novel', async (req, res) => {
 		let new_chap_ids = curr_novel.chap_ids;
 		// set chap names as new name_chaps
 		let new_name_chaps = data.name_chaps;
-		
+
 		// remove all chap that
 		for (let i = 0; i < data.remove_list.length; i++) {
 			let remove_index = parseInt(data.remove_list[i]);
@@ -1238,7 +1331,7 @@ app.post('/api/edit_novel', async (req, res) => {
 			// remove nam chap from name chaps
 			new_name_chaps.splice(remove_index, 1);
 		}
-		
+
 		console.log(data.edit_index.length);
 		for (let i = 0; i < data.edit_index.length; i++) {
 			let change_index = parseInt(data.edit_index[i]);
@@ -1286,7 +1379,7 @@ app.post('/api/edit_info_novel', async (req, res) => {
 
 });
 // Route xử lý yêu cầu upload file ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.post('/uploadFile', upload.array('files[]'), async function (req, res) {
+app.post('/api/uploadFile', upload.array('files[]'), async function (req, res) {
 	if (!req.files) {
 		return res.status(400).send('No file uploaded.');
 	}
@@ -1316,7 +1409,7 @@ app.post('/uploadFile', upload.array('files[]'), async function (req, res) {
 
 // hủy
 // Delete novel page --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.post('/cancel', async (req, res) => {
+app.post('/api/cancel', async (req, res) => {
 	const data = req.body;
 	console.log('SYSTEM | CANCEL |', data);
 	try {
@@ -1365,7 +1458,7 @@ app.post('/cancel', async (req, res) => {
 });
 
 // Thay đổi info -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.post('/updateInfo', async (req, res) => {
+app.post('/api/updateInfo', async (req, res) => {
 	try {
 		const data = req.body;
 		console.log('SYSTEM | UPDATE INFO |', data);
@@ -1391,7 +1484,7 @@ app.post('/updateInfo', async (req, res) => {
 });
 
 // Đổi pass ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.post('/changepass', async (req, res) => {
+app.post('/api/changepass', async (req, res) => {
 	try {
 		const data = req.body;
 		const decode = decrypt(req.cookies.account, authenticationKey);
@@ -1423,17 +1516,22 @@ app.post('/changepass', async (req, res) => {
 });
 
 // Thay đổi tứng chapters -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.post("/download_chap", async (req, res) => {
+app.post("/api/download_chap", async (req, res) => {
 	const data = req.body;
 	console.log('SYSTEM | DOWNLOAD CHAPTER |', data);
 	server.downloadFileFromDriveforUser(data.id, res)
 });
 
-app.get('*', checkCookieLoglUser, function (req, res) {
-	res.render('index', {
-		headerFile: 'header',
-		footerFile: 'footer'
-	});
+app.get('*', checkCookieLoglUser, async function (req, res) {
+	res.sendStatus(404);
+	// let result = await storage.getItem('novellist');
+	// currentURL = req.url;
+
+	// res.render('index', {
+	// 	headerFile: 'header',
+	// 	footerFile: 'footer',
+	// 	jsontruyen: result
+	// });
 })
 
 // Schedule the code execution at midnight (00:00)
@@ -1448,8 +1546,7 @@ cron.schedule('0 0 * * *', async () => {
 // update popular novel list 
 
 
-app.listen(port, () => {
+app.listen(port, async () => {
 	console.log(`SYSTEM | LOG | Đang chạy server siu cấp vip pro đa vũ trụ ở http://localhost:${port}`);
-	getNovelList();
-
+	await getNovelList();
 });

@@ -50,7 +50,7 @@ async function like_novel(status) {
         // Gửi cookie "account" lên máy chủ
         // Sử dụng XMLHttpRequest hoặc Fetch API để thực hiện request
         // Ví dụ sử dụng Fetch API:
-        await fetch(`${currentURL}/updatelike`, {
+        await fetch(`${currentURL}/api/updatelike`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -450,17 +450,16 @@ async function getReview() {
 
 
 function showListLoad(pageNumber, data) {
-    console.log('ahaaaa')
     const listchap = document.querySelector('.listchap')
     let showlist = ''
     const chan = window.location.href.split("/")[window.location.href.split("/").length - 1]
 
     if (data.length > 10) {
         for (let i = pageNumber * 10 - 10; i < pageNumber * 10; i++) {
-            showlist += `
+             showlist += `
             <a href='${currentURL}/reading/${chan}/${i}' class="chapter-item">
                 <div class="chapter_item_info">
-                    <h2 style="width: 37%;margin: 1em;">${data[i].substring(0, data[i].indexOf(':'))}</h2>
+                    <h2 style="margin: 1em;">${data[i].substring(0, data[i].indexOf(':'))}</h2>
                     <div style="
                         display: flex;
                         flex-direction: column;
@@ -513,14 +512,12 @@ function handleButton(element, data) {
         showListLoad(parseInt((data.length / 10).toFixed(0)), data);
     } else if (element.classList.contains("prev-page")) {
         valuePage.curPage--;
-        console.log("thg cho thinh-", valuePage.curPage);
         showListLoad(valuePage.curPage, data);
         handleButtonLeft();
         btnNextPg.disabled = false;
         btnLastPg.disabled = false;
     } else if (element.classList.contains("next-page")) {
         valuePage.curPage++;
-        console.log("thg cho thinh+", valuePage.curPage);
         showListLoad(valuePage.curPage, data);
         handleButtonRight(data);
         btnPrevPg.disabled = false;

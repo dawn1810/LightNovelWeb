@@ -31,16 +31,44 @@ const reset_background_color = document.querySelector(".ss_reader_background_res
 
 const themes = localStorage.getItem('theme');
 
+///////////////////check viewwww///////////////////
+const regex_id = /reading\/([a-zA-Z0-9]+)\/\d+/;
+const match_id = window.location.href.match(regex_id);
+let my_array_id_string = localStorage.getItem('array_id_truyen');
+let my_array_id = [];
+if (my_array_id_string) {
+    let my_array_id = JSON.parse(my_array_id_string);
+    if (!my_array_id.includes(match_id[1])) {
+        my_array_id.push(match_id[1]);
+        views_novel(match_id[1]);
+        localStorage.setItem('array_id_truyen', JSON.stringify(my_array_id));
+    }
+} else {
+    my_array_id.push(match_id[1]);
+    views_novel(match_id[1]);
+    localStorage.setItem('array_id_truyen', JSON.stringify(my_array_id));
+};
 
 
-// if (themes == 'dark') {
-//     main.style.background = '#1e1e1e'
-//     body_main.style.color = "#9a8686"
-// }
-// else {
-//     main.style.background = '#9fcfca'
-//     body_main.style.color = "#000"
-// }
+async function views_novel(id_truyen) {
+    await fetch(`${currentURL}/api/updateviews`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            id_truyen: id_truyen
+        })
+    })
+        .catch(error => {
+            console.log(error)
+        });
+}
+
+
+////////////////////////////////////////////////////////////////////////////
+
+
 
 
 for (const list_show of show_list) {
@@ -49,8 +77,8 @@ for (const list_show of show_list) {
         list_show.style.display = "none"
         setTimeout(function () {
             list_show.parentElement.querySelector('#show_more').style.display = "none"
-        list_show.style.display = "block"
-        },5000)
+            list_show.style.display = "block"
+        }, 5000)
     }
 }
 background_color.onchange = function () {
@@ -84,10 +112,6 @@ reset_text_color.addEventListener("click", function () {
 
 
 
-// font.onchange = function (event) {
-//     body_main.style.fontFamily = font.value;
-// }
-
 for (const font of reader_size) {
     font.onchange = function () {
         main_content.style.fontSize = `${font.value}px`;
@@ -104,7 +128,7 @@ for (const height of line_height) // roi do hai anh trai name chap cho ten chap 
 // cais tao sua la reading coi chung lam duong lac loi
 const left_btn = document.querySelectorAll('.left-btn')
 for (const l_btn of left_btn) {
-    if(parseInt((window.location.href).split('/').pop()) == 0){
+    if (parseInt((window.location.href).split('/').pop()) == 0) {
         l_btn.style.display = 'none';
         document.querySelector('.lame-left').disabled = true
     }
@@ -117,7 +141,7 @@ for (const l_btn of left_btn) {
 }
 const right_btn = document.querySelectorAll('.right-btn')
 for (const r_btn of right_btn) {
-    if(parseInt((window.location.href).split('/').pop()) == last_chaps -1){
+    if (parseInt((window.location.href).split('/').pop()) == last_chaps - 1) {
         r_btn.style.display = 'none';
         document.querySelector('.lame-right').disabled = true
 
@@ -213,11 +237,11 @@ function autoScroll() {
 
 
 // go chap
-show_more.onchange = function(){
+show_more.onchange = function () {
     const chap = show_more.value
-        const crUrl = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
+    const crUrl = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
 
-        window.location.href = `${crUrl}/${chap}`
+    window.location.href = `${crUrl}/${chap}`
 }
 
 
