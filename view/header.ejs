@@ -38,13 +38,15 @@
 
           <div class="burger-ring">
             <svg class="svg-ring">
-              <path class="path" fill="none" stroke="#5f656a" stroke-miterlimit="10" stroke-width="4" d="M 34 2 C 16.3 2 2 16.3 2 34 s 14.3 32 32 32 s 32 -14.3 32 -32 S 51.7 2 34 2" />
+              <path class="path" fill="none" stroke="#5f656a" stroke-miterlimit="10" stroke-width="4"
+                d="M 34 2 C 16.3 2 2 16.3 2 34 s 14.3 32 32 32 s 32 -14.3 32 -32 S 51.7 2 34 2" />
             </svg>
           </div>
 
           <svg width="0" height="0">
             <mask id="mask">
-              <path xmlns="http://www.w3.org/2000/svg" fill="none" stroke="" stroke-miterlimit="10" stroke-width="4" d="M 34 2 c 11.6 0 21.8 6.2 27.4 15.5 c 2.9 4.8 5 16.5 -9.4 16.5 h -4" />
+              <path xmlns="http://www.w3.org/2000/svg" fill="none" stroke="" stroke-miterlimit="10" stroke-width="4"
+                d="M 34 2 c 11.6 0 21.8 6.2 27.4 15.5 c 2.9 4.8 5 16.5 -9.4 16.5 h -4" />
             </mask>
           </svg>
           <div class="path-burger">
@@ -77,41 +79,41 @@
       <div class="header_end">
         <% if (login_way=='null' ) { %>
 
-        <div class="header_user" style="display: none;">
-          <div class="header_notify">
-            <div class="header_notify_logo">
-              <i class="fa-solid fa-bell"></i>
-            </div>
-            <div class="header_notify_more">
-              <div class="header_notify_more_head">
-                <div class="header_notify_more_head_title">
-                  Thông báo
+          <div class="header_user" style="display: none;">
+            <div class="header_notify">
+              <div class="header_notify_logo">
+                <i class="fa-solid fa-bell"></i>
+              </div>
+              <div class="header_notify_more">
+                <div class="header_notify_more_head">
+                  <div class="header_notify_more_head_title">
+                    Thông báo
+                  </div>
+
                 </div>
-
-              </div>
-              <div class="header_notify_more_item">
-                Chưa có thông báo
+                <div class="header_notify_more_item">
+                  Chưa có thông báo
+                </div>
               </div>
             </div>
-          </div>
-          <div class="header_user_logo">
-            <div class="header_user_logo_i">
-              <div class="curent-avt">
-                <img src="<%= avt %>" referrerpolicy="no-referrer" alt="" class="avt_user">
+            <div class="header_user_logo">
+              <div class="header_user_logo_i">
+                <div class="curent-avt">
+                  <img src="<%= avt %>" referrerpolicy="no-referrer" alt="" class="avt_user">
+                </div>
+                <p>
+                  <%= username %>
+                </p>
               </div>
-              <p>
-                <%= username %>
-              </p>
-            </div>
-            <!-- pc -->
-            <div class="header_user_more">
-              <div class="header_user_more_item"><a href="/profile">Thông tin tài </a>
-              </div>
-              <div class="header_user_more_item"><a href="/profile/novel_following">Truyện đã lưu</a> </div>
+              <!-- pc -->
+              <div class="header_user_more">
+                <div class="header_user_more_item"><a href="/profile">Thông tin tài </a>
+                </div>
+                <div class="header_user_more_item"><a href="/profile/novel_following">Truyện đã lưu</a> </div>
 
-              <%if (login_way=='normal' ) { %>
-              <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
-              <%}%>
+                <%if (login_way=='normal' ) { %>
+                  <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
+                  <%}%>
                     <div class="header_user_more_item logout" id="logout">Đăng xuất </div>
               </div>
 
@@ -121,10 +123,10 @@
                 <div class="right_item_mobile_li"><a href="/profile">Thông tin tài khoản</a></div>
                 <div class="right_item_mobile_li"><a href="/profile/novel_following">Truyện đã lưu</a></div>
                 <%if (login_way=='normal' ) { %>
-              <div class="right_item_mobile_li">
-                <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
-              </div>
-              <%}%>
+                  <div class="right_item_mobile_li">
+                    <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
+                  </div>
+                  <%}%>
                     <div class="right_item_mobile_li">
                       <div class="header_user_more_item logout">Đăng xuất </div>
                     </div>
@@ -144,40 +146,40 @@
             </div>
           </div>
           <%} else {%>
-              <div class="header_user" style="display: flex;">
-                <div class="header_notify">
-                  <div class="header_notify_logo">
-                    <i class="fa-solid fa-bell"></i>
-                  </div>
-                  <div class="header_notify_more">
-                    <div class="header_notify_more_head">
-                      <div class="header_notify_more_head_title">
-                        Thông báo
-                      </div>
+            <div class="header_user" style="display: flex;">
+              <div class="header_notify">
+                <div class="header_notify_logo">
+                  <i class="fa-solid fa-bell"></i>
+                </div>
+                <div class="header_notify_more">
+                  <div class="header_notify_more_head">
+                    <div class="header_notify_more_head_title">
+                      Thông báo
+                    </div>
 
-                    </div>
-                    <div class="header_notify_more_item">
-                      Chưa có thông báo
-                    </div>
+                  </div>
+                  <div class="header_notify_more_item">
+                    Chưa có thông báo
                   </div>
                 </div>
-                <div class="header_user_logo">
-                  <div class="header_user_logo_i">
-                    <div class="curent-avt">
-                      <img src="<%= avt %>" referrerpolicy="no-referrer" alt="" class="avt_user">
-                    </div>
-                    <p>
-                      <%= username %>
-                    </p>
+              </div>
+              <div class="header_user_logo">
+                <div class="header_user_logo_i">
+                  <div class="curent-avt">
+                    <img src="<%= avt %>" referrerpolicy="no-referrer" alt="" class="avt_user">
                   </div>
+                  <p>
+                    <%= username %>
+                  </p>
+                </div>
 
-                  <!-- pc -->
-                  <div class="header_user_more">
-                    <div class="header_user_more_item"><a href="/profile">Thông tin tài khoản</a>
-                    </div>
-                    <div class="header_user_more_item"><a href="/profile/novel_following">Truyện đã lưu</a> </div>
+                <!-- pc -->
+                <div class="header_user_more">
+                  <div class="header_user_more_item"><a href="/profile">Thông tin tài khoản</a>
+                  </div>
+                  <div class="header_user_more_item"><a href="/profile/novel_following">Truyện đã lưu</a> </div>
 
-                    <%if (login_way=='normal' ) { %>
+                  <%if (login_way=='normal' ) { %>
                     <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
                     <%}%>
                       <div class="header_user_more_item logout" id="logout">Đăng xuất </div>
@@ -194,9 +196,9 @@
                       <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
                     </div>
                     <%}%>
-                    <div class="right_item_mobile_li">
-                      <div class="header_user_more_item logout">Đăng xuất </div>
-                    </div>
+                      <div class="right_item_mobile_li">
+                        <div class="header_user_more_item logout">Đăng xuất </div>
+                      </div>
                       <button class="right_item_mobile_close"><i class="fa-solid fa-circle-xmark"></i></button>
                 </div>
                 <!-- mobile -->
@@ -217,10 +219,10 @@
             </div>
             <%}%>
 
-                  </div>
+      </div>
 
 
-                </div>
+    </div>
   </header>
 
   <ul class="left_item close">
@@ -241,7 +243,10 @@
       </a>
     </li>
     <li id="history" class=" left_li">
-      <div><i class="fa-solid fa-heart"></i> <span>Truyện Đã Thích</span></div>
+      <a href="/profile/novel_following">
+        <div><i class="fa-solid fa-heart"></i> <span>Truyện Đã Thích</span></div>
+
+      </a>
     </li>
     <li class="d-l_theme ">
       <div class="toggle-switch">
@@ -257,11 +262,11 @@
 
 
   <script src="">
-    $("document").ready(function() {
+    $("document").ready(function () {
       let trigger = $("#hamburger"),
         isClosed = false;
 
-      trigger.click(function() {
+      trigger.click(function () {
         burgerTime();
       });
 
@@ -281,14 +286,14 @@
       }
     });
 
-    document.onclick = function(event) {
+    document.onclick = function (event) {
       const targetElement = event.target;
       if (!category_list.contains(targetElement) && targetElement !== category_btn) {
         category_list.style.display = 'none';
       }
     }
 
-    header_menu.onclick = function(event) {
+    header_menu.onclick = function (event) {
       if (menuBtnCount) {
         event.stopPropagation();
         left_item.classList.remove('close');
@@ -301,7 +306,7 @@
     }
     const category = document.querySelector('.category')
 
-    left_item.onclick = function(event) {
+    left_item.onclick = function (event) {
       event.stopPropagation();
       console.log('ok')
     }
@@ -320,61 +325,61 @@
     }
     return null;
   }
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const login = document.querySelector('.header_login')
-    login.onclick = function() {
+    login.onclick = function () {
       console.log('Login')
       modal.style.display = 'block'
       if (modal2.style.display == 'block') {
         modal2.style.display = 'none'
       }
     }
-    document.querySelector('.no_login a').onclick = function(e) {
+    document.querySelector('.no_login a').onclick = function (e) {
       e.preventDefault();
 
       login.click()
     }
 
     const sg = document.querySelector('.header_signup')
-    sg.onclick = function() {
+    sg.onclick = function () {
       console.log('Login')
       modal2.style.display = 'block'
       if (modal.style.display == 'block') {
         modal.style.display = 'none'
       }
     }
-    document.querySelector('.no_signup a').onclick = function(e) {
+    document.querySelector('.no_signup a').onclick = function (e) {
       e.preventDefault();
 
       sg.click()
     }
-    modal.onclick = function(event) {
+    modal.onclick = function (event) {
       if (!event.target.closest('.modal_wrap')) {
         modal.style.display = 'none';
       }
     }
-    modal2.onclick = function(event) {
+    modal2.onclick = function (event) {
       if (!event.target.closest('.modal_wrap')) {
         modal2.style.display = 'none';
       }
     }
 
 
-    $(document).ready(function() {
-      $('.logout').click( async function(e) {
+    $(document).ready(function () {
+      $('.logout').click(async function (e) {
         e.preventDefault();
         console.log('logout')
         const accountCookie = getCookie('account');
         if (accountCookie) {
           await fetch(`${currentURL}/api/logout`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                account: accountCookie
-              })
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              account: accountCookie
             })
+          })
             .then(response => {
               if (response.status === 200) {
                 location.href = "/";
@@ -422,11 +427,11 @@
   const right_item_mobile_close = document.querySelector('.right_item_mobile_close')
   const right_item_mobile = document.querySelector('.right_item_mobile')
 
-if(right_item_mobile_close){
-  right_item_mobile_close.onclick = function() {
-    right_item_mobile.style.right = "-100% !important";
+  if (right_item_mobile_close) {
+    right_item_mobile_close.onclick = function () {
+      right_item_mobile.style.right = "-100% !important";
+    }
   }
-}
 
 
   const header_search_input = document.querySelector('.header_search_input input');
@@ -434,7 +439,7 @@ if(right_item_mobile_close){
 
   search_btn.addEventListener('click', handle_search);
 
-  header_search_input.addEventListener("keypress", function(event) {
+  header_search_input.addEventListener("keypress", function (event) {
     // If the user presses the "Enter" key on the keyboard
     if (event.key === "Enter") {
       // Cancel the default action, if needed
@@ -444,12 +449,12 @@ if(right_item_mobile_close){
     }
   });
 
-function handle_search() {
-  if (header_search_input.value != "") {
-    const newUrl = `${window.location.origin}/search?search=${encodeURI(header_search_input.value)}`;
-    window.location.replace(newUrl);
+  function handle_search() {
+    if (header_search_input.value != "") {
+      const newUrl = `${window.location.origin}/search?search=${encodeURI(header_search_input.value)}`;
+      window.location.replace(newUrl);
+    }
   }
-}
 
 </script>
 

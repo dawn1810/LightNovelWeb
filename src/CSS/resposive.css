@@ -150,7 +150,7 @@
 
     .left_li a {
         color: var(--login-btn);
-
+        justify-content: center;
     }
 
     .left_li i {

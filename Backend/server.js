@@ -420,7 +420,7 @@ async function processNovels(req, res, id_truyen) {
 		console.log('SYSTEM | LIST MY NOVELS | Cookie nhận được: ', account);
 		const decode = decrypt(account, authenticationKey);
 		const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
-		console.log(`SYSTEM | LIST MY NOVELS | Dữ liệu đã giải mã ${decodeList}`);
+		// console.log(`SYSTEM | LIST MY NOVELS | Dữ liệu đã giải mã ${decodeList}`);
 
 		let render_data = {
 			headerFile: 'header',
@@ -750,7 +750,7 @@ app.get('/search', checkCookieLoglUser, async (req, res) => {
 					status: 1,
 					no_chapters: 1,
 				},
-				limit: 30
+				limit: 31
 			});
 			// get all novels authors
 			let authors = await server.find_all_Data({
@@ -763,7 +763,7 @@ app.get('/search', checkCookieLoglUser, async (req, res) => {
 					status: 1,
 					no_chapters: 1,
 				},
-				limit: 30
+				limit: 31
 			});
 			// get all novels genres
 			let genres = await server.find_all_Data({
@@ -776,15 +776,33 @@ app.get('/search', checkCookieLoglUser, async (req, res) => {
 					status: 1,
 					no_chapters: 1,
 				},
-				limit: 30
+				limit: 31
 			});
 			// 
+			let authors_more = false;
+			let name_more = false;
+			let genres_more = false;
+			if (names.length == 31) {
+				name_more = true;
+				names.pop();
+			};
+			if (authors.length == 31) {
+				authors_more = true;
+				authors.pop();
+			};
+			if (genres.length == 31) {
+				genres_more = true;
+				genres.pop();
+			}
 			res.render('search.ejs', {
 				headerFile: 'header',
 				footerFile: 'footer',
 				names: names,
+				name_more: name_more,
 				authors: authors,
+				authors_more: authors_more,
 				genres: genres,
+				genres_more: genres_more,
 				what_search: search
 			});
 		}
@@ -792,10 +810,11 @@ app.get('/search', checkCookieLoglUser, async (req, res) => {
 			res.sendStatus(404);
 		}
 	} catch (err) {
-		console.log('SYSTEM | READING | ERROR | ', err);
+		console.log('SYSTEM | SEARCH | ERROR | ', err);
 		res.sendStatus(500);
 	}
 });
+
 
 // 404 route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.get('/404', (req, res) => {
@@ -811,17 +830,114 @@ app.get('/category', checkCookieLoglUser, (req, res) => {
 });
 
 
-// search route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// app.get('/search', checkCookieLoglUser, (req, res) => {
-// 	res.sendStatus(404);
-// 	// res.render('search', {
-// 	// 	headerFile: 'header',
-// 	// 	footerFile: 'footer'
-// 	// });
-// });
 
 // API SPACE ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// more search
+app.get('/api/search/more', checkCookieLoglUser, async (req, res) => {
+	try {
+		const type_id = decodeURIComponent(req.query.type_id);
+		const num_click = decodeURIComponent(req.query.times);
+		const search = decodeURIComponent(req.query.search)
+		if (type_id && num_click) {
+			// get all novels name
+			let authors_more = false;
+			let name_more = false;
+			let genres_more = false;
+			let names, authors, genres = undefined;
+			if (type_id == 'search_more1') {
+				names = await server.find_all_Data({
+					table: "truyen",
+					query: { name: { $regex: new RegExp(search, 'i') } },
+					projection: {
+						name: 1,
+						author: 1,
+						image: 1,
+						status: 1,
+						no_chapters: 1,
+					},
+					skip: 30 * num_click,
+					limit: 31
+				});
+				if (names.length == 31) {
+					name_more = true;
+					names.pop();
+				};
+
+			}
+			if (type_id == 'search_more2') {
+				// get all novels genres
+				genres = await server.find_all_Data({
+					table: "truyen",
+					query: { genres: { $in: [new RegExp(search, 'i')] } },
+					projection: {
+						name: 1,
+						author: 1,
+						image: 1,
+						status: 1,
+						no_chapters: 1,
+					},
+					skip: 30 * num_click,
+					limit: 31
+				});
+				if (genres.length == 31) {
+					genres_more = true;
+					genres.pop();
+				};
+
+
+			}
+			if (type_id == 'search_more3') {
+				// get all novels authors
+				authors = await server.find_all_Data({
+					table: "truyen",
+					query: { author: { $regex: new RegExp(search, 'i') } },
+					projection: {
+						name: 1,
+						author: 1,
+						image: 1,
+						status: 1,
+						no_chapters: 1,
+					},
+					skip: 30 * num_click,
+
+					limit: 31
+				});
+				if (authors.length == 31) {
+					authors_more = true;
+					authors.pop();
+				};
+
+			}
+
+			if (names) {
+				res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
+				res.end(JSON.stringify({ 'truyen': names, 'showbtn': name_more }));
+			}
+			else if (genres) {
+				res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
+				res.end(JSON.stringify({ 'truyen': genres, 'showbtn': genres_more }));
+			}
+			else if (authors) {
+				res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
+				res.end(JSON.stringify({ 'truyen': authors, 'showbtn': authors_more }));
+			}
+
+
+
+
+
+
+
+		}
+		else {
+			res.sendStatus(404);
+		}
+	} catch (err) {
+		console.log('SYSTEM | SEARCH_MORE | ERROR | ', err);
+		res.sendStatus(500);
+	}
+});
 // TRUYỆN DỊCH ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Get no chapters --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.post('/api/no_chaps', async (req, res) => {
@@ -1183,7 +1299,7 @@ app.post('/api/updatelike', async (req, res) => {
 		console.log('SYSTEM | UPDATE_LIKE | Dữ liệu nhận được: ', data);
 		const decode = decrypt(req.cookies.account, authenticationKey);
 		const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
-		console.log(`SYSTEM | UPDATE_LIKE | Dữ liệu đã giải mã ${decodeList}`);
+		// console.log(`SYSTEM | UPDATE_LIKE | Dữ liệu đã giải mã ${decodeList}`);
 		// decodeList = authenticationKey:id:pass
 		if (decodeList[0] == authenticationKey) {
 			//account: accountCookie,
@@ -1258,7 +1374,7 @@ app.post('/api/upload_novel', async (req, res) => {
 	console.log('SYSTEM | UPLOAD_NOVEL | Cookie nhận được: ', account);
 	const decode = decrypt(account, authenticationKey);
 	const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
-	console.log(`SYSTEM | UPLOAD_NOVEL | Dữ liệu đã giải mã ${decodeList}`);
+	// console.log(`SYSTEM | UPLOAD_NOVEL | Dữ liệu đã giải mã ${decodeList}`);
 	// decodeList = authenticationKey:id:pass
 
 	try {
@@ -1445,7 +1561,7 @@ app.post('/api/cancel', async (req, res) => {
 			await server.delete_one_Data('truyen', { _id: new ObjectId(data.id) })
 			const decode = decrypt(req.cookies.account, authenticationKey);
 			const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
-			console.log(`SYSTEM | CANCEL | Dữ liệu đã giải mã ${decodeList}`);
+			// console.log(`SYSTEM | CANCEL | Dữ liệu đã giải mã ${decodeList}`);
 			// decodeList = authenticationKey:id:pass
 			if (decodeList[0] == authenticationKey) {
 				await server.update_one_Data("tt_nguoi_dung", { _id: decodeList[1] },
@@ -1502,7 +1618,7 @@ app.post('/api/changepass', async (req, res) => {
 		const data = req.body;
 		const decode = decrypt(req.cookies.account, authenticationKey);
 		const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
-		console.log(`SYSTEM | CHANGE_PASSWORD | Dữ liệu đã giải mã ${decodeList}`);
+		// console.log(`SYSTEM | CHANGE_PASSWORD | Dữ liệu đã giải mã ${decodeList}`);
 		// decodeList = authenticationKey:id:pass
 		if (decodeList[0] == authenticationKey) {
 			console.log('SYSTEM | CHANGE_PASSWORD |', data);

@@ -29,12 +29,12 @@
           <!-- Additional required wrapper -->
           <div class="swiper-wrapper" navigation="true" pagination="true" keyboard="true" mousewheel="true" css-mode="true">
             <!-- Slides -->
-            <% for (var i=0; i < jsontruyen['by_week'].length; i++) { %>
+            <% for (var i=0; i < jsontruyen['all_time'].length; i++) { %>
               <% if (i >4) {break}%>
               <div class="swiper-slide" style="border: none; margin: 0; padding: 0;">
-                <a href="/reviews/<%=jsontruyen['by_week'][i]._id%>">
+                <a href="/reviews/<%=jsontruyen['all_time'][i]._id%>">
                   <div class="trending_novel_item">
-                    <img referrerpolicy="no-referrer" src="<%=jsontruyen['by_week'][i].image%>" alt="image" referrerpolicy="no-referrer" class="trending_backg">
+                    <img referrerpolicy="no-referrer" src="<%=jsontruyen['all_time'][i].image%>" alt="image" referrerpolicy="no-referrer" class="trending_backg">
                   </div>
                 </a>
                 </div>
