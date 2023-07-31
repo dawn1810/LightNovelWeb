@@ -67,7 +67,7 @@ function encrypt(data, secretKey) {
 	encryptedData += cipher.final('hex');
 
 	const encryptedDataWithIV = iv.toString('hex') + encryptedData;
-	console.log('SYSTEM | ENCRYPT | OK');
+	// console.log('SYSTEM | ENCRYPT | OK');
 
 	return encryptedDataWithIV;
 }
@@ -81,7 +81,7 @@ function decrypt(encryptedDataWithIV, secretKey) {
 	let decryptedData = decipher.update(encryptedData, 'hex', 'utf8');
 	decryptedData += decipher.final('utf8');
 
-	console.log('SYSTEM | DECRYPT | OK');
+	// console.log('SYSTEM | DECRYPT | OK');
 
 	return decryptedData;
 }
@@ -354,10 +354,10 @@ async function checkCookieLoglUser(req, res, next) {
 			next();
 		}
 		else {
-			console.log('SYSTEM | AUTHENTICATION | Dữ liệu nhận được: ', data);
+			// console.log('SYSTEM | AUTHENTICATION | Dữ liệu nhận được: ', data);
 			const decode = decrypt(data.account, authenticationKey);
 			const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
-			console.log(`SYSTEM | AUTHENTICATION | Dữ liệu đã giải mã ${decodeList}`);
+			// console.log(`SYSTEM | AUTHENTICATION | Dữ liệu đã giải mã ${decodeList}`);
 			// decodeList = authenticationKey:id:pass
 			if (decodeList[0] == authenticationKey) {
 				const result = await server.find_one_Data("tt_nguoi_dung", { _id: decodeList[1] });
@@ -454,12 +454,25 @@ async function processNovels(req, res, id_truyen) {
 		}
 
 		render_data.novels = result;
-		render_data.like_novel = novels.likeNovels;
+		let idListlikeNovels = [];
 		for (let id of novels.likeNovels) {
-			let curr_novel = await server.find_one_Data('truyen', { _id: new ObjectId(id) })
-			curr_novel.update_date = calTime(curr_novel.update_date);
-			result_like.push(curr_novel);
+			let curr_novel = await server.find_one_Data('truyen', { _id: new ObjectId(id) });
+			if (!curr_novel) {
+				await server.update_one_Data("tt_nguoi_dung", { _id: decodeList[1] },
+					{
+						$pull: { likeNovels: id }
+					});
+			}
+			else {
+				idListlikeNovels.push(id);
+
+				curr_novel.update_date = calTime(curr_novel.update_date);
+				result_like.push(curr_novel);
+			}
+
+
 		}
+		render_data.like_novel = idListlikeNovels;
 		render_data.like_novel_list = result_like;
 
 		if (id_truyen) {
@@ -625,7 +638,7 @@ app.get('/reviews/:id', checkCookieLoglUser, async (req, res) => {
 		const maybeulike = await server.find_all_Data({
 			table: "truyen",
 			query: { genres: { $in: result[0].genres } },
-			projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1,update_date :1},
+			projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1, update_date: 1 },
 			sort: { update_date: -1, views: -1, likes: -1, name: 1 },
 			limit: 6
 		});

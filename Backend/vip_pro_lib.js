@@ -18,7 +18,7 @@ exports.add_one_Data = async function (table, myobj) {
     // await client.connect();
     // let myobj = { user_name: "Long Khoa Hoc", user_id: "longdd", password: "Nl<3Bp"};
     const resual = await client.db('wtfn').collection(table).insertOne(myobj);
-    console.log('SYSTEM | ADD_ONE_DATA | Add document', myobj, 'successfull');
+    // console.log('SYSTEM | ADD_ONE_DATA | Add document', myobj, 'successfull');
     return resual;
   } finally {
     // Ensures that the client will close when you finish/error
@@ -34,7 +34,7 @@ exports.add_many_Data = async function (table, myobj) {
     //   { user_name: "Long Nghien", user_id: "longdd", password: "Nl<3Bp"}
     // ];;
     await client.db('wtfn').collection(table).insertMany(myobj);
-    console.log('SYSTEM | ADD_MANY_DATA | Add many documents', myobj, 'successfull');
+    // console.log('SYSTEM | ADD_MANY_DATA | Add many documents', myobj, 'successfull');
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
@@ -46,7 +46,7 @@ exports.delete_one_Data = async function (table, myobj) {
     // await client.connect();
     // let myobj = { user_name: "Long Khoa Hoc"};
     await client.db('wtfn').collection(table).deleteOne(myobj);
-    console.log('SYSTEM | DELETE_ONE_DATA | Delete document', myobj, 'successfull');
+    // console.log('SYSTEM | DELETE_ONE_DATA | Delete document', myobj, 'successfull');
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
@@ -58,7 +58,7 @@ exports.delete_many_Data = async function (table, myobj) {
     // await client.connect();
     // let myobj = { user_name: "Long Khoa Hoc"};
     await client.db('wtfn').collection(table).deleteMany(myobj);
-    console.log('SYSTEM | DELETE_MANY_DATA | Delete many documents', myobj, 'successfull');
+    // console.log('SYSTEM | DELETE_MANY_DATA | Delete many documents', myobj, 'successfull');
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
@@ -71,7 +71,7 @@ exports.find_one_Data = async function (table, myobj = undefined) {
     // let myobj = { user_name: "Long Khoa Hoc"};
     let result = await client.db('wtfn').collection(table).findOne(myobj);
 
-    console.log('SYSTEM | FIND_ONE_DATA | Finding document: ', result);
+    // console.log('SYSTEM | FIND_ONE_DATA | Finding document: ', result);
 
     return result;
   } finally {
@@ -108,7 +108,7 @@ exports.update_one_Data = async function (table, myquery, newvalues) {
     // có nhiều toán từ  $set, $inc, $push, $pull, tự google
     await client.db('wtfn').collection(table).updateOne(myquery, newvalues);
 
-    console.log('SYSTEM | UPDATE_ONE_DATA | Update document', myquery, 'to', newvalues, 'successfull');
+    // console.log('SYSTEM | UPDATE_ONE_DATA | Update document', myquery, 'to', newvalues, 'successfull');
 
 
   } finally {
@@ -125,7 +125,7 @@ exports.update_many_Data = async function (table, myquery, newvalues) {
     // có nhiều toán từ  $set, $inc, $push, $pull, tự google
     await client.db('wtfn').collection(table).updateMany(myquery, newvalues);
 
-    console.log('SYSTEM | UPDATE_MANY_DATA | Update documents', myquery, 'to', newvalues, 'successfull');
+    // console.log('SYSTEM | UPDATE_MANY_DATA | Update documents', myquery, 'to', newvalues, 'successfull');
 
   } finally {
     // Ensures that the client will close when you finish/error
@@ -280,7 +280,7 @@ exports.uploadFileToDrive = async (filePath, id_folder = '1Tv80lyGA-rYIsN6nT9_A-
     name: fileName,
     parents: [id_folder]
   };
-  console.log('SYSTEM | DRIVE | Cbi úp lên');
+  // console.log('SYSTEM | DRIVE | Cbi úp lên');
 
   const media = {
     mimeType: 'application/octet-stream',
@@ -296,13 +296,13 @@ exports.uploadFileToDrive = async (filePath, id_folder = '1Tv80lyGA-rYIsN6nT9_A-
     });
 
 
-    console.log('SYSTEM | DRIVE | File uploaded successfully! File ID:', res.data.id);
+    // console.log('SYSTEM | DRIVE | File uploaded successfully! File ID:', res.data.id);
     fs.unlink(filePath, (err) => {
       if (err) {
         console.error('SYSTEM | DRIVE | ERR |', err);
         return;
       }
-      console.log('SYSTEM | DRIVE | File local deleted successfully');
+      // console.log('SYSTEM | DRIVE | File local deleted successfully');
     });
     return res.data.id;
   } catch (err) {
@@ -320,7 +320,7 @@ const getFileName = async (fileId) => {
     });
 
     const fileName = response.data.name;
-    console.log('File name:', fileName);
+    // console.log('File name:', fileName);
     return fileName;
   } catch (error) {
     console.error('Error retrieving file name:', error);
@@ -348,7 +348,7 @@ exports.downloadFileFromDrive = async (fileId) => {
         chunks.push(chunk);
       })
       .on('end', () => {
-        console.log('SYSTEM | DRIVE | File downloaded successfully!');
+        // console.log('SYSTEM | DRIVE | File downloaded successfully!');
         const fileContent = Buffer.concat(chunks).toString('utf8');
         resolve(fileContent);
       })
@@ -358,7 +358,7 @@ exports.downloadFileFromDrive = async (fileId) => {
       })
     // .pipe(destFile);
 
-    console.log('SYSTEM | DRIVE | File reading successfully!');
+    // console.log('SYSTEM | DRIVE | File reading successfully!');
   });
 };
 
@@ -381,7 +381,7 @@ exports.downloadFileFromDriveforUser = async (fileId, res) => {
       res.write(chunk);
     })
     .on('end', () => {
-      console.log('SYSTEM | DRIVE | File sent successfully!');
+      // console.log('SYSTEM | DRIVE | File sent successfully!');
       res.end();
     })
     .on('error', (err) => {
@@ -389,7 +389,7 @@ exports.downloadFileFromDriveforUser = async (fileId, res) => {
       res.status(500).end(); // Or handle the error in an appropriate way
     });
 
-  console.log('SYSTEM | DRIVE | File reading successfully!');
+  // console.log('SYSTEM | DRIVE | File reading successfully!');
 };
 
 exports.deleteFileFromDrive = async (fileId) => {
@@ -400,7 +400,7 @@ exports.deleteFileFromDrive = async (fileId) => {
       fileId: fileId,
       auth: auth,
     });
-    console.log('SYSTEM | DRIVE | File deleted successfully!');
+    // console.log('SYSTEM | DRIVE | File deleted successfully!');
   } catch (err) {
     console.error('SYSTEM | DRIVE | Error deleting file:', err);
   }
