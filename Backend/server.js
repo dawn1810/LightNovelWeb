@@ -679,32 +679,6 @@ app.get('/reviews/:id', checkCookieLoglUser, async (req, res) => {
 	}
 });
 
-
-app.post('/reviews', async (req, res) => {
-	const data = req.body;
-	console.log('SYSTEM | REVIEWS |', data);
-	try {
-		let result = await server.find_all_Data({
-			table: "truyen",
-			query: { _id: new ObjectId(data.id) },
-			projection: {
-				no_chapters: 1,
-				name_chaps: 1,
-			},
-			limit: 1
-		});
-
-		// console.log('SYSTEM | REVIEWS | Trả về thông tin reviews truyện ', result[0].name);
-		res.writeHead(200, { 'Content-Type': 'application/json' });
-
-
-		res.end(JSON.stringify(result[0]));
-	} catch (err) {
-		console.log('SYSTEM | REVIEWS | ERROR | ', err);
-		res.sendStatus(500);
-	}
-});
-
 // Reading route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.get('/reading/:id/:chap', checkCookieLoglUser, async (req, res) => {
 	try {
@@ -921,6 +895,32 @@ app.get('api/update_novel', async (req, res) => {
 	}
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// reviews --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+app.post('/api/reviews', async (req, res) => {
+	const data = req.body;
+	console.log('SYSTEM | REVIEWS |', data);
+	try {
+		let result = await server.find_all_Data({
+			table: "truyen",
+			query: { _id: new ObjectId(data.id) },
+			projection: {
+				no_chapters: 1,
+				name_chaps: 1,
+			},
+			limit: 1
+		});
+
+		// console.log('SYSTEM | REVIEWS | Trả về thông tin reviews truyện ', result[0].name);
+		res.writeHead(200, { 'Content-Type': 'application/json' });
+
+
+		res.end(JSON.stringify(result[0]));
+	} catch (err) {
+		console.log('SYSTEM | REVIEWS | ERROR | ', err);
+		res.sendStatus(500);
+	}
+});
 
 // Sign up --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.post('/api/signup', async (req, res) => {

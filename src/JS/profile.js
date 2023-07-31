@@ -410,7 +410,7 @@ async function uploadFiles(files, type) {
 			formData.append('files[]', renamedFile);
 		}
 
-		const response = await fetch('/uploadFile', {
+		const response = await fetch('/api/uploadFile', {
 			method: 'POST',
 			body: formData
 		});
@@ -438,7 +438,7 @@ async function uploadFiles(files, type) {
 async function uploadNovel() {
 	// POST ALL DATA TO SERVER--------------------------------------------------------------------------------------------------
 	//gửi request tới csdl server
-	const url = `${currentURL}/upload_novel`; // URL của máy chủ mục tiêu
+	const url = `${currentURL}/api/upload_novel`; // URL của máy chủ mục tiêu
 
 	const postData = JSON.stringify({
 		name: sessionStorage.getItem("novel_name"),
@@ -496,7 +496,7 @@ async function updateNovel() {
 
 	// POST ALL DATA TO SERVER--------------------------------------------------------------------------------------------------
 	//gửi request tới csdl server
-	const url = `${currentURL}/update_upload_novel`; // URL của máy chủ mục tiêu
+	const url = `${currentURL}/api/update_upload_novel`; // URL của máy chủ mục tiêu
 
 	const postData = JSON.stringify({
 		id: extractedID,
@@ -621,7 +621,7 @@ document.querySelector(".button_random").onclick = function (e) {
 const Save_btn = document.querySelector('.Save_btn')
 Save_btn.onclick = async function (e) {
 	e.preventDefault()
-	const url = `${currentURL}/updateInfo`; // URL của máy chủ mục tiêu
+	const url = `${currentURL}/api/updateInfo`; // URL của máy chủ mục tiêu
 	let sex = 'null'
 	if (document.querySelector('#nam').checked) {
 		sex = 'nam'
@@ -734,7 +734,7 @@ async function cancel() {
 		audio.play();
 		if (sessionStorage.getItem("chapters_content")) {
 			// remove all chapters
-			const url = `${currentURL}/cancel`; // URL của máy chủ mục tiêu
+			const url = `${currentURL}/api/cancel`; // URL của máy chủ mục tiêu
 
 			const postData = JSON.stringify({
 				chap_ids: sessionStorage.getItem("chapters_content").split(","),
@@ -869,7 +869,7 @@ $(document).ready(function () {
 		let id_truyen = $(this).parent().parent().attr('id');
 		if (confirm("Bạn có chắc chắn muốn xoá truyện?") == true) {
 
-			const url = `${currentURL}/cancel`; // URL của máy chủ mục tiêu
+			const url = `${currentURL}/api/cancel`; // URL của máy chủ mục tiêu
 
 			const postData = JSON.stringify({
 				id: id_truyen,
@@ -922,7 +922,7 @@ $(document).ready(function () {
 			// Gửi cookie "account" lên máy chủ
 			// Sử dụng XMLHttpRequest hoặc Fetch API để thực hiện request
 			// Ví dụ sử dụng Fetch API:
-			await fetch(`${currentURL}/updatelike`, {
+			await fetch(`${currentURL}/api/updatelike`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -979,7 +979,7 @@ $(document).ready(function () {
 	$(document).on('click', '.page5_b .download_btn', async function () {
 		notify("Chờ tý!!!", "Đã bắt đầu quá trình tải.");
 		let grandGrandParentID = $(this).parent().parent().parent().attr('id');
-		const url = `${currentURL}/download_chap`; // URL của máy chủ mục tiêu
+		const url = `${currentURL}/api/download_chap`; // URL của máy chủ mục tiêu
 
 		const postData = JSON.stringify({
 			id: grandGrandParentID

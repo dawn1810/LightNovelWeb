@@ -301,7 +301,7 @@ async function getReview() {
     // if()
 
 
-    await fetch(`${currentURL}/reviews`, {
+    await fetch(`${currentURL}/api/reviews`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
