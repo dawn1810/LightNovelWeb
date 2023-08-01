@@ -1,20 +1,39 @@
 @media screen and (max-width:600px) {
-    .body_main{
+    .body_main {
         padding: 0;
     }
-    .search-btn{
-        width:6em;
+
+    .search-btn {
+        width: 6em;
     }
-    main{
-        padding:0;
+
+    main {
+        padding: 0;
     }
-    .sort-container{
-        width:100%;
-    }
-    .sort-menu{
+
+    .sort-container {
+        width: 100%;
+        height: 5rem;
+        width: 100%;
+        display: flex;
         flex-direction: column;
     }
-    .sort-menu{
+
+    .sort-menu {
+        flex-direction: column;
+    }
+
+    .sort-menu {
         margin: 3%;
+    }
+
+    .information_name_wrap {
+        margin: 0;
+    }
+
+    .sort-menu {
+        background-color: var(--header-background);
+        padding: 1rem;
+        border-radius: 1rem;
     }
 }
