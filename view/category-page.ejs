@@ -12,6 +12,16 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
   <link rel="stylesheet" href="/src/CSS/search_reposive.css">
 
+   <!-- select -->
+   <script src="https://cdn.syncfusion.com/ej2/22.1.34/dist/ej2.min.js" type="text/javascript"></script>
+   <script src="https://cdn.syncfusion.com/ej2/syncfusion-helper.js" type="text/javascript"></script>
+ 
+   <link href="https://cdn.syncfusion.com/ej2/22.1.34/ej2-base/styles/material.css" rel="stylesheet">
+   <link href="https://cdn.syncfusion.com/ej2/22.1.34/ej2-inputs/styles/material.css" rel="stylesheet">
+   <link href="https://cdn.syncfusion.com/ej2/22.1.34/ej2-dropdowns/styles/material.css" rel="stylesheet">
+   <link href="https://cdn.syncfusion.com/ej2/22.1.34/ej2-buttons/styles/material.css" rel="stylesheet">
+   <!-- select -->
+
   <script>
     const currentURL = window.location.origin;
   </script>
@@ -36,31 +46,113 @@
     <div class="sort-menu">
 
       <div class="change-category sort-container">
-        <div class="select-title">Thể Loại</div>
+        <div class="select-title">Ngày tải lên</div>
 
-        <select class="sort" name="ct" id="ct">
-          <option value="A1" selected="">Tiên Hiệp</option>
-          <option value="A2">Kiếm Hiệp</option>
-          <option value="A3">Ngôn Tình</option>
-          <option value="B8">Đô Thị</option>
-          <option value="B9">Quan Trường</option>
-          <option value="F2">Võng Du</option>
+        <select class="sort update_day" name="ct" id="ct">
+          <option value="1" selected="">Tất cả</option>
+          <option value="2">Hôm nay</option>
+          <option value="3">Tuần này</option>
+          <option value="4">Tháng này</option>
+          <option value="5">Năm nay</option>
         </select>
       </div>
 
       <div class="change-category sort-container">
-        <div class="select-title">Tác Giả</div>
+        <div class="select-title">Thể loại</div>
+        <div class="information_name_wrap">
+          <div id="container">
+            <ul id="ulElement">
+              <li>Action</li>
+              <li>Adult</li>
+              <li>Adventure</li>
+              <li>Anime</li>
+              <li>Chuyển Sinh</li>
+              <li>Comedy</li>
+              <li>Comic</li>
+              <li>Cooking</li>
+              <li>Cổ Đại</li>
+              <li>Doujinshi</li>
+              <li>Drama</li>
+              <li>Đam Mỹ</li>
+              <li>Ecchi</li>
+              <li>Fantasy</li>
+              <li>Gender Bender</li>
+              <li>Harem</li>
+              <li>Historical</li>
+              <li>Horror</li>
+              <li>Josei</li>
+              <li>Live action</li>
+              <li>Manga</li>
+              <li>Manhua</li>
+              <li>Manhwa</li>
+              <li>Martial Arts</li>
+              <li>Mature</li>
+              <li>Mecha</li>
+              <li>Mystery</li>
+              <li>Ngôn Tình</li>
+              <li>One shot</li>
+              <li>Psychological</li>
+              <li>Romance</li>
+              <li>School Life</li>
+              <li>Sci-fi</li>
+              <li>Seinen</li>
+              <li>Shoujo</li>
+              <li>Shoujo Ai</li>
+              <li>Shounen</li>
+              <li>Shounen Ai</li>
+              <li>Slice of Life</li>
+              <li>Smut</li>
+              <li>Soft Yaoi</li>
+              <li>Soft Yuri</li>
+              <li>Sports</li>
+              <li>Supernatural</li>
+              <li>Thiếu Nhi</li>
+              <li>Tragedy</li>
+              <li>Trinh Thám</li>
+              <li>Truyện scan</li>
+              <li>Truyện Màu</li>
+              <li>Webtoon</li>
+              <li>Xuyên Không</li>
 
-        <select class="sort" name="ct" id="ct">
-          <option value="A1" selected="">Tất cả</option>
-          <option value="A2">Đã hoàn thành</option>
-          <option value="A3">Đang re</option>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="change-category sort-container">
+        <div class="select-title">Số chướng truyện</div>
+
+        <select class="sort num_chaps" name="ct" id="ct">
+          <option value="1" selected="">Tất cả</option>
+          <option value="2">> 10 chương</option>
+          <option value="3">> 100 chương</option>
+          <option value="4">> 1000 chương</option>
+        </select>
+      </div>
+
+      <div class="change-category sort-container">
+        <div class="select-title">Trạng thái</div>
+
+        <select class="sort status" name="ct" id="ct">
+          <option value="1" selected="">Tất cả</option>
+          <option value="2">Đang ra</option>
+          <option value="3">Hoàn Thành</option>
+          <option value="4">Tạm dừng</option>
+        </select>
+      </div>
+
+      <div class="change-category sort-container">
+        <div class="select-title">Sắp xêp theo</div>
+
+        <select class="sort sort_by" name="ct" id="ct">
+          <option value="1" selected="">Lượt xem</option>
+          <option value="2">Lượt thích</option>
+          <option value="3">Ngày cập nhật</option>
         </select>
       </div>
 
       <div class="change-category sort-container">
         <div class="select-title"></div>
-
         <button class="search-btn">Lọc Truyện</button>
       </div>
 
@@ -72,559 +164,35 @@
       <div class="top_popular">
         <div class="novel_wrap">
           <div class="novel">
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/171/gay-go-cap-99-5344.jpg" alt="image" />
-                <div class="novel_title">
-                  <a href="/HTML/reviews.html" class="novel_name">GẬY GỖ CÁP 99+</a>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/188/dai-quan-gia-la-ma-hoang.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">ĐẠI QUẢN GIA LÀ MA HOÀNG</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://static.hidive.com/welcome/custom/q2-2023/Exclusives/ONK_01_350x400.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">Oshi No Ko</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
+            <% for (let i=0; i < result.length; i++) { %>
+              <a href="/reviews/<%= result[i]._id %>" class="novel_item">
+                <div>
+                  <div class="novel_item_main">
+                    <div class="novel_item_main_img">
+                      <img src="<%= result[i].image %>" alt referrerpolicy="no-referrer">
+                    </div>
+                    <div class="novel_title" onclick="myFunction()">
+                      <div class="novel_name">
+                        <%= result[i].name %>
+                      </div>
+                      <div class="novel_author">
+                        Tác giả : <span>
+                          <%= result[i].author %>
+                        </span>
+                      </div>
+                      <div class="novel_chapter">
+                        Chap : <span>
+                          <%= result[i].no_chapters %>
+                        </span>
+                        <div style="font-size: 13px;">
+                          <%= result[i].status %>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://images1.wionews.com/images/wion/900x1600/2023/5/8/1683542368815_desktopwallpaperdeathnoteiphone.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">DEATH NOTE</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://ecdn.game4v.com/g4v-content/uploads/2022/07/04084406/Solo-1-game4v-1656899043-96.png" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">SOLO LEVELING</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <header header-tag="/HTML/header.html"></header>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://static.8cache.com/cover/eJwNzkcWojAAANAT8YYSkCxmIUVFpDdh4yNUgVCkBDj9zD_B72ruT9-JVrOIGDGAM-ZyWZNKsx7eRpSwI4Bk-D32QPdMS7A_JqACxbbu-B0oqH-SjkhRzvBsIVHXe8ltN7m7OhMHDbEfqlj2idVTTRY_gPPcBD9nx5yhOq-SbX5UAvyFGAVOoaan4d5M83U_7QmLGzTzWfGN1v_FOwvyb1jYWlte_YzS1Yk_MUGAZlQTRB3Jpstzh3XaGkEkLQYpb6l8P7DCZ6BH-RnDFQqyFNmRU0vEWu8zd2ZdBvEOpccIN7d1rTLp9hC5I0OCaXCxrinhtdEOX_L1cBTVTohuE2QgJSHpeyyf_beuepxG31hIfi3tGXJvHKlBkaVDzXwumlTyXaQr_bC_p0dKx4uu-nQayyEGupPu4TQ45l6Vh6jTLCaclR68E8E8PpclWZwLbEb0sehS7vvGP1kt-JxbVte9malcZoQsqNDLGOXVo23809uEo09kChqn51W26luYFVXJranwgKrbuOnqvFvJdXx0M-zcMy_Tb1m8n1jqzutDURt53SLUHvXc7K-EvuQvFrCGT0vxO2yAZ0Lt6CyPYZZVakfU-WeCJ2e1bYUuV0HPlnY3rzDlnXljxwuowxlrQ1FUcs7eWzeWxove2EyPijCR_s_8vL62RRIrdvMswuFQZyZYo3d_W4VJzC08geFgQuc9WO0A_XsNlMvjqIO8uNa1kRM2yf7O9D_DnetE/su-troi-day-cua-khien-hiep-si.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">The Rising Of The Shield Hero</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/188/tro-choi-ma-quai.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">
-                    VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
-                  </div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/139/san-dau-cua-thay-ma.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">
-                    VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
-                  </div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/96/sieu-cap-than-co-nhan.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">SIÊU CẤP THẦN CƠ NHÂN</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/239/pha-bo-gioi-han.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">PHÁ BỎ GIỚI HẠN</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/127/toan-chuc-phap-su.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">TOÀN CHỨC PHÁP SƯ</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://upload.wikimedia.org/wikipedia/vi/6/6c/Hi%E1%BB%87p_s%C4%A9_l%C6%B0u_ban_%28light_novel%29_cover.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">SỬ THI VỀ MỘT HIỆP SĨ LƯU BAN</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/171/gay-go-cap-99-5344.jpg" alt="image" />
-                <div class="novel_title">
-                  <a href="/HTML/reviews.html" class="novel_name">GẬY GỖ CÁP 99+</a>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/188/dai-quan-gia-la-ma-hoang.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">ĐẠI QUẢNG GIA LÀ MA HOÀNG</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://static.hidive.com/welcome/custom/q2-2023/Exclusives/ONK_01_350x400.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">Oshi No Ko</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://images1.wionews.com/images/wion/900x1600/2023/5/8/1683542368815_desktopwallpaperdeathnoteiphone.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">DEATH NOTE</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://ecdn.game4v.com/g4v-content/uploads/2022/07/04084406/Solo-1-game4v-1656899043-96.png" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">SOLO LEVELING</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://static.8cache.com/cover/eJwNzkcWojAAANAT8YYSkCxmIUVFpDdh4yNUgVCkBDj9zD_B72ruT9-JVrOIGDGAM-ZyWZNKsx7eRpSwI4Bk-D32QPdMS7A_JqACxbbu-B0oqH-SjkhRzvBsIVHXe8ltN7m7OhMHDbEfqlj2idVTTRY_gPPcBD9nx5yhOq-SbX5UAvyFGAVOoaan4d5M83U_7QmLGzTzWfGN1v_FOwvyb1jYWlte_YzS1Yk_MUGAZlQTRB3Jpstzh3XaGkEkLQYpb6l8P7DCZ6BH-RnDFQqyFNmRU0vEWu8zd2ZdBvEOpccIN7d1rTLp9hC5I0OCaXCxrinhtdEOX_L1cBTVTohuE2QgJSHpeyyf_beuepxG31hIfi3tGXJvHKlBkaVDzXwumlTyXaQr_bC_p0dKx4uu-nQayyEGupPu4TQ45l6Vh6jTLCaclR68E8E8PpclWZwLbEb0sehS7vvGP1kt-JxbVte9malcZoQsqNDLGOXVo23809uEo09kChqn51W26luYFVXJranwgKrbuOnqvFvJdXx0M-zcMy_Tb1m8n1jqzutDURt53SLUHvXc7K-EvuQvFrCGT0vxO2yAZ0Lt6CyPYZZVakfU-WeCJ2e1bYUuV0HPlnY3rzDlnXljxwuowxlrQ1FUcs7eWzeWxove2EyPijCR_s_8vL62RRIrdvMswuFQZyZYo3d_W4VJzC08geFgQuc9WO0A_XsNlMvjqIO8uNa1kRM2yf7O9D_DnetE/su-troi-day-cua-khien-hiep-si.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">The Rising Of The Shield Hero</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/188/tro-choi-ma-quai.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">
-                    VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
-                  </div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/139/san-dau-cua-thay-ma.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">
-                    VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
-                  </div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/96/sieu-cap-than-co-nhan.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">SIÊU CẤP THẦN CƠ NHÂN</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/239/pha-bo-gioi-han.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">PHÁ BỎ GIỚI HẠN</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/127/toan-chuc-phap-su.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">TOÀN CHỨC PHÁP SƯ</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://upload.wikimedia.org/wikipedia/vi/6/6c/Hi%E1%BB%87p_s%C4%A9_l%C6%B0u_ban_%28light_novel%29_cover.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">SỬ THI VỀ MỘT HIỆP SĨ LƯU BAN</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/171/gay-go-cap-99-5344.jpg" alt="image" />
-                <div class="novel_title">
-                  <a href="/HTML/reviews.html" class="novel_name">GẬY GỖ CÁP 99+</a>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/188/dai-quan-gia-la-ma-hoang.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">ĐẠI QUẢNG GIA LÀ MA HOÀNG</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://static.hidive.com/welcome/custom/q2-2023/Exclusives/ONK_01_350x400.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">Oshi No Ko</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://images1.wionews.com/images/wion/900x1600/2023/5/8/1683542368815_desktopwallpaperdeathnoteiphone.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">DEATH NOTE</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://ecdn.game4v.com/g4v-content/uploads/2022/07/04084406/Solo-1-game4v-1656899043-96.png" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">SOLO LEVELING</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://static.8cache.com/cover/eJwNzkcWojAAANAT8YYSkCxmIUVFpDdh4yNUgVCkBDj9zD_B72ruT9-JVrOIGDGAM-ZyWZNKsx7eRpSwI4Bk-D32QPdMS7A_JqACxbbu-B0oqH-SjkhRzvBsIVHXe8ltN7m7OhMHDbEfqlj2idVTTRY_gPPcBD9nx5yhOq-SbX5UAvyFGAVOoaan4d5M83U_7QmLGzTzWfGN1v_FOwvyb1jYWlte_YzS1Yk_MUGAZlQTRB3Jpstzh3XaGkEkLQYpb6l8P7DCZ6BH-RnDFQqyFNmRU0vEWu8zd2ZdBvEOpccIN7d1rTLp9hC5I0OCaXCxrinhtdEOX_L1cBTVTohuE2QgJSHpeyyf_beuepxG31hIfi3tGXJvHKlBkaVDzXwumlTyXaQr_bC_p0dKx4uu-nQayyEGupPu4TQ45l6Vh6jTLCaclR68E8E8PpclWZwLbEb0sehS7vvGP1kt-JxbVte9malcZoQsqNDLGOXVo23809uEo09kChqn51W26luYFVXJranwgKrbuOnqvFvJdXx0M-zcMy_Tb1m8n1jqzutDURt53SLUHvXc7K-EvuQvFrCGT0vxO2yAZ0Lt6CyPYZZVakfU-WeCJ2e1bYUuV0HPlnY3rzDlnXljxwuowxlrQ1FUcs7eWzeWxove2EyPijCR_s_8vL62RRIrdvMswuFQZyZYo3d_W4VJzC08geFgQuc9WO0A_XsNlMvjqIO8uNa1kRM2yf7O9D_DnetE/su-troi-day-cua-khien-hiep-si.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">The Rising Of The Shield Hero</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/188/tro-choi-ma-quai.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">
-                    VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
-                  </div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/139/san-dau-cua-thay-ma.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">
-                    VỊ HÔN PHU CỦA TÔI ĐÃ RƠI VÀO LƯỚI TÌNH VỚI EM
-                  </div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/96/sieu-cap-than-co-nhan.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">SIÊU CẤP THẦN CƠ NHÂN</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/239/pha-bo-gioi-han.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">PHÁ BỎ GIỚI HẠN</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://st.nettruyenplus.com/data/comics/127/toan-chuc-phap-su.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">TOÀN CHỨC PHÁP SƯ</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="novel_item">
-              <div class="novel_item_main">
-                <img src="https://upload.wikimedia.org/wikipedia/vi/6/6c/Hi%E1%BB%87p_s%C4%A9_l%C6%B0u_ban_%28light_novel%29_cover.jpg" alt="image" />
-                <div class="novel_title">
-                  <div class="novel_name">SỬ THI VỀ MỘT HIỆP SĨ LƯU BAN</div>
-                  <div class="novel_author">
-                    Tác giả : <span>Nguyễn Hưng Thịnh</span>
-                  </div>
-                  <div class="novel_chapter">
-                    Chap : <span>100</span>
-                    <div>Full</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+              </a>
+              <% } %>
           </div>
         </div>
       </div>
@@ -901,6 +469,20 @@
 
   </div>
 </div>
+<script>
+  console.log('â')
+  var listObj = new ej.dropdowns.MultiSelect({
+    // set placeholder to MultiSelect input element
+    placeholder: "Chọn thể loại truyện"
+  }, '#ulElement');
+  var ele = document.querySelectorAll('#container');
+	if (ele) {
+		ele.forEach(a => {
+			a.style.visibility = "visible";
+		});
+	}
+</script>
+
 <script src="/src/JS/index.js"></script>
 
 <script src="/src/JS/category-page.js"></script>

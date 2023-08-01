@@ -408,6 +408,14 @@ ul {
 }
 
 
+.information_name_wrap {
+    margin: 5px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    flex-direction: column;
+}
+
 /* tag css */
 
 #container {
@@ -417,54 +425,54 @@ ul {
     border: 2px solid #bba9a9 !important;
     background-color: white !important;
     border-radius: 6px;
-  }
-  
-  .e-multi-select-wrapper {
+}
+
+.e-multi-select-wrapper {
     background-color: white !important;
     padding-left: 10px;
     margin: 5px 10px;
-  }
-  
-  .e-input-group.e-control-wrapper:not(.e-success):not(.e-warning):not(.e-error):not(.e-float-icon-left) {
+}
+
+.e-input-group.e-control-wrapper:not(.e-success):not(.e-warning):not(.e-error):not(.e-float-icon-left) {
     border-color: transparent !important;
-  }
-  
-  .e-input-group.e-control-wrapper:not(.e-disabled):not(.e-float-icon-left)::before,
-  .e-input-group:not(.e-float-icon-left):not(.e-float-input)::before {
+}
+
+.e-input-group.e-control-wrapper:not(.e-disabled):not(.e-float-icon-left)::before,
+.e-input-group:not(.e-float-icon-left):not(.e-float-input)::before {
     background: var(--header-background) !important;
-  }
-  
-  .e-multi-select-wrapper {
+}
+
+.e-multi-select-wrapper {
     display: flex;
     align-items: center;
-  }
-  
-  .e-input-group,
-  .e-input-group.e-control-wrapper {
+}
+
+.e-input-group,
+.e-input-group.e-control-wrapper {
     margin-bottom: 0 !important;
-  }
-  
-  .e-control-wrapper {
+}
+
+.e-control-wrapper {
     margin: 0;
-  }
-  
-  .e-multi-select-wrapper input[type="text"] {
+}
+
+.e-multi-select-wrapper input[type="text"] {
     font-size: 20px !important;
-  }
-  
-  .e-multi-select-wrapper input[type="text"]::placeholder {
+}
+
+.e-multi-select-wrapper input[type="text"]::placeholder {
     text-align: start !important;
-  }
-  
-  .e-input-group:not(.e-float-icon-left):not(.e-float-input).e-input-focus::before,
-  .e-input-group:not(.e-float-icon-left):not(.e-float-input).e-input-focus::after,
-  .e-input-group.e-float-icon-left:not(.e-float-input).e-input-focus .e-input-in-wrap::before,
-  .e-input-group.e-float-icon-left:not(.e-float-input).e-input-focus .e-input-in-wrap::after,
-  .e-input-group.e-control-wrapper:not(.e-float-icon-left):not(.e-float-input).e-input-focus::before,
-  .e-input-group.e-control-wrapper:not(.e-float-icon-left):not(.e-float-input).e-input-focus::after,
-  .e-input-group.e-control-wrapper.e-float-icon-left:not(.e-float-input).e-input-focus .e-input-in-wrap::before,
-  .e-input-group.e-control-wrapper.e-float-icon-left:not(.e-float-input).e-input-focus .e-input-in-wrap::after {
+}
+
+.e-input-group:not(.e-float-icon-left):not(.e-float-input).e-input-focus::before,
+.e-input-group:not(.e-float-icon-left):not(.e-float-input).e-input-focus::after,
+.e-input-group.e-float-icon-left:not(.e-float-input).e-input-focus .e-input-in-wrap::before,
+.e-input-group.e-float-icon-left:not(.e-float-input).e-input-focus .e-input-in-wrap::after,
+.e-input-group.e-control-wrapper:not(.e-float-icon-left):not(.e-float-input).e-input-focus::before,
+.e-input-group.e-control-wrapper:not(.e-float-icon-left):not(.e-float-input).e-input-focus::after,
+.e-input-group.e-control-wrapper.e-float-icon-left:not(.e-float-input).e-input-focus .e-input-in-wrap::before,
+.e-input-group.e-control-wrapper.e-float-icon-left:not(.e-float-input).e-input-focus .e-input-in-wrap::after {
     width: 0% !important;
-  }
-  
-  /* tag css */
+}
+
+/* tag css */

@@ -815,22 +815,36 @@ app.get('/search', checkCookieLoglUser, async (req, res) => {
 	}
 });
 
+// Advanced search route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+app.get('/category', checkCookieLoglUser, async (req, res) => {
+	try {
+		let result = await server.find_all_Data({
+			table: "truyen",
+			projection: {
+				name: 1,
+				author: 1,
+				image: 1,
+				status: 1,
+				no_chapters: 1,
+			},
+			sort: { views: -1, likes: -1, name: 1 },
+			limit: 30
+		});
+		res.render('category-page.ejs', {
+			headerFile: 'header',
+			footerFile: 'footer',
+			result: result
+		});
+	} catch (err) {
+		console.log('SYSTEM | SEARCH | ERROR | ', err);
+		res.sendStatus(500);
+	}
+});
 
 // 404 route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.get('/404', (req, res) => {
 	res.sendFile(parentDirectory + '/error/404.html');
 });
-
-// category route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.get('/category', checkCookieLoglUser, (req, res) => {
-	res.render('category-page', {
-		headerFile: 'header',
-		footerFile: 'footer'
-	});
-});
-
-
-
 // API SPACE ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // more search
@@ -900,7 +914,6 @@ app.get('/api/search/more', checkCookieLoglUser, async (req, res) => {
 						no_chapters: 1,
 					},
 					skip: 30 * num_click,
-
 					limit: 31
 				});
 				if (authors.length == 31) {
@@ -922,17 +935,27 @@ app.get('/api/search/more', checkCookieLoglUser, async (req, res) => {
 				res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
 				res.end(JSON.stringify({ 'truyen': authors, 'showbtn': authors_more }));
 			}
-
-
-
-
-
-
-
 		}
 		else {
 			res.sendStatus(404);
 		}
+	} catch (err) {
+		console.log('SYSTEM | SEARCH_MORE | ERROR | ', err);
+		res.sendStatus(500);
+	}
+});
+
+// Advanced search
+app.get('/api/advanced_search', checkCookieLoglUser, async (req, res) => {
+	try {
+		const update_day = decodeURIComponent(req.query.update_day);
+		const types = decodeURIComponent(req.query.types);
+		const num_chaps = decodeURIComponent(req.query.num_chaps);
+		const status = decodeURIComponent(req.query.status);
+		const sort_by = decodeURIComponent(req.query.sort_by);
+
+		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
+		res.end(JSON.stringify({ 'truyen': names, 'showbtn': name_more }));
 	} catch (err) {
 		console.log('SYSTEM | SEARCH_MORE | ERROR | ', err);
 		res.sendStatus(500);

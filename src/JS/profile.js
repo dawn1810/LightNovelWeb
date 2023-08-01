@@ -842,10 +842,6 @@ $(document).ready(function () {
 		$(this).parent().parent().remove();
 	});
 
-	$(document).on('click', '.page5_chap .upfile', function () {
-		console.log('upfile');
-	});
-
 	$(document).on('click', '.back_btn', function () {
 		history.back();
 	});

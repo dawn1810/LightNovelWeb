@@ -1,10 +1,11 @@
-const day_tab_btn=document.getElementById("day-tab");
-const month_tab_btn=document.getElementById("month-tab");
-const all_tab_btn=document.getElementById("all-tab");
+// const day_tab_btn=document.getElementById("day-tab");
+// const month_tab_btn=document.getElementById("month-tab");
+// const all_tab_btn=document.getElementById("all-tab");
 
-const day_panel_btn=document.getElementById("day-panel");
-const month_panel_btn=document.getElementById("month-panel");
-const all_panel_btn=document.getElementById("all-panel");
+// const day_panel_btn=document.getElementById("day-panel");
+// const month_panel_btn=document.getElementById("month-panel");
+// const all_panel_btn=document.getElementById("all-panel");
+
 
 // day_tab_btn.onclick=function(e) {
 //     e.preventDefault();
@@ -48,3 +49,32 @@ const all_panel_btn=document.getElementById("all-panel");
 //     }
 
 // }
+
+$('.search-btn').on('click' , function () {
+
+    url = currentURL + `/api/advanced_search?update_day=${$('.update_day').val()}&types=${listObj.tempValues}&num_chaps=${$('.num_chaps').val()}&status=${$('.status').val()}&sort_by=${$('.sort_by').val()}`
+
+    const requestOptions = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
+    };
+    fetch(url, requestOptions)
+        .then(response => {
+            if (response.ok) {
+                response.json().then(data => {
+                    console.log(data);
+                }).catch(error => {
+                    console.error('Error parsing JSON:', error);
+                });
+            }
+            else {
+                console.log('erro')
+            }
+        })
+        .catch(error => {
+            console.error('Error downloading file:', error);
+        });
+});
