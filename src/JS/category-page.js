@@ -10,7 +10,7 @@
 // day_tab_btn.onclick=function(e) {
 //     e.preventDefault();
 //     if (day_tab_btn.classList[1]!="active"){
-        
+
 //         day_tab_btn.classList.add("active");
 //         month_tab_btn.classList.remove("active");
 //         all_tab_btn.classList.remove("active");
@@ -50,7 +50,7 @@
 
 // }
 
-$('.search-btn').on('click' , function () {
+$('.search-btn').on('click', function () {
     url = currentURL + `/api/advanced_search?update_day=${$('.update_day').val()}&types=${listObj.tempValues}&num_chaps=${$('.num_chaps').val()}&status=${$('.status').val()}&sort_by=${$('.sort_by').val()}`
 
     const requestOptions = {
@@ -64,7 +64,39 @@ $('.search-btn').on('click' , function () {
         .then(response => {
             if (response.ok) {
                 response.json().then(data => {
-                    console.log(data);
+                    // render all more data
+                    $('.novel').empty();
+                    for (truyen of data) {
+                        $('.novel').append(`
+                        <a href="/reviews/${truyen._id}" class="novel_item">
+                            <div>
+                                <div class="novel_item_main">
+                                    <div class="novel_item_main_img">
+                                        <img src="${truyen.image}" alt referrerpolicy="no-referrer">
+                                    </div>
+                                    <div class="novel_title" onclick="myFunction()">
+                                        <div class="novel_name">
+                                            ${truyen.name}
+                                        </div>
+                                        <div class="novel_author">
+                                            Tác giả : <span>
+                                                ${truyen.author}
+                                            </span>
+                                        </div>
+                                        <div class="novel_chapter">
+                                            Chap : <span>
+                                                ${truyen.no_chapters}
+                                            </span>
+                                            <div style="font-size: 13px;">
+                                                ${truyen.status}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        `);
+                    }
                 }).catch(error => {
                     console.error('Error parsing JSON:', error);
                 });

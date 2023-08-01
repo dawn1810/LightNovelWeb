@@ -193,6 +193,24 @@ function getFirstAndLastDayOfMonth() {
 	};
 }
 
+function getFirstAndLastDayOfYear() {
+	// Clone the current date object to avoid modifying the original
+	const currentDate = new Date();
+
+	// Get the first day of the year
+	const firstDayOfYear = new Date(currentDate.getFullYear(), 0, 1);
+
+	// Move to the next year and get the last day of the current year
+	currentDate.setFullYear(currentDate.getFullYear() + 1);
+	currentDate.setDate(0);
+	const lastDayOfYear = new Date(currentDate);
+
+	return {
+		firstDay: firstDayOfYear,
+		lastDay: lastDayOfYear,
+	};
+}
+
 const storage = NodePersist.create({
 	dir: '.temp',
 });
@@ -210,12 +228,13 @@ async function getNovelList() {
 	try {
 		// by week:
 		let query_by_week = { update_date: { $gte: getFirstAndLastDayOfWeek().firstDay, $lt: getFirstAndLastDayOfWeek().lastDay } };
-		const by_week = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1 }, sort: { views: -1, likes: -1, name: 1 }, limit: 12 });
+		const by_week = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1 }, sort: { views: -1, likes: -1, update_date: -1, name: 1 }, limit: 12 });
 		// by month:
 		let query_by_month = { update_date: { $gte: getFirstAndLastDayOfMonth().firstDay, $lt: getFirstAndLastDayOfMonth().lastDay } };
-		const by_month = await server.find_all_Data({ query: query_by_week, table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1 }, sort: { views: -1, likes: -1, name: 1 }, limit: 12 });
+		const by_month = await server.find_all_Data({ query: query_by_month, table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1 }, sort: { views: -1, likes: -1, update_date: -1, name: 1 }, limit: 12 });
 		// all time
-		const all_time = await server.find_all_Data({ table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1 }, sort: { views: -1, likes: -1, name: 1 }, limit: 12 });
+		let query_by_year = { update_date: { $gte: getFirstAndLastDayOfYear().firstDay, $lt: getFirstAndLastDayOfYear().lastDay } };
+		const all_time = await server.find_all_Data({ query: query_by_year, table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1 }, sort: { views: -1, likes: -1, update_date: -1, name: 1 }, limit: 12 });
 		// update nearby:
 		const nearby = await server.find_all_Data({ table: "truyen", projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1 }, sort: { update_date: -1, views: -1, likes: -1, name: 1 }, limit: 12 });
 
@@ -954,8 +973,86 @@ app.get('/api/advanced_search', checkCookieLoglUser, async (req, res) => {
 		const status = decodeURIComponent(req.query.status);
 		const sort_by = decodeURIComponent(req.query.sort_by);
 
+		let query = {};
+		let sort = {};
+
+		// update date query
+		switch (update_day) {
+			case 2:
+				query.update_data = { $eq: new Date() };
+				break;
+			case 3:
+				query.update_data = { $gte: getFirstAndLastDayOfWeek().firstDay, $lt: getFirstAndLastDayOfWeek().lastDay };
+				break;
+			case 4:
+				query.update_data = { $gte: getFirstAndLastDayOfMonth().firstDay, $lt: getFirstAndLastDayOfMonth().lastDay };
+				break;
+			case 5:
+				query.update_data = { $gte: getFirstAndLastDayOfYear().firstDay, $lt: getFirstAndLastDayOfYear().lastDay };
+				break;
+
+		}
+
+		// types query
+		if (types) {
+			query.genres = { $in: types.split(',') };
+		}
+		
+		// num chap query
+		switch (num_chaps) {
+			case 2:
+				query.no_chapters = { $gte: 10 };
+				break;
+			case 3:
+				query.no_chapters = { $gte: 100 };
+				break;
+			case 4:
+				query.no_chapters = { $gte: 1000 };
+				break;
+		}
+
+		// status query:
+		switch (status) {
+			case 2:
+				query.status = "Đang ra";
+				break;
+			case 3:
+				query.status = "Hoàn thành";
+				break;
+			case 4:
+				query.status = "Tạm dừng";
+				break;
+		}
+
+		// status query:
+		switch (sort_by) {
+			case 1:
+				sort = { views: -1, likes: -1, update_date: -1, name: 1 };
+				break;
+			case 2:
+				sort = { likes: -1, views: -1, update_date: -1, name: 1 };
+				break;
+			case 3:
+				sort = { update_date: -1, views: -1, likes: -1, name: 1 };
+				break;
+		}
+
+		const result = await server.find_all_Data({
+			table: 'truyen',
+			query: query,
+			projection: {
+				name: 1,
+				author: 1,
+				image: 1,
+				status: 1,
+				no_chapters: 1,
+			},
+			sort: sort,
+			limit: 30
+		});
+
 		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
-		res.end(JSON.stringify({}));
+		res.end(JSON.stringify(result));
 	} catch (err) {
 		console.log('SYSTEM | SEARCH_MORE | ERROR | ', err);
 		res.sendStatus(500);
