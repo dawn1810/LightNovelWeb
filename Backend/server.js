@@ -955,7 +955,7 @@ app.get('/api/advanced_search', checkCookieLoglUser, async (req, res) => {
 		const sort_by = decodeURIComponent(req.query.sort_by);
 
 		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
-		res.end(JSON.stringify({ 'truyen': names, 'showbtn': name_more }));
+		res.end(JSON.stringify({}));
 	} catch (err) {
 		console.log('SYSTEM | SEARCH_MORE | ERROR | ', err);
 		res.sendStatus(500);

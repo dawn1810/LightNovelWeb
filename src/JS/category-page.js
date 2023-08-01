@@ -51,7 +51,6 @@
 // }
 
 $('.search-btn').on('click' , function () {
-
     url = currentURL + `/api/advanced_search?update_day=${$('.update_day').val()}&types=${listObj.tempValues}&num_chaps=${$('.num_chaps').val()}&status=${$('.status').val()}&sort_by=${$('.sort_by').val()}`
 
     const requestOptions = {
