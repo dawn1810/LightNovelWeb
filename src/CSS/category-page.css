@@ -422,7 +422,7 @@ ul {
     margin: 0px auto;
     width: 100%;
     visibility: visible !important;
-    border: 1px solid #1c1c1c !important;
+    border: 1px solid #767676 !important;
     background-color: white !important;
     border-radius: 6px;
 }
@@ -436,6 +436,7 @@ ul {
 .e-input-group.e-control-wrapper:not(.e-success):not(.e-warning):not(.e-error):not(.e-float-icon-left) {
     border-color: transparent !important;
     background-color: #fff !important;
+    border-radius: 10px;
 }
 
 .e-input-group.e-control-wrapper:not(.e-disabled):not(.e-float-icon-left)::before,
