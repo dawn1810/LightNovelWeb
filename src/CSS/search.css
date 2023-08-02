@@ -126,7 +126,9 @@ html .body_main {
   letter-spacing: -1px;
   font-size: 14px;
 }
-
+.radio-input_search label:first-child{
+  background-color: var(--author-color);
+}
 .selection {
   display: none;
   position: absolute;
@@ -166,6 +168,11 @@ html .body_main {
   align-content: flex-start;
   padding-top: 5px;
   justify-content: center;
+}
+.novel .no_novel{
+  padding: 150px 0;
+  font-size: 35px;
+  font-weight: 700;
 }
 
 .novel_item {
@@ -797,3 +804,5 @@ html .body_main {
 .right_item_mobile {
   display: none !important;
 }
+
+

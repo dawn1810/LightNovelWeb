@@ -848,12 +848,20 @@ app.get('/category', checkCookieLoglUser, async (req, res) => {
 				no_chapters: 1,
 			},
 			sort: { views: -1, likes: -1, name: 1 },
-			limit: 30
+			limit: 31
 		});
+
+		let more_novel = false;
+		if (result.length == 31) {
+			more_novel = true;
+			result.pop();
+		};
+
 		res.render('category-page.ejs', {
 			headerFile: 'header',
 			footerFile: 'footer',
-			result: result
+			result: result,
+			more_novel: more_novel
 		});
 	} catch (err) {
 		console.log('SYSTEM | SEARCH | ERROR | ', err);
@@ -973,25 +981,25 @@ app.get('/api/advanced_search', checkCookieLoglUser, async (req, res) => {
 		const num_chaps = decodeURIComponent(req.query.num_chaps);
 		const status = decodeURIComponent(req.query.status);
 		const sort_by = decodeURIComponent(req.query.sort_by);
+		const skip = decodeURIComponent(req.query.skip);
 
 		let query = {};
 		let sort = {};
 
 		// update date query
 		switch (update_day) {
-			case 2:
-				query.update_data = { $eq: new Date() };
+			case '2':
+				query.update_date = { $eq: new Date() };
 				break;
-			case 3:
-				query.update_data = { $gte: getFirstAndLastDayOfWeek().firstDay, $lt: getFirstAndLastDayOfWeek().lastDay };
+			case '3':
+				query.update_date = { $gte: getFirstAndLastDayOfWeek().firstDay, $lt: getFirstAndLastDayOfWeek().lastDay };
 				break;
-			case 4:
-				query.update_data = { $gte: getFirstAndLastDayOfMonth().firstDay, $lt: getFirstAndLastDayOfMonth().lastDay };
+			case '4':
+				query.update_date = { $gte: getFirstAndLastDayOfMonth().firstDay, $lt: getFirstAndLastDayOfMonth().lastDay };
 				break;
-			case 5:
-				query.update_data = { $gte: getFirstAndLastDayOfYear().firstDay, $lt: getFirstAndLastDayOfYear().lastDay };
+			case '5':
+				query.update_date = { $gte: getFirstAndLastDayOfYear().firstDay, $lt: getFirstAndLastDayOfYear().lastDay };
 				break;
-
 		}
 
 		// types query
@@ -1001,43 +1009,44 @@ app.get('/api/advanced_search', checkCookieLoglUser, async (req, res) => {
 		
 		// num chap query
 		switch (num_chaps) {
-			case 2:
+			case '2':
 				query.no_chapters = { $gte: 10 };
 				break;
-			case 3:
+			case '3':
 				query.no_chapters = { $gte: 100 };
 				break;
-			case 4:
+			case '4':
 				query.no_chapters = { $gte: 1000 };
 				break;
 		}
 
 		// status query:
 		switch (status) {
-			case 2:
+			case '2':
 				query.status = "Đang ra";
 				break;
-			case 3:
+			case '3':
 				query.status = "Hoàn thành";
 				break;
-			case 4:
+			case '4':
 				query.status = "Tạm dừng";
 				break;
 		}
 
 		// status query:
 		switch (sort_by) {
-			case 1:
+			case '1':
 				sort = { views: -1, likes: -1, update_date: -1, name: 1 };
 				break;
-			case 2:
+			case '2':
 				sort = { likes: -1, views: -1, update_date: -1, name: 1 };
 				break;
-			case 3:
+			case '3':
 				sort = { update_date: -1, views: -1, likes: -1, name: 1 };
 				break;
 		}
 
+		console.log(query);
 		const result = await server.find_all_Data({
 			table: 'truyen',
 			query: query,
@@ -1049,9 +1058,16 @@ app.get('/api/advanced_search', checkCookieLoglUser, async (req, res) => {
 				no_chapters: 1,
 			},
 			sort: sort,
-			limit: 30
+			limit: 30,
+			skip: parseInt(skip) * 30
 		});
 
+		result.more_novel = false;
+		if (result.length == 31) {
+			result.more_novel = true;
+			result.pop();
+		};
+		
 		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
 		res.end(JSON.stringify(result));
 	} catch (err) {

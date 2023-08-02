@@ -113,29 +113,20 @@ function drop_novel() {
     }
 }
 
-function drop_tag() {
-    for (let i = 0; i < tag.length; i++) {
-        if (tag[i].checked) {
-            drop_novel();
-            document.querySelectorAll('.novel_wrap')[i].style.display = 'block'
-        }
-    }
-}
-
-document.querySelector("#value-1").onchange = function () {
-    drop_tag()
-};
-
-document.querySelector("#value-2").onchange = function () {
-    drop_tag()
-};
-
-document.querySelector("#value-3").onchange = function () {
-    drop_tag()
-};
-
-if (document.querySelector("#value-1").checked) {
+function drop_tag(g) {
     drop_novel();
-    document.querySelectorAll('.novel_wrap')[0].style.display = 'block'
+    document.querySelectorAll('.novel_wrap')[g].style.display = 'block'
 }
+
+
+for (let i = 0; i < document.querySelectorAll('.radio-input_search label').length; i++) {
+    document.querySelectorAll('.radio-input_search label')[i].onclick = function () {
+        drop_tag(i)
+        for (const tag of document.querySelectorAll('.radio-input_search label')) {
+            tag.style.background = 'var(--white-color)'
+        }
+        this.style.background = 'var(--author-color)'
+    };
+}
+
 

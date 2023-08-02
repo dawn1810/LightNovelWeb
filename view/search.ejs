@@ -38,20 +38,20 @@
       </ul>
 
       <div class="search_tag">
-        <div class="radio-input">
+        <div class="radio-input radio-input_search">
           <label>
-            <input class="search_tag_item" type="radio" id="value-1" name="value-radio" value="1" checked>
+            <!-- <input class="search_tag_item" type="radio" id="value-1" name="value-radio" value="1" checked> -->
             <span>Tên Truyện</span>
           </label>
           <label>
-            <input class="search_tag_item" type="radio" id="value-2" name="value-radio" value="2">
+            <!-- <input class="search_tag_item" type="radio" id="value-2" name="value-radio" value="2"> -->
             <span>Thế Loại</span>
           </label>
           <label>
-            <input class="search_tag_item" type="radio" id="value-3" name="value-radio" value="3">
+            <!-- <input class="search_tag_item" type="radio" id="value-3" name="value-radio" value="3"> -->
             <span>Tác Giả</span>
           </label>
-          <span class="selection"></span>
+          <!-- <span class="selection"></span> -->
         </div>
       </div>
       <h1 id="current-category">Kết quả tìm kiếm</h1>
@@ -60,35 +60,40 @@
         <div class="top_popular">
           <div class="novel_wrap novel1">
             <div class="novel ">
-
-              <% for (let i=0; i < names.length; i++) { %>
-                <a href="/reviews/<%= names[i]._id %>" class="novel_item">
-                  <div>
-                    <div class="novel_item_main">
-                      <div class="novel_item_main_img">
-                        <img src="<%= names[i].image %>" alt referrerpolicy="no-referrer">
-                      </div>
-                      <div class="novel_title" onclick="myFunction()">
-                        <div class="novel_name">
-                          <%= names[i].name %>
+              <% if (names.length >0) {%>
+                <% for (let i=0; i < names.length; i++) { %>
+                  <a href="/reviews/<%= names[i]._id %>" class="novel_item">
+                    <div>
+                      <div class="novel_item_main">
+                        <div class="novel_item_main_img">
+                          <img src="<%= names[i].image %>" alt referrerpolicy="no-referrer">
                         </div>
-                        <div class="novel_author">
-                          Tác giả : <span>
-                            <%= names[i].author %>
-                          </span>
-                        </div>
-                        <div class="novel_chapter">
-                          Chap : <span>
-                            <%= names[i].no_chapters %>
-                          </span>
-                          <div style="font-size: 13px;">
-                            <%= names[i].status %>
+                        <div class="novel_title" onclick="myFunction()">
+                          <div class="novel_name">
+                            <%= names[i].name %>
+                          </div>
+                          <div class="novel_author">
+                            Tác giả : <span>
+                              <%= names[i].author %>
+                            </span>
+                          </div>
+                          <div class="novel_chapter">
+                            Chap : <span>
+                              <%= names[i].no_chapters %>
+                            </span>
+                            <div style="font-size: 13px;">
+                              <%= names[i].status %>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </a>
+                  </a>
+                  <% } %>
+                
+
+              <%}else{%>
+                  <span class="no_novel">Không tìm thấy kết quả</span>
                 <% } %>
             </div>
             <% if (name_more === true) {%>
@@ -103,38 +108,44 @@
                   </svg>
                 </button>
               </div>
-              <%}%>
+            <%}%>
           </div>
           <div class="novel_wrap novel2">
             <div class="novel">
-              <% for (let i=0; i < genres.length; i++) { %>
-                <a href="/reviews/<%= genres[i]._id %>" class="novel_item">
-                  <div>
-                    <div class="novel_item_main">
-                      <div class="novel_item_main_img">
-                        <img src="<%= genres[i].image %>" alt referrerpolicy="no-referrer">
-                      </div>
-                      <div class="novel_title" onclick="myFunction()">
-                        <div class="novel_name">
-                          <%= genres[i].name %>
+              <% if (genres.length > 0) {%>
+
+                <% for (let i=0; i < genres.length; i++) { %>
+                  <a href="/reviews/<%= genres[i]._id %>" class="novel_item">
+                    <div>
+                      <div class="novel_item_main">
+                        <div class="novel_item_main_img">
+                          <img src="<%= genres[i].image %>" alt referrerpolicy="no-referrer">
                         </div>
-                        <div class="novel_author">
-                          Tác giả : <span>
-                            <%= genres[i].author %>
-                          </span>
-                        </div>
-                        <div class="novel_chapter">
-                          Chap : <span>
-                            <%= genres[i].no_chapters %>
-                          </span>
-                          <div style="font-size: 13px;">
-                            <%= genres[i].status %>
+                        <div class="novel_title" onclick="myFunction()">
+                          <div class="novel_name">
+                            <%= genres[i].name %>
+                          </div>
+                          <div class="novel_author">
+                            Tác giả : <span>
+                              <%= genres[i].author %>
+                            </span>
+                          </div>
+                          <div class="novel_chapter">
+                            Chap : <span>
+                              <%= genres[i].no_chapters %>
+                            </span>
+                            <div style="font-size: 13px;">
+                              <%= genres[i].status %>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </a>
+                  </a>
+                  <% } %>
+
+              <%}else{%>
+                  <span class="no_novel">Không tìm thấy kết quả</span>
                 <% } %>
 
             </div>
@@ -154,6 +165,7 @@
           </div>
           <div class="novel_wrap novel3">
             <div class="novel">
+            <% if (authors.length >0) {%>
               <% for (let i=0; i < authors.length; i++) { %>
                 <a href="/reviews/<%= authors[i]._id %>" class="novel_item">
                   <div>
@@ -183,6 +195,13 @@
                   </div>
                 </a>
                 <% } %>
+
+              <%}else{%>
+                  <span class="no_novel">Không tìm thấy kết quả</span>
+                <% } %>
+
+              
+              
 
             </div>
             <% if (authors_more === true) {%>
