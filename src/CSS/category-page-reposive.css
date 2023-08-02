@@ -1,4 +1,3 @@
-
 @media screen and (max-width:600px) {
     .show_menu {
         display: block;
@@ -15,18 +14,19 @@
         visibility: visible;
         transition-delay: 0s;
     }
-    .sort-menu-container{
+
+    .sort-menu-container {
         position: fixed;
-        top: 21rem;
+        top: 22rem;
         left: 50%;
         transform: translate(-50%, -50%);
     }
-    
-    .sort-menu-container{
-        margin-top: 0;
+
+    .sort-menu-container {
         width: 100%;
     }
-    .fix_btn{
+
+    .fix_btn {
         background: var(--background-color);
         /* width: 100%; */
         margin: 0 auto;
@@ -36,21 +36,25 @@
 
 
 
-    .container{
+    .container {
         margin-top: 70px;
-        
+
     }
+
     .sort-container {
-        margin: 0;
+        margin: 1em 0;
     }
+
     .menu-tag {
         margin-top: 55px;
     }
-    .show_menu span{
+
+    .show_menu span {
         color: var(--login-btn);
         font-size: 1.7rem;
     }
-    .sort-container-btn{
+
+    .sort-container-btn {
         display: flex;
         align-items: center;
     }
