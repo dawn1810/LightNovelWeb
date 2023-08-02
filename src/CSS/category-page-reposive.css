@@ -23,6 +23,7 @@
     }
     
     .sort-menu-container{
+        margin-top: 0;
         width: 100%;
     }
     .fix_btn{
@@ -39,7 +40,9 @@
         margin-top: 70px;
         
     }
-
+    .sort-container {
+        margin: 0;
+    }
     .menu-tag {
         margin-top: 55px;
     }
