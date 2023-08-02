@@ -53,22 +53,4 @@
     }
 
 
-
-    .show_menu {
-        display: block;
-    }
-
-    .sort-menu {
-        height: 0;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0s 0.3s;
-    }
-
-    .sort-menu.show {
-        height: auto;
-        opacity: 1;
-        visibility: visible;
-        transition-delay: 0s;
-    }
 }

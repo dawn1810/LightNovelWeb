@@ -1,0 +1,54 @@
+
+@media screen and (max-width:600px) {
+    .show_menu {
+        display: block;
+    }
+
+    .sort-menu {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 1s 1s;
+    }
+
+    .sort-menu.show {
+        opacity: 1;
+        visibility: visible;
+        transition-delay: 0s;
+    }
+    .sort-menu-container{
+        position: fixed;
+        top: 42%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .sort-menu-container{
+        width: 100%;
+    }
+    .fix_btn{
+        background: var(--background-color);
+        /* width: 100%; */
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+    }
+
+
+
+    .container{
+        margin-top: 70px;
+        
+    }
+
+    .menu-tag {
+        margin-top: 55px;
+    }
+    .show_menu span{
+        color: var(--login-btn);
+        font-size: 1.7rem;
+    }
+    .sort-container-btn{
+        display: flex;
+        align-items: center;
+    }
+}

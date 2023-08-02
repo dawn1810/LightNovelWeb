@@ -229,4 +229,5 @@ const sortMenu = document.querySelector('.sort-menu');
 
 showButton.addEventListener('click', () => {
     sortMenu.classList.toggle('show');
+    showButton.classList.toggle("show_menu_hover");
   });
