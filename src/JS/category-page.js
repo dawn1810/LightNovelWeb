@@ -51,6 +51,12 @@
 // }
 
 $('.search-btn').on('click', function () {
+    // disable button untill load finish
+    console.log('a')
+    $('.search-btn').prop('disabled', true);
+    // loading 
+    $('.search-btn').text('Loading...')
+
     url = currentURL + `/api/advanced_search?update_day=${$('.update_day').val()}&types=${listObj.tempValues}&num_chaps=${$('.num_chaps').val()}&status=${$('.status').val()}&sort_by=${$('.sort_by').val()}`
 
     const requestOptions = {
@@ -97,6 +103,11 @@ $('.search-btn').on('click', function () {
                         </a>
                         `);
                     }
+
+                    // reset to nomal
+                    $('.search-btn').prop('disabled', false);
+                    
+                    $('.search-btn').text('Lọc Truyện')
                 }).catch(error => {
                     console.error('Error parsing JSON:', error);
                 });

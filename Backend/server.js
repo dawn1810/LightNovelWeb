@@ -839,6 +839,7 @@ app.get('/category', checkCookieLoglUser, async (req, res) => {
 	try {
 		let result = await server.find_all_Data({
 			table: "truyen",
+			query: {},
 			projection: {
 				name: 1,
 				author: 1,
@@ -994,7 +995,7 @@ app.get('/api/advanced_search', checkCookieLoglUser, async (req, res) => {
 		}
 
 		// types query
-		if (types) {
+		if (types != 'undefined') {
 			query.genres = { $in: types.split(',') };
 		}
 		
