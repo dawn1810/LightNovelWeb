@@ -10,16 +10,18 @@
     main {
         padding: 0;
     }
-    .radio-input{
-        --container_width: 100%px!important;
-        margin:0 .5em;
+
+    .radio-input {
+        --container_width: 100%px !important;
+        margin: 0 .5em;
     }
-   
-    .novel .no_novel{
+
+    .novel .no_novel {
         padding: 150px 0;
         font-size: 1.5rem;
         color: var(--black-text)
-      }
+    }
+
     .sort-container {
         width: 100%;
         height: 5rem;
@@ -45,16 +47,28 @@
         padding: 1rem;
         border-radius: 1rem;
     }
-    #current-category{
+
+    #current-category {
         margin-left: .5em;
     }
-    
 
 
-    .show_menu{
+
+    .show_menu {
         display: block;
     }
-    .sort-menu{
-        display: none;
+
+    .sort-menu {
+        height: 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0s 0.3s;
+    }
+
+    .sort-menu.show {
+        height: auto;
+        opacity: 1;
+        visibility: visible;
+        transition-delay: 0s;
     }
 }
