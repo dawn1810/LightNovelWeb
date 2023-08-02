@@ -222,3 +222,15 @@ $('.search_more_btn').on('click', function () {
             console.error('Error downloading file:', error);
         });
 });
+
+
+const showButton = document.querySelector('.show_menu');
+const sortMenu = document.querySelector('.sort-menu');
+
+showButton.addEventListener('click', () => {
+  if (sortMenu.style.display === 'block') {
+    sortMenu.style.display = 'none';
+  } else {
+    sortMenu.style.display = 'block';
+  }
+});

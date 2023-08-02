@@ -49,4 +49,12 @@
         margin-left: .5em;
     }
     
+
+
+    .show_menu{
+        display: block;
+    }
+    .sort-menu{
+        display: none;
+    }
 }
