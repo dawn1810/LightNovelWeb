@@ -106,4 +106,10 @@
     .jackpot h1{
         text-align: center;
     }
+    .slots{
+        display: flex;
+    }
+    .page-container{
+        padding: 10px 11px;
+    }
 }

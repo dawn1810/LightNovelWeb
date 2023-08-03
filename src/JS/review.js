@@ -93,7 +93,7 @@ const valuePage = {
 function pagination() {
     const { totalPages, curPage, truncate, numLinksTwoSide: delta } = valuePage;
 
-    const range = delta + 4; // use for handle visible number of links left side
+    const range = delta +4 ; // use for handle visible number of links left side
 
     let render = "";
     let renderTwoSide = "";
@@ -146,32 +146,6 @@ function pagination() {
 pagination();
 
 
-
-// pages.onchange = () => {
-//     // // valuePage.totalPages = parseInt(pages.value, 10);
-//     // handleCheckTruncate();
-//     // handleCurPage();
-//     // pagination();
-//     // handleButtonLeft();
-//     // handleButtonRight();
-//     const page = parseInt(pages.value, 10);
-//     showListLoad(page,data)
-// };
-// curPage.onchange = () => {
-//     handleCurPage();
-//     pagination();
-//     handleButtonLeft();
-//     handleButtonRight();
-// };
-// numLinksTwoSide.onchange = function () {
-//     if (this.value > 5) {
-//         this.value = 1;
-//         valuePage.numLinksTwoSide = 1;
-//     } else {
-//         valuePage.numLinksTwoSide = parseInt(this.value, 10);
-//     }
-//     pagination();
-// };
 
 checks.forEach((check) => {
     check.onclick = (e) => {
@@ -317,13 +291,11 @@ async function getReview() {
                 return response.json();
 
             } else if (response.status === 404) {
-                // window.location.href = `${currentURL}/error/404.html`;
 
             }
         })
         .then(data => {
             responseData = data; // Lưu trữ nội dung phản hồi vào biến
-            // console.log(responseData.usr)
             if (data) {
                 console.log(data)
 
@@ -340,8 +312,6 @@ async function getReview() {
 
                 const random_chap = document.querySelector('.random_chap')
                 const jackpot = document.querySelector('.jackpot')
-                // const wid_jack = jackpot.offsetWidth;
-                // jackpot.style.left = `calc((100vw - ${wid_jack})/2)`
 
                 random_chap.onclick = function (e) {
                     let audio = new Audio('/src/audio/nhac-xo-so-2.mp3');
@@ -593,45 +563,4 @@ function haha(data) {
 getReview();
 
 
-
-// ẩn comment
-
-$(document).ready(function () {
-    // Ẩn tất cả các bình luận thứ 6 trở đi
-    $(".comment_item_container:gt(4)").hide();
-
-    // Thêm nút "Xem thêm"
-    $(".comment_list").append('<button id="loadMore" class="load-more">Xem thêm</button>');
-
-    // Khi nhấn nút "Xem thêm"
-    $("#loadMore").on("click", function () {
-        // Hiển thị thêm 5 bình luận
-        $(".comment_item_container:hidden:lt(5)").slideDown();
-
-        // Nếu không còn bình luận nào ẩn, ẩn nút "Xem thêm"
-        if ($(".comment_item_container:hidden").length === 0) {
-            $("#loadMore").hide();
-        }
-    });
-});
-// ẩn comment
-
-
-var comments = document.querySelectorAll(".comment_item_container");
-var loadMoreBtn = document.querySelector("#loadMoreBtn");
-var numCommentsToShow = 5;
-var numCommentsVisible = 0;
-
-// Ẩn tất cả các bình luận thứ numCommentsToShow trở đi
-for (var i = numCommentsToShow; i < comments.length; i++) {
-    comments[i].classList.add("hidden");
-}
-
-// Cập nhật số lượng bình luận đang hiển thị
-numCommentsVisible = numCommentsToShow;
-
-// Hiển thị nút "Xem thêm" nếu có nhiều hơn numCommentsToShow bình luận
-if (comments.length > numCommentsToShow) {
-    loadMoreBtn.classList.remove("hidden");
-}
 
