@@ -118,10 +118,11 @@ for (const font of reader_size) {
     }
 }
 
-
+// chao a zai
 for (const height of line_height) // roi do hai anh trai name chap cho ten chap hien tai, con name chaps la tat ca
-    height.onchange = function () {
-        main_content.style.lineHeight = line_height.value;
+    height.onchange = function (e) {
+       console.log(height.value)
+        main_content.style.lineHeight = height.value;
     }
 
 // cai hai thg bay moi coii laf review nha
