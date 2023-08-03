@@ -801,6 +801,7 @@ a {
 .header_notify {
   cursor: pointer;
   position: relative;
+  display: none;
 }
 
 .header_notify::after {
@@ -1867,6 +1868,9 @@ html .body_main {
 .toast .toast-content {
   display: flex;
   align-items: center;
+  color: var(--black-text);
+  justify-content: space-between;
+  width: 100%;
 }
 
 .toast-content .check {

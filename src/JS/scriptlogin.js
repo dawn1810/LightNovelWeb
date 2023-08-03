@@ -288,8 +288,9 @@ function Validator(options) {
                         window.location.reload();
                     }
                     else if (response.status == 403 || response.status == 500) {
-                        toast.querySelector('.text-1').innerHTML = 'Lỗi';
-                        toast.querySelector('.text-2').innerHTML = 'Nhập cho đúng nhé em iuuu';
+                        toast.querySelector('.toast-content i').classList = ["fa-solid fa-exclamation"];
+                        toast.querySelector('.text-1').innerHTML = 'Chú ý';
+                        toast.querySelector('.text-2').innerHTML = 'Thông tin đang nhập chưa chính xác!';
                         toast.classList.add("active");
                         progress.classList.add("active");
 
@@ -361,8 +362,9 @@ function Validator(options) {
                         document.querySelector(".no_login a").click();
                     }
                     else if (response.status == "404") {
-                        toast.querySelector('.text-1').innerHTML = 'Lỗi';
-                        toast.querySelector('.text-2').innerHTML = 'Tài khoản này có rồi á em iuu';
+                        toast.querySelector('.toast-content i').classList = ["fa-solid fa-exclamation"];
+                        toast.querySelector('.text-1').innerHTML = 'Chú ý';
+                        toast.querySelector('.text-2').innerHTML = 'Tài khoản đã tồn tại';
                         toast.classList.add("active");
                         progress.classList.add("active");
 

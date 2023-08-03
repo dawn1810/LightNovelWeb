@@ -429,7 +429,7 @@ function showListLoad(pageNumber, data) {
              showlist += `
             <a href='${currentURL}/reading/${chan}/${i}' class="chapter-item">
                 <div class="chapter_item_info">
-                    <h2 style="margin: 1em;">${data[i].substring(0, data[i].indexOf(':'))}</h2>
+                    <h2>${data[i].substring(0, data[i].indexOf(':'))}</h2>
                     <div style="
                         display: flex;
                         flex-direction: column;
@@ -451,7 +451,7 @@ function showListLoad(pageNumber, data) {
             showlist += `
             <a href='${currentURL}/reading/${chan}/${i}' class="chapter-item">
                 <div class="chapter_item_info">
-                    <h2 style="margin: 15px;">${data[i].substring(0, data[i].indexOf(':'))}</h2>
+                    <h2>${data[i].substring(0, data[i].indexOf(':'))}</h2>
                     <div style="
                         display: flex;
                         flex-direction: column;

@@ -15,8 +15,6 @@
 
 
   <script src="https://kit.fontawesome.com/b8977956b3.js" crossorigin="anonymous"></script>
-  <audio src="/src/audio/yamate-kudesai.mp3" preload="auto"></audio>
-
 
 </head>
 
@@ -391,36 +389,36 @@
 
 
 
-
-    const header_logo = document.querySelector('.header_logo');
-    let count_logo = 0
-    header_logo.addEventListener("mouseover", (event) => {
-      let audio = new Audio('/src/audio/yamate-kudesai.mp3');
-      switch (count_logo) {
-        case 3:
-          audio.volume = 0.1;
-          audio.play();
-          break;
-        case 4:
-          audio.volume = 0.2;
-          audio.play();
-          break;
-        case 5:
-          audio.volume = 0.4;
-          audio.play();
-          break;
-        case 6:
-          audio.volume = 0.7;
-          audio.play();
-          break;
-        case 7:
-          audio.volume = 1;
-          audio.play();
-          count_logo--;
-          break;
-      };
-      count_logo++;
-    });
+    // should not turn on this code
+    // const header_logo = document.querySelector('.header_logo');
+    // let count_logo = 0
+    // header_logo.addEventListener("mouseover", (event) => {
+    //   let audio = new Audio('/src/audio/yamate-kudesai.mp3');
+    //   switch (count_logo) {
+    //     case 3:
+    //       audio.volume = 0.1;
+    //       audio.play();
+    //       break;
+    //     case 4:
+    //       audio.volume = 0.2;
+    //       audio.play();
+    //       break;
+    //     case 5:
+    //       audio.volume = 0.4;
+    //       audio.play();
+    //       break;
+    //     case 6:
+    //       audio.volume = 0.7;
+    //       audio.play();
+    //       break;
+    //     case 7:
+    //       audio.volume = 1;
+    //       audio.play();
+    //       count_logo--;
+    //       break;
+    //   };
+    //   count_logo++;
+    // });
 
   });
 

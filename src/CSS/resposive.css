@@ -152,6 +152,12 @@
         color: var(--login-btn);
         justify-content: center;
     }
+    #search_vip a div{
+        margin-left: -50px;
+    }
+    #composed a div{
+        margin-left: 50px;
+    }
 
     .left_li i {
         padding: 0;
@@ -292,4 +298,8 @@
         left: 0;
         height:37em;
     }
+    .header_user_more_item{
+        padding: 0;
+    }
+    
 }

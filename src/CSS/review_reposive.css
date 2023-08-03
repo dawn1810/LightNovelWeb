@@ -30,6 +30,7 @@
         align-items: center;
         justify-content: center;
         font-size: 1.25rem;
+        margin-top: 20px;
     }
 
     .button-efect {
@@ -58,9 +59,20 @@
     }
 
     .chapter-item h2 {
+        flex:1;
         font-size: 1rem;
+        margin: 0.2em;
+        width: 110px;
     }
-
+    .chapter_item_info div{
+        flex: 2;
+        width: 230px;
+        display: flex;
+        align-items: center;
+    }
+    #pagination li a{
+        padding: 8px 10px;
+    }
     .chapter-item div {
         font-size: .8rem;
     }
@@ -105,11 +117,26 @@
     }
     .jackpot h1{
         text-align: center;
+        margin: 18px 50px;
     }
     .slots{
         display: flex;
     }
     .page-container{
         padding: 10px 11px;
+    }
+    .last-page,.first-page{
+        display: none;
+    }
+    #pagination li{
+        margin: 0;
+
+    }
+    #pagination{
+        flex-wrap: nowrap;
+       
+    }
+    .page-container{
+        flex-wrap: nowrap;
     }
 }

@@ -128,5 +128,10 @@ for (let i = 0; i < document.querySelectorAll('.radio-input_search label').lengt
         this.style.background = 'var(--author-color)'
     };
 }
+drop_tag(0)
+        for (const tag of document.querySelectorAll('.radio-input_search label')) {
+            tag.style.background = 'var(--white-color)'
+        }
+        document.querySelectorAll('.radio-input_search label')[0].style.background = 'var(--author-color)'
 
 

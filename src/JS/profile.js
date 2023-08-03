@@ -41,6 +41,7 @@ const back_btn = document.querySelectorAll('.back_btn')
 
 // toast 
 const toast = document.querySelector(".toast");
+const toast_icon = document.querySelector(".toast-content i");
 const closeIcon = document.getElementById("close");
 const progress = document.querySelector(".progress");
 closeIcon.addEventListener("click", () => {
@@ -325,12 +326,12 @@ function validateFile(file, checkdoc = false) {
 	const fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
 	if (!allowedFormats.includes(fileExtension)) {
 		// Invalid file format
-		notify('Chú ý!', 'Sai định dạng file rồi người đẹp!.');
+		notify('!', 'Sai định dạng file!');
 		return false;
 	}
 	if (file.size > maxSize) {
 		// window.alert("Là một nhẫn giả chân chính hãy điển đủ thông tin ¯\(◉◡◔)/¯")
-		notify('Chú ý!', message_arlet);
+		notify('!', message_arlet);
 		return false;
 
 
@@ -426,7 +427,7 @@ async function uploadFiles(files, type) {
 			}
 		} else if (response.status == 400) {
 			// Error occurred during upload
-			notify('Chú ý!', 'Sai định dạng file rồi người đẹp!.');
+			notify('!', 'Sai định dạng file!');
 			console.error('Error uploading files.');
 		}
 	} catch (error) {
@@ -579,20 +580,42 @@ async function editNovel() {
 	}
 }
 
+function notify(type, text_2) {
+    switch (type) {
+        // thong bao
+        case 'n':
+            toast_icon.classList = ['fas fa-solid fa-check']
+            toast.querySelector(".text-1").innerHTML = 'Thông báo';
+            document.documentElement.style.setProperty('--color_i', '#3adb3a');
+            break;
+        // chu y
+        case '!':
+            toast_icon.classList = ["fa-solid fa-exclamation"];
+            toast.querySelector(".text-1").innerHTML = 'Chú ý';
+            document.documentElement.style.setProperty('--color_i', '#e1e11a');
 
-function notify(text_1, text_2) {
-	toast.classList.add("active");
-	toast.querySelector('.text-1').innerHTML = text_1;
-	toast.querySelector('.text-2').innerHTML = text_2;
-	progress.classList.add("active");
+            break;
+        // loi
+        case 'x':
+            toast_icon.classList = ["fa-solid fa-x"];
+            toast.querySelector(".text-1").innerHTML = 'Lỗi';
+            document.documentElement.style.setProperty('--color_i', 'red');
 
-	timer1 = setTimeout(() => {
-		toast.classList.remove("active");
-	}, 5000); //1s = 1000 milliseconds
+            break;
 
-	timer2 = setTimeout(() => {
-		progress.classList.remove("active");
-	}, 5300);
+    }
+    
+    toast.querySelector(".text-2").innerHTML = text_2;
+    toast.classList.add("active");
+    progress.classList.add("active");
+
+    timer1 = setTimeout(() => {
+        toast.classList.remove("active");
+    }, 5000); //1s = 1000 milliseconds
+
+    timer2 = setTimeout(() => {
+        progress.classList.remove("active");
+    }, 5300);
 }
 
 // Danh sách các phần tử
@@ -630,7 +653,7 @@ Save_btn.onclick = async function (e) {
 		sex = 'nu'
 	}
 	const postData = JSON.stringify({
-		// thông tin đăng kýýý
+		// thông tin đăng ký
 		img: `${avatar.src}`,
 		usr: `${document.querySelector("#username").innerText}`,
 		hoten: `${document.querySelector("#fullname").value}`,
@@ -649,18 +672,18 @@ Save_btn.onclick = async function (e) {
 
 
 	try {
-		notify('Thông báo!', 'Đang tải lên...chờ một tý!');
+		notify('n', 'Đang tải lên...chờ một tý!');
 		const response = await fetch(url, requestOptions);
 		console.log(response.status);
 		if (response.status == "200") {
 			document.querySelector('.header_user_logo_i p').textContent = document.querySelector("#fullname").value
 			document.querySelector('.header_user_logo_i .curent-avt img').src = avatar.src
 
-			notify('Thông báo!', 'Thay đổi thông tin người dùng thành công!');
+			notify('n', 'Thay đổi thông tin người dùng thành công!');
 		}
 	} catch (error) {
 		console.log("Error:", error);
-		notify('Lỗi!', 'Thay đổi thông tin người dùng không thành công!');
+		notify('x', 'Thay đổi thông tin người dùng không thành công!');
 	}
 
 }
@@ -705,33 +728,33 @@ document.querySelector('.page5_info .next_btn').onclick = function () {
 		sessionStorage.setItem("novel_avt", document.querySelector('.page5_info_img .your-avt').src);
 	} else {
 		// window.alert("Là một nhẫn giả chân chính hãy điển đủ thông tin ¯\(◉◡◔)/¯")
-		notify('Lỗi', 'Hãy vui lòng điền đủ thông tin!');
+		notify('!', 'Hãy vui lòng điền đủ thông tin!');
 	}
 }
 
 async function cancel() {
 	// remove all chapters
 	if (confirm("Shinra tensei - Hủy diệt mọi thứ. Are you sure about that? ( ⚆ _ ⚆ )") == true) {
-		// create shinra tensei 
-		var elem = document.createElement('div');
-		elem.className = 'shinra'
-		elem.style.cssText = `
-				position:absolute;
-				top: 0;
-				left: 0;
-				width:100vw;
-				height:130%;
-				margin-top: -100px;
-				z-index:99999999999999999;
-				background:#000;
-				background-image: url('https://media.tenor.com/WNyMsbIJmBMAAAAC/naruto-shinra.gif');
-				`
-		// background-image: url('https://cdn.discordapp.com/attachments/1119221555566751754/1132280018534408233/thien.webp');
-		document.body.appendChild(elem);
+		// create shinra tensei not turn on this code
+		// var elem = document.createElement('div');
+		// elem.className = 'shinra'
+		// elem.style.cssText = `
+		// 		position:absolute;
+		// 		top: 0;
+		// 		left: 0;
+		// 		width:100vw;
+		// 		height:130%;
+		// 		margin-top: -100px;
+		// 		z-index:99999999999999999;
+		// 		background:#000;
+		// 		background-image: url('https://media.tenor.com/WNyMsbIJmBMAAAAC/naruto-shinra.gif');
+		// 		`
+		// // background-image: url('https://cdn.discordapp.com/attachments/1119221555566751754/1132280018534408233/thien.webp');
+		// document.body.appendChild(elem);
 
-		let audio = new Audio('/src/audio/shinra.mp3');
-		audio.volume = 0.5;
-		audio.play();
+		// let audio = new Audio('/src/audio/shinra.mp3');
+		// audio.volume = 0.5;
+		// audio.play();
 		if (sessionStorage.getItem("chapters_content")) {
 			// remove all chapters
 			const url = `${currentURL}/api/cancel`; // URL của máy chủ mục tiêu
@@ -776,7 +799,7 @@ async function cancel() {
 			}, 7000)
 		}
 	} else {
-		notify('Thông báo', 'Đã huỷ!');
+		notify('!', 'Đã huỷ!');
 	}
 }
 
@@ -880,14 +903,14 @@ $(document).ready(function () {
 			};
 
 			try {
-				notify('Thông báo', 'Đang xoá...!');
+				notify('!', 'Đang xoá...!');
 				const response = await fetch(url, requestOptions)
 				// taì khoan hơp lệ 
 				if (response.status == '200') {
 					$(this).parent().parent().parent().remove();
-					notify('Thông báo', 'Xoá truyện thành công!');
+					notify('n', 'Xoá truyện thành công!');
 				} else {
-					notify('Lỗi', 'Xoá truyện không thành công!');
+					notify('x', 'Xoá truyện không thành công!');
 				}
 			} catch (error) {
 				console.log('Error:', error);
@@ -930,12 +953,12 @@ $(document).ready(function () {
 			})
 				.then(response => {
 					if (response.ok) {
-						notify('Thông báo', 'Bỏ theo dõi thành công!')
+						notify('n', 'Bỏ theo dõi thành công!')
 						$(this).parent().parent().parent().parent().remove();
 					}
 				})
 				.catch(error => {
-					notify('Lỗi', 'Có lỗi xảy ra!')
+					notify('x', 'Có lỗi xảy ra!')
 					console.log(error)
 				});
 		}
@@ -973,7 +996,7 @@ $(document).ready(function () {
 	});
 
 	$(document).on('click', '.page5_b .download_btn', async function () {
-		notify("Chờ tý!!!", "Đã bắt đầu quá trình tải.");
+		notify("!", "Đã bắt đầu quá trình tải.");
 		let grandGrandParentID = $(this).parent().parent().parent().attr('id');
 		const url = `${currentURL}/api/download_chap`; // URL của máy chủ mục tiêu
 
@@ -1008,11 +1031,11 @@ $(document).ready(function () {
 					// release the temporary URL
 					window.URL.revokeObjectURL(url);
 
-					notify("Chúc mừng!!!", "Download thành công!!!");
+					notify("n", "Download thành công!!!");
 				});
 			})
 			.catch(error => {
-				notify("Lỗi!!!", "Download không thành công!!!");
+				notify("x", "Download không thành công!!!");
 				console.error('Error downloading file:', error);
 			});
 	});
@@ -1041,7 +1064,7 @@ $(document).ready(function () {
 			$(this).parent().parent().parent().find('.file-input').val('');
 			$(this).parent().parent().parent().find('.file-content').text('');
 		} else {
-			notify('Thông báo', 'Đã huỷ!');
+			notify('!', 'Đã huỷ!');
 		}
 	});
 	$(document).on('click', '.page5_b .undo_btn', async function () {
@@ -1096,14 +1119,14 @@ document.querySelector('.page5_chap .next_btn').onclick = async function () {
 		if (confirm("Khi tiến hành đăng truyện, bạn đã chấp nhận các chính sách và quy định của WTFNovel về Nội dung và Chính sách chia sẻ quyền lợi. Bạn có chắc sẽ đăng truyện này?") == true) {
 			document.querySelector('.page5_chap .next_btn').innerHTML = `<img src = "https://cdn.discordapp.com/attachments/1128184786347905054/1129065224998227968/icons8-sharingan-100.png"> `
 			// window.alert("Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)")
-			notify('Rasengan', 'Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)');
+			notify('!', 'Đang tải lên...chờ một tý!');
 			await uploadFiles(files, 0);
 		} else {
-			notify('Thông báo', 'Đã huỷ!');
+			notify('!', 'Đã huỷ!');
 		}
 	} else {
 		// window.alert("Là một nhẫn giả chân chính hãy điển đủ thông tin ¯\(◉◡◔)/¯")
-		notify('Lỗi', 'Hãy vui lòng điền đủ thông tin!');
+		notify('x', 'Hãy vui lòng điền đủ thông tin!');
 	}
 
 }
@@ -1156,10 +1179,10 @@ document.querySelector('.page5_b .next_btn').onclick = async function () {
 	if (confirm("Khi tiến hành đăng truyện, bạn đã chấp nhận các chính sách và quy định của WTFNovel về Nội dung và Chính sách chia sẻ quyền lợi. Bạn có chắc sẽ đăng truyện này?") == true) {
 		document.querySelector('.page5_b .next_btn').innerHTML = `<img src = "https://cdn.discordapp.com/attachments/1128184786347905054/1129065224998227968/icons8-sharingan-100.png"> `
 		// window.alert("Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)")
-		notify('Rasengan', 'Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)');
+		notify('!', 'Đang tải lên...chờ một tý!');
 		await uploadFiles(files, 2);
 	} else {
-		notify('Thông báo', 'Đã huỷ!');
+		notify('!', 'Đã huỷ!');
 	}
 }
 
@@ -1239,14 +1262,14 @@ document.querySelector('.page5_d .post_btn').onclick = async function () {
 		if (confirm("Bạn có chắc sẽ cập nhật truyện này?") == true) {
 			document.querySelector('.page5_chap .post_btn').innerHTML = `<img src = "https://cdn.discordapp.com/attachments/1128184786347905054/1129065224998227968/icons8-sharingan-100.png"> `
 			// window.alert("Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)")
-			notify('Rasengan', 'Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)');
+			notify('!', 'Đang tải lên...chờ một tý!');
 			await uploadFiles(files, 1);
 		} else {
-			notify('Thông báo', 'Đã huỷ!');
+			notify('!', 'Đã huỷ!');
 		}
 	} else {
 		// window.alert("Là một nhẫn giả chân chính hãy điển đủ thông tin ¯\(◉◡◔)/¯")
-		notify('Lỗi', 'Hãy vui lòng điền đủ thông tin!');
+		notify('x', 'Hãy vui lòng điền đủ thông tin!');
 	}
 }
 
@@ -1281,10 +1304,10 @@ document.querySelector('.page5_c .next_btn').onclick = function () {
 	fetch(url, requestOptions)
 		.then(response => {
 			if (response.ok) {
-				notify("Thông báo", "Thay đổi thông tin thành công!");
+				notify("n", "Thay đổi thông tin thành công!");
 			}
 			else {
-				notify("Lỗi", "Có lỗi xảy ra!");
+				notify("x", "Có lỗi xảy ra!");
 			}
 		})
 		.catch(error => {

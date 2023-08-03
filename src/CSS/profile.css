@@ -693,6 +693,9 @@ body {
   cursor: pointer;
   text-transform: uppercase;
 }
+.post_btn{
+  padding: 28px;
+}
 
 .page5_chap {
   display: none;
@@ -1103,6 +1106,9 @@ input:required:focus {
 .toast .toast-content {
   display: flex;
   align-items: center;
+  color: var(--white-text);
+  justify-content: space-between;
+  width: 100%;
 }
 
 .toast-content .check {
@@ -1150,6 +1156,7 @@ input:required:focus {
   left: 0;
   height: 3px;
   width: 100%;
+
 }
 
 .toast .progress:before {

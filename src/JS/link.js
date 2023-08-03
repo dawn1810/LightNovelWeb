@@ -136,4 +136,34 @@ $(document).ready(function () {
       right_item_mobile.style.right = "0%";
     }
   }
+
+const  left_li = document.querySelectorAll('.left_li')
+function drop_menu(){
+  for(const tem of  left_li){
+    tem.style.color = 'var(--login-btn)'
+  }
+}
+var currentPath = window.location.href.substring(window.location.href.lastIndexOf('/'));
+console.log(currentPath)
+if(currentPath == '/' || currentPath == ''){
+  drop_menu()
+  document.querySelectorAll('.left_li a')[0].style.color = 'red'
+}
+else if(currentPath == '/category'){
+  drop_menu()
+  document.querySelectorAll('.left_li a')[1].style.color = 'red'
+}
+else if(currentPath == '/my_novel'){
+  document.querySelectorAll('.left_li a')[2].style.color = 'red'
+}
+else if(currentPath == '/novel_following'){
+  drop_menu()
+  document.querySelectorAll('.left_li a')[3].style.color = 'red'
+}
+else{
+  console.log('dùgsdujgfjsdhg')
+}
+
+
+
 });

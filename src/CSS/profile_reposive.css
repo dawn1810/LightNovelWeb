@@ -4,7 +4,6 @@
         padding: 0;
         flex-direction: column;
     }
-
     .dropdown {
         margin: auto;
     }
@@ -37,6 +36,9 @@
     .name-novel p {
         display: none;
     }
+    .name-novel {
+        height: auto;
+    }
 
     .page5_home_info_wrap_item {
         padding: 0 !important;
@@ -48,9 +50,7 @@
         display: none;
     }
 
-    .page5_home_main_logo img {
-        width: 17.5em;
-    }
+    
 
     .page5_home_info_status {
         text-align: center;
@@ -64,6 +64,9 @@
         width: 100%;
         margin-top: 20px;
     }
+    .page5_home_info_wrap_item{
+        margin-right: 0;
+    }
 
     .page5_home_info {
         width: 100%;
@@ -71,7 +74,7 @@
     }
 
     .page5_home_main_logo {
-        width: 100%;
+        width: 75%;
     }
 
     .page5_home_main_item {
@@ -109,7 +112,8 @@
     }
 
     .page5_info_main_btn button {
-        font-size: 0.7em;
+        font-size: 1em;
+        width: 50%;
     }
 
     .card {
@@ -171,5 +175,8 @@
     .current-category-list{
         width: 100%;
         flex-wrap: wrap;
+    }
+    .toast{
+        left: 30px;
     }
 }
