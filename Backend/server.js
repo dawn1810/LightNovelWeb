@@ -752,7 +752,14 @@ app.get('/reading/:id/:chap', checkCookieLoglUser, async (req, res) => {
 		res.sendStatus(500);
 	}
 });
+// admi index page ________________________________________________________________________________________________________________________
+app.get('/admin', checkCookieLoglUser, async (req, res) => {
+	res.render('admin-index', {
+		headerFile: 'header',
+		footerFile: 'footer',
+	});
 
+});
 // Search route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.get('/search', checkCookieLoglUser, async (req, res) => {
 	try {
@@ -1006,7 +1013,7 @@ app.get('/api/advanced_search', checkCookieLoglUser, async (req, res) => {
 		if (types != 'undefined') {
 			query.genres = { $in: types.split(',') };
 		}
-		
+
 		// num chap query
 		switch (num_chaps) {
 			case '2':
@@ -1067,7 +1074,7 @@ app.get('/api/advanced_search', checkCookieLoglUser, async (req, res) => {
 			result.more_novel = true;
 			result.pop();
 		};
-		
+
 		res.writeHead(200, { 'Content-Type': 'applicaiton/json' });
 		res.end(JSON.stringify(result));
 	} catch (err) {
