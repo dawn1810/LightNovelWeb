@@ -760,6 +760,15 @@ app.get('/admin', checkCookieLoglUser, async (req, res) => {
 	});
 
 });
+
+// account manager page ________________________________________________________________________________________________________________________
+app.get('/accountmanager', checkCookieLoglUser, async (req, res) => {
+	res.render('account-manager', {
+		headerFile: 'header',
+		footerFile: 'footer',
+	});
+
+});
 // Search route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.get('/search', checkCookieLoglUser, async (req, res) => {
 	try {
