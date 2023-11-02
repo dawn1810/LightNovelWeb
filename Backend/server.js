@@ -769,6 +769,17 @@ app.get('/accountmanager', checkCookieLoglUser, async (req, res) => {
 	});
 
 });
+// auhtor manager page ________________________________________________________________________________________________________________________
+app.get('/auhtormanager', checkCookieLoglUser, async (req, res) => {
+	res.render('auhtor-manager', {
+		headerFile: 'header',
+		footerFile: 'footer',
+	});
+
+});
+
+
+
 // Search route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 app.get('/search', checkCookieLoglUser, async (req, res) => {
 	try {
