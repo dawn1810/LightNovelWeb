@@ -573,6 +573,7 @@ ul {
 .show_menu:before {
     content: '';
     position: absolute;
+    z-index: 999;
     width: 0;
     height: 100%;
     background-color: var(--black-text);

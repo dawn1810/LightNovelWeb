@@ -17,7 +17,7 @@
 
     .sort-menu-container {
         position: fixed;
-        top: 22rem;
+        top: 18rem;
         left: 50%;
         transform: translate(-50%, -50%);
     }
@@ -42,7 +42,7 @@
     }
 
     .sort-container {
-        margin: 1em 0;
+        margin: 0.3em 0;
     }
 
     .menu-tag {
