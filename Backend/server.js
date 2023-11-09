@@ -752,13 +752,13 @@ app.get('/reading/:id/:chap', checkCookieLoglUser, async (req, res) => {
 		res.sendStatus(500);
 	}
 });
-// admi index page ________________________________________________________________________________________________________________________
+
+// admin index page ________________________________________________________________________________________________________________________
 app.get('/admin', checkCookieLoglUser, async (req, res) => {
 	res.render('admin-index', {
 		headerFile: 'header',
 		footerFile: 'footer',
 	});
-
 });
 
 // account manager page ________________________________________________________________________________________________________________________
@@ -767,7 +767,6 @@ app.get('/accountmanager', checkCookieLoglUser, async (req, res) => {
 		headerFile: 'header',
 		footerFile: 'footer',
 	});
-
 });
 // auhtor manager page ________________________________________________________________________________________________________________________
 app.get('/auhtormanager', checkCookieLoglUser, async (req, res) => {
@@ -775,7 +774,6 @@ app.get('/auhtormanager', checkCookieLoglUser, async (req, res) => {
 		headerFile: 'header',
 		footerFile: 'footer',
 	});
-
 });
 
 
