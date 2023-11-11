@@ -14,7 +14,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const credentials = require('./client_secret_483084822625-jrf4t8tq5j272i8mugfk4qorgv3dg11o.apps.googleusercontent.com.json');
 const session = require('express-session');
 const fs = require("fs");
-const { ObjectId } = require('mongodb');
+const { ObjectId } = require('	');
 // ----------------------------------------------------------------
 const { Client } = require('@notionhq/client');
 const mammoth = require('mammoth');
@@ -370,7 +370,7 @@ async function get_full_id(directoryPath, listName) {
 
 // ------------------------------------------------------------------------------------------------
 
-async function checkCookieLoglUser(req, res, next) { // index
+/*async function checkCookieLoglUser(req, res, next) { // index
 	try {
 		const data = req.cookies;
 		if (!data.account) {
@@ -415,19 +415,19 @@ async function checkCookieLoglUser(req, res, next) { // index
 		// Xử lý lỗi nếu có
 		res.status(500).send('Internal Server Error');
 	}
-}
+}*/
 
-async function checkCoookieIfOK(req, res, next) {
-	const data = req.cookies;
-	if (!data.account) {
-		// Cookie không tồn tại, chặn truy cập
-		return res.redirect('/');
-	}
-	else {
-		next();
-	}
+// async function checkCoookieIfOK(req, res, next) {
+// 	const data = req.cookies;
+// 	if (!data.account) {
+// 		// Cookie không tồn tại, chặn truy cập
+// 		return res.redirect('/');
+// 	}
+// 	else {
+// 		next();
+// 	}
 
-}
+// }
 
 const blockUnwantedPaths = (req, res, next) => {
 	const unwantedPaths = ['/Backend/', '/.temp/', '/.credentials/'];
@@ -440,79 +440,79 @@ const blockUnwantedPaths = (req, res, next) => {
 	next();
 };
 
-async function processNovels(req, res, id_truyen) {
-	try {
-		const account = req.cookies.account;
-		console.log('SYSTEM | LIST MY NOVELS | Cookie nhận được: ', account);
-		const decode = decrypt(account, authenticationKey);
-		const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
-		// console.log(`SYSTEM | LIST MY NOVELS | Dữ liệu đã giải mã ${decodeList}`);
+// async function processNovels(req, res, id_truyen) {
+// 	try {
+// 		const account = req.cookies.account;
+// 		console.log('SYSTEM | LIST MY NOVELS | Cookie nhận được: ', account);
+// 		const decode = decrypt(account, authenticationKey);
+// 		const decodeList = decode.split(':'); // Output: "replika is best japanese waifu"
+// 		// console.log(`SYSTEM | LIST MY NOVELS | Dữ liệu đã giải mã ${decodeList}`);
 
-		let render_data = {
-			headerFile: 'header',
-			footerFile: 'footer',
-			edit_name: "",
-			edit_auth: "",
-			edit_status: "",
-			edit_tag: "",
-			edit_review: "",
-			edit_img: "",
-			edit_chap_ids: "",
-			edit_name_chaps: "",
-		}
-		let novels = await server.find_one_Data('tt_nguoi_dung', { _id: decodeList[1] });
-		let result = [];
-		let result_like = [];
+// 		let render_data = {
+// 			headerFile: 'header',
+// 			footerFile: 'footer',
+// 			edit_name: "",
+// 			edit_auth: "",
+// 			edit_status: "",
+// 			edit_tag: "",
+// 			edit_review: "",
+// 			edit_img: "",
+// 			edit_chap_ids: "",
+// 			edit_name_chaps: "",
+// 		}
+// 		let novels = await server.find_one_Data('tt_nguoi_dung', { _id: decodeList[1] });
+// 		let result = [];
+// 		let result_like = [];
 
-		for (let id of novels.mynovel) {
-			const curr_novel = await server.find_one_Data('truyen', { _id: new ObjectId(id) })
-			result.push(curr_novel);
-			if (id == id_truyen) {
-				render_data.edit_name = curr_novel.name;
-				render_data.edit_auth = curr_novel.author;
-				render_data.edit_status = curr_novel.status;
-				render_data.edit_tag = curr_novel.genres;
-				render_data.edit_review = curr_novel.summary;
-				render_data.edit_img = curr_novel.image;
-				render_data.edit_chap_ids = curr_novel.chap_ids;
-				render_data.edit_name_chaps = curr_novel.name_chaps;
-			}
-		}
+// 		for (let id of novels.mynovel) {
+// 			const curr_novel = await server.find_one_Data('truyen', { _id: new ObjectId(id) })
+// 			result.push(curr_novel);
+// 			if (id == id_truyen) {
+// 				render_data.edit_name = curr_novel.name;
+// 				render_data.edit_auth = curr_novel.author;
+// 				render_data.edit_status = curr_novel.status;
+// 				render_data.edit_tag = curr_novel.genres;
+// 				render_data.edit_review = curr_novel.summary;
+// 				render_data.edit_img = curr_novel.image;
+// 				render_data.edit_chap_ids = curr_novel.chap_ids;
+// 				render_data.edit_name_chaps = curr_novel.name_chaps;
+// 			}
+// 		}
 
-		render_data.novels = result;
-		let idListlikeNovels = [];
-		for (let id of novels.likeNovels) {
-			let curr_novel = await server.find_one_Data('truyen', { _id: new ObjectId(id) });
-			if (!curr_novel) {
-				await server.update_one_Data("tt_nguoi_dung", { _id: decodeList[1] },
-					{
-						$pull: { likeNovels: id }
-					});
-			}
-			else {
-				idListlikeNovels.push(id);
+// 		render_data.novels = result;
+// 		let idListlikeNovels = [];
+// 		for (let id of novels.likeNovels) {
+// 			let curr_novel = await server.find_one_Data('truyen', { _id: new ObjectId(id) });
+// 			if (!curr_novel) {
+// 				await server.update_one_Data("tt_nguoi_dung", { _id: decodeList[1] },
+// 					{
+// 						$pull: { likeNovels: id }
+// 					});
+// 			}
+// 			else {
+// 				idListlikeNovels.push(id);
 
-				curr_novel.update_date = calTime(curr_novel.update_date);
-				result_like.push(curr_novel);
-			}
+// 				curr_novel.update_date = calTime(curr_novel.update_date);
+// 				result_like.push(curr_novel);
+// 			}
 
 
-		}
-		render_data.like_novel = idListlikeNovels;
-		render_data.like_novel_list = result_like;
+// 		}
+// 		render_data.like_novel = idListlikeNovels;
+// 		render_data.like_novel_list = result_like;
 
-		if (id_truyen) {
-			if (!novels.mynovel.includes(id_truyen)) {
-				res.status(403).send('Lỗi, không có quyền truy cập!');
-			}
-		}
+// 		if (id_truyen) {
+// 			if (!novels.mynovel.includes(id_truyen)) {
+// 				res.status(403).send('Lỗi, không có quyền truy cập!');
+// 			}
+// 		}
 
-		res.render('profile.ejs', render_data);
-	} catch (err) {
-		console.log('SYSTEM | LIST MY NOVELS | ERROR | ', err);
-		res.sendStatus(500);
-	}
-}
+// 		res.render('profile.ejs', render_data);
+// 	} catch (err) {
+// 		console.log('SYSTEM | LIST MY NOVELS | ERROR | ', err);
+// 		res.sendStatus(500);
+// 	}
+// }
 
 function isBase64(str) {
 	try {
@@ -612,114 +612,114 @@ console.log(path.join(parentDirectory, 'view'))
 // });
 
 // profile route
-app.get('/profile', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
+// app.get('/profile', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
+	
+// 	await processNovels(req, res, null);
+// });
 
-	await processNovels(req, res, null);
-});
+// app.get('/profile/:anything', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
+// 	await processNovels(req, res, null);
+// });
 
-app.get('/profile/:anything', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
-	await processNovels(req, res, null);
-});
+// app.get('/profile/update/:id/edit', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
+// 	await processNovels(req, res, req.params.id);
+// });
 
-app.get('/profile/update/:id/edit', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
-	await processNovels(req, res, req.params.id);
-});
+// app.get('/profile/update/:id/listchap', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
+// 	await processNovels(req, res, req.params.id);
+// });
 
-app.get('/profile/update/:id/listchap', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
-	await processNovels(req, res, req.params.id);
-});
-
-app.get('/profile/update/:id/morechap', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
-	await processNovels(req, res, req.params.id);
-});
+// app.get('/profile/update/:id/morechap', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
+// 	await processNovels(req, res, req.params.id);
+// });
 
 // Review route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.get('/reviews/:id', checkCookieLoglUser, async (req, res) => {
-	try {
-		const account = req.cookies.account
-		console.log('SYSTEM | REVIEWS |', account);
-		// Get novel information:
-		let result = await server.find_all_Data({
-			table: "truyen",
-			query: { _id: new ObjectId(req.params.id) },
-			projection: {
-				name: 1,
-				author: 1,
-				no_chapters: 1,
-				genres: 1,
-				summary: 1,
-				image: 1,
-				name_chaps: 1,
-				views: 1,
-				likes: 1,
-				update_date: 1,
-				status: 1
-			},
-			limit: 1
-		});
+// app.get('/reviews/:id', checkCookieLoglUser, async (req, res) => {
+// 	try {
+// 		const account = req.cookies.account
+// 		console.log('SYSTEM | REVIEWS |', account);
+// 		// Get novel information:
+// 		let result = await server.find_all_Data({
+// 			table: "truyen",
+// 			query: { _id: new ObjectId(req.params.id) },
+// 			projection: {
+// 				name: 1,
+// 				author: 1,
+// 				no_chapters: 1,
+// 				genres: 1,
+// 				summary: 1,
+// 				image: 1,
+// 				name_chaps: 1,
+// 				views: 1,
+// 				likes: 1,
+// 				update_date: 1,
+// 				status: 1
+// 			},
+// 			limit: 1
+// 		});
 
-		//paste here
-		// default if they don't have an account
-		result[0].liked = 0; ///here
-		const maybeulike = await server.find_all_Data({
-			table: "truyen",
-			query: { genres: { $in: result[0].genres } },
-			projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1, update_date: 1 },
-			sort: { update_date: -1, views: -1, likes: -1, name: 1 },
-			limit: 6
-		});
+// 		//paste here
+// 		// default if they don't have an account
+// 		result[0].liked = 0; ///here
+// 		const maybeulike = await server.find_all_Data({
+// 			table: "truyen",
+// 			query: { genres: { $in: result[0].genres } },
+// 			projection: { name: 1, author: 1, image: 1, no_chapters: 1, status: 1, likes: 1, views: 1, update_date: 1 },
+// 			sort: { update_date: -1, views: -1, likes: -1, name: 1 },
+// 			limit: 6
+// 		});
 
 
-		for (let i = 0; i < maybeulike.length; i++) {
-			maybeulike[i].update_date = calTime(maybeulike[i].update_date);
-		}
-		if (account) {
-			const decode = decrypt(account, authenticationKey);
-			const decodeList = decode.split(':');
-			if (decodeList[0] == authenticationKey) {
-				// check does novel was liked by current user or not
-				const like_list = await server.find_all_Data({
-					table: "tt_nguoi_dung",
-					query: { _id: decodeList[1] },
-					projection: {
-						_id: 0,
-						likeNovels: 1
-					},
-					limit: 1
-				});
+// 		for (let i = 0; i < maybeulike.length; i++) {
+// 			maybeulike[i].update_date = calTime(maybeulike[i].update_date);
+// 		}
+// 		if (account) {
+// 			const decode = decrypt(account, authenticationKey);
+// 			const decodeList = decode.split(':');
+// 			if (decodeList[0] == authenticationKey) {
+// 				// check does novel was liked by current user or not
+// 				const like_list = await server.find_all_Data({
+// 					table: "tt_nguoi_dung",
+// 					query: { _id: decodeList[1] },
+// 					projection: {
+// 						_id: 0,
+// 						likeNovels: 1
+// 					},
+// 					limit: 1
+// 				});
 
-				if (like_list[0].likeNovels.includes(req.params.id)) { // liked
-					result[0].liked = 1;
-				}
-			}
-		}
+// 				if (like_list[0].likeNovels.includes(req.params.id)) { // liked
+// 					result[0].liked = 1;
+// 				}
+// 			}
+// 		}
 
-		res.render('reviews.ejs', {
-			headerFile: 'header',
-			footerFile: 'footer',
-			name: result[0].name,
-			author: result[0].author,
-			name_chaps: result[0].name_chaps,
-			no_chapters: result[0].no_chapters,
-			genres: result[0].genres,
-			summary: result[0].summary,
-			image: result[0].image,
-			views: result[0].views,
-			likes: result[0].likes,
-			update_date: calTime(result[0].update_date),
-			status: result[0].status,
-			liked: result[0].liked,
-			maybeulike: maybeulike
-		});
+// 		res.render('reviews.ejs', {
+// 			headerFile: 'header',
+// 			footerFile: 'footer',
+// 			name: result[0].name,
+// 			author: result[0].author,
+// 			name_chaps: result[0].name_chaps,
+// 			no_chapters: result[0].no_chapters,
+// 			genres: result[0].genres,
+// 			summary: result[0].summary,
+// 			image: result[0].image,
+// 			views: result[0].views,
+// 			likes: result[0].likes,
+// 			update_date: calTime(result[0].update_date),
+// 			status: result[0].status,
+// 			liked: result[0].liked,
+// 			maybeulike: maybeulike
+// 		});
 
-	} catch (err) {
-		console.log('SYSTEM | REVIEWS | ERROR | ', err);
-		res.sendStatus(500);
-	}
-});
+// 	} catch (err) {
+// 		console.log('SYSTEM | REVIEWS | ERROR | ', err);
+// 		res.sendStatus(500);
+// 	}
+// });
 
 // Reading route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.get('/reading/:id/:chap', checkCookieLoglUser, async (req, res) => {
+/*app.get('/reading/:id/:chap', checkCookieLoglUser, async (req, res) => {
 	try {
 		let result = await server.find_all_Data({
 			table: "truyen",
@@ -758,153 +758,153 @@ app.get('/reading/:id/:chap', checkCookieLoglUser, async (req, res) => {
 		console.log('SYSTEM | READING | ERROR | ', err);
 		res.sendStatus(500);
 	}
-});
+});*/
 
-// admin index page ________________________________________________________________________________________________________________________
-app.get('/admin', checkCookieLoglUser, async (req, res) => {
-	res.render('admin-index', {
-		headerFile: 'header',
-		footerFile: 'footer',
-	});
-});
+// // admin index page ________________________________________________________________________________________________________________________
+// app.get('/admin', checkCookieLoglUser, async (req, res) => {
+// 	res.render('admin-index', {
+// 		headerFile: 'header',
+// 		footerFile: 'footer',
+// 	});
+// });
 
-// account manager page ________________________________________________________________________________________________________________________
-app.get('/accountmanager', checkCookieLoglUser, async (req, res) => {
-	res.render('account-manager', {
-		headerFile: 'header',
-		footerFile: 'footer',
-	});
-});
-// auhtor manager page ________________________________________________________________________________________________________________________
-app.get('/auhtormanager', checkCookieLoglUser, async (req, res) => {
-	res.render('auhtor-manager', {
-		headerFile: 'header',
-		footerFile: 'footer',
-	});
-});
+// // account manager page ________________________________________________________________________________________________________________________
+// app.get('/accountmanager', checkCookieLoglUser, async (req, res) => {
+// 	res.render('account-manager', {
+// 		headerFile: 'header',
+// 		footerFile: 'footer',
+// 	});
+// });
+// // auhtor manager page ________________________________________________________________________________________________________________________
+// app.get('/auhtormanager', checkCookieLoglUser, async (req, res) => {
+// 	res.render('auhtor-manager', {
+// 		headerFile: 'header',
+// 		footerFile: 'footer',
+// 	});
+// });
 
 
 
 // Search route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.get('/search', checkCookieLoglUser, async (req, res) => {
-	try {
-		const search = decodeURIComponent(req.query.search);
-		if (search) {
-			// get all novels name
-			let names = await server.find_all_Data({
-				table: "truyen",
-				query: { name: { $regex: new RegExp(search, 'i') } },
-				projection: {
-					name: 1,
-					author: 1,
-					image: 1,
-					status: 1,
-					no_chapters: 1,
-				},
-				limit: 31
-			});
-			// get all novels authors
-			let authors = await server.find_all_Data({
-				table: "truyen",
-				query: { author: { $regex: new RegExp(search, 'i') } },
-				projection: {
-					name: 1,
-					author: 1,
-					image: 1,
-					status: 1,
-					no_chapters: 1,
-				},
-				limit: 31
-			});
-			// get all novels genres
-			let genres = await server.find_all_Data({
-				table: "truyen",
-				query: { genres: { $in: [new RegExp(search, 'i')] } },
-				projection: {
-					name: 1,
-					author: 1,
-					image: 1,
-					status: 1,
-					no_chapters: 1,
-				},
-				limit: 31
-			});
-			// 
-			let authors_more = false;
-			let name_more = false;
-			let genres_more = false;
-			if (names.length == 31) {
-				name_more = true;
-				names.pop();
-			};
-			if (authors.length == 31) {
-				authors_more = true;
-				authors.pop();
-			};
-			if (genres.length == 31) {
-				genres_more = true;
-				genres.pop();
-			}
-			res.render('search.ejs', {
-				headerFile: 'header',
-				footerFile: 'footer',
-				names: names,
-				name_more: name_more,
-				authors: authors,
-				authors_more: authors_more,
-				genres: genres,
-				genres_more: genres_more,
-				what_search: search
-			});
-		}
-		else {
-			res.sendStatus(404);
-		}
-	} catch (err) {
-		console.log('SYSTEM | SEARCH | ERROR | ', err);
-		res.sendStatus(500);
-	}
-});
+// app.get('/search', checkCookieLoglUser, async (req, res) => {
+// 	try {
+// 		const search = decodeURIComponent(req.query.search);
+// 		if (search) {
+// 			// get all novels name
+// 			let names = await server.find_all_Data({
+// 				table: "truyen",
+// 				query: { name: { $regex: new RegExp(search, 'i') } },
+// 				projection: {
+// 					name: 1,
+// 					author: 1,
+// 					image: 1,
+// 					status: 1,
+// 					no_chapters: 1,
+// 				},
+// 				limit: 31
+// 			});
+// 			// get all novels authors
+// 			let authors = await server.find_all_Data({
+// 				table: "truyen",
+// 				query: { author: { $regex: new RegExp(search, 'i') } },
+// 				projection: {
+// 					name: 1,
+// 					author: 1,
+// 					image: 1,
+// 					status: 1,
+// 					no_chapters: 1,
+// 				},
+// 				limit: 31
+// 			});
+// 			// get all novels genres
+// 			let genres = await server.find_all_Data({
+// 				table: "truyen",
+// 				query: { genres: { $in: [new RegExp(search, 'i')] } },
+// 				projection: {
+// 					name: 1,
+// 					author: 1,
+// 					image: 1,
+// 					status: 1,
+// 					no_chapters: 1,
+// 				},
+// 				limit: 31
+// 			});
+// 			// 
+// 			let authors_more = false;
+// 			let name_more = false;
+// 			let genres_more = false;
+// 			if (names.length == 31) {
+// 				name_more = true;
+// 				names.pop();
+// 			};
+// 			if (authors.length == 31) {
+// 				authors_more = true;
+// 				authors.pop();
+// 			};
+// 			if (genres.length == 31) {
+// 				genres_more = true;
+// 				genres.pop();
+// 			}
+// 			res.render('search.ejs', {
+// 				headerFile: 'header',
+// 				footerFile: 'footer',
+// 				names: names,
+// 				name_more: name_more,
+// 				authors: authors,
+// 				authors_more: authors_more,
+// 				genres: genres,
+// 				genres_more: genres_more,
+// 				what_search: search
+// 			});
+// 		}
+// 		else {
+// 			res.sendStatus(404);
+// 		}
+// 	} catch (err) {
+// 		console.log('SYSTEM | SEARCH | ERROR | ', err);
+// 		res.sendStatus(500);
+// 	}
+// });
 
 // Advanced search route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.get('/category', checkCookieLoglUser, async (req, res) => {
-	try {
-		let result = await server.find_all_Data({
-			table: "truyen",
-			query: {},
-			projection: {
-				name: 1,
-				author: 1,
-				image: 1,
-				status: 1,
-				no_chapters: 1,
-			},
-			sort: { views: -1, likes: -1, name: 1 },
-			limit: 31
-		});
+// app.get('/category', checkCookieLoglUser, async (req, res) => {
+// 	try {
+// 		let result = await server.find_all_Data({
+// 			table: "truyen",
+// 			query: {},
+// 			projection: {
+// 				name: 1,
+// 				author: 1,
+// 				image: 1,
+// 				status: 1,
+// 				no_chapters: 1,
+// 			},
+// 			sort: { views: -1, likes: -1, name: 1 },
+// 			limit: 31
+// 		});
 
-		let more_novel = false;
-		if (result.length == 31) {
-			more_novel = true;
-			result.pop();
-		};
+// 		let more_novel = false;
+// 		if (result.length == 31) {
+// 			more_novel = true;
+// 			result.pop();
+// 		};
 
-		res.render('category-page.ejs', {
-			headerFile: 'header',
-			footerFile: 'footer',
-			result: result,
-			more_novel: more_novel
-		});
-	} catch (err) {
-		console.log('SYSTEM | SEARCH | ERROR | ', err);
-		res.sendStatus(500);
-	}
-});
+// 		res.render('category-page.ejs', {
+// 			headerFile: 'header',
+// 			footerFile: 'footer',
+// 			result: result,
+// 			more_novel: more_novel
+// 		});
+// 	} catch (err) {
+// 		console.log('SYSTEM | SEARCH | ERROR | ', err);
+// 		res.sendStatus(500);
+// 	}
+// });
 
 // 404 route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-app.get('/404', (req, res) => {
-	res.sendFile(parentDirectory + '/error/404.html');
-});
+// app.get('/404', (req, res) => {
+// 	res.sendFile(parentDirectory + '/error/404.html');
+// });
 // API SPACE ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // more search

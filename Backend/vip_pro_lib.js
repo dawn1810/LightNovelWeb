@@ -220,6 +220,8 @@ const auth = new google.auth.OAuth2(
   credentials.google.redirect_uris && credentials.web.redirect_uris.length > 0 ? credentials.web.redirect_uris[0] : 'http://localhost'
 );
 
+
+// để đây t làm
 // Generate an access token and refresh token if not available
 const getAccessToken = async () => {
   let token = await storage.getItem('tokens');

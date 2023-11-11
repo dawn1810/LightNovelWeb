@@ -76,7 +76,73 @@ async function checkCookieLoglUser(req, res, next) {
 		res.status(500).send('Internal Server Error');
 	}
 }
+async function checkCoookieIfOK(req, res, next) {
+	const data = req.cookies;
+	if (!data.account) {
+		// Cookie không tồn tại, chặn truy cập
+		return res.redirect('/');
+	}
+	else {
+		next();
+	}
+
+}
+
+const decode = (account) => {
+	const decode = func_controller.decrypt(account, authenticationKey);
+	const decodeList = decode.split(":"); // Output: "replika is best japanese waifu"
+	return decodeList
+}
+const calTime = (update_date)=> {
+	// Thời điểm hiện tại
+	const now = new Date();
+
+	// Thời điểm trả về từ server
+	const serverTime = new Date(update_date);
+
+	// Tính số lượng năm chênh lệch
+	const yearsDiff = now.getFullYear() - serverTime.getFullYear();
+
+	// Tính số lượng tháng chênh lệch
+	const monthsDiff = (yearsDiff * 12) + (now.getMonth() - serverTime.getMonth());
+
+	// Tính số lượng ngày chênh lệch
+	const daysDiff = Math.floor((now - serverTime) / (1000 * 60 * 60 * 24));
+
+	// Tính số lượng giờ chênh lệch
+	const hoursDiff = now.getHours() - serverTime.getHours();
+
+	// Tính số lượng phút chênh lệch
+	const minutesDiff = now.getMinutes() - serverTime.getMinutes();
+
+	// Hiển thị kết quả chênh lệch thời gian
+	// console.log(`Chênh lệch thời gian: ${yearsDiff} năm, ${monthsDiff} tháng, ${daysDiff} ngày, ${hoursDiff} giờ, ${minutesDiff} phút.`);
+
+	if (yearsDiff > 0) {
+		return yearsDiff + ' năm';
+	}
+	else if (monthsDiff > 0) {
+		return monthsDiff + ' tháng';
+	}
+	else if (daysDiff > 0) {
+		return daysDiff + ' ngày';
+	}
+	else if (hoursDiff > 0) {
+		return hoursDiff + ' giờ';
+	}
+	else if (minutesDiff > 0) {
+		return minutesDiff + ' phút';
+	}
+	else {
+		return 'Nóng như chuyện tình đôi ta <3';
+
+	}
+	return 'éo tính dc';
+}
 
 module.exports = {
-    checkCookieLoglUser
+	checkCookieLoglUser,
+	checkCoookieIfOK,
+	decode,
+	calTime
 }
