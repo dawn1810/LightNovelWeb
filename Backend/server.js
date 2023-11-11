@@ -4,10 +4,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
-const crypto = require('crypto');
+const crypto = require('crypto'); // func
 const cookieParser = require('cookie-parser');
 const cron = require('node-cron');
-const NodePersist = require('node-persist');
+const NodePersist = require('node-persist'); // index
 const path = require('path');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -58,6 +58,12 @@ const storage_file = multer.diskStorage({
 // Thiết lập middleware multer cho việc xử lý upload file
 const upload = multer({ storage: storage_file });
 
+// const webRouter = require('./router/web');
+// app.use(webRouter(app));
+
+// webRouter(app);
+
+
 function encrypt(data, secretKey) {
 	const algorithm = 'aes-256-cbc';
 	const iv = crypto.randomBytes(16); // Generate a random IV
@@ -85,6 +91,7 @@ function decrypt(encryptedDataWithIV, secretKey) {
 
 	return decryptedData;
 }
+
 // Hàm này sẽ nén ảnh base64 và trả về base64 của ảnh đã nén trong một Promise
 // Hàm xác định định dạng ảnh từ base64
 // Hàm xác định định dạng ảnh từ base64
@@ -211,7 +218,7 @@ function getFirstAndLastDayOfYear() {
 	};
 }
 
-const storage = NodePersist.create({
+const storage = NodePersist.create({ // index
 	dir: '.temp',
 });
 
@@ -363,7 +370,7 @@ async function get_full_id(directoryPath, listName) {
 
 // ------------------------------------------------------------------------------------------------
 
-async function checkCookieLoglUser(req, res, next) {
+async function checkCookieLoglUser(req, res, next) { // index
 	try {
 		const data = req.cookies;
 		if (!data.account) {
@@ -568,7 +575,7 @@ function calTime(update_date) {
 	return 'éo tính dc';
 }
 
-// Áp dụng middleware để chặn truy cập
+// Áp dụng middleware để chặn truy cparentDirectoryập
 app.use(blockUnwantedPaths);
 
 // Lắng nghe các yêu cầu POST tới localhost:6969
@@ -592,17 +599,17 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(parentDirectory, 'view'));
 console.log(path.join(parentDirectory, 'view'))
 
-// index route
-app.get('/', checkCookieLoglUser, async (req, res) => {
-	let result = await storage.getItem('novellist');
-	currentURL = req.url;
+// // index route
+// app.get('/', checkCookieLoglUser, async (req, res) => {
+// 	let result = await storage.getItem('novellist');
+// 	currentURL = req.url;
 
-	res.render('index', {
-		headerFile: 'header',
-		footerFile: 'footer',
-		jsontruyen: result
-	});
-});
+// 	res.render('index', {
+// 		headerFile: 'header',
+// 		footerFile: 'footer',
+// 		jsontruyen: result
+// 	});
+// });
 
 // profile route
 app.get('/profile', checkCoookieIfOK, checkCookieLoglUser, async (req, res) => {
