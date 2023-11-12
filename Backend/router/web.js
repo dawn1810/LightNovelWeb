@@ -10,7 +10,7 @@ const renderSearch = require("../controller/search.controller");
 const processNovels = require("../controller/profile.controller");
 
 // index route
-const indexRouter = (app) => {
+const webRouter = (app) => {
   router.get(
     "/",
     func_controller.checkCookieLoglUser,
@@ -102,5 +102,5 @@ const indexRouter = (app) => {
 };
 
 module.exports = {
-  indexRouter,
+  webRouter,
 };

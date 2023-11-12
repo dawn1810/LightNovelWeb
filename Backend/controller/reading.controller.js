@@ -1,3 +1,32 @@
+const server = require("../vip_pro_lib");
+const { ObjectId } = require('mongodb');
+
+function convertToHtml(text) {
+	const escapedText = escapeHtml(text);
+	const lines = escapedText.split('\n');
+	const htmlLines = lines.map(line => `<p>${line}</p>`).join('');
+	return htmlLines;
+}
+
+function escapeHtml(text) {
+	return text.replace(/[&<>"']/g, function (match) {
+		switch (match) {
+			case '&':
+				return '&amp;';
+			case '<':
+				return '&lt;';
+			case '>':
+				return '&gt;';
+			case '"':
+				return '&quot;';
+			case "'":
+				return '&#39;';
+			default:
+				return match;
+		}
+	});
+}
+
 const renderReading =  async (req, res) => {
 	try {
 		let result = await server.find_all_Data({
