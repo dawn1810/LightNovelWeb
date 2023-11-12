@@ -1,19 +1,24 @@
-const mysql = require('mysql');
+const mysql = require("mysql");
+const util = require("util");
 
-function connectToDatabase() {
-	const con = mysql.createConnection({
-	  host: "localhost",
-	  user: "root",
-	  password: "",
-	  database: "wtf_novel"
-	});
-	
-	con.connect(function(err) {
-	  if (err) throw err;
-	  console.log("Connected to MySQL database!");
-	});
-  
-	return con;
+const connection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "wtf_novel",
+});
+
+connection.connect((err) => {
+  if (err) {
+    console.error("Error connecting to MySQL:", err);
+    return;
   }
+  console.log("Connected to MySQL!");
+});
+const queryAsync = util.promisify(connection.query).bind(connection);
 
-module.exports = {connectToDatabase};
+
+module.exports = {
+  connection,
+  queryAsync,
+};

@@ -1,4 +1,4 @@
-const server = require('./vip_pro_lib');
+const server = require('../vip_pro_lib');
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require("fs");

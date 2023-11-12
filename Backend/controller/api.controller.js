@@ -1,14 +1,34 @@
-const updateNovel = require("./Updatenovel");
+const updateNovel = require("../test/Updatenovel");
 const fs = require("fs");
 const path = require("path");
 const { ObjectId } = require("mongodb");
-const func_controller = require("../controller/func.controller");
+const func_controller = require("./func.controller");
 const NodePersist = require("node-persist");
-
+const server = require("../vip_pro_lib");
+const secretKey = "5gB#2L1!8*1!0)$7vF@9";
+const { connection, queryAsync } = require("../dbmysql");
+const authenticationKey = Buffer.from(
+  secretKey.padEnd(32, "0"),
+  "utf8"
+).toString("hex");
 const storage = NodePersist.create({
   // index
   dir: ".temp",
 });
+
+function isBase64(str) {
+	try {
+		// Kiểm tra xem chuỗi có thể được giải mã từ Base64 không
+		const decoded = Buffer.from(str, 'base64').toString('utf-8');
+
+		// Kiểm tra xem chuỗi ban đầu và chuỗi giải mã có giống nhau hay không
+		// Nếu giống nhau thì chuỗi đó có thể là Base64
+		return Buffer.from(decoded, 'utf-8').toString('base64') === str;
+	} catch (error) {
+		// Nếu có lỗi xảy ra trong quá trình giải mã, tức là chuỗi không phải Base64
+		return false;
+	}
+}
 
 const api_search_more = async (req, res) => {
   try {
@@ -323,7 +343,7 @@ const api_reviews = async (req, res) => {
 };
 
 const api_signup = async (req, res) => {
-  console.log("gọi api đăng nhập________________________")
+  console.log("gọi api đăng nhập________________________");
   const data = req.body;
   console.log("SYSTEM | SIGN_UP | Dữ liệu nhận được: ", data);
   try {
@@ -425,7 +445,7 @@ const api_login = async (req, res) => {
       });
 
       if (n_result.pass == data.pass) {
-        set_cookies(res, data.usr, data.pass); // set cookies
+        func_controller.set_cookies(res, data.usr, data.pass); // set cookies
 
         res.end("Log in success!!!");
       } else {
@@ -465,8 +485,7 @@ const api_updateLike = async (req, res) => {
   try {
     const data = req.body;
     console.log("SYSTEM | UPDATE_LIKE | Dữ liệu nhận được: ", data);
-    const decode = decrypt(req.cookies.account, authenticationKey);
-    const decodeList = decode.split(":"); // Output: "replika is best japanese waifu"
+    const decodeList = func_controller.decode(data); // Output: "replika is best japanese waifu"
     // console.log(`SYSTEM | UPDATE_LIKE | Dữ liệu đã giải mã ${decodeList}`);
     // decodeList = authenticationKey:id:pass
     if (decodeList[0] == authenticationKey) {
@@ -543,8 +562,7 @@ const api_uploadNovel = async (req, res) => {
   const account = req.cookies.account;
   console.log("SYSTEM | UPLOAD_NOVEL | Dữ liệu nhận được: ", data);
   console.log("SYSTEM | UPLOAD_NOVEL | Cookie nhận được: ", account);
-  const decode = decrypt(account, authenticationKey);
-  const decodeList = decode.split(":"); // Output: "replika is best japanese waifu"
+  const decodeList = func_controller.decode(account); // Output: "replika is best japanese waifu"
   // console.log(`SYSTEM | UPLOAD_NOVEL | Dữ liệu đã giải mã ${decodeList}`);
   // decodeList = authenticationKey:id:pass
 
@@ -693,6 +711,9 @@ const api_editInfoNovel = async (req, res) => {
     console.log("SYSTEM | UPDATE UPLOAD NOVEL | ERROR | ", err);
     res.sendStatus(500);
   }
+
+
+  
 };
 
 const api_uploadFile = async function (req, res) {
@@ -773,13 +794,15 @@ const api_cancle = async (req, res) => {
 // Delete novel page
 
 const api_updateInfo = async (req, res) => {
+  let dataa=await queryAsync("SELECT id_the_loai FROM the_loai_truyen,truyen")
+  console.log(`SYSTEM CÁI NÀY TAO TEST | ${ JSON.stringify(dataa)}`)
   try {
     const data = req.body;
-    console.log("SYSTEM | UPDATE INFO |", data);
     let avt_var = data.img;
     if (isBase64(data.img)) {
       avt_var = await compressImageBase64(data.img, 5);
     }
+
     await server.update_one_Data(
       "tt_nguoi_dung",
       { _id: data.usr },
@@ -802,8 +825,7 @@ const api_updateInfo = async (req, res) => {
 const api_changePass = async (req, res) => {
   try {
     const data = req.body;
-    const decode = decrypt(req.cookies.account, authenticationKey);
-    const decodeList = decode.split(":"); // Output: "replika is best japanese waifu"
+    const decodeList = func_controller.decode(req.cookies.account);
     // console.log(`SYSTEM | CHANGE_PASSWORD | Dữ liệu đã giải mã ${decodeList}`);
     // decodeList = authenticationKey:id:pass
     if (decodeList[0] == authenticationKey) {

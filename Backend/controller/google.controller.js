@@ -2,11 +2,18 @@ const passport = require("passport");
 const cookieParser = require("cookie-parser");
 const { ObjectId } = require("mongodb");
 const NodePersist = require("node-persist");
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const server = require("../vip_pro_lib");
+const func = require('../controller/func.controller')
+const secretKey = '5gB#2L1!8*1!0)$7vF@9';
+const authenticationKey = Buffer.from(secretKey.padEnd(32, '0'), 'utf8').toString('hex');
 
 /////////////////ALL LOG IN WAYS/////////////////
 passport.serializeUser(function (userId, done) {
   done(null, userId);
 });
+const port = 6969;
+let currentURL = `http://localhost:${port}`;
 
 passport.deserializeUser(async function (userId, done) {
   try {
@@ -33,13 +40,15 @@ let credentials;
 const initGoogle = async () => {
   await initStorage();
   credentials = await storage.getItem("certgoogle");
+  return credentials;
+  /*/.credentials/1866203e7cb0464532af9841f77e9ae9*/
 };
-initGoogle();
+
 passport.use(
   new GoogleStrategy(
     {
-      clientID: credentials.web.client_id,
-      clientSecret: credentials.web.client_secret,
+      clientID: "483084822625-jrf4t8tq5j272i8mugfk4qorgv3dg11o.apps.googleusercontent.com",
+      clientSecret: "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",
       callbackURL: currentURL + "/auth/google/callback",
       passReqToCallback: true,
     },
@@ -98,15 +107,16 @@ passport.use(
   )
 );
 
-const gg_login = () => {
-  passport.authenticate("google", {
-    scope: ["profile", "email"],
-  });
-};
+// const gg_login = () => {
+//   return passport.authenticate("google", {
+//     scope: ["profile", "email"],
+//   });
+// };
 
-const gg_call_back = () => {
-  passport.authenticate("google", { failureRedirect: "/api/login" });
-};
+
+// const gg_call_back = () => {
+//   passport.authenticate("google", { failureRedirect: "/api/login" });
+// };
 
 const open_window = (req, res) => {
   // req.user = {
@@ -120,7 +130,7 @@ const open_window = (req, res) => {
   // 	commentIds: []
   //  }
   //set cookies
-  set_cookies(res, req.user._id, "");
+  func.set_cookies(res, req.user._id, "");
 
   // Đóng tab hiện tại và reload main window
   res.write("<script>");
@@ -133,7 +143,6 @@ const open_window = (req, res) => {
 };
 
 module.exports = {
-  gg_login,
-  gg_call_back,
-  open_window,
+  passport,
+  open_window
 };

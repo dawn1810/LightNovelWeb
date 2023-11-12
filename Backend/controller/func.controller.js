@@ -1,4 +1,6 @@
 const crypto = require("crypto");
+const path = require('path');
+
 const server = require("../vip_pro_lib");
 const secretKey = "5gB#2L1!8*1!0)$7vF@9";
 const authenticationKey = Buffer.from(
@@ -6,11 +8,32 @@ const authenticationKey = Buffer.from(
   "utf8"
 ).toString("hex");
 const multer = require("multer"); // Thư viện để xử lý file upload
+const NodePersist = require('node-persist'); // index
+const storage = NodePersist.create({ // index
+	dir: '.temp',
+});
+const uploadDirectory = path.join('.upload_temp', 'files');
 
+const storage_file = multer.diskStorage({
+	destination: function (req, file, cb) {
+		if (!allowedMimeTypes.includes(file.mimetype)) {
+			console.log('SYSTEM | GET_NOVEL_LIST | ERROR | Lỗi định dạng file không đúng');
+
+			return cb(new Error('Invalid file type.'), null);
+		}
+
+		// Trả về đường dẫn đến thư mục mới
+		cb(null, uploadDirectory);
+	},
+	filename: function (req, file, cb) {
+		cb(null, file.originalname);
+	}
+});
 // Thiết lập middleware multer cho việc xử lý upload file
 const upload = () => {
   return multer({ storage: storage_file });
 };
+
 function encrypt(data, secretKey) {
   const algorithm = "aes-256-cbc";
   const iv = crypto.randomBytes(16); // Generate a random IV
@@ -107,7 +130,7 @@ async function checkCoookieIfOK(req, res, next) {
 }
 
 const decode = (account) => {
-  const decode = func_controller.decrypt(account, authenticationKey);
+  const decode = decrypt(account, authenticationKey);
   const decodeList = decode.split(":"); // Output: "replika is best japanese waifu"
   return decodeList;
 };
@@ -340,12 +363,32 @@ const getNovelList = async () => {
   }
 };
 
+const  set_cookies = (res, id, pass) => {
+	const encryptedString = encrypt(`${authenticationKey}:${id}:${pass}`, authenticationKey);
+	const oneYearFromNow = new Date();
+	oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+	res.cookie('account', encryptedString, {
+		expires: oneYearFromNow,
+		secure: true,
+		sameSite: 'none',
+		domain: 'localhost',
+		// domain: 'c22c-2a09-bac5-d44d-18d2-00-279-87.ngrok-free.app',
+
+		path: '/'
+	});
+	res.writeHead(200, { 'Content-Type': 'text/html' });
+	console.log(`SYSTEM | SET_COOKIES | User ${id} login!`);
+}
+
 module.exports = {
   checkCookieLoglUser,
   checkCoookieIfOK,
   decode,
+  encrypt,
+  decrypt,
   calTime,
   upload,
   deleteItemsById,
   getNovelList,
+  set_cookies,
 };

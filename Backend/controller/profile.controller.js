@@ -1,6 +1,7 @@
 const { connectToDatabase } = require('../dbmysql');
 const { ObjectId } = require('mongodb');
-const func_controller = require("../controller/func.controller");
+const func_controller = require("./func.controller");
+const server = require("../vip_pro_lib");
 
 const processNovels = async function (req, res, id_truyen) {
   try {
@@ -103,7 +104,7 @@ const processNovels = async function (req, res, id_truyen) {
     res.render("profile.ejs", render_data);
   } catch (err) {
     console.log("SYSTEM | LIST MY NOVELS | ERROR | ", err);
-    res.sendStatus(500);
+    // res.sendStatus(500);
   }
 };
 

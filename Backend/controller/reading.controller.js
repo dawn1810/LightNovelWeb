@@ -41,7 +41,7 @@ const renderReading =  async (req, res) => {
 			},
 			limit: 1
 		});
-		
+		console.log('RESULT | ====', result);
 		if ((parseInt(result[0].no_chapters) <= parseInt(req.params.chap)) || (parseInt(req.params.chap) < 0)) {
 			res.status(404).send('Không tìm thấy chương!');
 			return;

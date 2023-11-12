@@ -1,57 +1,63 @@
-const server = require("../vip_pro_lib");
+const { connection, queryAsync } = require("../dbmysql");
 // const { connectToDatabase } = require('../dbmysql');
-const { ObjectId } = require('mongodb');
-const func_controller = require("../controller/func.controller");
+
+const func_controller = require("./func.controller");
 
 const renderReviews = async (req, res) => {
   try {
     const account = req.cookies.account;
     console.log("SYSTEM | REVIEWS |", account);
     // Get novel information:
-    let result = await server.find_all_Data({
-      table: "truyen",
-      query: { _id: new ObjectId(req.params.id) },
-      projection: {
-        name: 1,
-        author: 1,
-        no_chapters: 1,
-        genres: 1,
-        summary: 1,
-        image: 1,
-        name_chaps: 1,
-        views: 1,
-        likes: 1,
-        update_date: 1,
-        status: 1,
-      },
-      limit: 1,
-    });
+    let result = await queryAsync("SELECT * FROM truyen");
 
     //paste here
+    console.log("hhhihiihih", result);
     // default if they don't have an account
-    result[0].liked = 0; ///here
-    const maybeulike = await server.find_all_Data({
-      table: "truyen",
-      query: { genres: { $in: result[0].genres } },
-      projection: {
-        name: 1,
-        author: 1,
-        image: 1,
-        no_chapters: 1,
-        status: 1,
-        likes: 1,
-        views: 1,
-        update_date: 1,
-      },
-      sort: { update_date: -1, views: -1, likes: -1, name: 1 },
-      limit: 6,
-    });
+    // result[0].luot_thich = 0; ///here
+
+    let theloaiID = await queryAsync(
+      "SELECT id_the_loai FROM the_loai_truyen,truyen WHERE truyen.id = the_loai_truyen.id_truyen "
+    );
+    console.log("the loai:", theloaiID);
+    const genres = theloaiID.map((row) => row.id_the_loai);
+    const genreList = genres.map((genre) => `'${genre}'`).join(", ");
+
+    console.log("genreList: ", genreList);
+    const maybeulikethat = await queryAsync(
+      `SELECT DISTINCT truyen.ten_truyen, tacgia.ten_tac_gia AS author, truyen.anh_dai_dien, truyen.so_luong_chuong AS no_chapters, truyen.trang_thai AS status, truyen.luot_thich AS likes, truyen.luot_xem AS views, truyen.ngay_cap_nhat AS update_date
+     FROM truyen
+     INNER JOIN tacgia ON truyen.id_tac_gia = tacgia.id
+     INNER JOIN the_loai_truyen ON truyen.id = the_loai_truyen.id_truyen
+     INNER JOIN the_loai ON the_loai_truyen.id_the_loai = the_loai.id
+     WHERE the_loai_truyen.id_the_loai IN (${genreList})
+     ORDER BY truyen.ngay_cap_nhat DESC, truyen.luot_xem DESC, truyen.luot_thich DESC, truyen.ten_truyen ASC
+     LIMIT 6;`
+    );
+    console.log(maybeulikethat);
+    // const maybeulike = await server.find_all_Data({
+    //   table: "truyen",
+    //   query: { genres: { $in: result[0].genres } },
+    //   projection: {
+    //     name: 1,
+    //     author: 1,
+    //     image: 1,
+    //     no_chapters: 1,
+    //     status: 1,
+    //     likes: 1,
+    //     views: 1,
+    //     update_date: 1,
+    //   },
+    //   sort: { update_date: -1, views: -1, likes: -1, name: 1 },
+    //   limit: 6,
+    // });
 
     for (let i = 0; i < maybeulike.length; i++) {
-      maybeulike[i].update_date = func_controller.calTime(maybeulike[i].update_date);
+      maybeulike[i].update_date = func_controller.calTime(
+        maybeulike[i].update_date
+      );
     }
     if (account) {
-      const decode = decrypt(account, authenticationKey);
+      const decode = func_controller.decrypt(account, authenticationKey);
       const decodeList = decode.split(":");
       if (decodeList[0] == authenticationKey) {
         // check does novel was liked by current user or not

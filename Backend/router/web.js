@@ -25,35 +25,40 @@ const webRouter = (app) => {
     "/profile",
     func_controller.checkCoookieIfOK,
     func_controller.checkCookieLoglUser,
-    processNovels.processNovels
+    (req, res) => {
+      processNovels.processNovels(req, res, null);
+    }
   );
 
   router.get(
     "/profile/:anything",
     func_controller.checkCoookieIfOK,
     func_controller.checkCookieLoglUser,
-    processNovels.processNovels
+    (req, res) => {
+      processNovels.processNovels(req, res, null);
+    }
   );
   router.get(
     "/profile/update/:id/edit",
     func_controller.checkCoookieIfOK,
     func_controller.checkCookieLoglUser,
     (req, res) => {
-        const id = req.params.id;
-        processNovels(req, res, id);
-      });
-    // router.get(
-    //     "/profile/update/:id/listchap",
-    //     func_controller.checkCoookieIfOK,
-    //     func_controller.checkCookieLoglUser,
-    //     processNovels.processNovels(req, res, req.params.id)
-    // );
-    // router.get(
-    //     "/profile/update/:id/morechap",
-    //     func_controller.checkCoookieIfOK,
-    //     func_controller.checkCookieLoglUser,
-    //     processNovels.processNovels(req, res, req.params.id)
-    //   );
+      const id = req.params.id;
+      processNovels(req, res, id);
+    }
+  );
+  // router.get(
+  //     "/profile/update/:id/listchap",
+  //     func_controller.checkCoookieIfOK,
+  //     func_controller.checkCookieLoglUser,
+  //     processNovels.processNovels(req, res, req.params.id)
+  // );
+  // router.get(
+  //     "/profile/update/:id/morechap",
+  //     func_controller.checkCoookieIfOK,
+  //     func_controller.checkCookieLoglUser,
+  //     processNovels.processNovels(req, res, req.params.id)
+  //   );
 
   router.get(
     "/reading/:id/:chap",
@@ -62,11 +67,7 @@ const webRouter = (app) => {
   );
 
   // admin index page ________________________________________________________________________________________________________________________
-  router.get(
-    "/admin",
-    func_controller.checkCookieLoglUser,
-    renderAdmin.admin
-  );
+  router.get("/admin", func_controller.checkCookieLoglUser, renderAdmin.admin);
 
   // account manager page ________________________________________________________________________________________________________________________
   router.get(
