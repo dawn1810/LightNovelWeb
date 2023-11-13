@@ -655,7 +655,7 @@ Save_btn.onclick = async function (e) {
 	const postData = JSON.stringify({
 		// thông tin đăng ký
 		img: `${avatar.src}`,
-		usr: `${document.querySelector("#username").innerText}`,
+		usr: `1`,
 		hoten: `${document.querySelector("#fullname").value}`,
 		email: `${document.querySelector("#email").value}`,
 		sex: `${sex}`,

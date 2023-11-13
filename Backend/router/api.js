@@ -41,7 +41,7 @@ const apiRouter = (app) => {
 
   router.post("/api/updatelike", api_router.api_updateLike);
 
-  router.post("/api/updateviews", api_router.api_updteViews);
+  router.post("/api/updateviews", api_router.api_updateViews);
 
   router.post("/api/upload_novel", api_router.api_uploadNovel);
 

@@ -17,17 +17,17 @@ const storage = NodePersist.create({
 });
 
 function isBase64(str) {
-	try {
-		// Kiểm tra xem chuỗi có thể được giải mã từ Base64 không
-		const decoded = Buffer.from(str, 'base64').toString('utf-8');
+  try {
+    // Kiểm tra xem chuỗi có thể được giải mã từ Base64 không
+    const decoded = Buffer.from(str, "base64").toString("utf-8");
 
-		// Kiểm tra xem chuỗi ban đầu và chuỗi giải mã có giống nhau hay không
-		// Nếu giống nhau thì chuỗi đó có thể là Base64
-		return Buffer.from(decoded, 'utf-8').toString('base64') === str;
-	} catch (error) {
-		// Nếu có lỗi xảy ra trong quá trình giải mã, tức là chuỗi không phải Base64
-		return false;
-	}
+    // Kiểm tra xem chuỗi ban đầu và chuỗi giải mã có giống nhau hay không
+    // Nếu giống nhau thì chuỗi đó có thể là Base64
+    return Buffer.from(decoded, "utf-8").toString("base64") === str;
+  } catch (error) {
+    // Nếu có lỗi xảy ra trong quá trình giải mã, tức là chuỗi không phải Base64
+    return false;
+  }
 }
 
 const api_search_more = async (req, res) => {
@@ -321,21 +321,17 @@ const api_update_novel = async (req, res) => {
 const api_reviews = async (req, res) => {
   const data = req.body;
   console.log("SYSTEM | REVIEWS |", data);
+  console.log("id", data.id);
   try {
-    let result = await server.find_all_Data({
-      table: "truyen",
-      query: { _id: new ObjectId(data.id) },
-      projection: {
-        no_chapters: 1,
-        name_chaps: 1,
-      },
-      limit: 1,
-    });
+    let result = await queryAsync(
+      `SELECT * FROM chuong WHERE id_truyen = ${data.id} `
+    );
+    console.log(result);
 
     // console.log('SYSTEM | REVIEWS | Trả về thông tin reviews truyện ', result[0].name);
     res.writeHead(200, { "Content-Type": "application/json" });
 
-    res.end(JSON.stringify(result[0]));
+    res.end(JSON.stringify(result));
   } catch (err) {
     console.log("SYSTEM | REVIEWS | ERROR | ", err);
     res.sendStatus(500);
@@ -485,8 +481,8 @@ const api_updateLike = async (req, res) => {
   try {
     const data = req.body;
     console.log("SYSTEM | UPDATE_LIKE | Dữ liệu nhận được: ", data);
-    const decodeList = func_controller.decode(data); // Output: "replika is best japanese waifu"
-    // console.log(`SYSTEM | UPDATE_LIKE | Dữ liệu đã giải mã ${decodeList}`);
+    const decodeList = func_controller.decode(req.cookies.account); // Output: "replika is best japanese waifu"
+    console.log(`SYSTEM | UPDATE_LIKE | Dữ liệu đã giải mã ${decodeList}`);
     // decodeList = authenticationKey:id:pass
     if (decodeList[0] == authenticationKey) {
       //account: accountCookie,
@@ -496,17 +492,29 @@ const api_updateLike = async (req, res) => {
       if (parseInt(data.liked)) {
         // like
         // up one like for current novel
-        await server.update_one_Data(
-          "truyen",
-          { _id: new ObjectId(data.id_truyen) },
-          { $inc: { likes: 1 } }
-        );
+        await queryAsync(`
+        UPDATE truyen
+        SET luot_thich = luot_thich + 1
+        WHERE id = ${data.id_truyen}
+        `);
+
+        // await server.update_one_Data(
+        //   "truyen",
+        //   { _id: new ObjectId(data.id_truyen) },
+        //   { $inc: { likes: 1 } }
+        // );
+
         // add current nodel to like list of current user
-        await server.update_one_Data(
-          "tt_nguoi_dung",
-          { _id: decodeList[1] },
-          { $push: { likeNovels: data.id_truyen } }
-        );
+        await queryAsync(`
+        INSERT INTO truyen_yeu_thich (id_nguoi_dung, id_truyen)
+        VALUES (${decodeList[1]}, ${data.id_truyen})
+        `);
+
+        // await server.update_one_Data(
+        //   "tt_nguoi_dung",
+        //   { _id: decodeList[1] },
+        //   { $push: { likeNovels: data.id_truyen } }
+        // );
         // response client
         res.writeHead(200, { "Content-Type": "text/plain" });
         console.log(`SYSTEM | UPDATE_LIKE | Like cho truyen hien tai`);
@@ -514,12 +522,24 @@ const api_updateLike = async (req, res) => {
       } else {
         // unlike
         // down on like for current novel
-        await server.update_one_Data(
-          "truyen",
-          { _id: new ObjectId(data.id_truyen) },
-          { $inc: { likes: -1 } }
-        );
+        await queryAsync(`
+        UPDATE truyen
+        SET luot_thich = luot_thich - 1
+        WHERE id = ${data.id_truyen}
+        `);
+
+        // await server.update_one_Data(
+        //   "truyen",
+        //   { _id: new ObjectId(data.id_truyen) },
+        //   { $inc: { likes: -1 } }
+        // );
         // remove current nodel from like list of current user
+        await queryAsync(`
+        DELETE FROM truyen_yeu_thich 
+        WHERE id_nguoi_dung = ${decodeList[1]}
+        AND id_truyen = ${data.id_truyen};
+        `);
+
         await server.update_one_Data(
           "tt_nguoi_dung",
           { _id: decodeList[1] },
@@ -537,16 +557,22 @@ const api_updateLike = async (req, res) => {
   }
 };
 
-const api_updteViews = async (req, res) => {
+const api_updateViews = async (req, res) => {
   try {
     const data = req.body;
     console.log("SYSTEM | UPDATE_VIEWS | Dữ liệu nhận được: ", data);
-    // up one like for current novel
-    await server.update_one_Data(
-      "truyen",
-      { _id: new ObjectId(data.id_truyen) },
-      { $inc: { views: 1 } }
-    );
+    // up one views for current novel
+    await queryAsync(`
+        UPDATE truyen
+        SET luot_xem = luot_xem + 1
+        WHERE id = ${data.id_truyen}
+        `);
+
+    // await server.update_one_Data(
+    //   "truyen",
+    //   { _id: new ObjectId(data.id_truyen) },
+    //   { $inc: { views: 1 } }
+    // );
     // response client
     res.writeHead(200, { "Content-Type": "text/plain" });
     console.log(`SYSTEM | UPDATE_VIEWS | Da tang view cho truyen hien tai`);
@@ -588,12 +614,12 @@ const api_uploadNovel = async (req, res) => {
 
       console.log(id_check);
       // create a new comment document
-      await server.add_one_Data("comment", {
-        _id: id_check.insertedId,
-        content: {
-          // user_name: content (do what to add)
-        },
-      });
+      // await server.add_one_Data("comment", {
+      //   _id: id_check.insertedId,
+      //   content: {
+      //     // user_name: content (do what to add)
+      //   },
+      // });
 
       // update user's novel list
       await server.update_one_Data(
@@ -601,6 +627,7 @@ const api_uploadNovel = async (req, res) => {
         { _id: decodeList[1] },
         { $push: { mynovel: id_check.insertedId.toString() } }
       );
+      
       res.sendStatus(200);
     }
   } catch (err) {
@@ -711,9 +738,6 @@ const api_editInfoNovel = async (req, res) => {
     console.log("SYSTEM | UPDATE UPLOAD NOVEL | ERROR | ", err);
     res.sendStatus(500);
   }
-
-
-  
 };
 
 const api_uploadFile = async function (req, res) {
@@ -794,14 +818,17 @@ const api_cancle = async (req, res) => {
 // Delete novel page
 
 const api_updateInfo = async (req, res) => {
-  let dataa=await queryAsync("SELECT id_the_loai FROM the_loai_truyen,truyen")
-  console.log(`SYSTEM CÁI NÀY TAO TEST | ${ JSON.stringify(dataa)}`)
   try {
     const data = req.body;
     let avt_var = data.img;
     if (isBase64(data.img)) {
       avt_var = await compressImageBase64(data.img, 5);
     }
+
+    let dataa = await queryAsync(
+      `SELECT * FROM thongtin_nguoidung WHERE thongtin_nguoidung.id=${data.usr}`
+    );
+    console.log(`SYSTEM CÁI NÀY TAO TEST SQL| ${JSON.stringify(dataa)}`);
 
     await server.update_one_Data(
       "tt_nguoi_dung",
@@ -815,6 +842,7 @@ const api_updateInfo = async (req, res) => {
         },
       }
     );
+    console.log(`ID GỬI KIỂU CŨ ${data.usr}`);
     res.sendStatus(200);
   } catch (err) {
     console.log("SYSTEM | UPDATE INFO | ERROR | ", err);
@@ -871,7 +899,7 @@ module.exports = {
   api_login,
   api_logout,
   api_updateLike,
-  api_updteViews,
+  api_updateViews,
   api_uploadNovel,
   api_update_uploadNovel,
   api_editNovel,

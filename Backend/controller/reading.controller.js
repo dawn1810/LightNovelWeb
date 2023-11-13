@@ -60,6 +60,8 @@ const renderReading =  async (req, res) => {
 			id: req.params.id
 		});
 
+		
+
 	} catch (err) {
 		console.log('SYSTEM | READING | ERROR | ', err);
 		res.sendStatus(500);

@@ -2,18 +2,22 @@ const { connection, queryAsync } = require("../dbmysql");
 // const { connectToDatabase } = require('../dbmysql');
 
 const func_controller = require("./func.controller");
-
+const secretKey = "5gB#2L1!8*1!0)$7vF@9";
+const authenticationKey = Buffer.from(
+  secretKey.padEnd(32, "0"),
+  "utf8"
+).toString("hex");
 const renderReviews = async (req, res) => {
   try {
     const account = req.cookies.account;
     console.log("SYSTEM | REVIEWS |", account);
     // Get novel information:
-    let result = await queryAsync("SELECT * FROM truyen");
+    let result = await queryAsync(`SELECT * FROM truyen WHERE id=${req.params.id}`);
 
     //paste here
     console.log("hhhihiihih", result);
     // default if they don't have an account
-    // result[0].luot_thich = 0; ///here
+    console.log(result[0].luot_thich)
 
     let theloaiID = await queryAsync(
       "SELECT id_the_loai FROM the_loai_truyen,truyen WHERE truyen.id = the_loai_truyen.id_truyen "
@@ -51,9 +55,9 @@ const renderReviews = async (req, res) => {
     //   limit: 6,
     // });
 
-    for (let i = 0; i < maybeulike.length; i++) {
-      maybeulike[i].update_date = func_controller.calTime(
-        maybeulike[i].update_date
+    for (let i = 0; i < maybeulikethat.length; i++) {
+      maybeulikethat[i].update_date = func_controller.calTime(
+        maybeulikethat[i].update_date
       );
     }
     if (account) {
@@ -61,39 +65,35 @@ const renderReviews = async (req, res) => {
       const decodeList = decode.split(":");
       if (decodeList[0] == authenticationKey) {
         // check does novel was liked by current user or not
-        const like_list = await server.find_all_Data({
-          table: "tt_nguoi_dung",
-          query: { _id: decodeList[1] },
-          projection: {
-            _id: 0,
-            likeNovels: 1,
-          },
-          limit: 1,
-        });
+        // id_nguoidung = ${decodeList[1]}
+        const like_list =  await queryAsync(
+          `SELECT * FROM truyen_yeu_thich WHERE id_nguoi_dung= 1  AND id_truyen= ${req.params.id}`
+        );
+        console.log(like_list)
 
-        if (like_list[0].likeNovels.includes(req.params.id)) {
+        if (like_list[0]) {
           // liked
           result[0].liked = 1;
         }
       }
     }
-
+console.log(result);
     res.render("reviews.ejs", {
       headerFile: "header",
       footerFile: "footer",
-      name: result[0].name,
+      name: result[0].ten_truyen,
       author: result[0].author,
       name_chaps: result[0].name_chaps,
       no_chapters: result[0].no_chapters,
-      genres: result[0].genres,
-      summary: result[0].summary,
-      image: result[0].image,
-      views: result[0].views,
-      likes: result[0].likes,
+      genres: genres,
+      summary: result[0].tom_tat_noi_dung,
+      image: result[0].anh_dai_dien,
+      views: result[0].luot_xem,
+      likes: result[0].luot_thich,
       update_date: func_controller.calTime(result[0].update_date),
       status: result[0].status,
       liked: result[0].liked,
-      maybeulike: maybeulike,
+      maybeulike: maybeulikethat,
     });
     // res.send('reviews truyen ở đây')
   } catch (err) {
