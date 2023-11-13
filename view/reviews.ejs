@@ -106,7 +106,8 @@
 
               <div class="function">
                 <div class="function_item function_item_folow ">
-                  <% if (liked==0) { %>
+                  <% console.log('liked:', liked) %>
+                  <% if (!liked) { %>
                   <i class="fa-regular fa-heart"></i>
                   <span>Like</span>
                   <% } else { %>

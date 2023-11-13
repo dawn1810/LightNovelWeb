@@ -22,10 +22,6 @@
   <script src="/src/JS/link.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <%- include(headerFile) %>
-  <script>
-    const last_chaps =  <%-no_chapters%> 
-    console.log(last_chaps)
-  </script>
   <main>
     <ul class="menu-tag">
       <li class="active">
@@ -283,29 +279,7 @@
             </button>
             <div class="chapter_list_wrap">
               <select name="show_more" id="show_more">
-                <% for (let i=0; i < name_chaps.length; i++) { %>
-                <% if (number_chap==i) { %>
-                <% if (name_chaps[i].endsWith(")")) { %>
-                <option selected value="<%= i %>">
-                  <%= name_chaps[i].replace(/(Chapter \d+).*?(\d+)\)$/, "$1($2)" ) %>
-                </option>
-                <% } else { %>
-                <option selected value="<%= i %>">
-                  <%= name_chaps[i].substring(0, name_chaps[i].indexOf(":")) %>
-                </option>
-                <% } %>
-                <% } else { %>
-                <% if (name_chaps[i].endsWith(")")) { %>
-                <option value="<%= i %>">
-                  <%= name_chaps[i].replace(/(Chapter \d+).*?(\d+)\)$/, "$1($2)" ) %>
-                </option>
-                <% } else { %>
-                <option value="<%= i %>">
-                  <%= name_chaps[i].substring(0, name_chaps[i].indexOf(":")) %>
-                </option>
-                <% } %>
-                <% } %>
-                <% } %>
+                <%- name_chaps[0] %>
               </select>
 
             </div>

@@ -1,5 +1,6 @@
 const crypto = require("crypto");
-const path = require('path');
+const path = require("path");
+const { connection, queryAsync } = require("../dbmysql");
 
 const server = require("../vip_pro_lib");
 const secretKey = "5gB#2L1!8*1!0)$7vF@9";
@@ -8,26 +9,29 @@ const authenticationKey = Buffer.from(
   "utf8"
 ).toString("hex");
 const multer = require("multer"); // Thư viện để xử lý file upload
-const NodePersist = require('node-persist'); // index
-const storage = NodePersist.create({ // index
-	dir: '.temp',
+const NodePersist = require("node-persist"); // index
+const storage = NodePersist.create({
+  // index
+  dir: ".temp",
 });
-const uploadDirectory = path.join('.upload_temp', 'files');
+const uploadDirectory = path.join(".upload_temp", "files");
 
 const storage_file = multer.diskStorage({
-	destination: function (req, file, cb) {
-		if (!allowedMimeTypes.includes(file.mimetype)) {
-			console.log('SYSTEM | GET_NOVEL_LIST | ERROR | Lỗi định dạng file không đúng');
+  destination: function (req, file, cb) {
+    if (!allowedMimeTypes.includes(file.mimetype)) {
+      console.log(
+        "SYSTEM | GET_NOVEL_LIST | ERROR | Lỗi định dạng file không đúng"
+      );
 
-			return cb(new Error('Invalid file type.'), null);
-		}
+      return cb(new Error("Invalid file type."), null);
+    }
 
-		// Trả về đường dẫn đến thư mục mới
-		cb(null, uploadDirectory);
-	},
-	filename: function (req, file, cb) {
-		cb(null, file.originalname);
-	}
+    // Trả về đường dẫn đến thư mục mới
+    cb(null, uploadDirectory);
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
 });
 // Thiết lập middleware multer cho việc xử lý upload file
 const upload = () => {
@@ -72,8 +76,8 @@ function decrypt(encryptedDataWithIV, secretKey) {
 
 async function checkCookieLoglUser(req, res, next) {
   try {
-    const data = req.cookies;
-    if (!data.account) {
+    const user = req.session.user;
+    if (!user) {
       res.locals.avt =
         "https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg";
       res.locals.username = "";
@@ -81,47 +85,51 @@ async function checkCookieLoglUser(req, res, next) {
       next();
     } else {
       // console.log('SYSTEM | AUTHENTICATION | Dữ liệu nhận được: ', data);
-      const decode = decrypt(data.account, authenticationKey);
-      const decodeList = decode.split(":"); // Output: "replika is best japanese waifu"
+      // const decode = decrypt(data.account, authenticationKey);
+      // const decodeList = decode.split(":"); // Output: "replika is best japanese waifu"
       // console.log(`SYSTEM | AUTHENTICATION | Dữ liệu đã giải mã ${decodeList}`);
       // decodeList = authenticationKey:id:pass
-      if (decodeList[0] == authenticationKey) {
-        const result = await server.find_one_Data("tt_nguoi_dung", {
-          _id: decodeList[1],
-        });
-        const n_result = await server.find_one_Data("dang_nhap", {
-          _id: decodeList[1],
-        });
-        if (result != null && result.length != 0) {
-          // neu dang nhap = google thi 2 bien avt va display name co gia tri, nhung login = tk,mk thi k co 2 bien nay
-          res.locals.avt = result.avatarUrl;
-          res.locals.username = result.displayName;
-          res.locals.user = result._id;
-          res.locals.sex = result.sex;
-          res.locals.email = result.email;
-          res.locals.login_way = n_result.lgway;
-          next();
-        } else if (result == null) {
-          res.locals.avt =
-            "https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg";
-          res.locals.username = "";
-          next();
-        } else {
-          res.locals.avt =
-            "https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg";
-          res.locals.username = "";
-          next();
-        }
+      // if (decodeList[0] == authenticationKey) {
+      const n_result = await queryAsync(
+        `SELECT login_way, email FROM taikhoan_nguoidung WHERE id= '${user.id}'`
+      );
+      // const result = await server.find_one_Data("tt_nguoi_dung", {
+      //   _id: decodeList[1],
+      // });
+      const result = await queryAsync(
+        `SELECT * FROM thongtin_nguoidung WHERE id_tai_khoan= '${user.id}'`
+      );
+      // const n_result = await server.find_one_Data("dang_nhap", {
+      //   _id: decodeList[1],
+      // });
+      console.log(result);
+
+      if (result.length != 0) {
+        // neu dang nhap = google thi 2 bien avt va display name co gia tri, nhung login = tk,mk thi k co 2 bien nay
+        res.locals.avt = result[0].anh_dai_dien;
+        res.locals.username = result[0].ten_hien_thi;
+        res.locals.user = result[0].id_tai_khoan;
+        res.locals.sex = result[0].gioi_tinh;
+        res.locals.email = n_result[0].email;
+        res.locals.login_way = n_result[0].login_way;
+        next();
+      } else {
+        res.locals.avt =
+          "https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg";
+        res.locals.username = "";
+        next();
       }
+      // }F
     }
   } catch (error) {
     // Xử lý lỗi nếu có
+    console.log(error);
     res.status(500).send("Internal Server Error");
   }
 }
 async function checkCoookieIfOK(req, res, next) {
-  const data = req.cookies;
-  if (!data.account) {
+  const user = req.session.user;
+  if (user) {
     // Cookie không tồn tại, chặn truy cập
     return res.redirect("/");
   } else {
@@ -363,22 +371,25 @@ const getNovelList = async () => {
   }
 };
 
-const  set_cookies = (res, id, pass) => {
-	const encryptedString = encrypt(`${authenticationKey}:${id}:${pass}`, authenticationKey);
-	const oneYearFromNow = new Date();
-	oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
-	res.cookie('account', encryptedString, {
-		expires: oneYearFromNow,
-		secure: true,
-		sameSite: 'none',
-		domain: 'localhost',
-		// domain: 'c22c-2a09-bac5-d44d-18d2-00-279-87.ngrok-free.app',
+const set_cookies = (res, id, pass) => {
+  const encryptedString = encrypt(
+    `${authenticationKey}:${id}:${pass}`,
+    authenticationKey
+  );
+  const oneYearFromNow = new Date();
+  oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+  res.cookie("account", encryptedString, {
+    expires: oneYearFromNow,
+    secure: true,
+    sameSite: "none",
+    domain: "localhost",
+    // domain: 'c22c-2a09-bac5-d44d-18d2-00-279-87.ngrok-free.app',
 
-		path: '/'
-	});
-	res.writeHead(200, { 'Content-Type': 'text/html' });
-	console.log(`SYSTEM | SET_COOKIES | User ${id} login!`);
-}
+    path: "/",
+  });
+  res.writeHead(200, { "Content-Type": "text/html" });
+  console.log(`SYSTEM | SET_COOKIES | User ${id} login!`);
+};
 
 module.exports = {
   checkCookieLoglUser,

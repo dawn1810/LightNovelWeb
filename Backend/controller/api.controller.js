@@ -1,6 +1,7 @@
 const updateNovel = require("../test/Updatenovel");
 const fs = require("fs");
 const path = require("path");
+const { v4: uuidv4 } = require("uuid");
 const { ObjectId } = require("mongodb");
 const func_controller = require("./func.controller");
 const NodePersist = require("node-persist");
@@ -323,8 +324,16 @@ const api_reviews = async (req, res) => {
   console.log("SYSTEM | REVIEWS |", data);
   console.log("id", data.id);
   try {
-    let result = await queryAsync(
-      `SELECT * FROM chuong WHERE id_truyen = ${data.id} `
+    const result = {
+      no_chapters: 0,
+      chapters: [],
+    };
+    const count = await queryAsync(
+      `SELECT COUNT(id) as count FROM chuong WHERE id_truyen = ${data.id}`
+    );
+    result.no_chapters = count[0].count;
+    result.chapters = await queryAsync(
+      `SELECT id, ten_chuong FROM chuong WHERE id_truyen = ${data.id}`
     );
     console.log(result);
 
@@ -382,71 +391,94 @@ const api_login = async (req, res) => {
   // data = {usr: bbp, pass: 1234567890}
   console.log("SYSTEM | LOG_IN | Dữ liệu nhận được: ", data);
   try {
-    const f_result = await server.find_all_Data({
-      query: { usr: data.usr },
-      table: "dang_ky",
-      projection: {
-        _id: 0,
-        pass: 1,
-      },
-    });
-
+    // const f_result = await server.find_all_Data({
+    //   query: { usr: data.usr },
+    //   table: "dang_ky",
+    //   projection: {
+    //     _id: 0,
+    //     pass: 1,
+    //   },
+    // });
+    let f_result = await queryAsync(
+      `SELECT * FROM taikhoan_dangky WHERE ten_tai_khoan= '${data.usr}'`
+    );
     if (f_result.length != 0) {
       // log in first time: (sign up database)
       for (let i = 0; i < f_result.length; i++) {
-        if (f_result[i].pass == data.pass) {
+        if (f_result[i].mat_khau == data.pass) {
           // move data to dang_nhap database
-          await server.add_one_Data("dang_nhap", {
-            _id: data.usr,
-            pass: data.pass,
-            lgway: "normal",
-          });
+          // await server.add_one_Data("dang_nhap", {
+          //   _id: data.usr,
+          //   pass: data.pass,
+          //   lgway: "normal",
+          // });
+          const result = await queryAsync(
+            `INSERT INTO taikhoan_nguoidung (ten_tai_khoan, email, mat_khau) VALUES ('${data.usr}','${f_result[i].email}','${data.pass}')`
+          );
 
           // them truong moi trong tt_nguoi_dung
           // thong tin nguoi dung
-          const newUser = {
-            _id: data.usr,
-            email: f_result.email,
-            displayName: data.usr,
-            avatarUrl:
-              "https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg",
-            sex: "unknown",
-            likeNovels: [],
-            mynovel: [],
-          };
-
+          // const newUser = {
+          //   _id: data.usr,
+          //   email: f_result.email,
+          //   displayName: data.usr,
+          //   avatarUrl:
+          //     "https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg",
+          //   sex: "unknown",
+          //   likeNovels: [],
+          //   mynovel: [],
+          // };
+          await queryAsync(
+            `INSERT INTO  thongtin_nguoidung ( id ,  id_tai_khoan ,  ten_hien_thi ) VALUES ('${result.insertId}','${result.insertId}','${data.usr}')`
+          );
           // them mot nguoi dung moi
-          await server.add_one_Data("tt_nguoi_dung", newUser);
+          // await server.add_one_Data("tt_nguoi_dung", newUser);
 
           // remove usr name font dang_ky data base\
-          await server.delete_many_Data("dang_ky", { usr: data.usr });
-
-          set_cookies(res, data.usr, data.pass); // set cookies
-
-          res.end("Log in sucess!!!");
-
-          break;
+          // await server.delete_many_Data("dang_ky", { usr: data.usr });
+          await queryAsync(
+            `DELETE FROM taikhoan_dangky WHERE ten_tai_khoan = '${data.usr}'`
+          );
+          // set_cookies(res, data.usr, data.pass); // set cookies
+          const user = {
+            id: result.insertId,
+            username: data.usr,
+          };
+          req.session.user = user;
+          return res.sendStatus(200);
         }
 
-        if (i == f_result.length - 1) {
-          res.writeHead(403, { "Content-Type": "text/plain" });
-          res.end("Log in fail!!!");
-        }
+        return res.sendStatus(403);
       }
     } //chao e
     else {
       // log in next time: (log in database)
-      const n_result = await server.find_one_Data("dang_nhap", {
-        _id: data.usr,
-      });
+      // const n_result = await server.find_one_Data("dang_nhap", {
+      //   _id: data.usr,
+      // });
+      const n_result = await queryAsync(
+        `SELECT * FROM taikhoan_nguoidung WHERE ten_tai_khoan= '${data.usr}'`
+      );
+      if (n_result.length != 0) {
+        // log in first time: (sign up database)
+        for (let i = 0; i < n_result.length; i++) {
+          if (n_result[i].mat_khau == data.pass) {
+            // func_controller.set_cookies(res, data.usr, data.pass); // set cookies
+            // res.writeHead(200, { "Content-Type": "text/plain" });
 
-      if (n_result.pass == data.pass) {
-        func_controller.set_cookies(res, data.usr, data.pass); // set cookies
-
-        res.end("Log in success!!!");
-      } else {
-        res.writeHead(403, { "Content-Type": "text/plain" });
-        res.end("Log in fail!!!");
+            // res.end("Log in success!!!");
+            const user = {
+              id: n_result[i].id,
+              username: data.usr,
+            };
+            req.session.user = user;
+            return res.sendStatus(200);
+          } else {
+            // res.writeHead(403, { "Content-Type": "text/plain" });
+            // res.end("Log in fail!!!");
+            return res.sendStatus(403);
+          }
+        }
       }
     }
   } catch (err) {
@@ -507,7 +539,7 @@ const api_updateLike = async (req, res) => {
         // add current nodel to like list of current user
         await queryAsync(`
         INSERT INTO truyen_yeu_thich (id_nguoi_dung, id_truyen)
-        VALUES (${decodeList[1]}, ${data.id_truyen})
+        VALUES ('${decodeList[1]}', ${data.id_truyen})
         `);
 
         // await server.update_one_Data(
@@ -536,7 +568,7 @@ const api_updateLike = async (req, res) => {
         // remove current nodel from like list of current user
         await queryAsync(`
         DELETE FROM truyen_yeu_thich 
-        WHERE id_nguoi_dung = ${decodeList[1]}
+        WHERE id_nguoi_dung = '${decodeList[1]}'
         AND id_truyen = ${data.id_truyen};
         `);
 
@@ -594,25 +626,98 @@ const api_uploadNovel = async (req, res) => {
 
   try {
     if (decodeList[0] == authenticationKey) {
-      // upload novel content
-      let up_content = {
-        name: data.name,
-        author: data.author,
-        name_chaps: data.name_chaps,
-        chap_ids: data.chap_ids,
-        status: data.status,
-        no_chapters: data.name_chaps.length,
-        genres: data.genres,
-        summary: data.summary,
-        image: data.image,
-        views: 0,
-        likes: 0,
-        update_date: new Date(),
-      };
+      const novel_id = uuidv4();
 
-      const id_check = await server.add_one_Data("truyen", up_content);
+      // Get the current date
+      const currentDate = new Date();
 
-      console.log(id_check);
+      // Format the date in MySQL-compatible format
+      const formattedDate = currentDate
+        .toISOString()
+        .slice(0, 19)
+        .replace("T", " ");
+
+      const author = await queryAsync(`
+      SELECT id FROM tac_gia
+      WHERE tac_gia.id_nguoi_dung = '${decodeList[1]}';
+      `)[0].id;
+
+      // add to truyen database
+      await queryAsync(`
+        INSERT INTO truyen (
+          id, 
+          id_tac_gia, 
+          ten_truyen, 
+          so_luong_chuong, 
+          tom_tat_noi_dung, 
+          anh_dai_dien, 
+          trang_thai, 
+          ngay_cap_nhat
+        )
+        VALUES (
+          '${novel_id}', 
+          ${author}, 
+          '${data.name}', 
+          ${data.name_chaps.length}, 
+          '${data.summary}', 
+          '${data.image}', 
+          '${data.status}', 
+          '${formattedDate}'
+        )
+        `);
+
+      // add to chuong database
+      for (let i = 0; i < data.name_chaps.length; i++) {
+        await queryAsync(`
+        INSERT INTO chuong (
+          id_truyen,
+          ten_chuong,
+          noi_dung_chuong,
+          thu_tu
+        )
+        VALUES (
+          '${novel_id}',
+          '${data.name_chaps[i]}',
+          '${data.chap_ids[i]}',
+          ${i + 1}
+        )
+        `);
+      }
+
+      for (let i = 0; i < data.genres.length; i++) {
+        await queryAsync(`
+        INSERT INTO the_loai_truyen (
+          id_the_loai,
+          id_truyen,
+        )
+        VALUES (
+          ${data.genres[0]},
+          '${novel_id}'
+        )
+        `);
+      }
+
+      // add to the loai database
+
+      // // upload novel content
+      // let up_content = {
+      //   name: data.name,
+      //   author: data.author,
+      //   name_chaps: data.name_chaps,
+      //   chap_ids: data.chap_ids,
+      //   status: data.status,
+      //   no_chapters: data.name_chaps.length,
+      //   genres: data.genres,
+      //   summary: data.summary,
+      //   image: data.image,
+      //   views: 0,
+      //   likes: 0,
+      //   update_date: new Date(),
+      // };
+
+      // const id_check = await server.add_one_Data("truyen", up_content);
+
+      // console.log(id_check);
       // create a new comment document
       // await server.add_one_Data("comment", {
       //   _id: id_check.insertedId,
@@ -622,12 +727,12 @@ const api_uploadNovel = async (req, res) => {
       // });
 
       // update user's novel list
-      await server.update_one_Data(
-        "tt_nguoi_dung",
-        { _id: decodeList[1] },
-        { $push: { mynovel: id_check.insertedId.toString() } }
-      );
-      
+      // await server.update_one_Data(
+      //   "tt_nguoi_dung",
+      //   { _id: decodeList[1] },
+      //   { $push: { mynovel: id_check.insertedId.toString() } }
+      // );
+
       res.sendStatus(200);
     }
   } catch (err) {
@@ -909,4 +1014,5 @@ module.exports = {
   api_changePass,
   api_downloadChap,
   api_cancle,
+  authenticationKey,
 };

@@ -89,12 +89,13 @@ passport.use(
             mynovel: [],
           };
 
-          // dang_nhap data base:
+          // taikhoan_nguoidung database:
           await server.add_one_Data("dang_nhap", {
             _id: profile.id,
             lgway: "google",
           });
-          // người dùng database:
+          
+          // thongtin_nguoidung database:
           await server.add_one_Data("tt_nguoi_dung", newUser);
 
           /// set cookie cho vào tài khoảng

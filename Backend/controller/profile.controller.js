@@ -1,15 +1,24 @@
-const { connectToDatabase } = require('../dbmysql');
-const { ObjectId } = require('mongodb');
+const { connectToDatabase } = require("../dbmysql");
+const { ObjectId } = require("mongodb");
 const func_controller = require("./func.controller");
 const server = require("../vip_pro_lib");
 
 const processNovels = async function (req, res, id_truyen) {
   try {
-    const account = req.cookies.account;
-    console.log("SYSTEM | LIST MY NOVELS | Cookie nhận được: ", account);
-  
+    const account = req.session.user;
+    return res.status(200).send("dang lam ne");
+
+    // bien account co du lieu nhu sau:
+    // {
+    //   id: id nguoi dung
+    //   username: ten dang nhap nguoi dung
+    // }
+
+    
+    // console.log("SYSTEM | LIST MY NOVELS | Cookie nhận được: ", account);
+
     // console.log(`SYSTEM | LIST MY NOVELS | Dữ liệu đã giải mã ${decodeList}`);
-    const decodeList = func_controller.decode(account)
+    // const decodeList = func_controller.decode(account)
     let render_data = {
       headerFile: "header",
       footerFile: "footer",
@@ -22,11 +31,11 @@ const processNovels = async function (req, res, id_truyen) {
       edit_chap_ids: "",
       edit_name_chaps: "",
     };
+
     let novels = await server.find_one_Data("tt_nguoi_dung", {
-      _id: decodeList[1],
+      _id: account.id,
     });
-      
-      
+
     //   const novels = async () => {
     //       const sql = "SELECT * FROM thongtin_nguoidung WHERE id = ?"
     //       const values = [decodeList[1]];
@@ -41,7 +50,7 @@ const processNovels = async function (req, res, id_truyen) {
     //           });
     //         });
     //       }
-          
+
     //       try {
     //         const result = await executeQuery(sql, values);
     //         console.log(result);
@@ -88,7 +97,9 @@ const processNovels = async function (req, res, id_truyen) {
       } else {
         idListlikeNovels.push(id);
 
-        curr_novel.update_date = func_controller.calTime(curr_novel.update_date);
+        curr_novel.update_date = func_controller.calTime(
+          curr_novel.update_date
+        );
         result_like.push(curr_novel);
       }
     }
@@ -108,7 +119,6 @@ const processNovels = async function (req, res, id_truyen) {
   }
 };
 
-
 module.exports = {
-    processNovels
-}
+  processNovels,
+};
