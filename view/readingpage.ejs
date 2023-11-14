@@ -52,6 +52,7 @@
       <div class="title">
         <span class="novel-name">
           <%= name %>
+          <h1 style="color: black;"> <%= name_chaps[1] %></h1>
         </span>
         <span class="novel-name-chapter">
           <%= name_chap %>
@@ -152,27 +153,15 @@
               <select name="show_more" id="show_more">
                 <% for (let i=0; i < name_chaps.length; i++) { %>
                 <% if (number_chap==i) { %>
-                <% if (name_chaps[i].endsWith(")")) { %>
-                <option selected value="<%= i %>">
-                  <%= name_chaps[i].replace(/(Chapter \d+).*?(\d+)\)$/, "$1($2)" ) %>
+                <option class="show_more_item" selected value="<%= i %>">
+                  chương <%= i+": "+name_chaps[i] %>
                 </option>
                 <% } else { %>
-                <option selected value="<%= i %>">
-                  <%= name_chaps[i].substring(0, name_chaps[i].indexOf(":")) %>
+                <option class="show_more_item" value="<%= i %>">
+                  chương <%= i+": "+name_chaps[i] %>
                 </option>
                 <% } %>
-                <% } else { %>
-                <% if (name_chaps[i].endsWith(")")) { %>
-                <option value="<%= i %>">
-                  <%= name_chaps[i].replace(/(Chapter \d+).*?(\d+)\)$/, "$1($2)" ) %>
-                </option>
-                <% } else { %>
-                <option value="<%= i %>">
-                  <%= name_chaps[i].substring(0, name_chaps[i].indexOf(":")) %>
-                </option>
-                <% } %>
-                <% } %>
-                <% } %>
+                <% }%>
               </select>
             </div>
           </div>
@@ -315,8 +304,8 @@
         <button class="lame-up lame">
           <i class="fa-solid fa-chevron-up"></i></button></a>
 
-      <a href="#" class="menu-item ">
-        <button class="lame-right lame ">
+      <a href="" class="menu-item ">
+        <button class="lame-right lame">
           <i class="fa-solid fa-chevron-right"></i>
         </button>
       </a>

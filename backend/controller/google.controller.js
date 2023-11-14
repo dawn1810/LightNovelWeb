@@ -1,26 +1,20 @@
 const passport = require("passport");
-const cookieParser = require("cookie-parser");
-const { ObjectId } = require("mongodb");
-const NodePersist = require("node-persist");
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const server = require("../vip_pro_lib");
-const func = require('../controller/func.controller')
-const secretKey = '5gB#2L1!8*1!0)$7vF@9';
-const authenticationKey = Buffer.from(secretKey.padEnd(32, '0'), 'utf8').toString('hex');
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const { queryAsync } = require("../dbmysql");
 
 /////////////////ALL LOG IN WAYS/////////////////
-passport.serializeUser(function (userId, done) {
-  done(null, userId);
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
 });
 const port = 6969;
 let currentURL = `http://localhost:${port}`;
 
 passport.deserializeUser(async function (userId, done) {
   try {
-    const user = await server.find_one_Data("tt_nguoi_dung", {
-      _id: ObjectId(userId),
-    });
-    done(null, user);
+
+    const user = await queryAsync(`SELECT id, ten_tai_khoan as username FROM taikhoan_nguoidung WHERE id= '${userId}'`);
+
+    done(null, { ...user[0] });
   } catch (err) {
     done(err);
   }
@@ -28,21 +22,21 @@ passport.deserializeUser(async function (userId, done) {
 
 //////////LOG IN WITH GOOGLE////////////////////////////////////////////////////////////////////////////////////////////////
 
-const storage = NodePersist.create({
-  dir: ".credentials",
-});
+// const storage = NodePersist.create({
+//   dir: ".credentials",
+// });
 
-// Function to initialize storage asynchronously
-const initStorage = async () => {
-  await storage.init();
-};
-let credentials;
-const initGoogle = async () => {
-  await initStorage();
-  credentials = await storage.getItem("certgoogle");
-  return credentials;
-  /*/.credentials/1866203e7cb0464532af9841f77e9ae9*/
-};
+// // Function to initialize storage asynchronously
+// const initStorage = async () => {
+//   await storage.init();
+// };
+// let credentials;
+// const initGoogle = async () => {
+//   await initStorage();
+//   credentials = await storage.getItem("certgoogle");
+//   return credentials;
+//   /*/.credentials/1866203e7cb0464532af9841f77e9ae9*/
+// };
 
 passport.use(
   new GoogleStrategy(
@@ -58,49 +52,74 @@ passport.use(
         // console.log(refreshToken);
         // console.log(request);
         // Kiểm tra xem thông tin người dùng đã tồn tại chưa
-        console.log(profile);
-        const existingUser = await server.find_one_Data("tt_nguoi_dung", {
-          _id: profile.id,
-        });
-        if (existingUser) {
-          // update new data for tt_nguoi_dung database
-          await server.update_one_Data(
-            "tt_nguoi_dung",
-            { _id: profile.id },
-            {
-              $set: {
-                email: profile.emails[0].value,
-                displayName: profile.displayName,
-                avatarUrl: profile.photos[0].value,
-              },
-            }
-          );
+        await queryAsync(`
+		INSERT INTO taikhoan_nguoidung (id, ten_tai_khoan, email, mat_khau, login_way)
+		VALUES ('${profile.id}','${profile.id}', '${profile.emails[0].value}', null, 'google')
+		ON DUPLICATE KEY UPDATE
+			email = '${profile.emails[0].value}'
+		`);
 
-          return done(null, existingUser);
-        } else {
-          // Tạo mới một người dùng
-          const newUser = {
-            _id: profile.id,
-            email: profile.emails[0].value,
-            displayName: profile.displayName,
-            avatarUrl: profile.photos[0].value,
-            sex: "unknown",
-            likeNovels: [],
-            mynovel: [],
-          };
+        await queryAsync(`
+		INSERT INTO thongtin_nguoidung (id, id_tai_khoan, ten_hien_thi, anh_dai_dien)
+		VALUES ('${profile.id}', '${profile.id}', '${profile.displayName}', '${profile.photos[0].value}')
+		ON DUPLICATE KEY UPDATE
+			ten_hien_thi = '${profile.displayName}',
+			anh_dai_dien = '${profile.photos[0].value}'
+		`);
 
-          // taikhoan_nguoidung database:
-          await server.add_one_Data("dang_nhap", {
-            _id: profile.id,
-            lgway: "google",
-          });
-          
-          // thongtin_nguoidung database:
-          await server.add_one_Data("tt_nguoi_dung", newUser);
+        // Fetch the user data from the database
+        const user = {
+          id: profile.id,
+          email: profile.emails[0].value,
+          displayName: profile.displayName,
+          photo: profile.photos[0].value,
+        };
 
-          /// set cookie cho vào tài khoảng
-          return done(null, newUser);
-        }
+        // Pass the user data to the done function
+        return done(null, user);
+        // const existingUser = await server.find_one_Data("tt_nguoi_dung", {
+        //   _id: profile.id,
+        // });
+        // if (existingUser) {
+        //   // update new data for tt_nguoi_dung database
+
+        //   await server.update_one_Data(
+        //     "tt_nguoi_dung",
+        //     { _id: profile.id },
+        //     {
+        //       $set: {
+        //         email: profile.emails[0].value,
+        //         displayName: profile.displayName,
+        //         avatarUrl: profile.photos[0].value,
+        //       },
+        //     }
+        //   );
+
+        //   return done(null, existingUser);
+        // } else {
+        //   // Tạo mới một người dùng
+        //   const newUser = {
+        //     _id: profile.id,
+        //     email: profile.emails[0].value,
+        //     displayName: profile.displayName,
+        //     avatarUrl: profile.photos[0].value,
+        //     sex: "unknown",
+        //     likeNovels: [],
+        //     mynovel: [],
+        //   };
+
+        //   // taikhoan_nguoidung database:
+        //   await server.add_one_Data("dang_nhap", {
+        //     _id: profile.id,
+        //     lgway: "google",
+        //   });
+
+        //   // thongtin_nguoidung database:
+        //   await server.add_one_Data("tt_nguoi_dung", newUser);
+
+        //   /// set cookie cho vào tài khoảng
+        //   return done(null, newUser);
+        // }
       } catch (err) {
         return done(err);
       }
@@ -113,7 +132,6 @@ passport.use(
 //     scope: ["profile", "email"],
 //   });
 // };
-
 
 // const gg_call_back = () => {
 //   passport.authenticate("google", { failureRedirect: "/api/login" });
@@ -131,7 +149,7 @@ const open_window = (req, res) => {
   // 	commentIds: []
   //  }
   //set cookies
-  func.set_cookies(res, req.user._id, "");
+  // func.set_cookies(res, req.user._id, "");
 
   // Đóng tab hiện tại và reload main window
   res.write("<script>");
@@ -145,5 +163,5 @@ const open_window = (req, res) => {
 
 module.exports = {
   passport,
-  open_window
+  open_window,
 };

@@ -7,11 +7,9 @@ const func_controller = require("./func.controller");
 const NodePersist = require("node-persist");
 const server = require("../vip_pro_lib");
 const secretKey = "5gB#2L1!8*1!0)$7vF@9";
-const { connection, queryAsync } = require("../dbmysql");
-const authenticationKey = Buffer.from(
-  secretKey.padEnd(32, "0"),
-  "utf8"
-).toString("hex");
+
+const { queryAsync } = require("../dbmysql");
+const authenticationKey = Buffer.from(secretKey.padEnd(32, "0"), "utf8").toString("hex");
 const storage = NodePersist.create({
   // index
   dir: ".temp",
@@ -348,30 +346,27 @@ const api_reviews = async (req, res) => {
 };
 
 const api_signup = async (req, res) => {
-  console.log("gọi api đăng nhập________________________");
+  // { email: 'chandoralong@gmail.com', usr: '1', pass: '959595595959599' }
   const data = req.body;
   console.log("SYSTEM | SIGN_UP | Dữ liệu nhận được: ", data);
   try {
     // usr ton tai => thong bao
-    console.log(data.usr);
-    const result = await server.find_all_Data({
-      query: { _id: data.usr },
-      table: "dang_nhap",
-      projection: { _id: 1 },
-    });
-    console.log(result);
-    if (result.length != 0) {
-      res.writeHead(404, { "Content-Type": "text/plain" });
-      res.end("Ten đang nhập đã tồn tại");
+    // const result = await server.find_all_Data({
+    //   query: { _id: data.usr },
+    //   table: "dang_nhap",
+    //   projection: { _id: 1 },
+    // });
+    const g_result = await queryAsync(
+      `SELECT * FROM taikhoan_nguoidung WHERE ten_tai_khoan= '${data.usr}'`
+    );
+    if (g_result.length != 0) {
+      return res.sendStatus(404);
     } else {
       // add data to dang_ky database:
-      await server.add_one_Data("dang_ky", {
-        usr: data.usr,
-        email: data.email,
-        pass: data.pass,
-      });
-      res.writeHead(200, { "Content-Type": "text/plain" });
-      res.end("Sign up success!!!");
+      await queryAsync(
+        `INSERT INTO  taikhoan_dangky (ten_tai_khoan, mat_khau, email) VALUES ('${data.usr}','${data.pass}','${data.email}')`
+      );
+      res.sendStatus(200);
       console.log("SYSTEM | SIGN_UP | Sign up success!!!");
     }
   } catch (err) {
@@ -406,45 +401,25 @@ const api_login = async (req, res) => {
       // log in first time: (sign up database)
       for (let i = 0; i < f_result.length; i++) {
         if (f_result[i].mat_khau == data.pass) {
-          // move data to dang_nhap database
-          // await server.add_one_Data("dang_nhap", {
-          //   _id: data.usr,
-          //   pass: data.pass,
-          //   lgway: "normal",
-          // });
-          const result = await queryAsync(
-            `INSERT INTO taikhoan_nguoidung (ten_tai_khoan, email, mat_khau) VALUES ('${data.usr}','${f_result[i].email}','${data.pass}')`
-          );
-
-          // them truong moi trong tt_nguoi_dung
-          // thong tin nguoi dung
-          // const newUser = {
-          //   _id: data.usr,
-          //   email: f_result.email,
-          //   displayName: data.usr,
-          //   avatarUrl:
-          //     "https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg",
-          //   sex: "unknown",
-          //   likeNovels: [],
-          //   mynovel: [],
-          // };
+          // copy data to dang_nhap database
+          const id_user = uuidv4();
           await queryAsync(
-            `INSERT INTO  thongtin_nguoidung ( id ,  id_tai_khoan ,  ten_hien_thi ) VALUES ('${result.insertId}','${result.insertId}','${data.usr}')`
+            `INSERT INTO taikhoan_nguoidung (id, ten_tai_khoan, email, mat_khau) VALUES ('${id_user}','${data.usr}','${f_result[i].email}','${data.pass}')`
+          );
+          // them truong moi trong tt_nguoi_dung
+          await queryAsync(
+            `INSERT INTO  thongtin_nguoidung ( id ,  id_tai_khoan ,  ten_hien_thi ) VALUES ('${id_user}','${id_user}','${data.usr}')`
           );
           // them mot nguoi dung moi
-          // await server.add_one_Data("tt_nguoi_dung", newUser);
-
-          // remove usr name font dang_ky data base\
-          // await server.delete_many_Data("dang_ky", { usr: data.usr });
           await queryAsync(
-            `DELETE FROM taikhoan_dangky WHERE ten_tai_khoan = '${data.usr}'`
+            `DELETE FROM taikhoan_dangky WHERE ten_tai_khoan = '${data.usr}' AND mat_khau = '${data.pass}'`
           );
-          // set_cookies(res, data.usr, data.pass); // set cookies
           const user = {
-            id: result.insertId,
+            id: id_user,
             username: data.usr,
           };
           req.session.user = user;
+
           return res.sendStatus(200);
         }
 
@@ -457,28 +432,15 @@ const api_login = async (req, res) => {
       //   _id: data.usr,
       // });
       const n_result = await queryAsync(
-        `SELECT * FROM taikhoan_nguoidung WHERE ten_tai_khoan= '${data.usr}'`
+        `SELECT * FROM taikhoan_nguoidung WHERE ten_tai_khoan= '${data.usr}' AND mat_khau = '${data.pass}'`
       );
       if (n_result.length != 0) {
-        // log in first time: (sign up database)
-        for (let i = 0; i < n_result.length; i++) {
-          if (n_result[i].mat_khau == data.pass) {
-            // func_controller.set_cookies(res, data.usr, data.pass); // set cookies
-            // res.writeHead(200, { "Content-Type": "text/plain" });
-
-            // res.end("Log in success!!!");
-            const user = {
-              id: n_result[i].id,
-              username: data.usr,
-            };
-            req.session.user = user;
-            return res.sendStatus(200);
-          } else {
-            // res.writeHead(403, { "Content-Type": "text/plain" });
-            // res.end("Log in fail!!!");
-            return res.sendStatus(403);
-          }
-        }
+        req.session.user = { id: n_result[0].id, username: data.usr };
+        return res.sendStatus(200);
+      } else {
+        // res.writeHead(403, { "Content-Type": "text/plain" });
+        // res.end("Log in fail!!!");
+        return res.sendStatus(403);
       }
     }
   } catch (err) {
@@ -488,25 +450,28 @@ const api_login = async (req, res) => {
 };
 
 const api_logout = async (req, res) => {
-  try {
-    const data = req.body;
-    console.log("SYSTEM | LOGOUT | Dữ liệu nhận được: ", data);
-    const expirationDate = new Date("2018-12-31");
-    res.cookie("account", data.account, {
-      expires: expirationDate, // Cookie will permernently expire
-      secure: true,
-      sameSite: "none",
-      domain: "localhost",
-      // domain: 'c22c-2a09-bac5-d44d-18d2-00-279-87.ngrok-free.app',
-      path: "/",
-    });
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    console.log(`SYSTEM | LOGOUT | Dang xuat thành công`);
-    res.end("Da dang xuat!");
-  } catch (err) {
-    res.sendStatus(500);
-    console.log("SYSTEM | LOGOUT | ERROR | ", err);
-  }
+  // const data = req.body;
+  // console.log("SYSTEM | LOGOUT | Dữ liệu nhận được: ", data);
+  // const expirationDate = new Date("2018-12-31");
+  // res.cookie("account", data.account, {
+  //   expires: expirationDate, // Cookie will permernently expire
+  //   secure: true,
+  //   sameSite: "none",
+  //   domain: "localhost",
+  //   // domain: 'c22c-2a09-bac5-d44d-18d2-00-279-87.ngrok-free.app',
+  //   path: "/",
+  // });
+  // res.writeHead(200, { "Content-Type": "text/plain" });
+  // console.log(`SYSTEM | LOGOUT | Dang xuat thành công`);
+  // res.end("Da dang xuat!");
+  req.session.destroy((err) => {
+    if (err) {
+      console.log("SYSTEM | LOG_OUT | Failed to logout:", err);
+      return res.sendStatus(500);
+    } else {
+      return res.sendStatus(200);
+    }
+  });
 };
 
 const api_updateLike = async (req, res) => {
@@ -632,10 +597,7 @@ const api_uploadNovel = async (req, res) => {
       const currentDate = new Date();
 
       // Format the date in MySQL-compatible format
-      const formattedDate = currentDate
-        .toISOString()
-        .slice(0, 19)
-        .replace("T", " ");
+      const formattedDate = currentDate.toISOString().slice(0, 19).replace("T", " ");
 
       const author = await queryAsync(`
       SELECT id FROM tac_gia
@@ -745,22 +707,60 @@ const api_update_uploadNovel = async (req, res) => {
   const data = req.body;
   console.log("SYSTEM | UPDATE UPLOAD NOVEL |", data);
   try {
-    await server.update_one_Data(
-      "truyen",
-      { _id: new ObjectId(data.id) },
-      {
-        $set: {
-          update_date: new Date(),
-        },
-        $push: {
-          name_chaps: { $each: data.name_chaps },
-          chap_ids: { $each: data.chap_ids },
-        },
-        $inc: {
-          no_chapters: data.name_chaps.length,
-        },
-      }
-    );
+    // Get the current date
+    const currentDate = new Date();
+
+    // Format the date in MySQL-compatible format
+    const formattedDate = currentDate.toISOString().slice(0, 19).replace("T", " ");
+
+    await queryAsync(`
+    UPDATE truyen
+	SET 
+		ngay_cap_nhat = '${formattedDate}',
+		so_luong_chuong = so_luong_chuong + 1
+	WHERE id = ${data.id}
+	`);
+
+    const last_chap =
+      (await queryAsync(`
+	SELECT COUNT(id) as last_chap 
+	FROM chuong 
+	WHERE id_truyen = '${data.id}'
+	`)[0].last_chap) + 1;
+    // add to chuong database
+    for (let i = 0; i < data.name_chaps.length; i++) {
+      await queryAsync(`
+        INSERT INTO chuong (
+          id_truyen,
+          ten_chuong,
+          noi_dung_chuong,
+          thu_tu
+        )
+        VALUES (
+          '${data.id}',
+          '${data.name_chaps[i]}',
+          '${data.chap_ids[i]}',
+          ${last_chap + i}
+        )
+        `);
+    }
+
+    // await server.update_one_Data(
+    //   "truyen",
+    //   { _id: new ObjectId(data.id) },
+    //   {
+    //     $set: {
+    //       update_date: new Date(),
+    //     },
+    //     $push: {
+    //       name_chaps: { $each: data.name_chaps },
+    //       chap_ids: { $each: data.chap_ids },
+    //     },
+    //     $inc: {
+    //       no_chapters: data.name_chaps.length,
+    //     },
+    //   }
+    // );
 
     res.sendStatus(200);
   } catch (err) {
@@ -781,13 +781,13 @@ const api_editNovel = async (req, res) => {
     // set chap names as new name_chaps
     let new_name_chaps = data.name_chaps;
 
-    // remove all chap that
+    // remove all chap that ???
     for (let i = 0; i < data.remove_list.length; i++) {
       let remove_index = parseInt(data.remove_list[i]);
       console.log(remove_index);
       // delete remove id file from drive and remove id from chapid:
       await server.deleteFileFromDrive(new_chap_ids.splice(remove_index, 1)[0]);
-      // remove nam chap from name chaps
+      // remove name chap from name chaps
       new_name_chaps.splice(remove_index, 1);
     }
 
@@ -904,10 +904,7 @@ const api_cancle = async (req, res) => {
           }
         );
         let new_resual = await storage.getItem("novellist");
-        storage.setItem(
-          "novellist",
-          await func_controller.deleteItemsById(new_resual, data.id)
-        );
+        storage.setItem("novellist", await func_controller.deleteItemsById(new_resual, data.id));
       } else {
         res.sendStatus(404);
       }

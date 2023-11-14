@@ -41,9 +41,8 @@ const renderReading =  async (req, res) => {
 			},
 			limit: 1
 		});
-
 		let dataa = await queryAsync(
-			`SELECT * FROM chuong WHERE thu_tu=1 && id_truyen=1`
+			`SELECT * FROM chuong WHERE thu_tu=${req.params.chap} && id_truyen=1`
 		);
 
 		let lay = await queryAsync(
@@ -51,16 +50,11 @@ const renderReading =  async (req, res) => {
 		);
 		
 		function convertNewToOld(newData) {
-			// Parse chuỗi JSON
-			var chaptersList = JSON.parse(newData);
-		
-			// Tạo đối tượng chương kiểu cũ
-			var oldDataObject = {};
-			chaptersList.forEach(function(chapter, index) {
-				oldDataObject[index + 1] = chapter.ten_chuong;
-			});
-		
-			return oldDataObject;
+			var oldDataArray = [];
+			for (var i = 0; i < newData.length; i++) {
+                oldDataArray.push(newData[i]['ten_chuong']);
+            }
+			return oldDataArray;
 		}
 		
 
@@ -69,14 +63,15 @@ const renderReading =  async (req, res) => {
 			return;
 		}
 		const chap_content = await server.downloadFileFromDrive(String(result[0].chap_ids[parseInt(req.params.chap)]));	
-		const h = convertNewToOld(JSON.stringify(lay));
-		console.log("bạdklashfkljasdhfk"+h[2])
+		const h = convertNewToOld(lay);
+		console.log(h.length);
+		console.log(result[0].no_chapters);
 		res.render('readingpage.ejs', {
 			headerFile: 'header',
 			footerFile: 'footer',
 			name: dataa[0].ten_chuong,
-			no_chapters: convertNewToOld(JSON.stringify(lay)),
-			name_chaps: convertNewToOld(JSON.stringify(lay)),
+			no_chapters:result[0].no_chapters,
+			name_chaps: h,
 			name_chap: `${dataa[0].thu_tu}:${dataa[0].ten_chuong}`,
 			chap_content: dataa[0].noi_dung_chuong,
 			number_chap: req.params.chap,

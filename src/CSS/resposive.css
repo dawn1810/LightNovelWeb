@@ -301,5 +301,24 @@
     .header_user_more_item{
         padding: 0;
     }
+
+    .slider_con{
+        height: 228px;
+    }
+    #slide .item .image img{
+        width: 90%;
+    }
+    .right {
+        display: none!important;
+    }
+    .content .left{
+        left: 10px;
+    bottom: 3%;
+    top: auto;
+    height: fit-content;
+    }
+    .content .left h1{
+        font-size: 20px;
+    }
     
 }

@@ -23,6 +23,8 @@ document.querySelector('.loaded').style.display = 'none'
 // const show_chapter = document.querySelector(".show-list")
 
 const show_list = document.querySelectorAll('.show-list')
+const show_more_item = document.querySelectorAll('.show_more_item')
+
 const show_more = document.querySelector('#show_more')
 
 const reset_text_color = document.querySelector(".ss_reader_textColor_reset");
@@ -118,11 +120,10 @@ for (const font of reader_size) {
     }
 }
 
-// chao a zai
+
 for (const height of line_height) // roi do hai anh trai name chap cho ten chap hien tai, con name chaps la tat ca
-    height.onchange = function (e) {
-       console.log(height.value)
-        main_content.style.lineHeight = height.value;
+    height.onchange = function () {
+        main_content.style.lineHeight = line_height.value;
     }
 
 // cai hai thg bay moi coii laf review nha
@@ -142,6 +143,8 @@ for (const l_btn of left_btn) {
 }
 const right_btn = document.querySelectorAll('.right-btn')
 for (const r_btn of right_btn) {
+    last_chaps = show_more_item.length-1
+    console.log(last_chaps)
     if (parseInt((window.location.href).split('/').pop()) == last_chaps - 1) {
         r_btn.style.display = 'none';
         document.querySelector('.lame-right').disabled = true
@@ -244,6 +247,5 @@ show_more.onchange = function () {
 
     window.location.href = `${crUrl}/${chap}`
 }
-
 
 

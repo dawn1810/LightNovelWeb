@@ -1,5 +1,5 @@
 const NodePersist = require('node-persist');
-const config = require('../config/viewEngine.js')
+const path = require("path");
 
 const storage = NodePersist.create({
 	dir: '.temp',
@@ -16,11 +16,16 @@ const rederIndex = async (req, res) => {
     });
 }
 
-const unpage = (req, res, parentDirectory) => {
-	res.sendFile(parentDirectory + '/error/404.html');
+const parentDirectory = path.resolve(__dirname, "..", "..");
+const unpage = (req, res) => {
+	res.sendFile(parentDirectory+'/error/404.html');
 }
 
+const blockpage = (req, res) => {
+	res.sendFile(parentDirectory + '/error/403.html');
+}
 module.exports = {
     rederIndex,
-    unpage
+    unpage,
+    blockpage
 }

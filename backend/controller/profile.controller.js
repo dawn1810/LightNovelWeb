@@ -14,7 +14,6 @@ const processNovels = async function (req, res, id_truyen) {
     //   username: ten dang nhap nguoi dung
     // }
 
-    
     // console.log("SYSTEM | LIST MY NOVELS | Cookie nhận được: ", account);
 
     // console.log(`SYSTEM | LIST MY NOVELS | Dữ liệu đã giải mã ${decodeList}`);
@@ -32,49 +31,52 @@ const processNovels = async function (req, res, id_truyen) {
       edit_name_chaps: "",
     };
 
-    let novels = await server.find_one_Data("tt_nguoi_dung", {
-      _id: account.id,
-    });
+    // let novels = await server.find_one_Data("tt_nguoi_dung", {
+    //   _id: account.id,
+    // });
 
-    //   const novels = async () => {
-    //       const sql = "SELECT * FROM thongtin_nguoidung WHERE id = ?"
-    //       const values = [decodeList[1]];
-    //       function executeQuery(sql, values) {
-    //         return new Promise((resolve, reject) => {
-    //             connectToDatabase.query(sql, values, function (err, result, fields) {
-    //             if (err) {
-    //               reject(err);
-    //             } else {
-    //               resolve(result);
-    //             }
-    //           });
-    //         });
-    //       }
-
-    //       try {
-    //         const result = await executeQuery(sql, values);
-    //         console.log(result);
-    //         return result;
-    //       } catch (err) {
-    //         console.error(err);
-    //         // Xử lý lỗi nếu cần thiết
-    //       }
-    //   }
+    const myNovels = await queryAsync(`
+      SELECT 
+        truyen.id, 
+        truyen.ten_truyen, 
+        tacgia.ten_tac_gia,
+        truyen.trang_thai,
+        truyen.tom_tat_noi_dung,
+        truyen.anh_dai_dien
+      FROM truyen
+      INNER JOIN tacgia
+        ON truyen.id_tac_gia = tacgia.id
+      INNER JOIN thongtin_nguoidung
+        ON tacgia.id_nguoi_dung = thongtin_nguoidung.id
+      WHERE thongtin_nguoidung.id = '${account.id}'
+    `);
     let result = [];
     let result_like = [];
 
-    for (let id of novels.mynovel) {
-      const curr_novel = await server.find_one_Data("truyen", {
-        _id: new ObjectId(id),
-      });
+    for (let novel of myNovels) {
+      const id = novel.id;
+      // const curr_novel = await server.find_one_Data("truyen", {
+      //   _id: new ObjectId(id),
+      // });
+      // const genres = await queryAsync(`
+      // SELECT 
+      //   the_loai.ten_the_loai
+      // FROM the_loai
+      // INNER JOIN tacgia
+      //   ON truyen.id_tac_gia = tacgia.id
+      // INNER JOIN thongtin_nguoidung
+      //   ON tacgia.id_nguoi_dung = thongtin_nguoidung.id
+      // WHERE thongtin_nguoidung.id = '${account.id}'
+      // `);
+
       result.push(curr_novel);
       if (id == id_truyen) {
-        render_data.edit_name = curr_novel.name;
-        render_data.edit_auth = curr_novel.author;
-        render_data.edit_status = curr_novel.status;
+        render_data.edit_name = novel.ten_truyen;
+        render_data.edit_auth = novel.ten_tac_gia;
+        render_data.edit_status = novel.trang_thai;
         render_data.edit_tag = curr_novel.genres;
-        render_data.edit_review = curr_novel.summary;
-        render_data.edit_img = curr_novel.image;
+        render_data.edit_review = novel.tom_tat_noi_dung;
+        render_data.edit_img = novel.anh_dai_dien;
         render_data.edit_chap_ids = curr_novel.chap_ids;
         render_data.edit_name_chaps = curr_novel.name_chaps;
       }
@@ -97,9 +99,7 @@ const processNovels = async function (req, res, id_truyen) {
       } else {
         idListlikeNovels.push(id);
 
-        curr_novel.update_date = func_controller.calTime(
-          curr_novel.update_date
-        );
+        curr_novel.update_date = func_controller.calTime(curr_novel.update_date);
         result_like.push(curr_novel);
       }
     }

@@ -1,459 +1,436 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/b8977956b3.js" crossorigin="anonymous"></script>
+    <script
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+      type="text/javascript"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <link rel="stylesheet" href="/src/CSS/Style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <link rel="stylesheet" href="/src/CSS/resposive.css" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://kit.fontawesome.com/b8977956b3.js" crossorigin="anonymous"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-  <link rel="stylesheet" href="/src/CSS/Style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-  <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-  <link rel="stylesheet" href="/src/CSS/resposive.css" />
+    <script src="https://kit.fontawesome.com/b8977956b3.js" crossorigin="anonymous"></script>
+  </head>
 
-
-  <script src="https://kit.fontawesome.com/b8977956b3.js" crossorigin="anonymous"></script>
-
-</head>
-
-<body>
-
-  <header>
-    <div class="header_wrap">
-      <div class="header_start">
-
-        <div id="hamburger" class="hamburglar is-closed ">
-
-          <div class="burger-icon header_menu">
-            <div class="burger-container">
-              <span class="burger-bun-top"></span>
-              <span class="burger-filling"></span>
-              <span class="burger-bun-bot"></span>
+  <body>
+    <header>
+      <div class="header_wrap">
+        <div class="header_start">
+          <div id="hamburger" class="hamburglar is-closed">
+            <div class="burger-icon header_menu">
+              <div class="burger-container">
+                <span class="burger-bun-top"></span>
+                <span class="burger-filling"></span>
+                <span class="burger-bun-bot"></span>
+              </div>
             </div>
-          </div>
 
-          <div class="burger-ring">
-            <svg class="svg-ring">
-              <path class="path" fill="none" stroke="#5f656a" stroke-miterlimit="10" stroke-width="4"
-                d="M 34 2 C 16.3 2 2 16.3 2 34 s 14.3 32 32 32 s 32 -14.3 32 -32 S 51.7 2 34 2" />
+            <div class="burger-ring">
+              <svg class="svg-ring">
+                <path
+                  class="path"
+                  fill="none"
+                  stroke="#5f656a"
+                  stroke-miterlimit="10"
+                  stroke-width="4"
+                  d="M 34 2 C 16.3 2 2 16.3 2 34 s 14.3 32 32 32 s 32 -14.3 32 -32 S 51.7 2 34 2"
+                />
+              </svg>
+            </div>
+
+            <svg width="0" height="0">
+              <mask id="mask">
+                <path
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  stroke=""
+                  stroke-miterlimit="10"
+                  stroke-width="4"
+                  d="M 34 2 c 11.6 0 21.8 6.2 27.4 15.5 c 2.9 4.8 5 16.5 -9.4 16.5 h -4"
+                />
+              </mask>
             </svg>
-          </div>
-
-          <svg width="0" height="0">
-            <mask id="mask">
-              <path xmlns="http://www.w3.org/2000/svg" fill="none" stroke="" stroke-miterlimit="10" stroke-width="4"
-                d="M 34 2 c 11.6 0 21.8 6.2 27.4 15.5 c 2.9 4.8 5 16.5 -9.4 16.5 h -4" />
-            </mask>
-          </svg>
-          <div class="path-burger">
-            <div class="animate-path">
-              <div class="path-rotation"></div>
+            <div class="path-burger">
+              <div class="animate-path">
+                <div class="path-rotation"></div>
+              </div>
             </div>
           </div>
-
-        </div>
-        <a href="/">
-          <div class="header_logo">
-            <img src="/image/logo.png" alt="">
-          </div>
-        </a>
-      </div>
-      <div class="header_search">
-        <div class="header_search_wrap">
-          <form role="search">
-            <div class="header_search_input">
-              <input type="text" placeholder="Tìm kiếm">
+          <a href="/">
+            <div class="header_logo">
+              <img src="/image/logo.png" alt="" />
             </div>
-
-          </form>
-          <div class="header_search_logo">
-            <i class="fa-solid fa-magnifying-glass"></i>
+          </a>
+        </div>
+        <div class="header_search">
+          <div class="header_search_wrap">
+            <form role="search">
+              <div class="header_search_input">
+                <input type="text" placeholder="Tìm kiếm" />
+              </div>
+            </form>
+            <div class="header_search_logo">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
           </div>
         </div>
+        <div class="header_end">
+          <% if (login_way=='null' ) { %>
 
-      </div>
-      <div class="header_end">
-        <% if (login_way=='null' ) { %>
-
-          <div class="header_user" style="display: none;">
+          <div class="header_user" style="display: none">
             <div class="header_notify">
               <div class="header_notify_logo">
                 <i class="fa-solid fa-bell"></i>
               </div>
               <div class="header_notify_more">
                 <div class="header_notify_more_head">
-                  <div class="header_notify_more_head_title">
-                    Thông báo
-                  </div>
-
+                  <div class="header_notify_more_head_title">Thông báo</div>
                 </div>
-                <div class="header_notify_more_item">
-                  Chưa có thông báo
-                </div>
+                <div class="header_notify_more_item">Chưa có thông báo</div>
               </div>
             </div>
             <div class="header_user_logo">
               <div class="header_user_logo_i">
                 <div class="curent-avt">
-                  <img src="<%= avt %>" referrerpolicy="no-referrer" alt="" class="avt_user">
+                  <img src="<%= avt %>" referrerpolicy="no-referrer" alt="" class="avt_user" />
                 </div>
-                <p>
-                  <%= username %>
-                </p>
+                <p><%= username %></p>
               </div>
               <!-- pc -->
               <div class="header_user_more">
-                <div class="header_user_more_item"><a href="/profile">Thông tin tài </a>
+                <div class="header_user_more_item"><a href="/profile">Thông tin tài </a></div>
+                <div class="header_user_more_item">
+                  <a href="/profile/novel_following">Truyện đã lưu</a>
                 </div>
-                <div class="header_user_more_item"><a href="/profile/novel_following">Truyện đã lưu</a> </div>
 
                 <%if (login_way=='normal' ) { %>
-                  <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
-                  <%}%>
-                    <div class="header_user_more_item logout" id="logout">Đăng xuất </div>
+                <div class="header_user_more_item">
+                  <a href="/profile/change_pass">Đổi mật khẩu</a>
+                </div>
+                <%}%>
+                <div class="header_user_more_item logout" id="logout">Đăng xuất</div>
               </div>
 
               <!-- mobile -->
               <div class="right_item_mobile">
-
                 <div class="right_item_mobile_li"><a href="/profile">Thông tin tài khoản</a></div>
-                <div class="right_item_mobile_li"><a href="/profile/novel_following">Truyện đã lưu</a></div>
+                <div class="right_item_mobile_li">
+                  <a href="/profile/novel_following">Truyện đã lưu</a>
+                </div>
                 <%if (login_way=='normal' ) { %>
-                  <div class="right_item_mobile_li">
-                    <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
+                <div class="right_item_mobile_li">
+                  <div class="header_user_more_item">
+                    <a href="/profile/change_pass">Đổi mật khẩu</a>
                   </div>
-                  <%}%>
-                    <div class="right_item_mobile_li">
-                      <div class="header_user_more_item logout">Đăng xuất </div>
-                    </div>
+                </div>
+                <%}%>
+                <div class="right_item_mobile_li">
+                  <div class="header_user_more_item logout">Đăng xuất</div>
+                </div>
               </div>
               <!-- mobile -->
             </div>
-
-
-
           </div>
-          <div class="header_noUser" style="display: flex;">
-            <div class="header_login">
-              Login
-            </div>
-            <div class="header_signup">
-              Sign Up
-            </div>
+          <div class="header_noUser" style="display: flex">
+            <div class="header_login">Login</div>
+            <div class="header_signup">Sign Up</div>
           </div>
           <%} else {%>
-            <div class="header_user" style="display: flex;">
-              <div class="header_notify">
-                <div class="header_notify_logo">
-                  <i class="fa-solid fa-bell"></i>
-                </div>
-                <div class="header_notify_more">
-                  <div class="header_notify_more_head">
-                    <div class="header_notify_more_head_title">
-                      Thông báo
-                    </div>
-
-                  </div>
-                  <div class="header_notify_more_item">
-                    Chưa có thông báo
-                  </div>
-                </div>
+          <div class="header_user" style="display: flex">
+            <div class="header_notify">
+              <div class="header_notify_logo">
+                <i class="fa-solid fa-bell"></i>
               </div>
-              <div class="header_user_logo">
-                <div class="header_user_logo_i">
-                  <div class="curent-avt">
-                    <img src="<%= avt %>" referrerpolicy="no-referrer" alt="" class="avt_user">
-                  </div>
-                  <p>
-                    <%= username %>
-                  </p>
+              <div class="header_notify_more">
+                <div class="header_notify_more_head">
+                  <div class="header_notify_more_head_title">Thông báo</div>
                 </div>
-
-                <!-- pc -->
-                <div class="header_user_more">
-                  <div class="header_user_more_item"><a href="/profile">Thông tin tài khoản</a>
-                  </div>
-                  <div class="header_user_more_item"><a href="/profile/novel_following">Truyện đã lưu</a> </div>
-
-                  <%if (login_way=='normal' ) { %>
-                    <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
-                    <%}%>
-                      <div class="header_user_more_item logout" id="logout">Đăng xuất </div>
-                </div>
-                <!-- pc -->
-
-                <!-- mobile -->
-                <div class="right_item_mobile">
-
-                  <div class="right_item_mobile_li"><a href="/profile">Thông tin tài khoản</a></div>
-                  <div class="right_item_mobile_li"><a href="/profile/novel_following">Truyện đã lưu</a></div>
-                  <%if (login_way=='normal' ) { %>
-                    <div class="right_item_mobile_li">
-                      <div class="header_user_more_item"><a href="/profile/change_pass">Đổi mật khẩu</a> </div>
-                    </div>
-                    <%}%>
-                      <div class="right_item_mobile_li">
-                        <div class="header_user_more_item logout">Đăng xuất </div>
-                      </div>
-                      <button class="right_item_mobile_close"><i class="fa-solid fa-circle-xmark"></i></button>
-                </div>
-                <!-- mobile -->
-
-
-              </div>
-
-
-
-            </div>
-            <div class="header_noUser" style="display: none;">
-              <div class="header_login">
-                Login
-              </div>
-              <div class="header_signup">
-                Sign Up
+                <div class="header_notify_more_item">Chưa có thông báo</div>
               </div>
             </div>
-            <%}%>
+            <div class="header_user_logo">
+              <div class="header_user_logo_i">
+                <div class="curent-avt">
+                  <img src="<%= avt %>" referrerpolicy="no-referrer" alt="" class="avt_user" />
+                </div>
+                <p><%= username %></p>
+              </div>
 
+              <!-- pc -->
+              <div class="header_user_more">
+                <div class="header_user_more_item"><a href="/profile">Thông tin tài khoản</a></div>
+                <div class="header_user_more_item">
+                  <a href="/profile/novel_following">Truyện đã lưu</a>
+                </div>
+
+                <%if (login_way=='normal' ) { %>
+                <div class="header_user_more_item">
+                  <a href="/profile/change_pass">Đổi mật khẩu</a>
+                </div>
+                <%}%>
+                <div class="header_user_more_item logout" id="logout">Đăng xuất</div>
+              </div>
+              <!-- pc -->
+
+              <!-- mobile -->
+              <div class="right_item_mobile">
+                <div class="right_item_mobile_li"><a href="/profile">Thông tin tài khoản</a></div>
+                <div class="right_item_mobile_li">
+                  <a href="/profile/novel_following">Truyện đã lưu</a>
+                </div>
+                <%if (login_way=='normal' ) { %>
+                <div class="right_item_mobile_li">
+                  <div class="header_user_more_item">
+                    <a href="/profile/change_pass">Đổi mật khẩu</a>
+                  </div>
+                </div>
+                <%}%>
+                <div class="right_item_mobile_li">
+                  <div class="header_user_more_item logout">Đăng xuất</div>
+                </div>
+                <button class="right_item_mobile_close">
+                  <i class="fa-solid fa-circle-xmark"></i>
+                </button>
+              </div>
+              <!-- mobile -->
+            </div>
+          </div>
+          <div class="header_noUser" style="display: none">
+            <div class="header_login">Login</div>
+            <div class="header_signup">Sign Up</div>
+          </div>
+          <%}%>
+        </div>
       </div>
+    </header>
 
+    <ul class="left_item close">
+      <li id="home_page" class="left_li">
+        <a href="/">
+          <div><i class="fa-solid fa-house"></i> <span>Trang Chủ</span></div>
+        </a>
+      </li>
+      <li id="search_vip" class="left_li">
+        <a href="/category">
+          <div><i class="fa-brands fa-searchengin"></i> <span>Tìm Kiếm Nâng Cao</span></div>
+        </a>
+      </li>
+      <li id="composed" class="left_li">
+        <a href="/profile/my_novel">
+          <div><i class="fa-solid fa-feather-pointed"></i> <span>Sáng Tác</span></div>
+        </a>
+      </li>
+      <li id="history" class="left_li">
+        <a href="/profile/novel_following">
+          <div><i class="fa-solid fa-heart"></i> <span>Truyện Đã Thích</span></div>
+        </a>
+      </li>
+      <li class="d-l_theme">
+        <div class="toggle-switch">
+          <label class="switch-label">
+            <input type="checkbox" class="checkbox" id="checkbox" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </li>
+    </ul>
 
-    </div>
-  </header>
+    <script src="">
+      $("document").ready(function () {
+        let trigger = $("#hamburger"),
+          isClosed = false;
 
-  <ul class="left_item close">
+        trigger.click(function () {
+          burgerTime();
+        });
 
-    <li id="home_page" class=" left_li">
-      <a href="/">
-        <div><i class="fa-solid fa-house"></i> <span>Trang Chủ</span></div>
-      </a>
-    </li>
-    <li id="search_vip" class=" left_li">
-      <a href="/category">
-        <div><i class="fa-brands fa-searchengin"></i> <span>Tìm Kiếm Nâng Cao</span></div>
-      </a>
-    </li>
-    <li id="composed" class=" left_li">
-      <a href="/profile/my_novel">
-        <div> <i class="fa-solid fa-feather-pointed"></i> <span>Sáng Tác</span></div>
-      </a>
-    </li>
-    <li id="history" class=" left_li">
-      <a href="/profile/novel_following">
-        <div><i class="fa-solid fa-heart"></i> <span>Truyện Đã Thích</span></div>
-
-      </a>
-    </li>
-    <li class="d-l_theme ">
-      <div class="toggle-switch">
-        <label class="switch-label">
-          <input type="checkbox" class="checkbox" id="checkbox">
-          <span class="slider"></span>
-        </label>
-      </div>
-    </li>
-  </ul>
-
-
-
-
-  <script src="">
-    $("document").ready(function () {
-      let trigger = $("#hamburger"),
-        isClosed = false;
-
-      trigger.click(function () {
-        burgerTime();
+        function burgerTime() {
+          if (isClosed == true) {
+            trigger.removeClass("is-open");
+            trigger.addClass("is-closed");
+            isClosed = false;
+            left_item.classList.add("close");
+          } else {
+            trigger.removeClass("is-closed");
+            trigger.addClass("is-open");
+            isClosed = true;
+            left_item.classList.remove("close");
+          }
+        }
       });
 
-      function burgerTime() {
-        if (isClosed == true) {
-          trigger.removeClass("is-open");
-          trigger.addClass("is-closed");
-          isClosed = false;
-          left_item.classList.add('close');
-        } else {
-          trigger.removeClass("is-closed");
-          trigger.addClass("is-open");
-          isClosed = true;
-          left_item.classList.remove('close');
-
+      document.onclick = function (event) {
+        const targetElement = event.target;
+        if (!category_list.contains(targetElement) && targetElement !== category_btn) {
+          category_list.style.display = "none";
         }
-      }
-    });
+      };
 
-    document.onclick = function (event) {
-      const targetElement = event.target;
-      if (!category_list.contains(targetElement) && targetElement !== category_btn) {
-        category_list.style.display = 'none';
-      }
-    }
+      header_menu.onclick = function (event) {
+        if (menuBtnCount) {
+          event.stopPropagation();
+          left_item.classList.remove("close");
+          menuBtnCount = false;
+        } else {
+          left_item.classList.add("close");
+          menuBtnCount = true;
+        }
+      };
+      const category = document.querySelector(".category");
 
-    header_menu.onclick = function (event) {
-      if (menuBtnCount) {
+      left_item.onclick = function (event) {
         event.stopPropagation();
-        left_item.classList.remove('close');
-        menuBtnCount = false;
-      } else {
-        left_item.classList.add('close');
-        menuBtnCount = true;
-      }
+        console.log("ok");
+      };
+      const checkbox = document.getElementById("checkbox");
+    </script>
+  </body>
 
-    }
-    const category = document.querySelector('.category')
+  <script>
+    // block devtools
+    // function blockDevTool() {
+    //   setTimeout(console.clear.bind(console));
+    //   setTimeout(() => {
+    //     console.log("%cTắt f12 đi bạn nho!!!", "color:red;font-family:system-ui;font-size:100px");
+    //   }, 200);
+    //   window.location.href = "/403";
+    // }
 
-    left_item.onclick = function (event) {
-      event.stopPropagation();
-      console.log('ok')
-    }
-    const checkbox = document.getElementById("checkbox")
-  </script>
-</body>
-
-<script>
-  function getCookie(name) {
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
-      if (cookie.startsWith(name + '=')) {
-        return cookie.substring(name.length + 1);
-      }
-    }
-    return null;
-  }
-  document.addEventListener('DOMContentLoaded', function () {
-    const login = document.querySelector('.header_login')
-    login.onclick = function () {
-      console.log('Login')
-      modal.style.display = 'block'
-      if (modal2.style.display == 'block') {
-        modal2.style.display = 'none'
-      }
-    }
-    document.querySelector('.no_login a').onclick = function (e) {
-      e.preventDefault();
-
-      login.click()
-    }
-
-    const sg = document.querySelector('.header_signup')
-    sg.onclick = function () {
-      console.log('Login')
-      modal2.style.display = 'block'
-      if (modal.style.display == 'block') {
-        modal.style.display = 'none'
-      }
-    }
-    document.querySelector('.no_signup a').onclick = function (e) {
-      e.preventDefault();
-
-      sg.click()
-    }
-    modal.onclick = function (event) {
-      if (!event.target.closest('.modal_wrap')) {
-        modal.style.display = 'none';
-      }
-    }
-    modal2.onclick = function (event) {
-      if (!event.target.closest('.modal_wrap')) {
-        modal2.style.display = 'none';
-      }
-    }
-
-
-    $(document).ready(function () {
-      $('.logout').click(async function (e) {
+    // class DevChecker extends Error {
+    //   toString() {}
+    //   get message() {
+    //     blockDevTool();
+    //   }
+    // }
+    // console.log(new DevChecker());
+    document.addEventListener("DOMContentLoaded", function () {
+      const login = document.querySelector(".header_login");
+      login.onclick = function () {
+        console.log("Login");
+        modal.style.display = "block";
+        if (modal2.style.display == "block") {
+          modal2.style.display = "none";
+        }
+      };
+      document.querySelector(".no_login a").onclick = function (e) {
         e.preventDefault();
-        console.log('logout')
-        const accountCookie = getCookie('account');
-        if (accountCookie) {
-          await fetch(`${currentURL}/api/logout`, {
-            method: 'POST',
+
+        login.click();
+      };
+
+      const sg = document.querySelector(".header_signup");
+      sg.onclick = function () {
+        console.log("Login");
+        modal2.style.display = "block";
+        if (modal.style.display == "block") {
+          modal.style.display = "none";
+        }
+      };
+      document.querySelector(".no_signup a").onclick = function (e) {
+        e.preventDefault();
+
+        sg.click();
+      };
+      modal.onclick = function (event) {
+        if (!event.target.closest(".modal_wrap")) {
+          modal.style.display = "none";
+        }
+      };
+      modal2.onclick = function (event) {
+        if (!event.target.closest(".modal_wrap")) {
+          modal2.style.display = "none";
+        }
+      };
+
+      $(document).ready(function () {
+        $(".logout").click(async function (e) {
+          e.preventDefault();
+          console.log("logout");
+          await fetch(`/api/logout`, {
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json'
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              account: accountCookie
-            })
-          })
-            .then(response => {
-              if (response.status === 200) {
-                location.href = "/";
-              }
-            });
-        }
+              account: "chaoemcogaidangiu",
+            }),
+          }).then((response) => {
+            if (response.status === 200) {
+              window.location.reload();
+            }
+          });
+        });
       });
+
+      // should not turn on this code
+      // const header_logo = document.querySelector('.header_logo');
+      // let count_logo = 0
+      // header_logo.addEventListener("mouseover", (event) => {
+      //   let audio = new Audio('/src/audio/yamate-kudesai.mp3');
+      //   switch (count_logo) {
+      //     case 3:
+      //       audio.volume = 0.1;
+      //       audio.play();
+      //       break;
+      //     case 4:
+      //       audio.volume = 0.2;
+      //       audio.play();
+      //       break;
+      //     case 5:
+      //       audio.volume = 0.4;
+      //       audio.play();
+      //       break;
+      //     case 6:
+      //       audio.volume = 0.7;
+      //       audio.play();
+      //       break;
+      //     case 7:
+      //       audio.volume = 1;
+      //       audio.play();
+      //       count_logo--;
+      //       break;
+      //   };
+      //   count_logo++;
+      // });
     });
 
+    const right_item_mobile_close = document.querySelector(".right_item_mobile_close");
+    const right_item_mobile = document.querySelector(".right_item_mobile");
 
-
-    // should not turn on this code
-    // const header_logo = document.querySelector('.header_logo');
-    // let count_logo = 0
-    // header_logo.addEventListener("mouseover", (event) => {
-    //   let audio = new Audio('/src/audio/yamate-kudesai.mp3');
-    //   switch (count_logo) {
-    //     case 3:
-    //       audio.volume = 0.1;
-    //       audio.play();
-    //       break;
-    //     case 4:
-    //       audio.volume = 0.2;
-    //       audio.play();
-    //       break;
-    //     case 5:
-    //       audio.volume = 0.4;
-    //       audio.play();
-    //       break;
-    //     case 6:
-    //       audio.volume = 0.7;
-    //       audio.play();
-    //       break;
-    //     case 7:
-    //       audio.volume = 1;
-    //       audio.play();
-    //       count_logo--;
-    //       break;
-    //   };
-    //   count_logo++;
-    // });
-
-  });
-
-  const right_item_mobile_close = document.querySelector('.right_item_mobile_close')
-  const right_item_mobile = document.querySelector('.right_item_mobile')
-
-  if (right_item_mobile_close) {
-    right_item_mobile_close.onclick = function () {
-      right_item_mobile.style.right = "-100% !important";
+    if (right_item_mobile_close) {
+      right_item_mobile_close.onclick = function () {
+        right_item_mobile.style.right = "-100% !important";
+      };
     }
-  }
 
+    const header_search_input = document.querySelector(".header_search_input input");
+    const search_btn = document.querySelector(".header_search_wrap .header_search_logo");
 
-  const header_search_input = document.querySelector('.header_search_input input');
-  const search_btn = document.querySelector('.header_search_wrap .header_search_logo')
+    search_btn.addEventListener("click", handle_search);
 
-  search_btn.addEventListener('click', handle_search);
+    header_search_input.addEventListener("keypress", function (event) {
+      // If the user presses the "Enter" key on the keyboard
+      if (event.key === "Enter") {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Trigger the button element with a click
+        search_btn.click();
+      }
+    });
 
-  header_search_input.addEventListener("keypress", function (event) {
-    // If the user presses the "Enter" key on the keyboard
-    if (event.key === "Enter") {
-      // Cancel the default action, if needed
-      event.preventDefault();
-      // Trigger the button element with a click
-      search_btn.click();
+    function handle_search() {
+      if (header_search_input.value != "") {
+        const newUrl = `${window.location.origin}/search?search=${encodeURI(
+          header_search_input.value
+        )}`;
+        window.location.replace(newUrl);
+      }
     }
-  });
-
-  function handle_search() {
-    if (header_search_input.value != "") {
-      const newUrl = `${window.location.origin}/search?search=${encodeURI(header_search_input.value)}`;
-      window.location.replace(newUrl);
-    }
-  }
-
-</script>
-
+  </script>
 </html>

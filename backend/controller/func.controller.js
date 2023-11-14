@@ -4,10 +4,7 @@ const { connection, queryAsync } = require("../dbmysql");
 
 const server = require("../vip_pro_lib");
 const secretKey = "5gB#2L1!8*1!0)$7vF@9";
-const authenticationKey = Buffer.from(
-  secretKey.padEnd(32, "0"),
-  "utf8"
-).toString("hex");
+const authenticationKey = Buffer.from(secretKey.padEnd(32, "0"), "utf8").toString("hex");
 const multer = require("multer"); // Thư viện để xử lý file upload
 const NodePersist = require("node-persist"); // index
 const storage = NodePersist.create({
@@ -19,9 +16,7 @@ const uploadDirectory = path.join(".upload_temp", "files");
 const storage_file = multer.diskStorage({
   destination: function (req, file, cb) {
     if (!allowedMimeTypes.includes(file.mimetype)) {
-      console.log(
-        "SYSTEM | GET_NOVEL_LIST | ERROR | Lỗi định dạng file không đúng"
-      );
+      console.log("SYSTEM | GET_NOVEL_LIST | ERROR | Lỗi định dạng file không đúng");
 
       return cb(new Error("Invalid file type."), null);
     }
@@ -41,11 +36,7 @@ const upload = () => {
 function encrypt(data, secretKey) {
   const algorithm = "aes-256-cbc";
   const iv = crypto.randomBytes(16); // Generate a random IV
-  const cipher = crypto.createCipheriv(
-    algorithm,
-    Buffer.from(secretKey, "hex"),
-    iv
-  );
+  const cipher = crypto.createCipheriv(algorithm, Buffer.from(secretKey, "hex"), iv);
 
   let encryptedData = cipher.update(data, "utf8", "hex");
   encryptedData += cipher.final("hex");
@@ -60,11 +51,7 @@ function decrypt(encryptedDataWithIV, secretKey) {
   const algorithm = "aes-256-cbc";
   const iv = Buffer.from(encryptedDataWithIV.slice(0, 32), "hex"); // Extract IV from the encrypted data
   const encryptedData = encryptedDataWithIV.slice(32); // Extract the encrypted data without IV
-  const decipher = crypto.createDecipheriv(
-    algorithm,
-    Buffer.from(secretKey, "hex"),
-    iv
-  );
+  const decipher = crypto.createDecipheriv(algorithm, Buffer.from(secretKey, "hex"), iv);
 
   let decryptedData = decipher.update(encryptedData, "hex", "utf8");
   decryptedData += decipher.final("utf8");
@@ -76,34 +63,25 @@ function decrypt(encryptedDataWithIV, secretKey) {
 
 async function checkCookieLoglUser(req, res, next) {
   try {
+    if (req.isAuthenticated()) {
+      req.session.user = req.user;
+    }
     const user = req.session.user;
+    
     if (!user) {
       res.locals.avt =
-        "https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg";
+      "https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg";
       res.locals.username = "";
       res.locals.login_way = "null";
       next();
     } else {
-      // console.log('SYSTEM | AUTHENTICATION | Dữ liệu nhận được: ', data);
-      // const decode = decrypt(data.account, authenticationKey);
-      // const decodeList = decode.split(":"); // Output: "replika is best japanese waifu"
-      // console.log(`SYSTEM | AUTHENTICATION | Dữ liệu đã giải mã ${decodeList}`);
-      // decodeList = authenticationKey:id:pass
-      // if (decodeList[0] == authenticationKey) {
+      console.log("SYSTEM | CHECK_COOKIE | User login", user);
       const n_result = await queryAsync(
         `SELECT login_way, email FROM taikhoan_nguoidung WHERE id= '${user.id}'`
       );
-      // const result = await server.find_one_Data("tt_nguoi_dung", {
-      //   _id: decodeList[1],
-      // });
       const result = await queryAsync(
         `SELECT * FROM thongtin_nguoidung WHERE id_tai_khoan= '${user.id}'`
       );
-      // const n_result = await server.find_one_Data("dang_nhap", {
-      //   _id: decodeList[1],
-      // });
-      console.log(result);
-
       if (result.length != 0) {
         // neu dang nhap = google thi 2 bien avt va display name co gia tri, nhung login = tk,mk thi k co 2 bien nay
         res.locals.avt = result[0].anh_dai_dien;
@@ -119,7 +97,6 @@ async function checkCookieLoglUser(req, res, next) {
         res.locals.username = "";
         next();
       }
-      // }F
     }
   } catch (error) {
     // Xử lý lỗi nếu có
@@ -165,11 +142,7 @@ const getFirstAndLastDayOfMonth = () => {
   const currentDate = new Date();
 
   // Get the first day of the month
-  const firstDayOfMonth = new Date(
-    currentDate.getFullYear(),
-    currentDate.getMonth(),
-    1
-  );
+  const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
 
   // Move to the next month and get the last day of the current month
   currentDate.setMonth(currentDate.getMonth() + 1);
@@ -372,10 +345,7 @@ const getNovelList = async () => {
 };
 
 const set_cookies = (res, id, pass) => {
-  const encryptedString = encrypt(
-    `${authenticationKey}:${id}:${pass}`,
-    authenticationKey
-  );
+  const encryptedString = encrypt(`${authenticationKey}:${id}:${pass}`, authenticationKey);
   const oneYearFromNow = new Date();
   oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
   res.cookie("account", encryptedString, {
