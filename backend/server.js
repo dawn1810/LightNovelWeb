@@ -430,7 +430,7 @@ async function get_full_id(directoryPath, listName) {
 // }
 
 const blockUnwantedPaths = (req, res, next) => {
-	const unwantedPaths = ['/Backend/', '/.temp/', '/.credentials/'];
+	const unwantedPaths = ['/backend/', '/.temp/', '/.credentials/'];
 
 	for (const path of unwantedPaths) {
 		if (req.url.includes(path)) {

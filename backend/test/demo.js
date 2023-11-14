@@ -1,7 +1,7 @@
 const { response } = require('express');
 const server = require('./vip_pro_lib');
 
-// server.uploadFileToDrive('Backend/demo.js')
+// server.uploadFileToDrive('backend/demo.js')
 server.find_all_Data({table: 'truyen', projection: {_id: 0, name:1, name_chaps:1, chap_ids:1}}).then(response => {
     console.log(response);
 });
