@@ -503,8 +503,8 @@ const api_updateLike = async (req, res) => {
 
         // add current nodel to like list of current user
         await queryAsync(`
-        INSERT INTO truyen_yeu_thich (id_nguoi_dung, id_truyen)
-        VALUES ('${decodeList[1]}', ${data.id_truyen})
+        INSERT INTO truyen_yeu_thich (id, id_nguoi_dung, id_truyen)
+        VALUES ('${uuidv4()}', '${decodeList[1]}', ${data.id_truyen})
         `);
 
         // await server.update_one_Data(

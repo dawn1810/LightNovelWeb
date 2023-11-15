@@ -139,7 +139,7 @@
       <div class="information_name_wrap">
         <h3>Giới tính</h3>
         <div class="">
-          <% if (sex=='nam' ) { %>
+          <% if (sex===1) { %>
           <div class="sex_container">
             <form>
               <label>
@@ -157,7 +157,7 @@
             </form>
           </div>
 
-          <% } else if (sex=='nu' ){ %>
+          <% } else if (sex===0){ %>
           <div class="sex_container">
             <form>
               <label>
@@ -220,10 +220,9 @@
     </div>
     </div>
     <div class="Setting_pageWrapper page2" id="novel_following">
-      <h2>Truyện đã theo dõi</h2>
+      <h2>Truyện yêu thích</h2>
       <div class="followed-container">
         <% for (var i=0; i < like_novel.length; i++) { %>
-
         <div class="followed-item" id="<%=like_novel[i]%>">
 
           <div class="name-container">
@@ -234,10 +233,10 @@
 
             <div class="name-novel">
               <div class="name-novel-top">
-                <h2><a href="<%-'/reviews/'+like_novel[i]%>"><%-like_novel_list[i].name%></a>
-                </h2>
+                <h2><a href="<%-'/reviews/'+like_novel[i]%>"><%-like_novel_list[i].name%></a></h2>
                 <button class="delete-follow delete_f"><i class="fa-solid fa-paperclip"></i></button>
               </div>
+              <p>Tác giả: <%-like_novel_list[i].author%></  p>
               <p>
                 <%-like_novel_list[i].summary%>
               </p>
@@ -350,13 +349,13 @@
                     <span>Lượt thích:</span>
                   </div>
                   <div class="page5_home_info_wrap_item_value">
-                    <%= novel.no_chapters %>
+                    <%= novel.likes %>
                   </div>
                 </div>
                 <div class="page5_home_info_wrap_item">
                   <div class="page5_home_info_wrap_item_title">
                     <i class="fa-regular fa-star"></i>
-                    <span>Đề cử</span>
+                    <span>Đánh giá</span>
                   </div>
                   <div class="page5_home_info_wrap_item_value">
                     1
@@ -365,7 +364,7 @@
               </div>
             </div>
 
-            <div class="item_btn_gr" id="<%= novel._id.toString() %>">
+            <div class="item_btn_gr" id="<%= novel.id %>">
 
               <div class="novel_conntroller_btn">
                 <button class="update_current_novel controller_btn">Chỉnh
@@ -1277,7 +1276,7 @@
   const listObj2 = new ej.dropdowns.MultiSelect({
     // Các tùy chọn khác cho MultiSelect
     placeholder: "Chọn thể loại truyện",
-    value: <%- JSON.stringify(edit_tag) %>
+    value: <%-JSON.stringify(edit_tag)%>
 
   }, '#ulElement2');
   <%} else {%>

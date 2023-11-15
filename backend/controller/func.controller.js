@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 const path = require("path");
-const { connection, queryAsync } = require("../dbmysql");
+const {queryAsync} = require("../dbmysql");
 
 const server = require("../vip_pro_lib");
 const secretKey = "5gB#2L1!8*1!0)$7vF@9";
@@ -106,7 +106,7 @@ async function checkCookieLoglUser(req, res, next) {
 }
 async function checkCoookieIfOK(req, res, next) {
   const user = req.session.user;
-  if (user) {
+  if (!user) {
     // Cookie không tồn tại, chặn truy cập
     return res.redirect("/");
   } else {
