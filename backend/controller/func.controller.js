@@ -113,6 +113,19 @@ async function checkCoookieIfOK(req, res, next) {
     next();
   }
 }
+async function checkAdmin(req, res, next) {
+  const user = req.session.user;
+  const result = await queryAsync(
+    `SELECT * FROM thongtin_nguoidung WHERE role= '100' AND id_tai_khoan = '${user.id}'`
+  );
+  if (result.length != 0) {
+    
+    next();
+  }
+  else {
+    return res.redirect("/");
+  }
+}
 
 const decode = (account) => {
   const decode = decrypt(account, authenticationKey);
@@ -372,4 +385,5 @@ module.exports = {
   deleteItemsById,
   getNovelList,
   set_cookies,
+  checkAdmin
 };

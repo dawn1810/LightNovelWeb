@@ -23,20 +23,23 @@
     }
 
     .form3 {
-      margin: 1rem;
-      width: 76vw;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding-bottom: 6em;
-      border-radius: 15px;
-      background-color: var(--header-background);
-      box-shadow: 0 0 0 4px var(--header-background), 2px 2px 4px 2px rgba(0, 0, 0, 0.5);
-      transition: 0.4s ease-in-out;
-      background-repeat: no-repeat;
-      background-size: cover;
-      align-items: center;
-      padding: 0 1rem;
+      overflow-y: scroll;
+    overflow-x: hidden;
+    margin: 1rem;
+    width: 76vw;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 6em;
+    border-radius: 15px;
+    background-color: var(--header-background);
+    box-shadow: 0 0 0 4px var(--header-background), 2px 2px 4px 2px rgba(0, 0, 0, 0.5);
+    transition: 0.4s ease-in-out;
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-items: center;
+    padding: 0 1rem;
+    height: 60rem;
     }
 
     .form3 .heading {
@@ -144,15 +147,22 @@
       </div>
       <form class="form3" id="form1">
         <div class="account_list">
+          <% accounts.forEach(function(user) { %>
+            <!-- account -->
+          <div class="account">
+            <div class="left_gr">
+              <div class="avt_container">
+                <% if (user.anh_dai_dien) { %>
+                  <img src='<%= user.anh_dai_dien %>' alt="">
+                <% } else { %>
+                  <img src='https://static.wikia.nocookie.net/f5bef280-f4ab-42a1-b7fe-378c176a4da1/scale-to-width-down/800' alt="">
+                <% } %>
+                
 
-          <!-- account -->
-          <div class="account">
-            <div class="left_gr">
-              <div class="avt_container">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT38_RZGZ4eAVsF9WEM3XcKRGjdpP2nN4wkcDmLOSEGf5r7CO5Qyq-tdBLP7nFho_U8HoA&usqp=CAU" alt="">
               </div>
-              <h2>nguyen van lu</h2>
+              <h2><%= user.ten_hien_thi %></h2>
             </div>
+            <input type="hidden" value='<%= user.id %>'>
             <div class="right_gr">
               <button class="delete_account">
                 xóa tài khoản
@@ -163,43 +173,8 @@
             </div>
           </div>
           <!-- account -->
+          <% }); %>
 
-          <!-- account -->
-          <div class="account">
-            <div class="left_gr">
-              <div class="avt_container">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT38_RZGZ4eAVsF9WEM3XcKRGjdpP2nN4wkcDmLOSEGf5r7CO5Qyq-tdBLP7nFho_U8HoA&usqp=CAU" alt="">
-              </div>
-              <h2>nguyen van lu</h2>
-            </div>
-            <div class="right_gr">
-              <button class="delete_account">
-                xóa tài khoản
-              </button>
-              <button class="delete_all_novel">
-                xóa tất cả truyện
-              </button>
-            </div>
-          </div>
-          <!-- account -->
-          <!-- account -->
-          <div class="account">
-            <div class="left_gr">
-              <div class="avt_container">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT38_RZGZ4eAVsF9WEM3XcKRGjdpP2nN4wkcDmLOSEGf5r7CO5Qyq-tdBLP7nFho_U8HoA&usqp=CAU" alt="">
-              </div>
-              <h2>nguyen van lu</h2>
-            </div>
-            <div class="right_gr">
-              <button class="delete_account">
-                xóa tài khoản
-              </button>
-              <button class="delete_all_novel">
-                xóa tất cả truyện
-              </button>
-            </div>
-          </div>
-          <!-- account -->
 
 
         </div>

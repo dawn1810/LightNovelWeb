@@ -67,7 +67,7 @@ const webRouter = (app) => {
   );
 
   // admin index page ________________________________________________________________________________________________________________________
-  router.get("/admin", func_controller.checkCookieLoglUser, renderAdmin.admin);
+  router.get("/admin", func_controller.checkCookieLoglUser,func_controller.checkAdmin, renderAdmin.admin);
 
   // account manager page ________________________________________________________________________________________________________________________
   router.get(

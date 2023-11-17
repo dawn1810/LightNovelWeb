@@ -9,7 +9,10 @@ const server = require("../vip_pro_lib");
 const secretKey = "5gB#2L1!8*1!0)$7vF@9";
 
 const { queryAsync } = require("../dbmysql");
-const authenticationKey = Buffer.from(secretKey.padEnd(32, "0"), "utf8").toString("hex");
+const authenticationKey = Buffer.from(
+  secretKey.padEnd(32, "0"),
+  "utf8"
+).toString("hex");
 const storage = NodePersist.create({
   // index
   dir: ".temp",
@@ -597,7 +600,10 @@ const api_uploadNovel = async (req, res) => {
       const currentDate = new Date();
 
       // Format the date in MySQL-compatible format
-      const formattedDate = currentDate.toISOString().slice(0, 19).replace("T", " ");
+      const formattedDate = currentDate
+        .toISOString()
+        .slice(0, 19)
+        .replace("T", " ");
 
       const author = await queryAsync(`
       SELECT id FROM tac_gia
@@ -711,7 +717,10 @@ const api_update_uploadNovel = async (req, res) => {
     const currentDate = new Date();
 
     // Format the date in MySQL-compatible format
-    const formattedDate = currentDate.toISOString().slice(0, 19).replace("T", " ");
+    const formattedDate = currentDate
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
 
     await queryAsync(`
     UPDATE truyen
@@ -904,7 +913,10 @@ const api_cancle = async (req, res) => {
           }
         );
         let new_resual = await storage.getItem("novellist");
-        storage.setItem("novellist", await func_controller.deleteItemsById(new_resual, data.id));
+        storage.setItem(
+          "novellist",
+          await func_controller.deleteItemsById(new_resual, data.id)
+        );
       } else {
         res.sendStatus(404);
       }
@@ -921,30 +933,42 @@ const api_cancle = async (req, res) => {
 
 const api_updateInfo = async (req, res) => {
   try {
+    const account = req.session.user;
     const data = req.body;
     let avt_var = data.img;
     if (isBase64(data.img)) {
       avt_var = await compressImageBase64(data.img, 5);
-    }
+  }
 
-    let dataa = await queryAsync(
-      `SELECT * FROM thongtin_nguoidung WHERE thongtin_nguoidung.id=${data.usr}`
-    );
-    console.log(`SYSTEM CÁI NÀY TAO TEST SQL| ${JSON.stringify(dataa)}`);
+    await queryAsync(`
+      UPDATE thongtin_nguoidung
+      SET 
+        ten_hien_thi = '${data.hoten}',
+        anh_dai_dien = '${avt_var}',
+        gioi_tinh = ${data.sex},
+      WHERE id_tai_khoan = ${account.id}
+    `);
 
-    await server.update_one_Data(
-      "tt_nguoi_dung",
-      { _id: data.usr },
-      {
-        $set: {
-          email: data.email,
-          displayName: data.hoten,
-          avatarUrl: avt_var,
-          sex: data.sex,
-        },
-      }
-    );
-    console.log(`ID GỬI KIỂU CŨ ${data.usr}`);
+    await queryAsync(`
+      UPDATE taikhoan_nguoidung
+      SET 
+        email = '${data.email}'
+      WHERE id = ${account.id}
+    `);
+
+    // await server.update_one_Data(
+    //   "tt_nguoi_dung",
+    //   { _id: data.usr },
+    //   {
+    //     $set: {
+    //       email: data.email,
+    //       displayName: data.hoten,
+    //       avatarUrl: avt_var,
+    //       sex: data.sex,
+    //     },
+    //   }
+    // );
+    // console.log(`ID GỬI KIỂU CŨ ${data.usr}`);
     res.sendStatus(200);
   } catch (err) {
     console.log("SYSTEM | UPDATE INFO | ERROR | ", err);
