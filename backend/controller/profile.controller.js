@@ -102,15 +102,6 @@ const processNovels = async function (req, res, id_truyen) {
     `);
     let idListlikeNovels = [];
     for (let novel of likeNovels) {
-      // if (!novel) {
-      //   await server.update_one_Data(
-      //     "tt_nguoi_dung",
-      //     { _id: account.id },
-      //     {
-      //       $pull: { likeNovels: id },
-      //     }
-      //   );
-      // } else {
       idListlikeNovels.push(novel.id);
 
       novel.update_date = func_controller.calTime(novel.update_date);

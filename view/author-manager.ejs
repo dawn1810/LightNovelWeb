@@ -7,325 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://kit.fontawesome.com/b8977956b3.js" crossorigin="anonymous"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
   <title>Home</title>
   <script>
     const currentURL = window.location.origin;
   </script>
-  <style>
-    .modal_wrap3 {
-      display: flex;
-      flex-direction: column;
-      align-content: center;
-      align-items: center;
-    }
-
-    .form3 {
-      margin: 1rem;
-      width: 80%;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      border-radius: 15px;
-      background-color: var(--header-background);
-      box-shadow: 0 0 0 4px var(--header-background), 2px 2px 4px 2px rgba(0, 0, 0, 0.5);
-      transition: 0.4s ease-in-out;
-      background-repeat: no-repeat;
-      background-size: cover;
-      align-items: center;
-
-    }
-
-    .form3 .heading {
-      padding-left: 0.8em;
-      color: #daa06d;
-      background-color: transparent;
-      letter-spacing: 0.5em;
-      text-align: center;
-      padding-top: 1em;
-      text-shadow: inset -1px -1px 1px #daa06d;
-    }
-
-    .admin_btn {
-      width: 20rem;
-      height: 7rem;
-      background-color: var(--item-color) !IMPORTANT;
-      font-size: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-content: center;
-      justify-content: center;
-      align-items: center;
-      border-radius: 1rem;
-      margin: 4rem;
-    }
-
-    .admin_btn i {
-      padding: 1rem;
-      font-size: 3rem;
-    }
-
-    .author_status {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      flex-direction: column;
-      justify-content: flex-start;
-    }
-
-    .avt_container {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      overflow: hidden;
-      margin-right: 10px;
-    }
-
-    .avt_container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .account {
-      width: 75%;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      /* align-content: center; */
-      align-items: center;
-    }
-
-    .left_gr {
-      display: flex;
-      align-items: center;
-    }
-
-    .left_gr h2 {
-      color: var(--header-text);
-      font-weight: 600;
-    }
-
-    .right_gr button {
-      background-color: var(--item-color) !important;
-      padding: 1rem;
-      border-radius: 0.7rem;
-      font-size: 1rem;
-      color: var(--var(--login-btn)-text);
-    }
-
-    .previous_page {
-      margin-top: 10vh;
-      background-color: var(--header-background);
-      width: 80%;
-      height: 1.5rem;
-      border-radius: 1rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      color: var(--var(--login-btn)-text);
-      padding: 1.3rem;
-    }
-
-    .author_status {
-      display: flex;
-      width: 100%;
-      flex-direction: row;
-    }
-
-    .status {
-      flex: 1;
-    }
-
-    .avt_space {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .author_avt_container {
-      width: 15rem;
-      height: 20rem;
-      overflow: hidden;
-    }
-
-    .author_ {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .anime_name {
-      color: var(--login-btn);
-      font-size: 1.5rem;
-    }
-
-    .status-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .info {
-      width: 60%;
-      text-align: center;
-      /* margin: auto; */
-      display: flex;
-      color: var(--login-btn);
-      height: 12rem;
-    }
-
-    .author_nvlist {
-      flex: 2.5;
-    }
-
-    .status_btn {
-      padding: 1rem;
-      background-color: var(--button-colors) !important;
-      font-size: 1.2rem;
-      border-radius: 0.3rem;
-      width: 45%;
-    }
-
-    .author_btn_container {
-      gap: 0.5rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 0.5rem;
-    }
-
-    .author_nvlist_btn_container {
-      display: flex;
-      justify-content: space-between;
-      height: 3rem;
-      align-items: center;
-      flex-wrap: nowrap;
-      margin: 1rem;
-    }
-
-    .author_nvlist_btn_container button {
-      padding: 1rem;
-      background-color: var(--button-colors) !important;
-      font-size: 1rem;
-      border-radius: 0.3rem;
-    }
-
-    .author_nvlist {
-      width: 100%;
-      height: 100%;
-    }
-
-    .author_nvlist_btn {
-      width: 11rem;
-      height: 4rem;
-    }
-
-    .status {
-      box-shadow: 6px 0px 11px #5d5959;
-    }
-
-    .followed-item {
-      position: relative;
-      display: flex;
-      justify-content: space-between;
-      background-color: var(--element-color);
-      margin: 30px;
-      padding: 10px;
-      align-content: center;
-      flex-wrap: nowrap;
-      flex-direction: row;
-      align-items: center;
-    }
-
-    .avt {
-      width: 15%;
-      padding-left: 1%;
-    }
-
-    .name-container {
-      width: 100%;
-      padding: 0 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-
-    .name-container_img {
-      width: 20%;
-      height: 12em;
-      overflow: hidden;
-      border-radius: 10px;
-    }
-
-    .name-container img {
-      /* margin: 13px 0; */
-      width: 100%;
-      height: 100%;
-      object-position: 50% 100%;
-      object-fit: cover;
-    }
-
-    .delete-follow {
-      height: 40px;
-      border-radius: 10px;
-      background-color: var(--button-colorss) !important;
-      color: var(--text-color);
-      cursor: pointer;
-    }
-
-    .information_name {
-      color: var(--element-color);
-    }
-
-    .information_name h3 {
-      color: var(--text-color);
-    }
-
-    .name-novel p {
-      margin: 0;
-      text-align: justify;
-    }
-
-    .name-novel {
-      width: 95%;
-      height: 12em;
-      display: flex;
-      flex-direction: column;
-      margin-left: 20px;
-      justify-content: space-between;
-    }
-
-    .name-novel h2 {
-      text-transform: capitalize;
-      width: 95%;
-    }
-
-    .name-novel p {
-      /* height: 70%; */
-      word-wrap: break-word;
-      white-space: normal;
-      overflow: hidden;
-      display: -webkit-box;
-      text-overflow: ellipsis;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      line-height: 20px;
-    }
-
-    .last-time-container {
-      margin: 18px 10px;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-    }
-
-    .name-novel-top {
-      display: flex;
-      justify-content: space-between;
-    }
-  </style>
+  <link rel="stylesheet" href="../src/CSS/author_manager.css">
 </head>
 
 <body>
@@ -334,9 +22,7 @@
   <%- include(headerFile) %>
   <div class="modal3" style="display: block;">
     <div class="modal_wrap3">
-      <div class="previous_page">
-        <i class="fa-solid fa-arrow-left"></i>
-      </div>
+     
       <form class="form3" id="form1">
         <div class="author_status">
           <div class="status">
@@ -345,6 +31,13 @@
             <div class="avt_space">
               <div class="author_avt_container">
                 <img src="https://m.media-amazon.com/images/M/MV5BZTIxMzBhNzYtY2NiZS00MGVlLWFmYjEtYWJlMjUyZjhmOThmXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg" alt="" class="author_">
+                <div class="truyen_info">
+                  <p>Người đăng tải: <span>Tappei Nagatsuki</span></p>
+                  <p>Thể loại: <span>Isekai, Fantasy</span></p>
+                  <p>Tổng số chương: <span>29 chaps </span></p>
+
+                  <button class="status_btn"><a href="">Đọc truyện</a></button>
+                </div>
               </div>
               <span class="anime_name">
                 Re: zero. Starting life in another world
@@ -355,12 +48,10 @@
 
             <div class="status-content">
               <div class="info">
-                Người đăng tải: Tappei Nagatsuki
-                Thể loại: Isekai, Fantasy
-                Tổng số chương: 29 chaps
-                Lượt xem: 9999 views
-                Lượt yêu thích: 9999 likes
-                Lần cuối cập nhật: 2 ngày trước
+          
+                <div class="chart">
+                  <canvas id="myChart"></canvas>
+                </div>
               </div>
               <div class="author_btn_container">
                 <button class="status_btn delete_novel">Xóa truyện</button>
@@ -376,40 +67,56 @@
                 <button class="author_nvlist_btn addnovel">Thêm truyện</button>
                 <button class="author_nvlist_btn delete_novel">Xóa truyện đã chọn</button>
               </div>
-              <button class="sort">
-                <i class="fa-solid fa-filter"></i>
-              </button>
+            <div class="select">
+              <select name="" id="">
+                <option value="">Chọn</option>
+                <option value="">Mới nhất</option>
+                <option value="">Cũ nhất</option>
+                <option value="">Lượt xem cao nhất</option>
+                <option value="">Lượt xem thấp nhất</option>
+              </select>
+            </div>
             </div>
             <div class="author_nvlist_container">
 
+              <% for (let i=0; i < 3; i++) { %> 
                 <!-- item -->
-              <div class="followed-item" id="">
+                <div class="followed-item" id="">
 
-                <div class="name-container">
+                  <div class="name-container">
 
-                  <div class="name-container_img">
-                    <img src="https://gamek.mediacdn.vn/133514250583805952/2022/4/26/pic2-1650946993680394357604.jpeg" alt="" class="avt" />
-                  </div>
-
-                  <div class="name-novel">
-                    <div class="name-novel-top">
-                      <h2><a href="https://gamek.mediacdn.vn">Re: zero. Starting life in another world</a>
-                      </h2>
-                      <button class="delete-follow delete_f"><i class="fa-solid fa-paperclip"></i></button>
+                    <div class="name-container_img">
+                      <img src="https://gamek.mediacdn.vn/133514250583805952/2022/4/26/pic2-1650946993680394357604.jpeg" alt="" class="avt" />
                     </div>
-                    <p>
-                      sech
-                    </p>
-                    <div class="last-time-container">
-                      <div class="chapter"><a href="">Chap
-                          3</a></div>
-                      <div class="time">20h trước</div>
+
+                    <div class="name-novel">
+                      <div class="name-novel-top">
+                        <h2><a href="https://gamek.mediacdn.vn">Re: zero. Starting life in another world</a>
+                        </h2>
+                        <button class="delete-follow delete_f"><i class="fa-solid fa-paperclip"></i></button>
+                      </div>
+                      <p>
+                        sech
+                      </p>
+                      <div class="last-time-container">
+                        <div class="chapter"><a href="">Chap
+                            3</a></div>
+                        <div class="time">20h trước</div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <!-- item -->
+                <!-- item -->
+                <% }%>
 
+                
+                
+            </div>
+            
+            <div class="pagination_btn_gr">
+              <button class="previous_page"><i class="fa-solid fa-arrow-left"></i></button>
+              <input type="text" class="find_page">
+              <button class="next_page"><i class="fa-solid fa-arrow-right"></i></button>
             </div>
           </div>
         </div>
@@ -554,5 +261,42 @@
 
   </div>
 </div>
+<script src="/src/JS/author-manager.js"></script>
+<script>
+  // 2. Tạo dữ liệu cho biểu đồ
+  const data = {
+    labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6'],
+    datasets: [{
+      label: 'Lượt xem',
+      data: [500, 1000, 750, 1200, 900, 1500],
+      backgroundColor: 'rgba(0, 123, 255, 0.5)',
+      borderColor: 'rgba(0, 123, 255, 1)',
+      borderWidth: 1
+    },
+    {
+            label: 'Lượt thích',
+            data: [800, 1200, 650, 1100, 750, 1400],
+            fill: false,
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+          }
+  ]
+  };
 
+  // 3. Cấu hình biểu đồ
+  const config = {
+    type: 'line',
+    data: data,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  };
+
+  // 4. Vẽ biểu đồ
+  var myChart = new Chart(document.getElementById('myChart'), config);
+</script>
 </html>

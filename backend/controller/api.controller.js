@@ -7,6 +7,12 @@ const func_controller = require("./func.controller");
 const NodePersist = require("node-persist");
 const server = require("../vip_pro_lib");
 const secretKey = "5gB#2L1!8*1!0)$7vF@9";
+const {
+  deleteFileFromDrive,
+  downloadFileFromDriveforUser,
+  uploadFileToDrivebase64,
+  getDriveFileLinkAndDescription,
+} = require("./google.controller");
 
 const { queryAsync } = require("../dbmysql");
 const authenticationKey = Buffer.from(
@@ -420,6 +426,7 @@ const api_login = async (req, res) => {
           const user = {
             id: id_user,
             username: data.usr,
+            role: 0,
           };
           req.session.user = user;
 
@@ -437,8 +444,15 @@ const api_login = async (req, res) => {
       const n_result = await queryAsync(
         `SELECT * FROM taikhoan_nguoidung WHERE ten_tai_khoan= '${data.usr}' AND mat_khau = '${data.pass}'`
       );
+      const role_u = await queryAsync(
+        `SELECT role FROM thongtin_nguoidung WHERE id_tai_khoan= '${n_result[0].id}'`
+      );
       if (n_result.length != 0) {
-        req.session.user = { id: n_result[0].id, username: data.usr };
+        req.session.user = {
+          id: n_result[0].id,
+          username: data.usr,
+          role: role_u[0].role,
+        };
         return res.sendStatus(200);
       } else {
         // res.writeHead(403, { "Content-Type": "text/plain" });
@@ -795,7 +809,7 @@ const api_editNovel = async (req, res) => {
       let remove_index = parseInt(data.remove_list[i]);
       console.log(remove_index);
       // delete remove id file from drive and remove id from chapid:
-      await server.deleteFileFromDrive(new_chap_ids.splice(remove_index, 1)[0]);
+      await deleteFileFromDrive(new_chap_ids.splice(remove_index, 1)[0]);
       // remove name chap from name chaps
       new_name_chaps.splice(remove_index, 1);
     }
@@ -804,7 +818,7 @@ const api_editNovel = async (req, res) => {
     for (let i = 0; i < data.edit_index.length; i++) {
       let change_index = parseInt(data.edit_index[i]);
       // delete old id file from drive:
-      await server.deleteFileFromDrive(new_chap_ids[change_index]);
+      await deleteFileFromDrive(new_chap_ids[change_index]);
       // replace old id with new index:
       new_chap_ids[change_index] = data.chap_ids[i];
     }
@@ -885,7 +899,7 @@ const api_cancle = async (req, res) => {
   try {
     if (data.status == "cancel") {
       for (const id of data.chap_ids) {
-        await server.deleteFileFromDrive(id);
+        await deleteFileFromDrive(id);
       }
 
       res.sendStatus(200);
@@ -896,7 +910,7 @@ const api_cancle = async (req, res) => {
 
       // xóa file trên drive
       for (const id of result.chap_ids) {
-        await server.deleteFileFromDrive(id);
+        await deleteFileFromDrive(id);
       }
 
       // xóa truyện trên server
@@ -938,37 +952,27 @@ const api_updateInfo = async (req, res) => {
     let avt_var = data.img;
     if (isBase64(data.img)) {
       avt_var = await compressImageBase64(data.img, 5);
-  }
-
+    }
+    const imgdata = await uploadFileToDrivebase64(avt_var)
+    // const imgdata = await getDriveFileLinkAndDescription();
+    console.log(imgdata);
     await queryAsync(`
       UPDATE thongtin_nguoidung
       SET 
         ten_hien_thi = '${data.hoten}',
         anh_dai_dien = '${avt_var}',
-        gioi_tinh = ${data.sex},
-      WHERE id_tai_khoan = ${account.id}
+        gioi_tinh = ${data.sex}
+      WHERE id_tai_khoan = '${account.id}';
     `);
 
     await queryAsync(`
       UPDATE taikhoan_nguoidung
       SET 
         email = '${data.email}'
-      WHERE id = ${account.id}
+      WHERE id = '${account.id}'
+      AND login_way <> 'google';
     `);
 
-    // await server.update_one_Data(
-    //   "tt_nguoi_dung",
-    //   { _id: data.usr },
-    //   {
-    //     $set: {
-    //       email: data.email,
-    //       displayName: data.hoten,
-    //       avatarUrl: avt_var,
-    //       sex: data.sex,
-    //     },
-    //   }
-    // );
-    // console.log(`ID GỬI KIỂU CŨ ${data.usr}`);
     res.sendStatus(200);
   } catch (err) {
     console.log("SYSTEM | UPDATE INFO | ERROR | ", err);
@@ -978,31 +982,37 @@ const api_updateInfo = async (req, res) => {
 
 const api_changePass = async (req, res) => {
   try {
+    const account = req.session.user;
     const data = req.body;
-    const decodeList = func_controller.decode(req.cookies.account);
-    // console.log(`SYSTEM | CHANGE_PASSWORD | Dữ liệu đã giải mã ${decodeList}`);
-    // decodeList = authenticationKey:id:pass
-    if (decodeList[0] == authenticationKey) {
-      console.log("SYSTEM | CHANGE_PASSWORD |", data);
-      const n_result = await server.find_one_Data("dang_nhap", {
-        _id: decodeList[1],
-      });
-      if (data["Old-Password"] == n_result.pass) {
-        await server.update_one_Data(
-          "dang_nhap",
-          { _id: decodeList[1] },
-          {
-            $set: {
-              pass: data["new-Password"],
-            },
-          }
-        );
-        res.sendStatus(200);
-      } else {
-        res.status(403).send("Sai pass cũ");
-      }
+    // console.log("SYSTEM | CHANGE_PASSWORD |", data);
+    const result = await queryAsync(`
+    SELECT mat_khau as pass
+    FROM taikhoan_nguoidung
+    WHERE id = '${account.id}'
+    `);
+
+    // const n_result = await server.find_one_Data("dang_nhap", {
+    //   _id: decodeList[1],
+    // });
+    if (data["Old-Password"] == result.pass) {
+      await queryAsync(`
+      UPDATE taikhoan_nguoidung
+      SET 
+        mat_khau = '${data["new-Password"]}'
+      WHERE id = '${account.id}';
+      `);
+      // await server.update_one_Data(
+      //   "dang_nhap",
+      //   { _id: decodeList[1] },
+      //   {
+      //     $set: {
+      //       pass: data["new-Password"],
+      //     },
+      //   }
+      // );
+      res.sendStatus(200);
     } else {
-      res.status(404).send("Sai xác thực");
+      res.status(403).send("Sai pass cũ");
     }
   } catch (err) {
     console.log("SYSTEM | UPDATE INFO | ERROR | ", err);
@@ -1013,8 +1023,25 @@ const api_changePass = async (req, res) => {
 const api_downloadChap = async (req, res) => {
   const data = req.body;
   console.log("SYSTEM | DOWNLOAD CHAPTER |", data);
-  server.downloadFileFromDriveforUser(data.id, res);
+  downloadFileFromDriveforUser(data.id, res);
 };
+
+const api_get_novel = async (req, res) => {
+  console.log("SYSTEM | GET_NOVEL |", req.body);
+  try {
+    const offset = req.body.offset;
+    const n = req.body.n;
+    const result = await queryAsync(
+      `SELECT * FROM taikhoan_nguoidung ORDER BY id LIMIT ${n} OFFSET ${offset};`
+    );
+    console.log(JSON.stringify(result));
+    res.send(result);
+  } catch (error) {
+    console.error("Error in api_get_novel:", error);
+    res.status(200).send("không còn chương ");
+  }
+};
+
 module.exports = {
   api_search_more,
   api_advanced_search,
@@ -1036,4 +1063,5 @@ module.exports = {
   api_downloadChap,
   api_cancle,
   authenticationKey,
+  api_get_novel,
 };

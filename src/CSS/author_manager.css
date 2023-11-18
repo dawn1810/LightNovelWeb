@@ -1,0 +1,377 @@
+.modal_wrap3 {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+.modal3 {
+  margin-top: 80px;
+}
+
+.form3 {
+  margin: 1rem;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 15px;
+  background-color: var(--header-background);
+  box-shadow: 0 0 0 4px var(--header-background),
+    2px 2px 4px 2px rgba(0, 0, 0, 0.5);
+  transition: 0.4s ease-in-out;
+  background-repeat: no-repeat;
+  background-size: cover;
+  align-items: center;
+  height: 40rem;
+}
+
+.form3 .heading {
+  padding-left: 0.8em;
+  color: #daa06d;
+  background-color: transparent;
+  letter-spacing: 0.5em;
+  text-align: center;
+  padding-top: 1em;
+  text-shadow: inset -1px -1px 1px #daa06d;
+}
+
+.admin_btn {
+  width: 20rem;
+  height: 7rem;
+  background-color: var(--item-color) !important;
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  margin: 4rem;
+}
+
+.admin_btn i {
+  padding: 1rem;
+  font-size: 3rem;
+}
+
+.author_status {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+}
+
+.avt_container {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.avt_container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.account {
+  width: 75%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* align-content: center; */
+  align-items: center;
+}
+
+.left_gr {
+  display: flex;
+  align-items: center;
+}
+
+.left_gr h2 {
+  color: var(--header-text);
+  font-weight: 600;
+}
+
+.right_gr button {
+  background-color: var(--item-color) !important;
+  padding: 1rem;
+  border-radius: 0.7rem;
+  font-size: 1rem;
+  color: var(--var(--login-btn)-text);
+}
+
+.author_status {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+}
+
+.status {
+  height: 97%;
+  border-radius: 20px;
+  width: 35%;
+  box-shadow: 6px 0px 11px #5d5959;
+}
+
+.avt_space {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.author_avt_container {
+    height: 15rem;
+    display: flex;
+    padding: 10px 0;
+    gap: 20px;
+}
+.truyen_info p{
+    color: var(--black-text);
+}
+.truyen_info button{
+    width: 80%;
+}
+
+.author_ {
+  width: 50%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.anime_name {
+  color: var(--login-btn);
+  font-size: 1.5rem;
+}
+
+.status-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info {
+  text-align: center;
+  /* margin: auto; */
+  color: var(--login-btn);
+  /* height: 14rem; */
+}
+.info p {
+  margin: 0;
+}
+
+.author_nvlist {
+  flex: 2.5;
+}
+
+.status_btn {
+  padding: 10px;
+  background-color: var(--button-colors) !important;
+  font-size: 1.2rem;
+  border-radius: 0.3rem;
+  width: 45%;
+}
+.chart {
+  width: 300px;
+  height: 170px;
+}
+
+.author_btn_container {
+  gap: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0.5rem;
+}
+
+.author_nvlist_btn_container {
+  display: flex;
+  justify-content: space-between;
+  height: 3rem;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin: 1rem;
+}
+
+.author_nvlist_btn_container button {
+  padding: 1rem;
+  background-color: var(--button-colors) !important;
+  font-size: 1rem;
+  border-radius: 0.3rem;
+}
+
+select {
+    /* Reset Select */
+    appearance: none;
+    outline: 10px red;
+    border: 0;
+    box-shadow: none;
+    /* Personalize */
+    flex: 1;
+    padding: 0 1em;
+    color: #000;
+    background-color: var(--element-color);
+    background-image: none;
+    cursor: pointer;
+  }
+  /* Remove IE arrow */
+  select::-ms-expand {
+    display: none;
+  }
+  /* Custom Select wrapper */
+  .select {
+    position: relative;
+    display: flex;
+    width: 9em;
+    height: 2em;
+    border-radius: .25em;
+    overflow: hidden;
+  }
+  /* Arrow */
+  .select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 9px;
+    background-color: #34495e;
+    transition: .25s all ease;
+    pointer-events: none;
+  }
+  /* Transition */
+  .select:hover::after {
+    color: #f39c12;
+  }
+
+.author_nvlist {
+  width: 100%;
+  height: 100%;
+}
+
+.author_nvlist_btn {
+  width: 11rem;
+  height: 4rem;
+}
+
+.followed-item {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--element-color);
+  margin: 15px;
+  padding: 10px;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: center;
+}
+
+.avt {
+  width: 15%;
+  padding-left: 1%;
+}
+
+.name-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.name-container_img {
+  width: 10%;
+  height: 5em;
+  overflow: hidden;
+}
+
+.name-container img {
+  /* margin: 13px 0; */
+  width: 100%;
+  height: 100%;
+  object-position: 50% 100%;
+  object-fit: cover;
+}
+
+.delete-follow {
+  height: 40px;
+  border-radius: 10px;
+  background-color: var(--button-colorss) !important;
+  color: var(--black-text);
+  cursor: pointer;
+}
+
+.information_name {
+  color: var(--element-color);
+}
+
+.information_name h3 {
+  color: var(--text-color);
+}
+
+.name-novel p {
+  margin: 0;
+  text-align: justify;
+}
+
+.name-novel {
+  width: 95%;
+  height: 4em;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  justify-content: space-between;
+}
+
+.name-novel h2 {
+  text-transform: capitalize;
+  width: 95%;
+}
+
+.name-novel p {
+  /* height: 70%; */
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-height: 20px;
+}
+
+.last-time-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: var(--black-text);
+}
+
+.name-novel-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+}
+.author_nvlist_container {
+  height: 70%;
+}
+.pagination_btn_gr {
+  height: 3rem;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.find_page {
+  width: 3rem;
+  height: 2rem;
+  border: none;
+}
+.next_page {
+  font-size: 1.5rem;
+}
+.previous_page {
+  font-size: 1.5rem;
+}

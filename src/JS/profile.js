@@ -647,10 +647,12 @@ Save_btn.onclick = async function (e) {
 	const url = `${currentURL}/api/updateInfo`; // URL của máy chủ mục tiêu
 	let sex = 'null'
 	if (document.querySelector('#nam').checked) {
-		sex = 'nam'
+		sex = '1'
 	}
 	else if (document.querySelector('#nu').checked) {
-		sex = 'nu'
+		sex = '0'
+	} else {
+		sex = '2'
 	}
 	const postData = JSON.stringify({
 		// thông tin đăng ký

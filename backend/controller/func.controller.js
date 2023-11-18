@@ -1,10 +1,13 @@
 const crypto = require("crypto");
 const path = require("path");
-const {queryAsync} = require("../dbmysql");
+const { queryAsync } = require("../dbmysql");
 
 const server = require("../vip_pro_lib");
 const secretKey = "5gB#2L1!8*1!0)$7vF@9";
-const authenticationKey = Buffer.from(secretKey.padEnd(32, "0"), "utf8").toString("hex");
+const authenticationKey = Buffer.from(
+  secretKey.padEnd(32, "0"),
+  "utf8"
+).toString("hex");
 const multer = require("multer"); // Thư viện để xử lý file upload
 const NodePersist = require("node-persist"); // index
 const storage = NodePersist.create({
@@ -16,7 +19,9 @@ const uploadDirectory = path.join(".upload_temp", "files");
 const storage_file = multer.diskStorage({
   destination: function (req, file, cb) {
     if (!allowedMimeTypes.includes(file.mimetype)) {
-      console.log("SYSTEM | GET_NOVEL_LIST | ERROR | Lỗi định dạng file không đúng");
+      console.log(
+        "SYSTEM | GET_NOVEL_LIST | ERROR | Lỗi định dạng file không đúng"
+      );
 
       return cb(new Error("Invalid file type."), null);
     }
@@ -36,7 +41,11 @@ const upload = () => {
 function encrypt(data, secretKey) {
   const algorithm = "aes-256-cbc";
   const iv = crypto.randomBytes(16); // Generate a random IV
-  const cipher = crypto.createCipheriv(algorithm, Buffer.from(secretKey, "hex"), iv);
+  const cipher = crypto.createCipheriv(
+    algorithm,
+    Buffer.from(secretKey, "hex"),
+    iv
+  );
 
   let encryptedData = cipher.update(data, "utf8", "hex");
   encryptedData += cipher.final("hex");
@@ -51,7 +60,11 @@ function decrypt(encryptedDataWithIV, secretKey) {
   const algorithm = "aes-256-cbc";
   const iv = Buffer.from(encryptedDataWithIV.slice(0, 32), "hex"); // Extract IV from the encrypted data
   const encryptedData = encryptedDataWithIV.slice(32); // Extract the encrypted data without IV
-  const decipher = crypto.createDecipheriv(algorithm, Buffer.from(secretKey, "hex"), iv);
+  const decipher = crypto.createDecipheriv(
+    algorithm,
+    Buffer.from(secretKey, "hex"),
+    iv
+  );
 
   let decryptedData = decipher.update(encryptedData, "hex", "utf8");
   decryptedData += decipher.final("utf8");
@@ -67,15 +80,14 @@ async function checkCookieLoglUser(req, res, next) {
       req.session.user = req.user;
     }
     const user = req.session.user;
-    
     if (!user) {
       res.locals.avt =
-      "https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg";
+        "https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg";
       res.locals.username = "";
       res.locals.login_way = "null";
       next();
     } else {
-      console.log("SYSTEM | CHECK_COOKIE | User login", user);
+      // console.log("SYSTEM | CHECK_COOKIE | User login", user);
       const n_result = await queryAsync(
         `SELECT login_way, email FROM taikhoan_nguoidung WHERE id= '${user.id}'`
       );
@@ -84,7 +96,9 @@ async function checkCookieLoglUser(req, res, next) {
       );
       if (result.length != 0) {
         // neu dang nhap = google thi 2 bien avt va display name co gia tri, nhung login = tk,mk thi k co 2 bien nay
-        res.locals.avt = result[0].anh_dai_dien;
+        res.locals.avt = result[0].anh_dai_dien
+          ? result[0].anh_dai_dien
+          : "https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg";
         res.locals.username = result[0].ten_hien_thi;
         res.locals.user = result[0].id_tai_khoan;
         res.locals.sex = result[0].gioi_tinh;
@@ -114,15 +128,17 @@ async function checkCoookieIfOK(req, res, next) {
   }
 }
 async function checkAdmin(req, res, next) {
+  if (req.isAuthenticated()) {
+    req.session.user = req.user;
+  }
   const user = req.session.user;
+  console.log(user.id);
   const result = await queryAsync(
-    `SELECT * FROM thongtin_nguoidung WHERE role= '100' AND id_tai_khoan = '${user.id}'`
+    `SELECT * FROM thongtin_nguoidung WHERE role= 100 AND id_tai_khoan = '${user.id}'`
   );
   if (result.length != 0) {
-    
     next();
-  }
-  else {
+  } else {
     return res.redirect("/");
   }
 }
@@ -155,7 +171,11 @@ const getFirstAndLastDayOfMonth = () => {
   const currentDate = new Date();
 
   // Get the first day of the month
-  const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+  const firstDayOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    1
+  );
 
   // Move to the next month and get the last day of the current month
   currentDate.setMonth(currentDate.getMonth() + 1);
@@ -358,7 +378,10 @@ const getNovelList = async () => {
 };
 
 const set_cookies = (res, id, pass) => {
-  const encryptedString = encrypt(`${authenticationKey}:${id}:${pass}`, authenticationKey);
+  const encryptedString = encrypt(
+    `${authenticationKey}:${id}:${pass}`,
+    authenticationKey
+  );
   const oneYearFromNow = new Date();
   oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
   res.cookie("account", encryptedString, {
@@ -385,5 +408,5 @@ module.exports = {
   deleteItemsById,
   getNovelList,
   set_cookies,
-  checkAdmin
+  checkAdmin,
 };

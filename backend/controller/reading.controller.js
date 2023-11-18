@@ -29,26 +29,26 @@ function escapeHtml(text) {
 
 const renderReading =  async (req, res) => {
 	try {
-		let result = await server.find_all_Data({
-			table: "truyen",
-			query: { _id: new ObjectId(req.params.id) },
-			projection: {
-				_id: 0,
-				name: 1,
-				name_chaps: 1,
-				chap_ids: 1,
-				no_chapters: 1,
-			},
-			limit: 1
-		});
-		let dataa = await queryAsync(
-			`SELECT * FROM chuong WHERE thu_tu=${req.params.chap} && id_truyen=1`
+		// let result = await server.find_all_Data({
+		// 	table: "truyen",
+		// 	query: { _id: new ObjectId(req.params.id) },
+		// 	projection: {
+		// 		_id: 0,
+		// 		name: 1,
+		// 		name_chaps: 1,
+		// 		chap_ids: 1,
+		// 		no_chapters: 1,
+		// 	},
+		// 	limit: 1
+		// });
+		let data = await queryAsync(
+			`SELECT * FROM chuong WHERE thu_tu=${req.params.chap} && id_truyen=${req.params.id}`
 		);
 
-		let lay = await queryAsync(
-			`SELECT ten_chuong FROM chuong WHERE id_truyen=1`
+		let old_name_list = await queryAsync(
+			`SELECT ten_chuong FROM chuong WHERE id_truyen=2`
 		);
-		
+		// chuyen kieu du lieu cho giong mongo
 		function convertNewToOld(newData) {
 			var oldDataArray = [];
 			for (var i = 0; i < newData.length; i++) {
@@ -56,24 +56,21 @@ const renderReading =  async (req, res) => {
             }
 			return oldDataArray;
 		}
+		const chapter_names = convertNewToOld(old_name_list);
 		
 
-		if ((parseInt(result[0].no_chapters) <= parseInt(req.params.chap)) || (parseInt(req.params.chap) < 0)) {
-			res.status(404).send('Không tìm thấy chương!');
-			return;
-		}
-		const chap_content = await server.downloadFileFromDrive(String(result[0].chap_ids[parseInt(req.params.chap)]));	
-		const h = convertNewToOld(lay);
-		console.log(h.length);
-		console.log(result[0].no_chapters);
+		// if ((parseInt(result[0].no_chapters) <= parseInt(req.params.chap)) || (parseInt(req.params.chap) < 0)) {
+		// 	res.status(404).send('Không tìm thấy chương!');
+		// 	return;
+		// }
+		// const chap_content = await server.downloadFileFromDrive(String(result[0].chap_ids[parseInt(req.params.chap)]));	
 		res.render('readingpage.ejs', {
 			headerFile: 'header',
 			footerFile: 'footer',
-			name: dataa[0].ten_chuong,
-			no_chapters:result[0].no_chapters,
-			name_chaps: h,
-			name_chap: `${dataa[0].thu_tu}:${dataa[0].ten_chuong}`,
-			chap_content: dataa[0].noi_dung_chuong,
+			name: data[0].ten_chuong,
+			name_chaps: chapter_names,
+			name_chap: `${data[0].thu_tu}:${data[0].ten_chuong}`,
+			chap_content: data[0].noi_dung_chuong,
 			number_chap: req.params.chap,
 			id: req.params.id
 		});

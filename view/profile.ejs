@@ -128,11 +128,16 @@
 
       <div class="information_name_wrap">
         <h3>Email</h3>
-
-        <div class="information_name">
-          <input class="profile_input" type="email" id="email" value="<%= email %>" />
-          <span class="form-message-info"></span>
-        </div>
+        <% if (login_way === 'normal') {%>
+          <div class="information_name">
+            <input class="profile_input" type="email" id="email" value="<%= email %>" />
+            <span class="form-message-info"></span>
+          </div>
+        <% } else { %>
+          <div class="profile_input" type="text" id="email">
+            <%= email %>
+          </div>
+        <% } %>
 
       </div>
 
