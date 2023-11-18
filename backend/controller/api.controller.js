@@ -953,14 +953,13 @@ const api_updateInfo = async (req, res) => {
     if (isBase64(data.img)) {
       avt_var = await compressImageBase64(data.img, 5);
     }
-    const imgdata = await uploadFileToDrivebase64(avt_var)
-    // const imgdata = await getDriveFileLinkAndDescription();
-    console.log(imgdata);
+    const imgdata = await getDriveFileLinkAndDescription(await uploadFileToDrivebase64(avt_var));
+    c
     await queryAsync(`
       UPDATE thongtin_nguoidung
       SET 
         ten_hien_thi = '${data.hoten}',
-        anh_dai_dien = '${avt_var}',
+        anh_dai_dien = '${imgdata.fileLink}',
         gioi_tinh = ${data.sex}
       WHERE id_tai_khoan = '${account.id}';
     `);
@@ -1026,21 +1025,56 @@ const api_downloadChap = async (req, res) => {
   downloadFileFromDriveforUser(data.id, res);
 };
 
-const api_get_novel = async (req, res) => {
-  console.log("SYSTEM | GET_NOVEL |", req.body);
+const api_get_list_novel = async (req, res) => {
   try {
-    const offset = req.body.offset;
-    const n = req.body.n;
+    // Chuyển đổi giá trị offset và n sang kiểu số
+    const offset = parseInt(req.body.offset, 10);
+    const n = parseInt(req.body.n, 10);
+
+    // Kiểm tra xem giá trị có phải là số hay không
+    if (isNaN(offset) || isNaN(n)) {
+      res.status(400).json({ error: "Giá trị không hợp lệ" });
+      return;
+    }
+
     const result = await queryAsync(
-      `SELECT * FROM taikhoan_nguoidung ORDER BY id LIMIT ${n} OFFSET ${offset};`
+      'SELECT * FROM truyen ORDER BY ngay_cap_nhat LIMIT ? OFFSET ?',
+      [n, offset]
     );
-    console.log(JSON.stringify(result));
-    res.send(result);
+    console.log(result);
+
+    if (result && result.length > 0) {
+      res.status(200).json({ data: result });
+    } else {
+      res.status(404).json({ error: "Không tìm thấy chương" });
+    }
   } catch (error) {
-    console.error("Error in api_get_novel:", error);
-    res.status(200).send("không còn chương ");
+    console.error("Error in api_get_list_novel:", error);
+    res.status(500).json({ error: "Có lỗi xảy ra trên server" });
   }
 };
+
+const api_get_info_novel = async (req, res) => {
+  try {
+    // Chuyển đổi giá trị offset và n sang kiểu số
+    const idtruyen = parseInt(req.body.id, 10);
+    console.log(idtruyen);
+    const result = await queryAsync(
+      `SELECT truyen.*, tacgia.ten_tac_gia AS ten_tac_gia, GROUP_CONCAT(the_loai.ten_the_loai SEPARATOR ', ') AS ten_the_loai FROM truyen JOIN tacgia ON truyen.id_tac_gia = tacgia.id JOIN the_loai_truyen ON truyen.id = the_loai_truyen.id_truyen JOIN the_loai ON the_loai_truyen.id_the_loai = the_loai.id WHERE truyen.id = ${idtruyen} GROUP BY truyen.id ORDER BY ngay_cap_nhat LIMIT 1 ;`);
+    
+
+    if (result && result.length > 0) {
+      res.status(200).json({ data: result });
+    } else {
+      res.status(404).json({ error: "Không tìm thấy truyện" });
+    }
+  } catch (error) {
+    console.error("Error in api_get_list_novel:", error);
+    res.status(500).json({ error: "Có lỗi xảy ra trên server" });
+  }
+};
+
+
 
 module.exports = {
   api_search_more,
@@ -1063,5 +1097,6 @@ module.exports = {
   api_downloadChap,
   api_cancle,
   authenticationKey,
-  api_get_novel,
+  api_get_list_novel,
+  api_get_info_novel
 };

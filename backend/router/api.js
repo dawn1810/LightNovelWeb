@@ -92,9 +92,10 @@ const apiRouter = (app) => {
 
   // Thay đổi tứng chapters -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   router.post("/api/download_chap", api_router.api_downloadChap);
-  // lấy tài khoản trong admin
-  router.post("/api/api_get_novel", api_router.api_get_novel);
-
+  // lấy tài truyện trong admin
+  router.post("/api/api_get_novel", api_router.api_get_list_novel);
+  // lấy thông tin 1 truyện trong admin
+  router.post("/api/api_get_info_novel", api_router.api_get_info_novel);
 
   router.get(
     "*",

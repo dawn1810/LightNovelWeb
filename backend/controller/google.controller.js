@@ -139,6 +139,7 @@ const fs = require("fs");
 const { google } = require("googleapis");
 const NodePersist = require("node-persist");
 const path = require("path");
+const stream = require("stream");
 
 // Create a new Google Drive instance
 const drive = google.drive("v3");
@@ -306,20 +307,32 @@ const uploadFileToDrivebase64 = async (
   const base64Head = base64Data.substring(0, 30);
   const mimeType = determineMimeType(base64Head);
   const fileName = `file_${Date.now()}.${getExtensionFromMimeType(mimeType)}`;
+  const base64WithoutHeader = base64Data.replace(
+    /^data:image\/\w+;base64,/,
+    ""
+  );
 
   const fileMetadata = {
     name: fileName,
     parents: [id_folder],
     description: description,
   };
+  // Use Buffer.from directly and await it
+  const fileContent = Buffer.from(base64WithoutHeader, "base64");
 
   try {
+    // Create a readable stream from the buffer using stream.Readable
+    const bufferStream = new stream.Readable();
+    bufferStream.push(fileContent);
+    bufferStream.push(null);
+
+    // Create the file on Google Drive with the readable stream
     const res = await drive.files.create({
       auth,
       resource: fileMetadata,
       media: {
-        mimeType: mimeType,
-        body: Buffer.from(base64Data, "base64"),
+        mimeType: "image/jpeg", // Set the MIME type according to your chosen format
+        body: bufferStream,
       },
       fields: "id",
     });
@@ -329,20 +342,11 @@ const uploadFileToDrivebase64 = async (
       type: "anyone",
     };
 
+    // Add read permission for anyone
     await drive.permissions.create({
       fileId: res.data.id,
       resource: permission,
       fields: "id",
-      auth: auth,
-    });
-
-    // Cập nhật nội dung của tệp tin sau khi tải lên
-    await drive.files.update({
-      fileId: res.data.id,
-      media: {
-        mimeType: mimeType,
-        body: Buffer.from(base64Data, "base64"),
-      },
       auth: auth,
     });
 
