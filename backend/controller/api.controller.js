@@ -662,11 +662,13 @@ const api_uploadNovel = async (req, res) => {
     for (let i = 0; i < data.genres.length; i++) {
       await queryAsync(`
         INSERT INTO the_loai_truyen (
+          id
           id_the_loai,
           id_truyen,
         )
         VALUES (
-          ${data.genres[0]},
+          '${uuidv4()}'
+          '${data.genres[i]}',
           '${novel_id}'
         )
         `);
@@ -948,6 +950,7 @@ const api_updateInfo = async (req, res) => {
     const imgdata = await getDriveFileLinkAndDescription(
       await uploadFileToDrivebase64(avt_var)
     );
+    // imgdata.fileLink la link hinh
 
     // update user information
     await queryAsync(`
@@ -1044,39 +1047,39 @@ const api_get_list_novel = async (req, res) => {
       res.status(400).json({ error: "Giá trị không hợp lệ" });
       return;
     }
-    let result =[]
-    switch(fill) {
-      case 1:  // if (x === 'value1')
-      result = await queryAsync(
-        "SELECT * FROM truyen ORDER BY ngay_cap_nhat DESC LIMIT ? OFFSET ?",
-        [n, offset]
-      );
+    let result = [];
+    switch (fill) {
+      case 1: // if (x === 'value1')
+        result = await queryAsync(
+          "SELECT * FROM truyen ORDER BY ngay_cap_nhat DESC LIMIT ? OFFSET ?",
+          [n, offset]
+        );
         break;
-    
-      case 2:  // if (x === 'value2')
+
+      case 2: // if (x === 'value2')
         result = await queryAsync(
           "SELECT * FROM truyen ORDER BY ngay_cap_nhat ASC LIMIT ? OFFSET ?",
           [n, offset]
         );
         break;
-        case 3:  // if (x === 'value2')
+      case 3: // if (x === 'value2')
         result = await queryAsync(
           "SELECT * FROM truyen ORDER BY luot_xem DESC  LIMIT ? OFFSET ?",
           [n, offset]
         );
         break;
-        case 4:  // if (x === 'value2')
+      case 4: // if (x === 'value2')
         result = await queryAsync(
           "SELECT * FROM truyen ORDER BY luot_xem ASC LIMIT ? OFFSET ?",
           [n, offset]
         );
         break;
-    
+
       default:
         //code here
-        break
+        break;
     }
-    
+
     console.log(result);
 
     if (result && result.length > 0) {
@@ -1110,6 +1113,55 @@ const api_get_info_novel = async (req, res) => {
   }
 };
 
+const update_state_novel = async (req, res) => {
+  try {
+    const idtruyen = parseInt(req.body.id, 10);
+    const state = req.body.state;
+    console.log(idtruyen);
+    if (isNaN(idtruyen)) {
+      console.error("Giá trị id không hợp lệ");
+      return res.status(400).json({ error: "Giá trị id không hợp lệ" });
+    }
+    const result = await queryAsync(
+      'UPDATE truyen SET trang_thai = ? WHERE id = ?',
+      [state, idtruyen]
+    );
+    if (result.affectedRows === 1) {
+      res.status(200).json({ success: true });
+    } else {
+      res.status(404).json({ error: "Không tìm thấy truyện để cập nhật" });
+    }
+  } catch (error) {
+    console.error("Error in update_state_novel:", error);
+    res.status(500).json({ error: "Có lỗi xảy ra trên server" });
+  }
+};
+
+
+//block_account
+const api_block_account = async (req, res) => {
+  try {
+    const id_acc = parseInt(req.body.id, 10);
+  
+    if (isNaN(id_acc)) {
+      console.error("Giá trị id không hợp lệ");
+      return res.status(400).json({ error: "Giá trị id không hợp lệ" });
+    }
+    const result = await queryAsync(
+      `UPDATE thongtin_nguoidung SET role = 0 WHERE id = ${id_acc}`,
+    );
+    if (result.affectedRows === 1) {
+      res.status(200).json({ success: true });
+    } else {
+      res.status(404).json({ error: "Không tìm thấy tài khoản để cập nhật" });
+    }
+  } catch (error) {
+    console.error("Error in update_state_novel:", error);
+    res.status(500).json({ error: "Có lỗi xảy ra trên server" });
+  }
+};
+
+
 module.exports = {
   api_search_more,
   api_advanced_search,
@@ -1133,4 +1185,6 @@ module.exports = {
   authenticationKey,
   api_get_list_novel,
   api_get_info_novel,
+  update_state_novel,
+  api_block_account
 };

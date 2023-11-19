@@ -708,7 +708,7 @@ add_new.onclick = function () {
   }
 };
 
-document.querySelector(".page5_info .next_btn").onclick = function () {
+document.querySelector(".page5_info .next_btn").onclick = async function () {
   if (
     novel_name.value != "" &&
     author_name.value != "" &&
@@ -724,6 +724,14 @@ document.querySelector(".page5_info .next_btn").onclick = function () {
 
     range__label.classList.remove("anima");
 
+    // set image from base64 to link
+    if (isBase64(document.querySelector(".page5_info_img .your-avt").src)) {
+      avt_var = await compressImageBase64(document.querySelector(".page5_info_img .your-avt").src, 5);
+    }
+    const imgdata = await getDriveFileLinkAndDescription(
+      await uploadFileToDrivebase64(avt_var)
+    );
+
     setTimeout(function () {
       range__label.classList.add("anima");
     }, 50);
@@ -738,7 +746,7 @@ document.querySelector(".page5_info .next_btn").onclick = function () {
     );
     sessionStorage.setItem(
       "novel_avt",
-      document.querySelector(".page5_info_img .your-avt").src
+      imgdata.fileLink
     );
   } else {
     // window.alert("Là một nhẫn giả chân chính hãy điển đủ thông tin ¯\(◉◡◔)/¯")
@@ -848,7 +856,7 @@ document.querySelector(".page5_chap .more_chap_btn").onclick = function () {
 			<h3>Thứ tự chương</h3>
 			<div class="information_name">
 				<input class="profile_input chap_num" type="number" id="name_novel"
-					placeholder="Nhập thứ tự chương(e.g. 1, 1.1, 1.5, 2,...)" />
+					value="${document.querySelectorAll('.page5_chap .chap_num').length}" readonly />
 			</div>
 		</div>
 

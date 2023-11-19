@@ -10,9 +10,6 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
   <title>Home</title>
-  <script>
-    const currentURL = window.location.origin;
-  </script>
   <link rel="stylesheet" href="../src/CSS/author_manager.css">
 </head>
 
@@ -35,7 +32,6 @@
                   <p>Người đăng tải: <span><%=truyen_info[0].ten_tac_gia%></span></p>
                   <p>Thể loại: <span><%=truyen_info[0].ten_the_loai%></span></p>
                   <p>Tổng số chương: <span><%=truyen_info[0].so_luong_chuong%></span></p>
-
                   <button class="status_btn"><a href="/reviews/<%=truyen_info[0].id%>">Đọc truyện</a></button>
                 </div>
               </div>
@@ -91,10 +87,9 @@
                 </div>
               </div>
               <div class="author_btn_container">
-                <button class="status_btn delete_novel">Xóa truyện</button>
-                <button class="status_btn delete_allchapter">Xóa tất cả chương</button>
-                <button class="status_btn add_new_chapter">Đăng tải chương</button>
-                <button class="status_btn delete_chapter">Xóa chương</button>
+                <button class="status_btn edit_novel">Chỉnh sửa</button>
+               
+                <button class="status_btn ban_novel">Khoá truyện</button>
               </div>
             </div>
           </div>
@@ -102,7 +97,7 @@
             <div class="author_nvlist_btn_container">
               <div class="btn_gr">
                 <button class="author_nvlist_btn addnovel">Thêm truyện</button>
-                <button class="author_nvlist_btn delete_novel">Xóa truyện đã chọn</button>
+              
               </div>
             <div class="select">
               <select name="" id="">

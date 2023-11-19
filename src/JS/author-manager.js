@@ -2,7 +2,7 @@ const find_page = document.querySelector(".find_page");
 const next_page = document.querySelector(".next_page");
 const previous_page = document.querySelector(".previous_page");
 const list_container = document.querySelector(".author_nvlist_container");
-
+const ban_novel = document.querySelector(".ban_novel");
 const info_truyen = document.querySelector(".status");
 document.addEventListener("DOMContentLoaded", function () {
   if (find_page.value <= 1) {
@@ -11,15 +11,15 @@ document.addEventListener("DOMContentLoaded", function () {
   find_page.addEventListener("keydown", function (event) {
     if (find_page.value <= 1) {
       previous_page.style.display = "none";
-    }else if (find_page.value>=1) {
+    } else if (find_page.value >= 1) {
       previous_page.style.display = "block";
     }
     if (event.key === "Enter") {
       event.preventDefault();
-      getListNovel((find_page.value-1)*4,select.value);
+      getListNovel((find_page.value - 1) * 4, select.value);
     }
   });
-  const select = document.querySelector('.select select ')
+  const select = document.querySelector(".select select ");
   let item_truyen = document.querySelectorAll(".followed-item");
   next_page.onclick = function (event) {
     if (find_page.value >= 1) {
@@ -27,25 +27,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     event.preventDefault();
     find_page.value = parseInt(find_page.value) + 1;
-    getListNovel((find_page.value-1)*4,select.value);
+    getListNovel((find_page.value - 1) * 4, select.value);
   };
   previous_page.onclick = function (event) {
     event.preventDefault();
     find_page.value = parseInt(find_page.value) - 1;
-    getListNovel((find_page.value-1)*4,select.value);
+    getListNovel((find_page.value - 1) * 4, select.value);
     if (find_page.value <= 1) {
       previous_page.style.display = "none";
     }
   };
 
-  click_truyen()
-  
+  click_truyen();
+
   select.onchange = function () {
-    console.log("haha")
-    getListNovel(0,select.value);
-  }
-
-
+    console.log("haha");
+    getListNovel(0, select.value);
+  };
 });
 
 const click_truyen = () => {
@@ -56,10 +54,9 @@ const click_truyen = () => {
       getNovel(id);
     };
   }
-}
+};
 
-
-async function getListNovel(offset,fill) {
+async function getListNovel(offset, fill) {
   const url = `${currentURL}/api/api_get_novel`;
 
   const requestOptions = {
@@ -70,7 +67,7 @@ async function getListNovel(offset,fill) {
     body: JSON.stringify({
       n: 4,
       offset: offset,
-      fill: fill
+      fill: fill,
     }),
   };
 
@@ -123,7 +120,7 @@ async function getListNovel(offset,fill) {
       // Gán toàn bộ chuỗi vào list_container
       list_container.innerHTML = novelListHTML;
       item_truyen = document.querySelectorAll(".followed-item");
-      click_truyen()
+      click_truyen();
     } else {
       alert("Có lỗi xảy ra: " + response.statusText);
     }
@@ -155,7 +152,8 @@ async function getNovel(id) {
       let novelListHTML = ""; // Tạo một chuỗi để tích hợp nội dung thẻ
 
       for (let i = 0; i < data["data"].length; i++) {
-        novelListHTML += `
+        if (data.data[0].trang_thai === "block") {
+          novelListHTML += `
         <!-- item -->
         <div class="avt_space">
         <div class="author_avt_container">
@@ -183,15 +181,48 @@ async function getNovel(id) {
                 </div>
               </div>
               <div class="author_btn_container">
-                <button class="status_btn delete_novel">Xóa truyện</button>
-                <button class="status_btn delete_allchapter">Xóa tất cả chương</button>
-                <button class="status_btn add_new_chapter">Đăng tải chương</button>
-                <button class="status_btn delete_chapter">Xóa chương</button>
+                <button class="status_btn edit_novel">Chỉnh sửa</button>
+                <button class="status_btn ban_novel" value='${data.data[0].id}'>Mở Khoá</button>
               </div>
             </div>
                 <!-- item -->`;
-      }
         
+        } else {
+          novelListHTML += `
+        <!-- item -->
+        <div class="avt_space">
+        <div class="author_avt_container">
+        <img src="https://m.media-amazon.com/images/M/MV5BZTIxMzBhNzYtY2NiZS00MGVlLWFmYjEtYWJlMjUyZjhmOThmXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg" alt="" class="author_">
+        <div class="truyen_info">
+          <p>Người đăng tải: <span>${data.data[0].ten_tac_gia}</span></p>
+          <p>Thể loại: <span>${data.data[0].ten_the_loai}</span></p>
+          <p>Tổng số chương: <span>${data.data[0].so_luong_chuong}</span></p>
+
+          <button class="status_btn"><a href="/reviews/${data.data[0].id}">Đọc truyện</a></button>
+        </div>
+      </div>
+      <span class="anime_name">
+        ${data.data[0].ten_truyen}
+      </span>
+      </div>
+
+
+
+            <div class="status-content">
+              <div class="info">
+          
+                <div class="chart">
+                  <canvas id="newChart"></canvas>
+                </div>
+              </div>
+              <div class="author_btn_container">
+                <button class="status_btn edit_novel">Chỉnh sửa</button>
+                <button class="status_btn ban_novel" value='${data.data[0].id}'>Khoá truyện</button>
+              </div>
+            </div>
+                <!-- item -->`;
+        }
+      }
 
       // Gán toàn bộ chuỗi vào list_container
       info_truyen.innerHTML = novelListHTML;
@@ -216,8 +247,8 @@ const chart = () => {
   }
 
   // Tạo biểu đồ mới trên canvas
-// Tạo lại context cho canvas
-// canvas.getContext('2d');
+  // Tạo lại context cho canvas
+  // canvas.getContext('2d');
   const data2 = {
     labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6"],
     datasets: [
@@ -254,3 +285,46 @@ const chart = () => {
   // 4. Vẽ biểu đồ
   var myChart = new Chart(canvas, config);
 };
+
+// ban novel
+
+ban_novel.onclick = function (event) {
+  event.preventDefault();
+  if(ban_novel.innerText === "Khoá truyện") {
+    changeState(ban_novel.value, "block");
+    ban_novel.innerText="mở khoá"
+  }else{
+    changeState(ban_novel.value, "Đang Ra");
+    ban_novel.innerText="Khoá truyện"
+  }
+};
+
+async function changeState(id, state) {
+  const url = `${currentURL}/api/update_state_novel`;
+
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: id,
+      state: state,
+    }),
+  };
+
+  try {
+    const response = await fetch(url, requestOptions);
+
+    if (response.status === 200) {
+      return;
+    } else {
+      alert("Có lỗi xảy ra: " + response.statusText);
+    }
+  } catch (error) {
+    console.log("Error:", error);
+  }
+}
+
+
+

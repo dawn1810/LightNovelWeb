@@ -7,133 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://kit.fontawesome.com/b8977956b3.js" crossorigin="anonymous"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
   <title>Home</title>
-  <script>
-    const currentURL = window.location.origin;
-  </script>
-  <style>
-    .modal_wrap3 {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-content: center;
-      align-items: center;
-    }
-
-    .form3 {
-      overflow-y: scroll;
-    overflow-x: hidden;
-    margin: 1rem;
-    width: 76vw;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-bottom: 6em;
-    border-radius: 15px;
-    background-color: var(--header-background);
-    box-shadow: 0 0 0 4px var(--header-background), 2px 2px 4px 2px rgba(0, 0, 0, 0.5);
-    transition: 0.4s ease-in-out;
-    background-repeat: no-repeat;
-    background-size: cover;
-    align-items: center;
-    padding: 0 1rem;
-    height: 60rem;
-    }
-
-    .form3 .heading {
-      padding-left: 0.8em;
-      color: #daa06d;
-      background-color: transparent;
-      letter-spacing: 0.5em;
-      text-align: center;
-      padding-top: 1em;
-      text-shadow: inset -1px -1px 1px #daa06d;
-    }
-
-    .admin_btn {
-      width: 20rem;
-      height: 7rem;
-      background-color: var(--item-color) !IMPORTANT;
-      font-size: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-content: center;
-      justify-content: center;
-      align-items: center;
-      border-radius: 1rem;
-      margin: 4rem;
-    }
-
-    .admin_btn i {
-      padding: 1rem;
-      font-size: 3rem;
-    }
-
-    .account_list {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      flex-direction: column;
-      align-content: center;
-      justify-content: center;
-    }
-
-    .avt_container {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      overflow: hidden;
-      margin-right: 10px;
-    }
-
-    .avt_container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .account {
-      width: 75%;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      /* align-content: center; */
-      align-items: center;
-    }
-
-    .left_gr {
-      display: flex;
-      align-items: center;
-    }
-
-    .left_gr h2 {
-      color: var(--header-text);
-      font-weight: 600;
-    }
-
-    .right_gr button {
-      background-color: var(--item-color) !important;
-      padding: 1rem;
-      border-radius: 0.7rem;
-      font-size: 1rem;
-      color: var(--black-text);
-    }
-
-    .previous_page {
-      margin-top: 10vh;
-      background-color: var(--header-background);
-      width: 80%;
-      height: 1.5rem;
-      border-radius: 1rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      color: var(--black-text);
-      padding: 1rem;
-    }
-  </style>
+ <link rel="stylesheet" href="../src/CSS/account-manager.css">
 </head>
 
 <body>
@@ -148,8 +24,8 @@
       <form class="form3" id="form1">
         <div class="account_list">
           <% accounts.forEach(function(user) { %>
-            <!-- account -->
-          <div class="account">
+
+          <div class="account" id="<%=user.id%>">
             <div class="left_gr">
               <div class="avt_container">
                 <% if (user.anh_dai_dien) { %>
@@ -164,15 +40,43 @@
             </div>
             <input type="hidden" value='<%= user.id %>'>
             <div class="right_gr">
-              <button class="delete_account">
-                xóa tài khoản
-              </button>
-              <button class="delete_all_novel">
-                xóa tất cả truyện
-              </button>
+              <% if (user.role == 0) { %>
+
+                  <button class="block_account_f5 last">
+                    Mở khoá người dùng
+                  </button>
+                  <button class="author_btn none">
+                    Xoá quyền tác giả
+                  </button>
+               
+              <% } else if (user.last_role = 1 && user.role ==2) { %>
+                <button class="block_account">
+                  Khoá người dùng
+                </button>
+                <button class="author_btn_f5 last">
+                  Xoá quyền tác giả
+                </button>
+              <% } 
+              else if(user.role ==1) { %>
+                <button class="block_account">
+                  Khoá người dùng
+                </button>
+                <button class="author_btn_f5 last">
+                  Thêm quyền tác giả
+                </button>
+              <% } 
+              else { %>
+                <button class="block_account">
+                  Khoá người dùng
+                </button>
+                <button class="author_btn last">
+                  Xoá quyền tác giả
+                </button>
+              <% }
+              %>
             </div>
           </div>
-          <!-- account -->
+
           <% }); %>
 
 
@@ -319,5 +223,6 @@
 
   </div>
 </div>
+<script src="../src/JS/account-manager.js"></script>
 
 </html>

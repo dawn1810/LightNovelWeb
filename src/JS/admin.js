@@ -14,3 +14,4 @@ novel_manager.onclick = function (event) {
 
     window.location.href = `${crUrl}/auhtormanager`
 }
+
