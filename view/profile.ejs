@@ -105,25 +105,20 @@
     </div>
 
     <div class="info-wrapper-container">
-
-
-      <div class="information_name_wrap">
-        <h3>User</h3>
-        <div class="information_name">
-          <div class="profile_input" type="text" id="username">
-            <%= user %>
-          </div>
-        </div>
-      </div>
-
       <div class="information_name_wrap">
         <h3>Họ tên</h3>
-
         <div class="information_name">
           <input class="profile_input" type="text" id="fullname" value="<%= username %>" />
           <span class="form-message-info"></span>
         </div>
+      </div>
 
+      <div class="information_name_wrap">
+        <h3>Tên sáng tác (tác giả)</h3>
+        <div class="information_name">
+          <input class="profile_input" type="text" id="author_name" value="<%= author_name %>" />
+          <span class="form-message-info"></span>
+        </div>
       </div>
 
       <div class="information_name_wrap">
@@ -134,8 +129,9 @@
             <span class="form-message-info"></span>
           </div>
         <% } else { %>
-          <div class="profile_input" type="text" id="email">
-            <%= email %>
+          <div class="information_name">
+            <input class="profile_input" type="email" id="email" value="<%= email %>" readonly />
+            <span class="form-message-info"></span>
           </div>
         <% } %>
 
@@ -227,7 +223,7 @@
     <div class="Setting_pageWrapper page2" id="novel_following">
       <h2>Truyện yêu thích</h2>
       <div class="followed-container">
-        <% for (var i=0; i < like_novel.length; i++) { %>
+        <% for (var i = 0; i < like_novel.length; i++) { %>
         <div class="followed-item" id="<%=like_novel[i]%>">
 
           <div class="name-container">
@@ -430,7 +426,7 @@
               <div class="information_name_wrap">
                 <h3>Tác giả</h3>
                 <div class="information_name">
-                  <input class="profile_input author_name" type="text" required id="fullname" placeholder="Nhập tên tác giả" />
+                  <input class="profile_input author_name" type="text" required id="fullname" value="<%= author_name %>" readonly/>
                 </div>
               </div>
 
@@ -898,6 +894,10 @@
       });
     }
   </script>
+  <script>
+    // variable
+    let author_name_check = document.querySelector("#author_name").value;
+  </script>
   <script src="/src/JS/profile.js"></script>
 </body>
 <div class="modal">
@@ -1300,6 +1300,5 @@
 	}
     // upload novel page 2:
 </script>
-
 
 </html>

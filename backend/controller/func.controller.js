@@ -92,8 +92,13 @@ async function checkCookieLoglUser(req, res, next) {
         `SELECT login_way, email FROM taikhoan_nguoidung WHERE id= '${user.id}'`
       );
       const result = await queryAsync(
-        `SELECT * FROM thongtin_nguoidung WHERE id_tai_khoan= '${user.id}'`
+        `SELECT * FROM thongtin_nguoidung WHERE id_tai_khoan= '${user.id}'` 
+        // id của thàng này dc dùng ở phía dưới sửa để ý giúp mình thank bạn Long
       );
+      const author = await queryAsync(
+        `SELECT ten_tac_gia FROM tacgia WHERE id_nguoi_dung = '${result[0].id}'`
+      );
+
       if (result.length != 0) {
         // neu dang nhap = google thi 2 bien avt va display name co gia tri, nhung login = tk,mk thi k co 2 bien nay
         res.locals.avt = result[0].anh_dai_dien
@@ -104,6 +109,7 @@ async function checkCookieLoglUser(req, res, next) {
         res.locals.sex = result[0].gioi_tinh;
         res.locals.email = n_result[0].email;
         res.locals.login_way = n_result[0].login_way;
+        res.locals.author_name = author.length ? author[0].ten_tac_gia : undefined ;
         next();
       } else {
         res.locals.avt =

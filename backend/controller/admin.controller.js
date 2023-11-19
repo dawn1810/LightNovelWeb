@@ -22,11 +22,11 @@ const accountManager = async (req, res) => {
 
 const authortManager = async (req, res) => {
   const truyen = await queryAsync(
-    `SELECT id, so_luong_chuong, ten_truyen, anh_dai_dien,trang_thai FROM truyen ORDER BY ngay_cap_nhat LIMIT 4;`
+    `SELECT id, so_luong_chuong, ten_truyen, anh_dai_dien,trang_thai FROM truyen ORDER BY ngay_cap_nhat DESC LIMIT 4;`
   )
 
   const truyen_info = await queryAsync(
-    `SELECT truyen.*, tacgia.ten_tac_gia AS ten_tac_gia, GROUP_CONCAT(the_loai.ten_the_loai SEPARATOR ', ') AS ten_the_loai FROM truyen JOIN tacgia ON truyen.id_tac_gia = tacgia.id JOIN the_loai_truyen ON truyen.id = the_loai_truyen.id_truyen JOIN the_loai ON the_loai_truyen.id_the_loai = the_loai.id GROUP BY truyen.id ORDER BY ngay_cap_nhat LIMIT 1 ;`)
+    `SELECT truyen.*, tacgia.ten_tac_gia AS ten_tac_gia, GROUP_CONCAT(the_loai.ten_the_loai SEPARATOR ', ') AS ten_the_loai FROM truyen JOIN tacgia ON truyen.id_tac_gia = tacgia.id JOIN the_loai_truyen ON truyen.id = the_loai_truyen.id_truyen JOIN the_loai ON the_loai_truyen.id_the_loai = the_loai.id GROUP BY truyen.id ORDER BY ngay_cap_nhat DESC LIMIT 1 ;`)
 
 
 

@@ -2,7 +2,7 @@ const find_page = document.querySelector(".find_page");
 const next_page = document.querySelector(".next_page");
 const previous_page = document.querySelector(".previous_page");
 const list_container = document.querySelector(".author_nvlist_container");
-const item_truyen = document.querySelectorAll(".followed-item");
+
 const info_truyen = document.querySelector(".status");
 document.addEventListener("DOMContentLoaded", function () {
   if (find_page.value <= 1) {
@@ -16,41 +16,50 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     if (event.key === "Enter") {
       event.preventDefault();
-      getListNovel((find_page.value-1)*4);
+      getListNovel((find_page.value-1)*4,select.value);
     }
   });
-
+  const select = document.querySelector('.select select ')
+  let item_truyen = document.querySelectorAll(".followed-item");
   next_page.onclick = function (event) {
     if (find_page.value >= 1) {
       previous_page.style.display = "block";
     }
     event.preventDefault();
     find_page.value = parseInt(find_page.value) + 1;
-    getListNovel((find_page.value-1)*4);
+    getListNovel((find_page.value-1)*4,select.value);
   };
   previous_page.onclick = function (event) {
     event.preventDefault();
     find_page.value = parseInt(find_page.value) - 1;
-    getListNovel((find_page.value-1)*4);
+    getListNovel((find_page.value-1)*4,select.value);
     if (find_page.value <= 1) {
       previous_page.style.display = "none";
     }
   };
 
+  click_truyen()
+  
+  select.onchange = function () {
+    console.log("haha")
+    getListNovel(0,select.value);
+  }
 
-  for (const item of item_truyen) {
+
+});
+
+const click_truyen = () => {
+  for (const item of document.querySelectorAll(".followed-item")) {
     item.onclick = function () {
       const id = item.getAttribute("id");
       console.log(id);
       getNovel(id);
     };
   }
+}
 
 
-});
-
-
-async function getListNovel(offset) {
+async function getListNovel(offset,fill) {
   const url = `${currentURL}/api/api_get_novel`;
 
   const requestOptions = {
@@ -61,6 +70,7 @@ async function getListNovel(offset) {
     body: JSON.stringify({
       n: 4,
       offset: offset,
+      fill: fill
     }),
   };
 
@@ -91,7 +101,8 @@ async function getListNovel(offset) {
                       <div class="name-novel-top">
                         <h2><a href="https://gamek.mediacdn.vn">${data["data"][i].ten_truyen}</a>
                         </h2>
-                        <button class="delete-follow delete_f"><i class="fa-solid fa-paperclip"></i></button>
+                        <input type="checkbox" name="" id="">
+
                       </div>
                       <p>
                         sech
@@ -111,6 +122,8 @@ async function getListNovel(offset) {
 
       // Gán toàn bộ chuỗi vào list_container
       list_container.innerHTML = novelListHTML;
+      item_truyen = document.querySelectorAll(".followed-item");
+      click_truyen()
     } else {
       alert("Có lỗi xảy ra: " + response.statusText);
     }

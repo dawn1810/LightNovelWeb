@@ -198,7 +198,7 @@
 }
 
 .author_nvlist_btn_container button {
-  padding: 1rem;
+  padding: 10px;
   background-color: var(--button-colors) !important;
   font-size: 1rem;
   border-radius: 0.3rem;
@@ -252,10 +252,7 @@ select {
   height: 100%;
 }
 
-.author_nvlist_btn {
-  width: 11rem;
-  height: 4rem;
-}
+
 
 .followed-item {
   position: relative;
