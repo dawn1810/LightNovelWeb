@@ -15,6 +15,7 @@ const storage = NodePersist.create({
   dir: ".temp",
 });
 const uploadDirectory = path.join(".upload_temp", "files");
+const allowedMimeTypes = ['text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
 
 const storage_file = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -147,6 +148,30 @@ async function checkAdmin(req, res, next) {
   } else {
     return res.redirect("/");
   }
+}
+
+async function get_full_id(directoryPath, listName) {
+	let list_id = [];
+	try {
+		// Đọc các file trong thư mục một cách đồng bộ
+		let txtFilePaths = []
+		for (const name of listName) {
+			txtFilePaths.push(path.join(directoryPath, name))
+		}
+		console.log(txtFilePaths)
+		const processFiles = async () => {
+			for (const filePath of txtFilePaths) {
+				console.log(filePath);
+				list_id.push(await server.uploadFileToDrive(filePath));
+			}
+		};
+		await processFiles();
+
+		return list_id;
+	} catch (err) {
+		console.error('SYSTEM | GET_ID | ERR | ', err);
+	}
+
 }
 
 const decode = (account) => {
@@ -415,4 +440,5 @@ module.exports = {
   getNovelList,
   set_cookies,
   checkAdmin,
+  get_full_id,
 };

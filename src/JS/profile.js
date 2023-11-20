@@ -37,14 +37,7 @@ const range = document.querySelector(".range");
 const range__label = document.querySelector(".range__label");
 const back_btn = document.querySelectorAll(".back_btn");
 
-// toast
-const toast = document.querySelector(".toast");
-const toast_icon = document.querySelector(".toast-content i");
-const closeIcon = document.getElementById("close");
-const progress = document.querySelector(".progress");
-closeIcon.addEventListener("click", () => {
-  toast.classList.remove("active");
-});
+
 
 // dieu khoan dich vu
 const checked = document.getElementById("Agree");
@@ -412,10 +405,13 @@ async function uploadFiles(files, type) {
       switch (type) {
         case 0:
           await uploadNovel();
+          break;
         case 1:
           await updateNovel();
+          break;
         case 2:
           await editNovel();
+          break;
       }
     } else if (response.status == 400) {
       // Error occurred during upload
@@ -571,42 +567,42 @@ async function editNovel() {
   }
 }
 
-function notify(type, text_2) {
-  switch (type) {
-    // thong bao
-    case "n":
-      toast_icon.classList = ["fas fa-solid fa-check"];
-      toast.querySelector(".text-1").innerHTML = "Thông báo";
-      document.documentElement.style.setProperty("--color_i", "#3adb3a");
-      break;
-    // chu y
-    case "!":
-      toast_icon.classList = ["fa-solid fa-exclamation"];
-      toast.querySelector(".text-1").innerHTML = "Chú ý";
-      document.documentElement.style.setProperty("--color_i", "#e1e11a");
+// function notify(type, text_2) {
+//   switch (type) {
+//     // thong bao
+//     case "n":
+//       toast_icon.classList = ["fas fa-solid fa-check"];
+//       toast.querySelector(".text-1").innerHTML = "Thông báo";
+//       document.documentElement.style.setProperty("--color_i", "#3adb3a");
+//       break;
+//     // chu y
+//     case "!":
+//       toast_icon.classList = ["fa-solid fa-exclamation"];
+//       toast.querySelector(".text-1").innerHTML = "Chú ý";
+//       document.documentElement.style.setProperty("--color_i", "#e1e11a");
 
-      break;
-    // loi
-    case "x":
-      toast_icon.classList = ["fa-solid fa-x"];
-      toast.querySelector(".text-1").innerHTML = "Lỗi";
-      document.documentElement.style.setProperty("--color_i", "red");
+//       break;
+//     // loi
+//     case "x":
+//       toast_icon.classList = ["fa-solid fa-x"];
+//       toast.querySelector(".text-1").innerHTML = "Lỗi";
+//       document.documentElement.style.setProperty("--color_i", "red");
 
-      break;
-  }
+//       break;
+//   }
 
-  toast.querySelector(".text-2").innerHTML = text_2;
-  toast.classList.add("active");
-  progress.classList.add("active");
+//   toast.querySelector(".text-2").innerHTML = text_2;
+//   toast.classList.add("active");
+//   progress.classList.add("active");
 
-  timer1 = setTimeout(() => {
-    toast.classList.remove("active");
-  }, 5000); //1s = 1000 milliseconds
+//   timer1 = setTimeout(() => {
+//     toast.classList.remove("active");
+//   }, 5000); //1s = 1000 milliseconds
 
-  timer2 = setTimeout(() => {
-    progress.classList.remove("active");
-  }, 5300);
-}
+//   timer2 = setTimeout(() => {
+//     progress.classList.remove("active");
+//   }, 5300);
+// }
 
 // Danh sách các phần tử
 const myList = [
@@ -724,14 +720,6 @@ document.querySelector(".page5_info .next_btn").onclick = async function () {
 
     range__label.classList.remove("anima");
 
-    // set image from base64 to link
-    if (isBase64(document.querySelector(".page5_info_img .your-avt").src)) {
-      avt_var = await compressImageBase64(document.querySelector(".page5_info_img .your-avt").src, 5);
-    }
-    const imgdata = await getDriveFileLinkAndDescription(
-      await uploadFileToDrivebase64(avt_var)
-    );
-
     setTimeout(function () {
       range__label.classList.add("anima");
     }, 50);
@@ -746,7 +734,7 @@ document.querySelector(".page5_info .next_btn").onclick = async function () {
     );
     sessionStorage.setItem(
       "novel_avt",
-      imgdata.fileLink
+      document.querySelector(".page5_info_img .your-avt").src
     );
   } else {
     // window.alert("Là một nhẫn giả chân chính hãy điển đủ thông tin ¯\(◉◡◔)/¯")

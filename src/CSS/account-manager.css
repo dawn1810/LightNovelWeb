@@ -97,13 +97,23 @@ height: 60rem;
   color: var(--header-text);
   font-weight: 600;
 }
-
-.right_gr button {
-  background-color: var(--item-color) !important;
+.right_gr{
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.right_gr div {
+  background-color: var(--item-color) ;
   padding: 1rem;
   border-radius: 0.7rem;
   font-size: 1rem;
   color: var(--black-text);
+  border: 1px solid #000!important;
+  width: 185px;
+  text-align: center;
+}
+.right_gr div:hover{
+  background-color: #daa06d;
 }
 
 .previous_page {
@@ -121,4 +131,7 @@ height: 60rem;
 
 .last{
     opacity: 0.6;
+}
+.right_gr .open{
+  background-color: #5e90a8;
 }

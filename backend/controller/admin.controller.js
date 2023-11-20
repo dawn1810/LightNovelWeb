@@ -10,7 +10,7 @@ const admin = async (req, res) => {
 
 const accountManager = async (req, res) => {
   let dataa = await queryAsync(
-    `SELECT * FROM thongtin_nguoidung `
+    `SELECT * FROM thongtin_nguoidung WHERE role <> '100' `
   );
 
   res.render("account-manager", {

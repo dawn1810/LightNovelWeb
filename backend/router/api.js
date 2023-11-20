@@ -101,6 +101,9 @@ const apiRouter = (app) => {
 
   // lấy tài truyện trong admin
   router.post("/api/api_get_novel", api_router.api_get_list_novel);
+  // ban user
+  router.post("/api/update_state_novel", api_router.update_state_novel);
+
 
   router.get(
     "*",

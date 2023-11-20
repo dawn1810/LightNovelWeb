@@ -15,7 +15,9 @@
 
 <body>
 
-
+  <script>
+    const currentURL = window.location.origin;
+  </script>
   <%- include(headerFile) %>
   <div class="modal3" style="display: block;">
     <div class="modal_wrap3">
@@ -36,7 +38,7 @@
                 </div>
               </div>
               <span class="anime_name">
-                <%=truyen_info[0].ten_truyen%>>
+                <%=truyen_info[0].ten_truyen%>
               </span>
             </div>
 
@@ -89,7 +91,8 @@
               <div class="author_btn_container">
                 <button class="status_btn edit_novel">Chỉnh sửa</button>
                
-                <button class="status_btn ban_novel">Khoá truyện</button>
+                <button class="status_btn ban_novel" value="<%=truyen_info[0].id%>" onclick="changeState(ban_novel.value, 'block')">Khoá truyện</button>
+
               </div>
             </div>
           </div>
@@ -155,7 +158,7 @@
     </div>
   </div>
   <%- include(footerFile) %>
-
+  <script src="/src/JS/author-manager.js"></script>
 </body>
 <div class="modal">
   <div class="modal_wrap">
@@ -292,6 +295,6 @@
 
   </div>
 </div>
-<script src="/src/JS/author-manager.js"></script>
+
 
 </html>

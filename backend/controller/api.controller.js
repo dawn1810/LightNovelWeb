@@ -13,12 +13,17 @@ const {
   uploadFileToDrivebase64,
   getDriveFileLinkAndDescription,
 } = require("./google.controller");
+const allowedMimeTypes = [
+  "text/plain",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+];
 
 const { queryAsync } = require("../dbmysql");
 const authenticationKey = Buffer.from(
   secretKey.padEnd(32, "0"),
   "utf8"
 ).toString("hex");
+const uploadDirectory = path.join(".upload_temp", "files");
 const storage = NodePersist.create({
   // index
   dir: ".temp",
@@ -596,7 +601,7 @@ const api_updateViews = async (req, res) => {
 
 const api_uploadNovel = async (req, res) => {
   const data = req.body;
-  const account = req.cookies.account;
+  const account = req.session.user;
   console.log("SYSTEM | UPLOAD_NOVEL | Dữ liệu nhận được: ", data);
   console.log("SYSTEM | UPLOAD_NOVEL | Cookie nhận được: ", account);
 
@@ -612,45 +617,50 @@ const api_uploadNovel = async (req, res) => {
       .slice(0, 19)
       .replace("T", " ");
 
-    const author = await queryAsync(`
-      SELECT id FROM tac_gia
-      WHERE tac_gia.id_nguoi_dung = '${account.id}';
-      `)[0].id;
+    let avt_var = data.image;
+    if (isBase64(data.image)) {
+      avt_var = await compressImageBase64(data.image, 5);
+    }
+    const imgdata = await getDriveFileLinkAndDescription(
+      await uploadFileToDrivebase64(avt_var)
+    );
 
     // add to truyen database
     await queryAsync(`
-        INSERT INTO truyen (
-          id, 
-          id_tac_gia, 
-          ten_truyen, 
-          so_luong_chuong, 
-          tom_tat_noi_dung, 
-          anh_dai_dien, 
-          trang_thai, 
-          ngay_cap_nhat
-        )
-        VALUES (
-          '${novel_id}', 
-          ${author}, 
-          '${data.name}', 
-          ${data.name_chaps.length}, 
-          '${data.summary}', 
-          '${data.image}', 
-          '${data.status}', 
-          '${formattedDate}'
-        )
-        `);
+      INSERT INTO truyen (
+        id, 
+        id_tac_gia, 
+        ten_truyen, 
+        so_luong_chuong, 
+        tom_tat_noi_dung, 
+        anh_dai_dien, 
+        trang_thai, 
+        ngay_cap_nhat
+      )
+      VALUES (
+        '${novel_id}', 
+        ${account.id}, 
+        '${data.name}', 
+        ${data.name_chaps.length}, 
+        '${data.summary}', 
+        '${imgdata.fileLink}', 
+        '${data.status}', 
+        '${formattedDate}'
+      )
+    `);
 
     // add to chuong database
     for (let i = 0; i < data.name_chaps.length; i++) {
       await queryAsync(`
         INSERT INTO chuong (
+          id
           id_truyen,
           ten_chuong,
           noi_dung_chuong,
           thu_tu
         )
         VALUES (
+          '${uuidv4()}',
           '${novel_id}',
           '${data.name_chaps[i]}',
           '${data.chap_ids[i]}',
@@ -884,7 +894,11 @@ const api_uploadFile = async function (req, res) {
   res.writeHead(200, { "Content-Type": "applicaiton/json" });
   // res.end('ok bro');
 
-  res.end(JSON.stringify(await get_full_id(uploadDirectory, list_name)));
+  res.end(
+    JSON.stringify(
+      await func_controller.get_full_id(uploadDirectory, list_name)
+    )
+  );
 };
 
 const api_cancle = async (req, res) => {
@@ -1113,20 +1127,21 @@ const api_get_info_novel = async (req, res) => {
   }
 };
 
+//block truyen
 const update_state_novel = async (req, res) => {
   try {
-    const idtruyen = parseInt(req.body.id, 10);
+    const idtruyen = req.body.id;
     const state = req.body.state;
-    console.log(idtruyen);
     if (isNaN(idtruyen)) {
       console.error("Giá trị id không hợp lệ");
       return res.status(400).json({ error: "Giá trị id không hợp lệ" });
     }
     const result = await queryAsync(
-      'UPDATE truyen SET trang_thai = ? WHERE id = ?',
+      "UPDATE truyen SET trang_thai = ? WHERE id = ?",
       [state, idtruyen]
     );
     if (result.affectedRows === 1) {
+      console.log(`UPDATE truyen SET trang_thai = ${state} WHERE id = ${idtruyen}`);
       res.status(200).json({ success: true });
     } else {
       res.status(404).json({ error: "Không tìm thấy truyện để cập nhật" });
@@ -1136,19 +1151,17 @@ const update_state_novel = async (req, res) => {
     res.status(500).json({ error: "Có lỗi xảy ra trên server" });
   }
 };
-
-
+//block truyen
 //block_account
 const api_block_account = async (req, res) => {
   try {
     const id_acc = parseInt(req.body.id, 10);
-  
-    if (isNaN(id_acc)) {
-      console.error("Giá trị id không hợp lệ");
-      return res.status(400).json({ error: "Giá trị id không hợp lệ" });
-    }
+    // if (`FETCH BLOCK_API COMPLETE ID==${isNaN(id_acc)}`) {
+    //   console.error("Giá trị id không hợp lệ");
+    //   return res.status(400).json({ error: "Giá trị id không hợp lệ" });
+    // }
     const result = await queryAsync(
-      `UPDATE thongtin_nguoidung SET role = 0 WHERE id = ${id_acc}`,
+      `UPDATE thongtin_nguoidung SET role = 0 WHERE id = ${id_acc}`
     );
     if (result.affectedRows === 1) {
       res.status(200).json({ success: true });
@@ -1160,7 +1173,6 @@ const api_block_account = async (req, res) => {
     res.status(500).json({ error: "Có lỗi xảy ra trên server" });
   }
 };
-
 
 module.exports = {
   api_search_more,
@@ -1186,5 +1198,5 @@ module.exports = {
   api_get_list_novel,
   api_get_info_novel,
   update_state_novel,
-  api_block_account
+  api_block_account,
 };

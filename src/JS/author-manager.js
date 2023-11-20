@@ -113,8 +113,6 @@ async function getListNovel(offset, fill) {
                   </div>
                 </div>
                 <!-- item -->`;
-
-        console.log(data["data"][i]);
       }
 
       // Gán toàn bộ chuỗi vào list_container
@@ -147,7 +145,6 @@ async function getNovel(id) {
 
     if (response.status === 200) {
       const data = await response.json();
-      console.log(data.data[0]);
 
       let novelListHTML = ""; // Tạo một chuỗi để tích hợp nội dung thẻ
 
@@ -182,11 +179,10 @@ async function getNovel(id) {
               </div>
               <div class="author_btn_container">
                 <button class="status_btn edit_novel">Chỉnh sửa</button>
-                <button class="status_btn ban_novel" value='${data.data[0].id}'>Mở Khoá</button>
+                <button type="button"  class="status_btn ban_novel" value='${data.data[0].id}'onclick="changeState(this.value, 'block')">Mở Khoá</button>
               </div>
             </div>
-                <!-- item -->`;
-        
+            <!-- item -->`;
         } else {
           novelListHTML += `
         <!-- item -->
@@ -217,7 +213,7 @@ async function getNovel(id) {
               </div>
               <div class="author_btn_container">
                 <button class="status_btn edit_novel">Chỉnh sửa</button>
-                <button class="status_btn ban_novel" value='${data.data[0].id}'>Khoá truyện</button>
+                <button type="button"  class="status_btn ban_novel" value='${data.data[0].id}' onclick="changeState(this.value, 'block')">Khoá truyện</button>
               </div>
             </div>
                 <!-- item -->`;
@@ -286,45 +282,38 @@ const chart = () => {
   var myChart = new Chart(canvas, config);
 };
 
-// ban novel
+// ban novel--------------------------------------------------------------------------------------------------
 
-ban_novel.onclick = function (event) {
-  event.preventDefault();
-  if(ban_novel.innerText === "Khoá truyện") {
-    changeState(ban_novel.value, "block");
-    ban_novel.innerText="mở khoá"
-  }else{
-    changeState(ban_novel.value, "Đang Ra");
-    ban_novel.innerText="Khoá truyện"
-  }
-};
 
-async function changeState(id, state) {
-  const url = `${currentURL}/api/update_state_novel`;
+  async function changeState(id, state) {
+    alert("Change state " + id + "=======");
+    const url = `${currentURL}/api/update_state_novel`;
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: parseInt(id, 10),
+        state: state,
+      }),
+    };
 
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      id: id,
-      state: state,
-    }),
-  };
+    try {
+      const response = await fetch(url, requestOptions);
 
-  try {
-    const response = await fetch(url, requestOptions);
-
-    if (response.status === 200) {
-      return;
-    } else {
-      alert("Có lỗi xảy ra: " + response.statusText);
+      if (response.status === 200) {
+        if(ban_novel.innerText === "Khoá truyện") {
+          ban_novel.innerText="mở khoá"
+        }else{
+          ban_novel.innerText="Khoá truyện"
+        }
+      } else {
+        alert("Có lỗi xảy ra: " + response.statusText);
+      }
+    } catch (error) {
+      console.log("Error:", error);
     }
-  } catch (error) {
-    console.log("Error:", error);
+    
   }
-}
-
-
 

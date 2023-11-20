@@ -10,9 +10,11 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
+
 async function connectMGDB() {
   await client.connect();
 }
+
 connectMGDB();
 exports.add_one_Data = async function (table, myobj) {
   try {
