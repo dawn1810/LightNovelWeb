@@ -47,18 +47,25 @@ const webRouter = (app) => {
       processNovels.processNovels(req, res, id);
     }
   );
-  // router.get(
-  //     "/profile/update/:id/listchap",
-  //     func_controller.checkCoookieIfOK,
-  //     func_controller.checkCookieLoglUser,
-  //     processNovels.processNovels(req, res, req.params.id)
-  // );
-  // router.get(
-  //     "/profile/update/:id/morechap",
-  //     func_controller.checkCoookieIfOK,
-  //     func_controller.checkCookieLoglUser,
-  //     processNovels.processNovels(req, res, req.params.id)
-  //   );
+  router.get(
+    "/profile/update/:id/listchap",
+    func_controller.checkCoookieIfOK,
+    func_controller.checkCookieLoglUser,
+    (req, res) => {
+      const id = req.params.id;
+      processNovels.processNovels(req, res, id);
+    }
+  );
+
+  router.get(
+    "/profile/update/:id/morechap",
+    func_controller.checkCoookieIfOK,
+    func_controller.checkCookieLoglUser,
+    (req, res) => {
+      const id = req.params.id;
+      processNovels.processNovels(req, res, id);
+    }
+  );
 
   router.get(
     "/reading/:id/:chap",
@@ -67,7 +74,12 @@ const webRouter = (app) => {
   );
 
   // admin index page ________________________________________________________________________________________________________________________
-  router.get("/admin", func_controller.checkCookieLoglUser,func_controller.checkAdmin, renderAdmin.admin);
+  router.get(
+    "/admin",
+    func_controller.checkCookieLoglUser,
+    func_controller.checkAdmin,
+    renderAdmin.admin
+  );
 
   // account manager page ________________________________________________________________________________________________________________________
   router.get(

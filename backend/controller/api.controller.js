@@ -987,6 +987,9 @@ const api_cancle = async (req, res) => {
       await queryAsync(
         `DELETE FROM the_loai_truyen WHERE id_truyen = '${data.id}'`
       );
+      await queryAsync(
+        `DELETE FROM truyen_yeu_thich WHERE id_truyen = '${data.id}'`
+      );
       await queryAsync(`DELETE FROM truyen WHERE id = '${data.id}'`);
       // // await server.delete_one_Data("truyen", { _id: new ObjectId(data.id) });
       // const decodeList = func_controller.decode(account);
@@ -1017,7 +1020,6 @@ const api_cancle = async (req, res) => {
 };
 
 // Delete novel page
-
 const api_updateInfo = async (req, res) => {
   try {
     const account = req.session.user;
@@ -1160,7 +1162,6 @@ const api_get_list_novel = async (req, res) => {
         break;
     }
 
-
     if (result && result.length > 0) {
       res.status(200).json({ data: result });
     } else {
@@ -1176,7 +1177,7 @@ const api_get_info_novel = async (req, res) => {
   try {
     const idtruyen = req.body.id;
     const result = await queryAsync(
-      `SELECT truyen.*, tacgia.ten_tac_gia AS ten_tac_gia, GROUP_CONCAT(the_loai.ten_the_loai SEPARATOR ', ') AS ten_the_loai FROM truyen JOIN tacgia ON truyen.id_tac_gia = tacgia.id JOIN the_loai_truyen ON truyen.id = the_loai_truyen.id_truyen JOIN the_loai ON the_loai_truyen.id_the_loai = the_loai.id WHERE truyen.id = ${idtruyen} GROUP BY truyen.id ORDER BY ngay_cap_nhat LIMIT 1 ;`
+      `SELECT truyen.*, tacgia.ten_tac_gia AS ten_tac_gia, GROUP_CONCAT(the_loai.ten_the_loai SEPARATOR ', ') AS ten_the_loai FROM truyen JOIN tacgia ON truyen.id_tac_gia = tacgia.id JOIN the_loai_truyen ON truyen.id = the_loai_truyen.id_truyen JOIN the_loai ON the_loai_truyen.id_the_loai = the_loai.id WHERE truyen.id = '${idtruyen}' GROUP BY truyen.id ORDER BY ngay_cap_nhat LIMIT 1 ;`
     );
     if (result && result.length > 0) {
       res.status(200).json({ data: result });
@@ -1184,7 +1185,7 @@ const api_get_info_novel = async (req, res) => {
       res.status(404).json({ error: "Không tìm thấy truyện" });
     }
   } catch (error) {
-    console.error("Error in api_get_list_novel:", error);
+    console.error("Error in api_get_i4_novel:", error);
     res.status(500).json({ error: "Có lỗi xảy ra trên server" });
   }
 };

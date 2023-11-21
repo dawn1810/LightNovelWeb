@@ -53,6 +53,22 @@ document.addEventListener("DOMContentLoaded", function () {
         }
   }
 
+  const author_block_func = () => { 
+    author = document.querySelectorAll(".author_btn");
+    for (const open_account of author) {
+      open_account.addEventListener("click", function (e) {
+        e.preventDefault();
+        console.log(
+          open_account.parentElement.parentElement.getAttribute("id")
+        );
+        func_block_author(
+          open_account,
+          open_account.parentElement.parentElement.getAttribute("id")
+        );
+      });
+    }
+  }
+
   console.log(accountElements);
   if (accountElements) {
     for (const block_account of accountElements) {
@@ -95,6 +111,9 @@ document.addEventListener("DOMContentLoaded", function () {
         Xoá quyền tác giả
       </div>
         `;
+        author_block_func()
+        author_open_func()
+        account_block_func()
         account_open_func()
       } else {
         notify("x", response.statusText);
@@ -143,17 +162,20 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="block_account ">
         Khoá người dùng
       </div>
-      <div class="author_btn last">
+      <div class="author_btn open last">
         Xoá quyền tác giả
       </div>
         `;
+        author_block_func()
+        author_open_func()
         account_block_func()
+        account_open_func()
         } else {
           element.parentElement.innerHTML = `
         <div class="block_account ">
         Khoá người dùng
       </div>
-      <div class="author_btn ">
+      <div class="author_btn open ">
         Xoá quyền tác giả
       </div>
         `;
@@ -210,7 +232,10 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
         `;
 
+        author_block_func()
         author_open_func()
+        account_block_func()
+        account_open_func()
       } else {
         notify("x", response.statusText);
       }
@@ -258,24 +283,15 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="block_account ">
         Khoá người dùng
       </div>
-      <div class="author_btn_f5 open">
-      Thêm quyền tác giả
+      <div class="author_btn open">
+      Xoá quyền tác giả
     </div>
         `;
 
-        author = document.querySelectorAll(".author_btn");
-        for (const open_account of author) {
-          open_account.addEventListener("click", function (e) {
-            e.preventDefault();
-            console.log(
-              open_account.parentElement.parentElement.getAttribute("id")
-            );
-            func_block_author(
-              open_account,
-              open_account.parentElement.parentElement.getAttribute("id")
-            );
-          });
-        }
+        author_block_func()
+        author_open_func()
+        account_block_func()
+        account_open_func()
       } else {
         notify("x", response.statusText);
       }

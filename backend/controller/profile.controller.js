@@ -1,6 +1,6 @@
 const { ObjectId } = require("mongodb");
 const func_controller = require("./func.controller");
-const {queryAsync} = require("../dbmysql");
+const { queryAsync } = require("../dbmysql");
 
 const processNovels = async function (req, res, id_truyen) {
   try {
@@ -111,15 +111,13 @@ const processNovels = async function (req, res, id_truyen) {
     render_data.like_novel = idListlikeNovels;
     render_data.like_novel_list = result_like;
 
-    if (id_truyen) {
-      if (myNovels.some(novel => novel.id !== id_truyen)) {
-        return res.status(403).send("Lỗi, không có quyền truy cập!");
-      }
-    } 
-
-      res.render("profile.ejs", render_data);
+    if (id_truyen && myNovels.every(novel => novel.id !== id_truyen)) {
+      return res.status(403).send("Lỗi, không có quyền truy cập!");
+    }
+    
     
 
+    res.render("profile.ejs", render_data);
   } catch (err) {
     console.log("SYSTEM | LIST MY NOVELS | ERROR | ", err);
     return res.sendStatus(500);

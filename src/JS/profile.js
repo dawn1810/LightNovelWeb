@@ -1,6 +1,6 @@
 // avt page1
 const avtBtn = document.querySelectorAll(".dropdown-trigger");
-const avtUpLoad = document.querySelectorAll(" #file-upload");
+const avtUpLoad = document.querySelectorAll("#file-upload");
 const avatar = document.querySelector(".page1 .your-avt");
 const dropZone = document.querySelectorAll(".drop-zone");
 // avt page1
