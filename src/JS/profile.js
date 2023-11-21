@@ -473,13 +473,14 @@ async function uploadNovel() {
 }
 
 async function updateNovel() {
-  const regex = /\/([a-fA-F0-9]+)\/morechap/;
+  const regex =
+    /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/;
 
   // Use the exec method to extract the matching part from the URL
   const match = regex.exec(window.location.href);
 
-  // Extracted ID will be in match[1]
-  const extractedID = match ? match[1] : null;
+  // Extracted ID will be in match[0]
+  const extractedID = match ? match[0] : null;
 
   // POST ALL DATA TO SERVER--------------------------------------------------------------------------------------------------
   //gửi request tới csdl server
@@ -1249,7 +1250,7 @@ document.querySelector(".page5_d .more_chap_btn").onclick = function () {
 			<h3>Thứ tự chương</h3>
 			<div class="information_name">
         <input class="profile_input chap_num" type="number" id="name_novel"
-					value="${document.querySelectorAll(".page5_d .name_novel").value}" readonly />
+					value="${parseInt(document.querySelectorAll(".page5_d #name_novel")[0].value) + document.querySelectorAll(".page5_d .chap_num").length}" readonly />
 			</div>
 		</div>
 
@@ -1307,7 +1308,7 @@ document.querySelector(".page5_d .post_btn").onclick = async function () {
         ".page5_chap .post_btn"
       ).innerHTML = `<img src = "https://cdn.discordapp.com/attachments/1128184786347905054/1129065224998227968/icons8-sharingan-100.png"> `;
       // window.alert("Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)")
-      notify("!", "Đang tải lên...chờ một tý!");
+      // notify("!", "Đang tải lên...chờ một tý!");
       await uploadFiles(files, 1);
     } else {
       notify("!", "Đã huỷ!");

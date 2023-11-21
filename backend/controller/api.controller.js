@@ -783,17 +783,21 @@ const api_update_uploadNovel = async (req, res) => {
     SELECT COUNT(id) as last_chap 
     FROM chuong 
     WHERE id_truyen = '${data.id}'
-    `)[0].last_chap) + 1;
+    `))[0].last_chap + 1;
+
+    console.log(last_chap);
     // add to chuong database
     for (let i = 0; i < data.name_chaps.length; i++) {
       await queryAsync(`
         INSERT INTO chuong (
+          id,
           id_truyen,
           ten_chuong,
           noi_dung_chuong,
           thu_tu
         )
         VALUES (
+          '${uuidv4()}',
           '${data.id}',
           '${data.name_chaps[i]}',
           '${data.chap_ids[i]}',
@@ -1189,9 +1193,13 @@ const api_get_list_novel = async (req, res) => {
         //code here
         break;
     }
+    // get max offset
+    count_novel = await queryAsync(
+      "SELECT COUNT(*) AS row_count FROM truyen;"
+    );
 
     if (result && result.length > 0) {
-      res.status(200).json({ data: result });
+      res.status(200).json({ data: result ,count: count_novel });
     } else {
       res.status(404).json({ error: "Không tìm thấy chương" });
     }
@@ -1252,7 +1260,7 @@ const api_block_account = async (req, res) => {
     // }
     console.log("id_acc:", id_acc);
     const result = await queryAsync(
-      `UPDATE thongtin_nguoidung SET  last_role = role, role = 0 WHERE id = '${id_acc}'`
+      `UPDATE thongtin_nguoidung SET  last_role = 1, role = 0 WHERE id = '${id_acc}'`
     );
     if (result.affectedRows === 1) {
       res.status(200).json({ success: true });
@@ -1273,12 +1281,12 @@ const api_open_account = async (req, res) => {
     //   return res.status(400).json({ error: "Giá trị id không hợp lệ" });
     // }
     const result = await queryAsync(
-      `UPDATE thongtin_nguoidung SET  role = last_role, last_role = @temp WHERE id = '${id_acc}' AND last_role <> 0;`
+      `UPDATE thongtin_nguoidung SET  role = 1, last_role = 0 WHERE id = '${id_acc}' AND last_role <> 0;`
     );
     const role = await queryAsync(
       `SELECT role FROM thongtin_nguoidung  WHERE id = '${id_acc}' ;`
     );
-    if (result.affectedRows === 1 && role.length > 0) {
+    if (result.affectedRows === 1 ) {
       res.status(200).json({ role: role });
     } else {
       res.status(404).json({ error: "Không tìm thấy tài khoản để cập nhật" });

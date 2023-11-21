@@ -156,14 +156,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (response.status === 200) {
         const data = await response.json();
+        console.log(data.role[0].role)
         notify("n", "Thay đổi thông tin thành công!");
         if (data.role[0].role == "1") {
           element.parentElement.innerHTML = `
         <div class="block_account ">
         Khoá người dùng
       </div>
-      <div class="author_btn open last">
-        Xoá quyền tác giả
+      <div class="author_btn open">
+        Thêm quyền tác giả
       </div>
         `;
         author_block_func()
@@ -171,6 +172,8 @@ document.addEventListener("DOMContentLoaded", function () {
         account_block_func()
         account_open_func()
         } else {
+        console.log(data.role[0].role)
+
           element.parentElement.innerHTML = `
         <div class="block_account ">
         Khoá người dùng
@@ -179,6 +182,10 @@ document.addEventListener("DOMContentLoaded", function () {
         Xoá quyền tác giả
       </div>
         `;
+        author_block_func()
+        author_open_func()
+        account_block_func()
+        account_open_func()
         }
       } else {
         notify("x", response.statusText);

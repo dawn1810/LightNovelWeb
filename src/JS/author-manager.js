@@ -86,7 +86,7 @@ async function getListNovel(offset, fill) {
 
     if (response.status === 200) {
       const data = await response.json();
-
+      console.log(typeof(data['count'][0].row_count));
       let novelListHTML = "";
       if (data["data"].length < 4) {
         next_page.style.display = "none";
