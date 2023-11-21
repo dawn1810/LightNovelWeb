@@ -320,7 +320,7 @@ async function changeState(id) {
     if (response.status === 200) {
       const jsonResponse = await response.json();
   
-      alert(jsonResponse.message;) 
+      alert(jsonResponse.message) 
       console.log("Your Text String:", yourTextString);
       if (ban_novel.innerText === "Mở Khoá") {
         ban_novel.innerText = "Khoá truyện";
