@@ -573,7 +573,12 @@
  
 
 <script src="/src/JS/category-page.js"></script>
+
 <script src="/src/JS/search.js"></script>
 
-
+<script>
+        document.querySelectorAll('.radio-input_search label')[0].style.background = 'var(--white-color)';
+        drop_tag(<%=typesearch%>);
+        document.querySelectorAll('.radio-input_search label')[<%=typesearch%>].style.background = 'var(--author-color)'
+</script>
 </html>

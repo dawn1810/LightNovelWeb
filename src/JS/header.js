@@ -9,7 +9,7 @@ $("document").ready(function () {
   const login_gg = modal.querySelector(".login_gg");
   login_gg.onclick = async function () {
     window.open(
-      `${currentURL}/api/auth/google`,
+      `/api/auth/google`,
       "login With Google",
       "width=500,height=500"
     );

@@ -256,7 +256,7 @@ document.addEventListener("DOMContentLoaded", function () {
     onSubmit: async function (data) {
       console.log(data);
       // gửi request tới csdl server
-      const url = `${currentURL}/api/login`; // URL của máy chủ mục tiêu
+      const url = `/api/login`; // URL của máy chủ mục tiêu
       const postData = JSON.stringify({
         // thông tin đăng ký
         usr: `${document.querySelector("#form1 #Username").value}`,
@@ -317,7 +317,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const reg_btn = document.querySelector(".signup");
       console.log(data);
       //gửi request tới csdl server
-      const url = `${currentURL}/api/signup`; // URL của máy chủ mục tiêu
+      const url = `/api/signup`; // URL của máy chủ mục tiêu
       const postData = JSON.stringify({
         // thông tin đăng kýýý
         email: `${document.querySelector("#form2 #email").value}`,

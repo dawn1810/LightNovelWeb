@@ -37,8 +37,6 @@ const range = document.querySelector(".range");
 const range__label = document.querySelector(".range__label");
 const back_btn = document.querySelectorAll(".back_btn");
 
-
-
 // dieu khoan dich vu
 const checked = document.getElementById("Agree");
 // dieu khoan dich vu
@@ -427,7 +425,7 @@ async function uploadFiles(files, type) {
 async function uploadNovel() {
   // POST ALL DATA TO SERVER--------------------------------------------------------------------------------------------------
   //gửi request tới csdl server
-  const url = `${currentURL}/api/upload_novel`; // URL của máy chủ mục tiêu
+  const url = `/api/upload_novel`; // URL của máy chủ mục tiêu
 
   const postData = JSON.stringify({
     name: sessionStorage.getItem("novel_name"),
@@ -485,7 +483,7 @@ async function updateNovel() {
 
   // POST ALL DATA TO SERVER--------------------------------------------------------------------------------------------------
   //gửi request tới csdl server
-  const url = `${currentURL}/api/update_upload_novel`; // URL của máy chủ mục tiêu
+  const url = `/api/update_upload_novel`; // URL của máy chủ mục tiêu
 
   const postData = JSON.stringify({
     id: extractedID,
@@ -534,7 +532,7 @@ async function editNovel() {
 
   // POST ALL DATA TO SERVER--------------------------------------------------------------------------------------------------
   //gửi request tới csdl server
-  const url = `${currentURL}/api/edit_novel`; // URL của máy chủ mục tiêu
+  const url = `/api/edit_novel`; // URL của máy chủ mục tiêu
 
   const postData = JSON.stringify({
     id: extractedID,
@@ -630,7 +628,7 @@ document.querySelector(".button_random").onclick = function (e) {
 const Save_btn = document.querySelector(".Save_btn");
 Save_btn.onclick = async function (e) {
   e.preventDefault();
-  const url = `${currentURL}/api/updateInfo`; // URL của máy chủ mục tiêu
+  const url = `/api/updateInfo`; // URL của máy chủ mục tiêu
   let sex = "null";
   if (document.querySelector("#nam").checked) {
     sex = "1";
@@ -667,7 +665,7 @@ Save_btn.onclick = async function (e) {
       document.querySelector(".header_user_logo_i .curent-avt img").src =
         avatar.src;
 
-        author_name_check = document.querySelector("#author_name").value;
+      author_name_check = document.querySelector("#author_name").value;
 
       notify("n", "Thay đổi thông tin người dùng thành công!");
     }
@@ -686,7 +684,7 @@ add_new.onclick = function () {
     page5_composed[1].style.display = "block";
     page5_a_up[0].style.display = "flex";
 
-    // change author name input 
+    // change author name input
     author_name.value = author_name_check;
 
     setTimeout(function () {
@@ -771,7 +769,7 @@ async function cancel() {
     // audio.play();
     if (sessionStorage.getItem("chapters_content")) {
       // remove all chapters
-      const url = `${currentURL}/api/cancel`; // URL của máy chủ mục tiêu
+      const url = `/api/cancel`; // URL của máy chủ mục tiêu
 
       const postData = JSON.stringify({
         chap_ids: sessionStorage.getItem("chapters_content").split(","),
@@ -844,7 +842,7 @@ document.querySelector(".page5_chap .more_chap_btn").onclick = function () {
 			<h3>Thứ tự chương</h3>
 			<div class="information_name">
 				<input class="profile_input chap_num" type="number" id="name_novel"
-					value="${document.querySelectorAll('.page5_chap .chap_num').length}" readonly />
+					value="${document.querySelectorAll(".page5_chap .chap_num").length}" readonly />
 			</div>
 		</div>
 
@@ -904,7 +902,7 @@ $(document).ready(function () {
     // Delete the grandparent node
     let id_truyen = $(this).parent().parent().attr("id");
     if (confirm("Bạn có chắc chắn muốn xoá truyện?") == true) {
-      const url = `${currentURL}/api/cancel`; // URL của máy chủ mục tiêu
+      const url = `/api/cancel`; // URL của máy chủ mục tiêu
 
       const postData = JSON.stringify({
         id: id_truyen,
@@ -957,7 +955,7 @@ $(document).ready(function () {
     // Gửi cookie "account" lên máy chủ
     // Sử dụng XMLHttpRequest hoặc Fetch API để thực hiện request
     // Ví dụ sử dụng Fetch API:
-    await fetch(`${currentURL}/api/updatelike`, {
+    await fetch(`/api/updatelike`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -1012,7 +1010,7 @@ $(document).ready(function () {
   $(document).on("click", ".page5_b .download_btn", async function () {
     notify("!", "Đã bắt đầu quá trình tải.");
     let grandGrandParentID = $(this).parent().parent().parent().attr("id");
-    const url = `${currentURL}/api/download_chap`; // URL của máy chủ mục tiêu
+    const url = `/api/download_chap`; // URL của máy chủ mục tiêu
 
     const postData = JSON.stringify({
       id: grandGrandParentID,
@@ -1322,18 +1320,19 @@ document.querySelector(".page5_d .post_btn").onclick = async function () {
 
 // change
 document.querySelector(".page5_c .next_btn").onclick = function () {
-  const regex = /\/([a-fA-F0-9]+)\/edit/;
+  const regex =
+    /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/;
 
   // Use the exec method to extract the matching part from the URL
   const match = regex.exec(window.location.href);
 
-  // Extracted ID will be in match[1]
-  const extractedID = match ? match[1] : null;
+  // Extracted ID will be in match[0]
+  const extractedID = match ? match[0] : null;
 
   const postData = JSON.stringify({
     id: extractedID,
     novel_name: document.querySelector(".page5_c  .profile_input ").value,
-    author_name: document.querySelector(".page5_c  .author_name").value,
+    // author_name: document.querySelector(".page5_c  .author_name").value,
     novel_descript: document.querySelector(".page5_c  .novel_descript").value,
     novel_types: listObj2.tempValues,
     novel_status: document.querySelector(".page5_c  .novel_status select")

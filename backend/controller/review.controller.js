@@ -13,7 +13,7 @@ const renderReviews = async (req, res) => {
     console.log("SYSTEM | REVIEWS |", account);
     // Get novel information:
     let result = await queryAsync(
-      `SELECT * FROM truyen WHERE id=${req.params.id}`
+      `SELECT * FROM truyen WHERE id='${req.params.id}'`
     );
 
     //paste here
@@ -28,7 +28,7 @@ const renderReviews = async (req, res) => {
 
     // console.log("genreList: ", genreList);
     const maybeulikethat = await queryAsync(
-      `SELECT DISTINCT truyen.ten_truyen, tacgia.ten_tac_gia AS author, truyen.anh_dai_dien, truyen.so_luong_chuong AS no_chapters, truyen.trang_thai AS status, truyen.luot_thich AS likes, truyen.luot_xem AS views, truyen.ngay_cap_nhat AS update_date
+      `SELECT DISTINCT truyen.id as _id, truyen.ten_truyen, tacgia.ten_tac_gia AS author, truyen.anh_dai_dien as image, truyen.so_luong_chuong AS no_chapters, truyen.trang_thai AS status, truyen.luot_thich AS likes, truyen.luot_xem AS views, truyen.ngay_cap_nhat AS update_date
      FROM truyen
      INNER JOIN tacgia ON truyen.id_tac_gia = tacgia.id
      INNER JOIN the_loai_truyen ON truyen.id = the_loai_truyen.id_truyen
@@ -65,7 +65,7 @@ const renderReviews = async (req, res) => {
       const like_list = await queryAsync(`
         SELECT * FROM truyen_yeu_thich 
         WHERE id_nguoi_dung = '${account.id}'
-        AND id_truyen= ${req.params.id}`);
+        AND id_truyen= '${req.params.id}'`);
 
       if (like_list[0]) {
         // liked
@@ -77,6 +77,7 @@ const renderReviews = async (req, res) => {
     res.render("reviews.ejs", {
       headerFile: "header",
       footerFile: "footer",
+      idtruyen: result[0].id,
       name: result[0].ten_truyen,
       author: result[0].author,
       name_chaps: result[0].name_chaps,

@@ -53,7 +53,7 @@ if (my_array_id_string) {
 
 
 async function views_novel(id_truyen) {
-    await fetch(`${currentURL}/api/updateviews`, {
+    await fetch(`/api/updateviews`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

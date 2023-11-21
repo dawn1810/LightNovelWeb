@@ -99,6 +99,7 @@ const search = async (req, res) => {
         genres: genres,
         genres_more: genres_more,
         what_search: search,
+        typesearch: req.query.type,
       });
     } else {
       res.sendStatus(404);

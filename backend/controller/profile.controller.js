@@ -113,14 +113,16 @@ const processNovels = async function (req, res, id_truyen) {
 
     if (id_truyen) {
       if (myNovels.some(novel => novel.id !== id_truyen)) {
-        res.status(403).send("Lỗi, không có quyền truy cập!");
+        return res.status(403).send("Lỗi, không có quyền truy cập!");
       }
-    }
+    } 
 
-    res.render("profile.ejs", render_data);
+      res.render("profile.ejs", render_data);
+    
+
   } catch (err) {
     console.log("SYSTEM | LIST MY NOVELS | ERROR | ", err);
-    res.sendStatus(500);
+    return res.sendStatus(500);
   }
 };
 

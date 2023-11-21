@@ -42,7 +42,7 @@ const renderReading =  async (req, res) => {
 		// 	limit: 1
 		// });
 		let data = await queryAsync(
-			`SELECT * FROM chuong WHERE thu_tu=${req.params.chap} && id_truyen=${req.params.id}`
+			`SELECT * FROM chuong WHERE thu_tu=${req.params.chap} && id_truyen='${req.params.id}'`
 		);
 
 		let old_name_list = await queryAsync(
@@ -64,7 +64,7 @@ const renderReading =  async (req, res) => {
 		// 	return;
 		// }
 		const chap_content = await server.downloadFileFromDrive(String(data[0].noi_dung_chuong));	
-		console.log(chap_content);
+		// console.log(chap_content);
 		res.render('readingpage.ejs', {
 			headerFile: 'header',
 			footerFile: 'footer',

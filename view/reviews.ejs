@@ -72,7 +72,7 @@
               <ul class="current-category-list">
                 <% genres.forEach(function(genre) { %>
                 <li id="<%= genre %>" class="current-category-list_item">
-                  <a href="/search?search=<%= genre %>">
+                  <a href="/search?search=<%= genre %>&type=1" target="_blank">
                     <div class="btn btn1">
                       <h4>
                         <%= genre %>
@@ -525,7 +525,7 @@
 </div>
 <!-- <script src="/src/JS/script.js"></script> -->
  
-
+<script>const idtruyen = '<%=idtruyen%>'</script>
 <script src="/src/JS/review.js"></script>
 
 

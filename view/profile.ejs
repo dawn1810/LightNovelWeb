@@ -408,7 +408,7 @@
                   <div class="drop-zone" ondrop="drop5(event)" ondragover="allowDrop(event)">
                     <p>Drop / Choose Avatar</p>
                   </div>
-                  <img class="your-avt" src="https://icon-library.com/images/no-photo-available-icon/no-photo-available-icon-8.jpg" alt="" />
+                  <img class="your-avt" src="https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg" alt="" />
                 </button>
               </div>
             </div>
@@ -669,7 +669,7 @@
                 <div class="information_name_wrap">
                   <h3>Tác giả</h3>
                   <div class="information_name">
-                    <input class="profile_input author_name" type="text" required id="fullname" placeholder="Nhập tên tác giả" value="<%=edit_auth%>" />
+                    <input class="profile_input author_name" type="text" required id="fullname" value="<%= author_name %>" readonly />
                   </div>
                 </div>
 
@@ -1094,7 +1094,7 @@
 
 <script src="/src/JS/link.js"></script>
 
-<script src="/src/JS/scriptlogin.js"></script>
+<!-- <script src="/src/JS/scriptlogin.js"></script> -->
 <script>
   Validator({
     form: "#change-pass",
@@ -1115,7 +1115,7 @@
 
       console.log('cut di bn oi');
       //gửi request tới csdl server
-      const url = `${currentURL}/api/changepass`; // URL của máy chủ mục tiêu
+      const url = `/api/changepass`; // URL của máy chủ mục tiêu
       const postData = JSON.stringify({
         // thông tin đăng kýýý
         'status': 'Change Pass',

@@ -90,6 +90,8 @@ button:hover {
     margin: 16px 0;
     display: flex;
     padding: 0;
+    flex-wrap: wrap;
+    gap:10px;
 }
 
 .current-category-list-item {
@@ -1057,7 +1059,7 @@ li {
     justify-content: center;
     margin-top: 2rem;
     background-color: #fff;
-    box-shadow: 0 0 10px #d3d3d3;
+    box-shadow: 0 0 10px #0001ff;
     border-radius: 5px;
     padding: 10px 15px;
 }

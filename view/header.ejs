@@ -271,19 +271,17 @@
       </li>
     </ul>
 
-
     <div class="toast">
-
       <div class="toast-content">
         <i class="fas fa-solid fa-check check"></i>
-  
+
         <div class="message">
           <span class="text text-1">null</span>
           <span class="text text-2">null</span>
         </div>
         <i class="fa-solid fa-xmark close1" id="close"></i>
       </div>
-  
+
       <!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
       <div class="progress active"></div>
     </div>
@@ -366,7 +364,7 @@
       const login_gg = document.querySelector(".login_gg");
       login_gg.onclick = async function () {
         window.open(
-          `${currentURL}/api/auth/google`,
+          `/api/auth/google`,
           "login With Google",
           "width=500,height=500"
         );
@@ -502,4 +500,5 @@
   </script>
 
   <script src="../src/JS/notify.js"></script>
+  <script src="../src/JS/scriptlogin.js"></script>
 </html>

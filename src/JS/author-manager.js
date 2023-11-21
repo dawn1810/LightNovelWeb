@@ -60,14 +60,14 @@ const click_truyen = () => {
   for (const item of document.querySelectorAll(".followed-item")) {
     item.onclick = function () {
       const id = item.getAttribute("id");
-      console.log(id);
+      console.log("id hiện tại "+id);
       getNovel(id);
     };
   }
 };
 
 async function getListNovel(offset, fill) {
-  const url = `${currentURL}/api/api_get_novel`;
+  const url = `/api/api_get_novel`;
 
   const requestOptions = {
     method: "POST",
@@ -138,7 +138,7 @@ async function getListNovel(offset, fill) {
 }
 
 async function getNovel(id) {
-  const url = `${currentURL}/api/api_get_info_novel`;
+  const url = `/api/api_get_info_novel`;
 
   const requestOptions = {
     method: "POST",
@@ -301,14 +301,14 @@ async function changeState(id) {
   } else {
     state = "đang ra";
   }
-  const url = `${currentURL}/api/update_state_novel`;
+  const url = `/api/update_state_novel`;
   const requestOptions = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      id: parseInt(id, 10),
+      id: id,
       state: state,
     }),
 
@@ -319,28 +319,15 @@ async function changeState(id) {
 
     if (response.status === 200) {
       const jsonResponse = await response.json();
-  
-      alert(jsonResponse.message) 
-      console.log("Your Text String:", yourTextString);
-      if (ban_novel.innerText === "Mở Khoá") {
-        ban_novel.innerText = "Khoá truyện";
-      } else {
+      if(jsonResponse.message==="block"){
         ban_novel.innerText = "Mở Khoá";
+        document.querySelector(".ban_novel").innerText = "Mở Khoá";
+      }else{
+        ban_novel.innerText = "Khoá truyện";
+        document.querySelector(".ban_novel").innerText = "Khoá truyện";
       }
-
-
-      if (document.getElementById(`${id}`)) {
-        const timeElement = document.getElementById(`${id}`).querySelector(".time");
-        if (timeElement) {
-          if (ban_novel.innerText === "mở khoá") {
-            timeElement.innerText = "block";
-          } else {
-            timeElement.innerText = "đang ra";
-          }
-        }
-      }
-
-
+      const timeElement = document.getElementById(`${id}`).querySelector(".time");
+      timeElement.innerText = jsonResponse.message;
     } else {
       alert("Có lỗi xảy ra: " + response.statusText);
     }

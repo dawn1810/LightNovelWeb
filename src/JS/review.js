@@ -27,45 +27,28 @@ summary_btn.onclick = () => {
   }
 };
 
-function getCookie(name) {
-  const cookies = document.cookie.split(";");
-  for (let i = 0; i < cookies.length; i++) {
-    const cookie = cookies[i].trim();
-    if (cookie.startsWith(name + "=")) {
-      return cookie.substring(name.length + 1);
-    }
-  }
-  return null;
-}
-
 async function like_novel(status) {
-  const accountCookie = getCookie("account");
-  if (accountCookie) {
-    // Gửi cookie "account" lên máy chủ
-    // Sử dụng XMLHttpRequest hoặc Fetch API để thực hiện request
-    // Ví dụ sử dụng Fetch API:
-    await fetch(`${currentURL}/api/updatelike`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        liked: status,
-        id_truyen:
-          window.location.href.split("/")[
-            window.location.href.split("/").length - 1
-          ],
-      }),
+  // Gửi cookie "account" lên máy chủ
+  // Sử dụng XMLHttpRequest hoặc Fetch API để thực hiện request
+  // Ví dụ sử dụng Fetch API:
+  await fetch(`/api/updatelike`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      liked: status,
+      id_truyen: idtruyen,
+    }),
+  })
+    .then((response) => {
+      if (response.status == 403) {
+        window.alert("Bạn hãy đăng nhập");
+      }
     })
-      .then((response) => {})
-      .then((data) => {}) // In nội dung phản hồi
-      // Sử dụng responseData ở những nơi khác trong mã của b
-      .catch((error) => {
-        console.log(error);
-      });
-  } else {
-    document.querySelector(".header_user").style.display = "none";
-  }
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 document.querySelector(".function_item_share").onclick = () => {
@@ -235,7 +218,7 @@ first_chap.onclick = function (e) {
   const chan =
     window.location.href.split("/")[window.location.href.split("/").length - 1];
   console.log(chan);
-  window.location.href = `${currentURL}/reading/${chan}/1`;
+  window.location.href = `/reading/${chan}/1`;
 };
 
 document.querySelector(".function_item_star").onclick = function () {
@@ -263,7 +246,7 @@ var list_chap = "";
 async function getReview() {
   // if()
 
-  await fetch(`${currentURL}/api/reviews`, {
+  await fetch(`/api/reviews`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -294,7 +277,7 @@ async function getReview() {
               window.location.href.split("/").length - 1
             ];
           console.log(data);
-          window.location.href = `${currentURL}/reading/${chan}/${data.no_chapters}`;
+          window.location.href = `/reading/${chan}/${data.no_chapters}`;
         };
 
         const random_chap = document.querySelector(".random_chap");
@@ -363,7 +346,7 @@ async function getReview() {
                   window.location.href.split("/").length - 1
                 ];
               console.log(chan);
-              window.location.href = `${currentURL}/reading/${chan}/${ranchap}`;
+              window.location.href = `/reading/${chan}/${ranchap}`;
             };
           }
         };
@@ -414,9 +397,9 @@ function showListLoad(pageNumber, data) {
   if (data.length > 10) {
     for (let i = pageNumber * 10 - 10; i < pageNumber * 10; i++) {
       showlist += `
-            <a href='${currentURL}/reading/${chan}/${i+1}' class="chapter-item">
+            <a href='/reading/${chan}/${i + 1}' class="chapter-item">
                 <div class="chapter_item_info">
-                    <h2>${data[i].ten_chuong}</h2>
+                    <h2>Chương ${i + 1}</h2>
                     <div style="
                         display: flex;
                         flex-direction: column;
@@ -435,7 +418,7 @@ function showListLoad(pageNumber, data) {
   } else {
     for (let i = 0; i < data.length; i++) {
       showlist += `
-            <a href='${currentURL}/reading/${chan}/${i+1}' class="chapter-item">
+            <a href='/reading/${chan}/${i + 1}' class="chapter-item">
                 <div class="chapter_item_info">
                     <h2>${data[i].ten_chuong}</h2>
                     <div style="
