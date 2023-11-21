@@ -774,7 +774,7 @@ const api_update_uploadNovel = async (req, res) => {
     UPDATE truyen
     SET 
       ngay_cap_nhat = '${formattedDate}',
-      so_luong_chuong = so_luong_chuong + 1
+      so_luong_chuong = so_luong_chuong + ${data.name_chaps.length}
     WHERE id = '${data.id}'
 	  `);
 
@@ -845,7 +845,7 @@ const api_editNovel = async (req, res) => {
     // remove all chap that ???
     for (let i = 0; i < data.remove_list.length; i++) {
       let remove_index = parseInt(data.remove_list[i]);
-      console.log(remove_index);
+      // console.log(remove_index);
       // delete remove id file from drive and remove id from chapid:
       await deleteFileFromDrive(new_chap_ids.splice(remove_index, 1)[0]);
       // remove name chap from name chaps

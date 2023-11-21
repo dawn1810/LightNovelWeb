@@ -1193,7 +1193,6 @@ document.querySelector(".page5_b .close_btn").onclick = function () {
 
 // nút chấp nhận
 document.querySelector(".page5_b .next_btn").onclick = async function () {
-  console.log("next_btn");
   let files = [];
   let edit_indexes = [];
   let name_chaprters = [];
@@ -1223,7 +1222,7 @@ document.querySelector(".page5_b .next_btn").onclick = async function () {
       ".page5_b .next_btn"
     ).innerHTML = `<img src = "https://cdn.discordapp.com/attachments/1128184786347905054/1129065224998227968/icons8-sharingan-100.png"> `;
     // window.alert("Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)")
-    notify("!", "Đang tải lên...chờ một tý!");
+    // notify("!", "Đang tải lên...chờ một tý!");
     await uploadFiles(files, 2);
   } else {
     notify("!", "Đã huỷ!");

@@ -62,6 +62,7 @@ const processNovels = async function (req, res, id_truyen) {
       INNER JOIN truyen
         ON chuong.id_truyen = truyen.id
       WHERE truyen.id = '${novel.id}'
+      ORDER BY chuong.thu_tu
       `);
 
       novel.chap_ids = chapters.map((chapter) => chapter.noi_dung_chuong);

@@ -7,7 +7,6 @@ closeIcon.addEventListener("click", () => {
   toast.classList.remove("active");
 });
 
-
 function notify(type, text_2) {
     switch (type) {
       // thong bao
