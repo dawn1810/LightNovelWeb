@@ -1375,7 +1375,7 @@ console.log(path.join(parentDirectory, 'view'))
 // passport.use(new GoogleStrategy({
 // 	clientID: credentials.google.client_id,
 // 	clientSecret: credentials.google.client_secret,
-// 	callbackURL: currentURL + "/auth/google/callback",
+// 	callbackURL:  "/auth/google/callback",
 // 	passReqToCallback: true
 // },
 // 	async function (request, accessToken, refreshToken, profile, done) {

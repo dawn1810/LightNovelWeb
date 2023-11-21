@@ -29,7 +29,7 @@ passport.use(
       clientID:
         "483084822625-jrf4t8tq5j272i8mugfk4qorgv3dg11o.apps.googleusercontent.com",
       clientSecret: "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",
-      callbackURL: currentURL + "/auth/google/callback",
+      callbackURL:  "/auth/google/callback",
       passReqToCallback: true,
     },
     async function (request, accessToken, refreshToken, profile, done) {

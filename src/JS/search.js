@@ -17,15 +17,15 @@ if (more_btn) {
             console.log('aa')
             if (more.className == 'search_more1') {
                 c_btn1 += 1
-                url = currentURL + `/api/search/more?type_id=search_more1&times=${c_btn1}&search=${encodeURI(search_value)}`
+                url =  `/api/search/more?type_id=search_more1&times=${c_btn1}&search=${encodeURI(search_value)}`
             }
             else if (more.className == 'search_more2') {
                 c_btn2 += 1
-                url = currentURL + `/api/search/more?type_id=search_more2&times=${c_btn2}&search=${encodeURI(search_value)}`
+                url =  `/api/search/more?type_id=search_more2&times=${c_btn2}&search=${encodeURI(search_value)}`
             }
             else {
                 c_btn3 += 1
-                url = currentURL + `/api/search/more?type_id=search_more3&times=${c_btn3}&search=${encodeURI(search_value)}`
+                url =  `/api/search/more?type_id=search_more3&times=${c_btn3}&search=${encodeURI(search_value)}`
             }
 
             const requestOptions = {

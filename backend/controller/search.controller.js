@@ -72,7 +72,7 @@ const search = async (req, res) => {
 	  AND the_loai.ten_the_loai REGEXP '${search}' LIMIT 31
 	  `);
       //
-      console.log(names);
+      // console.log(names);
       let authors_more = false;
       let name_more = false;
       let genres_more = false;
@@ -144,100 +144,8 @@ const category = async (req, res) => {
   }
 };
 
-const search_more = async (req, res) => {
-  try {
-    const type_id = decodeURIComponent(req.query.type_id);
-    const num_click = decodeURIComponent(req.query.times);
-    const search = decodeURIComponent(req.query.search);
-    if (type_id && num_click) {
-      // get all novels name
-      let authors_more = false;
-      let name_more = false;
-      let genres_more = false;
-      let names,
-        authors,
-        genres = undefined;
-      if (type_id == "search_more1") {
-        names = await server.find_all_Data({
-          table: "truyen",
-          query: { name: { $regex: new RegExp(search, "i") } },
-          projection: {
-            name: 1,
-            author: 1,
-            image: 1,
-            status: 1,
-            no_chapters: 1,
-          },
-          skip: 30 * num_click,
-          limit: 31,
-        });
-        if (names.length == 31) {
-          name_more = true;
-          names.pop();
-        }
-      }
-      if (type_id == "search_more2") {
-        // get all novels genres
-        genres = await server.find_all_Data({
-          table: "truyen",
-          query: { genres: { $in: [new RegExp(search, "i")] } },
-          projection: {
-            name: 1,
-            author: 1,
-            image: 1,
-            status: 1,
-            no_chapters: 1,
-          },
-          skip: 30 * num_click,
-          limit: 31,
-        });
-        if (genres.length == 31) {
-          genres_more = true;
-          genres.pop();
-        }
-      }
-      if (type_id == "search_more3") {
-        // get all novels authors
-        authors = await server.find_all_Data({
-          table: "truyen",
-          query: { author: { $regex: new RegExp(search, "i") } },
-          projection: {
-            name: 1,
-            author: 1,
-            image: 1,
-            status: 1,
-            no_chapters: 1,
-          },
-          skip: 30 * num_click,
-          limit: 31,
-        });
-        if (authors.length == 31) {
-          authors_more = true;
-          authors.pop();
-        }
-      }
-
-      if (names) {
-        res.writeHead(200, { "Content-Type": "applicaiton/json" });
-        res.end(JSON.stringify({ truyen: names, showbtn: name_more }));
-      } else if (genres) {
-        res.writeHead(200, { "Content-Type": "applicaiton/json" });
-        res.end(JSON.stringify({ truyen: genres, showbtn: genres_more }));
-      } else if (authors) {
-        res.writeHead(200, { "Content-Type": "applicaiton/json" });
-        res.end(JSON.stringify({ truyen: authors, showbtn: authors_more }));
-      }
-    } else {
-      res.sendStatus(404);
-    }
-  } catch (err) {
-    console.log("SYSTEM | SEARCH_MORE | ERROR | ", err);
-    res.sendStatus(500);
-  }
-};
 
 module.exports = {
   search,
   category,
-  search_more,
 };

@@ -56,7 +56,7 @@ $('.search-btn').on('click', function () {
     // loading 
     $('.search-btn').text('Finding...');
 
-    url = currentURL + `/api/advanced_search?skip=${0}&update_day=${$('.update_day').val()}&types=${listObj.tempValues}&num_chaps=${$('.num_chaps').val()}&status=${$('.status').val()}&sort_by=${$('.sort_by').val()}`
+    url =  `/api/advanced_search?skip=${0}&update_day=${$('.update_day').val()}&types=${listObj.tempValues}&num_chaps=${$('.num_chaps').val()}&status=${$('.status').val()}&sort_by=${$('.sort_by').val()}`
 
     const requestOptions = {
         method: 'GET',
@@ -155,7 +155,7 @@ $('.search_more_btn').on('click', function () {
     // loading 
     $('.search_more_btn').text('Finding...');
 
-    url = currentURL + `/api/advanced_search?skip=${click_times}&update_day=${$('.update_day').val()}&types=${listObj.tempValues}&num_chaps=${$('.num_chaps').val()}&status=${$('.status').val()}&sort_by=${$('.sort_by').val()}`
+    url =  `/api/advanced_search?skip=${click_times}&update_day=${$('.update_day').val()}&types=${listObj.tempValues}&num_chaps=${$('.num_chaps').val()}&status=${$('.status').val()}&sort_by=${$('.sort_by').val()}`
 
     const requestOptions = {
         method: 'GET',
