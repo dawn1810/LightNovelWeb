@@ -5,7 +5,6 @@ const func_controller = require("../controller/func.controller");
 const api_router = require("../controller/api.controller");
 const gg_router = require("../controller/google.controller");
 
-
 const apiRouter = (app) => {
   // more search
   router.get(
@@ -62,11 +61,12 @@ const apiRouter = (app) => {
   //   gg_router.open_window
   // );
 
-
   // lấy dữ liêu liệu về từ google
   router.get(
     "/auth/google/callback",
-    gg_router.passport.authenticate("google", { failureRedirect: "/api/login" }),
+    gg_router.passport.authenticate("google", {
+      failureRedirect: "/api/login",
+    }),
     gg_router.open_window
   );
 
@@ -96,14 +96,15 @@ const apiRouter = (app) => {
   router.post("/api/api_get_novel", api_router.api_get_list_novel);
   // lấy thông tin 1 truyện trong admin
   router.post("/api/api_get_info_novel", api_router.api_get_info_novel);
-  // cập nhật trạng thái truyện 
+  // cập nhật trạng thái người dùng
   router.post("/api/block_account", api_router.api_block_account);
+  // cập nhật trạng thái người dùng
+  router.post("/api/open_account", api_router.api_open_account);
 
   // lấy tài truyện trong admin
   router.post("/api/api_get_novel", api_router.api_get_list_novel);
   // ban user
   router.post("/api/update_state_novel", api_router.update_state_novel);
-
 
   router.get(
     "*",

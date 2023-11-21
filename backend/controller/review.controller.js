@@ -9,10 +9,12 @@ const authenticationKey = Buffer.from(
 ).toString("hex");
 const renderReviews = async (req, res) => {
   try {
-    const account = req.cookies.account;
+    const account = req.session.user;
     console.log("SYSTEM | REVIEWS |", account);
     // Get novel information:
-    let result = await queryAsync(`SELECT * FROM truyen WHERE id=${req.params.id}`);
+    let result = await queryAsync(
+      `SELECT * FROM truyen WHERE id=${req.params.id}`
+    );
 
     //paste here
     // default if they don't have an account
@@ -58,24 +60,20 @@ const renderReviews = async (req, res) => {
       );
     }
     if (account) {
-      const decode = func_controller.decrypt(account, authenticationKey);
-      const decodeList = decode.split(":");
-      if (decodeList[0] == authenticationKey) {
-        // check does novel was liked by current user or not
-        // id_nguoidung = ${decodeList[1]}
-        const like_list =  await queryAsync(`
+      // check does novel was liked by current user or not
+      // id_nguoidung = ${decodeList[1]}
+      const like_list = await queryAsync(`
         SELECT * FROM truyen_yeu_thich 
-        WHERE id_nguoi_dung = '${decodeList[1]}'
-        AND id_truyen= ${req.params.id}`
-        );
+        WHERE id_nguoi_dung = '${account.id}'
+        AND id_truyen= ${req.params.id}`);
 
-        if (like_list[0]) {
-          // liked
-          result[0].liked = 1;
-        }
+      if (like_list[0]) {
+        // liked
+        result[0].liked = 1;
       }
     }
-// console.log(result);
+
+    // console.log(result);
     res.render("reviews.ejs", {
       headerFile: "header",
       footerFile: "footer",

@@ -63,14 +63,15 @@ const renderReading =  async (req, res) => {
 		// 	res.status(404).send('Không tìm thấy chương!');
 		// 	return;
 		// }
-		// const chap_content = await server.downloadFileFromDrive(String(result[0].chap_ids[parseInt(req.params.chap)]));	
+		const chap_content = await server.downloadFileFromDrive(String(data[0].noi_dung_chuong));	
+		console.log(chap_content);
 		res.render('readingpage.ejs', {
 			headerFile: 'header',
 			footerFile: 'footer',
 			name: data[0].ten_chuong,
 			name_chaps: chapter_names,
 			name_chap: `${data[0].thu_tu}:${data[0].ten_chuong}`,
-			chap_content: data[0].noi_dung_chuong,
+			chap_content: chap_content,
 			number_chap: req.params.chap,
 			id: req.params.id
 		});

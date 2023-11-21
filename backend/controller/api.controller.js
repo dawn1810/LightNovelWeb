@@ -639,7 +639,7 @@ const api_uploadNovel = async (req, res) => {
       )
       VALUES (
         '${novel_id}', 
-        ${account.id}, 
+        '${account.id}', 
         '${data.name}', 
         ${data.name_chaps.length}, 
         '${data.summary}', 
@@ -653,7 +653,7 @@ const api_uploadNovel = async (req, res) => {
     for (let i = 0; i < data.name_chaps.length; i++) {
       await queryAsync(`
         INSERT INTO chuong (
-          id
+          id,
           id_truyen,
           ten_chuong,
           noi_dung_chuong,
@@ -672,12 +672,12 @@ const api_uploadNovel = async (req, res) => {
     for (let i = 0; i < data.genres.length; i++) {
       await queryAsync(`
         INSERT INTO the_loai_truyen (
-          id
+          id,
           id_the_loai,
-          id_truyen,
+          id_truyen
         )
         VALUES (
-          '${uuidv4()}'
+          '${uuidv4()}',
           '${data.genres[i]}',
           '${novel_id}'
         )
@@ -849,6 +849,7 @@ const api_editInfoNovel = async (req, res) => {
   const data = req.body;
   // console.log('SYSTEM | EDIT_TRUYEN |', data);
   try {
+    
     await server.update_one_Data(
       "truyen",
       { _id: new ObjectId(data.id) },
@@ -1141,8 +1142,10 @@ const update_state_novel = async (req, res) => {
       [state, idtruyen]
     );
     if (result.affectedRows === 1) {
-      console.log(`UPDATE truyen SET trang_thai = ${state} WHERE id = ${idtruyen}`);
-      res.status(200).json({ success: true });
+      console.log(
+        `UPDATE truyen SET trang_thai = ${state} WHERE id = ${idtruyen}`
+      );
+      res.status(200).json({ success: true , message: state });
     } else {
       res.status(404).json({ error: "Không tìm thấy truyện để cập nhật" });
     }
@@ -1161,7 +1164,28 @@ const api_block_account = async (req, res) => {
     //   return res.status(400).json({ error: "Giá trị id không hợp lệ" });
     // }
     const result = await queryAsync(
-      `UPDATE thongtin_nguoidung SET role = 0 WHERE id = ${id_acc}`
+      `UPDATE thongtin_nguoidung SET  last_role = role, role = 0 WHERE id = '${id_acc}'`
+    );
+    if (result.affectedRows === 1) {
+      res.status(200).json({ success: true });
+    } else {
+      res.status(404).json({ error: "Không tìm thấy tài khoản để cập nhật" });
+    }
+  } catch (error) {
+    console.error("Error in update_state_novel:", error);
+    res.status(500).json({ error: "Có lỗi xảy ra trên server" });
+  }
+};
+
+const api_open_account = async (req, res) => {
+  try {
+    const id_acc = parseInt(req.body.id, 10);
+    // if (`FETCH BLOCK_API COMPLETE ID==${isNaN(id_acc)}`) {
+    //   console.error("Giá trị id không hợp lệ");
+    //   return res.status(400).json({ error: "Giá trị id không hợp lệ" });
+    // }
+    const result = await queryAsync(
+      `UPDATE thongtin_nguoidung SET  role = last_role, last_role = @temp WHERE id = '${id_acc}' AND last_role <> 0;`
     );
     if (result.affectedRows === 1) {
       res.status(200).json({ success: true });
@@ -1199,4 +1223,5 @@ module.exports = {
   api_get_info_novel,
   update_state_novel,
   api_block_account,
+  api_open_account,
 };

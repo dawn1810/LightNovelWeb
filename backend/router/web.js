@@ -44,7 +44,7 @@ const webRouter = (app) => {
     func_controller.checkCookieLoglUser,
     (req, res) => {
       const id = req.params.id;
-      processNovels(req, res, id);
+      processNovels.processNovels(req, res, id);
     }
   );
   // router.get(

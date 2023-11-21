@@ -4,6 +4,16 @@ const previous_page = document.querySelector(".previous_page");
 const list_container = document.querySelector(".author_nvlist_container");
 const ban_novel = document.querySelector(".ban_novel");
 const info_truyen = document.querySelector(".status");
+const select = document.querySelector(".select select ");
+
+if (localStorage.getItem("curentpage")) {
+  var currentpage = localStorage.getItem("curentpage");
+  find_page.value = currentpage;
+  getListNovel((Number(currentpage) - 1) * 4, select.value);
+} else {
+  localStorage.setItem("curentpage", 1);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   if (find_page.value <= 1) {
     previous_page.style.display = "none";
@@ -19,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
       getListNovel((find_page.value - 1) * 4, select.value);
     }
   });
-  const select = document.querySelector(".select select ");
+
   let item_truyen = document.querySelectorAll(".followed-item");
   next_page.onclick = function (event) {
     if (find_page.value >= 1) {
@@ -179,7 +189,7 @@ async function getNovel(id) {
               </div>
               <div class="author_btn_container">
                 <button class="status_btn edit_novel">Chỉnh sửa</button>
-                <button type="button"  class="status_btn ban_novel" value='${data.data[0].id}'onclick="changeState(this.value, 'block')">Mở Khoá</button>
+                <button type="button"  class="status_btn ban_novel" value='${data.data[0].id}'onclick="changeState(this.value)">Mở Khoá</button>
               </div>
             </div>
             <!-- item -->`;
@@ -213,7 +223,7 @@ async function getNovel(id) {
               </div>
               <div class="author_btn_container">
                 <button class="status_btn edit_novel">Chỉnh sửa</button>
-                <button type="button"  class="status_btn ban_novel" value='${data.data[0].id}' onclick="changeState(this.value, 'block')">Khoá truyện</button>
+                <button type="button"  class="status_btn ban_novel" value='${data.data[0].id}' onclick="changeState(this.value)">Khoá truyện</button>
               </div>
             </div>
                 <!-- item -->`;
@@ -284,36 +294,61 @@ const chart = () => {
 
 // ban novel--------------------------------------------------------------------------------------------------
 
-
-  async function changeState(id, state) {
-    alert("Change state " + id + "=======");
-    const url = `${currentURL}/api/update_state_novel`;
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: parseInt(id, 10),
-        state: state,
-      }),
-    };
-
-    try {
-      const response = await fetch(url, requestOptions);
-
-      if (response.status === 200) {
-        if(ban_novel.innerText === "Khoá truyện") {
-          ban_novel.innerText="mở khoá"
-        }else{
-          ban_novel.innerText="Khoá truyện"
-        }
-      } else {
-        alert("Có lỗi xảy ra: " + response.statusText);
-      }
-    } catch (error) {
-      console.log("Error:", error);
-    }
-    
+async function changeState(id) {
+  let state;
+  if (ban_novel.innerText === "Khoá truyện") {
+    state = "block";
+  } else {
+    state = "đang ra";
   }
+  const url = `${currentURL}/api/update_state_novel`;
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: parseInt(id, 10),
+      state: state,
+    }),
 
+  };
+
+  try {
+    const response = await fetch(url, requestOptions);
+
+    if (response.status === 200) {
+      const jsonResponse = await response.json();
+  
+      alert(jsonResponse.message;) 
+      console.log("Your Text String:", yourTextString);
+      if (ban_novel.innerText === "Mở Khoá") {
+        ban_novel.innerText = "Khoá truyện";
+      } else {
+        ban_novel.innerText = "Mở Khoá";
+      }
+
+
+      if (document.getElementById(`${id}`)) {
+        const timeElement = document.getElementById(`${id}`).querySelector(".time");
+        if (timeElement) {
+          if (ban_novel.innerText === "mở khoá") {
+            timeElement.innerText = "block";
+          } else {
+            timeElement.innerText = "đang ra";
+          }
+        }
+      }
+
+
+    } else {
+      alert("Có lỗi xảy ra: " + response.statusText);
+    }
+  } catch (error) {
+    console.log("Error:", error);
+  }
+}
+
+window.addEventListener("beforeunload", function (event) {
+  localStorage.setItem("curentpage", find_page.value);
+});
