@@ -125,7 +125,7 @@
 
                     <div class="name-novel">
                       <div class="name-novel-top">
-                        <h2><a href="https://gamek.mediacdn.vn"><%=truyen[i].ten_truyen%></a>
+                        <h2><a href="#"><%=truyen[i].ten_truyen%></a>
                         </h2>
                         <input type="checkbox" name="" id="">
                       </div>
@@ -149,7 +149,8 @@
             
             <div class="pagination_btn_gr">
               <button class="previous_page"><i class="fa-solid fa-arrow-left"></i></button>
-              <input type="number" class="find_page" value="1">
+              <input type="number" class="find_page" value="1">/
+              <p id="max"><%= Math.round(max_page[0].row_count/4)%></p>
               <button class="next_page"><i class="fa-solid fa-arrow-right"></i></button>
             </div>
           </div>

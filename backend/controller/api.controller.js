@@ -774,7 +774,7 @@ const api_update_uploadNovel = async (req, res) => {
     UPDATE truyen
     SET 
       ngay_cap_nhat = '${formattedDate}',
-      so_luong_chuong = so_luong_chuong + 1
+      so_luong_chuong = so_luong_chuong + ${data.name_chaps.length}
     WHERE id = '${data.id}'
 	  `);
 
@@ -845,7 +845,7 @@ const api_editNovel = async (req, res) => {
     // remove all chap that ???
     for (let i = 0; i < data.remove_list.length; i++) {
       let remove_index = parseInt(data.remove_list[i]);
-      console.log(remove_index);
+      // console.log(remove_index);
       // delete remove id file from drive and remove id from chapid:
       await deleteFileFromDrive(new_chap_ids.splice(remove_index, 1)[0]);
       // remove name chap from name chaps
@@ -1233,13 +1233,10 @@ const update_state_novel = async (req, res) => {
     console.log("idtruyen:", idtruyen);
     const state = req.body.state;
     const result = await queryAsync(
-      "UPDATE truyen SET trang_thai = ? WHERE id = ?",
+      "UPDATE truyen SET ban = ? WHERE id = ?",
       [state, idtruyen]
     );
     if (result.affectedRows === 1) {
-      console.log(
-        `UPDATE truyen SET trang_thai = ${state} WHERE id = ${idtruyen}`
-      );
       res.status(200).json({ success: true, message: state });
     } else {
       res.status(404).json({ error: "Không tìm thấy truyện để cập nhật" });

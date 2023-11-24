@@ -143,7 +143,7 @@ async function checkAdmin(req, res, next) {
   const result = await queryAsync(
     `SELECT * FROM thongtin_nguoidung WHERE role= 100 AND id_tai_khoan = '${user.id}'`
   );
-  if (result.length != 0) {
+  if (!result.length) {
     next();
   } else {
     return res.redirect("/");

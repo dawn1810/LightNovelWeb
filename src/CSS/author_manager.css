@@ -324,7 +324,13 @@ select {
 
 .name-novel h2 {
   text-transform: capitalize;
-  width: 95%;
+  width: 50%;
+}
+.name-novel h3 {
+  text-transform: capitalize;
+  color: var(--black-text);
+  text-align: right;
+  width: 50%;
 }
 
 .name-novel p {

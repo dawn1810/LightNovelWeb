@@ -20,40 +20,24 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
-  const account_open_func = () => { 
+  const account_open_func = () => {
     accountf5 = document.querySelectorAll(".block_account_f5 ");
-        console.log(accountf5);
-        for (const open_account of accountf5) {
-          open_account.addEventListener("click", function (e) {
-            e.preventDefault();
-            console.log(
-              open_account.parentElement.parentElement.getAttribute("id")
-            );
-            func_open_account(
-              open_account,
-              open_account.parentElement.parentElement.getAttribute("id")
-            );
-          });
-        }
-  }
+    console.log(accountf5);
+    for (const open_account of accountf5) {
+      open_account.addEventListener("click", function (e) {
+        e.preventDefault();
+        console.log(
+          open_account.parentElement.parentElement.getAttribute("id")
+        );
+        func_open_account(
+          open_account,
+          open_account.parentElement.parentElement.getAttribute("id")
+        );
+      });
+    }
+  };
 
-  const author_open_func = () => { 
-    author = document.querySelectorAll(".author_btn");
-        for (const open_account of author) {
-          open_account.addEventListener("click", function (e) {
-            e.preventDefault();
-            console.log(
-              open_account.parentElement.parentElement.getAttribute("id")
-            );
-            func_block_author(
-              open_account,
-              open_account.parentElement.parentElement.getAttribute("id")
-            );
-          });
-        }
-  }
-
-  const author_block_func = () => { 
+  const author_open_func = () => {
     author = document.querySelectorAll(".author_btn");
     for (const open_account of author) {
       open_account.addEventListener("click", function (e) {
@@ -67,7 +51,23 @@ document.addEventListener("DOMContentLoaded", function () {
         );
       });
     }
-  }
+  };
+
+  const author_block_func = () => {
+    author = document.querySelectorAll(".author_btn");
+    for (const open_account of author) {
+      open_account.addEventListener("click", function (e) {
+        e.preventDefault();
+        console.log(
+          open_account.parentElement.parentElement.getAttribute("id")
+        );
+        func_block_author(
+          open_account,
+          open_account.parentElement.parentElement.getAttribute("id")
+        );
+      });
+    }
+  };
 
   console.log(accountElements);
   if (accountElements) {
@@ -103,18 +103,15 @@ document.addEventListener("DOMContentLoaded", function () {
       if (response.status === 200) {
         const data = await response.json();
         notify("n", "Thay đổi thông tin thành công!");
-        element.parentElement.innerHTML = `
-        <div class="block_account_f5 open">
-        Mở khoá người dùng
-      </div>
-      <div class="author_btn last">
-        Xoá quyền tác giả
-      </div>
-        `;
-        author_block_func()
-        author_open_func()
-        account_block_func()
-        account_open_func()
+        element.classList.remove("block_account");
+        element.classList.add("block_account_f5");
+        element.innerHTML = "Mở khoá người dùng";
+        element.parentElement.children[1].classList.add("last");
+        element.parentElement.children[1].style.pointerEvents = 'none';
+        author_block_func();
+        author_open_func();
+        account_block_func();
+        account_open_func();
       } else {
         notify("x", response.statusText);
       }
@@ -156,23 +153,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (response.status === 200) {
         const data = await response.json();
-        console.log(data.role[0].role)
+        console.log(data.role[0].role);
         notify("n", "Thay đổi thông tin thành công!");
         if (data.role[0].role == "1") {
-          element.parentElement.innerHTML = `
-        <div class="block_account ">
-        Khoá người dùng
-      </div>
-      <div class="author_btn open">
-        Thêm quyền tác giả
-      </div>
-        `;
-        author_block_func()
-        author_open_func()
-        account_block_func()
-        account_open_func()
+          element.classList.remove("block_account_f5");
+          element.classList.add("block_account");
+          element.innerHTML = "Khoá người dùng";
+          element.parentElement.children[1].classList.remove("last");
+          element.parentElement.children[1].style.pointerEvents = 'auto';
+          author_block_func();
+          author_open_func();
+          account_block_func();
+          account_open_func();
         } else {
-        console.log(data.role[0].role)
+          console.log(data.role[0].role);
 
           element.parentElement.innerHTML = `
         <div class="block_account ">
@@ -182,10 +176,10 @@ document.addEventListener("DOMContentLoaded", function () {
         Xoá quyền tác giả
       </div>
         `;
-        author_block_func()
-        author_open_func()
-        account_block_func()
-        account_open_func()
+          author_block_func();
+          author_open_func();
+          account_block_func();
+          account_open_func();
         }
       } else {
         notify("x", response.statusText);
@@ -239,10 +233,10 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
         `;
 
-        author_block_func()
-        author_open_func()
-        account_block_func()
-        account_open_func()
+        author_block_func();
+        author_open_func();
+        account_block_func();
+        account_open_func();
       } else {
         notify("x", response.statusText);
       }
@@ -295,10 +289,10 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
         `;
 
-        author_block_func()
-        author_open_func()
-        account_block_func()
-        account_open_func()
+        author_block_func();
+        author_open_func();
+        account_block_func();
+        account_open_func();
       } else {
         notify("x", response.statusText);
       }

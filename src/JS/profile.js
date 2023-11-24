@@ -665,7 +665,6 @@ Save_btn.onclick = async function (e) {
         document.querySelector("#fullname").value;
       document.querySelector(".header_user_logo_i .curent-avt img").src =
         avatar.src;
-
       author_name_check = document.querySelector("#author_name").value;
 
       notify("n", "Thay đổi thông tin người dùng thành công!");

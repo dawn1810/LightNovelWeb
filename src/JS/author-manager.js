@@ -5,7 +5,7 @@ const list_container = document.querySelector(".author_nvlist_container");
 const ban_novel = document.querySelector(".ban_novel");
 const info_truyen = document.querySelector(".status");
 const select = document.querySelector(".select select ");
-
+const maxcout = parseInt(document.getElementById('max').innerText)
 if (localStorage.getItem("curentpage")) {
   var currentpage = localStorage.getItem("curentpage");
   find_page.value = currentpage;
@@ -19,14 +19,29 @@ document.addEventListener("DOMContentLoaded", function () {
     previous_page.style.display = "none";
   }
   find_page.addEventListener("keydown", function (event) {
-    if (find_page.value <= 1) {
+    if (find_page.value < 1) {
       previous_page.style.display = "none";
     } else if (find_page.value >= 1) {
       previous_page.style.display = "block";
     }
     if (event.key === "Enter") {
       event.preventDefault();
-      getListNovel((find_page.value - 1) * 4, select.value);
+      if (parseInt(find_page.value) > maxcout) {
+        find_page.style.border = "3px red solid"
+        getListNovel((maxcout - 1) * 4, select.value);
+        find_page.value = maxcout
+      }
+      else if (parseInt(find_page.value) <= 0) {
+        find_page.style.border = "3px red solid"
+        getListNovel((1 - 1) * 4, select.value);
+        find_page.value = 1
+      }
+      else {
+        find_page.style.border = "none"
+        previous_page.style.display = "block";
+        next_page.style.display = "block";
+        getListNovel((find_page.value - 1) * 4, select.value);
+      }
     }
   });
 
@@ -38,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     event.preventDefault();
     find_page.value = parseInt(find_page.value) + 1;
     getListNovel((find_page.value - 1) * 4, select.value);
+    find_page.style.border = "none"
   };
   previous_page.onclick = function (event) {
     event.preventDefault();
@@ -46,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (find_page.value <= 1) {
       previous_page.style.display = "none";
     }
+    find_page.style.border = "none"
   };
 
   click_truyen();
@@ -60,12 +77,27 @@ const click_truyen = () => {
   for (const item of document.querySelectorAll(".followed-item")) {
     item.onclick = function () {
       const id = item.getAttribute("id");
-      console.log("id hiện tại "+id);
+      console.log("id hiện tại " + id);
       getNovel(id);
     };
   }
 };
 
+async function getListNovel(offset, fill) {
+  const url = `/api/api_get_novel`;
+
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      n: 4,
+      offset: offset,
+      fill: fill,
+    }),
+  };
+}
 async function getListNovel(offset, fill) {
   const url = `/api/api_get_novel`;
 
@@ -86,7 +118,6 @@ async function getListNovel(offset, fill) {
 
     if (response.status === 200) {
       const data = await response.json();
-      console.log(typeof(data['count'][0].row_count));
       let novelListHTML = "";
       if (data["data"].length < 4) {
         next_page.style.display = "none";
@@ -94,6 +125,8 @@ async function getListNovel(offset, fill) {
         next_page.style.display = "block";
       }
       for (let i = 0; i < data["data"].length; i++) {
+        const ban =data["data"][i].ban;
+        const ban_state = (ban === 1) ? 'Đã khoá' : ((ban === 0) ? 'Không Khoá' : '');
         novelListHTML += `
         <!-- item -->
                 <div class="followed-item" id="${data["data"][i].id}">
@@ -108,8 +141,7 @@ async function getListNovel(offset, fill) {
                       <div class="name-novel-top">
                         <h2><a href="https://gamek.mediacdn.vn">${data["data"][i].ten_truyen}</a>
                         </h2>
-                        <input type="checkbox" name="" id="">
-
+                          <h3>Trạng Thái: ${ban_state}</h3>
                       </div>
                       <p>
                         sech
@@ -155,11 +187,12 @@ async function getNovel(id) {
 
     if (response.status === 200) {
       const data = await response.json();
+      console.log(data.data[0].trang_thai);
 
-      let novelListHTML = ""; // Tạo một chuỗi để tích hợp nội dung thẻ
+      let novelListHTML = ""; 
 
       for (let i = 0; i < data["data"].length; i++) {
-        if (data.data[0].trang_thai === "block") {
+        if (data.data[0].ban == 1) {
           novelListHTML += `
         <!-- item -->
         <div class="avt_space">
@@ -248,7 +281,6 @@ const chart = () => {
   // Kiểm tra xem đã tồn tại biểu đồ với ID 'myChart' chưa, và xóa nó nếu có
   var existingChart = Chart.getChart("myChart");
   if (existingChart) {
-    console.log("haha");
     existingChart.destroy();
   }
 
@@ -297,9 +329,9 @@ const chart = () => {
 async function changeState(id) {
   let state;
   if (ban_novel.innerText === "Khoá truyện") {
-    state = "block";
+    state = 1;
   } else {
-    state = "đang ra";
+    state = 0;
   }
   const url = `/api/update_state_novel`;
   const requestOptions = {
@@ -319,15 +351,14 @@ async function changeState(id) {
 
     if (response.status === 200) {
       const jsonResponse = await response.json();
-      if(jsonResponse.message==="block"){
+      const timeElement = document.getElementById(`${id}`).querySelector(".time");
+      if(jsonResponse.message==1){
         ban_novel.innerText = "Mở Khoá";
         document.querySelector(".ban_novel").innerText = "Mở Khoá";
       }else{
         ban_novel.innerText = "Khoá truyện";
         document.querySelector(".ban_novel").innerText = "Khoá truyện";
       }
-      const timeElement = document.getElementById(`${id}`).querySelector(".time");
-      timeElement.innerText = jsonResponse.message;
     } else {
       alert("Có lỗi xảy ra: " + response.statusText);
     }
@@ -337,5 +368,7 @@ async function changeState(id) {
 }
 
 window.addEventListener("beforeunload", function (event) {
-  localStorage.setItem("curentpage", find_page.value);
+  const before_num=(Number(find_page.value) > maxcout) ? maxcout : ((Number(find_page.value) <= 1) ? 1 : Number(find_page.value));
+
+  localStorage.setItem("curentpage", before_num);
 });
