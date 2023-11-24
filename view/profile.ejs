@@ -594,7 +594,7 @@
                   <%= edit_name_chaps[i].split(":")[0].slice(0, 6) %>
                 </div>
                 <span>&emsp;</span>
-                <input type="text" class="profile_input n_num" style="width: 10%;" value="<%= edit_name_chaps[i].split(":")[0].slice(6).trim()%>">
+                <input type="text" class="profile_input n_num" style="width: 10%;" value="<%= edit_name_chaps[i].split(":")[0].slice(6).trim()%>" readonly />
                 <div style="
 												display: flex;
 												align-items: center;
@@ -825,6 +825,7 @@
     let author_name_check = document.querySelector("#author_name").value;
   </script>
   <script src="/src/JS/profile.js"></script>
+  <!-- <script src="/src/JS/notify.js"></script> -->
 </body>
 <div class="modal">
   <div class="modal_wrap">
