@@ -1,4 +1,4 @@
-html,
+
 body {
   box-sizing: border-box;
   padding: 0;
@@ -465,7 +465,7 @@ a {
   user-select: none;
 }
 
-.path-burger {
+/* .path-burger {
   position: absolute;
   top: 0;
   left: 0;
@@ -473,7 +473,7 @@ a {
   width: 68px;
   mask: url(#mask);
   -webkit-mask-box-image: url(https://raygun.io/upload/mask.svg);
-}
+} */
 
 .animate-path {
   position: absolute;
@@ -496,7 +496,7 @@ a {
     width: 30px;
     height: 34px;
     margin: 0 4px 0 0;
-    background: #506d84;
+    /* background: #506d84; */
   }
 }
 
