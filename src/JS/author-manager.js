@@ -127,9 +127,10 @@ async function getListNovel(offset, fill) {
       for (let i = 0; i < data["data"].length; i++) {
         const ban =data["data"][i].ban;
         const ban_state = (ban === 1) ? 'Đã khoá' : ((ban === 0) ? 'Không Khoá' : '');
+        const opacity_item = (ban === 1) ? 'style="opacity: 0.5;"' : ((ban === 0) ? 'style="opacity: 1;"' : '');
         novelListHTML += `
         <!-- item -->
-                <div class="followed-item" id="${data["data"][i].id}">
+                <div class="followed-item" id="${data["data"][i].id}" ${opacity_item}>
 
                   <div class="name-container">
 
@@ -139,9 +140,9 @@ async function getListNovel(offset, fill) {
 
                     <div class="name-novel">
                       <div class="name-novel-top">
-                        <h2><a href="https://gamek.mediacdn.vn">${data["data"][i].ten_truyen}</a>
+                        <h2><a>${data["data"][i].ten_truyen}</a>
                         </h2>
-                          <h3>Trạng Thái: ${ban_state}</h3>
+                          <h3 class='ban_text'>Trạng Thái: ${ban_state}</h3>
                       </div>
                       <p>
                         sech
@@ -355,9 +356,13 @@ async function changeState(id) {
       if(jsonResponse.message==1){
         ban_novel.innerText = "Mở Khoá";
         document.querySelector(".ban_novel").innerText = "Mở Khoá";
+        document.querySelector(".ban_text").innerText='Trạng Thái: Đang Khoá'
+        document.getElementById(`${id}`).style.opacity='0.5'
       }else{
         ban_novel.innerText = "Khoá truyện";
         document.querySelector(".ban_novel").innerText = "Khoá truyện";
+        document.querySelector(".ban_text").innerText='Trạng Thái: Không Khoá'
+        document.getElementById(`${id}`).style.opacity='1'
       }
     } else {
       alert("Có lỗi xảy ra: " + response.statusText);
