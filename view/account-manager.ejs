@@ -43,40 +43,61 @@
             </div>
             <input type="hidden" value='<%= user.id %>'>
             <div class="right_gr">
-              <% if (user.role == 0) { %>
+              <% if (user.role == 0  && user.last_role ==2) { %>
 
                   <div class="block_account_f5 open">
                     Mở khoá người dùng
                   </div>
+                  <div class="block_account block">
+                    Khoá người dùng
+                  </div>
                   <div class="author_btn last">
                     Xoá quyền tác giả
                   </div>
+                  <div class="author_btn_f5 block open">
+                    Thêm quyền tác giả
+                  </div>
                
-              <% } else if (user.last_role = 1 && user.role ==2) { %>
-                <div class="block_account">
+              <% } else if ( user.role ==0 && user.last_role == 1) { %>
+                <div class="block_account_f5 open">
+                  Mở khoá người dùng
+                </div>
+                <div class="block_account block">
                   Khoá người dùng
                 </div>
-                <div class="author_btn_f5 open">
+                <div class="author_btn block">
                   Xoá quyền tác giả
                 </div>
-              <% } 
-              else if(user.role ==1) { %>
-                <div class="block_account">
+                <div class="author_btn_f5 last open">
+                  Thêm quyền tác giả
+                </div>
+              <% } else if(user.role ==1) { %>
+                <div class="block_account_f5 open block">
+                  Mở khoá người dùng
+                </div>
+                <div class="block_account ">
                   Khoá người dùng
+                </div>
+                <div class="author_btn block">
+                  Xoá quyền tác giả
                 </div>
                 <div class="author_btn_f5 open">
                   Thêm quyền tác giả
                 </div>
-              <% } 
-              else { %>
+              <% } else { %>
+                <div class="block_account_f5 open block">
+                  Mở khoá người dùng
+                </div>
                 <div class="block_account">
                   Khoá người dùng
                 </div>
-                <div class="author_btn last">
+                <div class="author_btn">
                   Xoá quyền tác giả
                 </div>
-              <% }
-              %>
+                <div class="author_btn_f5 block open">
+                  Thêm quyền tác giả
+                </div>
+              <% } %>
             </div>
           </div>
 

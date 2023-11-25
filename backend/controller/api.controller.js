@@ -1274,10 +1274,13 @@ const api_block_account = async (req, res) => {
 		// }
 		console.log("id_acc:", id_acc);
 		const result = await queryAsync(
-			`UPDATE thongtin_nguoidung SET  last_role = 1, role = 0 WHERE id = '${id_acc}'`
+			`UPDATE thongtin_nguoidung SET  last_role = role, role = 0 WHERE id = '${id_acc}'`
+		);
+		const role =  await queryAsync(
+			`SELECT last_role FROM thongtin_nguoidung WHERE id = '${id_acc}'`
 		);
 		if (result.affectedRows === 1) {
-			res.status(200).json({ success: true });
+			res.status(200).json({ role: role });
 		} else {
 			res.status(404).json({ error: "Không tìm thấy tài khoản để cập nhật" });
 		}
@@ -1295,10 +1298,10 @@ const api_open_account = async (req, res) => {
 		//   return res.status(400).json({ error: "Giá trị id không hợp lệ" });
 		// }
 		const result = await queryAsync(
-			`UPDATE thongtin_nguoidung SET  role = 1, last_role = 0 WHERE id = '${id_acc}' AND last_role <> 0;`
+			`UPDATE thongtin_nguoidung SET  role = last_role, last_role = 0 WHERE id = '${id_acc}' AND last_role <> 0;`
 		);
 		const role = await queryAsync(
-			`SELECT role FROM thongtin_nguoidung  WHERE id = '${id_acc}' ;`
+			`SELECT last_role FROM thongtin_nguoidung  WHERE id = '${id_acc}' ;`
 		);
 		if (result.affectedRows === 1) {
 			res.status(200).json({ role: role });
