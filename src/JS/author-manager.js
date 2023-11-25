@@ -140,7 +140,7 @@ async function getListNovel(offset, fill) {
 
                     <div class="name-novel">
                       <div class="name-novel-top">
-                        <h2><a href="https://gamek.mediacdn.vn">${data["data"][i].ten_truyen}</a>
+                        <h2><a>${data["data"][i].ten_truyen}</a>
                         </h2>
                           <h3 class='ban_text'>Trạng Thái: ${ban_state}</h3>
                       </div>
