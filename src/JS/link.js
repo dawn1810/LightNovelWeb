@@ -1,8 +1,7 @@
 $(document).ready(function () {
   const header_menu = document.querySelector(".header_menu");
   const left_item = document.querySelector(".left_item");
-  const category_btn = document.getElementById("category");
-  const category_list = document.querySelector(".category_list");
+
 
   let menuBtnCount = true;
   const rootStyle = document.documentElement.style;
