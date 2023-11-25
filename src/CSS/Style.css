@@ -16,7 +16,7 @@ body {
   --white-text: #fff;
   --black-text: black;
   --button-color: #884c05;
-  --item-color: rgb(151 107 51);
+  --item-color: rgba(240, 211, 174, 0.4);
   --author-color: #ffb035;
   --header-background: #d4b499;
   --header-text: #884c05;
@@ -25,7 +25,7 @@ body {
   --menu-text: #063458;
   --category_list: #068aaf;
   --category_bg: #889eaf;
-  --novel_author: #ffb035;
+  --novel_author: #bb7507;
   --review_bg: antiquewhite;
   --chapter_bg: rgb(158 138 111);
   --cm_bg: #ceae80;
@@ -1257,7 +1257,7 @@ html .body_main {
 }
 
 .top_popular_top {
-  margin-left: 10px;
+  /* margin-left: 10px; */
   display: flex;
   justify-content: space-between;
 }
@@ -1268,7 +1268,7 @@ html .body_main {
   height: fit-content;
   padding: 10px;
   background: var(--button-color);
-  border-radius: 5px;
+  /* border-radius: 5px; */
   display: flex;
   align-items: center;
   color: var(--white-text);
@@ -1307,7 +1307,7 @@ html .body_main {
   position: relative;
   display: flex;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: var(--white-color);
   color: var(--black-text);
   width: var(--container_width);
@@ -1362,7 +1362,8 @@ html .body_main {
 
 .novel {
   display: flex;
-
+  background-color: var(--item-color);
+margin-top: 20px;
   flex-wrap: wrap;
   align-content: flex-start;
   padding-top: 5px;
@@ -1371,17 +1372,16 @@ html .body_main {
 
 .novel_item {
   width: 15%;
-  padding: 5px;
+  /* padding: 5px; */
   box-sizing: border-box;
-  background-color: var(--item-color);
   margin: 17px 10px;
   margin-bottom: 30px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   cursor: pointer;
 }
 
 .novel_item:hover {
-  box-shadow: var(--black-text) 0px 5px 15px;
+  box-shadow: var(--black-text) 0px 1px 4px;
 }
 
 .novel_item_main {
@@ -1390,30 +1390,31 @@ html .body_main {
 
 .novel_item_main_img {
   width: 100%;
-  height: 260px;
+  height: 222px;
   overflow: hidden;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 
 .novel_item img {
   width: 100%;
-  height: 260px;
-  border-radius: 10px;
+  height: 222px;
+  /* border-radius: 10px; */
   transition: 0.1s ease-in-out;
   object-position: 50% 100%;
   object-fit: cover;
 }
 
 .novel_title {
-  color: var(--white-text);
+  color: var(--black-text);
   margin: 10px 0;
+  padding: 0 10px;
   font-size: 15px;
 }
 
 .novel_name {
-  height: 36px;
+  /* height: 36px; */
   font-size: 16px;
-  color: var(--white-text);
+  color: var(--black-text);
   text-transform: capitalize;
   word-wrap: break-word;
   white-space: normal;
