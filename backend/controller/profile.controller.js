@@ -17,6 +17,7 @@ const processNovels = async function (req, res, id_truyen) {
       edit_img: "",
       edit_chap_ids: "",
       edit_name_chaps: "",
+      edit_no_chaps: "",
     };
 
     const myNovels = await queryAsync(`
@@ -78,6 +79,7 @@ const processNovels = async function (req, res, id_truyen) {
         render_data.edit_img = novel.image;
         render_data.edit_chap_ids = novel.chap_ids;
         render_data.edit_name_chaps = novel.name_chaps;
+        render_data.edit_no_chaps = novel.no_chapters;
       }
     }
 

@@ -232,21 +232,21 @@ for (let i = 0; i < Setting_item.length; i++) {
       history.pushState(null, null, currentURL);
     }
     if (Setting_item[i].classList[1] == "yourfollow") {
-      var newURL =  "/novel_following";
+      var newURL = "/novel_following";
 
       history.pushState(null, null, newURL);
       Setting_pageWrapper_drop();
       Setting_pageWrapper[1].style.display = "block";
     }
     if (Setting_item[i].classList[1] == "yourchangepass") {
-      var newURL =  "/change_pass";
+      var newURL = "/change_pass";
       history.pushState(null, null, newURL);
       Setting_pageWrapper_drop();
       document.querySelector(".page4").style.display = "block";
     }
 
     if (Setting_item[i].classList[1] == "up_novel") {
-      var newURL =  "/my_novel";
+      var newURL = "/my_novel";
       history.pushState(null, null, newURL);
       Setting_pageWrapper_drop();
       page5_composed_drop();
@@ -450,7 +450,7 @@ async function uploadNovel() {
     // taì khoan hơp lệ
     if (response.status == "200") {
       page5_a_up_drop();
-      var newURL =  "/profile/congratulation";
+      var newURL = "/profile/congratulation";
       history.pushState(null, null, newURL);
       page5_last.style.display = "block";
 
@@ -505,7 +505,7 @@ async function updateNovel() {
     if (response.status == "200") {
       // back to novel list scene
       page5_a_up_drop();
-      let newURL =  "/profile/my_novel";
+      let newURL = "/my_novel";
       window.location.href = newURL;
       // reset sessionStorage
       sessionStorage.clear();
@@ -556,7 +556,7 @@ async function editNovel() {
     if (response.status == "200") {
       // back to novel list scene
       page5_a_up_drop();
-      let newURL =  "/profile/my_novel";
+      let newURL = "/my_novel";
       window.location.href = newURL;
       // reset sessionStorage
       sessionStorage.clear();
@@ -679,7 +679,7 @@ Save_btn.onclick = async function (e) {
 add_new.onclick = function () {
   if (author_name_check) {
     page5_composed_drop();
-    var newURL =  "/profile" + "/add_novel";
+    var newURL = "/profile" + "/add_novel";
     history.pushState(null, null, newURL);
     page5_composed[1].style.display = "block";
     page5_a_up[0].style.display = "flex";
@@ -710,7 +710,7 @@ document.querySelector(".page5_info .next_btn").onclick = async function () {
     listObj.tempValues
   ) {
     page5_a_up_drop();
-    let newURL =  "/profile/add_content";
+    let newURL = "/profile/add_content";
     history.pushState(null, null, newURL);
     page5_chap.style.display = "block";
     range.style.setProperty("--p", "50");
@@ -790,7 +790,7 @@ async function cancel() {
           setTimeout(function () {
             // back to novel list scene
             page5_a_up_drop();
-            let newURL =  "/profile/my_novel";
+            let newURL = "/my_novel";
             window.location.href = newURL;
             // reset sessionStorage
             sessionStorage.clear();
@@ -803,7 +803,7 @@ async function cancel() {
       setTimeout(function () {
         // back to novel list scene
         page5_a_up_drop();
-        let newURL =  "/profile/my_novel";
+        let newURL = "/my_novel";
         window.location.href = newURL;
         // reset sessionStorage
         sessionStorage.clear();
@@ -842,7 +842,7 @@ document.querySelector(".page5_chap .more_chap_btn").onclick = function () {
 			<h3>Thứ tự chương</h3>
 			<div class="information_name">
 				<input class="profile_input chap_num" type="number" id="name_novel"
-					value="${document.querySelectorAll(".page5_chap .chap_num").length}" readonly />
+					value="${document.querySelectorAll(".page5_a .chap_num").length + 1}" readonly />
 			</div>
 		</div>
 
@@ -876,9 +876,24 @@ document.querySelector(".page5_chap .more_chap_btn").onclick = function () {
 
 $(document).ready(function () {
   // Add event listener to all buttons
-  $(document).on("click", ".page5_chap .delete_chap", function () {
+  $(document).on("click", ".page5_d .delete_chap", function () {
     // Delete the grandparent node
     $(this).parent().parent().remove();
+    const chap_num_list = document.querySelectorAll(".page5_d .chap_num");
+    for (let i = 0 ; i < chap_num_list.length; i++)
+    {
+      chap_num_list[i].value = parseInt(chap_num_list[0].value) + i;
+    } 
+  });
+
+  $(document).on("click", ".page5_a .delete_chap", function () {
+    // Delete the grandparent node
+    $(this).parent().parent().remove();
+    const chap_num_list = document.querySelectorAll(".page5_a .chap_num");
+    for (let i = 0 ; i < chap_num_list.length; i++)
+    {
+      chap_num_list[i].value = parseInt(chap_num_list[0].value) + i;
+    } 
   });
 
   $(document).on("click", ".back_btn", function () {
@@ -937,7 +952,7 @@ $(document).ready(function () {
     // Delete the grandparent node
     let grandparentID = $(this).parent().parent().attr("id");
     page5_composed_drop();
-    var newURL =  "/profile/update/" + grandparentID + "/edit";
+    var newURL = "/profile/update/" + grandparentID + "/edit";
     window.location.href = newURL;
 
     console.log(grandparentID); // This will log 'grandparent'
@@ -983,7 +998,7 @@ $(document).ready(function () {
     // Delete the grandparent node
     let grandparentID = $(this).parent().parent().attr("id");
     page5_composed_drop();
-    var newURL =  "/profile/update/" + grandparentID + "/listchap";
+    var newURL = "/profile/update/" + grandparentID + "/listchap";
     window.location.href = newURL;
   });
 
@@ -992,7 +1007,7 @@ $(document).ready(function () {
     let grandparentID = $(this).parent().parent().attr("id");
     // change to add more chap page
     page5_composed_drop();
-    var newURL =  "/profile/update/" + grandparentID + "/morechap";
+    var newURL = "/profile/update/" + grandparentID + "/morechap";
     window.location.href = newURL;
   });
 
@@ -1177,7 +1192,7 @@ document.querySelector(".page5_chap .close_btn").onclick = async function () {
 document.querySelector(".page5_last .page5_last_btn").onclick = function () {
   // back to novel list scene
   page5_a_up_drop();
-  let newURL =  "/profile/my_novel";
+  let newURL = "/my_novel";
   window.location.href = newURL;
 
   // reset sessionStorage
@@ -1248,7 +1263,11 @@ document.querySelector(".page5_d .more_chap_btn").onclick = function () {
 			<h3>Thứ tự chương</h3>
 			<div class="information_name">
         <input class="profile_input chap_num" type="number" id="name_novel"
-					value="${parseInt(document.querySelectorAll(".page5_d #name_novel")[0].value) + document.querySelectorAll(".page5_d .chap_num").length}" readonly />
+					value="${
+            parseInt(
+              document.querySelectorAll(".page5_d .chap_num")[0].value
+            ) + document.querySelectorAll(".page5_d .chap_num").length
+          }" readonly />
 			</div>
 		</div>
 
@@ -1348,7 +1367,7 @@ document.querySelector(".page5_c .next_btn").onclick = function () {
     },
     body: postData,
   };
-  url =  "/api/edit_info_novel";
+  url = "/api/edit_info_novel";
   fetch(url, requestOptions)
     .then((response) => {
       if (response.ok) {

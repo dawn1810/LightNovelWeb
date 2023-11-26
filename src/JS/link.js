@@ -20,7 +20,7 @@ $(document).ready(function () {
       rootStyle.setProperty("--category_bg", "#374d88");
       rootStyle.setProperty("--search-bg", "#959595");
       rootStyle.setProperty("--menu-text", "#fff");
-      rootStyle.setProperty("--item-color", "#000");
+      rootStyle.setProperty("--item-color", "#052147");
       rootStyle.setProperty("--button-color", "#23427a");
       rootStyle.setProperty("--login-btn", "#ff971b");
       rootStyle.setProperty("--author-color", "#2a3995");

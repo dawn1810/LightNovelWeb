@@ -66,6 +66,7 @@ function decrypt(encryptedDataWithIV, secretKey) {
 }
 
 async function checkCookieLoglUser(req, res, next) {
+
 	try {
 		if (req.isAuthenticated()) {
 			req.session.user = req.user;
@@ -76,6 +77,7 @@ async function checkCookieLoglUser(req, res, next) {
 				"https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg";
 			res.locals.username = "";
 			res.locals.login_way = "null";
+		
 			next();
 		} else {
 			// console.log("SYSTEM | CHECK_COOKIE | User login", user);
@@ -101,11 +103,13 @@ async function checkCookieLoglUser(req, res, next) {
 				res.locals.email = n_result[0].email;
 				res.locals.login_way = n_result[0].login_way;
 				res.locals.author_name = author.length ? author[0].ten_tac_gia : undefined;
+				res.locals.admin =result[0].role;
 				next();
 			} else {
 				res.locals.avt =
 					"https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg";
 				res.locals.username = "";
+			
 				next();
 			}
 		}
@@ -134,8 +138,11 @@ async function checkAdmin(req, res, next) {
 		`SELECT * FROM thongtin_nguoidung WHERE role= 100 AND id_tai_khoan = '${user.id}'`
 	);
 	if (!result.length) {
+		res.locals.acc_role = 'admin';
 		next();
 	} else {
+		res.locals.acc_role = '';
+		res.locals.admin ='';
 		return res.redirect("/");
 	}
 }

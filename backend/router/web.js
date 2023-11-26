@@ -21,8 +21,36 @@ const webRouter = (app) => {
     func_controller.checkCookieLoglUser,
     renderReviews.renderReviews
   );
+
   router.get(
     "/profile",
+    func_controller.checkCoookieIfOK,
+    func_controller.checkCookieLoglUser,
+    (req, res) => {
+      processNovels.processNovels(req, res, null);
+    }
+  );
+
+  router.get(
+    "/my_novel",
+    func_controller.checkCoookieIfOK,
+    func_controller.checkCookieLoglUser,
+    (req, res) => {
+      processNovels.processNovels(req, res, null);
+    }
+  );
+
+  router.get(
+    "/novel_following",
+    func_controller.checkCoookieIfOK,
+    func_controller.checkCookieLoglUser,
+    (req, res) => {
+      processNovels.processNovels(req, res, null);
+    }
+  );
+
+  router.get(
+    "/change_pass",
     func_controller.checkCoookieIfOK,
     func_controller.checkCookieLoglUser,
     (req, res) => {

@@ -580,10 +580,11 @@
         <div class="page5_list_chapter_Author">
           <div class="list_chapter_head">
             <h2 class="list_title">
-              <%= edit_name%>
+              <%= edit_name %>
             </h2>
           </div>
           <div class="list_chapter_body">
+            <% console.log(edit_name_chaps) %>
             <% for (var i=0; i < edit_name_chaps.length; i++) { %>
             <div class="my_novel_item" id="<%= edit_chap_ids[i] %>">
               <div class="name_chapter" style="display: flex;">
@@ -594,7 +595,7 @@
                   <%= edit_name_chaps[i].split(":")[0].slice(0, 6) %>
                 </div>
                 <span>&emsp;</span>
-                <input type="text" class="profile_input n_num" style="width: 10%;" value="<%= edit_name_chaps[i].split(":")[0].slice(6).trim()%>" readonly />
+                <input type="text" class="profile_input n_num" style="width: 10%;" value="<%= edit_name_chaps[i].split(":")[0].slice(6).trim() %>" readonly />
                 <div style="
 												display: flex;
 												align-items: center;
@@ -745,14 +746,13 @@
         <!-- add_chap -->
         <div class="page5_d page5_composed">
           <div class="page5_chap page5_a_up" id="add_chap">
-            <%= novels[0] %>
             <div class="page5_info_main">
               <div class="info-wrapper-container">
                 <div class="information_name_wrap">
                   <h3>Thứ tự chương</h3>
                   <div class="information_name">
                     <!-- <%= novels[0].no_chapters + 1 %> -->
-                    <input class="profile_input chap_num" type="text" required id="name_novel" value="" readonly/> 
+                    <input class="profile_input chap_num" type="text" required id="name_novel" value="<%= edit_no_chaps + 1 %>" readonly/> 
                   </div>
                 </div>
                 <div class="information_name_wrap">

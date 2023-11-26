@@ -64,7 +64,7 @@
         </div>
       </div>
       <div class="header_end">
-        <% if (login_way=='null' ) { %>
+      <% if (login_way=='null' ) { %>
 
         <div class="header_user" style="display: none">
           <div class="header_notify">
@@ -85,6 +85,7 @@
               </div>
               <p><%= username %></p>
             </div>
+
             <!-- pc -->
             <div class="header_user_more">
               <div class="header_user_more_item">
@@ -125,7 +126,9 @@
               </div>
               <!-- mobile -->
             </div>
+
           </div>
+
           <div class="header_noUser" style="display: flex">
             <div class="header_login">Login</div>
             <div class="header_signup">Sign Up</div>
@@ -165,6 +168,14 @@
                       <a href="/profile/change_pass">Đổi mật khẩu</a>
                     </div>
                     <%}%>
+                    <%if(!admin){%>
+                      <div class="header_user_more_item" style="display: none;">
+                      </div>
+                    <%}else{%>
+                      <div class="header_user_more_item">
+                        <a href="/admin">Admin</a>
+                      </div>
+                    <%}%>  
                 <div class="header_user_more_item logout" id="logout">
                   Đăng xuất
                 </div>
@@ -200,7 +211,7 @@
             <div class="header_login">Login</div>
             <div class="header_signup">Sign Up</div>
           </div>
-          <%}%>
+      <%}%>
                   </div>
                 </div>
   </header>
@@ -259,6 +270,7 @@
   </div>
 
   <script>
+    
     $("document").ready(function() {
       let trigger = $("#hamburger"),
         isClosed = false;
@@ -281,17 +293,17 @@
         }
       }
     });
-    const category_list = document.querySelector(".category_list");
+    // const category_list = document.querySelector(".category_list");
 
-    document.onclick = function(event) {
-      const targetElement = event.target;
-      if (
-        !category_list.contains(targetElement) &&
-        targetElement !== category_btn
-      ) {
-        category_list.style.display = "none";
-      }
-    };
+    // document.onclick = function(event) {
+    //   const targetElement = event.target;
+    //   if (
+    //     !category_list.contains(targetElement) &&
+    //     targetElement !== category_btn
+    //   ) {
+    //     category_list.style.display = "none";
+    //   }
+    // };
     const header_menu = document.querySelector(".header_menu");
     const left_item = document.querySelector(".left_item");
 
