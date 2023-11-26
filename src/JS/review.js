@@ -28,6 +28,10 @@ summary_btn.onclick = () => {
 };
 
 async function like_novel(status) {
+  let curr_chap = 1;
+  if (localStorage.getItem(idtruyen)) {
+    curr_chap = localStorage.getItem(idtruyen);
+  }
   // Gửi cookie "account" lên máy chủ
   // Sử dụng XMLHttpRequest hoặc Fetch API để thực hiện request
   // Ví dụ sử dụng Fetch API:
@@ -39,6 +43,7 @@ async function like_novel(status) {
     body: JSON.stringify({
       liked: status,
       id_truyen: idtruyen,
+      curr_chap: curr_chap
     }),
   })
     .then((response) => {
@@ -217,7 +222,6 @@ first_chap.onclick = function (e) {
   e.preventDefault();
   const chan =
     window.location.href.split("/")[window.location.href.split("/").length - 1];
-  console.log(chan);
   window.location.href = `/reading/${chan}/1`;
 };
 
@@ -237,9 +241,7 @@ document.querySelector(".function_item_star").onclick = function () {
     `;
   }
 };
-console.log(
-  window.location.href.split("/")[window.location.href.split("/").length - 1]
-);
+
 const novel_id = localStorage.getItem("novel_id");
 
 var list_chap = "";

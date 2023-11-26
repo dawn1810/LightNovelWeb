@@ -282,237 +282,39 @@
             <button class="search-btn">Lọc Truyện</button>
           </div>
         </div>
-        <div class="novel_wrap">
+        <div class="novel_wrap avd_search">
           <div class="novel">
-            <a href="/reviews/${helop[i]._id}" class="novel_item">
+            <% for(let i = 0; i <novel_avd.length; i++) { %>
+              <a href="/reviews/<%=novel_avd[i]._id%>" class="novel_item">
               <div >
                   <div class="novel_item_main">
                       <div class="novel_item_main_img">
-                          <img src="https://book-pic.webnovel.com/bookcover/22815989905323705?imageMogr2/thumbnail/150&imageId=1698744011371" alt referrerpolicy="no-referrer">
+                          <img src="<%=novel_avd[i].image%>" alt referrerpolicy="no-referrer">
                       </div>
                       <div class="novel_title" onclick="myFunction()">
-                          <div class="novel_name">Hoa rơi cửa phật, vạn vật thua tao</div>
+                          <div class="novel_name"><%=novel_avd[i].name%></div>
                           <div class="novel_author">
-                              Tác giả : <span>HT-90</span>
+                              Tác giả : <span><%=novel_avd[i].author%></span>
                           </div>
                           <div class="novel_chapter">
-                              Chap : <span>1000</span>
-                              <div style="font-size: 13px;">Đang ra</div>
+                              Chap : <span><%=novel_avd[i].no_chapters%></span>
+                              <div style="font-size: 13px;"><%=novel_avd[i].status%></div>
                           </div>
                       </div>
                   </div>
               </div>
           </a>
-          <a href="/reviews/${helop[i]._id}" class="novel_item">
-            <div >
-                <div class="novel_item_main">
-                    <div class="novel_item_main_img">
-                        <img src="https://book-pic.webnovel.com/bookcover/22815989905323705?imageMogr2/thumbnail/150&imageId=1698744011371" alt referrerpolicy="no-referrer">
-                    </div>
-                    <div class="novel_title" onclick="myFunction()">
-                        <div class="novel_name">Hoa rơi cửa phật, vạn vật thua tao</div>
-                        <div class="novel_author">
-                            Tác giả : <span>HT-90</span>
-                        </div>
-                        <div class="novel_chapter">
-                            Chap : <span>1000</span>
-                            <div style="font-size: 13px;">Đang ra</div>
-                        </div>
-                    </div>
-                </div>
+              <% }%>
             </div>
-        </a>
-        <a href="/reviews/${helop[i]._id}" class="novel_item">
-          <div >
-              <div class="novel_item_main">
-                  <div class="novel_item_main_img">
-                      <img src="https://book-pic.webnovel.com/bookcover/22815989905323705?imageMogr2/thumbnail/150&imageId=1698744011371" alt referrerpolicy="no-referrer">
-                  </div>
-                  <div class="novel_title" onclick="myFunction()">
-                      <div class="novel_name">Hoa rơi cửa phật, vạn vật thua tao</div>
-                      <div class="novel_author">
-                          Tác giả : <span>HT-90</span>
-                      </div>
-                      <div class="novel_chapter">
-                          Chap : <span>1000</span>
-                          <div style="font-size: 13px;">Đang ra</div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </a>
-      <a href="/reviews/${helop[i]._id}" class="novel_item">
-        <div >
-            <div class="novel_item_main">
-                <div class="novel_item_main_img">
-                    <img src="https://book-pic.webnovel.com/bookcover/22815989905323705?imageMogr2/thumbnail/150&imageId=1698744011371" alt referrerpolicy="no-referrer">
-                </div>
-                <div class="novel_title" onclick="myFunction()">
-                    <div class="novel_name">Hoa rơi cửa phật, vạn vật thua tao</div>
-                    <div class="novel_author">
-                        Tác giả : <span>HT-90</span>
-                    </div>
-                    <div class="novel_chapter">
-                        Chap : <span>1000</span>
-                        <div style="font-size: 13px;">Đang ra</div>
-                    </div>
-                </div>
+            <div class="search_more" >
+              <button class="search_more_btn" <%= novel_check ? 'style="display: none;"' : 'style="display: block;"' %>>
+                <span>Xem thêm</span>
+                <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="37" cy="37" r="35.5" stroke="var(--black-text)" stroke-width="3"></circle>
+                  <path d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z" fill="var(--black-text)"></path>
+                </svg>
+              </button>
             </div>
-        </div>
-    </a>
-    <a href="/reviews/${helop[i]._id}" class="novel_item">
-      <div >
-          <div class="novel_item_main">
-              <div class="novel_item_main_img">
-                  <img src="https://book-pic.webnovel.com/bookcover/22815989905323705?imageMogr2/thumbnail/150&imageId=1698744011371" alt referrerpolicy="no-referrer">
-              </div>
-              <div class="novel_title" onclick="myFunction()">
-                  <div class="novel_name">Hoa rơi cửa phật, vạn vật thua tao</div>
-                  <div class="novel_author">
-                      Tác giả : <span>HT-90</span>
-                  </div>
-                  <div class="novel_chapter">
-                      Chap : <span>1000</span>
-                      <div style="font-size: 13px;">Đang ra</div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </a>
-  <a href="/reviews/${helop[i]._id}" class="novel_item">
-    <div >
-        <div class="novel_item_main">
-            <div class="novel_item_main_img">
-                <img src="https://book-pic.webnovel.com/bookcover/22815989905323705?imageMogr2/thumbnail/150&imageId=1698744011371" alt referrerpolicy="no-referrer">
-            </div>
-            <div class="novel_title" onclick="myFunction()">
-                <div class="novel_name">Hoa rơi cửa phật, vạn vật thua tao</div>
-                <div class="novel_author">
-                    Tác giả : <span>HT-90</span>
-                </div>
-                <div class="novel_chapter">
-                    Chap : <span>1000</span>
-                    <div style="font-size: 13px;">Đang ra</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</a>
-<a href="/reviews/${helop[i]._id}" class="novel_item">
-  <div >
-      <div class="novel_item_main">
-          <div class="novel_item_main_img">
-              <img src="https://book-pic.webnovel.com/bookcover/22815989905323705?imageMogr2/thumbnail/150&imageId=1698744011371" alt referrerpolicy="no-referrer">
-          </div>
-          <div class="novel_title" onclick="myFunction()">
-              <div class="novel_name">Hoa rơi cửa phật, vạn vật thua tao</div>
-              <div class="novel_author">
-                  Tác giả : <span>HT-90</span>
-              </div>
-              <div class="novel_chapter">
-                  Chap : <span>1000</span>
-                  <div style="font-size: 13px;">Đang ra</div>
-              </div>
-          </div>
-      </div>
-  </div>
-</a>
-<a href="/reviews/${helop[i]._id}" class="novel_item">
-  <div >
-      <div class="novel_item_main">
-          <div class="novel_item_main_img">
-              <img src="https://book-pic.webnovel.com/bookcover/22815989905323705?imageMogr2/thumbnail/150&imageId=1698744011371" alt referrerpolicy="no-referrer">
-          </div>
-          <div class="novel_title" onclick="myFunction()">
-              <div class="novel_name">Hoa rơi cửa phật, vạn vật thua tao</div>
-              <div class="novel_author">
-                  Tác giả : <span>HT-90</span>
-              </div>
-              <div class="novel_chapter">
-                  Chap : <span>1000</span>
-                  <div style="font-size: 13px;">Đang ra</div>
-              </div>
-          </div>
-      </div>
-  </div>
-</a>
-<a href="/reviews/${helop[i]._id}" class="novel_item">
-  <div >
-      <div class="novel_item_main">
-          <div class="novel_item_main_img">
-              <img src="https://book-pic.webnovel.com/bookcover/22815989905323705?imageMogr2/thumbnail/150&imageId=1698744011371" alt referrerpolicy="no-referrer">
-          </div>
-          <div class="novel_title" onclick="myFunction()">
-              <div class="novel_name">Hoa rơi cửa phật, vạn vật thua tao</div>
-              <div class="novel_author">
-                  Tác giả : <span>HT-90</span>
-              </div>
-              <div class="novel_chapter">
-                  Chap : <span>1000</span>
-                  <div style="font-size: 13px;">Đang ra</div>
-              </div>
-          </div>
-      </div>
-  </div>
-</a>
-<a href="/reviews/${helop[i]._id}" class="novel_item">
-  <div >
-      <div class="novel_item_main">
-          <div class="novel_item_main_img">
-              <img src="https://book-pic.webnovel.com/bookcover/22815989905323705?imageMogr2/thumbnail/150&imageId=1698744011371" alt referrerpolicy="no-referrer">
-          </div>
-          <div class="novel_title" onclick="myFunction()">
-              <div class="novel_name">Hoa rơi cửa phật, vạn vật thua tao</div>
-              <div class="novel_author">
-                  Tác giả : <span>HT-90</span>
-              </div>
-              <div class="novel_chapter">
-                  Chap : <span>1000</span>
-                  <div style="font-size: 13px;">Đang ra</div>
-              </div>
-          </div>
-      </div>
-  </div>
-</a>
-<a href="/reviews/${helop[i]._id}" class="novel_item">
-  <div >
-      <div class="novel_item_main">
-          <div class="novel_item_main_img">
-              <img src="https://book-pic.webnovel.com/bookcover/22815989905323705?imageMogr2/thumbnail/150&imageId=1698744011371" alt referrerpolicy="no-referrer">
-          </div>
-          <div class="novel_title" onclick="myFunction()">
-              <div class="novel_name">Hoa rơi cửa phật, vạn vật thua tao</div>
-              <div class="novel_author">
-                  Tác giả : <span>HT-90</span>
-              </div>
-              <div class="novel_chapter">
-                  Chap : <span>1000</span>
-                  <div style="font-size: 13px;">Đang ra</div>
-              </div>
-          </div>
-      </div>
-  </div>
-</a>
-<a href="/reviews/${helop[i]._id}" class="novel_item">
-  <div >
-      <div class="novel_item_main">
-          <div class="novel_item_main_img">
-              <img src="https://book-pic.webnovel.com/bookcover/22815989905323705?imageMogr2/thumbnail/150&imageId=1698744011371" alt referrerpolicy="no-referrer">
-          </div>
-          <div class="novel_title" onclick="myFunction()">
-              <div class="novel_name">Hoa rơi cửa phật, vạn vật thua tao</div>
-              <div class="novel_author">
-                  Tác giả : <span>HT-90</span>
-              </div>
-              <div class="novel_chapter">
-                  Chap : <span>1000</span>
-                  <div style="font-size: 13px;">Đang ra</div>
-              </div>
-          </div>
-      </div>
-  </div>
-</a>
-          </div>
         </div>
       </div>
       <div class="top_rank">
@@ -945,6 +747,10 @@
  
 <!-- <script src="/src/JS/scriptlogin.js"></script> -->
 <script>
+  let url_btn = '/category?skip=0&update_day=1&types=undefined&num_chaps=1&status=1&sort_by=1'
+  $(".search_more_btn").on("click", function () {
+    window.location.href = url_btn;
+  });
 $(".search-btn").on("click", function () {
 	click_times = 0;
 
@@ -952,12 +758,16 @@ $(".search-btn").on("click", function () {
 	$(".search-btn").prop("disabled", true);
 	// loading
 	$(".search-btn").text("Finding...");
-
+  url_btn = `/category?skip=${0}&update_day=${$(".update_day").val()}&types=${
+		listObj.tempValues
+	}&num_chaps=${$(".num_chaps").val()}&status=${$(".status").val()}&sort_by=${$(
+		".sort_by"
+	).val()}`
 	url = `/api/advanced_search?skip=${0}&update_day=${$(".update_day").val()}&types=${
 		listObj.tempValues
 	}&num_chaps=${$(".num_chaps").val()}&status=${$(".status").val()}&sort_by=${$(
 		".sort_by"
-	).val()}`;
+	).val()}&limit=13`;
 
 	const requestOptions = {
 		method: "GET",
@@ -968,14 +778,19 @@ $(".search-btn").on("click", function () {
 	fetch(url, requestOptions)
 		.then((response) => {
 			if (response.ok) {
+        	// disable buttons untill load finish
+	$(".search-btn").prop("disabled", false);
+	// loading
+	$(".search-btn").text("Lọc Truyện");
 				response
 					.json()
 					.then((data) => {
+
 						// render all more data
 						$(".novel").first().empty();
 						data_truyen = data.novel;
 						if (data_truyen.length > 0) {
-							for (let i =0 ; i< 12;i++) {
+							for (let i =0 ; i< data_truyen.length;i++) {
 								$(".novel").first().append(`
                             <a href="/reviews/${data_truyen[i]._id}" class="novel_item">
                                 <div>
@@ -1011,44 +826,10 @@ $(".search-btn").on("click", function () {
 								`<span class="no_novel">Không tìm thấy kết quả</span>`
 							);
 						}
-
-						// reset to nomal
-						$(".search-btn").prop("disabled", false);
-
-						$(".search-btn").text("Lọc Truyện");
-						// remove search more buttom if no more movels and search more button is exist
+				
 						if (data.more_novel) {
-							if ($(".search_more_btn").length < 1) {
-								$("novel_wrap").append(`
-                        <div class="search_more">
-                            <button class="search_more_btn">
-                            <span>Xem thêm</span>
-                            <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="37" cy="37" r="35.5" stroke="var(--black-text)" stroke-width="3"></circle>
-                                <path
-                                d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z"
-                                fill="var(--black-text)"></path>
-                            </svg>
-                            </button>
-                        </div>
-                        `);
-							} else {
-								$(".search_more_btn").prop("disabled", false);
-								$(".search_more_btn").empty();
-								$(".search_more_btn").append(`
-                            
-                                <span>Xem thêm</span>
-                                <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="37" cy="37" r="35.5" stroke="var(--black-text)" stroke-width="3"></circle>
-                                    <path
-                                    d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z"
-                                    fill="var(--black-text)"></path>
-                                </svg>
-                               
-                            `);
 								$(".search_more_btn").show();
-							}
-						} else if (!data.more_novel && $(".search_more_btn")) {
+						} else {
 							$(".search_more_btn").hide();
 						}
 					})
@@ -1056,7 +837,7 @@ $(".search-btn").on("click", function () {
 						console.error("Error parsing JSON:", error);
 					});
 			} else {
-				console.log("erro");
+				console.log("error");
 			}
 		})
 		.catch((error) => {

@@ -1,7 +1,9 @@
+// Save current chap 
+
 //xin chào bbp
 const background_color = document.getElementById("ss_reader_background")
 const background_color1 = document.getElementById("ss_reader_background1")
-// const currentURL = window.location.origin;
+const currentURL = window.location.href;
 
 const textColor = document.getElementById("ss_reader_textColor")
 const textColor1 = document.getElementById("ss_reader_textColor1")
@@ -14,7 +16,6 @@ const line_height = document.querySelectorAll("#ss_reader_line_height")
 
 const main = document.querySelector("main")
 const body_main = document.querySelector(".main-body")
-
 
 const main_content = document.querySelector(".main-content")
 
@@ -33,25 +34,12 @@ const reset_background_color = document.querySelector(".ss_reader_background_res
 
 const themes = localStorage.getItem('theme');
 
-///////////////////check viewwww///////////////////
-const regex_id = /reading\/([a-zA-Z0-9]+)\/\d+/;
-const match_id = window.location.href.match(regex_id);
-let my_array_id_string = localStorage.getItem('array_id_truyen');
-let my_array_id = [];
-if (my_array_id_string) {
-    let my_array_id = JSON.parse(my_array_id_string);
-    if (!my_array_id.includes(match_id[1])) {
-        my_array_id.push(match_id[1]);
-        views_novel(match_id[1]);
-        localStorage.setItem('array_id_truyen', JSON.stringify(my_array_id));
-    }
-} else {
-    my_array_id.push(match_id[1]);
-    views_novel(match_id[1]);
-    localStorage.setItem('array_id_truyen', JSON.stringify(my_array_id));
-};
 
 
+const parts = currentURL.split('/'); // Tách URL thành các phần
+const id = parts[4];
+const chap = parts[5];
+console.log(id);
 async function views_novel(id_truyen) {
     await fetch(`/api/updateviews`, {
         method: 'POST',
@@ -66,7 +54,64 @@ async function views_novel(id_truyen) {
             console.log(error)
         });
 }
+async function updatecurrchap(id_truyen,curr_chap) {
+    await fetch(`/api/updatecurrchap`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            id_truyen: id_truyen,
+            curr_chap: curr_chap
+        })
+    })
+        .catch(error => {
+            console.log(error)
+        });
+}
+let shouldRemoveScrollEvent = false;
 
+const scrollHandler = () => {
+    const scrollY = window.scrollY; // độ dài vị trí hiện tại đã vuốt xuống
+    let scrollmax = 0;
+    var pageHeight = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight,
+        document.body.clientHeight,
+        document.documentElement.clientHeight
+    );
+    console.log("Chiều dài trang:", pageHeight);
+    console.log(scrollY);
+    scrollmax = pageHeight - 180;
+    const scrollmin = scrollmax * 60 / 100;
+    console.log(scrollmin);
+    
+    if (scrollY > scrollmin) {
+        console.log("haha");
+        shouldRemoveScrollEvent = true; // Đặt biến cờ để gỡ bỏ sự kiện cuộn
+        views_novel(id)
+        updatecurrchap(id,chap)
+        localStorage.setItem(`${id}_`,`${chap}`)
+    } else {
+        console.log("huhu");
+    }
+    
+    window.scrollYOld = scrollY;
+};
+
+const scrollEvent = () => {
+    scrollHandler();
+    
+    if (shouldRemoveScrollEvent) {
+        window.removeEventListener("scroll", scrollEvent); // Gỡ bỏ sự kiện cuộn
+    }
+};
+
+setTimeout(function () {
+    window.addEventListener("scroll", scrollEvent);
+},10000)
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -130,7 +175,7 @@ for (const height of line_height) // roi do hai anh trai name chap cho ten chap 
 // cais tao sua la reading coi chung lam duong lac loi
 const left_btn = document.querySelectorAll('.left-btn')
 for (const l_btn of left_btn) {
-    if (parseInt((window.location.href).split('/').pop()) == 0) {
+    if (parseInt((window.location.href).split('/').pop()) <= 1) {
         l_btn.style.display = 'none';
         document.querySelector('.lame-left').disabled = true
     }
@@ -143,9 +188,9 @@ for (const l_btn of left_btn) {
 }
 const right_btn = document.querySelectorAll('.right-btn')
 for (const r_btn of right_btn) {
-    last_chaps = show_more_item.length-1
+    last_chaps = show_more_item.length
     console.log(last_chaps)
-    if (parseInt((window.location.href).split('/').pop()) == last_chaps - 1) {
+    if (parseInt((window.location.href).split('/').pop()) >= last_chaps) {
         r_btn.style.display = 'none';
         document.querySelector('.lame-right').disabled = true
 
@@ -247,5 +292,8 @@ show_more.onchange = function () {
 
     window.location.href = `${crUrl}/${chap}`
 }
+
+
+
 
 

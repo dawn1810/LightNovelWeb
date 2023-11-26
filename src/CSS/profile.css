@@ -988,6 +988,20 @@ textarea {
   display: flex;
 }
 
+.head_b .file-content {
+  font-size: 16px;
+  color: var(--black-text);
+  text-transform: capitalize;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-height: 20px;
+}
+
 .upfile {
   width: 40px;
   height: 40px;
@@ -1344,4 +1358,10 @@ input:required:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+#author_see{
+  text-align: center;
+  display: flex;
+  align-items: center;
+  margin: 5px;
 }

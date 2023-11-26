@@ -133,7 +133,7 @@ const webRouter = (app) => {
   router.get(
     "/category",
     func_controller.checkCookieLoglUser,
-    renderSearch.category
+    renderSearch.category_module
   );
 
   // 404 route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

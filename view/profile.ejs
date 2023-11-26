@@ -35,7 +35,6 @@
 
 <body>
   <%- include(headerFile) %>
-
   <main>
     <div class="containner_wrap">
       <div class="container">
@@ -242,8 +241,15 @@
                 <%-like_novel_list[i].summary%>
               </p>
               <div class="last-time-container">
-                <div class="chapter"><a href="<%-'/reading/'+like_novel[i]+'/'+(like_novel_list[i].no_chapters - 1)%>">Chap
-                    <%-like_novel_list[i].no_chapters%></a></div>
+                <div class="chapter">
+                  Chương đã đọc: 
+                  <a href="<%-'/reading/'+like_novel[i]+'/'+(like_novel_list[i].curr_chap)%>">Chap
+                    <%-like_novel_list[i].curr_chap%>
+                  </a> /
+                  <a href="<%-'/reading/'+like_novel[i]+'/'+(like_novel_list[i].no_chapters)%>">Chap
+                    <%-like_novel_list[i].no_chapters%>
+                  </a>
+                </div>
                 <div class="time"><%-like_novel_list[i].update_date%> trước</div>
               </div>
             </div>
@@ -581,6 +587,7 @@
             <h2 class="list_title">
               <%= edit_name %>
             </h2>
+            
           </div>
           <div class="list_chapter_body">
             <% for (var i=0; i < edit_name_chaps.length; i++) { %>
@@ -601,6 +608,7 @@
                   &emsp;:&emsp;
                 </div>
                 <input type="text" class="profile_input n_name" value="<%= edit_name_chaps[i].split(":")[1].trim() %>">
+                <a id='author_see' href=""><i class="fa-solid fa-eye"></i></a>
               </div>
               <div class="btn_gritem">
                 <div class="novel_conntroller_btn">
@@ -807,6 +815,7 @@
     // variable
     let author_name_check = document.querySelector("#author_name").value;
   </script>
+
   <script src="/src/JS/profile.js"></script>
   <!-- <script src="/src/JS/notify.js"></script> -->
 </body>

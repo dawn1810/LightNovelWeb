@@ -73,7 +73,6 @@ function page5_a_up_drop() {
 var currentPath = window.location.href.substring(
   window.location.href.lastIndexOf("/")
 );
-console.log(currentPath);
 if (currentPath == "/novel_following") {
   Setting_pageWrapper_drop();
   Setting_item_drop();
@@ -216,6 +215,21 @@ if (currentPath == "/novel_following") {
   page5_composed[2].style.display = "block";
   page5_a_up[0].style.display = "flex";
   console.log("ok");
+  const regex =
+    /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/;
+
+  
+  const match = regex.exec(window.location.href);
+  
+  const extractedID = match ? match[0] : null;
+  
+  var novelItems = document.querySelectorAll(".my_novel_item");
+
+  
+  novelItems.forEach(function (item) {
+    const chap=item.querySelector(".n_num").value;
+    item.querySelector('#author_see').href = `/reading/${extractedID}/${chap}`;
+  });
 }
 
 for (let i = 0; i < Setting_item.length; i++) {
@@ -370,6 +384,7 @@ function getRandomElement(list) {
   const randomIndex = Math.floor(Math.random() * list.length);
   return list[randomIndex];
 }
+
 function generateUUID() {
   // Hàm tạo chuỗi UUID
   // Tham khảo: https://stackoverflow.com/a/2117523/13347726
@@ -478,7 +493,6 @@ async function updateNovel() {
 
   // Use the exec method to extract the matching part from the URL
   const match = regex.exec(window.location.href);
-
   // Extracted ID will be in match[0]
   const extractedID = match ? match[0] : null;
 
@@ -522,7 +536,6 @@ async function editNovel() {
 
   // Use the exec method to extract the matching part from the URL
   const match = regex.exec(window.location.href);
-
   // Extracted ID will be in match[0]
   const extractedID = match ? match[0] : null;
 
@@ -566,43 +579,6 @@ async function editNovel() {
     console.log("Error:", error);
   }
 }
-
-// function notify(type, text_2) {
-//   switch (type) {
-//     // thong bao
-//     case "n":
-//       toast_icon.classList = ["fas fa-solid fa-check"];
-//       toast.querySelector(".text-1").innerHTML = "Thông báo";
-//       document.documentElement.style.setProperty("--color_i", "#3adb3a");
-//       break;
-//     // chu y
-//     case "!":
-//       toast_icon.classList = ["fa-solid fa-exclamation"];
-//       toast.querySelector(".text-1").innerHTML = "Chú ý";
-//       document.documentElement.style.setProperty("--color_i", "#e1e11a");
-
-//       break;
-//     // loi
-//     case "x":
-//       toast_icon.classList = ["fa-solid fa-x"];
-//       toast.querySelector(".text-1").innerHTML = "Lỗi";
-//       document.documentElement.style.setProperty("--color_i", "red");
-
-//       break;
-//   }
-
-//   toast.querySelector(".text-2").innerHTML = text_2;
-//   toast.classList.add("active");
-//   progress.classList.add("active");
-
-//   timer1 = setTimeout(() => {
-//     toast.classList.remove("active");
-//   }, 5000); //1s = 1000 milliseconds
-
-//   timer2 = setTimeout(() => {
-//     progress.classList.remove("active");
-//   }, 5300);
-// }
 
 // Danh sách các phần tử
 const myList = [
@@ -749,8 +725,8 @@ async function cancel() {
     ) == true
   ) {
     // create shinra tensei not turn on this code
-    var elem = document.createElement('div');
-    elem.className = 'shinra'
+    var elem = document.createElement("div");
+    elem.className = "shinra";
     elem.style.cssText = `
     		position:absolute;
     		top: 0;
@@ -761,11 +737,11 @@ async function cancel() {
     		z-index:99999999999999999;
     		background:#000;
     		background-image: url('https://media.tenor.com/WNyMsbIJmBMAAAAC/naruto-shinra.gif');
-    		`
+    		`;
     // background-image: url('https://cdn.discordapp.com/attachments/1119221555566751754/1132280018534408233/thien.webp');
     document.body.appendChild(elem);
 
-    let audio = new Audio('/src/audio/shinra.mp3');
+    let audio = new Audio("/src/audio/shinra.mp3");
     audio.volume = 0.5;
     audio.play();
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -844,7 +820,9 @@ document.querySelector(".page5_chap .more_chap_btn").onclick = function () {
 			<h3>Thứ tự chương</h3>
 			<div class="information_name">
 				<input class="profile_input chap_num" type="number" id="name_novel"
-					value="${document.querySelectorAll(".page5_a .chap_num").length + 1}" readonly />
+					value="${
+            document.querySelectorAll(".page5_a .chap_num").length + 1
+          }" readonly />
 			</div>
 		</div>
 
@@ -882,20 +860,18 @@ $(document).ready(function () {
     // Delete the grandparent node
     $(this).parent().parent().remove();
     const chap_num_list = document.querySelectorAll(".page5_d .chap_num");
-    for (let i = 0 ; i < chap_num_list.length; i++)
-    {
+    for (let i = 0; i < chap_num_list.length; i++) {
       chap_num_list[i].value = parseInt(chap_num_list[0].value) + i;
-    } 
+    }
   });
 
   $(document).on("click", ".page5_a .delete_chap", function () {
     // Delete the grandparent node
     $(this).parent().parent().remove();
     const chap_num_list = document.querySelectorAll(".page5_a .chap_num");
-    for (let i = 0 ; i < chap_num_list.length; i++)
-    {
+    for (let i = 0; i < chap_num_list.length; i++) {
       chap_num_list[i].value = parseInt(chap_num_list[0].value) + i;
-    } 
+    }
   });
 
   $(document).on("click", ".back_btn", function () {
@@ -1025,7 +1001,7 @@ $(document).ready(function () {
   });
 
   $(document).on("click", ".page5_b .download_btn", async function () {
-    console.log("download")
+    console.log("download");
     notify("n", "Đã bắt đầu quá trình tải.");
     let grandGrandParentID = $(this).parent().parent().parent().attr("id");
     const url = `/api/download_chap`; // URL của máy chủ mục tiêu
@@ -1080,7 +1056,7 @@ $(document).ready(function () {
         remove_list = sessionStorage.getItem("remove_list").split(",");
       }
       // set new remove to sessionStorage:
-      remove_list.push($(this).parent().parent().parent().prop('id'));
+      remove_list.push($(this).parent().parent().parent().prop("id"));
       sessionStorage.setItem("remove_list", remove_list);
 
       // unable input:
@@ -1216,14 +1192,17 @@ document.querySelector(".page5_b .next_btn").onclick = async function () {
   let name_chaprters = [];
   // Loop through all elements
   $(".page5_b .my_novel_item").each(function () {
+    if (!$(this).find(".n_name").prop("disabled")) {
+      let chapNum = $(this).find(".n_num").val();
+      let chapName = $(this).find(".n_name").val();
+      name_chaprters.push(`Chương ${chapNum}: ${chapName}`);
+    }
     // Get the input element inside the current element
     let curr_file = $(this).find(".file-input")[0].files[0];
-    let chapNum = $(this).find(".n_num").val();
-    let chapName = $(this).find(".n_name").val();
-    name_chaprters.push(`Chương ${chapNum}: ${chapName}`);
+
     if (curr_file) {
       files.push(curr_file);
-      edit_indexes.push($(this).prop('id'));
+      edit_indexes.push($(this).prop("id"));
     }
   });
 
@@ -1239,7 +1218,7 @@ document.querySelector(".page5_b .next_btn").onclick = async function () {
       ".page5_b .next_btn"
     ).innerHTML = `<img src = "https://cdn.discordapp.com/attachments/1128184786347905054/1129065224998227968/icons8-sharingan-100.png"> `;
     // window.alert("Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)")
-    // notify("!", "Đang tải lên...chờ một tý!");
+    notify("!", "Đang tải lên...chờ một tý!");
     await uploadFiles(files, 2);
   } else {
     notify("!", "Đã huỷ!");
@@ -1267,9 +1246,8 @@ document.querySelector(".page5_d .more_chap_btn").onclick = function () {
 			<div class="information_name">
         <input class="profile_input chap_num" type="number" id="name_novel"
 					value="${
-            parseInt(
-              document.querySelectorAll(".page5_d .chap_num")[0].value
-            ) + document.querySelectorAll(".page5_d .chap_num").length
+            parseInt(document.querySelectorAll(".page5_d .chap_num")[0].value) +
+            document.querySelectorAll(".page5_d .chap_num").length
           }" readonly />
 			</div>
 		</div>
@@ -1328,7 +1306,7 @@ document.querySelector(".page5_d .post_btn").onclick = async function () {
         ".page5_chap .post_btn"
       ).innerHTML = `<img src = "https://cdn.discordapp.com/attachments/1128184786347905054/1129065224998227968/icons8-sharingan-100.png"> `;
       // window.alert("Hãy đợi trong giây lất để ta thi triển nhẫn thuật (☭ ͜ʖ ☭)")
-      // notify("!", "Đang tải lên...chờ một tý!");
+      notify("!", "Đang tải lên...chờ một tý!");
       await uploadFiles(files, 1);
     } else {
       notify("!", "Đã huỷ!");
@@ -1346,7 +1324,6 @@ document.querySelector(".page5_c .next_btn").onclick = function () {
 
   // Use the exec method to extract the matching part from the URL
   const match = regex.exec(window.location.href);
-
   // Extracted ID will be in match[0]
   const extractedID = match ? match[0] : null;
 

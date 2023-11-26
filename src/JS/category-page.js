@@ -1,38 +1,46 @@
-
 let click_times = 0;
 
-$(".search-btn").on("click", function () {
-	click_times = 0;
+$(".search-btn").on("click", function (event) {
+  click_times = 0;
 
-	// disable buttons untill load finish
-	$(".search-btn").prop("disabled", true);
-	// loading
-	$(".search-btn").text("Finding...");
+  // disable buttons untill load finish
+  $(".search-btn").prop("disabled", true);
+  // loading
+  $(".search-btn").text("Finding...");
 
-	url = `/api/advanced_search?skip=${0}&update_day=${$(".update_day").val()}&types=${
-		listObj.tempValues
-	}&num_chaps=${$(".num_chaps").val()}&status=${$(".status").val()}&sort_by=${$(
-		".sort_by"
-	).val()}`;
+  history.pushState(
+    null,
+    null,
+    `/category?skip=${0}&update_day=${$(".update_day").val()}&types=${
+      listObj.tempValues
+    }&num_chaps=${$(".num_chaps").val()}&status=${$(
+      ".status"
+    ).val()}&sort_by=${$(".sort_by").val()}`
+  );
+  url = `/api/advanced_search?skip=${0}&update_day=${$(
+    ".update_day"
+  ).val()}&types=${listObj.tempValues}&num_chaps=${$(
+    ".num_chaps"
+  ).val()}&status=${$(".status").val()}&sort_by=${$(".sort_by").val()}`;
 
-	const requestOptions = {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-		},
-	};
-	fetch(url, requestOptions)
-		.then((response) => {
-			if (response.ok) {
-				response
-					.json()
-					.then((data) => {
-						// render all more data
-						$(".novel").empty();
-						data_truyen = data.novel;
-						if (data_truyen.length > 0) {
-							for (truyen of data_truyen) {
-								$(".novel").append(`
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  fetch(url, requestOptions)
+    .then((response) => {
+      if (response.ok) {
+        response
+          .json()
+          .then((data) => {
+            // render all more data
+            $(".novel").empty();
+            data_truyen = data.novel;
+            if (data_truyen.length > 0) {
+              for (truyen of data_truyen) {
+                $(".novel").append(`
                             <a href="/reviews/${truyen._id}" class="novel_item">
                                 <div>
                                     <div class="novel_item_main">
@@ -61,21 +69,21 @@ $(".search-btn").on("click", function () {
                                 </div>
                             </a>
                             `);
-							}
-						} else {
-							$(".novel").append(
-								`<span class="no_novel">Không tìm thấy kết quả</span>`
-							);
-						}
+              }
+            } else {
+              $(".novel").append(
+                `<span class="no_novel">Không tìm thấy kết quả</span>`
+              );
+            }
 
-						// reset to nomal
-						$(".search-btn").prop("disabled", false);
+            // reset to nomal
+            $(".search-btn").prop("disabled", false);
 
-						$(".search-btn").text("Lọc Truyện");
-						// remove search more buttom if no more movels and search more button is exist
-						if (data.more_novel) {
-							if ($(".search_more_btn").length < 1) {
-								$("novel_wrap").append(`
+            $(".search-btn").text("Lọc Truyện");
+            // remove search more buttom if no more movels and search more button is exist
+            if (data.more_novel) {
+              if ($(".search_more_btn").length < 1) {
+                $("novel_wrap").append(`
                         <div class="search_more">
                             <button class="search_more_btn">
                             <span>Xem thêm</span>
@@ -88,10 +96,10 @@ $(".search-btn").on("click", function () {
                             </button>
                         </div>
                         `);
-							} else {
-								$(".search_more_btn").prop("disabled", false);
-								$(".search_more_btn").empty();
-								$(".search_more_btn").append(`
+              } else {
+                $(".search_more_btn").prop("disabled", false);
+                $(".search_more_btn").empty();
+                $(".search_more_btn").append(`
                             
                                 <span>Xem thêm</span>
                                 <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -102,55 +110,55 @@ $(".search-btn").on("click", function () {
                                 </svg>
                                
                             `);
-								$(".search_more_btn").show();
-							}
-						} else if (!data.more_novel && $(".search_more_btn")) {
-							$(".search_more_btn").hide();
-						}
-					})
-					.catch((error) => {
-						console.error("Error parsing JSON:", error);
-					});
-			} else {
-				console.log("erro");
-			}
-		})
-		.catch((error) => {
-			console.error("Error downloading file:", error);
-		});
+                $(".search_more_btn").show();
+              }
+            } else if (!data.more_novel && $(".search_more_btn")) {
+              $(".search_more_btn").hide();
+            }
+          })
+          .catch((error) => {
+            console.error("Error parsing JSON:", error);
+          });
+      } else {
+        console.log("erro");
+      }
+    })
+    .catch((error) => {
+      console.error("Error downloading file:", error);
+    });
 });
 
 // Let time you click on more novel button
 $(".search_more_btn").on("click", function () {
-	// up time it was click:
-	click_times += 1;
-	// disable buttons untill load finish
-	$(".search_more_btn").prop("disabled", true);
-	// loading
-	$(".search_more_btn").text("Finding...");
+  // up time it was click:
+  click_times += 1;
+  // disable buttons untill load finish
+  $(".search_more_btn").prop("disabled", true);
+  // loading
+  $(".search_more_btn").text("Finding...");
 
-	url = `/api/advanced_search?skip=${click_times}&update_day=${$(".update_day").val()}&types=${
-		listObj.tempValues
-	}&num_chaps=${$(".num_chaps").val()}&status=${$(".status").val()}&sort_by=${$(
-		".sort_by"
-	).val()}`;
+  url = `/api/advanced_search?skip=${click_times}&update_day=${$(
+    ".update_day"
+  ).val()}&types=${listObj.tempValues}&num_chaps=${$(
+    ".num_chaps"
+  ).val()}&status=${$(".status").val()}&sort_by=${$(".sort_by").val()}`;
 
-	const requestOptions = {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-		},
-	};
-	fetch(url, requestOptions)
-		.then((response) => {
-			if (response.ok) {
-				response
-					.json()
-					.then((data) => {
-						// render all more data
-						data_truyen = data.novel;
-						for (truyen of data_truyen) {
-							$(".novel").append(`
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  fetch(url, requestOptions)
+    .then((response) => {
+      if (response.ok) {
+        response
+          .json()
+          .then((data) => {
+            // render all more data
+            data_truyen = data.novel;
+            for (truyen of data_truyen) {
+              $(".novel").append(`
                         <a href="/reviews/${truyen._id}" class="novel_item">
                             <div>
                                 <div class="novel_item_main">
@@ -179,13 +187,13 @@ $(".search_more_btn").on("click", function () {
                             </div>
                         </a>
                         `);
-						}
+            }
 
-						// remove if more true else reset to nomal
-						if (data.more_novel) {
-							$(".search_more_btn").prop("disabled", false);
-							$(".search_more_btn").empty();
-							$(".search_more_btn").append(`
+            // remove if more true else reset to nomal
+            if (data.more_novel) {
+              $(".search_more_btn").prop("disabled", false);
+              $(".search_more_btn").empty();
+              $(".search_more_btn").append(`
                             
                                 <span>Xem thêm</span>
                                 <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -196,26 +204,26 @@ $(".search_more_btn").on("click", function () {
                                 </svg>
                                
                             `);
-						} else {
-							$(".search_more_btn").hide();
-						}
-					})
-					.catch((error) => {
-						console.error("Error parsing JSON:", error);
-					});
-			} else {
-				console.log("erro");
-			}
-		})
-		.catch((error) => {
-			console.error("Error downloading file:", error);
-		});
+            } else {
+              $(".search_more_btn").hide();
+            }
+          })
+          .catch((error) => {
+            console.error("Error parsing JSON:", error);
+          });
+      } else {
+        console.log("erro");
+      }
+    })
+    .catch((error) => {
+      console.error("Error downloading file:", error);
+    });
 });
 
 const showButton = document.querySelector(".show_menu");
 const sortMenu = document.querySelector(".sort-menu");
 
 showButton.addEventListener("click", () => {
-	sortMenu.classList.toggle("show");
-	showButton.classList.toggle("show_menu_hover");
+  sortMenu.classList.toggle("show");
+  showButton.classList.toggle("show_menu_hover");
 });

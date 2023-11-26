@@ -6,18 +6,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://kit.fontawesome.com/b8977956b3.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/src/CSS/Style.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
   <link rel="stylesheet" href="/src/CSS/readingpage.css" />
   <link rel="stylesheet" href="/src/CSS/reading_reposive.css">
-  <link rel="stylesheet" href="/src/CSS/resposive.css" />
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
   <title>Reading</title>
 </head>
 
 <body>
   <script src="/src/JS/link.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <%- include(headerFile) %>
   <main>
     <ul class="menu-tag">
@@ -148,13 +145,13 @@
             <div class="chapter_list_wrap">
               <select name="show_more" id="show_more">
                 <% for (let i=0; i < name_chaps.length; i++) { %>
-                <% if (number_chap==i) { %>
-                <option class="show_more_item" selected value="<%= i %>">
-                  chương <%= i+": "+name_chaps[i] %>
+                <% if (number_chap==i+1) { %>
+                <option class="show_more_item" selected value="<%= i+1 %>">
+                  chương <%= 1+i+":"+name_chaps[i] %>
                 </option>
                 <% } else { %>
-                <option class="show_more_item" value="<%= i %>">
-                  chương <%= i+": "+name_chaps[i] %>
+                <option class="show_more_item" value="<%= i+1 %>">
+                  chương <%= 1+i+":"+name_chaps[i] %>
                 </option>
                 <% } %>
                 <% }%>

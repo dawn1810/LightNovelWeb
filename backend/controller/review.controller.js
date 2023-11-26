@@ -20,13 +20,12 @@ const renderReviews = async (req, res) => {
     // default if they don't have an account
 
     let theloaiID = await queryAsync(
-      "SELECT id_the_loai FROM the_loai_truyen,truyen WHERE truyen.id = the_loai_truyen.id_truyen "
+      "SELECT DISTINCT id_the_loai FROM the_loai_truyen,truyen WHERE truyen.id = the_loai_truyen.id_truyen "
     );
     // console.log("the loai:", theloaiID);
     const genres = theloaiID.map((row) => row.id_the_loai);
     const genreList = genres.map((genre) => `'${genre}'`).join(", ");
 
-    // console.log("genreList: ", genreList);
     const maybeulikethat = await queryAsync(
       `SELECT DISTINCT truyen.id as _id, truyen.ten_truyen, tacgia.ten_tac_gia AS author, truyen.anh_dai_dien as image, truyen.so_luong_chuong AS no_chapters, truyen.trang_thai AS status, truyen.luot_thich AS likes, truyen.luot_xem AS views, truyen.ngay_cap_nhat AS update_date
      FROM truyen
@@ -59,6 +58,7 @@ const renderReviews = async (req, res) => {
         maybeulikethat[i].update_date
       );
     }
+
     if (account) {
       // check does novel was liked by current user or not
       // id_nguoidung = ${decodeList[1]}
@@ -70,9 +70,9 @@ const renderReviews = async (req, res) => {
       if (like_list[0]) {
         // liked
         result[0].liked = 1;
+        result[0].curr_chap = like_list[0].chuong_hien_tai;
       }
     }
-
     // console.log(result);
     res.render("reviews.ejs", {
       headerFile: "header",
@@ -90,6 +90,7 @@ const renderReviews = async (req, res) => {
       update_date: func_controller.calTime(result[0].update_date),
       status: result[0].status,
       liked: result[0].liked,
+      curr_chap: result[0].curr_chap,
       maybeulike: maybeulikethat,
     });
     // res.send('reviews truyen ở đây')

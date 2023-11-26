@@ -34,7 +34,7 @@
             <div class="Titile_interact_share">
               Chia sẻ
             </div>
-            <div id="full-stars-example">
+            <!-- <div id="full-stars-example">
               <div class="rating-group">
                 <input class="rating__input rating__input--none" name="rating" id="rating-none" value="0" type="radio">
                 <label aria-label="1 star" class="rating__label" for="rating-1"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
@@ -48,7 +48,7 @@
                 <label aria-label="5 stars" class="rating__label" for="rating-5"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
                 <input class="rating__input" name="rating" id="rating-5" value="5" type="radio" checked>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="Titile_interact_siu">
             <div class="current_left">
@@ -85,17 +85,24 @@
               <div class="button-group main_operation">
 
                 <div class="wrapper">
-                  <a class="button-efect first_chap" href=""><span>Đọc chap
-                      1</span></a>
+                  <a class="button-efect first_chap" href=""><span>Chap 1</span></a>
                 </div>
-
+                <% if(liked && curr_chap) { %>
+                  <div class="wrapper">
+                    <a class="button-efect curr_chap" href="/reading/<%=idtruyen%>/<%=curr_chap%>"><span>Đọc tiếp</span></a>
+                  </div>
+                <% } else if (liked && localStorage.getItem('idtruyen')) { %>
+                  <div class="wrapper">
+                    <a class="button-efect curr_chap" href="/reading/<%=idtruyen%>/<%=localStorage.getItem('idtruyen')%>"><span>Đọc tiếp</span></a>
+                  </div>
+                <% } %>
                 <div class="wrapper">
-                  <a class="button-efect lasted_chap" href=""><span>Chap mới
+                  <a class="button-efect lasted_chap" href=""><span>Mới
                       nhất</span></a>
                 </div>
 
                 <div class="wrapper">
-                  <a class="button-efect random_chap" href=""><span>Đọc ngẫu nhiên</span></a>
+                  <a class="button-efect random_chap" href=""><span>Ngẫu nhiên</span></a>
                 </div>
 
               </div>

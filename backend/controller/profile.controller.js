@@ -93,7 +93,8 @@ const processNovels = async function (req, res, id_truyen) {
         truyen.tom_tat_noi_dung as summary,
         truyen.so_luong_chuong as no_chapters,
         truyen.anh_dai_dien as image,
-        truyen.ngay_cap_nhat as update_date
+        truyen.ngay_cap_nhat as update_date,
+        truyen_yeu_thich.chuong_hien_tai as curr_chap
       FROM truyen
       INNER JOIN tacgia
         ON truyen.id_tac_gia = tacgia.id
