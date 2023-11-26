@@ -573,7 +573,6 @@
             Hoàn thành
           </div>
         </div>
-
       </div>
 
       <div class="page5_b page5_composed" id="list_chaper">
@@ -584,7 +583,6 @@
             </h2>
           </div>
           <div class="list_chapter_body">
-            <% console.log(edit_name_chaps) %>
             <% for (var i=0; i < edit_name_chaps.length; i++) { %>
             <div class="my_novel_item" id="<%= edit_chap_ids[i] %>">
               <div class="name_chapter" style="display: flex;">
@@ -751,7 +749,7 @@
                 <div class="information_name_wrap">
                   <h3>Thứ tự chương</h3>
                   <div class="information_name">
-                    <!-- <%= novels[0].no_chapters + 1 %> -->
+                 
                     <input class="profile_input chap_num" type="text" required id="name_novel" value="<%= edit_no_chaps + 1 %>" readonly/> 
                   </div>
                 </div>
@@ -795,21 +793,6 @@
     </div>
   </main>
   <!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
-  <div class="toast">
-
-    <div class="toast-content">
-      <i class="fas fa-solid fa-check check"></i>
-
-      <div class="message">
-        <span class="text text-1">null</span>
-        <span class="text text-2">null</span>
-      </div>
-      <i class="fa-solid fa-xmark close1" id="close"></i>
-    </div>
-
-    <!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
-    <div class="progress active"></div>
-  </div>
 
   <%- include(footerFile) %>
   <script>

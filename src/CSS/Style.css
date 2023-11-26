@@ -2222,6 +2222,7 @@ margin-top: 20px;
 /* rank */
 .top_rank{
   display: flex;
+  margin-bottom: 50px;
 }
 .rank_container{
   width: 33.3333%;
@@ -2277,3 +2278,4 @@ margin-top: 20px;
 .search_up{
   margin-top: 50px;
 }
+

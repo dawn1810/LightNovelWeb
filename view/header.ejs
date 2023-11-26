@@ -168,6 +168,7 @@
                       <a href="/profile/change_pass">Đổi mật khẩu</a>
                     </div>
                     <%}%>
+
                     <%if(!admin){%>
                       <div class="header_user_more_item" style="display: none;">
                       </div>
@@ -197,9 +198,23 @@
                       </div>
                     </div>
                     <%}%>
+
+              <%if(!admin){%>
+                <div class="right_item_mobile_li" style="display: none;">
+                  <div class="header_user_more_item">
+                  </div>
+                </div>
+              <%}else{%>
+                <div class="right_item_mobile_li">
+                  <div class="header_user_more_item">
+                    <a href="/admin">Admin</a>
+                  </div>
+                </div>
+              <%}%>  
                 <div class="right_item_mobile_li">
                   <div class="header_user_more_item logout">Đăng xuất</div>
                 </div>
+
                 <button class="right_item_mobile_close">
                   <i class="fa-solid fa-circle-xmark"></i>
                 </button>

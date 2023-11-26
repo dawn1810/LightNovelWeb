@@ -866,43 +866,49 @@ const api_editNovel = async (req, res) => {
 	const data = req.body;
 	console.log("SYSTEM | EDIT_TRUYEN |", data);
 	try {
-		// get old _chap ids and name chaps
-		let curr_novel = await server.find_one_Data("truyen", {
-			_id: new ObjectId(data.id),
-		});
-		let new_chap_ids = curr_novel.chap_ids;
-		// set chap names as new name_chaps
-		let new_name_chaps = data.name_chaps;
-
 		// remove all chap that ???
 		for (let i = 0; i < data.remove_list.length; i++) {
-			let remove_index = parseInt(data.remove_list[i]);
-			// console.log(remove_index);
-			// delete remove id file from drive and remove id from chapid:
-			await deleteFileFromDrive(new_chap_ids.splice(remove_index, 1)[0]);
-			// remove name chap from name chaps
-			new_name_chaps.splice(remove_index, 1);
+			// remove chap content in drive
+			await deleteFileFromDrive(data.remove_list[i]);
+			// remove chapter in chuong table 
+			console.log('hahahah: ', data.remove_list[i]);
+			await queryAsync(`
+			DELETE FROM chuong WHERE noi_dung_chuong = '${data.remove_list[i]}'
+			`)
 		}
 
-		console.log(data.edit_index.length);
 		for (let i = 0; i < data.edit_index.length; i++) {
-			let change_index = parseInt(data.edit_index[i]);
 			// delete old id file from drive:
-			await deleteFileFromDrive(new_chap_ids[change_index]);
+			await deleteFileFromDrive(data.edit_index[i]);
 			// replace old id with new index:
-			new_chap_ids[change_index] = data.chap_ids[i];
-		}
+			await queryAsync(`
+			UPDATE chuong
+			SET
+				ten_chuong = '${data.name_chaps[i]}',
+				noi_dung_chuong = '${data.chap_ids[i]}'
+			WHERE id_truyen = '${data.id}'
+			AND noi_dung_chuong = '${data.edit_index[i]}'
+			`); // update chapter's indexs ở phía bên dưới
+		};
 
-		await server.update_one_Data(
-			"truyen",
-			{ _id: new ObjectId(data.id) },
-			{
-				$set: {
-					name_chaps: new_name_chaps,
-					chap_ids: new_chap_ids,
-				},
-			}
-		);
+		await queryAsync(`
+			UPDATE chuong
+			JOIN (
+				SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS row_number
+				FROM chuong
+				WHERE id_truyen = '${data.id}'
+				ORDER BY thu_tu ASC
+			) AS new_order
+			ON chuong.id = new_order.id
+			SET chuong.thu_tu = new_order.row_number;
+		`);
+
+		// update no_chap in truyen database
+		await queryAsync(`
+			UPDATE truyen
+			SET so_luong_chuong = so_luong_chuong - ${data.remove_list.length}
+			WHERE id = '${data.id}'
+		`)
 
 		res.sendStatus(200);
 	} catch (err) {
@@ -995,7 +1001,7 @@ const api_uploadFile = async function (req, res) {
 		if (!allowedMimeTypes.includes(req.files[i].mimetype)) {
 			return res.status(400).send("Invalid file type.");
 		} else if (allowedMimeTypes.indexOf(req.files[i].mimetype) == 1) {
-			await readDocxFile(path.join(uploadDirectory, req.files[i].originalname));
+			await func_controller.readDocxFile(path.join(uploadDirectory, req.files[i].originalname));
 		}
 		const fileName = req.files[i].originalname.replace(".docx", ".txt");
 		list_name.push(fileName);

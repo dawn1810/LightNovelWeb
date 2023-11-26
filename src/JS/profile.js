@@ -398,7 +398,7 @@ async function uploadFiles(files, type) {
 
     if (response.ok) {
       const responseData = await response.json();
-      console.log("File uploaded!");
+      // console.log("File uploaded!");
       sessionStorage.setItem("chapters_content", responseData);
       switch (type) {
         case 0:
@@ -517,13 +517,14 @@ async function updateNovel() {
 
 async function editNovel() {
   // get novel id from
-  const regex = /\/([a-fA-F0-9]+)\/listchap/;
+  const regex =
+    /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/;
 
   // Use the exec method to extract the matching part from the URL
   const match = regex.exec(window.location.href);
 
-  // Extracted ID will be in match[1]
-  const extractedID = match ? match[1] : null;
+  // Extracted ID will be in match[0]
+  const extractedID = match ? match[0] : null;
 
   // get edit_indexes and chapters_content:
   const name_chaps = sessionStorage.getItem("name_chapters");
@@ -748,25 +749,26 @@ async function cancel() {
     ) == true
   ) {
     // create shinra tensei not turn on this code
-    // var elem = document.createElement('div');
-    // elem.className = 'shinra'
-    // elem.style.cssText = `
-    // 		position:absolute;
-    // 		top: 0;
-    // 		left: 0;
-    // 		width:100vw;
-    // 		height:130%;
-    // 		margin-top: -100px;
-    // 		z-index:99999999999999999;
-    // 		background:#000;
-    // 		background-image: url('https://media.tenor.com/WNyMsbIJmBMAAAAC/naruto-shinra.gif');
-    // 		`
-    // // background-image: url('https://cdn.discordapp.com/attachments/1119221555566751754/1132280018534408233/thien.webp');
-    // document.body.appendChild(elem);
+    var elem = document.createElement('div');
+    elem.className = 'shinra'
+    elem.style.cssText = `
+    		position:absolute;
+    		top: 0;
+    		left: 0;
+    		width:100vw;
+    		height:130%;
+    		margin-top: -100px;
+    		z-index:99999999999999999;
+    		background:#000;
+    		background-image: url('https://media.tenor.com/WNyMsbIJmBMAAAAC/naruto-shinra.gif');
+    		`
+    // background-image: url('https://cdn.discordapp.com/attachments/1119221555566751754/1132280018534408233/thien.webp');
+    document.body.appendChild(elem);
 
-    // let audio = new Audio('/src/audio/shinra.mp3');
-    // audio.volume = 0.5;
-    // audio.play();
+    let audio = new Audio('/src/audio/shinra.mp3');
+    audio.volume = 0.5;
+    audio.play();
+    //////////////////////////////////////////////////////////////////////////////////////////
     if (sessionStorage.getItem("chapters_content")) {
       // remove all chapters
       const url = `/api/cancel`; // URL của máy chủ mục tiêu
@@ -1023,7 +1025,8 @@ $(document).ready(function () {
   });
 
   $(document).on("click", ".page5_b .download_btn", async function () {
-    notify("!", "Đã bắt đầu quá trình tải.");
+    console.log("download")
+    notify("n", "Đã bắt đầu quá trình tải.");
     let grandGrandParentID = $(this).parent().parent().parent().attr("id");
     const url = `/api/download_chap`; // URL của máy chủ mục tiêu
 
@@ -1077,7 +1080,7 @@ $(document).ready(function () {
         remove_list = sessionStorage.getItem("remove_list").split(",");
       }
       // set new remove to sessionStorage:
-      remove_list.push($(this).parent().parent().parent().index());
+      remove_list.push($(this).parent().parent().parent().prop('id'));
       sessionStorage.setItem("remove_list", remove_list);
 
       // unable input:
@@ -1106,6 +1109,7 @@ $(document).ready(function () {
       notify("!", "Đã huỷ!");
     }
   });
+
   $(document).on("click", ".page5_b .undo_btn", async function () {
     let remove_list = [];
     let curr_index = $(this).parent().parent().parent().index().toString();
@@ -1213,14 +1217,13 @@ document.querySelector(".page5_b .next_btn").onclick = async function () {
   // Loop through all elements
   $(".page5_b .my_novel_item").each(function () {
     // Get the input element inside the current element
+    let curr_file = $(this).find(".file-input")[0].files[0];
     let chapNum = $(this).find(".n_num").val();
     let chapName = $(this).find(".n_name").val();
-    let curr_file = $(this).find(".file-input")[0].files[0];
     name_chaprters.push(`Chương ${chapNum}: ${chapName}`);
     if (curr_file) {
       files.push(curr_file);
-      edit_indexes.push($(this).index());
-      console.log($(this).index());
+      edit_indexes.push($(this).prop('id'));
     }
   });
 

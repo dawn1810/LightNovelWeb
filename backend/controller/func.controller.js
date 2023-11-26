@@ -16,6 +16,8 @@ const allowedMimeTypes = [
 	"text/plain",
 	"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 ];
+const mammoth = require('mammoth');
+const fs = require("fs");
 
 const storage_file = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -137,13 +139,14 @@ async function checkAdmin(req, res, next) {
 	const result = await queryAsync(
 		`SELECT * FROM thongtin_nguoidung WHERE role= 100 AND id_tai_khoan = '${user.id}'`
 	);
+	
 	if (!result.length) {
-		res.locals.acc_role = 'admin';
-		next();
-	} else {
 		res.locals.acc_role = '';
 		res.locals.admin ='';
 		return res.redirect("/");
+	} else {
+		res.locals.acc_role = 'admin';
+		next();	
 	}
 }
 
@@ -424,6 +427,33 @@ const set_cookies = (res, id, pass) => {
 	console.log(`SYSTEM | SET_COOKIES | User ${id} login!`);
 };
 
+async function readDocxFile(docxFilePath) {
+	try {
+		const extname = path.extname(docxFilePath).toLowerCase();
+		const outputFilePath = docxFilePath.replace(extname, '.txt');
+
+		const { value } = await mammoth.extractRawText({ path: docxFilePath });
+		const text = value.trim();
+
+		fs.writeFile(outputFilePath, text, 'utf8', (err) => {
+			if (err) {
+				console.error('An error occurred while writing the file:', err);
+			} else {
+				console.log(`File contents saved to ${outputFilePath}`);
+				fs.unlink(docxFilePath, (err) => {
+					if (err) {
+						console.error('An error occurred while deleting the file:', err);
+					} else {
+						console.log(`Deleted ${docxFilePath}`);
+					}
+				});
+			}
+		});
+	} catch (error) {
+		console.error('An error occurred:', error);
+	}
+}
+
 module.exports = {
 	checkCookieLoglUser,
 	checkCoookieIfOK,
@@ -440,4 +470,5 @@ module.exports = {
 	getFirstAndLastDayOfWeek,
 	getFirstAndLastDayOfYear,
 	getFirstAndLastDayOfMonth,
+	readDocxFile,
 };
