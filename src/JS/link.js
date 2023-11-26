@@ -20,7 +20,7 @@ $(document).ready(function () {
       rootStyle.setProperty("--category_bg", "#374d88");
       rootStyle.setProperty("--search-bg", "#959595");
       rootStyle.setProperty("--menu-text", "#fff");
-      rootStyle.setProperty("--item-color", "rgb(38 56 123)");
+      rootStyle.setProperty("--item-color", "#000");
       rootStyle.setProperty("--button-color", "#23427a");
       rootStyle.setProperty("--login-btn", "#ff971b");
       rootStyle.setProperty("--author-color", "#2a3995");
@@ -52,7 +52,7 @@ $(document).ready(function () {
       rootStyle.setProperty("--category_bg", "#889EAF");
       rootStyle.setProperty("--search-bg", "#F3D5C0");
       rootStyle.setProperty("--menu-text", "#063458");
-      rootStyle.setProperty("--item-color", "rgb(151 107 51)");
+      rootStyle.setProperty("--item-color", "rgba(240, 211, 174, 0.4)");
       rootStyle.setProperty("--button-color", "#884c05");
       rootStyle.setProperty("--login-btn", "#884c05");
       rootStyle.setProperty("--author-color", "#ffb035");
