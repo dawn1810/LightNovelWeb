@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 25, 2023 lúc 04:52 PM
+-- Thời gian đã tạo: Th10 26, 2023 lúc 06:31 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.0.28
 
@@ -40,7 +40,6 @@ CREATE TABLE `chuong` (
 --
 
 INSERT INTO `chuong` (`id`, `id_truyen`, `ten_chuong`, `noi_dung_chuong`, `thu_tu`) VALUES
-('', 'a665d83f-dd81-421b-85f9-45caae620d90', 'Chương 3: Liệu đây là kết thúc ', '1Ed-skiKUo1vcaFOPrg7WoWrXe7i4Pwrg', 3),
 ('1', '1', 'hay lắm', 'OMAE CỐ TÌNH CHỬI WATASHI DESU KA? TỪ TANJOUBI ĐẾN KONNICHI, WATASHI ĐÃ ĐƯỢC OSOWARU NÊN HITO, WATASHI KHÔNG BAO GIỜ XÚC PHẠM DARE CẢ, OMAE LÀM VẬY LÀ TONDEMONAI DAYO.TUY WATASHI CÓ HƠI WIBU SUKOSHI, DEMO WATASHI LUÔN ĐẶT NIỀM TIN VÀO ANIME VÀ SỐNG ĐÚNG KIỂU TRONG ANIME, ANIME LÀ 1 THỨ GÌ ĐÓ CAO CẢ HƠN CẢ GENJITSU, WATASHI ĐÃ LÀM THEO VÀ HỌC TẬP THEO TỪ ANIME, WATASHI ĐÃ ĂN UỐNG NGỦ NGHĨ THEO ĐÚNG GIỜ CỦA ANIME MÀ KHÔNG LÀM PHIỀN DARE, ĐÔI LÚC WATASHI CÓ CHỬI VÀO OMAE NO KAO NHƯ INU, DEMO SAU ĐÓ BLOCK NÓ THÌ WATASHI KHÔNG LÀM VIỆC ĐÓ NỮA, MAIKAI MAIKAI WATASHI MUỐN CHỬI DARE WATASHI ĐỀU COI ANIME VÀ GHI NHỚ RẰNG KHÔNG NÊN CHỬI NGƯỜI ĐÓ NỮA !! WATASHI ĐÃ CỐ GẮNG HIỀN HẬU ĐẾN MỨC MUỐN THÀNH HOTOKE RỒI MÀ KARERA VẪN KHÔNG ĐỂ WATASHI YÊN LÀ SAO, YABAI WATASHI KHÔNG NÊN GHI RA NHỮNG TỪ NÀY DEMO THẰNG YAROU SÚC VẬT NÓ LÔI WATASHI NO NA RA ĐỂ CHỬI, THỨ AHO SHUKU SEIBUTSUGAKU KAGAKU BUNGAKU, VẬY LÀ ĐỦ, ĐỪNG ĐỂ WATASHI TRIGGERED VÀ WATASHI DẠY OMAE CÁCH ĐỂ HỌC TẬP VÀ LÀM THEO TẤM GƯƠNG CỦA ANIME NỮA!, THẾ NHÉ INU WA KUSO O TABERU', 1),
 ('100', '9', 'Xiao Ran was perplexed. Su Xuelan continued her interventi…', '1hVvzGyf6kNN0CgECb7jsOFs2cSuFAjsC', 70),
 ('101', '9', 'Xiao Ran was perplexed. Su Xuelan continued her interventi…', '1Xz0rXMOzk8PYneUPfk5Bks5vb50ogNkK', 71),
@@ -154,6 +153,7 @@ INSERT INTO `chuong` (`id`, `id_truyen`, `ten_chuong`, `noi_dung_chuong`, `thu_t
 ('197', '9', 'Who is in control? (1)', '1Z8EgESMs6BuhNUggTJnxxCWWjs_RJt-p', 167),
 ('198', '9', 'Who is in control? (2)', '1kSyzPPfhUOkgr814xJdSNfsup0IE6lc-', 168),
 ('199', '9', 'Liu Mengning? How can my home be so fragrant!', '1tcVtTZoLZdUb8Sj21wQhIuKqUT07x_ut', 169),
+('1995cb70-5c1b-49be-a600-c9c5b70a4781', '58ab604d-1518-414c-996f-ab8d331b1c36', 'Chương 1: làm liều ', '19YIktDh-BC-y6atbXu33qks2EVV4MA7p', 1),
 ('1bf31787-4875-4317-95b5-5c58fa1bda70', '6f56d8f7-8d68-49f8-a2cc-306b25d7e898', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1),
 ('2', '1', 'dở lắm', 'lần sau', 3),
 ('20', '1', 'Chuong 9', 'Noi dung chuong 9', 0),
@@ -240,16 +240,19 @@ INSERT INTO `chuong` (`id`, `id_truyen`, `ten_chuong`, `noi_dung_chuong`, `thu_t
 ('49fd7879-8fe1-4830-a44b-0bd6d07d2d50', 'aa3987ea-8634-4465-96fb-8887864acfc1', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1),
 ('50', '9', 'What An Exciting Scene That Would Be!', '1KDgift6bHd5CVOdg8rr8zPuFZJGglQhx', 20),
 ('51', '9', 'He Is So Kind, But Had To Act So Evil And Arrogant ......', '1I_GrGLmHAsesKsT3yodkyv1K1JkU4XK-', 21),
+('51bda341-c005-4544-9cc3-e6df5f1f12e1', 'a665d83f-dd81-421b-85f9-45caae620d90', 'Chương 1: Cuộc hành trình bắt đầu', '1zFQ-GvSxs8H6_cgicsck6i2_LimSreC1', 1),
 ('52', '9', 'Cherish Your Time As A Dog, Xiao Ran!', '1sr9BQkTP-caMWPG7iK9tYG0jXyh6v9QM', 22),
 ('53', '9', 'New Skill', '1AFOLNGtzZZz85bVSHpGmAaRKbgu_phiF', 23),
 ('530b9f69-bd0d-485c-8a02-055b619a044f', '9a686987-736c-40f3-9f1e-3d6314d0ea16', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1),
 ('54', '9', 'You are the dog, Su Mingyuan', '1t13wr5eIQ4GIBDuu4urNnWM-ZVQOg1pA', 24),
+('544ddf77-eabe-40b6-85ab-91588207cdb1', '5af0ee78-4248-4a9d-83ab-81c051c68eca', 'Chương 2: ok2 ', '1PWC0UWV8PWN4lPXgcDfb0zfaoDAZmATr', 2),
 ('55', '9', 'After You Marry Into My House, Let\'s See What I Do...', '1GhiPay_mcqbNhOwurWBJrQeRh2issHsO', 25),
 ('56', '9', 'What A Perfect Performance!', '1kNjafu4fIAIMfePMtC6xKtIM1TDDAbCm', 26),
 ('57', '9', 'My Mental State Collapsed!', '1zKyIbRGWffo_taK-rmtTg9Fij7h2U_0z', 27),
 ('58', '9', 'He Was About To Give Up', '1EekIokzxOT3dTMvUYYtAiIhfbMlYIV0u', 28),
 ('58c501f7-e366-4b13-830b-9a519ef88181', '76edf324-d5bd-470d-9eb9-9f913ef47a86', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1),
 ('59', '9', 'I Did It For You…..', '1Tb58gYyno8Cv5loilmDvo7GZmo7MIuvQ', 29),
+('5d62a013-2383-49bb-baaa-9634b0d4d64c', 'a665d83f-dd81-421b-85f9-45caae620d90', 'Chương 2: Rừng đại ngàn tempetsu', '1GOzwuCLFPZMoobd39BhOoKAFvxKIKDi9', 2),
 ('5e73f993-ff09-4ac3-a1d6-8d76381df656', '6020c790-b0bf-4eec-9f9b-4aaaa8e9378f', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1),
 ('60', '9', 'She Was Not Like This...', '1-PhMAjhx1Qymx8ShvXfZ_5LpEhWWjTMD', 30),
 ('61', '9', 'She Is Indeed My Good Sister', '1Oe0Vya_t9Ly5ndV--arX41qTVZFqppSc', 31),
@@ -306,7 +309,7 @@ INSERT INTO `chuong` (`id`, `id_truyen`, `ten_chuong`, `noi_dung_chuong`, `thu_t
 ('a944e837-ce5f-46fe-9ff9-1d5583c9881a', '42cf6cb0-e16d-47bd-b02b-210a87545bd3', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1),
 ('b09ed88e-08e8-4bd6-abcb-2a224b150eae', '46badd48-4780-4cad-a4aa-8b9035154097', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1),
 ('b56d0f1f-32c7-4099-b7f3-2e372d9c9a9e', '750f75ac-312b-4b57-9882-4a436fb4344c', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1),
-('ba67cc63-46fc-437f-80c9-1325b08f3682', 'a665d83f-dd81-421b-85f9-45caae620d90', 'Chương 2: Rừng đại ngàn tempet ', '1eWk6456Dqbol2W-Gt6MBA3_rH92CMkmE', 2),
+('ba67cc63-46fc-437f-80c9-1325b08f3682', 'a665d83f-dd81-421b-85f9-45caae620d90', 'Chương 3: Liệu đây là kết thúc', '1kxiAAAnhHEXXg7DNB3ASLdzHPtHplnrh', 3),
 ('bab021de-0415-4065-9a14-4335e8ba919c', '2e7f5ea3-4abc-484f-a2d6-d647a9084737', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1),
 ('bac03904-eb19-403d-b51d-0cf596078018', '363604ba-bb70-480f-a33a-b01daae70d76', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1),
 ('bc22775e-328f-4de9-a686-95f133f6be7d', '6fe20c53-6d8a-4c21-bfb6-c8cf65a58295', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1),
@@ -315,13 +318,15 @@ INSERT INTO `chuong` (`id`, `id_truyen`, `ten_chuong`, `noi_dung_chuong`, `thu_t
 ('d44685aa-8e01-44ca-a108-c334020d38d8', '6ddbadb3-642e-4c9b-87bb-9c314ee30c38', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1),
 ('d5f918f9-3642-40bc-b1d4-486b61fa4c6f', '39412aee-eb25-4b83-8ca3-213b0151c8b2', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1),
 ('d94cf4ab-465a-43dc-8a9f-e036c6c02b15', 'c3d59322-d23c-499d-bcb7-7f13944f4483', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1),
+('dbf41a20-591b-4f6b-8d1c-b5b14e73d0d6', '5af0ee78-4248-4a9d-83ab-81c051c68eca', 'Chương 1: ok ', '16wI_7j2mQ-wKKQwFS6x8qVgW2YP9xYW-', 1),
+('de032bf6-2809-4e14-99da-7cb1d90a4e45', 'adf597a1-2964-4288-ad15-461b991828fd', 'Chương 1: Hoàng Long thay đổi ', '1PkVMrIXbJk0ccNuqNY90qgssDYV3c3TY', 1),
 ('de778df6-fe0d-44f1-887e-beb48e2b142d', 'bce4e037-75d8-4a07-ab5f-ccd22a436b7d', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1),
 ('df6288bd-dc87-4d86-9152-2e03f6f5a2f4', '50ee6076-b996-44e4-a7ee-a603b5b44c8b', 'Chương 2: Gặp bé elf BM ', '1V5GlXe3V2uEyz4ZT1Ap6ICuBq1vR_aSS', 2),
 ('e1383145-21f5-47c1-8154-270365233f3d', '5d61955f-647d-4df5-92c6-9e171ac8f0f2', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1),
 ('e24d6799-4ee7-41bf-beae-8d41831df653', '7c32f8cc-e62b-43f9-8703-d6a0d7cdb7ee', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1),
 ('e3a4cf5f-3008-4885-8a7f-4040dbfb18d0', 'f24ab5ac-513e-4eff-b859-7e934b5f3944', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1),
-('ecd7ecf8-275e-4ac4-a7ae-b1c56749f8c8', 'be4d050b-3869-4721-bc0e-45345496f872', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1),
-('f3b81297-0295-4e61-9d8f-5f0b92f169d7', 'a665d83f-dd81-421b-85f9-45caae620d90', 'Chương 1: Cuộc hành trình bắt đầu ', '14j_L-HN47B-VqE15UYK3X6ZWOymL1aY0', 1);
+('e715b9b2-73ba-4ead-a256-8021faf3ee24', '58ab604d-1518-414c-996f-ab8d331b1c36', 'Chương 2: làm tội ', '1ccwwl3PWu0wk2_VIVhJQngcU45dZ1dI4', 2),
+('ecd7ecf8-275e-4ac4-a7ae-b1c56749f8c8', 'be4d050b-3869-4721-bc0e-45345496f872', 'Chương 1: sda ', '1uxTsnez6tUZ3kh4T6gNL3a-AiJYrvqNP', 1);
 
 -- --------------------------------------------------------
 
@@ -340,30 +345,30 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
+('5EA_EzfVtQGiV-qvSJrSSmIXx2VQH_MI', 1701582203, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
 ('6W1dTT-Rx1C7gSdxRJdWGicFywtX5Pwh', 1701062325, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"66916025-3af1-4716-9a6a-7109bf7f82ac\",\"username\":\"admin\",\"role\":100}}'),
-('F9B09z5Z7w-Dr_S_GvdL9kkN3YU0nX2i', 1700992476, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"66916025-3af1-4716-9a6a-7109bf7f82ac\",\"username\":\"admin\",\"role\":100}}'),
-('FRwW0NaaUcbNnNvkF3QDRH8IknEWg4VX', 1700993842, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"66916025-3af1-4716-9a6a-7109bf7f82ac\",\"username\":\"admin\",\"role\":100}}'),
+('ApdyYh4UzLrMI3jUL4yiSOWCq_X2HPT_', 1701579275, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"3141bc23-09c4-4fa8-83a9-23247d7ed232\",\"username\":\"hiem2\",\"role\":1}}'),
+('Ea7I5C5nfTIMSe40TJLQl1Fg1M6SCp9r', 1701580077, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"1\",\"username\":\"nht\",\"role\":2}}'),
 ('Iyr2vMfDskgJs74mhqm0Fsp3rmmX_dU1', 1701166906, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"3141bc23-09c4-4fa8-83a9-23247d7ed232\",\"username\":\"hiem2\",\"role\":1}}'),
-('KQ0zmYH1vqbiRBGJtzcPSkbX-YyiXO5s', 1701530729, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"66916025-3af1-4716-9a6a-7109bf7f82ac\",\"username\":\"admin\",\"role\":100}}'),
+('KQ0zmYH1vqbiRBGJtzcPSkbX-YyiXO5s', 1701535720, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"66916025-3af1-4716-9a6a-7109bf7f82ac\",\"username\":\"admin\",\"role\":100}}'),
 ('KkeCMfZWUNGvqKjlBLTLFsgRX_zH2DTY', 1701177123, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"3141bc23-09c4-4fa8-83a9-23247d7ed232\",\"username\":\"hiem2\",\"role\":1}}'),
+('LUrRJ_4Dhz_nvTjYmwP1L_7Lup_j9oL9', 1701622619, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"100489975828441695411\"},\"user\":{\"id\":\"100489975828441695411\",\"username\":\"100489975828441695411\"}}'),
 ('Nf0qQavPLhPa2GvBml7P08oXJOTOYz_P', 1701445381, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"66916025-3af1-4716-9a6a-7109bf7f82ac\",\"username\":\"admin\",\"role\":1}}'),
+('OXEAxFa7kOI7Jaok42J-vBOa4okpZtIP', 1701605169, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"1\",\"username\":\"nht\",\"role\":2}}'),
 ('O_EIjFcwxQPT_MPFAnNx9efo1vS7T2Ri', 1701441158, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"66916025-3af1-4716-9a6a-7109bf7f82ac\",\"username\":\"admin\",\"role\":1}}'),
-('Qx8F-zUVaDCAQaiXiJs9ylqa8IRmS-HM', 1700999954, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"66916025-3af1-4716-9a6a-7109bf7f82ac\",\"username\":\"admin\",\"role\":100}}'),
 ('S_5gt-59BzzCcfnPr3QuSX0gvB1uMtg8', 1701442960, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"3141bc23-09c4-4fa8-83a9-23247d7ed232\",\"username\":\"hiem2\",\"role\":1}}'),
 ('T8degyXQR_ak637FixTNMFyxEwEiJB5G', 1701061225, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"66916025-3af1-4716-9a6a-7109bf7f82ac\",\"username\":\"admin\",\"role\":100}}'),
+('TBotHC03JCMpZ23tpcMcWGl8FnLH7LQg', 1701623989, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
 ('VcEhCEWPZcu120Jjggow3Dy-isH1ZNVq', 1701061758, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
 ('WHN_xU2FV2frbmQi7OPK53K0FxHLh60Z', 1701170487, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"3141bc23-09c4-4fa8-83a9-23247d7ed232\",\"username\":\"hiem2\",\"role\":1}}'),
 ('XFqi5ONF6ELoeABrLw-Sq5xFrl4ZCjep', 1701443015, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"156263e4-940f-48d8-b540-0a2a98b4d974\",\"username\":\"naruto\",\"role\":1}}'),
-('YJZILHwh5N9L4Ud9CoIKs03_sLOrF6z-', 1700998613, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"66916025-3af1-4716-9a6a-7109bf7f82ac\",\"username\":\"admin\",\"role\":100}}'),
-('_i2Bnh6-uYyfTxyApz513Nxu8z-MEOAh', 1700998585, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"3141bc23-09c4-4fa8-83a9-23247d7ed232\",\"username\":\"hiem2\",\"role\":0}}'),
-('gZs8wAAlDk5xXk_JcS3plmRv7mtcDw0v', 1700979242, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
+('aTMb_OnScq5Cz2kvPNu2TKKuqar2Y0NG', 1701624584, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"3141bc23-09c4-4fa8-83a9-23247d7ed232\",\"username\":\"hiem2\",\"role\":1}}'),
+('d442y4PrfvO001EntUXmLuVRFD8KrFXJ', 1701603639, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
 ('g_XWh1LXTSW9bUalFlPWuuhc_HZFjl_b', 1701445329, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"66916025-3af1-4716-9a6a-7109bf7f82ac\",\"username\":\"admin\",\"role\":1}}'),
 ('jy9IzCNeYAHyM8J-tbQtDG_bU4GJ5xlT', 1701178592, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
-('kmTibXwjFL7a3I_Ge-FhrE5yUJ448qK3', 1700998886, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
-('nLf_S-Nsfv9HidH0L7WA1SPmo8Euv71-', 1700993840, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"66916025-3af1-4716-9a6a-7109bf7f82ac\",\"username\":\"admin\",\"role\":100}}'),
+('lYtH42saVGu23CXW6FOXhiLHqHiBxU6P', 1701623860, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"1\",\"username\":\"nht\",\"role\":2}}'),
 ('uvlg2jUHFqPttMwDtoLQs0no6QnAFQK_', 1701178576, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"66916025-3af1-4716-9a6a-7109bf7f82ac\",\"username\":\"admin\",\"role\":100}}'),
-('uyfUwXlG-3jGL6aFlfi0AvApMTlDEgee', 1701178536, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"66916025-3af1-4716-9a6a-7109bf7f82ac\",\"username\":\"admin\",\"role\":100}}'),
-('y_fbvdCXRCSa2VHg6B4MET45ypcxv4rg', 1700993840, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"66916025-3af1-4716-9a6a-7109bf7f82ac\",\"username\":\"admin\",\"role\":100}}');
+('uyfUwXlG-3jGL6aFlfi0AvApMTlDEgee', 1701178536, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"66916025-3af1-4716-9a6a-7109bf7f82ac\",\"username\":\"admin\",\"role\":100}}');
 
 -- --------------------------------------------------------
 
@@ -384,6 +389,7 @@ CREATE TABLE `tacgia` (
 INSERT INTO `tacgia` (`id`, `id_nguoi_dung`, `ten_tac_gia`) VALUES
 ('1', '1', 'HT90'),
 ('10', '10', 'Author 10'),
+('100489975828441695411', '100489975828441695411', 'Dragonccm'),
 ('113263126602180653712', '113263126602180653712', 'Minhdz'),
 ('2', '2', 'Author 2'),
 ('3', '3', 'Author 3'),
@@ -440,6 +446,7 @@ CREATE TABLE `taikhoan_nguoidung` (
 INSERT INTO `taikhoan_nguoidung` (`id`, `ten_tai_khoan`, `email`, `mat_khau`, `login_way`) VALUES
 ('1', 'nht', 'naruto9090@gmail.com', '123456', 'normal'),
 ('10', 'user10', 'user10@gmail.com', 'password10', 'normal'),
+('100489975828441695411', '100489975828441695411', 'nguyenngoclong5511@gmail.com', NULL, 'google'),
 ('109632126491025897743', '109632126491025897743', 'hungthinhh2003@gmail.com', NULL, 'google'),
 ('11', 'hungthinh', 'ht90@gmail.com', '321', 'normal'),
 ('110152635823665920356', '110152635823665920356', 'chandoralong@gmail.com', NULL, 'google'),
@@ -515,6 +522,7 @@ INSERT INTO `the_loai_truyen` (`id`, `id_the_loai`, `id_truyen`) VALUES
 ('1', 'Sci-Fi', '1'),
 ('10', 'Horror', '10'),
 ('12738897-7e62-44d0-8b2d-afd5698f4964', 'Horror', '0d7b2789-adce-4081-87d0-69987d329461'),
+('13a66ee8-1725-413f-a72f-65e9b90952c1', 'Horror', '58ab604d-1518-414c-996f-ab8d331b1c36'),
 ('1555785c-85a7-48a9-9ff3-d99700c5b552', 'Horror', '7be01681-74f4-493b-9f87-e2e8cf9e3125'),
 ('18ba2565-16bf-4239-9614-b86d244dd3e2', 'Horror', '3885ae5d-fb82-4c28-a398-3ef75fcfe92b'),
 ('2', 'Comedy', '2'),
@@ -544,6 +552,7 @@ INSERT INTO `the_loai_truyen` (`id`, `id_the_loai`, `id_truyen`) VALUES
 ('7848054a-73d9-4af1-9927-e7e380ff7bd6', 'Horror', 'dee3ba66-3eb3-4e0f-8052-55833ff1ef46'),
 ('7d0c6b26-4b27-457e-956f-8e843646b5d3', 'Horror', 'dea7016b-4a48-4ffb-8e0e-6efc770e0b54'),
 ('8', 'Family', '8'),
+('8479c281-7261-4bfb-8326-bf25d4e80c1b', 'Fantasy', '5af0ee78-4248-4a9d-83ab-81c051c68eca'),
 ('88b506c3-29d0-4834-aef0-4ed62bb53909', 'Horror', '50ee6076-b996-44e4-a7ee-a603b5b44c8b'),
 ('895aa4c9-a4a0-4429-bde2-fe3f43849d7c', 'Adventure', '50ee6076-b996-44e4-a7ee-a603b5b44c8b'),
 ('8c107c62-2946-48a2-93a9-5eee3f35460f', 'Horror', 'bff8846a-76c6-4343-a21c-e88871475146'),
@@ -561,15 +570,19 @@ INSERT INTO `the_loai_truyen` (`id`, `id_the_loai`, `id_truyen`) VALUES
 ('a00c671a-a93f-450f-9dcb-e2277823207b', 'Comedy', 'a665d83f-dd81-421b-85f9-45caae620d90'),
 ('a6abe180-44a1-4a7f-a163-7f6df47c52ab', 'Horror', 'be4d050b-3869-4721-bc0e-45345496f872'),
 ('abd2e331-4ef7-48cb-9577-670c0fa9f42a', 'Action', 'a665d83f-dd81-421b-85f9-45caae620d90'),
+('acad23b8-7d2e-435e-b255-6dda72d6c25b', 'Adventure', '58ab604d-1518-414c-996f-ab8d331b1c36'),
 ('ae102334-a90f-4868-9ebf-3e98b52bf373', 'Adventure', 'a665d83f-dd81-421b-85f9-45caae620d90'),
 ('b387c9e1-eba5-4adc-9af5-d30b4d46278d', 'Horror', 'd8706ce2-7266-4d95-8196-e2dbbfe929bd'),
 ('b46153b7-5eca-4549-a5bd-d0b8c19a375a', 'Horror', '3e8d0b79-de34-475f-a5b8-ac6a002bac57'),
+('bbe926c1-6a41-49aa-81c8-dde3f995ad66', 'Drama', 'adf597a1-2964-4288-ad15-461b991828fd'),
 ('cdbb0f4b-6c68-49dd-947d-30d571896985', 'Horror', '6020c790-b0bf-4eec-9f9b-4aaaa8e9378f'),
 ('d32cc055-d492-4446-b1b7-f0015533a5e8', 'Horror', 'b810773c-32b3-4fa9-bdcf-47b3d6cc3400'),
 ('d53d6951-4f87-4022-8704-843eeea3ab0c', 'Horror', 'bce4e037-75d8-4a07-ab5f-ccd22a436b7d'),
 ('d62f8418-f12f-4e8c-8b69-0039ac4d68b9', 'Horror', '6f56d8f7-8d68-49f8-a2cc-306b25d7e898'),
 ('d78725dc-4f1d-4213-a8ea-179df94a6050', 'Horror', '67a8923b-a001-48a7-8d2e-bab7034c1f18'),
+('e5ca272a-e1cf-4205-bddd-112f5134a20e', 'Action', '5af0ee78-4248-4a9d-83ab-81c051c68eca'),
 ('e66470e5-89c8-438f-a41f-5f2e66d0c57b', 'Horror', '363604ba-bb70-480f-a33a-b01daae70d76'),
+('ea82af96-0060-4ca3-9031-db5f1aa68a19', 'Family', 'adf597a1-2964-4288-ad15-461b991828fd'),
 ('ed310957-ad97-4ef7-bebd-32e74b3048a5', 'Horror', 'b9612f76-7812-4136-8118-999f9c911f3f'),
 ('edc71958-bfc4-4465-a835-d3ac72711371', 'Horror', '750f75ac-312b-4b57-9882-4a436fb4344c'),
 ('eed30c38-3fa8-4a1d-bdde-f2f73ccd2431', 'Horror', '42cf6cb0-e16d-47bd-b02b-210a87545bd3'),
@@ -600,8 +613,9 @@ CREATE TABLE `thongtin_nguoidung` (
 INSERT INTO `thongtin_nguoidung` (`id`, `id_tai_khoan`, `ten_hien_thi`, `anh_dai_dien`, `gioi_tinh`, `role`, `last_role`) VALUES
 ('1', '1', 'Hung Thinh', 'https://drive.google.com/uc?export=view&id=1EOVRJ4tg7vRVjfxAUq5sg2Y1PuXBNB6i', 1, 2, 0),
 ('10', '10', 'User 10', 'https://drive.google.com/uc?export=view&id=1EOVRJ4tg7vRVjfxAUq5sg2Y1PuXBNB6i', 1, 2, 0),
-('109632126491025897743', '109632126491025897743', 'Hưng Thịnh Nguyễn', 'https://drive.google.com/uc?export=view&id=1EOVRJ4tg7vRVjfxAUq5sg2Y1PuXBNB6i', 1, 1, 0),
-('110152635823665920356', '110152635823665920356', 'Ruri Meiko', 'https://lh3.googleusercontent.com/a/ACg8ocK8aV6zSthRfH8PZGBBm6Fv9NvJzlGnDc6Lf5Ge0_Fh-1E=s96-c', 1, 1, 0),
+('100489975828441695411', '100489975828441695411', 'Ngoc Long', 'https://lh3.googleusercontent.com/a/ACg8ocIIb0HY0aqShFhxx-BrcDuB_9iTKfjdudBqsOfCuLCbs18=s96-c', 1, 100, 0),
+('109632126491025897743', '109632126491025897743', 'Hưng Thịnh Nguyễn', 'https://drive.google.com/uc?export=view&id=1EOVRJ4tg7vRVjfxAUq5sg2Y1PuXBNB6i', 1, 2, 0),
+('110152635823665920356', '110152635823665920356', 'Ruri Meiko', 'https://lh3.googleusercontent.com/a/ACg8ocK8aV6zSthRfH8PZGBBm6Fv9NvJzlGnDc6Lf5Ge0_Fh-1E=s96-c', 1, 2, 0),
 ('113263126602180653712', '113263126602180653712', 'Dawn Nguyen', 'https://lh3.googleusercontent.com/a/ACg8ocLYq5vVCCCNuPkBLcU1GVRtVvlwtp2NnRv15Rei3u03jiA=s96-c', 1, 1, 0),
 ('156263e4-940f-48d8-b540-0a2a98b4d974', '156263e4-940f-48d8-b540-0a2a98b4d974', 'naruto', 'https://drive.google.com/uc?export=view&id=1EOVRJ4tg7vRVjfxAUq5sg2Y1PuXBNB6i', 1, 1, 0),
 ('18', '18', 'ha', 'https://drive.google.com/uc?export=view&id=1EOVRJ4tg7vRVjfxAUq5sg2Y1PuXBNB6i', 1, 2, 0),
@@ -644,51 +658,54 @@ CREATE TABLE `truyen` (
 
 INSERT INTO `truyen` (`id`, `id_tac_gia`, `ten_truyen`, `so_luong_chuong`, `tom_tat_noi_dung`, `anh_dai_dien`, `luot_xem`, `luot_thich`, `ngay_cap_nhat`, `trang_thai`, `ban`) VALUES
 ('0c4a2c5d-f1c1-419b-94b9-cd7840da78dc', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 21', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 1),
-('0d7b2789-adce-4081-87d0-69987d329461', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 39', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
+('0d7b2789-adce-4081-87d0-69987d329461', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 39', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 1),
 ('1', '1', 'naruto', 10, 'cu giả', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 999999, 1, '2023-11-12', 'Đang ra', 0),
 ('10', '10', 'Truyen 10', 28, 'Tom tat noi dung truyen 10 Tom tat noi dung truyen 10 Tom tat noi dung truyen 10 Tom tat noi dung truyen 10 Tom tat noi dung truyen 10 Tom tat noi dung truyen 10 Tom tat noi dung truyen 10 Tom tat noi dung truyen 10 Tom tat noi dung truyen 10Tom tat noi dung truyen 10 Tom tat noi dung truyen 10 Tom tat noi dung truyen 10 Tom tat noi dung truyen 10', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, -1, '2023-07-30', 'block', 0),
 ('2', '1', 'sasuke', 10, 'đồ sát', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 2, 2, '2023-11-12', 'Đang ra', 0),
 ('2a2f427e-5ea0-42b9-bdcf-34ff4969267a', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 37', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
 ('2e7f5ea3-4abc-484f-a2d6-d647a9084737', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 18', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
 ('3', '3', 'Truyen 3', 15, 'Tom tat noi dung truyen 3', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-12', 'đang ra', 0),
-('363604ba-bb70-480f-a33a-b01daae70d76', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 1', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
+('363604ba-bb70-480f-a33a-b01daae70d76', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 1', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Hoàn thành', 0),
 ('3885ae5d-fb82-4c28-a398-3ef75fcfe92b', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 12', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
 ('39412aee-eb25-4b83-8ca3-213b0151c8b2', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 19', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
-('3e4d0ffd-d797-493a-a32f-701ca0860ee0', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 5', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
+('3e4d0ffd-d797-493a-a32f-701ca0860ee0', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 5', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Hoàn thành', 0),
 ('3e8d0b79-de34-475f-a5b8-ac6a002bac57', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 42', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
 ('4', '4', 'Truyen 4', 25, 'Tom tat noi dung truyen 4', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-12', 'block', 0),
 ('42cf6cb0-e16d-47bd-b02b-210a87545bd3', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 35', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
-('457cca38-ea18-4ab8-83a7-9c0c0e5d60b6', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 48', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
+('457cca38-ea18-4ab8-83a7-9c0c0e5d60b6', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 48', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Hoàn thành', 0),
 ('46badd48-4780-4cad-a4aa-8b9035154097', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 34', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
 ('5', '5', 'Truyen 5', 18, 'Tom tat noi dung truyen 5', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 1000, 0, '2023-11-12', 'block', 0),
 ('50ee6076-b996-44e4-a7ee-a603b5b44c8b', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Ngọc Long tại dị giới cùng Hưng Thịnh p3', 2, 'rất tuyệt với', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
-('5d61955f-647d-4df5-92c6-9e171ac8f0f2', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 33', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
+('58ab604d-1518-414c-996f-ab8d331b1c36', '100489975828441695411', 'lần đầu được viết', 2, 'truyện này tẩm đớ', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 1, 1, '2023-11-26', 'Đang ra', 0),
+('5af0ee78-4248-4a9d-83ab-81c051c68eca', '1', 'huỷ diệt thế giới', 2, 'ok ha coi đi nghiện vcl', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-26', 'Đang ra', 0),
+('5d61955f-647d-4df5-92c6-9e171ac8f0f2', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 33', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Hoàn thành', 0),
 ('6', '6', 'Truyen 6', 22, 'Tom tat noi dung truyen 6', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-12', 'block', 0),
 ('6020c790-b0bf-4eec-9f9b-4aaaa8e9378f', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 25', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
-('67a8923b-a001-48a7-8d2e-bab7034c1f18', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 40', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
+('67a8923b-a001-48a7-8d2e-bab7034c1f18', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 40', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Hoàn thành', 0),
 ('689479cd-6334-4dc2-9526-2915702af9c0', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 46', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
-('6ddbadb3-642e-4c9b-87bb-9c314ee30c38', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 23', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
+('6ddbadb3-642e-4c9b-87bb-9c314ee30c38', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 23', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Hoàn thành', 0),
 ('6f393334-13ef-45d4-b373-7c9ddfdbc1b4', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 16', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
-('6f56d8f7-8d68-49f8-a2cc-306b25d7e898', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 7', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
+('6f56d8f7-8d68-49f8-a2cc-306b25d7e898', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 7', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Hoàn thành', 0),
 ('6fe20c53-6d8a-4c21-bfb6-c8cf65a58295', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 41', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
 ('7', '7', 'Truyen 7', 30, 'Tom tat noi dung truyen 7', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-12', 'đang ra', 0),
-('74e30706-d555-4593-bc7d-721d728591be', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 6', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
+('74e30706-d555-4593-bc7d-721d728591be', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 6', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Hoàn thành', 0),
 ('750f75ac-312b-4b57-9882-4a436fb4344c', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 10', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
 ('76edf324-d5bd-470d-9eb9-9f913ef47a86', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 26', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
-('7be01681-74f4-493b-9f87-e2e8cf9e3125', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 44', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
+('7be01681-74f4-493b-9f87-e2e8cf9e3125', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 44', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Hoàn thành', 0),
 ('7c32f8cc-e62b-43f9-8703-d6a0d7cdb7ee', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 29', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
-('7d2b6bf1-1c24-4b6d-aef5-99423b264212', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 28', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
+('7d2b6bf1-1c24-4b6d-aef5-99423b264212', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 28', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Hoàn thành', 0),
 ('8', '8', 'Truyen 8', 17, 'Tom tat noi dung truyen 8', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-12', 'đang ra', 0),
 ('82966195-fdb3-4f77-97ec-d3fa73cfde4d', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 22', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
 ('858aaf29-5d05-4d4f-a138-eceda08469f8', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 3', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'đang ra', 0),
 ('8615c72f-e041-4e95-b6f0-fec4efe66945', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 43', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
 ('88b38bdb-76da-4885-bd2d-df95efe04bd3', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 31', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
-('9', '9', 'Long Ngoại Đạo', 19, 'Tom tat noi dung truyen 9', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 1, 1, '2023-11-12', 'đang ra', 0),
+('9', '9', 'Long Ngoại Đạo', 19, 'Tom tat noi dung truyen 9', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 2, 0, '2023-11-12', 'đang ra', 0),
 ('93179960-ed55-415d-9c03-a1c931fd4aa6', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 36', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
 ('9a686987-736c-40f3-9f1e-3d6314d0ea16', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 49', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
 ('9eba3bc5-c1e0-42c6-8ff6-84071b9cf9f8', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 9', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
-('a665d83f-dd81-421b-85f9-45caae620d90', '113263126602180653712', 'Dế mèn phiêu lưu kí', 3, 'Câu chuyện là chuyến chu du khắp nơi của một chú dế mèn dũng cảm. Chuyến hành trình đó đi qua vô số cùng đất từ xứ sở thần tiên, địa ngục helhem, đỉnh olympus,... gặp vô số người bạn trên chuyến hành trình đó, liệu điều thú vị nào sẽ xẩy ra?', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 1),
+('a665d83f-dd81-421b-85f9-45caae620d90', '113263126602180653712', 'Dế mèn phiêu lưu kí', 3, 'Câu chuyện là chuyến chu du khắp nơi của một chú dế mèn dũng cảm. Chuyến hành trình đó đi qua vô số cùng đất từ xứ sở thần tiên, địa ngục helhem, đỉnh olympus,... gặp vô số người bạn trên chuyến hành trình đó, liệu điều thú vị nào sẽ xẩy ra?', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 2, 0, '2023-11-26', 'Đang ra', 1),
 ('aa3987ea-8634-4465-96fb-8887864acfc1', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 2', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
+('adf597a1-2964-4288-ad15-461b991828fd', '113263126602180653712', 'Truyện về thg bạn lười biếng của tôi', 1, 'Truyện về thg Hoàng Long sau khi nó có bồ nó trở nên bệnh hoạn, biến thái, hentai, súc vật cũng như yêu đuối bê đê, đâm dê bà hàng xóm', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-26', 'Đang ra', 1),
 ('b810773c-32b3-4fa9-bdcf-47b3d6cc3400', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 47', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
 ('b9612f76-7812-4136-8118-999f9c911f3f', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 11', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
 ('bce4e037-75d8-4a07-ab5f-ccd22a436b7d', '3141bc23-09c4-4fa8-83a9-23247d7ed232', 'Story 32', 1, 'sdsad', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-21', 'Đang ra', 0),
@@ -716,17 +733,19 @@ INSERT INTO `truyen` (`id`, `id_tac_gia`, `ten_truyen`, `so_luong_chuong`, `tom_
 CREATE TABLE `truyen_yeu_thich` (
   `id` varchar(50) NOT NULL,
   `id_nguoi_dung` varchar(50) NOT NULL,
-  `id_truyen` varchar(50) NOT NULL
+  `id_truyen` varchar(50) NOT NULL,
+  `chuong_hien_tai` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `truyen_yeu_thich`
 --
 
-INSERT INTO `truyen_yeu_thich` (`id`, `id_nguoi_dung`, `id_truyen`) VALUES
-('1', '1', '1'),
-('19', '113263126602180653712', '8'),
-('dc403368-e4a4-47fc-b284-17f2a8bbe1b7', '3141bc23-09c4-4fa8-83a9-23247d7ed232', '9');
+INSERT INTO `truyen_yeu_thich` (`id`, `id_nguoi_dung`, `id_truyen`, `chuong_hien_tai`) VALUES
+('1', '1', '1', 2),
+('19', '113263126602180653712', '8', 2),
+('62e42527-1853-4218-bc1f-8bd638adae61', '100489975828441695411', '9', 1),
+('86b03e6c-2737-4236-8cf9-356256378f3c', '1', '58ab604d-1518-414c-996f-ab8d331b1c36', 1);
 
 --
 -- Chỉ mục cho các bảng đã đổ
