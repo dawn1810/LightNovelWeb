@@ -474,7 +474,16 @@
 </div>
 <script>
   var listObj = new ej.dropdowns.MultiSelect({
-      // set placeholder to MultiSelect input element
+        // set placeholder to MultiSelect input element
+        <%
+        const arr = autochoose.types.split(',');
+        const formattedArr = arr.map((item) => `'${item}'`);
+        const result_type = formattedArr.length > 0 ? `[${formattedArr.join(", ")}]` : "''";
+        %>
+        <%if (autochoose.types != 'undefined'){%>
+        value: <%- result_type%>,
+        <%}%>
+
       placeholder: "Chọn thể loại truyện",
     },
     "#ulElement"

@@ -158,7 +158,6 @@ const category = async (req, res, limit = 31) => {
 
     // Sử dụng map để thêm dấu nháy đơn cho mỗi phần tử
     const formattedArr = arr.map((item) => `'${item}'`);
-    console.log(types);
     // Sử dụng join để nối các phần tử thành một chuỗi, và thêm dấu ngoặc đơn ()
     if (arr.length > 0) {
       const result = `(${formattedArr.join(", ")})`;
