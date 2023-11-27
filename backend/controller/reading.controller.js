@@ -1,6 +1,7 @@
 const server = require("../vip_pro_lib");
 const { ObjectId } = require('mongodb');
 const { connection, queryAsync } = require("../dbmysql");
+const { json } = require("express");
 function convertToHtml(text) {
 	const escapedText = escapeHtml(text);
 	const lines = escapedText.split('\n');
@@ -46,7 +47,10 @@ const renderReading =  async (req, res) => {
 		);
 
 		let old_name_list = await queryAsync(
-			`SELECT ten_chuong FROM chuong WHERE id_truyen=2`
+			`SELECT ten_chuong FROM chuong WHERE id_truyen='${req.params.id}'`
+		);
+		let getname = await queryAsync(
+			`SELECT ten_truyen FROM truyen WHERE id='${req.params.id}'`
 		);
 		// chuyen kieu du lieu cho giong mongo
 		function convertNewToOld(newData) {
@@ -64,13 +68,13 @@ const renderReading =  async (req, res) => {
 		// 	return;
 		// }
 		const chap_content = await server.downloadFileFromDrive(String(data[0].noi_dung_chuong));	
-		// console.log(chap_content);
+		console.log(JSON.stringify(getname[0]));
 		res.render('readingpage.ejs', {
 			headerFile: 'header',
 			footerFile: 'footer',
-			name: data[0].ten_chuong,
+			name: getname[0].ten_truyen,
 			name_chaps: chapter_names,
-			name_chap: `${data[0].thu_tu}:${data[0].ten_chuong}`,
+			name_chap: `${data[0].ten_chuong}`,
 			chap_content: chap_content,
 			number_chap: req.params.chap,
 			id: req.params.id
