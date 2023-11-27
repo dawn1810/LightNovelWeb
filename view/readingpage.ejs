@@ -147,11 +147,11 @@
                 <% for (let i=0; i < name_chaps.length; i++) { %>
                 <% if (number_chap==i+1) { %>
                 <option class="show_more_item" selected value="<%= i+1 %>">
-                  chương <%= 1+i+":"+name_chaps[i] %>
+                   <%= name_chaps[i] %>
                 </option>
                 <% } else { %>
                 <option class="show_more_item" value="<%= i+1 %>">
-                  chương <%= 1+i+":"+name_chaps[i] %>
+                   <%= name_chaps[i] %>
                 </option>
                 <% } %>
                 <% }%>
