@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 26, 2023 lúc 06:31 PM
+-- Thời gian đã tạo: Th10 27, 2023 lúc 06:09 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.0.28
 
@@ -357,7 +357,6 @@ INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
 ('OXEAxFa7kOI7Jaok42J-vBOa4okpZtIP', 1701605169, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"1\",\"username\":\"nht\",\"role\":2}}'),
 ('O_EIjFcwxQPT_MPFAnNx9efo1vS7T2Ri', 1701441158, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"66916025-3af1-4716-9a6a-7109bf7f82ac\",\"username\":\"admin\",\"role\":1}}'),
 ('S_5gt-59BzzCcfnPr3QuSX0gvB1uMtg8', 1701442960, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"3141bc23-09c4-4fa8-83a9-23247d7ed232\",\"username\":\"hiem2\",\"role\":1}}'),
-('T8degyXQR_ak637FixTNMFyxEwEiJB5G', 1701061225, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"66916025-3af1-4716-9a6a-7109bf7f82ac\",\"username\":\"admin\",\"role\":100}}'),
 ('TBotHC03JCMpZ23tpcMcWGl8FnLH7LQg', 1701623989, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
 ('VcEhCEWPZcu120Jjggow3Dy-isH1ZNVq', 1701061758, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
 ('WHN_xU2FV2frbmQi7OPK53K0FxHLh60Z', 1701170487, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"3141bc23-09c4-4fa8-83a9-23247d7ed232\",\"username\":\"hiem2\",\"role\":1}}'),
@@ -775,9 +774,7 @@ ALTER TABLE `tacgia`
 -- Chỉ mục cho bảng `taikhoan_nguoidung`
 --
 ALTER TABLE `taikhoan_nguoidung`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `ten_tai_khoan` (`ten_tai_khoan`),
-  ADD UNIQUE KEY `uc_ten_tai_khoan` (`ten_tai_khoan`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `the_loai`
