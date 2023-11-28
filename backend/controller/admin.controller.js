@@ -7,9 +7,13 @@ const admin = async (req, res) => {
   });
 };
 const add_content_slider = async (req, res) => {
+  let data = await queryAsync(
+    `SELECT * FROM slider,truyen WHERE  slider.id_truyen = truyen.id`
+  );
   res.render("add_content_slider", {
     headerFile: "header",
     footerFile: "footer",
+    data: data
   });
 };
 

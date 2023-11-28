@@ -659,6 +659,12 @@ add_new.onclick = function () {
 add_quick.onclick = function () {
 	if (author_name_check) {
 		$('.upload_quick_file').css({"width": "60%", "opacity": "1"});
+		$(this).text("+ ĐĂNG TRUYỆN")
+		$(this).addClass("quick_upload");
+		
+		document.querySelector('.quick_upload').onclick = function () {
+			console.log('cho thinh');
+		}
 
 	} else {
 		// dont have author name yet
@@ -666,6 +672,10 @@ add_quick.onclick = function () {
 		Setting_item[0].click();
 	}
 };
+
+document.querySelector(".upload_quick_file .download_btn").onclick = async function () {
+	console.log('download');
+}
 
 
 document.querySelector(".page5_info .next_btn").onclick = async function () {
@@ -982,7 +992,6 @@ $(document).ready(function () {
 	});
 
 	$(document).on("click", ".page5_b .download_btn", async function () {
-		console.log("download");
 		notify("n", "Đã bắt đầu quá trình tải.");
 		let grandGrandParentID = $(this).parent().parent().parent().attr("id");
 		const url = `/api/download_chap`; // URL của máy chủ mục tiêu
