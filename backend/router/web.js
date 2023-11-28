@@ -123,7 +123,14 @@ const webRouter = (app) => {
     func_controller.checkAdmin,
     renderAdmin.authortManager
   );
-
+  // add_content_slider=======================================================================================
+  router.get(
+    "/addslider",
+    func_controller.checkCookieLoglUser,
+    func_controller.checkAdmin,
+    renderAdmin.add_content_slider
+  );
+  // 
   // Search route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   router.get(
     "/search",

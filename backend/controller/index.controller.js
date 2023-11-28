@@ -22,13 +22,13 @@ const rederIndex = async (req, res) => {
     `SELECT * FROM truyen WHERE ban!=1 ORDER BY truyen.ngay_cap_nhat DESC, truyen.luot_xem DESC, truyen.luot_thich DESC, truyen.ten_truyen ASC LIMIT 5`
   );
   let truyen_hoanthanh = await queryAsync(
-    `SELECT
+    `SELECT DISTINCT 
     truyen.id AS _id,
-    truyen.ten_truyen AS name,
+    truyen.ten_truyen,
     tacgia.ten_tac_gia AS author,
-    truyen.anh_dai_dien AS image,
-    truyen.trang_thai AS status,
-    truyen.so_luong_chuong AS no_chapters
+    truyen.anh_dai_dien ,
+    truyen.trang_thai ,
+    truyen.so_luong_chuong 
     FROM
     tacgia, truyen,the_loai, the_loai_truyen  WHERE truyen.id_tac_gia = tacgia.id AND trang_thai = 'Hoàn thành'  AND truyen.ban !=1 ORDER BY ngay_cap_nhat DESC LIMIT 12`
   );

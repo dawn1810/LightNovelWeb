@@ -18,7 +18,8 @@ const Setting_pageWrapper = document.querySelectorAll(".Setting_pageWrapper");
 const Setting_item = document.querySelectorAll(".Setting_sidebar-list_item");
 
 const delete_chapter = document.querySelector(".delete_chapter");
-const add_new = document.querySelector(".add_new");
+const add_new = document.querySelector(".normal_add .add_new");
+const add_quick = document.querySelector(".quick_add .add_new");
 const page5_home = document.querySelector(".page5_home");
 const page5_a = document.querySelector(".page5_a");
 const page5_b = document.querySelector(".page5_b");
@@ -70,27 +71,22 @@ function page5_a_up_drop() {
 	}
 }
 
-var currentPath = window.location.href.substring(
-	window.location.href.lastIndexOf("/")
-);
+var currentPath = window.location.href.substring(window.location.href.lastIndexOf("/"));
 if (currentPath == "/novel_following") {
 	Setting_pageWrapper_drop();
 	Setting_item_drop();
 	document.querySelector(".page2").style.display = "block";
-	document.querySelector(".yourfollow").style.backgroundColor =
-		"var(--st-pr-btn-bg)";
+	document.querySelector(".yourfollow").style.backgroundColor = "var(--st-pr-btn-bg)";
 } else if (currentPath == "/change_pass") {
 	Setting_pageWrapper_drop();
 	Setting_item_drop();
-	document.querySelector(".yourchangepass").style.backgroundColor =
-		"var(--st-pr-btn-bg)";
+	document.querySelector(".yourchangepass").style.backgroundColor = "var(--st-pr-btn-bg)";
 
 	document.querySelector(".page4").style.display = "block";
 } else if (currentPath == "/my_novel") {
 	Setting_pageWrapper_drop();
 	Setting_item_drop();
-	document.querySelector(".up_novel").style.backgroundColor =
-		"var(--st-pr-btn-bg)";
+	document.querySelector(".up_novel").style.backgroundColor = "var(--st-pr-btn-bg)";
 
 	document.querySelector(".page5").style.display = "block";
 	sessionStorage.clear();
@@ -101,8 +97,7 @@ if (currentPath == "/novel_following") {
 	Setting_item_drop();
 
 	document.querySelector(".page5").style.display = "block";
-	document.querySelector(".up_novel").style.backgroundColor =
-		"var(--st-pr-btn-bg)";
+	document.querySelector(".up_novel").style.backgroundColor = "var(--st-pr-btn-bg)";
 
 	page5_composed[1].style.display = "block";
 	page5_a_up[0].style.display = "flex";
@@ -120,8 +115,7 @@ if (currentPath == "/novel_following") {
 	page5_a_up_drop();
 	Setting_item_drop();
 
-	document.querySelector(".up_novel").style.backgroundColor =
-		"var(--st-pr-btn-bg)";
+	document.querySelector(".up_novel").style.backgroundColor = "var(--st-pr-btn-bg)";
 
 	document.querySelector(".page5").style.display = "block";
 	page5_composed[1].style.display = "block";
@@ -141,8 +135,7 @@ if (currentPath == "/novel_following") {
 	page5_a_up_drop();
 	Setting_item_drop();
 
-	document.querySelector(".up_novel").style.backgroundColor =
-		"var(--st-pr-btn-bg)";
+	document.querySelector(".up_novel").style.backgroundColor = "var(--st-pr-btn-bg)";
 
 	document.querySelector(".page5").style.display = "block";
 	page5_composed[1].style.display = "block";
@@ -161,8 +154,7 @@ if (currentPath == "/novel_following") {
 	page5_a_up_drop();
 	Setting_item_drop();
 
-	document.querySelector(".up_novel").style.backgroundColor =
-		"var(--st-pr-btn-bg)";
+	document.querySelector(".up_novel").style.backgroundColor = "var(--st-pr-btn-bg)";
 
 	document.querySelector(".page5").style.display = "block";
 	page5_composed[1].style.display = "block";
@@ -188,8 +180,7 @@ if (currentPath == "/novel_following") {
 	Setting_item_drop();
 	document.querySelector(".page5").style.display = "block";
 
-	document.querySelector(".up_novel").style.backgroundColor =
-		"var(--st-pr-btn-bg)";
+	document.querySelector(".up_novel").style.backgroundColor = "var(--st-pr-btn-bg)";
 	page5_composed[3].style.display = "block";
 	page5_a_up[4].style.display = "flex";
 } else if (currentPath == "/morechap") {
@@ -199,8 +190,7 @@ if (currentPath == "/novel_following") {
 	Setting_item_drop();
 	document.querySelector(".page5").style.display = "block";
 
-	document.querySelector(".up_novel").style.backgroundColor =
-		"var(--st-pr-btn-bg)";
+	document.querySelector(".up_novel").style.backgroundColor = "var(--st-pr-btn-bg)";
 	page5_composed[4].style.display = "block";
 	page5_a_up[5].style.display = "block";
 } else if (currentPath == "/listchap") {
@@ -208,8 +198,7 @@ if (currentPath == "/novel_following") {
 	Setting_pageWrapper_drop();
 	page5_a_up_drop();
 	Setting_item_drop();
-	document.querySelector(".up_novel").style.backgroundColor =
-		"var(--st-pr-btn-bg)";
+	document.querySelector(".up_novel").style.backgroundColor = "var(--st-pr-btn-bg)";
 
 	document.querySelector(".page5").style.display = "block";
 	page5_composed[2].style.display = "block";
@@ -218,23 +207,20 @@ if (currentPath == "/novel_following") {
 	const regex =
 		/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/;
 
-
 	const match = regex.exec(window.location.href);
 
 	const extractedID = match ? match[0] : null;
 
 	var novelItems = document.querySelectorAll(".my_novel_item");
 
-
 	novelItems.forEach(function (item) {
 		const chap = item.querySelector(".n_num").value;
-		item.querySelector('#author_see').href = `/reading/${extractedID}/${chap}`;
+		item.querySelector("#author_see").href = `/reading/${extractedID}/${chap}`;
 	});
 }
 
 for (let i = 0; i < Setting_item.length; i++) {
-	const currentURL =
-		window.location.protocol + "//" + window.location.host + "/profile";
+	const currentURL = window.location.protocol + "//" + window.location.host + "/profile";
 
 	// console.log(Setting_item[i])
 	// console.log(i);
@@ -314,9 +300,7 @@ function validateFile(file, checkdoc = false) {
 	console.log("ẹc");
 	// Check file format
 	const fileName = file.name;
-	const fileExtension = fileName
-		.substring(fileName.lastIndexOf(".") + 1)
-		.toLowerCase();
+	const fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
 	if (!allowedFormats.includes(fileExtension)) {
 		// Invalid file format
 		notify("!", "Sai định dạng file!");
@@ -339,19 +323,13 @@ for (const button of avtUpLoad) {
 			const reader = new FileReader();
 			reader.onload = () => {
 				const base64 = reader.result;
-				console.log(reader.result);
-				button.parentElement.parentElement.querySelector(".your-avt").src =
-					reader.result;
+				button.parentElement.parentElement.querySelector(".your-avt").src = base64;
 			};
 			reader.readAsDataURL(file);
 
 			// disappear drop text
-			if (
-				button.parentElement.parentElement.querySelector(".your-avt").src !== ""
-			) {
-				button.parentElement.parentElement.querySelector(
-					".drop-zone"
-				).innerHTML = "";
+			if (button.parentElement.parentElement.querySelector(".your-avt").src !== "") {
+				button.parentElement.parentElement.querySelector(".drop-zone").innerHTML = "";
 			}
 		}
 	});
@@ -369,7 +347,7 @@ for (const button of dropZone)
 			const reader = new FileReader();
 			reader.onload = () => {
 				const base64 = reader.result;
-				button.parentElement.querySelector(".your-avt").src = reader.result;
+				button.parentElement.querySelector(".your-avt").src = base64;
 			};
 			reader.readAsDataURL(file);
 
@@ -640,8 +618,7 @@ Save_btn.onclick = async function (e) {
 		if (response.status == "200") {
 			document.querySelector(".header_user_logo_i p").textContent =
 				document.querySelector("#fullname").value;
-			document.querySelector(".header_user_logo_i .curent-avt img").src =
-				avatar.src;
+			document.querySelector(".header_user_logo_i .curent-avt img").src = avatar.src;
 			author_name_check = document.querySelector("#author_name").value;
 
 			notify("n", "Thay đổi thông tin người dùng thành công!");
@@ -678,6 +655,18 @@ add_new.onclick = function () {
 		Setting_item[0].click();
 	}
 };
+
+add_quick.onclick = function () {
+	if (author_name_check) {
+		$('.upload_quick_file').css({"width": "60%", "opacity": "1"});
+
+	} else {
+		// dont have author name yet
+		notify("!", "Bạn chưa có tên sáng tác! Hãy đặt tên sáng tác trước.");
+		Setting_item[0].click();
+	}
+};
+
 
 document.querySelector(".page5_info .next_btn").onclick = async function () {
 	if (
@@ -719,11 +708,7 @@ document.querySelector(".page5_info .next_btn").onclick = async function () {
 
 async function cancel() {
 	// remove all chapters
-	if (
-		confirm(
-			"Shinra tensei - Hủy diệt mọi thứ. Are you sure about that? ( ⚆ _ ⚆ )"
-		) == true
-	) {
+	if (confirm("Shinra tensei - Hủy diệt mọi thứ. Are you sure about that? ( ⚆ _ ⚆ )") == true) {
 		// create shinra tensei not turn on this code
 		var elem = document.createElement("div");
 		elem.className = "shinra";
@@ -820,8 +805,7 @@ document.querySelector(".page5_chap .more_chap_btn").onclick = function () {
 			<h3>Thứ tự chương</h3>
 			<div class="information_name">
 				<input class="profile_input chap_num" type="number" id="name_novel"
-					value="${document.querySelectorAll(".page5_a .chap_num").length + 1
-		}" readonly />
+					value="${document.querySelectorAll(".page5_a .chap_num").length + 1}" readonly />
 			</div>
 		</div>
 
@@ -848,9 +832,7 @@ document.querySelector(".page5_chap .more_chap_btn").onclick = function () {
 		
 		<p style="text-align: center;">[------------------------------------ 🦊🍜🍥 ------------------------------------]</p>
 		`;
-	document
-		.querySelector(".page5_chap .page5_info_main")
-		.appendChild(newElement);
+	document.querySelector(".page5_chap .page5_info_main").appendChild(newElement);
 };
 
 $(document).ready(function () {
@@ -1020,9 +1002,7 @@ $(document).ready(function () {
 		fetch(url, requestOptions)
 			.then((response) => {
 				// extract the filename from the response header
-				const filename = response.headers
-					.get("Content-Disposition")
-					.split("filename=")[1];
+				const filename = response.headers.get("Content-Disposition").split("filename=")[1];
 
 				// create a new blob object from the response body
 				return response.blob().then((blob) => {
@@ -1062,18 +1042,8 @@ $(document).ready(function () {
 			$(this).parent().parent().parent().find(".n_num").prop("disabled", true);
 			$(this).parent().parent().parent().find(".n_name").prop("disabled", true);
 			// unable download and uplaod button
-			$(this)
-				.parent()
-				.parent()
-				.parent()
-				.find(".edit_btn")
-				.prop("disabled", true);
-			$(this)
-				.parent()
-				.parent()
-				.parent()
-				.find(".download_btn")
-				.prop("disabled", true);
+			$(this).parent().parent().parent().find(".edit_btn").prop("disabled", true);
+			$(this).parent().parent().parent().find(".download_btn").prop("disabled", true);
 			// change remove button to undo button
 			$(this).html(`<i class="fa-solid fa-arrow-rotate-left"></i>`);
 			$(this).toggleClass("remove_chap undo_btn");
@@ -1099,18 +1069,8 @@ $(document).ready(function () {
 		$(this).parent().parent().parent().find(".n_num").prop("disabled", false);
 		$(this).parent().parent().parent().find(".n_name").prop("disabled", false);
 		// unable download and uplaod button
-		$(this)
-			.parent()
-			.parent()
-			.parent()
-			.find(".edit_btn")
-			.prop("disabled", false);
-		$(this)
-			.parent()
-			.parent()
-			.parent()
-			.find(".download_btn")
-			.prop("disabled", false);
+		$(this).parent().parent().parent().find(".edit_btn").prop("disabled", false);
+		$(this).parent().parent().parent().find(".download_btn").prop("disabled", false);
 		// change remove button to undo button
 		$(this).html(`<i class="fa-solid fa-xmark"></i>`);
 		$(this).toggleClass("undo_btn remove_chap");
@@ -1244,9 +1204,10 @@ document.querySelector(".page5_d .more_chap_btn").onclick = function () {
 			<h3>Thứ tự chương</h3>
 			<div class="information_name">
         <input class="profile_input chap_num" type="number" id="name_novel"
-					value="${parseInt(document.querySelectorAll(".page5_d .chap_num")[0].value) +
-		document.querySelectorAll(".page5_d .chap_num").length
-		}" readonly />
+					value="${
+						parseInt(document.querySelectorAll(".page5_d .chap_num")[0].value) +
+						document.querySelectorAll(".page5_d .chap_num").length
+					}" readonly />
 			</div>
 		</div>
 
@@ -1331,12 +1292,10 @@ document.querySelector(".page5_c .next_btn").onclick = function () {
 		// author_name: document.querySelector(".page5_c  .author_name").value,
 		novel_descript: document.querySelector(".page5_c  .novel_descript").value,
 		novel_types: listObj2.tempValues,
-		novel_status: document.querySelector(".page5_c  .novel_status select")
-			.options[
+		novel_status: document.querySelector(".page5_c  .novel_status select").options[
 			document.querySelector(".page5_c  .novel_status select").selectedIndex
 		].text,
-		novel_avt: document.querySelector(".page5_c  .page5_info_img .your-avt")
-			.src,
+		novel_avt: document.querySelector(".page5_c  .page5_info_img .your-avt").src,
 	});
 	const requestOptions = {
 		method: "POST",
@@ -1363,49 +1322,51 @@ document.querySelector(".page5_c .close_btn").onclick = function () {
 	cancel();
 };
 
-
 function filterNovels(searchInput, page) {
-	searchInput = searchInput.replace(/\s/g, '');
-	const regex = new RegExp(searchInput.replace(/[-\/\\^$*+?.()|[\]{} ]/g, '\\$&'), 'i'); // Case-insensitive search
+	searchInput = searchInput.replace(/\s/g, "");
+	const regex = new RegExp(searchInput.replace(/[-\/\\^$*+?.()|[\]{} ]/g, "\\$&"), "i"); // Case-insensitive search
 
 	if (page) {
-		$('.page5_home_info_name').each(function () {
+		$(".page5_home_info_name").each(function () {
 			const novelName = $(this).text();
 
 			// Remove accents and diacritics for comparison
-			const normalizedNovelName = novelName.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+			const normalizedNovelName = novelName.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
 			// Show or hide based on whether the normalized novel name matches the search input
-			$(this).parent().parent().parent().toggle(regex.test(normalizedNovelName.replace(/\s/g, '')));
-
+			$(this)
+				.parent()
+				.parent()
+				.parent()
+				.toggle(regex.test(normalizedNovelName.replace(/\s/g, "")));
 		});
-	}
-	else {
-		$('.followed-container .name-novel-top').each(function () {
-			const novelName = $(this).find('a').text();
+	} else {
+		$(".followed-container .name-novel-top").each(function () {
+			const novelName = $(this).find("a").text();
 
 			// Remove accents and diacritics for comparison
-			const normalizedNovelName = novelName.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+			const normalizedNovelName = novelName.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
 			// Show or hide based on whether the normalized novel name matches the search input
-			$(this).parent().parent().parent().toggle(regex.test(normalizedNovelName.replace(/\s/g, '')));
-
+			$(this)
+				.parent()
+				.parent()
+				.parent()
+				.toggle(regex.test(normalizedNovelName.replace(/\s/g, "")));
 		});
 	}
 }
 
-
 // Event listener for the input field
-$('.page5_home .header_search_input').on('input', function () {
-	const searchInput = $(this).find('input').val();
+$(".page5_home .header_search_input").on("input", function () {
+	const searchInput = $(this).find("input").val();
 	filterNovels(searchInput, 1);
 });
 
-$('.followed-container .header_search_input').on('input', function () {
-	const searchInput = $(this).find('input').val();
+$(".followed-container .header_search_input").on("input", function () {
+	const searchInput = $(this).find("input").val();
 	filterNovels(searchInput, 0);
 });
-
 
 let check = 0;
 const page5_post_check = document.querySelector(".page5_post_check");

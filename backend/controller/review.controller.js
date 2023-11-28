@@ -20,7 +20,7 @@ const renderReviews = async (req, res) => {
     // default if they don't have an account
 
     let theloaiID = await queryAsync(
-      "SELECT DISTINCT id_the_loai FROM the_loai_truyen,truyen WHERE truyen.id = the_loai_truyen.id_truyen "
+      `SELECT DISTINCT id_the_loai FROM the_loai_truyen WHERE the_loai_truyen.id_truyen = '${req.params.id}'`
     );
     // console.log("the loai:", theloaiID);
     const genres = theloaiID.map((row) => row.id_the_loai);

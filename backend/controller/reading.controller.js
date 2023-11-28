@@ -2,6 +2,8 @@ const server = require("../vip_pro_lib");
 const { ObjectId } = require('mongodb');
 const { connection, queryAsync } = require("../dbmysql");
 const { json } = require("express");
+
+
 function convertToHtml(text) {
 	const escapedText = escapeHtml(text);
 	const lines = escapedText.split('\n');
@@ -75,7 +77,7 @@ const renderReading =  async (req, res) => {
 			name: getname[0].ten_truyen,
 			name_chaps: chapter_names,
 			name_chap: `${data[0].ten_chuong}`,
-			chap_content: chap_content,
+			chap_content: convertToHtml(chap_content),
 			number_chap: req.params.chap,
 			id: req.params.id
 		});

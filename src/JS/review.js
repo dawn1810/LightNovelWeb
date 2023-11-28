@@ -401,14 +401,7 @@ function showListLoad(pageNumber, data) {
       showlist += `
             <a href='/reading/${chan}/${i + 1}' class="chapter-item">
                 <div class="chapter_item_info">
-                    <h2>Chương ${i + 1}</h2>
-                    <div style="
-                        display: flex;
-                        flex-direction: column;
-                        flex-wrap: nowrap;
-                        justify-content: center;">
-                        <div>${data[i].ten_chuong}</div>
-                    </div>
+                    <h2>${data[i].ten_chuong}</h2>
                 </div>
                 <i class="fa-solid fa-circle-down" style="
                     text-align: center;
@@ -423,13 +416,6 @@ function showListLoad(pageNumber, data) {
             <a href='/reading/${chan}/${i + 1}' class="chapter-item">
                 <div class="chapter_item_info">
                     <h2>${data[i].ten_chuong}</h2>
-                    <div style="
-                        display: flex;
-                        flex-direction: column;
-                        flex-wrap: nowrap;
-                        justify-content: center;">
-                        <div>${data[i].ten_chuong}</div>
-                    </div>
                 </div>
                 <i class="fa-solid fa-circle-down" style="
                     text-align: center;

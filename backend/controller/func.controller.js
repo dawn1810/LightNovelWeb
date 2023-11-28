@@ -16,7 +16,7 @@ const allowedMimeTypes = [
 	"text/plain",
 	"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 ];
-const mammoth = require('mammoth');
+const mammoth = require("mammoth");
 const fs = require("fs");
 
 const storage_file = multer.diskStorage({
@@ -68,7 +68,6 @@ function decrypt(encryptedDataWithIV, secretKey) {
 }
 
 async function checkCookieLoglUser(req, res, next) {
-
 	try {
 		if (req.isAuthenticated()) {
 			req.session.user = req.user;
@@ -79,7 +78,7 @@ async function checkCookieLoglUser(req, res, next) {
 				"https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg";
 			res.locals.username = "";
 			res.locals.login_way = "null";
-		
+
 			next();
 		} else {
 			// console.log("SYSTEM | CHECK_COOKIE | User login", user);
@@ -105,13 +104,13 @@ async function checkCookieLoglUser(req, res, next) {
 				res.locals.email = n_result[0].email;
 				res.locals.login_way = n_result[0].login_way;
 				res.locals.author_name = author.length ? author[0].ten_tac_gia : undefined;
-				res.locals.admin =result[0].role;
+				res.locals.admin = result[0].role;
 				next();
 			} else {
 				res.locals.avt =
 					"https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg";
 				res.locals.username = "";
-			
+
 				next();
 			}
 		}
@@ -131,22 +130,23 @@ async function checkCoookieIfOK(req, res, next) {
 	}
 }
 async function checkAdmin(req, res, next) {
-	if (req.isAuthenticated()) {
-		req.session.user = req.user;
-	}
-	const user = req.session.user;
-	console.log(user.id);
-	const result = await queryAsync(
-		`SELECT * FROM thongtin_nguoidung WHERE role= 100 AND id_tai_khoan = '${user.id}'`
-	);
-	
-	if (!result.length) {
-		res.locals.admin = '';
-		res.locals.admin =null;
-		return res.redirect("/");
-	} else {
-		res.locals.admin = 'admin';
-		next();	
+	if (req.user) {
+		if (req.isAuthenticated()) {
+			req.session.user = req.user;
+		}
+		const user = req.session.user;
+		const result = await queryAsync(
+			`SELECT * FROM thongtin_nguoidung WHERE role= 100 AND id_tai_khoan = '${user.id}'`
+		);
+
+		if (!result.length) {
+			res.locals.admin = "";
+			res.locals.admin = null;
+			return res.redirect("/");
+		} else {
+			res.locals.admin = "admin";
+			next();
+		}
 	}
 }
 
@@ -430,19 +430,19 @@ const set_cookies = (res, id, pass) => {
 async function readDocxFile(docxFilePath) {
 	try {
 		const extname = path.extname(docxFilePath).toLowerCase();
-		const outputFilePath = docxFilePath.replace(extname, '.txt');
+		const outputFilePath = docxFilePath.replace(extname, ".txt");
 
 		const { value } = await mammoth.extractRawText({ path: docxFilePath });
 		const text = value.trim();
 
-		fs.writeFile(outputFilePath, text, 'utf8', (err) => {
+		fs.writeFile(outputFilePath, text, "utf8", (err) => {
 			if (err) {
-				console.error('An error occurred while writing the file:', err);
+				console.error("An error occurred while writing the file:", err);
 			} else {
 				console.log(`File contents saved to ${outputFilePath}`);
 				fs.unlink(docxFilePath, (err) => {
 					if (err) {
-						console.error('An error occurred while deleting the file:', err);
+						console.error("An error occurred while deleting the file:", err);
 					} else {
 						console.log(`Deleted ${docxFilePath}`);
 					}
@@ -450,9 +450,10 @@ async function readDocxFile(docxFilePath) {
 			}
 		});
 	} catch (error) {
-		console.error('An error occurred:', error);
+		console.error("An error occurred:", error);
 	}
 }
+
 
 module.exports = {
 	checkCookieLoglUser,

@@ -6,6 +6,12 @@ const admin = async (req, res) => {
     footerFile: "footer",
   });
 };
+const add_content_slider = async (req, res) => {
+  res.render("add_content_slider", {
+    headerFile: "header",
+    footerFile: "footer",
+  });
+};
 
 const accountManager = async (req, res) => {
   let dataa = await queryAsync(
@@ -45,4 +51,5 @@ module.exports = {
   admin,
   accountManager,
   authortManager,
+  add_content_slider,
 };

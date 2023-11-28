@@ -601,7 +601,7 @@ body {
   padding: 10px 20px;
   background-color: #593d1d !important;
   color: #ffffff;
-  border-radius: 24px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -1369,4 +1369,31 @@ input:required:focus {
 
 .header_search {
   padding: 0 180px;
+}
+
+.add_new_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+}
+
+.add_new_box .quick_add {
+  color: var(--black-text);
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+}
+
+.upload_quick_file {
+  display: flex;
+  width: 0;
+  opacity: 0;
+  gap: 10px;
+  transition: linear 0.2s;
+}
+
+.quick_add .add_new {
+  width: 100%;
 }
