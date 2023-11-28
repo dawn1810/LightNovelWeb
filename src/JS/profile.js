@@ -630,6 +630,8 @@ Save_btn.onclick = async function (e) {
 };
 
 // change pass
+
+// upload novels
 add_new.onclick = function () {
 	if (author_name_check) {
 		page5_composed_drop();
@@ -658,12 +660,12 @@ add_new.onclick = function () {
 
 add_quick.onclick = function () {
 	if (author_name_check) {
-		$('.upload_quick_file').css({"width": "60%", "opacity": "1"});
+		$('.upload_quick_file').css({"display": "flex", "opacity": "1"});
 		$(this).text("+ ĐĂNG TRUYỆN")
 		$(this).addClass("quick_upload");
-		
+
 		document.querySelector('.quick_upload').onclick = function () {
-			console.log('cho thinh');
+			console.log('thinh bi khung');
 		}
 
 	} else {
@@ -674,9 +676,46 @@ add_quick.onclick = function () {
 };
 
 document.querySelector(".upload_quick_file .download_btn").onclick = async function () {
-	console.log('download');
+	try {
+		const requestOptions = {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		};
+		const response = await fetch('/api/get_quick_upload_template', requestOptions);
+		if (response.ok) {
+			const blobUrl = URL.createObjectURL(await response.blob());
+			// Tạo một thẻ <a> ẩn để tải xuống và nhấn vào nó
+			const downloadLink = document.createElement('a');
+			downloadLink.href = blobUrl;
+			downloadLink.download = 'Mau_dang_truyen_nhanh.docx'; // Đặt tên cho tệp tải xuống
+			downloadLink.style.display = 'none';
+			document.body.appendChild(downloadLink);
+			downloadLink.click();
+			// Giải phóng URL tạm thời sau khi tải xuống hoàn thành
+			URL.revokeObjectURL(blobUrl);
+			notify('n', 'Đã tải xuống file đăng tải truyện nhanh')
+		} else {
+			notify('!', 'Tải xuống thất bại thất bại')
+		}
+	} catch (error) {
+		console.log(error);
+	}
 }
 
+document.querySelector(".upload_quick_file .edit_btn").onclick = async function () {
+	$(this).parent().find(".file-input").click();
+}
+
+document.querySelector(".upload_quick_file .file-input").onchange =  function () {
+	const file = $(this)[0].files[0];
+	if (validateFile(file, true)) {
+		$(this).parent().find(".file-content").text(file.name);
+	}
+};
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\//
 
 document.querySelector(".page5_info .next_btn").onclick = async function () {
 	if (
@@ -1009,26 +1048,22 @@ $(document).ready(function () {
 		};
 
 		fetch(url, requestOptions)
-			.then((response) => {
+			.then(async (response) => {
 				// extract the filename from the response header
 				const filename = response.headers.get("Content-Disposition").split("filename=")[1];
 
 				// create a new blob object from the response body
-				return response.blob().then((blob) => {
-					// create a temporary URL for the blob object
-					const url = window.URL.createObjectURL(blob);
-
-					// create a new anchor element to download the file
-					const a = document.createElement("a");
-					a.href = url;
-					a.download = filename;
-					a.click();
-
-					// release the temporary URL
-					window.URL.revokeObjectURL(url);
-
-					notify("n", "Download thành công!!!");
-				});
+				const blob = await response.blob();
+				// create a temporary URL for the blob object
+				const url = window.URL.createObjectURL(blob);
+				// create a new anchor element to download the file
+				const a = document.createElement("a");
+				a.href = url;
+				a.download = filename;
+				a.click();
+				// release the temporary URL
+				window.URL.revokeObjectURL(url);
+				notify("n", "Download thành công!!!");
 			})
 			.catch((error) => {
 				notify("x", "Download không thành công!!!");
@@ -1213,10 +1248,9 @@ document.querySelector(".page5_d .more_chap_btn").onclick = function () {
 			<h3>Thứ tự chương</h3>
 			<div class="information_name">
         <input class="profile_input chap_num" type="number" id="name_novel"
-					value="${
-						parseInt(document.querySelectorAll(".page5_d .chap_num")[0].value) +
-						document.querySelectorAll(".page5_d .chap_num").length
-					}" readonly />
+					value="${parseInt(document.querySelectorAll(".page5_d .chap_num")[0].value) +
+		document.querySelectorAll(".page5_d .chap_num").length
+		}" readonly />
 			</div>
 		</div>
 

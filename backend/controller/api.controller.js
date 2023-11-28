@@ -266,7 +266,7 @@ const api_reviews = async (req, res) => {
 		);
 		result.no_chapters = count[0].count;
 		result.chapters = await queryAsync(
-			`SELECT id, ten_chuong FROM chuong WHERE id_truyen = '${data.id}' ORDER BY thu	_tu`
+			`SELECT id, ten_chuong, noi_dung_chuong FROM chuong WHERE id_truyen = '${data.id}' ORDER BY thu_tu`
 		);
 		console.log(result);
 
@@ -1252,6 +1252,10 @@ const api_open_author = async (req, res) => {
 	}
 };
 
+const api_get_quick_template = async (req, res) => {
+	return res.download("./local_template/mau_dang_truyen.docx");
+}
+
 module.exports = {
 	api_search_more,
 	api_advanced_search,
@@ -1281,4 +1285,5 @@ module.exports = {
 	api_open_account,
 	api_block_author,
 	api_open_author,
+	api_get_quick_template,
 };
