@@ -113,12 +113,14 @@ const webRouter = (app) => {
   router.get(
     "/accountmanager",
     func_controller.checkCookieLoglUser,
+    func_controller.checkAdmin,
     renderAdmin.accountManager
   );
   // auhtor manager page ________________________________________________________________________________________________________________________
   router.get(
     "/auhtormanager",
     func_controller.checkCookieLoglUser,
+    func_controller.checkAdmin,
     renderAdmin.authortManager
   );
 

@@ -214,7 +214,6 @@ if (currentPath == "/novel_following") {
   document.querySelector(".page5").style.display = "block";
   page5_composed[2].style.display = "block";
   page5_a_up[0].style.display = "flex";
-  console.log("ok");
   const regex =
     /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/;
 
@@ -311,7 +310,6 @@ function validateFile(file, checkdoc = false) {
     maxSize = maxSizeImg;
     message_arlet = "Server có hạn, chọn file ảnh <1MB thoi người đẹp!.";
   }
-  console.log("ẹc");
   // Check file format
   const fileName = file.name;
   const fileExtension = fileName
@@ -613,7 +611,7 @@ Save_btn.onclick = async function (e) {
   } else if (document.querySelector("#nu").checked) {
     sex = "0";
   } else {
-    sex = "2";
+    sex = "2";F
   }
   const postData = JSON.stringify({
     // thông tin đăng ký
@@ -933,12 +931,10 @@ $(document).ready(function () {
     var newURL = "/profile/update/" + grandparentID + "/edit";
     window.location.href = newURL;
 
-    console.log(grandparentID); // This will log 'grandparent'
   });
 
   // load update edit (chỉnh sửa) page
   $(document).on("click", ".delete-follow", async function () {
-    console.log(currentURL);
     // Delete the grandparent node
     let grandparentID = $(this).parent().parent().parent().parent().attr("id");
     page5_composed_drop();

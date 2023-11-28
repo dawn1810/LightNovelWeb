@@ -273,7 +273,7 @@ h1 {
 }
 
 .active a {
-  padding: 0 20px;
+  /* padding: 0 20px; */
   color: blueviolet;
 }
 
@@ -300,7 +300,10 @@ h1 {
   color: var(--black-color);
 }
 
+.main-content-container{
+  min-height: 34vh;
 
+}
 .main-content-container p {
   text-align: justify;
   margin-bottom: 15px;

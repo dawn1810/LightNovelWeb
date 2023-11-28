@@ -36,13 +36,31 @@ function isBase64(str) {
     const decoded = Buffer.from(str, "base64").toString("utf-8");
 
     // Kiểm tra xem chuỗi ban đầu và chuỗi giải mã có giống nhau hay không
-    // Nếu giống nhau thì chuỗi đó có thể là Base64
-    return Buffer.from(decoded, "utf-8").toString("base64") === str;
+    if (Buffer.from(decoded, "utf-8").toString("base64") === str) {
+      return true;
+    } else {
+      // Nếu sai, thêm padding và kiểm tra lại
+      const paddedStr = str + '='.repeat((4 - str.length % 4) % 4);
+      const redecoded = Buffer.from(paddedStr, "base64").toString("utf-8");
+      return Buffer.from(redecoded, "utf-8").toString("base64") === paddedStr;
+    }
   } catch (error) {
     // Nếu có lỗi xảy ra trong quá trình giải mã, tức là chuỗi không phải Base64
     return false;
   }
 }
+
+// Test
+
+
+// function isBase64(str) {
+//   try {
+//       return btoa(atob(str)) == str;
+//   } catch (err) {
+//       return false;
+//   }
+// }
+
 
 const api_search_more = async (req, res) => {
   try {
@@ -831,8 +849,8 @@ const api_editInfoNovel = async (req, res) => {
 
     // change base64 image to link
     let avt_var = data.novel_avt;
-    if (isBase64(data.image)) {
-      avt_var = await compressImageBase64(data.image, 5);
+    if (isBase64(data.novel_avt)) {
+      avt_var = await compressImageBase64(data.novel_avt, 5);
       const imgdata = await getDriveFileLinkAndDescription(
         await uploadFileToDrivebase64(avt_var)
       );
@@ -990,19 +1008,20 @@ const api_cancle = async (req, res) => {
   }
 };
 
-// Delete novel page
 const api_updateInfo = async (req, res) => {
   try {
     const account = req.session.user;
     const data = req.body;
+
     let avt_var = data.img;
-    if (isBase64(data.image)) {
-      avt_var = await compressImageBase64(data.image, 5);
+    if (isBase64(data.img)) {
+      avt_var = await compressImageBase64(data.img, 5);
       const imgdata = await getDriveFileLinkAndDescription(
         await uploadFileToDrivebase64(avt_var)
       );
       avt_var = imgdata.fileLink;
     }
+
     // imgdata.fileLink la link hinh
 
     // update user information

@@ -88,7 +88,7 @@ const renderReviews = async (req, res) => {
       views: result[0].luot_xem,
       likes: result[0].luot_thich,
       update_date: func_controller.calTime(result[0].update_date),
-      status: result[0].status,
+      status: result[0].trang_thai,
       liked: result[0].liked,
       curr_chap: result[0].curr_chap,
       maybeulike: maybeulikethat,

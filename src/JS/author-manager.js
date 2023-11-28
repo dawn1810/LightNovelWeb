@@ -197,7 +197,7 @@ async function getNovel(id) {
         <!-- item -->
         <div class="avt_space">
         <div class="author_avt_container">
-        <img src="https://m.media-amazon.com/images/M/MV5BZTIxMzBhNzYtY2NiZS00MGVlLWFmYjEtYWJlMjUyZjhmOThmXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg" alt="" class="author_">
+        <img src="${data.data[0].anh_dai_dien}">
         <div class="truyen_info">
           <p>Người đăng tải: <span>${data.data[0].ten_tac_gia}</span></p>
           <p>Thể loại: <span>${data.data[0].ten_the_loai}</span></p>
@@ -231,7 +231,7 @@ async function getNovel(id) {
         <!-- item -->
         <div class="avt_space">
         <div class="author_avt_container">
-        <img src="https://m.media-amazon.com/images/M/MV5BZTIxMzBhNzYtY2NiZS00MGVlLWFmYjEtYWJlMjUyZjhmOThmXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg" alt="" class="author_">
+        <img src="${data.data[0].anh_dai_dien}" alt="" class="author_">
         <div class="truyen_info">
           <p>Người đăng tải: <span>${data.data[0].ten_tac_gia}</span></p>
           <p>Thể loại: <span>${data.data[0].ten_the_loai}</span></p>

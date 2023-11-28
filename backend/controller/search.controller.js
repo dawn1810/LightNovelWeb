@@ -29,7 +29,7 @@ const search = async (req, res) => {
 	   ten_tac_gia AS author, anh_dai_dien AS image, 
 	   trang_thai AS status, so_luong_chuong AS no_chapters 
 	   FROM truyen, tacgia WHERE 
-	   truyen.id_tac_gia = tacgia.id AND ten_truyen REGEXP '${search}' LIMIT 31
+	   truyen.ban!= 1 AND truyen.id_tac_gia = tacgia.id AND ten_truyen REGEXP '${search}' ORDER BY truyen.id LIMIT 31
 	  `);
 
       // get all novels authors
@@ -50,7 +50,7 @@ const search = async (req, res) => {
 	   ten_tac_gia AS author, anh_dai_dien AS image, 
 	   trang_thai AS status, so_luong_chuong AS no_chapters 
 	   FROM truyen, tacgia WHERE 
-	   truyen.id_tac_gia = tacgia.id AND ten_tac_gia REGEXP '${search}' LIMIT 31
+	   truyen.ban!= 1 AND truyen.id_tac_gia = tacgia.id AND ten_tac_gia REGEXP '${search}' ORDER BY truyen.id LIMIT 31
 	  `);
       // get all novels genres
       //   let genres = await server.find_all_Data({
@@ -73,7 +73,8 @@ const search = async (req, res) => {
 	  truyen.id = the_loai_truyen.id_truyen
 	  AND the_loai.id = the_loai_truyen.id_the_loai 
 	  AND truyen.id_tac_gia = tacgia.id 
-	  AND the_loai.ten_the_loai REGEXP '${search}' LIMIT 31
+    AND truyen.ban!= 1
+	  AND the_loai.ten_the_loai REGEXP '${search}' ORDER BY truyen.id LIMIT 31
 	  `);
       //
       // console.log(names);
@@ -229,6 +230,7 @@ const category = async (req, res, limit = 31) => {
 	 tacgia, truyen
 	 ${query.genres ? ", the_loai, the_loai_truyen" : ""}
    WHERE
+   truyen.ban !=1 AND
 	 truyen.id_tac_gia = tacgia.id AND
 	 ${sqlQuery}
 	 ${sort.length > 0 ? " ORDER BY " + sort : " "}
@@ -250,6 +252,7 @@ const category = async (req, res, limit = 31) => {
 	  tacgia, truyen
 	  ${query.genres ? ", the_loai, the_loai_truyen" : " "}
 	WHERE
+    truyen.ban != 1 AND
 	  truyen.id_tac_gia = tacgia.id
 	  ${sort.length > 0 ? " ORDER BY " + sort : " "}
 	LIMIT ${limit} ${

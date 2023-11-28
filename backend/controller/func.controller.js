@@ -141,11 +141,11 @@ async function checkAdmin(req, res, next) {
 	);
 	
 	if (!result.length) {
-		res.locals.acc_role = '';
-		res.locals.admin ='';
+		res.locals.admin = '';
+		res.locals.admin =null;
 		return res.redirect("/");
 	} else {
-		res.locals.acc_role = 'admin';
+		res.locals.admin = 'admin';
 		next();	
 	}
 }

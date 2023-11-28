@@ -21,7 +21,7 @@ const accountManager = async (req, res) => {
 
 const authortManager = async (req, res) => {
   const truyen = await queryAsync(
-    `SELECT id, so_luong_chuong, ten_truyen, anh_dai_dien,trang_thai FROM truyen ORDER BY ngay_cap_nhat DESC LIMIT 4;`
+    `SELECT id, so_luong_chuong, ten_truyen, anh_dai_dien,trang_thai FROM truyen WHERE ban!=1 ORDER BY ngay_cap_nhat DESC LIMIT 4;`
   );
 
   const truyen_info = await queryAsync(
@@ -29,7 +29,7 @@ const authortManager = async (req, res) => {
   );
 
   const max_page = await queryAsync(
-    "SELECT COUNT(*) AS row_count FROM truyen;"
+    "SELECT COUNT(*) AS row_count FROM truyen WHERE ban!=1;"
   );
 
   res.render("author-manager", {

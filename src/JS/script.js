@@ -1,4 +1,4 @@
-
+ 
 
 
 let menuBtnCount = true;
@@ -37,4 +37,11 @@ document.getElementById('prev').onclick = function(){
 //   document.querySelector('#next').click();
 // }, 5000);
 
+
+
+
+
+
+
+// /////////////////////////
 
