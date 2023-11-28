@@ -927,7 +927,7 @@ a {
   padding-right: 0px;
   border-radius: 2px;
   background: var(--search-bg);
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .header_search_wrap form {

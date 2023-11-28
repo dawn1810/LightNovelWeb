@@ -123,15 +123,15 @@
       <div class="information_name_wrap">
         <h3>Email</h3>
         <% if (login_way === 'normal') {%>
-          <div class="information_name">
-            <input class="profile_input" type="email" id="email" value="<%= email %>" />
-            <span class="form-message-info"></span>
-          </div>
+        <div class="information_name">
+          <input class="profile_input" type="email" id="email" value="<%= email %>" />
+          <span class="form-message-info"></span>
+        </div>
         <% } else { %>
-          <div class="information_name">
-            <input class="profile_input" type="email" id="email" value="<%= email %>" readonly />
-            <span class="form-message-info"></span>
-          </div>
+        <div class="information_name">
+          <input class="profile_input" type="email" id="email" value="<%= email %>" readonly />
+          <span class="form-message-info"></span>
+        </div>
         <% } %>
 
       </div>
@@ -222,6 +222,21 @@
     <div class="Setting_pageWrapper page2" id="novel_following">
       <h2>Truyện yêu thích</h2>
       <div class="followed-container">
+        <% if (like_novel.length > 10) { %>
+        <!-- searchbar -->
+        <div class="header_search">
+          <div class="header_search_wrap">
+            <form role="search">
+              <div class="header_search_input">
+                <input type="text" placeholder="Tìm kiếm" />
+              </div>
+            </form>
+            <div class="header_search_logo">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+          </div>
+        </div>
+        <% } %>
         <% for (var i = 0; i < like_novel.length; i++) { %>
         <div class="followed-item" id="<%=like_novel[i]%>">
 
@@ -236,13 +251,13 @@
                 <h2><a href="<%-'/reviews/'+like_novel[i]%>"><%-like_novel_list[i].name%></a></h2>
                 <button class="delete-follow delete_f"><i class="fa-solid fa-paperclip"></i></button>
               </div>
-              <p>Tác giả: <%-like_novel_list[i].author%></  p>
+              <p>Tác giả: <%-like_novel_list[i].author%></ p>
               <p>
                 <%-like_novel_list[i].summary%>
               </p>
               <div class="last-time-container">
                 <div class="chapter">
-                  Chương đã đọc: 
+                  Chương đã đọc:
                   <a href="<%-'/reading/'+like_novel[i]+'/'+(like_novel_list[i].curr_chap)%>">Chap
                     <%-like_novel_list[i].curr_chap%>
                   </a> /
@@ -306,12 +321,26 @@
           <button class="add_new">+ THÊM TRUYỆN MỚI</button>
 
         </div>
-
+        <% if (novels.length > 10) { %>
+        <!-- searchbar -->
+        <div class="header_search">
+          <div class="header_search_wrap">
+            <form role="search">
+              <div class="header_search_input">
+                <input type="text" placeholder="Tìm kiếm" />
+              </div>
+            </form>
+            <div class="header_search_logo">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+          </div>
+        </div>
+        <% } %>
+        <!-- novel list -->
         <div class="page5_home_main">
           <!-- <%=novels %> -->
           <% for (let novel of novels) { %>
           <!-- my novel item -->
-
           <div class="page5_home_main_item">
             <div class="page5_home_main_logo">
               <img src="<%= novel.image %>" alt="<%= novel.name %>">
@@ -432,7 +461,7 @@
               <div class="information_name_wrap">
                 <h3>Tác giả</h3>
                 <div class="information_name">
-                  <input class="profile_input author_name" type="text" required id="fullname" value="<%= author_name %>" readonly/>
+                  <input class="profile_input author_name" type="text" required id="fullname" value="<%= author_name %>" readonly />
                 </div>
               </div>
 
@@ -453,22 +482,21 @@
                   <h3>Thể loại</h3>
                   <div id="container">
                     <ul id="ulElement">
-                        <li>Action</li>
-                        <li>Adventure</li>
-                        <li>Comedy</li>
-                        <li>Drama</li>
-                        <li>Fantasy</li>
-                        <li>Horror</li>
-                        <li>Mystery</li>
-                        <li>Romance</li>
-                        <li>Sci-Fi</li>
-                        <li>Thriller</li>
-                        <li>Animation</li>
-                        <li>Crime</li>
-                        <li>Family</li>
-                        <li>Historical</li>
-                        <li>War</li
-                    </ul>
+                      <li>Action</li>
+                      <li>Adventure</li>
+                      <li>Comedy</li>
+                      <li>Drama</li>
+                      <li>Fantasy</li>
+                      <li>Horror</li>
+                      <li>Mystery</li>
+                      <li>Romance</li>
+                      <li>Sci-Fi</li>
+                      <li>Thriller</li>
+                      <li>Animation</li>
+                      <li>Crime</li>
+                      <li>Family</li>
+                      <li>Historical</li>
+                      <li>War</li </ul>
                   </div>
                 </div>
               </div>
@@ -587,7 +615,7 @@
             <h2 class="list_title">
               <%= edit_name %>
             </h2>
-            
+
           </div>
           <div class="list_chapter_body">
             <% for (var i=0; i < edit_name_chaps.length; i++) { %>
@@ -757,8 +785,8 @@
                 <div class="information_name_wrap">
                   <h3>Thứ tự chương</h3>
                   <div class="information_name">
-                 
-                    <input class="profile_input chap_num" type="text" required id="name_novel" value="<%= edit_no_chaps + 1 %>" readonly/> 
+
+                    <input class="profile_input chap_num" type="text" required id="name_novel" value="<%= edit_no_chaps + 1 %>" readonly />
                   </div>
                 </div>
                 <div class="information_name_wrap">
@@ -1083,7 +1111,7 @@
     </form>
   </div>
 </div>
- 
+
 
 <script src="/src/JS/link.js"></script>
 
