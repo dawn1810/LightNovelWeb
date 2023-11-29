@@ -7,8 +7,19 @@ const maxSizeImg = 1048576;
 const modal = document.querySelector('.modal_slider')
 const edit_btn = document.querySelectorAll('.slider_btn')
 for (const btn of edit_btn) {
-	modal.style.display = 'block';
-	modal.getAttribute('id') = btn.getAttribute('id')
+	btn.onclick = () =>{
+
+		modal.style.display = 'block';
+		modal.setAttribute("id", btn.parentElement.getAttribute('id')) 
+		console.log(modal.id )
+	}
+}
+modal.onclick = ()=>{
+	console.log('hahah')
+	modal.style.display = 'none';
+}
+document.querySelector('.modal_main').onclick = (event)=>{
+	event.stopPropagation();
 }
 for (const button of avtBtn) {
 	button.addEventListener("click", function (event) {
@@ -325,7 +336,7 @@ async function getListNovel(offset, fill) {
 	
 
 	const postData = JSON.stringify({
-		id: document.querySelector('.modal_admin').getAttribute('id'),
+		id: modal.getAttribute('id'),
 		id_truyen : document.querySelector('.author_avt_container').getAttribute('id'),
 		novel_avt: document.querySelector(".author_status .your-avt").src,
 	});

@@ -1249,36 +1249,95 @@ const api_get_quick_template = async (req, res) => {
 };
 
 const api_quick_upload = async (req, res) => {
+	const account = req.session.user;
 	try {
-		if (!req.files) {
-			return res.status(400).send("No file uploaded.");
+		if (account) {
+			if (!req.files) {
+				return res.status(400).send("No file uploaded.");
+			}
+	
+			if (allowedMimeTypes.indexOf(req.files[0].mimetype) == 1) {
+				const filePath = path.join(uploadDirectory, req.files[0].originalname);
+	
+				// Use mammoth to extract text content from DOCX
+				const { value } = await mammoth.extractRawText({ path: filePath });
+	
+				// console.log(value, typeof value);
+				// The result object contains a "value" property with the text content
+				const result = await func_controller.extractInformation(value);
+	
+				if (result) {
+					const novel_id = uuidv4();
+	
+					// Get the current date
+					const currentDate = new Date();
+	
+					// Format the date in MySQL-compatible format
+					const formattedDate = currentDate.toISOString().slice(0, 19).replace("T", " ");
+	
+					// add to truyen database
+					await queryAsync(`
+					INSERT INTO truyen (
+						id, 
+						id_tac_gia, 
+						ten_truyen, 
+						so_luong_chuong, 
+						tom_tat_noi_dung, 
+						trang_thai, 
+						ngay_cap_nhat
+					)
+					VALUES (
+						'${novel_id}', 
+						'${account.id}', 
+						'${result.name.trim()}', 
+						${result.name_chapters.length}, 
+						'${result.introduce}', 
+						'${result.status.trim()}', 
+						'${formattedDate}'
+					)
+					`);
+	
+					// add to chuong database
+					for (let i = 0; i < result.name_chapters.length; i++) {
+						await queryAsync(`
+						INSERT INTO chuong (
+						id,
+						id_truyen,
+						ten_chuong,
+						noi_dung_chuong,
+						thu_tu
+						)
+						VALUES (
+						'${uuidv4()}',
+						'${novel_id}',
+						'${result.name_chapters[i]}',
+						'${result.content_chapter[i]}',
+						${i + 1}
+						)
+						`);
+					}
+	
+					for (let i = 0; i < result.genre.length; i++) {
+						await queryAsync(`
+						INSERT INTO the_loai_truyen (
+							id,
+							id_the_loai,
+							id_truyen
+						)
+						VALUES (
+							'${uuidv4()}',
+							'${result.genre[i]}',
+							'${novel_id}'
+						)
+						`);
+					}
+					return res.status(200).send("Success.");
+				} else res.status(400).send("File have no match content.");
+	
+			} else {
+				return res.status(400).send("Invalid file type.");
+			}
 		}
-
-		if (allowedMimeTypes.indexOf(req.files[0].mimetype) == 1) {
-			const filePath = path.join(uploadDirectory, req.files[0].originalname);
-
-			// Use mammoth to extract text content from DOCX
-			const { value } = await mammoth.extractRawText({ path: filePath });
-
-			// console.log(value, typeof value);
-			// The result object contains a "value" property with the text content
-			const extractedInformation = func_controller.extractInformation(value);
-
-			if (extractedInformation) console.log(extractedInformation.content_chapter.length);
-			else console.log("không có nội dung");
-
-			return res.status(200).send("Success.");
-		} else {
-			return res.status(400).send("Invalid file type.");
-		}
-		// const fileName = req.files[i].originalname.replace(".docx", ".txt");
-		// list_name.push(fileName);
-
-		// // Xử lý các tệp đã tải lên ở đây
-		// console.log("SYSTEM | UPLOAD_FILE | Files uploaded:", req.files);
-		// res.writeHead(200, { "Content-Type": "applicaiton/json" });
-
-		// res.end(JSON.stringify(await func_controller.get_full_id(uploadDirectory, list_name)));
 	} catch (error) {
 		console.log("Error in update_state_novel:", error);
 		res.status(500).json({ error: "Có lỗi xảy ra trên server" });
@@ -1286,11 +1345,10 @@ const api_quick_upload = async (req, res) => {
 };
 const api_editSlider = async (req, res) => {
 	try {
-		const account = req.session.user;
 		const data = req.body;
 
-		let avt_var = data.img;
-		if (isBase64(data.img)) {
+		let avt_var = data.novel_avt;
+		if (isBase64(data.novel_avt)) {
 			// avt_var = await compressImageBase64(data.img, 5);
 			const imgdata = await getDriveFileLinkAndDescription(
 				await uploadFileToDrivebase64(avt_var)
@@ -1302,32 +1360,11 @@ const api_editSlider = async (req, res) => {
 
 		// update user information
 		await queryAsync(`
-      UPDATE thongtin_nguoidung
+      UPDATE slider
       SET 
-        ten_hien_thi = '${data.hoten}',
-        anh_dai_dien = '${avt_var}',
-        gioi_tinh = ${data.sex}
-      WHERE id_tai_khoan = '${account.id}';
-    `);
-
-		// update user's email
-		await queryAsync(`
-      UPDATE taikhoan_nguoidung
-      SET 
-        email = '${data.email}'
-      WHERE id = '${account.id}'
-      AND login_way <> 'google';
-    `);
-
-		// update author name
-		await queryAsync(`
-    INSERT INTO tacgia (id, id_nguoi_dung, ten_tac_gia)
-    VALUES (
-      '${account.id}',
-      '${account.id}',
-      '${data.author_name}'
-    ) 
-    ON DUPLICATE KEY UPDATE ten_tac_gia = VALUES(ten_tac_gia);
+        anh = '${avt_var}',
+        id_truyen = '${data.id_truyen}'
+      WHERE id = ${data.id};
     `);
 
 		res.sendStatus(200);

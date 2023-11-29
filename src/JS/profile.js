@@ -668,6 +668,8 @@ add_quick.onclick = function () {
 			let curr_file = $(this).parent().find(".file-input")[0].files[0];
 			
 			if (curr_file) {
+				notify("n", "Bắt đầu tải truyện lên.");
+
 				let formData = new FormData();
 				
 				let extension = curr_file.name.substring(curr_file.name.lastIndexOf("."));
@@ -686,8 +688,8 @@ add_quick.onclick = function () {
 				});
 	
 				if (response.ok) {
-					const responseData = await response.json();
-					console.log(responseData);
+					// const responseData = await response.json();
+					notify("n", "Đăng tải truyện thành công.");
 				} else if (response.status == 400) {
 					// Error occurred during upload
 					notify("!", "Sai định dạng file!");

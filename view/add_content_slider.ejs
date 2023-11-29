@@ -23,7 +23,7 @@
 		<%- include(headerFile) %>
 		<div class="main">
 			<div class="container">
-				<div class="form3">
+				<div class="slider_wrap">
 					<div class="list_slider">
 						<% data.forEach(function(slider) { %> <% if(slider.anh){ %>
 						<div class="slider_item" id="<%= slider.id %>">
@@ -73,7 +73,7 @@
 
                 <div class="avt_space">
                   <div class="author_avt_container">
-                    <img src="https://m.media-amazon.com/images/M/MV5BZTIxMzBhNzYtY2NiZS00MGVlLWFmYjEtYWJlMjUyZjhmOThmXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg" alt="" class="author_">
+                    <img src="<%=truyen_info[0].anh_dai_dien%>" alt="" class="author_">
                     <div class="truyen_info">
                       <p>Người đăng tải: <span><%=truyen_info[0].ten_tac_gia%></span></p>
                       <p>Thể loại: <span><%=truyen_info[0].ten_the_loai%></span></p>
@@ -143,7 +143,7 @@
 										<div class="name-container">
 											<div class="name-container_img">
 												<img
-													src="https://gamek.mediacdn.vn/133514250583805952/2022/4/26/pic2-1650946993680394357604.jpeg"
+													src="<%=truyen[i].anh_dai_dien%>"
 													alt=""
 													class="avt"
 												/>

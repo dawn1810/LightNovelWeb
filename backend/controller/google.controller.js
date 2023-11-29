@@ -347,6 +347,56 @@ const uploadFileToDrivebase64 = async (
 	}
 };
 
+const uploadContentToDrive = async (
+	content,
+	fileName,
+	description,
+	id_folder = "1CyiiQwVN1_99jYcbQvy4M3JeI1m4zyKR"
+) => {
+	await initStorage();
+	await getAccessToken();
+
+	const bufferStream = new stream.Readable();
+	bufferStream.push(content);
+	bufferStream.push(null);
+
+	const fileMetadata = {
+		name: fileName,
+		parents: [id_folder],
+		description: description,
+	};
+
+	const media = {
+		mimeType: "application/octet-stream",
+		body: bufferStream,
+	};
+
+	try {
+		const res = await drive.files.create({
+			auth,
+			resource: fileMetadata,
+			media: media,
+			fields: "id",
+		});
+
+		const permission = {
+			role: "reader",
+			type: "anyone",
+		};
+
+		await drive.permissions.create({
+			fileId: res.data.id,
+			resource: permission,
+			fields: "id",
+			auth: auth,
+		});
+
+		return res.data.id;
+	} catch (err) {
+		console.log("SYSTEM | DRIVE | ERR | uploading content:", err);
+	}
+};
+
 const determineMimeType = (base64Head) => {
 	if (base64Head.includes("data:image/jpeg")) {
 		return "image/jpeg";
@@ -448,4 +498,6 @@ module.exports = {
 	downloadFileFromDriveforUser,
 	getDriveFileLinkAndDescription,
 	uploadFileToDrivebase64,
+	uploadFileToDrive,
+	uploadContentToDrive,
 };

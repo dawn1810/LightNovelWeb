@@ -2,7 +2,7 @@ const crypto = require("crypto");
 const path = require("path");
 const { queryAsync } = require("../dbmysql");
 
-const server = require("../vip_pro_lib");
+const server = require("./google.controller.js");
 const secretKey = "5gB#2L1!8*1!0)$7vF@9";
 const authenticationKey = Buffer.from(secretKey.padEnd(32, "0"), "utf8").toString("hex");
 const multer = require("multer"); // Thư viện để xử lý file upload
@@ -455,30 +455,43 @@ async function readDocxFile(docxFilePath) {
 }
 
 // Function to extract information based on the provided template
-function extractInformation(text) {
-    if (text) {
-        let chapters = text.match(/(Chương .*: .*)/g);
-        let contents = text.split(/Chương .*: .*/).slice(1);
+async function extractInformation(text) {
+	try {
+		if (text) {
+			let chapters = text.match(/(Chương .*: .*)/g);
+			let contents = text.split(/Chương .*: .*/).slice(1);
 
-        let nameMatch = text.match(/Tên truyện: (.*)/);
-        let statusMatch = text.match(/Trạng thái \[.*\]: (.*)/);
-        let genreMatch = text.match(/Thể loại \[.*\]: (.*)/);
-        let introMatch = text.match(/Giới thiệu truyện: (.*)/);
+			let nameMatch = text.match(/Tên truyện:\s*(.*)\.?/);
+			let statusMatch = text.match(/Trạng thái \[.*\]:\s*(.*)\.?/);
+			let genreMatch = text.match(/Thể loại \[.*\]:\s*(.*)\.?/);
+			let introMatch = text.match(/Giới thiệu truyện:\s*(.*)\.?/);
 
-        let dict = {
-            name: nameMatch ? nameMatch[1] : null,
-            status: statusMatch ? statusMatch[1] : null,
-            genre: genreMatch ? genreMatch[1] : null,
-            introduce: introMatch ? introMatch[1] : null,
-            name_chapters: chapters,
-            content_chapter: contents,
-        };
+			let dict = {
+				name: nameMatch ? nameMatch[1] : null,
+				status: statusMatch ? statusMatch[1] : null,
+				genre: genreMatch ? genreMatch[1] : null,
+				introduce: introMatch ? introMatch[1] : null,
+				name_chapters: chapters,
+				content_chapter: contents,
+			};
+			
+			new_gernes = await Promise.all(
+				dict.genre.split(',').map(gerne => gerne.trim())
+			);
+			dict.genre = new_gernes;
 
-        return dict;
-    } else 
-        return 0;
+			new_content_chapter = await Promise.all(
+				dict.content_chapter.map((content) => server.uploadContentToDrive(content))
+			);
+			dict.content_chapter = new_content_chapter;
+
+
+			return dict;
+		} else return 0;
+	} catch (error) {
+		console.error("An error occurred:", error);
+	}
 }
-
 
 module.exports = {
 	checkCookieLoglUser,
