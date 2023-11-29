@@ -989,6 +989,7 @@ textarea {
 }
 
 .head_b .file-content {
+  max-width: 100px;
   font-size: 16px;
   color: var(--black-text);
   text-transform: capitalize;

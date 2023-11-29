@@ -1256,6 +1256,10 @@ const api_get_quick_template = async (req, res) => {
 	return res.download("./local_template/mau_dang_truyen.docx");
 }
 
+const api_quick_upload = async(req,res) => {
+	
+}
+
 module.exports = {
 	api_search_more,
 	api_advanced_search,
