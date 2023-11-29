@@ -676,8 +676,8 @@
 
     const sg = document.querySelector(".header_signup");
     sg.onclick = function() {
-      console.log("forgot_password");
-      modal3.style.display = "block";
+      console.log("signup");
+      modal2.style.display = "block";
       if (modal.style.display == "block") {
         modal.style.display = "none";
       }
@@ -685,9 +685,12 @@
     document.querySelector(".fogot a").onclick = function(e) {
       e.preventDefault();
 
-      sg.click();
+      console.log("forgot_password");
+      modal3.style.display = "block";
+      if (modal.style.display == "block") {
+        modal.style.display = "none";
+      }
     };
-
     document.querySelector(".no_signup a").onclick = function(e) {
       e.preventDefault();
 
