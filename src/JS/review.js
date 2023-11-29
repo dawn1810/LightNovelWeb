@@ -266,17 +266,15 @@ async function getReview() {
       } else if (response.status === 404) {
       }
     })
-    .then((data) => {
+    .then(async (data) => {
       responseData = data; // Lưu trữ nội dung phản hồi vào biến
       if (data) {
-        console.log(data);
-
         const lasted_chap = document.querySelector(".lasted_chap");
         lasted_chap.onclick = function (e) {
           e.preventDefault();
           const chan =
             window.location.href.split("/")[
-              window.location.href.split("/").length - 1
+            window.location.href.split("/").length - 1
             ];
           console.log(data);
           window.location.href = `/reading/${chan}/${data.no_chapters}`;
@@ -345,7 +343,7 @@ async function getReview() {
             jackpot_btn.onclick = function () {
               const chan =
                 window.location.href.split("/")[
-                  window.location.href.split("/").length - 1
+                window.location.href.split("/").length - 1
                 ];
               console.log(chan);
               window.location.href = `/reading/${chan}/${ranchap}`;
@@ -376,11 +374,55 @@ async function getReview() {
         // console.log(showlist)
         const chan =
           window.location.href.split("/")[
-            window.location.href.split("/").length - 1
+          window.location.href.split("/").length - 1
           ];
 
         showListLoad(1, data.chapters);
         document.querySelector(".loaded").style.display = "none";
+
+        // for download curr chap
+        document.querySelectorAll('.down_chap').forEach(e => {
+          e.onclick = () => {
+            notify("n", "Đã bắt đầu quá trình tải.");
+            const url = `/api/download_chap`; // URL của máy chủ mục tiêu
+            const currId = e.id;
+
+            const postData = JSON.stringify({
+              id: currId,
+            });
+
+            const requestOptions = {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: postData,
+            };
+
+            fetch(url, requestOptions)
+              .then(async (response) => {
+                // extract the filename from the response header
+                const filename = response.headers.get("Content-Disposition").split("filename=")[1];
+
+                // create a new blob object from the response body
+                const blob = await response.blob();
+                // create a temporary URL for the blob object
+                const url = window.URL.createObjectURL(blob);
+                // create a new anchor element to download the file
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = filename;
+                a.click();
+                // release the temporary URL
+                window.URL.revokeObjectURL(url);
+                notify("n", "Download thành công!!!");
+              })
+              .catch((error) => {
+                notify("x", "Download không thành công!!!");
+                console.error("Error downloading file:", error);
+              });
+          };
+        });
       }
     }) // In nội dung phản hồi
     // Sử dụng responseData ở những nơi khác trong mã của b
@@ -396,33 +438,38 @@ function showListLoad(pageNumber, data) {
   const chan =
     window.location.href.split("/")[window.location.href.split("/").length - 1];
 
+
   if (data.length > 10) {
     for (let i = pageNumber * 10 - 10; i < pageNumber * 10; i++) {
       showlist += `
-            <a href='/reading/${chan}/${i + 1}' class="chapter-item">
-                <div class="chapter_item_info">
-                    <h2>${data[i].ten_chuong}</h2>
-                </div>
+            <div class="chapter-item">
+              <a href='/reading/${chan}/${i + 1}' class="chapter_item_info">
+                  <h2>${data[i].ten_chuong}</h2>
+              </a>
+              <button class="down_chap" id="${data[i].noi_dung_chuong}">
                 <i class="fa-solid fa-circle-down" style="
                     text-align: center;
                     font-size: 1.5rem;
                     margin: 21px;
                 "></i>
-            </a>`;
+              </button>
+          </div>`;
     }
   } else {
     for (let i = 0; i < data.length; i++) {
       showlist += `
-            <a href='/reading/${chan}/${i + 1}' class="chapter-item">
-                <div class="chapter_item_info">
+            <div class="chapter-item">
+                <a href='/reading/${chan}/${i + 1}' class="chapter_item_info">
                     <h2>${data[i].ten_chuong}</h2>
-                </div>
-                <i class="fa-solid fa-circle-down" style="
-                    text-align: center;
-                    font-size: 1.5rem;
-                    margin: 21px;
-                "></i>
-            </a>`;
+                </a>
+                <button class="down_chap" id="${data[i].noi_dung_chuong}">
+                  <i class="fa-solid fa-circle-down" style="
+                      text-align: center;
+                      font-size: 1.5rem;
+                      margin: 21px;
+                  "></i>
+                </button>
+            </div>`;
     }
     // disappear change pages line
     document.querySelector(".page-container").style.display = "none";

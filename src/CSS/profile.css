@@ -1359,6 +1359,7 @@ input:required:focus {
   justify-content: center;
   align-items: center;
 }
+
 #author_see{
   text-align: center;
   display: flex;
@@ -1387,13 +1388,12 @@ input:required:focus {
 }
 
 .upload_quick_file {
-  display: flex;
-  width: 0;
+  display: none;
   opacity: 0;
   gap: 10px;
   transition: linear 0.2s;
 }
-
+/* 
 .quick_add .add_new {
   width: 100%;
-}
+} */

@@ -103,15 +103,22 @@ const apiRouter = (app) => {
   // cập nhật trạng thái người dùng
   router.post("/api/open_account", api_router.api_open_account);
 
-    // cập nhật trạng thái người dùng
-    router.post("/api/block_author", api_router.api_block_author);
-    // cập nhật trạng thái người dùng
-    router.post("/api/open_author", api_router.api_open_author);
+  // cập nhật trạng thái người dùng
+  router.post("/api/block_author", api_router.api_block_author);
+  // cập nhật trạng thái người dùng
+  router.post("/api/open_author", api_router.api_open_author);
 
   // lấy tài truyện trong admin
   router.post("/api/api_get_novel", api_router.api_get_list_novel);
   // ban user
   router.post("/api/update_state_novel", api_router.update_state_novel);
+
+  // tai file template dang truyen nhanh
+  router.get(
+    "/api/get_quick_upload_template",
+    func_controller.checkCookieLoglUser,
+    api_router.api_get_quick_template
+  );
 
   router.get(
     "*",
