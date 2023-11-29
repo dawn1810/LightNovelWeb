@@ -597,10 +597,10 @@ Save_btn.onclick = async function (e) {
 		// thông tin đăng ký
 		img: `${avatar.src}`,
 		usr: `1`,
-		hoten: `${document.querySelector("#fullname").value}`,
-		email: `${document.querySelector("#email").value}`,
+		hoten: `${document.querySelector(".profile_input#fullname").value}`,
+		email: `${document.querySelector(".profile_input#email").value}`,
 		sex: `${sex}`,
-		author_name: `${document.querySelector("#author_name").value}`,
+		author_name: `${document.querySelector(".profile_input#author_name").value}`,
 	});
 
 	//gửi lên

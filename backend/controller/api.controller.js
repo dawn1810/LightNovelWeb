@@ -1016,6 +1016,7 @@ const api_updateInfo = async (req, res) => {
 
 const api_changePass = async (req, res) => {
 	try {
+
 		const account = req.session.user;
 		const data = req.body;
 		// console.log("SYSTEM | CHANGE_PASSWORD |", data);
@@ -1028,22 +1029,13 @@ const api_changePass = async (req, res) => {
 		// const n_result = await server.find_one_Data("dang_nhap", {
 		//   _id: decodeList[1],
 		// });
-		if (data["Old-Password"] == result.pass) {
+		if (data["Old-Password"] == result[0].pass) {
 			await queryAsync(`
       UPDATE taikhoan_nguoidung
       SET 
         mat_khau = '${data["new-Password"]}'
       WHERE id = '${account.id}';
       `);
-			// await server.update_one_Data(
-			//   "dang_nhap",
-			//   { _id: decodeList[1] },
-			//   {
-			//     $set: {
-			//       pass: data["new-Password"],
-			//     },
-			//   }
-			// );
 			res.sendStatus(200);
 		} else {
 			res.status(403).send("Sai pass cũ");
@@ -1257,24 +1249,30 @@ const api_get_quick_template = async (req, res) => {
 };
 
 const api_quick_upload = async (req, res) => {
-	if (!req.files) {
-		return res.status(400).send("No file uploaded.");
+	try {
+
+		if (!req.files) {
+			return res.status(400).send("No file uploaded.");
+		}
+
+		if (allowedMimeTypes.indexOf(req.files[0].mimetype) == 1) {
+			console.log(files.name);
+			// await func_controller.readDocxFile(path.join(uploadDirectory, req.files[0].originalname));
+		} else {
+			return res.status(400).send("Invalid file type.");
+		}
+		// const fileName = req.files[i].originalname.replace(".docx", ".txt");
+		// list_name.push(fileName);
+
+		// // Xử lý các tệp đã tải lên ở đây
+		// console.log("SYSTEM | UPLOAD_FILE | Files uploaded:", req.files);
+		// res.writeHead(200, { "Content-Type": "applicaiton/json" });
+
+		// res.end(JSON.stringify(await func_controller.get_full_id(uploadDirectory, list_name)));
+	} catch (error) {
+		console.error("Error in update_state_novel:", error);
+		res.status(500).json({ error: "Có lỗi xảy ra trên server" });
 	}
-
-	if (allowedMimeTypes.indexOf(req.files[0].mimetype) == 1) {
-		console.log(files.name);
-		// await func_controller.readDocxFile(path.join(uploadDirectory, req.files[0].originalname));
-	} else {
-		return res.status(400).send("Invalid file type.");
-	}
-	// const fileName = req.files[i].originalname.replace(".docx", ".txt");
-	// list_name.push(fileName);
-
-	// // Xử lý các tệp đã tải lên ở đây
-	// console.log("SYSTEM | UPLOAD_FILE | Files uploaded:", req.files);
-	// res.writeHead(200, { "Content-Type": "applicaiton/json" });
-
-	// res.end(JSON.stringify(await func_controller.get_full_id(uploadDirectory, list_name)));
 };
 
 module.exports = {

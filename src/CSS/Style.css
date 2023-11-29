@@ -2199,4 +2199,7 @@ html .body_main {
 	.sort-container{
 		width: 40%;
 	}
+	.rank_container li {
+		min-width: 15rem;
+	}
 }

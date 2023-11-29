@@ -68,7 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
   click_truyen();
 
   select.onchange = function () {
-    console.log("haha");
     getListNovel(0, select.value);
   };
 });
@@ -77,7 +76,6 @@ const click_truyen = () => {
   for (const item of document.querySelectorAll(".followed-item")) {
     item.onclick = function () {
       const id = item.getAttribute("id");
-      console.log("id hiện tại " + id);
       getNovel(id);
     };
   }
@@ -187,7 +185,6 @@ async function getNovel(id) {
 
     if (response.status === 200) {
       const data = await response.json();
-      console.log(data.data[0].trang_thai);
 
       let novelListHTML = ""; 
 
