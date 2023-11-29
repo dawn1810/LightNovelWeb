@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2023 at 12:29 PM
+-- Generation Time: Nov 29, 2023 at 05:53 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -167,6 +167,9 @@ INSERT INTO `chuong` (`id`, `id_truyen`, `ten_chuong`, `noi_dung_chuong`, `thu_t
 ('28', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 28: I Did It For You...\'', '1Tb58gYyno8Cv5loilmDvo7GZmo7MIuvQ', 28),
 ('29', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 29: She Was Not Like This...\'', '1-PhMAjhx1Qymx8ShvXfZ_5LpEhWWjTMD', 29),
 ('2b474f4c-4d18-4c27-87cd-19ed04d3165b', 'a77d3931-d347-410d-88af-71cb223b8df2', 'Chương 3: My Bed Is Very Big And Soft\'', '1cxmZ9EL2fREH8h_cehvz2nyvEQeSbOKb', 2),
+('2b5561a3-764b-4fcc-a382-ff74432af86a', '89969950-e767-4e33-9e0f-d25b6d17a34f', 'Chương 1: hiem ', '1VGKypA7BU3iffZ1isjOqklwUMWn__RcU', 1),
+('2e6d1623-8465-41d6-bc09-1e59d8198424', '2d48dea0-e550-473c-8ca5-cb86a15f2dc8', 'Chương 2: zx ', '1Zv9kd7yWtD2ygzRG582j7xXWNThh2OJ3', 2),
+('2f945476-52da-4abc-b0e9-b30bf842a351', 'a27e55c3-9468-4860-baa5-85cf42d5f7fe', 'Chương 2: Long ma Bắc Giang ra tay', '1lh7E3XSHBl2K8QiJscAzDQ6igVLJR5o4', 2),
 ('3', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 4: Something Is Wrong With This Female Protagonist!\'', '1h0catYazGPmuOKIab_oItETrqbbHf2pH', 3),
 ('30', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 30: She Is Indeed My Good Sister\'', '1Oe0Vya_t9Ly5ndV--arX41qTVZFqppSc', 30),
 ('31', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 31: How Can I Doubt Ruoruo!\'', '1OJtTs8SfEYlXrS3GtwtCnjbtL3avM53Y', 31),
@@ -178,6 +181,8 @@ INSERT INTO `chuong` (`id`, `id_truyen`, `ten_chuong`, `noi_dung_chuong`, `thu_t
 ('37', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 37: Xia Xueqi, the person who took your first kiss was me!\'', '1_crSkwlguBe_sBHTlnSX0KX3NFLTiQEr', 37),
 ('38', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 38: I found the breakthrough!\'', '1q2bpC99vfW01COfwqGuI854oVWJjf6sp', 38),
 ('39', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 39: Give you a pleasant surprise!\'', '1Bkq7trgGWUiLqaHbYEAXWIxpwKthYx2r', 39),
+('39d3de91-2aaa-4ce2-958c-bf59e67ddde5', 'a27e55c3-9468-4860-baa5-85cf42d5f7fe', 'Chương 1: Sự xuất hiện của 4 tỷ tên cướp', '15c415Vl4HC7lU9zSvnwqHk8d5oJSDcdi', 1),
+('3f1b3d40-9799-4e58-95f1-6084ef28096e', '2f3d11b4-cfd8-48bc-948f-d930af062ac0', 'Chương 2: Kết thúc ', '1qrnxquYCveEuhtj8Qc-f1ibAN5XtmI98', 2),
 ('4', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 5: I\'m a Villain But The Female Protagonist Kisses Me?\'', '1gFYJcb4c737pZ1AmJHS8gmtDz5JSItYe', 4),
 ('40', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 40: Su Xuelan, can you do it?\'', '17Oae6Kd6sqr_hIsjRFWqbdegHz-Fn4IE', 40),
 ('41', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 41: Ruoruo, you act so well!\'', '1wcpw9jDw5kaq4NM09shnLVKeNTlOvuMx', 41),
@@ -227,10 +232,12 @@ INSERT INTO `chuong` (`id`, `id_truyen`, `ten_chuong`, `noi_dung_chuong`, `thu_t
 ('81', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 79: Shouldn\'t you have been. acting before?\'', '183tqMYE6cVQ05WZqIvAmkNYEzsyBynlr', 81),
 ('82', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 80: Finished? Was it guessed? Xia Xueqi, now you are the prey!.\'', '1HkwDGFqwKV_GU7tl9n6NV6UNCS2EoyCG', 82),
 ('83', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 80: Finished? Was it guessed? Xia Xueqi, now you are the prey!.\'', '1Jlu5140wHZjW1mnglI0YMOD1LThICD8G', 83),
+('83f05502-9b0b-4a91-b3f5-570dd4772b80', '2d48dea0-e550-473c-8ca5-cb86a15f2dc8', 'Chương 1: NGUYEN TRAN HOANG LONG ', '1uxB7v3bNXB9LHX3OzS6GZYjg5CZyM-Li', 1),
 ('84', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 81: Xia Xueqi throws herself in his arms? The accident happene.\'', '1spTBCGeE65dVUfhBAquCB1So_GcW_F5P', 84),
 ('85', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 82: I, Su Mingyuan, am indeed the final winner!\'', '14MVDi5x9tPb45hqbNK2ZqMOkzIMvLoac', 85),
 ('86', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 83: Xuelan, don\'t be angry, you have to take care of the overa.\'', '1wyp1SWj8Y-PtGQqIQaG-PoylMkmjw0dn', 86),
 ('87', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 84: I changed from an actor to a director?\'', '1T45uJ2O8zHW_v9FlufsrdnYWONZlF7Uu', 87),
+('877aff06-3415-4167-849b-e2f400b52982', 'a27e55c3-9468-4860-baa5-85cf42d5f7fe', 'Chương 4: Long ma Bắc Giang chiến thắng', '1bx4fTQoTJPyvel3FC_ny7nAjn1JVE3wB', 4),
 ('88', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 85: Does Xiao Ruoruo have that charm?\'', '1MCA3cAI0CsuuzaHeWuWu7EfFaDFp7J_y', 88),
 ('89', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 86: Murong Hongxue wants to curse\'', '1O7ICX-OEfHDUmf8B46_QC1MVvhILFxsX', 89),
 ('9', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 10: The Diary, The Origin Of Everything\'', '1bBYP9ayZtHJgwnXZT9OmWKyl0HSO69Oz', 9),
@@ -244,7 +251,11 @@ INSERT INTO `chuong` (`id`, `id_truyen`, `ten_chuong`, `noi_dung_chuong`, `thu_t
 ('97', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 90: Woohoo, I, Su Mingyuan, also encountered a day when I got .\'', '1vBHTJvpCTNC42WPxeX__FtVpB1vF1oZu', 97),
 ('98', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 91: The Rebellious Son! The Rebellious Son! (1)\'', '18gK8ag6YvywE2AzYkoYFlBL4G-QaL842', 98),
 ('99', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 'Chương 91: The Rebellious Son! The Rebellious Son! (2)\'', '11BY3jB-nQx2IfbpXAzAin3C42jER5HYe', 99),
-('bf57804c-08c3-4eb7-86d1-6faaf3ddfed0', 'a77d3931-d347-410d-88af-71cb223b8df2', 'Chương 2: The First Performance Has Begun\'', '11FVSTLnlr91QE1BTdQTts1Rxpd7Xx7cl', 1);
+('ac8e3e3b-5482-4c20-b28c-cdda4c2015c3', '66d6816c-180a-409e-8a0a-05f0502ddffe', 'Chương 1: ngày mới ', '1KMvJsb6dw_XO7_GrcYnJB5AftRvkuvFB', 1),
+('bf57804c-08c3-4eb7-86d1-6faaf3ddfed0', 'a77d3931-d347-410d-88af-71cb223b8df2', 'Chương 2: The First Performance Has Begun\'', '11FVSTLnlr91QE1BTdQTts1Rxpd7Xx7cl', 1),
+('d929f1e6-b376-4763-a893-0c53cff84933', 'a27e55c3-9468-4860-baa5-85cf42d5f7fe', 'Chương 3: Long ma Bắc Giang gặp nguy hiểm', '1mooeH5wwxdOAZLx7rRhojFUcoUKgiFmD', 3),
+('f10a7786-aeb0-4347-956c-971cc68051f5', '2f3d11b4-cfd8-48bc-948f-d930af062ac0', 'Chương 1: Sự bắt đầu cũng như kết thúc ', '16Al7UQjemvdz6ImKme0u-Ko_ZEBTIzRQ', 1),
+('fbf7f6b8-647f-45da-93b1-13e09f5700a2', 'a27e55c3-9468-4860-baa5-85cf42d5f7fe', 'Chương 5: Kết thúc', '1QXETOEdBPkAkJkMb-OuVELUMj2i519AX', 5);
 
 -- --------------------------------------------------------
 
@@ -263,9 +274,19 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
+('80pV0ad7xhon3zmUvoBr-MiiDTYg-atr', 1701839995, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"109632126491025897743\"},\"user\":{\"id\":\"109632126491025897743\",\"username\":\"109632126491025897743\"}}'),
+('Guf02UoIaa2_dF8r2p6wvyuSXZg0pqVi', 1701834511, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"110152635823665920356\"},\"user\":{\"id\":\"110152635823665920356\",\"username\":\"110152635823665920356\"}}'),
+('Htk7aslQZaMhIuLsSJ4Ufb1b2MnDCNXW', 1701860914, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"100489975828441695411\"},\"user\":{\"id\":\"100489975828441695411\",\"username\":\"100489975828441695411\"}}'),
 ('MoKbECdOg6krP8_rJrUyTmJVqp4ppH9W', 1701775662, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"100489975828441695411\"},\"user\":{\"id\":\"100489975828441695411\",\"username\":\"100489975828441695411\"}}'),
+('TKQgNFZfzjWCx48DznJtURWkwTcM-DR9', 1701838614, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"100489975828441695411\"},\"user\":{\"id\":\"100489975828441695411\",\"username\":\"100489975828441695411\"}}'),
+('WbbL96N76g298rf6eZAewf61Z6JTTR7o', 1701860530, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"109632126491025897743\"},\"user\":{\"id\":\"109632126491025897743\",\"username\":\"109632126491025897743\"}}'),
+('XWsaY8JbgHXRdu3XlFZYwkdnT9J513NY', 1701836540, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
+('Z3bQOcrQK8RnrPc6jbdHblWmMKltcEyf', 1701876104, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"110152635823665920356\"},\"user\":{\"id\":\"110152635823665920356\",\"username\":\"110152635823665920356\"}}'),
+('blQ-u57ixYn1iWsVBaS77xZ7oIuDFZch', 1701859036, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"8a7db9fa-a51f-4e3d-88a7-cd960588aa59\",\"username\":\"hiem\",\"role\":0}}'),
 ('m93DU841T2hx7keWIevS-0kL4t8nvm69', 1701774379, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
-('rjU9SHvQXc9HomNXszW_cSuk8I8ueSag', 1701775688, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"109632126491025897743\"},\"user\":{\"id\":\"109632126491025897743\",\"username\":\"109632126491025897743\"}}');
+('nriwwvjLNsa2K4kPA42yyBEPQ3iwHxL5', 1701859923, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
+('rjU9SHvQXc9HomNXszW_cSuk8I8ueSag', 1701775688, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"109632126491025897743\"},\"user\":{\"id\":\"109632126491025897743\",\"username\":\"109632126491025897743\"}}'),
+('uTmqjJOZN23EiyxEid8y4APfKSUtVe_-', 1701880940, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}');
 
 -- --------------------------------------------------------
 
@@ -278,6 +299,17 @@ CREATE TABLE `slider` (
   `anh` varchar(255) NOT NULL,
   `id_truyen` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `slider`
+--
+
+INSERT INTO `slider` (`id`, `anh`, `id_truyen`) VALUES
+(1, 'https://drive.google.com/uc?export=view&id=19uMWiteHZ0GH2z2TSgKVjBraPXEwj3vb', '2d48dea0-e550-473c-8ca5-cb86a15f2dc8'),
+(2, 'https://images3.alphacoders.com/133/thumbbig-1334920.webp', 'da13d5bf-51e2-4598-9d22-31ff3027e33d'),
+(3, 'https://images3.alphacoders.com/133/thumbbig-1334920.webp', 'f7363ce1-1a26-4338-b9e6-99c5c9988ebb'),
+(4, 'https://images3.alphacoders.com/133/thumbbig-1334920.webp', 'a77d3931-d347-410d-88af-71cb223b8df2'),
+(5, 'https://images3.alphacoders.com/133/thumbbig-1334920.webp', 'da13d5bf-51e2-4598-9d22-31ff3027e33d');
 
 -- --------------------------------------------------------
 
@@ -297,9 +329,10 @@ CREATE TABLE `tacgia` (
 
 INSERT INTO `tacgia` (`id`, `id_nguoi_dung`, `ten_tac_gia`) VALUES
 ('100489975828441695411', '100489975828441695411', 'Dragonccm'),
-('109632126491025897743', '109632126491025897743', ''),
+('109632126491025897743', '109632126491025897743', 'Admin Quyền Năng'),
 ('110152635823665920356', '110152635823665920356', 'bá'),
-('113263126602180653712', '113263126602180653712', 'Bingchiling');
+('113263126602180653712', '113263126602180653712', 'Bingchiling'),
+('8a7db9fa-a51f-4e3d-88a7-cd960588aa59', '8a7db9fa-a51f-4e3d-88a7-cd960588aa59', 'hiem');
 
 -- --------------------------------------------------------
 
@@ -336,7 +369,8 @@ INSERT INTO `taikhoan_nguoidung` (`id`, `ten_tai_khoan`, `email`, `mat_khau`, `l
 ('100489975828441695411', '100489975828441695411', 'nguyenngoclong5511@gmail.com', NULL, 'google'),
 ('109632126491025897743', '109632126491025897743', 'hungthinhh2003@gmail.com', NULL, 'google'),
 ('110152635823665920356', '110152635823665920356', 'chandoralong@gmail.com', NULL, 'google'),
-('113263126602180653712', '113263126602180653712', 'binhminh19112003@gmail.com', NULL, 'google');
+('113263126602180653712', '113263126602180653712', 'binhminh19112003@gmail.com', NULL, 'google'),
+('8a7db9fa-a51f-4e3d-88a7-cd960588aa59', 'hiem', '1@g.co', '123456', 'normal');
 
 -- --------------------------------------------------------
 
@@ -387,12 +421,22 @@ CREATE TABLE `the_loai_truyen` (
 --
 
 INSERT INTO `the_loai_truyen` (`id`, `id_the_loai`, `id_truyen`) VALUES
+('17918f5d-3865-42c3-996b-c81cc5def6ea', 'Comedy', '2f3d11b4-cfd8-48bc-948f-d930af062ac0'),
+('27c2fa8d-ee64-4432-8c1e-eb8e5a136478', 'Comedy', '66d6816c-180a-409e-8a0a-05f0502ddffe'),
+('2e5b9890-d4f6-441a-9f4b-ff514f93d7f3', 'Fantasy', '2d48dea0-e550-473c-8ca5-cb86a15f2dc8'),
 ('44620042-72d5-4e01-ac39-3353f2dc53a0', 'Mystery', 'f7363ce1-1a26-4338-b9e6-99c5c9988ebb'),
 ('59858889-e5b2-4adb-ac12-3ca863aab887', 'Drama', 'da13d5bf-51e2-4598-9d22-31ff3027e33d'),
 ('7812da67-bd3b-49d4-a7a5-12b520c1aa63', 'Adventure', 'a77d3931-d347-410d-88af-71cb223b8df2'),
 ('7970f9bf-97d4-4790-9783-b1edd5048cf2', 'Action', 'da13d5bf-51e2-4598-9d22-31ff3027e33d'),
+('7cfeb0a0-4455-4962-bdc2-213836b67bf2', 'Comedy', 'a27e55c3-9468-4860-baa5-85cf42d5f7fe'),
+('7f67425a-cd87-41fc-9fe5-5133a1f168e6', 'Action', '89969950-e767-4e33-9e0f-d25b6d17a34f'),
 ('91e52ed7-4144-4434-ae56-9984ce7729dc', 'Fantasy', 'da13d5bf-51e2-4598-9d22-31ff3027e33d'),
+('a65bc844-018d-429d-b244-c7c96b3eb930', 'Comedy', '2d48dea0-e550-473c-8ca5-cb86a15f2dc8'),
 ('ab0a2c21-7881-4f60-a45d-0d874fd7601d', 'Horror', 'f7363ce1-1a26-4338-b9e6-99c5c9988ebb'),
+('ad79121c-eba7-431c-a7e4-ac6870bae21c', 'Crime', 'a27e55c3-9468-4860-baa5-85cf42d5f7fe'),
+('bd345637-6bde-47c9-a086-59fd1f901bce', 'Horror', '2d48dea0-e550-473c-8ca5-cb86a15f2dc8'),
+('d5c01f45-240a-4e1b-9320-bfe1856b04df', 'Drama', '66d6816c-180a-409e-8a0a-05f0502ddffe'),
+('e7da29c1-0036-4dd4-b97b-b5a8b18c976f', 'Adventure', 'a27e55c3-9468-4860-baa5-85cf42d5f7fe'),
 ('ebc68677-cc02-42b2-9f0a-a3863246b78c', 'Adventure', 'da13d5bf-51e2-4598-9d22-31ff3027e33d'),
 ('eda1d5a1-652a-4b9d-9813-ec13c1ca9ca8', 'Action', 'a77d3931-d347-410d-88af-71cb223b8df2'),
 ('f78c5485-3896-41ee-a072-cb5a25b141fc', 'Fantasy', 'a77d3931-d347-410d-88af-71cb223b8df2');
@@ -418,10 +462,11 @@ CREATE TABLE `thongtin_nguoidung` (
 --
 
 INSERT INTO `thongtin_nguoidung` (`id`, `id_tai_khoan`, `ten_hien_thi`, `anh_dai_dien`, `gioi_tinh`, `role`, `last_role`) VALUES
-('100489975828441695411', '100489975828441695411', 'Ngoc Long', 'https://drive.google.com/uc?export=view&id=1CWrW_FtjNy2I9S9w67UgsnLqgS4lYpRA', 1, 100, 0),
-('109632126491025897743', '109632126491025897743', 'Hưng Thịnh Nguyễn', 'https://drive.google.com/uc?export=view&id=1xWuJnM-J-qxDZMs9fV8qS3Xg9OIzEURN', 1, 100, 0),
-('110152635823665920356', '110152635823665920356', 'Ruri Meiko', 'https://drive.google.com/uc?export=view&id=1VjMfBCwyrLMD45gTcPRYtLVjy7ofBkGP', 1, 100, 0),
-('113263126602180653712', '113263126602180653712', 'Dawn Nguyen', 'https://drive.google.com/uc?export=view&id=1VjMfBCwyrLMD45gTcPRYtLVjy7ofBkGP', 1, 0, 0);
+('100489975828441695411', '100489975828441695411', 'Ngoc Long', 'https://lh3.googleusercontent.com/a/ACg8ocIIb0HY0aqShFhxx-BrcDuB_9iTKfjdudBqsOfCuLCbs18=s96-c', 1, 100, 0),
+('109632126491025897743', '109632126491025897743', 'Hưng Thịnh Nguyễn', 'https://drive.google.com/uc?export=view&id=1gvL4vW0GolMHl8V_ekxUwgiMyoaDKltE', 1, 100, 0),
+('110152635823665920356', '110152635823665920356', 'Ruri Meiko', 'https://lh3.googleusercontent.com/a/ACg8ocK8aV6zSthRfH8PZGBBm6Fv9NvJzlGnDc6Lf5Ge0_Fh-1E=s96-c', 1, 100, 0),
+('113263126602180653712', '113263126602180653712', 'Dawn Nguyen', 'https://lh3.googleusercontent.com/a/ACg8ocLYq5vVCCCNuPkBLcU1GVRtVvlwtp2NnRv15Rei3u03jiA=s96-c', 1, 0, 0),
+('8a7db9fa-a51f-4e3d-88a7-cd960588aa59', '8a7db9fa-a51f-4e3d-88a7-cd960588aa59', 'hiem', 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -448,7 +493,12 @@ CREATE TABLE `truyen` (
 --
 
 INSERT INTO `truyen` (`id`, `id_tac_gia`, `ten_truyen`, `so_luong_chuong`, `tom_tat_noi_dung`, `anh_dai_dien`, `luot_xem`, `luot_thich`, `ngay_cap_nhat`, `trang_thai`, `ban`) VALUES
-('a77d3931-d347-410d-88af-71cb223b8df2', '113263126602180653712', 'Dế mèn phiêu lưu kí', 2, 'Truyện là chuyến hành trình trải qua vô vàn cuộc phiêu lưu của chú dế mèn từ xứ sở thần tiên choáng ngợp ngay lần đầu tiên nhìn thấy tới đại hải trình đầy thách thức. Qua nhưng cuộc hành trình đó cũng là quá trình thay đổi của chú dế mèn của chúng ta từ một kẻ kiêu ngạo, tự mãn về bản thân đã không ngừng học hỏi và kết vô số người bạn. Để thấy rõ hơn những cuộc hành trình và quá trình ấy, tại sao không đọc và đám chìm và chiếc truyện này.', 'https://drive.google.com/uc?export=view&id=14ABgUuYPuf0CN-aUeGfjOUaFM4luydB_', 0, 0, '2023-11-28', 'Đang ra', 0),
+('2d48dea0-e550-473c-8ca5-cb86a15f2dc8', '8a7db9fa-a51f-4e3d-88a7-cd960588aa59', 'zxz', 2, 'zx', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-29', 'Đang ra', 0),
+('2f3d11b4-cfd8-48bc-948f-d930af062ac0', '8a7db9fa-a51f-4e3d-88a7-cd960588aa59', 'sa', 2, 'sda', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-29', 'Đang ra', 0),
+('66d6816c-180a-409e-8a0a-05f0502ddffe', '100489975828441695411', 'ngày dài', 1, 'NaN', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 2, '2023-11-29', 'Đang ra', 0),
+('89969950-e767-4e33-9e0f-d25b6d17a34f', '8a7db9fa-a51f-4e3d-88a7-cd960588aa59', 'test', 1, 'hiem', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-29', 'Đang ra', 0),
+('a27e55c3-9468-4860-baa5-85cf42d5f7fe', '113263126602180653712', 'Long ma Bắc Giang và 4 tỷ tên cướp', 5, 'Truyện là cuộc đối đầu đầy gây cấn giữa thế lực bất diệt Long ma Bắc Giang aka trai đẹp Phú Quốc với 4 tỷ tên cướp aka creeps tuy biết đây là cuộc chiến vô cùng không cân sức nhưng trai đẹp Phú Quốc kết liểu 4 tỷ con creeps thế nào mới đáng nói, đọc để quạt anh Long ma Bắc Giang.', 'https://drive.google.com/uc?export=view&id=1gNcu0TAzq7Lf2e6V2xwNGt6ylrbYnGcc', 0, 0, '2023-11-29', 'Đang ra', 0),
+('a77d3931-d347-410d-88af-71cb223b8df2', '113263126602180653712', 'Dế mèn phiêu lưu kí', 2, 'Truyện là chuyến hành trình trải qua vô vàn cuộc phiêu lưu của chú dế mèn từ xứ sở thần tiên choáng ngợp ngay lần đầu tiên nhìn thấy tới đại hải trình đầy thách thức. Qua nhưng cuộc hành trình đó cũng là quá trình thay đổi của chú dế mèn của chúng ta từ một kẻ kiêu ngạo, tự mãn về bản thân đã không ngừng học hỏi và kết vô số người bạn. Để thấy rõ hơn những cuộc hành trình và quá trình ấy, tại sao không đọc và đám chìm và chiếc truyện này.', 'https://drive.google.com/uc?export=view&id=14ABgUuYPuf0CN-aUeGfjOUaFM4luydB_', 0, 2, '2023-11-28', 'Đang ra', 0),
 ('da13d5bf-51e2-4598-9d22-31ff3027e33d', '100489975828441695411', 'Big Order', 1, 'Vì đây là một tập phim hại não nên sẽ không có tóm tắt nội dung... hãy dùng não, mặc dù sau khi dùng cũng chả hiểu gì cả. Bản TV series được phát hành vào tháng 4/2016.', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 1000, 0, '2023-11-28', 'Đang ra', 0),
 ('f7363ce1-1a26-4338-b9e6-99c5c9988ebb', '110152635823665920356', 'Nodejs', 1, 'rất kinh dị', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 3, 0, '2023-11-28', 'Hoàn thành', 0);
 
@@ -464,6 +514,16 @@ CREATE TABLE `truyen_yeu_thich` (
   `id_truyen` varchar(50) NOT NULL,
   `chuong_hien_tai` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Dumping data for table `truyen_yeu_thich`
+--
+
+INSERT INTO `truyen_yeu_thich` (`id`, `id_nguoi_dung`, `id_truyen`, `chuong_hien_tai`) VALUES
+('3c893d02-058f-4d37-b5a3-15fb583a942c', '8a7db9fa-a51f-4e3d-88a7-cd960588aa59', 'a77d3931-d347-410d-88af-71cb223b8df2', 1),
+('7059a773-0559-443a-b34a-9ef213af8075', '8a7db9fa-a51f-4e3d-88a7-cd960588aa59', '66d6816c-180a-409e-8a0a-05f0502ddffe', 1),
+('c7cf504e-2a67-42dc-8fe6-0c1a650e00ae', '110152635823665920356', '66d6816c-180a-409e-8a0a-05f0502ddffe', 1),
+('f03233bf-bdc1-4a9c-b93e-25d35effc589', '110152635823665920356', 'a77d3931-d347-410d-88af-71cb223b8df2', 1);
 
 --
 -- Indexes for dumped tables
@@ -546,7 +606,7 @@ ALTER TABLE `truyen_yeu_thich`
 -- AUTO_INCREMENT for table `slider`
 --
 ALTER TABLE `slider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
