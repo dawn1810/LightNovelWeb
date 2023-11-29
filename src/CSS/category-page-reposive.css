@@ -17,13 +17,14 @@
 
     .sort-menu-container {
         position: fixed;
-        top: 18rem;
+        top: 16rem;
         left: 50%;
         transform: translate(-50%, -50%);
     }
 
     .sort-menu-container {
         width: 100%;
+        margin-top:0 ;
     }
 
     .fix_btn {

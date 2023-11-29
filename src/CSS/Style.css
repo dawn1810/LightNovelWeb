@@ -38,6 +38,7 @@ body {
 	--st-pr-btn-bg: #b0906b;
 	--border-btn-st: #a0896e;
 	--button-colors: #b0906b;
+	--input-color: #ffffff;
 }
 
 button {
@@ -2174,4 +2175,28 @@ html .body_main {
 /* search */
 .search_up {
 	margin-top: 50px;
+}
+
+
+@media screen and (max-width:600px) {
+	.top_rank{
+		flex-direction: column;
+	}
+	.rank_container {
+		width: 100%;
+	}
+	.rank_container ul{
+		flex-direction: row;
+	}
+	.rank_container{
+		padding:0;
+		overflow-x: scroll;
+	}
+	.sort-menu{
+		flex-wrap:wrap;
+		height: 19rem;
+	}
+	.sort-container{
+		width: 40%;
+	}
 }

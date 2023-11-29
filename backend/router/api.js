@@ -46,6 +46,8 @@ const apiRouter = (app) => {
 
   router.post("/api/upload_novel", api_router.api_uploadNovel);
 
+  router.post("/api/upload_quick_novel", api_router.api_quick_upload);
+
   router.post("/api/update_upload_novel", api_router.api_update_uploadNovel);
 
   // router.get("/api/auth/google", gg_router.gg_login);

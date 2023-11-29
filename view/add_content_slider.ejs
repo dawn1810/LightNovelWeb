@@ -9,6 +9,7 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
   <title>Home</title>
+  <link rel="stylesheet" href="../src/CSS/Style.css">
  <link rel="stylesheet" href="../src/CSS/add_content_slider.css">
 </head>
 
@@ -23,18 +24,42 @@
     <div class="container">
       <div class="form3">
         <div class="list_slider">
+          
+
           <% data.forEach(function(slider) { %>
-            <div class="slider_item" id="">
-              <div class="slider_item_img">
-                <img src="https://images3.alphacoders.com/133/thumbbig-1334920.webp" alt="">
+            <% if(slider.anh){ %>
+              <div class="slider_item" id="<%= slider.id %>">
+                <div class="slider_item_img">
+                  <img src="<%= slider.anh %>" alt="">
+                </div>
+               
+                  <div class="slider_item_title">
+                    <h3><%= slider.ten_truyen %></h3>
+                    <span><%= slider.id_truyen %></span>
+                  </div>
+                  
+
+                <button class="slider_btn">Sửa</button>
               </div>
-              <div class="slider_item_title">
-                <h3>naruto</h3>
-                <span>id:ok</span>
-                
-              </div>
-              <button class="slider_btn">Sửa</button>
-            </div>
+              <% }else{ %>
+                <div class="slider_item" id="<%= slider.id %>">
+                  <div class="slider_item_img">
+                   <span>Chưa có ảnh</span>
+                  </div>
+                  <% if(slider.id_truyen) { %>
+                    <div class="slider_item_title">
+                      <h3><%= slider.ten_truyen %></h3>
+                      <span><%= slider.id_truyen %></span>
+                    </div>
+                    <% }else{ %>
+                      <div class="slider_item_title">
+                       Truyện chưa được chọn
+                      </div>
+                    <% } %>
+  
+                  <button class="slider_btn">Sửa</button>
+                </div>
+                <% } %>
             <% }); %>
 
         </div>
@@ -44,7 +69,31 @@
   <%- include(footerFile) %>
 
 </body>
+<div class="modal_slider">
+  <div class="modal_slider_wrap">
+    <div class="modal_slider_con">
+      <div class="modal_slider_img">
+        <div class="information_name">
+          <div class="dropdown">
+            <button class="dropdown-trigger" type="button">
+              <div class="dropdown-content">
+                <label>Choose image</label>
+                <input id="file-upload" type="file"
+                  style="display: none;" accept=".jpg, .png, ,jpeg" />
+              </div>
+              <div class="drop-zone" ondrop="drop(event)"
+                ondragover="allowDrop(event)">
+                <p>Drop / Choose Avatar</p>
+              </div>
+              <img class="your-avt" src="<%= avt %>" alt="" />
+</button>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<script src="../src/JS/account-manager.js"></script>
+<script src="../src/JS/add_content_slider.js"></script>
 
 </html>

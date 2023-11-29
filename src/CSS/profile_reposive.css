@@ -1,182 +1,180 @@
 @media screen and (max-width: 600px) {
-    .FieldWrapper_wrapper {
-        display: flex;
-        padding: 0;
-        flex-direction: column;
-    }
-    .dropdown {
-        margin: auto;
-    }
+	.FieldWrapper_wrapper {
+		display: flex;
+		padding: 0;
+		flex-direction: column;
+	}
+	.dropdown {
+		margin: auto;
+	}
 
-    .profile_input {
-        width: 100%;
-    }
+	.profile_input {
+		width: 100%;
+	}
 
-    .Setting_pageWrapper__PM {
-        width: 100%;
-        margin: 0;
-    }
+	.Setting_pageWrapper__PM {
+		width: 100%;
+		margin: 0;
+	}
 
-    #button_file {
-        width: 19% !important;
-    }
+	#button_file {
+		width: 19% !important;
+	}
 
-    .avt {
-        width: 21%;
-    }
+	.avt {
+		width: 21%;
+	}
 
-    .last-time-container {
-        margin: 0;
-    }
+	.last-time-container {
+		margin: 0;
+	}
 
-    .name-novel h2 {
-        font-size: 1rem;
-    }
+	.name-novel h2 {
+		font-size: 1rem;
+	}
 
-    .name-novel p {
-        display: none;
-    }
-    .name-novel {
-        height: auto;
-    }
+	.name-novel p {
+		display: none;
+	}
+	.name-novel {
+		height: auto;
+	}
 
-    .page5_home_info_wrap_item {
-        padding: 0 !important;
-        width: 25%;
-        text-align: center;
-    }
+	.page5_home_info_wrap_item {
+		padding: 0 !important;
+		width: 25%;
+		text-align: center;
+	}
 
-    .page5_home_info_wrap_item span {
-        display: none;
-    }
+	.page5_home_info_wrap_item span {
+		display: none;
+	}
 
-    
+	.page5_home_info_status {
+		text-align: center;
+	}
 
-    .page5_home_info_status {
-        text-align: center;
-    }
+	.page5_home_info_wrap {
+		width: 19em;
+	}
 
-    .page5_home_info_wrap {
-        width: 19em;
-    }
+	.item_btn_gr {
+		width: 100%;
+		margin-top: 20px;
+	}
+	.page5_home_info_wrap_item {
+		margin-right: 0;
+	}
 
-    .item_btn_gr {
-        width: 100%;
-        margin-top: 20px;
-    }
-    .page5_home_info_wrap_item{
-        margin-right: 0;
-    }
+	.page5_home_info {
+		width: 100%;
+		margin-left: 0;
+	}
 
-    .page5_home_info {
-        width: 100%;
-        margin-left: 0;
-    }
+	.page5_home_main_logo {
+		width: 75%;
+	}
 
-    .page5_home_main_logo {
-        width: 75%;
-    }
+	.page5_home_main_item {
+		flex-direction: column;
+		align-items: center;
+	}
 
-    .page5_home_main_item {
-        flex-direction: column;
-        align-items: center;
-    }
+	.Setting_sidebar-wrapper {
+		display: none;
+	}
 
-    .Setting_sidebar-wrapper {
-        display: none;
-    }
+	.range {
+		width: 100%;
+	}
 
-    .range {
-        width: 100%;
-    }
+	.page5_info {
+		margin: 0;
+		flex-direction: column;
+	}
 
-    .page5_info {
-        margin: 0;
-        flex-direction: column;
-    }
+	.page5_a {
+		padding: 0px;
+	}
 
-    .page5_a {
-        padding: 0px;
-    }
+	.Setting_pageWrapper {
+		padding: 1em;
+	}
 
-    .Setting_pageWrapper {
-        padding: 1em;
-    }
+	.page5_info_main {
+		width: 100%;
+	}
 
-    .page5_info_main {
-        width: 100%;
-    }
+	#media {
+		flex-direction: column;
+	}
 
-    #media {
-        flex-direction: column;
-    }
+	.page5_info_main_btn button {
+		font-size: 1em;
+		width: 50%;
+	}
 
-    .page5_info_main_btn button {
-        font-size: 1em;
-        width: 50%;
-    }
+	.card {
+		width: 20em;
+		height: auto;
+	}
 
-    .card {
-        width: 20em;
-        height: auto;
+	.range img {
+		width: 23%;
+		margin-top: -46px;
+	}
 
-    }
+	.card__description {
+		font-size: 0.57em;
+	}
 
-    .range img {
-        width: 23%;
-        margin-top: -46px;
-    }
+	.thank1 {
+		display: none;
+	}
 
-    .card__description {
-        font-size: 0.57em;
-    }
+	.thank2 {
+		display: block;
+	}
 
+	.controller_btn {
+		margin: 3px 0;
+	}
 
+	.delete_chapter {
+		margin-left: 3px;
+	}
 
-    .thank1 {
-        display: none;
-    }
-
-    .thank2 {
-        display: block;
-    }
-
-    .controller_btn {
-        margin: 3px 0;
-    }
-
-    .delete_chapter {
-        margin-left: 3px;
-    }
-
-    .update_current_novel {
-        margin-right: 3px;
-    }
-    .my_novel_item{
-        flex-direction: column;
-    }
-    .name-container_img{
-        margin: 0 auto;
-        width: 55%;
-        width:55%;
-    }
-    .name-container{
-        flex-direction: column;
-    }
-    .novel_conntroller_btn{
-        margin-top: 2em;
-    }
-    .list_chapter_body{
-        width: 100%;
-    }
-    .n_num{
-        width: 25% !important;
-    }
-    .current-category-list{
-        width: 100%;
-        flex-wrap: wrap;
-    }
-    .toast{
-        left: 30px;
-    }
+	.update_current_novel {
+		margin-right: 3px;
+	}
+	.my_novel_item {
+		flex-direction: column;
+	}
+	.name-container_img {
+		margin: 0 auto;
+		width: 55%;
+		width: 55%;
+	}
+	.name-container {
+		flex-direction: column;
+	}
+	.novel_conntroller_btn {
+		margin-top: 2em;
+	}
+	.list_chapter_body {
+		width: 100%;
+	}
+	.n_num {
+		width: 25% !important;
+	}
+	.current-category-list {
+		width: 100%;
+		flex-wrap: wrap;
+	}
+	.toast {
+		left: 30px;
+	}
+	.page_5_title {
+		flex-wrap: wrap;
+	}
 }

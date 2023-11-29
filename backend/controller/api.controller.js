@@ -1254,11 +1254,28 @@ const api_open_author = async (req, res) => {
 
 const api_get_quick_template = async (req, res) => {
 	return res.download("./local_template/mau_dang_truyen.docx");
-}
+};
 
-const api_quick_upload = async(req,res) => {
-	
-}
+const api_quick_upload = async (req, res) => {
+	if (!req.files) {
+		return res.status(400).send("No file uploaded.");
+	}
+
+	if (allowedMimeTypes.indexOf(req.files[0].mimetype) == 1) {
+		console.log(files.name);
+		// await func_controller.readDocxFile(path.join(uploadDirectory, req.files[0].originalname));
+	} else {
+		return res.status(400).send("Invalid file type.");
+	}
+	// const fileName = req.files[i].originalname.replace(".docx", ".txt");
+	// list_name.push(fileName);
+
+	// // Xử lý các tệp đã tải lên ở đây
+	// console.log("SYSTEM | UPLOAD_FILE | Files uploaded:", req.files);
+	// res.writeHead(200, { "Content-Type": "applicaiton/json" });
+
+	// res.end(JSON.stringify(await func_controller.get_full_id(uploadDirectory, list_name)));
+};
 
 module.exports = {
 	api_search_more,
@@ -1290,4 +1307,5 @@ module.exports = {
 	api_block_author,
 	api_open_author,
 	api_get_quick_template,
+	api_quick_upload,
 };

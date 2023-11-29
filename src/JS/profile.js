@@ -660,14 +660,33 @@ add_new.onclick = function () {
 
 add_quick.onclick = function () {
 	if (author_name_check) {
-		$('.upload_quick_file').css({"display": "flex", "opacity": "1"});
-		$(this).text("+ ĐĂNG TRUYỆN")
+		$(".upload_quick_file").css({ display: "flex", opacity: "1" });
+		$(this).text("+ ĐĂNG TRUYỆN");
 		$(this).addClass("quick_upload");
 
-		document.querySelector('.quick_upload').onclick = function () {
-			console.log('thinh bi khung');
-		}
+		document.querySelector(".quick_upload").onclick = async function () {
+			let curr_file = $(this).parent().find(".file-input")[0].files[0];
+			let formData = new FormData();
 
+			let extension = curr_file.name.substring(curr_file.name.lastIndexOf("."));
+			let newName = generateUUID() + extension;
+			let renamedFile = new File([curr_file], newName, { type: curr_file.type });
+			formData.append("files[]", renamedFile);
+
+			const response = await fetch("/api/upload_quick_novel", {
+				method: "POST",
+				body: formData,
+			});
+
+			if (response.ok) {
+				const responseData = await response.json();
+				console.log(responseData);
+			} else if (response.status == 400) {
+				// Error occurred during upload
+				notify("!", "Sai định dạng file!");
+				console.error("Error uploading files.");
+			}
+		};
 	} else {
 		// dont have author name yet
 		notify("!", "Bạn chưa có tên sáng tác! Hãy đặt tên sáng tác trước.");
@@ -678,37 +697,37 @@ add_quick.onclick = function () {
 document.querySelector(".upload_quick_file .download_btn").onclick = async function () {
 	try {
 		const requestOptions = {
-			method: 'GET',
+			method: "GET",
 			headers: {
-				'Content-Type': 'application/json'
-			}
+				"Content-Type": "application/json",
+			},
 		};
-		const response = await fetch('/api/get_quick_upload_template', requestOptions);
+		const response = await fetch("/api/get_quick_upload_template", requestOptions);
 		if (response.ok) {
 			const blobUrl = URL.createObjectURL(await response.blob());
 			// Tạo một thẻ <a> ẩn để tải xuống và nhấn vào nó
-			const downloadLink = document.createElement('a');
+			const downloadLink = document.createElement("a");
 			downloadLink.href = blobUrl;
-			downloadLink.download = 'Mau_dang_truyen_nhanh.docx'; // Đặt tên cho tệp tải xuống
-			downloadLink.style.display = 'none';
+			downloadLink.download = "Mau_dang_truyen_nhanh.docx"; // Đặt tên cho tệp tải xuống
+			downloadLink.style.display = "none";
 			document.body.appendChild(downloadLink);
 			downloadLink.click();
 			// Giải phóng URL tạm thời sau khi tải xuống hoàn thành
 			URL.revokeObjectURL(blobUrl);
-			notify('n', 'Đã tải xuống file đăng tải truyện nhanh')
+			notify("n", "Đã tải xuống file đăng tải truyện nhanh");
 		} else {
-			notify('!', 'Tải xuống thất bại thất bại')
+			notify("!", "Tải xuống thất bại thất bại");
 		}
 	} catch (error) {
 		console.log(error);
 	}
-}
+};
 
 document.querySelector(".upload_quick_file .edit_btn").onclick = async function () {
 	$(this).parent().find(".file-input").click();
-}
+};
 
-document.querySelector(".upload_quick_file .file-input").onchange =  function () {
+document.querySelector(".upload_quick_file .file-input").onchange = function () {
 	const file = $(this)[0].files[0];
 	if (validateFile(file, true)) {
 		$(this).parent().find(".file-content").text(file.name);
@@ -1248,9 +1267,10 @@ document.querySelector(".page5_d .more_chap_btn").onclick = function () {
 			<h3>Thứ tự chương</h3>
 			<div class="information_name">
         <input class="profile_input chap_num" type="number" id="name_novel"
-					value="${parseInt(document.querySelectorAll(".page5_d .chap_num")[0].value) +
-		document.querySelectorAll(".page5_d .chap_num").length
-		}" readonly />
+					value="${
+						parseInt(document.querySelectorAll(".page5_d .chap_num")[0].value) +
+						document.querySelectorAll(".page5_d .chap_num").length
+					}" readonly />
 			</div>
 		</div>
 
