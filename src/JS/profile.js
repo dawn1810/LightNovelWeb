@@ -666,25 +666,35 @@ add_quick.onclick = function () {
 
 		document.querySelector(".quick_upload").onclick = async function () {
 			let curr_file = $(this).parent().find(".file-input")[0].files[0];
-			let formData = new FormData();
-
-			let extension = curr_file.name.substring(curr_file.name.lastIndexOf("."));
-			let newName = generateUUID() + extension;
-			let renamedFile = new File([curr_file], newName, { type: curr_file.type });
-			formData.append("files[]", renamedFile);
-
-			const response = await fetch("/api/upload_quick_novel", {
-				method: "POST",
-				body: formData,
-			});
-
-			if (response.ok) {
-				const responseData = await response.json();
-				console.log(responseData);
-			} else if (response.status == 400) {
-				// Error occurred during upload
-				notify("!", "Sai định dạng file!");
-				console.error("Error uploading files.");
+			
+			if (curr_file) {
+				let formData = new FormData();
+				
+				let extension = curr_file.name.substring(curr_file.name.lastIndexOf("."));
+				let newName = generateUUID() + extension;
+				let renamedFile = new File([curr_file], newName, { type: curr_file.type });
+				formData.append("files[]", renamedFile);
+				
+				for (var pair of formData.entries()) {
+					console.log(pair[0]+ ', ' + pair[1]); 
+				}
+				
+	
+				const response = await fetch("/api/upload_quick_novel", {
+					method: "POST",
+					body: formData,
+				});
+	
+				if (response.ok) {
+					const responseData = await response.json();
+					console.log(responseData);
+				} else if (response.status == 400) {
+					// Error occurred during upload
+					notify("!", "Sai định dạng file!");
+					console.error("Error uploading files.");
+				}
+			} else {
+				notify("!", "Chưa có file!")
 			}
 		};
 	} else {

@@ -7,6 +7,7 @@ const func_controller = require("./func.controller");
 const NodePersist = require("node-persist");
 const server = require("../vip_pro_lib");
 const { category } = require("./search.controller.js");
+const mammoth = require("mammoth");
 const secretKey = "5gB#2L1!8*1!0)$7vF@9";
 const {
 	deleteFileFromDrive,
@@ -1016,7 +1017,6 @@ const api_updateInfo = async (req, res) => {
 
 const api_changePass = async (req, res) => {
 	try {
-
 		const account = req.session.user;
 		const data = req.body;
 		// console.log("SYSTEM | CHANGE_PASSWORD |", data);
@@ -1250,14 +1250,24 @@ const api_get_quick_template = async (req, res) => {
 
 const api_quick_upload = async (req, res) => {
 	try {
-
 		if (!req.files) {
 			return res.status(400).send("No file uploaded.");
 		}
 
 		if (allowedMimeTypes.indexOf(req.files[0].mimetype) == 1) {
-			console.log(files.name);
-			// await func_controller.readDocxFile(path.join(uploadDirectory, req.files[0].originalname));
+			const filePath = path.join(uploadDirectory, req.files[0].originalname);
+
+			// Use mammoth to extract text content from DOCX
+			const { value } = await mammoth.extractRawText({ path: filePath });
+
+			// console.log(value, typeof value);
+			// The result object contains a "value" property with the text content
+			const extractedInformation = func_controller.extractInformation(value);
+
+			if (extractedInformation) console.log(extractedInformation.content_chapter.length);
+			else console.log("không có nội dung");
+
+			return res.status(200).send("Success.");
 		} else {
 			return res.status(400).send("Invalid file type.");
 		}
@@ -1270,8 +1280,60 @@ const api_quick_upload = async (req, res) => {
 
 		// res.end(JSON.stringify(await func_controller.get_full_id(uploadDirectory, list_name)));
 	} catch (error) {
-		console.error("Error in update_state_novel:", error);
+		console.log("Error in update_state_novel:", error);
 		res.status(500).json({ error: "Có lỗi xảy ra trên server" });
+	}
+};
+const api_editSlider = async (req, res) => {
+	try {
+		const account = req.session.user;
+		const data = req.body;
+
+		let avt_var = data.img;
+		if (isBase64(data.img)) {
+			// avt_var = await compressImageBase64(data.img, 5);
+			const imgdata = await getDriveFileLinkAndDescription(
+				await uploadFileToDrivebase64(avt_var)
+			);
+			avt_var = imgdata.fileLink;
+		}
+
+		// imgdata.fileLink la link hinh
+
+		// update user information
+		await queryAsync(`
+      UPDATE thongtin_nguoidung
+      SET 
+        ten_hien_thi = '${data.hoten}',
+        anh_dai_dien = '${avt_var}',
+        gioi_tinh = ${data.sex}
+      WHERE id_tai_khoan = '${account.id}';
+    `);
+
+		// update user's email
+		await queryAsync(`
+      UPDATE taikhoan_nguoidung
+      SET 
+        email = '${data.email}'
+      WHERE id = '${account.id}'
+      AND login_way <> 'google';
+    `);
+
+		// update author name
+		await queryAsync(`
+    INSERT INTO tacgia (id, id_nguoi_dung, ten_tac_gia)
+    VALUES (
+      '${account.id}',
+      '${account.id}',
+      '${data.author_name}'
+    ) 
+    ON DUPLICATE KEY UPDATE ten_tac_gia = VALUES(ten_tac_gia);
+    `);
+
+		res.sendStatus(200);
+	} catch (err) {
+		console.log("SYSTEM | UPDATE INFO | ERROR | ", err);
+		res.sendStatus(500);
 	}
 };
 
@@ -1306,4 +1368,5 @@ module.exports = {
 	api_open_author,
 	api_get_quick_template,
 	api_quick_upload,
+	api_editSlider,
 };

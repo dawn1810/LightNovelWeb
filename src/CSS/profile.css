@@ -86,6 +86,7 @@ body {
   min-height: 540px;
   padding: 20px;
   border: 2px solid;
+  min-height: 90%;
 }
 
 .page4 {
@@ -102,6 +103,7 @@ body {
 .Setting_pageWrapper__PM {
   width: 70%;
   margin: 20px auto;
+  min-height: 100vh;
 }
 
 .Setting_sidebar-list {

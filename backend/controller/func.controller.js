@@ -144,7 +144,7 @@ async function checkAdmin(req, res, next) {
 			res.locals.admin = null;
 			return res.redirect("/");
 		} else {
-			res.locals.admin = "admin";
+			res.locals.admin = result[0].role;
 			next();
 		}
 	}
@@ -454,6 +454,31 @@ async function readDocxFile(docxFilePath) {
 	}
 }
 
+// Function to extract information based on the provided template
+function extractInformation(text) {
+    if (text) {
+        let chapters = text.match(/(Chương .*: .*)/g);
+        let contents = text.split(/Chương .*: .*/).slice(1);
+
+        let nameMatch = text.match(/Tên truyện: (.*)/);
+        let statusMatch = text.match(/Trạng thái \[.*\]: (.*)/);
+        let genreMatch = text.match(/Thể loại \[.*\]: (.*)/);
+        let introMatch = text.match(/Giới thiệu truyện: (.*)/);
+
+        let dict = {
+            name: nameMatch ? nameMatch[1] : null,
+            status: statusMatch ? statusMatch[1] : null,
+            genre: genreMatch ? genreMatch[1] : null,
+            introduce: introMatch ? introMatch[1] : null,
+            name_chapters: chapters,
+            content_chapter: contents,
+        };
+
+        return dict;
+    } else 
+        return 0;
+}
+
 
 module.exports = {
 	checkCookieLoglUser,
@@ -472,4 +497,5 @@ module.exports = {
 	getFirstAndLastDayOfYear,
 	getFirstAndLastDayOfMonth,
 	readDocxFile,
+	extractInformation,
 };

@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     if (event.key === "Enter") {
       event.preventDefault();
-      if (parseInt(find_page.value) > maxcout) {
+      if (parseInt(find_page.value) >= maxcout) {
         find_page.style.border = "3px red solid"
         getListNovel((maxcout - 1) * 4, select.value);
         find_page.value = maxcout
@@ -81,21 +81,21 @@ const click_truyen = () => {
   }
 };
 
-async function getListNovel(offset, fill) {
-  const url = `/api/api_get_novel`;
+// async function getListNovel(offset, fill) {
+//   const url = `/api/api_get_novel`;
 
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      n: 4,
-      offset: offset,
-      fill: fill,
-    }),
-  };
-}
+//   const requestOptions = {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       n: 4,
+//       offset: offset,
+//       fill: fill,
+//     }),
+//   };
+// }
 async function getListNovel(offset, fill) {
   const url = `/api/api_get_novel`;
 
@@ -117,7 +117,7 @@ async function getListNovel(offset, fill) {
     if (response.status === 200) {
       const data = await response.json();
       let novelListHTML = "";
-      if (data["data"].length < 4) {
+      if (data["data"].length <= 4) {
         next_page.style.display = "none";
       } else {
         next_page.style.display = "block";
