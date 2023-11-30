@@ -1,7 +1,8 @@
 const crypto = require("crypto");
 const path = require("path");
 const { queryAsync } = require("../dbmysql");
-
+const nodemailer = require("nodemailer");
+const ejs = require("ejs");
 const server = require("./google.controller.js");
 const secretKey = "5gB#2L1!8*1!0)$7vF@9";
 const authenticationKey = Buffer.from(secretKey.padEnd(32, "0"), "utf8").toString("hex");
@@ -39,6 +40,40 @@ const upload = () => {
 	return multer({ storage: storage_file });
 };
 
+async function sendEmail(password, email) {
+	try {
+	  const transporter = nodemailer.createTransport({
+		service: "gmail",
+		auth: {
+		  user: "nguytuan04@gmail.com",
+		  pass: "unjwfrdskgezbmym",
+		},
+	  });
+  
+	  const emailTXT = fs.readFileSync(path.join("src", "emailTemplate", "email.txt"), "utf8");
+	  const emailHTML = fs.readFileSync(path.join("src", "emailTemplate", "email.ejs"), "utf8");
+  
+	  const mailOptions = {
+		from: '"WTFNovel@noreply.com" <nguytuan04@gmail.com>',
+		to: email,
+		subject: "Yêu cầu đặt lại mật khẩu",
+		text: emailTXT.replace("${password}", password),
+		html: ejs.render(emailHTML, { password: password }),
+		attachments: [
+		  {
+			filename: "image.png",
+			path: "./image/logo.png",
+			cid: "fs1120020a17090af28b00b00263fc1ef1aasm843048pjb10", //same cid value as in the html img src
+		  },
+		],
+	  };
+  
+	  const info = await transporter.sendMail(mailOptions);
+	  // Thực hiện các hoạt động hữu ích khác sau khi gửi email thành công.
+	} catch (error) {
+	  console.log("SYSTEM | SEND_EMAIL | ", error);
+	}
+  }
 const hashPassword = (password) => {
 	const hash = crypto
 		.pbkdf2Sync(password, authenticationKey, 10000, 64, "sha512")
@@ -505,6 +540,7 @@ async function extractInformation(text) {
 
 module.exports = {
 	checkCookieLoglUser,
+	sendEmail,
 	checkCoookieIfOK,
 	decode,
 	encrypt,
