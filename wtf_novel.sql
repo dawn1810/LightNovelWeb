@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2023 at 07:59 AM
+-- Generation Time: Nov 30, 2023 at 09:04 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -274,15 +274,17 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
+('0gzHL0PKw5P6L-_k9qG9LZ7W_9CHie75', 1701936185, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"100489975828441695411\"},\"user\":{\"id\":\"100489975828441695411\",\"username\":\"100489975828441695411\"}}'),
+('4VkOLRjz202uYvCNynWJGqpe72P_auNk', 1701935704, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
 ('80pV0ad7xhon3zmUvoBr-MiiDTYg-atr', 1701839995, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"109632126491025897743\"},\"user\":{\"id\":\"109632126491025897743\",\"username\":\"109632126491025897743\"}}'),
 ('Guf02UoIaa2_dF8r2p6wvyuSXZg0pqVi', 1701834511, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"110152635823665920356\"},\"user\":{\"id\":\"110152635823665920356\",\"username\":\"110152635823665920356\"}}'),
-('GzST4ZAtEUU9MGUqpi0zPma-uQc8jDpc', 1701932190, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"bb2a3ae5-54d6-4a56-9c6b-67a020d5d140\",\"username\":\"dx\",\"role\":0}}'),
 ('Htk7aslQZaMhIuLsSJ4Ufb1b2MnDCNXW', 1701860914, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"100489975828441695411\"},\"user\":{\"id\":\"100489975828441695411\",\"username\":\"100489975828441695411\"}}'),
 ('MoKbECdOg6krP8_rJrUyTmJVqp4ppH9W', 1701775662, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"100489975828441695411\"},\"user\":{\"id\":\"100489975828441695411\",\"username\":\"100489975828441695411\"}}'),
 ('TKQgNFZfzjWCx48DznJtURWkwTcM-DR9', 1701838614, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"100489975828441695411\"},\"user\":{\"id\":\"100489975828441695411\",\"username\":\"100489975828441695411\"}}'),
-('WbbL96N76g298rf6eZAewf61Z6JTTR7o', 1701860530, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"109632126491025897743\"},\"user\":{\"id\":\"109632126491025897743\",\"username\":\"109632126491025897743\"}}'),
+('WbbL96N76g298rf6eZAewf61Z6JTTR7o', 1701935945, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"109632126491025897743\"},\"user\":{\"id\":\"109632126491025897743\",\"username\":\"109632126491025897743\"}}'),
 ('XWsaY8JbgHXRdu3XlFZYwkdnT9J513NY', 1701836540, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
 ('blQ-u57ixYn1iWsVBaS77xZ7oIuDFZch', 1701859036, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"8a7db9fa-a51f-4e3d-88a7-cd960588aa59\",\"username\":\"hiem\",\"role\":0}}'),
+('k648GuJDP94-B-k1C0DkwdGIEKjR3eUO', 1701935292, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
 ('m93DU841T2hx7keWIevS-0kL4t8nvm69', 1701774379, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
 ('nriwwvjLNsa2K4kPA42yyBEPQ3iwHxL5', 1701859923, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
 ('rjU9SHvQXc9HomNXszW_cSuk8I8ueSag', 1701775688, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"109632126491025897743\"},\"user\":{\"id\":\"109632126491025897743\",\"username\":\"109632126491025897743\"}}'),
@@ -474,7 +476,7 @@ INSERT INTO `thongtin_nguoidung` (`id`, `id_tai_khoan`, `ten_hien_thi`, `anh_dai
 ('100489975828441695411', '100489975828441695411', 'Ngoc Long', 'https://lh3.googleusercontent.com/a/ACg8ocIIb0HY0aqShFhxx-BrcDuB_9iTKfjdudBqsOfCuLCbs18=s96-c', 1, 100, 0),
 ('109632126491025897743', '109632126491025897743', 'Hưng Thịnh Nguyễn', 'https://drive.google.com/uc?export=view&id=1gvL4vW0GolMHl8V_ekxUwgiMyoaDKltE', 1, 100, 0),
 ('110152635823665920356', '110152635823665920356', 'Ruri Meiko', 'https://lh3.googleusercontent.com/a/ACg8ocK8aV6zSthRfH8PZGBBm6Fv9NvJzlGnDc6Lf5Ge0_Fh-1E=s96-c', 1, 100, 0),
-('113263126602180653712', '113263126602180653712', 'Dawn Nguyen', 'https://lh3.googleusercontent.com/a/ACg8ocLYq5vVCCCNuPkBLcU1GVRtVvlwtp2NnRv15Rei3u03jiA=s96-c', 1, 0, 0),
+('113263126602180653712', '113263126602180653712', 'Dawn Nguyen', 'https://drive.google.com/uc?export=view&id=1OggIQ4foMqR8sAWaKsV35UbZy7B0aHHU', 1, 0, 0),
 ('8a7db9fa-a51f-4e3d-88a7-cd960588aa59', '8a7db9fa-a51f-4e3d-88a7-cd960588aa59', 'hiem', 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg', 1, 0, 0),
 ('bb2a3ae5-54d6-4a56-9c6b-67a020d5d140', 'bb2a3ae5-54d6-4a56-9c6b-67a020d5d140', 'dx', 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg', 1, 0, 0);
 
