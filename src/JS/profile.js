@@ -613,7 +613,7 @@ Save_btn.onclick = async function (e) {
 	};
 
 	try {
-		notify("n", "Đang tải lên...chờ một tý!");
+		notify("n", "Đang tải lên...");
 		const response = await fetch(url, requestOptions);
 		if (response.status == "200") {
 			document.querySelector(".header_user_logo_i p").textContent =
@@ -621,11 +621,11 @@ Save_btn.onclick = async function (e) {
 			document.querySelector(".header_user_logo_i .curent-avt img").src = avatar.src;
 			author_name_check = document.querySelector("#author_name").value;
 
-			notify("n", "Thay đổi thông tin người dùng thành công!");
+			notify("n", "Cập nhật thông tin người dùng thành công!");
 		}
 	} catch (error) {
 		console.log("Error:", error);
-		notify("x", "Thay đổi thông tin người dùng không thành công!");
+		notify("x", "Cập nhật thông tin người dùng không thành công!");
 	}
 };
 
@@ -668,7 +668,7 @@ add_quick.onclick = function () {
 			let curr_file = $(this).parent().find(".file-input")[0].files[0];
 			
 			if (curr_file) {
-				notify("n", "Bắt đầu tải truyện lên.");
+				notify("n", "Đăng tải lên...");
 
 				let formData = new FormData();
 				
@@ -726,9 +726,8 @@ document.querySelector(".upload_quick_file .download_btn").onclick = async funct
 			downloadLink.click();
 			// Giải phóng URL tạm thời sau khi tải xuống hoàn thành
 			URL.revokeObjectURL(blobUrl);
-			notify("n", "Đã tải xuống file đăng tải truyện nhanh");
 		} else {
-			notify("!", "Tải xuống thất bại thất bại");
+			notify("x", "Tải xuống thất bại!");
 		}
 	} catch (error) {
 		console.log(error);

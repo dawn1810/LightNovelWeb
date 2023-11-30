@@ -281,20 +281,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				if (response.status == 200) {
 					window.location.reload();
 				} else if (response.status == 403 || response.status == 500) {
-					toast.querySelector(".toast-content i").classList = ["fa-solid fa-exclamation"];
-					toast.querySelector(".text-1").innerHTML = "Chú ý";
-					toast.querySelector(".text-2").innerHTML =
-						"Thông tin đang nhập chưa chính xác!";
-					toast.classList.add("active");
-					progress.classList.add("active");
-
-					timer1 = setTimeout(() => {
-						toast.classList.remove("active");
-					}, 5000); //1s = 1000 milliseconds
-
-					timer2 = setTimeout(() => {
-						progress.classList.remove("active");
-					}, 5300);
+					notify("!", "Thông tin đang nhập chưa chính xác!");
 				}
 			} catch (error) {
 				console.log("Error:", error);
@@ -350,34 +337,10 @@ document.addEventListener("DOMContentLoaded", function () {
 				if (response.status == "200") {
 					reg_btn.disabled = false;
 					reg_btn.innerHTML = `Submit`;
-					toast.querySelector(".toast-content i").classList = ["fa-solid fa-exclamation"];
-					toast.querySelector(".text-1").innerHTML = "Thông báo";
-					toast.querySelector(".text-2").innerHTML = "Đăng ký thành công!!!";
-					toast.classList.add("active");
-					progress.classList.add("active");
-
-					timer1 = setTimeout(() => {
-						toast.classList.remove("active");
-					}, 5000); //1s = 1000 milliseconds
-
-					timer2 = setTimeout(() => {
-						progress.classList.remove("active");
-					}, 5300);
+					notify("n", "Đăng ký thành công!!!");
 					document.querySelector(".no_login a").click();
 				} else if (response.status == "404") {
-					toast.querySelector(".toast-content i").classList = ["fa-solid fa-exclamation"];
-					toast.querySelector(".text-1").innerHTML = "Chú ý";
-					toast.querySelector(".text-2").innerHTML = "Tài khoản đã tồn tại";
-					toast.classList.add("active");
-					progress.classList.add("active");
-
-					timer1 = setTimeout(() => {
-						toast.classList.remove("active");
-					}, 5000); //1s = 1000 milliseconds
-
-					timer2 = setTimeout(() => {
-						progress.classList.remove("active");
-					}, 5300);
+					notify("!", "Tài khoản đã tồn tại");
 				}
 
 				// btn_reg.disabled = false;
@@ -425,26 +388,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>`;
 			try {
 				const response = await fetch(url, requestOptions);
-				console.log(response.status);
 				if (response.status == "200") {
-					reg_btn.disabled = false;
-					reg_btn.innerHTML = `Submit`;
-					notify('ok','success');
+					notify("n", "success");
 				} else if (response.status == "404") {
-					toast.querySelector(".toast-content i").classList = ["fa-solid fa-exclamation"];
-					toast.querySelector(".text-1").innerHTML = "Chú ý";
-					toast.querySelector(".text-2").innerHTML = "Tài khoản đã tồn tại";
-					toast.classList.add("active");
-					progress.classList.add("active");
-					timer1 = setTimeout(() => {
-						toast.classList.remove("active");
-					}, 5000); //1s = 1000 milliseconds
-					timer2 = setTimeout(() => {
-						progress.classList.remove("active");
-					}, 5300);
+					notify("x", "lỗi");
 				}
-				btn_reg.disabled = false;
-				btn_reg.textContent = "Register";
+				reg_btn.disabled = false;
+				reg_btn.textContent = "Submit";
 			} catch (error) {
 				console.log("Error:", error);
 			}
