@@ -28,9 +28,9 @@
 
 
   <title>Document</title>
-  <script>
+  <!-- <script>
     const currentURL = window.location.origin;
-  </script>
+  </script> -->
 </head>
 
 <body>
@@ -112,6 +112,7 @@
         </div>
       </div>
 
+      <% if(admin!=100) { %>
       <div class="information_name_wrap">
         <h3>Tên sáng tác (tác giả)</h3>
         <div class="information_name">
@@ -119,6 +120,7 @@
           <span class="form-message-info"></span>
         </div>
       </div>
+      <% } %>
 
       <div class="information_name_wrap">
         <h3>Email</h3>
@@ -480,7 +482,11 @@
               <div class="information_name_wrap">
                 <h3>Tác giả</h3>
                 <div class="information_name">
-                  <input class="profile_input author_name" type="text" required id="fullname" value="<%= author_name %>" readonly />
+                  <!-- <%if(admin!=100){%> -->
+                    <input class="profile_input author_name" type="text" required id="fullname" value="<%= author_name %>" />
+                  <!-- <% } else { %> -->
+                    <input class="profile_input author_name" type="text" required id="fullname" value="<%= author_name %>" readonly />
+                  <!-- <% } %> -->
                 </div>
               </div>
 
@@ -678,6 +684,12 @@
               </div>
             </div>
             <% } %>
+          </div>
+          <div class="pagination_btn_gr">
+            <button class="previous_page"><i class="fa-solid fa-arrow-left"></i></button>
+            <input type="number" class="find_page" value="1">/
+            <p id="max"><%= Math.round(max_page[0].row_count/4)%></p>
+            <button class="next_page"><i class="fa-solid fa-arrow-right"></i></button>
           </div>
           <div class="page5_info_main_btn">
             <button class="close_btn" id="accept_drop">Hủy</button>

@@ -130,7 +130,6 @@ const webRouter = (app) => {
     func_controller.checkAdmin,
     renderAdmin.add_content_slider
   );
-  // 
   // Search route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   router.get(
     "/search",

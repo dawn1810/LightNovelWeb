@@ -64,7 +64,6 @@ const authortManager = async (req, res) => {
     footerFile: "footer",
   });
 };
-
 module.exports = {
   admin,
   accountManager,

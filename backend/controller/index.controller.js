@@ -37,6 +37,9 @@ const rederIndex = async (req, res) => {
   );
   const data_novel_avd = await category({ query: 1 }, null, 13);
 
+  const truyen_slider  = await queryAsync(
+    `SELECT * FROM truyen WHERE id='${req.params.id}'`
+  );
   res.render("index", {
     headerFile: "header",
     footerFile: "footer",

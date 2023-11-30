@@ -39,7 +39,6 @@ const themes = localStorage.getItem('theme');
 const parts = currentURL.split('/'); // Tách URL thành các phần
 const id = parts[4];
 const chap = parts[5];
-console.log(id);
 async function views_novel(id_truyen) {
     await fetch(`/api/updateviews`, {
         method: 'POST',

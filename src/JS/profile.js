@@ -297,7 +297,7 @@ function validateFile(file, checkdoc = false) {
 		maxSize = maxSizeImg;
 		message_arlet = "Server có hạn, chọn file ảnh <1MB thoi người đẹp!.";
 	}
-	console.log("ẹc");
+
 	// Check file format
 	const fileName = file.name;
 	const fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
@@ -668,7 +668,7 @@ add_quick.onclick = function () {
 			let curr_file = $(this).parent().find(".file-input")[0].files[0];
 			
 			if (curr_file) {
-				notify("n", "Đăng tải lên...");
+				notify("n", "Đang tải lên...");
 
 				let formData = new FormData();
 				
@@ -1059,7 +1059,7 @@ $(document).ready(function () {
 	});
 
 	$(document).on("click", ".page5_b .download_btn", async function () {
-		notify("n", "Đã bắt đầu quá trình tải.");
+		notify("n", "Đang tải xuống...");
 		let grandGrandParentID = $(this).parent().parent().parent().attr("id");
 		const url = `/api/download_chap`; // URL của máy chủ mục tiêu
 
@@ -1093,7 +1093,7 @@ $(document).ready(function () {
 				window.URL.revokeObjectURL(url);
 			})
 			.catch((error) => {
-				notify("x", "Tải xuống file thất bại!");
+				notify("x", "Tải xuống thất bại!");
 				console.log("Error downloading file:", error);
 			});
 	});
@@ -1450,3 +1450,104 @@ page5_post_check.onclick = function () {
 		check = 0;
 	}
 };
+
+
+
+
+//pagination //////////////////////////////////////////////////////////////////
+const list_chapter_body = document.querySelector('.list_chapter_body')
+const find_page = document.querySelector(".find_page");
+const next_page = document.querySelector(".next_page");
+const previous_page = document.querySelector(".previous_page");
+const maxcout = parseInt(document.getElementById("max").innerText);
+
+document.addEventListener("DOMContentLoaded", function () {
+	next_page.onclick = function (event) {
+		event.preventDefault();
+		getListNovel((find_page.value - 1) * 6);
+	};
+	previous_page.onclick = function (event) {
+		event.preventDefault();
+		getListNovel((find_page.value - 1) * 6);
+	};
+
+});
+
+
+async function getListNovel(offset) {
+	const url = `/api/api_chapter`;
+
+	const requestOptions = {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			id: 'da13d5bf-51e2-4598-9d22-31ff3027e33d',
+			offset: offset,
+		}),
+	};
+
+	try {
+		const response = await fetch(url, requestOptions);
+
+		if (response.status === 200) {
+			const data = await response.json();
+			console.log(data["data"].length);
+			// if (data["data"].length < 4) {
+			// 	next_page.style.display = "none";
+			// }
+			// else if (find_page.value == maxcout) {
+			// 	next_page.style.display = "none";
+			// } else {
+			// 	next_page.style.display = "block";
+			// }
+			for (let i = 0; i < data["data"].length; i++) {
+				list_chapter_body.innerHTML =`
+			<div class="my_novel_item" id="156sAHcnZY7yG4X4y6lLgkX6G8h185h5b">
+              <div class="name_chapter" style="display: flex;">
+                <div class="chapter" style="
+												display: flex;
+												align-items: center;
+												justify-content: center;">
+                  Chương
+                </div>
+                <span>&emsp;</span>
+                <input type="text" class="profile_input n_num" style="width: 10%;" value="${data.data[i].ten_chuong}" readonly="">
+                <div style="
+												display: flex;
+												align-items: center;
+												justify-content: center;">
+                  &emsp;:&emsp;
+                </div>
+                <input type="text" class="profile_input n_name" value="data.data[i].ten_chuong'">
+                <a id="author_see" href="/reading/da13d5bf-51e2-4598-9d22-31ff3027e33d/2"><i class="fa-solid fa-eye" aria-hidden="true"></i></a>
+              </div>
+              <div class="btn_gritem">
+                <div class="novel_conntroller_btn">
+                  <div class="head_b">
+                    <pre class="file-content" style="margin: 1rem 20px;"></pre>
+                    <input type="file" class="file-input" style="display:none;" accept=".txt, .docx">
+                    <button class="upfile edit_btn">
+                      <i class="fa-solid fa-upload" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  <button class="upfile download_btn">
+                    <i class="fa-solid fa-download" aria-hidden="true"></i>
+                  </button>
+
+                  <button class="upfile remove_chap">
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+				`
+			}
+		} else {
+			alert("Có lỗi xảy ra: " + response.statusText);
+		}
+	} catch (error) {
+		console.log("Error:", error);
+	}
+}

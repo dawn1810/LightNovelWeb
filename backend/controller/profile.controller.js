@@ -18,6 +18,7 @@ const processNovels = async function (req, res, id_truyen) {
       edit_chap_ids: "",
       edit_name_chaps: "",
       edit_no_chaps: "",
+      max_page: 0,
     };
 
     const myNovels = await queryAsync(`
@@ -64,8 +65,11 @@ const processNovels = async function (req, res, id_truyen) {
         ON chuong.id_truyen = truyen.id
       WHERE truyen.id = '${novel.id}'
       ORDER BY chuong.thu_tu
+      LIMIT 6 OFFSET 0
       `);
-
+      const max_page = await queryAsync(
+        `SELECT COUNT(*) AS row_count FROM chuong WHERE id_truyen='${novel.id}';`
+      );
       novel.chap_ids = chapters.map((chapter) => chapter.noi_dung_chuong);
       novel.name_chaps = chapters.map((chapter) => chapter.ten_chuong);
 
@@ -80,6 +84,7 @@ const processNovels = async function (req, res, id_truyen) {
         render_data.edit_chap_ids = novel.chap_ids;
         render_data.edit_name_chaps = novel.name_chaps;
         render_data.edit_no_chaps = novel.no_chapters;
+        render_data.max_page= max_page;
       }
     }
 

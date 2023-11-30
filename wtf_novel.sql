@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 30, 2023 at 09:04 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th10 30, 2023 lúc 10:46 AM
+-- Phiên bản máy phục vụ: 10.4.28-MariaDB
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `wtf_novel`
+-- Cơ sở dữ liệu: `wtf_novel`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chuong`
+-- Cấu trúc bảng cho bảng `chuong`
 --
 
 CREATE TABLE `chuong` (
@@ -36,7 +36,7 @@ CREATE TABLE `chuong` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Dumping data for table `chuong`
+-- Đang đổ dữ liệu cho bảng `chuong`
 --
 
 INSERT INTO `chuong` (`id`, `id_truyen`, `ten_chuong`, `noi_dung_chuong`, `thu_tu`) VALUES
@@ -260,7 +260,7 @@ INSERT INTO `chuong` (`id`, `id_truyen`, `ten_chuong`, `noi_dung_chuong`, `thu_t
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sessions`
+-- Cấu trúc bảng cho bảng `sessions`
 --
 
 CREATE TABLE `sessions` (
@@ -270,30 +270,30 @@ CREATE TABLE `sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `sessions`
+-- Đang đổ dữ liệu cho bảng `sessions`
 --
 
 INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
-('0gzHL0PKw5P6L-_k9qG9LZ7W_9CHie75', 1701936185, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"100489975828441695411\"},\"user\":{\"id\":\"100489975828441695411\",\"username\":\"100489975828441695411\"}}'),
-('4VkOLRjz202uYvCNynWJGqpe72P_auNk', 1701935704, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
 ('80pV0ad7xhon3zmUvoBr-MiiDTYg-atr', 1701839995, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"109632126491025897743\"},\"user\":{\"id\":\"109632126491025897743\",\"username\":\"109632126491025897743\"}}'),
+('CWh9BTtd0FUaLQGL_s9LVIB_nhAn0YAh', 1701942149, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"100489975828441695411\"},\"user\":{\"id\":\"100489975828441695411\",\"username\":\"100489975828441695411\"}}'),
 ('Guf02UoIaa2_dF8r2p6wvyuSXZg0pqVi', 1701834511, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"110152635823665920356\"},\"user\":{\"id\":\"110152635823665920356\",\"username\":\"110152635823665920356\"}}'),
 ('Htk7aslQZaMhIuLsSJ4Ufb1b2MnDCNXW', 1701860914, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"100489975828441695411\"},\"user\":{\"id\":\"100489975828441695411\",\"username\":\"100489975828441695411\"}}'),
 ('MoKbECdOg6krP8_rJrUyTmJVqp4ppH9W', 1701775662, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"100489975828441695411\"},\"user\":{\"id\":\"100489975828441695411\",\"username\":\"100489975828441695411\"}}'),
 ('TKQgNFZfzjWCx48DznJtURWkwTcM-DR9', 1701838614, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"100489975828441695411\"},\"user\":{\"id\":\"100489975828441695411\",\"username\":\"100489975828441695411\"}}'),
-('WbbL96N76g298rf6eZAewf61Z6JTTR7o', 1701935945, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"109632126491025897743\"},\"user\":{\"id\":\"109632126491025897743\",\"username\":\"109632126491025897743\"}}'),
 ('XWsaY8JbgHXRdu3XlFZYwkdnT9J513NY', 1701836540, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
 ('blQ-u57ixYn1iWsVBaS77xZ7oIuDFZch', 1701859036, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"8a7db9fa-a51f-4e3d-88a7-cd960588aa59\",\"username\":\"hiem\",\"role\":0}}'),
 ('k648GuJDP94-B-k1C0DkwdGIEKjR3eUO', 1701935292, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
 ('m93DU841T2hx7keWIevS-0kL4t8nvm69', 1701774379, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
 ('nriwwvjLNsa2K4kPA42yyBEPQ3iwHxL5', 1701859923, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
 ('rjU9SHvQXc9HomNXszW_cSuk8I8ueSag', 1701775688, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"109632126491025897743\"},\"user\":{\"id\":\"109632126491025897743\",\"username\":\"109632126491025897743\"}}'),
-('uTmqjJOZN23EiyxEid8y4APfKSUtVe_-', 1701880940, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}');
+('t4QiWRvaeqIa16KfmymCd0MeBSCf9Fk8', 1701942131, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"bdbd15ad-50eb-40fb-a0d0-f141321e6fd0\",\"username\":\"admin\",\"role\":100}}'),
+('uTmqjJOZN23EiyxEid8y4APfKSUtVe_-', 1701880940, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"passport\":{\"user\":\"113263126602180653712\"},\"user\":{\"id\":\"113263126602180653712\",\"username\":\"113263126602180653712\"}}'),
+('vD00eXhD_5cBac2vfxBiFJR8wyZLHjfa', 1701941661, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"strict\"},\"user\":{\"id\":\"bdbd15ad-50eb-40fb-a0d0-f141321e6fd0\",\"username\":\"admin\",\"role\":100}}');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `slider`
+-- Cấu trúc bảng cho bảng `slider`
 --
 
 CREATE TABLE `slider` (
@@ -303,20 +303,20 @@ CREATE TABLE `slider` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `slider`
+-- Đang đổ dữ liệu cho bảng `slider`
 --
 
 INSERT INTO `slider` (`id`, `anh`, `id_truyen`) VALUES
-(1, 'https://drive.google.com/uc?export=view&id=19uMWiteHZ0GH2z2TSgKVjBraPXEwj3vb', '2d48dea0-e550-473c-8ca5-cb86a15f2dc8'),
-(2, 'https://images3.alphacoders.com/133/thumbbig-1334920.webp', 'da13d5bf-51e2-4598-9d22-31ff3027e33d'),
-(3, 'https://images3.alphacoders.com/133/thumbbig-1334920.webp', 'f7363ce1-1a26-4338-b9e6-99c5c9988ebb'),
-(4, 'https://images3.alphacoders.com/133/thumbbig-1334920.webp', 'a77d3931-d347-410d-88af-71cb223b8df2'),
-(5, 'https://images3.alphacoders.com/133/thumbbig-1334920.webp', 'da13d5bf-51e2-4598-9d22-31ff3027e33d');
+(1, 'https://drive.google.com/uc?export=view&id=1L6l_gLPnpSchVmD6zKS0XHiffQggP-H9', '2d48dea0-e550-473c-8ca5-cb86a15f2dc8'),
+(2, 'https://drive.google.com/uc?export=view&id=1jcnlY4Izehr9Xo1rRrQelMrDKDrml5bx', 'da13d5bf-51e2-4598-9d22-31ff3027e33d'),
+(3, 'https://drive.google.com/uc?export=view&id=1um0R2TJe2WdYD3QBVBWB7V0LC10MuVeu', 'f7363ce1-1a26-4338-b9e6-99c5c9988ebb'),
+(4, 'https://drive.google.com/uc?export=view&id=1NDzl1U93x5-9vmo_uhQcAisbIs-31IJK', 'a77d3931-d347-410d-88af-71cb223b8df2'),
+(5, 'https://drive.google.com/uc?export=view&id=11mNwK8WsG4wHZ4uRYNUdYDgefI2DlhMv', '66d6816c-180a-409e-8a0a-05f0502ddffe');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tacgia`
+-- Cấu trúc bảng cho bảng `tacgia`
 --
 
 CREATE TABLE `tacgia` (
@@ -326,7 +326,7 @@ CREATE TABLE `tacgia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Dumping data for table `tacgia`
+-- Đang đổ dữ liệu cho bảng `tacgia`
 --
 
 INSERT INTO `tacgia` (`id`, `id_nguoi_dung`, `ten_tac_gia`) VALUES
@@ -339,7 +339,7 @@ INSERT INTO `tacgia` (`id`, `id_nguoi_dung`, `ten_tac_gia`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `taikhoan_dangky`
+-- Cấu trúc bảng cho bảng `taikhoan_dangky`
 --
 
 CREATE TABLE `taikhoan_dangky` (
@@ -350,7 +350,7 @@ CREATE TABLE `taikhoan_dangky` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Dumping data for table `taikhoan_dangky`
+-- Đang đổ dữ liệu cho bảng `taikhoan_dangky`
 --
 
 INSERT INTO `taikhoan_dangky` (`ten_tai_khoan`, `mat_khau`, `email`, `thoi_gian_tao`) VALUES
@@ -360,7 +360,7 @@ INSERT INTO `taikhoan_dangky` (`ten_tai_khoan`, `mat_khau`, `email`, `thoi_gian_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `taikhoan_nguoidung`
+-- Cấu trúc bảng cho bảng `taikhoan_nguoidung`
 --
 
 CREATE TABLE `taikhoan_nguoidung` (
@@ -372,7 +372,7 @@ CREATE TABLE `taikhoan_nguoidung` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Dumping data for table `taikhoan_nguoidung`
+-- Đang đổ dữ liệu cho bảng `taikhoan_nguoidung`
 --
 
 INSERT INTO `taikhoan_nguoidung` (`id`, `ten_tai_khoan`, `email`, `mat_khau`, `login_way`) VALUES
@@ -381,12 +381,13 @@ INSERT INTO `taikhoan_nguoidung` (`id`, `ten_tai_khoan`, `email`, `mat_khau`, `l
 ('110152635823665920356', '110152635823665920356', 'chandoralong@gmail.com', NULL, 'google'),
 ('113263126602180653712', '113263126602180653712', 'binhminh19112003@gmail.com', NULL, 'google'),
 ('8a7db9fa-a51f-4e3d-88a7-cd960588aa59', 'hiem', '1@g.co', '123456', 'normal'),
-('bb2a3ae5-54d6-4a56-9c6b-67a020d5d140', 'dx', '1@g.co', '123456', 'normal');
+('bb2a3ae5-54d6-4a56-9c6b-67a020d5d140', 'dx', '1@g.co', '123456', 'normal'),
+('bdbd15ad-50eb-40fb-a0d0-f141321e6fd0', 'admin', 'admin10101001@gmail.com', '7b31eed16d1ae60f54187b2c7a50c2cccb255b3cdfcd5b2f60265aabb5bcd32468ea2dd1ea1cf97ea8197adc964a104683ae84ad97e6e64193e4e9149308bf5e', 'normal');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `the_loai`
+-- Cấu trúc bảng cho bảng `the_loai`
 --
 
 CREATE TABLE `the_loai` (
@@ -395,7 +396,7 @@ CREATE TABLE `the_loai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Dumping data for table `the_loai`
+-- Đang đổ dữ liệu cho bảng `the_loai`
 --
 
 INSERT INTO `the_loai` (`id`, `ten_the_loai`) VALUES
@@ -418,7 +419,7 @@ INSERT INTO `the_loai` (`id`, `ten_the_loai`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `the_loai_truyen`
+-- Cấu trúc bảng cho bảng `the_loai_truyen`
 --
 
 CREATE TABLE `the_loai_truyen` (
@@ -428,7 +429,7 @@ CREATE TABLE `the_loai_truyen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Dumping data for table `the_loai_truyen`
+-- Đang đổ dữ liệu cho bảng `the_loai_truyen`
 --
 
 INSERT INTO `the_loai_truyen` (`id`, `id_the_loai`, `id_truyen`) VALUES
@@ -455,7 +456,7 @@ INSERT INTO `the_loai_truyen` (`id`, `id_the_loai`, `id_truyen`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `thongtin_nguoidung`
+-- Cấu trúc bảng cho bảng `thongtin_nguoidung`
 --
 
 CREATE TABLE `thongtin_nguoidung` (
@@ -469,21 +470,22 @@ CREATE TABLE `thongtin_nguoidung` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Dumping data for table `thongtin_nguoidung`
+-- Đang đổ dữ liệu cho bảng `thongtin_nguoidung`
 --
 
 INSERT INTO `thongtin_nguoidung` (`id`, `id_tai_khoan`, `ten_hien_thi`, `anh_dai_dien`, `gioi_tinh`, `role`, `last_role`) VALUES
-('100489975828441695411', '100489975828441695411', 'Ngoc Long', 'https://lh3.googleusercontent.com/a/ACg8ocIIb0HY0aqShFhxx-BrcDuB_9iTKfjdudBqsOfCuLCbs18=s96-c', 1, 100, 0),
-('109632126491025897743', '109632126491025897743', 'Hưng Thịnh Nguyễn', 'https://drive.google.com/uc?export=view&id=1gvL4vW0GolMHl8V_ekxUwgiMyoaDKltE', 1, 100, 0),
-('110152635823665920356', '110152635823665920356', 'Ruri Meiko', 'https://lh3.googleusercontent.com/a/ACg8ocK8aV6zSthRfH8PZGBBm6Fv9NvJzlGnDc6Lf5Ge0_Fh-1E=s96-c', 1, 100, 0),
+('100489975828441695411', '100489975828441695411', 'Ngoc Long', 'https://lh3.googleusercontent.com/a/ACg8ocIIb0HY0aqShFhxx-BrcDuB_9iTKfjdudBqsOfCuLCbs18=s96-c', 1, 0, 0),
+('109632126491025897743', '109632126491025897743', 'Hưng Thịnh Nguyễn', 'https://lh3.googleusercontent.com/a/ACg8ocIOLB-fbztSnwyBHnyuYg_cpwsxJwxrBJ7DkcMrJnX2=s96-c', 1, 0, 0),
+('110152635823665920356', '110152635823665920356', 'Ruri Meiko', 'https://lh3.googleusercontent.com/a/ACg8ocK8aV6zSthRfH8PZGBBm6Fv9NvJzlGnDc6Lf5Ge0_Fh-1E=s96-c', 1, 0, 0),
 ('113263126602180653712', '113263126602180653712', 'Dawn Nguyen', 'https://drive.google.com/uc?export=view&id=1OggIQ4foMqR8sAWaKsV35UbZy7B0aHHU', 1, 0, 0),
 ('8a7db9fa-a51f-4e3d-88a7-cd960588aa59', '8a7db9fa-a51f-4e3d-88a7-cd960588aa59', 'hiem', 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg', 1, 0, 0),
-('bb2a3ae5-54d6-4a56-9c6b-67a020d5d140', 'bb2a3ae5-54d6-4a56-9c6b-67a020d5d140', 'dx', 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg', 1, 0, 0);
+('bb2a3ae5-54d6-4a56-9c6b-67a020d5d140', 'bb2a3ae5-54d6-4a56-9c6b-67a020d5d140', 'dx', 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg', 1, 0, 0),
+('bdbd15ad-50eb-40fb-a0d0-f141321e6fd0', 'bdbd15ad-50eb-40fb-a0d0-f141321e6fd0', 'admin', 'https://i.pinimg.com/originals/01/48/0f/01480f29ce376005edcbec0b30cf367d.jpg', 1, 100, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `truyen`
+-- Cấu trúc bảng cho bảng `truyen`
 --
 
 CREATE TABLE `truyen` (
@@ -501,7 +503,7 @@ CREATE TABLE `truyen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Dumping data for table `truyen`
+-- Đang đổ dữ liệu cho bảng `truyen`
 --
 
 INSERT INTO `truyen` (`id`, `id_tac_gia`, `ten_truyen`, `so_luong_chuong`, `tom_tat_noi_dung`, `anh_dai_dien`, `luot_xem`, `luot_thich`, `ngay_cap_nhat`, `trang_thai`, `ban`) VALUES
@@ -511,13 +513,13 @@ INSERT INTO `truyen` (`id`, `id_tac_gia`, `ten_truyen`, `so_luong_chuong`, `tom_
 ('89969950-e767-4e33-9e0f-d25b6d17a34f', '8a7db9fa-a51f-4e3d-88a7-cd960588aa59', 'test', 1, 'hiem', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 0, 0, '2023-11-29', 'Đang ra', 0),
 ('a27e55c3-9468-4860-baa5-85cf42d5f7fe', '113263126602180653712', 'Long ma Bắc Giang và 4 tỷ tên cướp', 5, 'Truyện là cuộc đối đầu đầy gây cấn giữa thế lực bất diệt Long ma Bắc Giang aka trai đẹp Phú Quốc với 4 tỷ tên cướp aka creeps tuy biết đây là cuộc chiến vô cùng không cân sức nhưng trai đẹp Phú Quốc kết liểu 4 tỷ con creeps thế nào mới đáng nói, đọc để quạt anh Long ma Bắc Giang.', 'https://drive.google.com/uc?export=view&id=1gNcu0TAzq7Lf2e6V2xwNGt6ylrbYnGcc', 0, 0, '2023-11-29', 'Đang ra', 0),
 ('a77d3931-d347-410d-88af-71cb223b8df2', '113263126602180653712', 'Dế mèn phiêu lưu kí', 2, 'Truyện là chuyến hành trình trải qua vô vàn cuộc phiêu lưu của chú dế mèn từ xứ sở thần tiên choáng ngợp ngay lần đầu tiên nhìn thấy tới đại hải trình đầy thách thức. Qua nhưng cuộc hành trình đó cũng là quá trình thay đổi của chú dế mèn của chúng ta từ một kẻ kiêu ngạo, tự mãn về bản thân đã không ngừng học hỏi và kết vô số người bạn. Để thấy rõ hơn những cuộc hành trình và quá trình ấy, tại sao không đọc và đám chìm và chiếc truyện này.', 'https://drive.google.com/uc?export=view&id=14ABgUuYPuf0CN-aUeGfjOUaFM4luydB_', 0, 2, '2023-11-28', 'Đang ra', 0),
-('da13d5bf-51e2-4598-9d22-31ff3027e33d', '100489975828441695411', 'Big Order', 1, 'Vì đây là một tập phim hại não nên sẽ không có tóm tắt nội dung... hãy dùng não, mặc dù sau khi dùng cũng chả hiểu gì cả. Bản TV series được phát hành vào tháng 4/2016.', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 1000, 0, '2023-11-28', 'Đang ra', 0),
+('da13d5bf-51e2-4598-9d22-31ff3027e33d', '100489975828441695411', 'Big Order', 155, 'Vì đây là một tập phim hại não nên sẽ không có tóm tắt nội dung... hãy dùng não, mặc dù sau khi dùng cũng chả hiểu gì cả. Bản TV series được phát hành vào tháng 4/2016.', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 1000, 1, '2023-11-28', 'Đang ra', 0),
 ('f7363ce1-1a26-4338-b9e6-99c5c9988ebb', '110152635823665920356', 'Nodejs', 1, 'rất kinh dị', 'https://cdn.sforum.vn/sforum/wp-content/uploads/2023/08/hinh-nen-cute-co-chu-47.jpg', 3, 0, '2023-11-28', 'Hoàn thành', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `truyen_yeu_thich`
+-- Cấu trúc bảng cho bảng `truyen_yeu_thich`
 --
 
 CREATE TABLE `truyen_yeu_thich` (
@@ -528,60 +530,61 @@ CREATE TABLE `truyen_yeu_thich` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Dumping data for table `truyen_yeu_thich`
+-- Đang đổ dữ liệu cho bảng `truyen_yeu_thich`
 --
 
 INSERT INTO `truyen_yeu_thich` (`id`, `id_nguoi_dung`, `id_truyen`, `chuong_hien_tai`) VALUES
 ('3c893d02-058f-4d37-b5a3-15fb583a942c', '8a7db9fa-a51f-4e3d-88a7-cd960588aa59', 'a77d3931-d347-410d-88af-71cb223b8df2', 1),
 ('7059a773-0559-443a-b34a-9ef213af8075', '8a7db9fa-a51f-4e3d-88a7-cd960588aa59', '66d6816c-180a-409e-8a0a-05f0502ddffe', 1),
+('bf21e1cc-1bed-48bc-ae3c-420ef0d04c70', '113263126602180653712', 'da13d5bf-51e2-4598-9d22-31ff3027e33d', 1),
 ('c7cf504e-2a67-42dc-8fe6-0c1a650e00ae', '110152635823665920356', '66d6816c-180a-409e-8a0a-05f0502ddffe', 1),
 ('f03233bf-bdc1-4a9c-b93e-25d35effc589', '110152635823665920356', 'a77d3931-d347-410d-88af-71cb223b8df2', 1);
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `chuong`
+-- Chỉ mục cho bảng `chuong`
 --
 ALTER TABLE `chuong`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_truyen` (`id_truyen`);
 
 --
--- Indexes for table `sessions`
+-- Chỉ mục cho bảng `sessions`
 --
 ALTER TABLE `sessions`
   ADD PRIMARY KEY (`session_id`);
 
 --
--- Indexes for table `slider`
+-- Chỉ mục cho bảng `slider`
 --
 ALTER TABLE `slider`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_truyen_slider` (`id_truyen`);
 
 --
--- Indexes for table `tacgia`
+-- Chỉ mục cho bảng `tacgia`
 --
 ALTER TABLE `tacgia`
   ADD PRIMARY KEY (`id`),
   ADD KEY `tacgia_ibfk_1` (`id_nguoi_dung`);
 
 --
--- Indexes for table `taikhoan_nguoidung`
+-- Chỉ mục cho bảng `taikhoan_nguoidung`
 --
 ALTER TABLE `taikhoan_nguoidung`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `the_loai`
+-- Chỉ mục cho bảng `the_loai`
 --
 ALTER TABLE `the_loai`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `the_loai_truyen`
+-- Chỉ mục cho bảng `the_loai_truyen`
 --
 ALTER TABLE `the_loai_truyen`
   ADD PRIMARY KEY (`id`),
@@ -589,21 +592,21 @@ ALTER TABLE `the_loai_truyen`
   ADD KEY `id_truyen` (`id_truyen`);
 
 --
--- Indexes for table `thongtin_nguoidung`
+-- Chỉ mục cho bảng `thongtin_nguoidung`
 --
 ALTER TABLE `thongtin_nguoidung`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_tai_khoan` (`id_tai_khoan`);
 
 --
--- Indexes for table `truyen`
+-- Chỉ mục cho bảng `truyen`
 --
 ALTER TABLE `truyen`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_tac_gia` (`id_tac_gia`);
 
 --
--- Indexes for table `truyen_yeu_thich`
+-- Chỉ mục cho bảng `truyen_yeu_thich`
 --
 ALTER TABLE `truyen_yeu_thich`
   ADD PRIMARY KEY (`id`),
@@ -611,58 +614,58 @@ ALTER TABLE `truyen_yeu_thich`
   ADD KEY `id_truyen` (`id_truyen`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `slider`
+-- AUTO_INCREMENT cho bảng `slider`
 --
 ALTER TABLE `slider`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Constraints for dumped tables
+-- Các ràng buộc cho các bảng đã đổ
 --
 
 --
--- Constraints for table `chuong`
+-- Các ràng buộc cho bảng `chuong`
 --
 ALTER TABLE `chuong`
   ADD CONSTRAINT `chuong_ibfk_1` FOREIGN KEY (`id_truyen`) REFERENCES `truyen` (`id`);
 
 --
--- Constraints for table `slider`
+-- Các ràng buộc cho bảng `slider`
 --
 ALTER TABLE `slider`
   ADD CONSTRAINT `fk_truyen_slider` FOREIGN KEY (`id_truyen`) REFERENCES `truyen` (`id`);
 
 --
--- Constraints for table `tacgia`
+-- Các ràng buộc cho bảng `tacgia`
 --
 ALTER TABLE `tacgia`
   ADD CONSTRAINT `tacgia_ibfk_1` FOREIGN KEY (`id_nguoi_dung`) REFERENCES `thongtin_nguoidung` (`id`);
 
 --
--- Constraints for table `the_loai_truyen`
+-- Các ràng buộc cho bảng `the_loai_truyen`
 --
 ALTER TABLE `the_loai_truyen`
   ADD CONSTRAINT `the_loai_truyen_ibfk_1` FOREIGN KEY (`id_the_loai`) REFERENCES `the_loai` (`id`),
   ADD CONSTRAINT `the_loai_truyen_ibfk_2` FOREIGN KEY (`id_truyen`) REFERENCES `truyen` (`id`);
 
 --
--- Constraints for table `thongtin_nguoidung`
+-- Các ràng buộc cho bảng `thongtin_nguoidung`
 --
 ALTER TABLE `thongtin_nguoidung`
   ADD CONSTRAINT `thongtin_nguoidung_ibfk_1` FOREIGN KEY (`id_tai_khoan`) REFERENCES `taikhoan_nguoidung` (`id`);
 
 --
--- Constraints for table `truyen`
+-- Các ràng buộc cho bảng `truyen`
 --
 ALTER TABLE `truyen`
   ADD CONSTRAINT `truyen_ibfk_1` FOREIGN KEY (`id_tac_gia`) REFERENCES `tacgia` (`id`);
 
 --
--- Constraints for table `truyen_yeu_thich`
+-- Các ràng buộc cho bảng `truyen_yeu_thich`
 --
 ALTER TABLE `truyen_yeu_thich`
   ADD CONSTRAINT `truyen_yeu_thich_ibfk_1` FOREIGN KEY (`id_nguoi_dung`) REFERENCES `thongtin_nguoidung` (`id`),
@@ -670,7 +673,7 @@ ALTER TABLE `truyen_yeu_thich`
 
 DELIMITER $$
 --
--- Events
+-- Sự kiện
 --
 CREATE DEFINER=`root`@`localhost` EVENT `delete_old_data_event` ON SCHEDULE EVERY 5 HOUR STARTS '2023-11-14 19:13:03' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
     -- Thực hiện xoá dữ liệu cũ

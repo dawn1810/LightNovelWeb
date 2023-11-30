@@ -17,9 +17,7 @@ if (localStorage.getItem("curentpage")) {
 document.addEventListener("DOMContentLoaded", function () {
 	if (find_page.value <= 1) {
 		previous_page.style.display = "none";
-	}else if (find_page.value==maxcout){
-    next_page.style.display = "none";
-  }
+	} 
 	find_page.addEventListener("keydown", function (event) {
 		if (find_page.value <= 1) {
 			previous_page.style.display = "none";
@@ -118,6 +116,9 @@ async function getListNovel(offset, fill) {
 			const data = await response.json();
 			let novelListHTML = "";
 			if (data["data"].length < 4) {
+				next_page.style.display = "none";
+			}
+			else if (find_page.value == maxcout) {
 				next_page.style.display = "none";
 			} else {
 				next_page.style.display = "block";
@@ -368,8 +369,8 @@ window.addEventListener("beforeunload", function (event) {
 		Number(find_page.value) > maxcout
 			? maxcout
 			: Number(find_page.value) <= 1
-			? 1
-			: Number(find_page.value);
+				? 1
+				: Number(find_page.value);
 
 	localStorage.setItem("curentpage", before_num);
 });

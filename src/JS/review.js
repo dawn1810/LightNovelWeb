@@ -415,10 +415,9 @@ async function getReview() {
                 a.click();
                 // release the temporary URL
                 window.URL.revokeObjectURL(url);
-                notify("n", "Download thành công!!!");
               })
               .catch((error) => {
-                notify("x", "Download không thành công!!!");
+                notify("x", "Tải xuống thất bại!");
                 console.error("Error downloading file:", error);
               });
           };

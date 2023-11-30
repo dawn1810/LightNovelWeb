@@ -178,23 +178,30 @@ async function checkCoookieIfOK(req, res, next) {
 	}
 }
 async function checkAdmin(req, res, next) {
-	if (req.user) {
-		if (req.isAuthenticated()) {
-			req.session.user = req.user;
-		}
-		const user = req.session.user;
+	if (req.isAuthenticated()) {
+		req.session.user = req.user;
+	}
+	const user = req.session.user;
+	if (user) {
+		
+		
 		const result = await queryAsync(
-			`SELECT * FROM thongtin_nguoidung WHERE role= 100 AND id_tai_khoan = '${user.id}'`
+			`SELECT * FROM thongtin_nguoidung WHERE role= '100' AND id_tai_khoan = '${user.id}'`
 		);
 
 		if (!result.length) {
 			res.locals.admin = "";
 			res.locals.admin = null;
+			console.log('huhu')
+
 			return res.redirect("/");
 		} else {
 			res.locals.admin = result[0].role;
+			console.log('hahah')
 			next();
 		}
+	} else {
+		return res.redirect("/");
 	}
 }
 

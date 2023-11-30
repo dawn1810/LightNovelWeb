@@ -36,22 +36,7 @@ const renderReviews = async (req, res) => {
      ORDER BY truyen.ngay_cap_nhat DESC, truyen.luot_xem DESC, truyen.luot_thich DESC, truyen.ten_truyen ASC
      LIMIT 6;`
     );
-    // const maybeulike = await server.find_all_Data({
-    //   table: "truyen",
-    //   query: { genres: { $in: result[0].genres } },
-    //   projection: {
-    //     name: 1,
-    //     author: 1,
-    //     image: 1,
-    //     no_chapters: 1,
-    //     status: 1,
-    //     likes: 1,
-    //     views: 1,
-    //     update_date: 1,
-    //   },
-    //   sort: { update_date: -1, views: -1, likes: -1, name: 1 },
-    //   limit: 6,
-    // });
+    
 
     for (let i = 0; i < maybeulikethat.length; i++) {
       maybeulikethat[i].update_date = func_controller.calTime(

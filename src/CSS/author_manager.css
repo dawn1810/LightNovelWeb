@@ -178,7 +178,7 @@
   background-color: var(--button-colors) !important;
   font-size: 1.2rem;
   border-radius: 0.3rem;
-  width: 45%;
+  width: 100%;
 }
 .chart {
   width: 300px;

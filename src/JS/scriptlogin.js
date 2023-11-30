@@ -281,7 +281,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				if (response.status == 200) {
 					window.location.reload();
 				} else if (response.status == 403 || response.status == 500) {
-					notify("!", "Thông tin đang nhập chưa chính xác!");
+					notify("!", "Thông tin đang nhập không chính xác!");
 				}
 			} catch (error) {
 				console.log("Error:", error);
@@ -389,9 +389,9 @@ document.addEventListener("DOMContentLoaded", function () {
 			try {
 				const response = await fetch(url, requestOptions);
 				if (response.status == "200") {
-					notify("n", "success");
+					notify("n", "Đăng nhập thành công!");
 				} else if (response.status == "404") {
-					notify("x", "lỗi");
+					notify("x", "Có lỗi xảy ra");
 				}
 				reg_btn.disabled = false;
 				reg_btn.textContent = "Submit";

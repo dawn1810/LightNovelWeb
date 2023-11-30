@@ -87,6 +87,14 @@ body {
   padding: 20px;
   border: 2px solid;
   min-height: 90%;
+
+}
+
+.page_5_title .Setting_pageWrapper{
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: block;
+  height: 100vh;
 }
 
 .page4 {
@@ -1400,3 +1408,25 @@ input:required:focus {
 .quick_add .add_new {
   width: 100%;
 } */
+
+.pagination_btn_gr {
+  height: 3rem;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.find_page {
+  text-align: center;
+  background-color: var(--button-colors);
+  width: 3rem;
+  height: 2rem;
+  border: none;
+  font-weight: 600;
+}
+.next_page {
+  font-size: 1.5rem;
+}
+.previous_page {
+  font-size: 1.5rem;
+}

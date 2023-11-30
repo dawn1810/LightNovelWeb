@@ -306,8 +306,7 @@ const api_signup = async (req, res) => {
 		} else {
 			// add data to dang_ky database:
 			await queryAsync(
-				`INSERT INTO  taikhoan_dangky (ten_tai_khoan, mat_khau, email) VALUES ('${
-					data.usr
+				`INSERT INTO  taikhoan_dangky (ten_tai_khoan, mat_khau, email) VALUES ('${data.usr
 				}','${func_controller.hashPassword(data.pass)}','${data.email}')`
 			);
 			res.sendStatus(200);
@@ -328,7 +327,6 @@ const api_login = async (req, res) => {
 	// email: 18102003
 	// }
 	// data = {usr: bbp, pass: 1234567890}
-	console.log("SYSTEM | LOG_IN | Dữ liệu nhận được: ", data);
 	try {
 		// const f_result = await server.find_all_Data({
 		//   query: { usr: data.usr },
@@ -348,7 +346,7 @@ const api_login = async (req, res) => {
 					// copy data to dang_nhap database
 					const id_user = uuidv4();
 					await queryAsync(
-						`INSERT INTO taikhoan_nguoidung (id, ten_tai_khoan, email, mat_khau) VALUES ('${id_user}','${data.usr}','${f_result[i].email}','${data.pass}')`
+						`INSERT INTO taikhoan_nguoidung (id, ten_tai_khoan, email, mat_khau) VALUES ('${id_user}','${data.usr}','${f_result[i].email}','${func_controller.hashPassword(data.pass)}')`
 					);
 					// them truong moi trong tt_nguoi_dung
 					await queryAsync(
@@ -356,7 +354,7 @@ const api_login = async (req, res) => {
 					);
 					// them mot nguoi dung moi
 					await queryAsync(
-						`DELETE FROM taikhoan_dangky WHERE ten_tai_khoan = '${data.usr}' AND mat_khau = '${data.pass}'`
+						`DELETE FROM taikhoan_dangky WHERE ten_tai_khoan = '${data.usr}'`
 					);
 					const user = {
 						id: id_user,
@@ -367,7 +365,6 @@ const api_login = async (req, res) => {
 
 					return res.sendStatus(200);
 				}
-
 				return res.sendStatus(403);
 			}
 		} //chao e
@@ -377,8 +374,7 @@ const api_login = async (req, res) => {
 			//   _id: data.usr,
 			// });
 			const n_result = await queryAsync(
-				`SELECT * FROM taikhoan_nguoidung WHERE ten_tai_khoan= '${
-					data.usr
+				`SELECT * FROM taikhoan_nguoidung WHERE ten_tai_khoan= '${data.usr
 				}' AND mat_khau = '${func_controller.hashPassword(data.pass)}'`
 			);
 			const role_u = await queryAsync(
@@ -438,10 +434,10 @@ const api_updateLike = async (req, res) => {
 				// like
 				// up one like for current novel
 				await queryAsync(`
-        UPDATE truyen
-        SET luot_thich = luot_thich + 1
-        WHERE id = '${data.id_truyen}'
-        `);
+				UPDATE truyen
+				SET luot_thich = luot_thich + 1
+				WHERE id = '${data.id_truyen}'
+				`);
 
 				// await server.update_one_Data(
 				//   "truyen",
@@ -451,9 +447,9 @@ const api_updateLike = async (req, res) => {
 
 				// add current nodel to like list of current user
 				await queryAsync(`
-        INSERT INTO truyen_yeu_thich (id, id_nguoi_dung, id_truyen, chuong_hien_tai)
-        VALUES ('${uuidv4()}', '${account.id}', '${data.id_truyen}', ${data.curr_chap})
-        `);
+				INSERT INTO truyen_yeu_thich (id, id_nguoi_dung, id_truyen, chuong_hien_tai)
+				VALUES ('${uuidv4()}', '${account.id}', '${data.id_truyen}', ${data.curr_chap})
+				`);
 
 				// await server.update_one_Data(
 				//   "tt_nguoi_dung",
@@ -468,10 +464,10 @@ const api_updateLike = async (req, res) => {
 				// unlike
 				// down on like for current novel
 				await queryAsync(`
-        UPDATE truyen
-        SET luot_thich = luot_thich - 1
-        WHERE id = '${data.id_truyen}'
-        `);
+				UPDATE truyen
+				SET luot_thich = luot_thich - 1
+				WHERE id = '${data.id_truyen}'
+				`);
 
 				// await server.update_one_Data(
 				//   "truyen",
@@ -480,10 +476,10 @@ const api_updateLike = async (req, res) => {
 				// );
 				// remove current nodel from like list of current user
 				await queryAsync(`
-        DELETE FROM truyen_yeu_thich 
-        WHERE id_nguoi_dung = '${account.id}'
-        AND id_truyen = '${data.id_truyen}';
-        `);
+				DELETE FROM truyen_yeu_thich 
+				WHERE id_nguoi_dung = '${account.id}'
+				AND id_truyen = '${data.id_truyen}';
+				`);
 
 				// await server.update_one_Data(
 				//   "tt_nguoi_dung",
@@ -506,16 +502,18 @@ const api_updateCurrchap = async (req, res) => {
 	try {
 		const data = req.body;
 		const account = req.session.user;
-		// update curr_chap for truyen_yeu_thich table of curr user
-		await queryAsync(`
-			UPDATE truyen_yeu_thich
-			SET chuong_hien_tai = ${data.curr_chap}
-			WHERE id_truyen = '${data.id_truyen}'
-			AND id_nguoi_dung = '${account.id}'
-			`);
-		res.writeHead(200, { "Content-Type": "text/plain" });
-		console.log(`SYSTEM | UPDATE_CURR_CHAP | Da cap nhat `);
-		res.end(JSON.stringify("viewed!!!"));
+		if (account) {
+			// update curr_chap for truyen_yeu_thich table of curr user
+			await queryAsync(`
+				UPDATE truyen_yeu_thich
+				SET chuong_hien_tai = ${data.curr_chap}
+				WHERE id_truyen = '${data.id_truyen}'
+				AND id_nguoi_dung = '${account.id}'
+				`);
+			res.writeHead(200, { "Content-Type": "text/plain" });
+			console.log(`SYSTEM | UPDATE_CURR_CHAP | Da cap nhat `);
+			res.end(JSON.stringify("viewed!!!"));
+		} else return res.sendStatus(403);
 	} catch (err) {
 		console.log("SYSTEM | UPDATE_CURR_CHAP | ERROR | ", err);
 		res.sendStatus(500);
@@ -549,125 +547,90 @@ const api_updateViews = async (req, res) => {
 };
 
 const api_uploadNovel = async (req, res) => {
-	const data = req.body;
-	const account = req.session.user;
-	console.log("SYSTEM | UPLOAD_NOVEL | Dữ liệu nhận được: ", data);
-	console.log("SYSTEM | UPLOAD_NOVEL | Cookie nhận được: ", account);
-
+	
 	try {
-		const novel_id = uuidv4();
+		const data = req.body;
+		const account = req.session.user;
+		if (account) {
 
-		// Get the current date
-		const currentDate = new Date();
-
-		// Format the date in MySQL-compatible format
-		const formattedDate = currentDate.toISOString().slice(0, 19).replace("T", " ");
-
-		let avt_var = data.image;
-		if (isBase64(data.image)) {
-			// avt_var = await compressImageBase64(data.image, 5);
-			const imgdata = await getDriveFileLinkAndDescription(
-				await uploadFileToDrivebase64(avt_var)
-			);
-			avt_var = imgdata.fileLink;
-		}
-
-		// add to truyen database
-		await queryAsync(`
-      INSERT INTO truyen (
-        id, 
-        id_tac_gia, 
-        ten_truyen, 
-        so_luong_chuong, 
-        tom_tat_noi_dung, 
-        anh_dai_dien, 
-        trang_thai, 
-        ngay_cap_nhat
-      )
-      VALUES (
-        '${novel_id}', 
-        '${account.id}', 
-        '${data.name}', 
-        ${data.name_chaps.length}, 
-        '${data.summary}', 
-        '${avt_var}', 
-        '${data.status}', 
-        '${formattedDate}'
-      )
-    `);
-
-		// add to chuong database
-		for (let i = 0; i < data.name_chaps.length; i++) {
+			const novel_id = uuidv4();
+	
+			// Get the current date
+			const currentDate = new Date();
+	
+			// Format the date in MySQL-compatible format
+			const formattedDate = currentDate.toISOString().slice(0, 19).replace("T", " ");
+	
+			let avt_var = data.image;
+			if (isBase64(data.image)) {
+				// avt_var = await compressImageBase64(data.image, 5);
+				const imgdata = await getDriveFileLinkAndDescription(
+					await uploadFileToDrivebase64(avt_var)
+				);
+				avt_var = imgdata.fileLink;
+			}
+	
+			// add to truyen database
 			await queryAsync(`
-        INSERT INTO chuong (
-          id,
-          id_truyen,
-          ten_chuong,
-          noi_dung_chuong,
-          thu_tu
-        )
-        VALUES (
-          '${uuidv4()}',
-          '${novel_id}',
-          '${data.name_chaps[i]}',
-          '${data.chap_ids[i]}',
-          ${i + 1}
-        )
-        `);
-		}
-
-		for (let i = 0; i < data.genres.length; i++) {
-			await queryAsync(`
-        INSERT INTO the_loai_truyen (
-          id,
-          id_the_loai,
-          id_truyen
-        )
-        VALUES (
-          '${uuidv4()}',
-          '${data.genres[i]}',
-          '${novel_id}'
-        )
-        `);
-		}
-
-		// add to the loai database
-
-		// // upload novel content
-		// let up_content = {
-		//   name: data.name,
-		//   author: data.author,
-		//   name_chaps: data.name_chaps,
-		//   chap_ids: data.chap_ids,
-		//   status: data.status,
-		//   no_chapters: data.name_chaps.length,
-		//   genres: data.genres,
-		//   summary: data.summary,
-		//   image: data.image,
-		//   views: 0,
-		//   likes: 0,
-		//   update_date: new Date(),
-		// };
-
-		// const id_check = await server.add_one_Data("truyen", up_content);
-
-		// console.log(id_check);
-		// create a new comment document
-		// await server.add_one_Data("comment", {
-		//   _id: id_check.insertedId,
-		//   content: {
-		//     // user_name: content (do what to add)
-		//   },
-		// });
-
-		// update user's novel list
-		// await server.update_one_Data(
-		//   "tt_nguoi_dung",
-		//   { _id: decodeList[1] },
-		//   { $push: { mynovel: id_check.insertedId.toString() } }
-		// );
-
-		res.sendStatus(200);
+		  INSERT INTO truyen (
+			id, 
+			id_tac_gia, 
+			ten_truyen, 
+			so_luong_chuong, 
+			tom_tat_noi_dung, 
+			anh_dai_dien, 
+			trang_thai, 
+			ngay_cap_nhat
+		  )
+		  VALUES (
+			'${novel_id}', 
+			'${account.id}', 
+			'${data.name}', 
+			${data.name_chaps.length}, 
+			'${data.summary}', 
+			'${avt_var}', 
+			'${data.status}', 
+			'${formattedDate}'
+		  )
+		`);
+	
+			// add to chuong database
+			for (let i = 0; i < data.name_chaps.length; i++) {
+				await queryAsync(`
+			INSERT INTO chuong (
+			  id,
+			  id_truyen,
+			  ten_chuong,
+			  noi_dung_chuong,
+			  thu_tu
+			)
+			VALUES (
+			  '${uuidv4()}',
+			  '${novel_id}',
+			  '${data.name_chaps[i]}',
+			  '${data.chap_ids[i]}',
+			  ${i + 1}
+			)
+			`);
+			}
+	
+			for (let i = 0; i < data.genres.length; i++) {
+				await queryAsync(`
+			INSERT INTO the_loai_truyen (
+			  id,
+			  id_the_loai,
+			  id_truyen
+			)
+			VALUES (
+			  '${uuidv4()}',
+			  '${data.genres[i]}',
+			  '${novel_id}'
+			)
+			`);
+			}
+	
+			res.sendStatus(200);
+		} else return res.sendStatus(403);
 	} catch (err) {
 		console.log("SYSTEM | UPLOAD NOVEL | ERROR | ", err);
 		res.sendStatus(500);
@@ -977,48 +940,50 @@ const api_updateInfo = async (req, res) => {
 		const account = req.session.user;
 		const data = req.body;
 
-		let avt_var = data.img;
-		if (isBase64(data.img)) {
-			// avt_var = await compressImageBase64(data.img, 5);
-			const imgdata = await getDriveFileLinkAndDescription(
-				await uploadFileToDrivebase64(avt_var)
-			);
-			avt_var = imgdata.fileLink;
-		}
+		if (account) {
+			let avt_var = data.img;
+			if (isBase64(data.img)) {
+				// avt_var = await compressImageBase64(data.img, 5);
+				const imgdata = await getDriveFileLinkAndDescription(
+					await uploadFileToDrivebase64(avt_var)
+				);
+				avt_var = imgdata.fileLink;
+			}
 
-		// imgdata.fileLink la link hinh
+			// imgdata.fileLink la link hinh
 
-		// update user information
-		await queryAsync(`
-      UPDATE thongtin_nguoidung
-      SET 
-        ten_hien_thi = '${data.hoten}',
-        anh_dai_dien = '${avt_var}',
-        gioi_tinh = ${data.sex}
-      WHERE id_tai_khoan = '${account.id}';
-    `);
+			// update user information
+			await queryAsync(`
+			UPDATE thongtin_nguoidung
+			SET 
+				ten_hien_thi = '${data.hoten}',
+				anh_dai_dien = '${avt_var}',
+				gioi_tinh = ${data.sex}
+			WHERE id_tai_khoan = '${account.id}';
+			`);
 
-		// update user's email
-		await queryAsync(`
-      UPDATE taikhoan_nguoidung
-      SET 
-        email = '${data.email}'
-      WHERE id = '${account.id}'
-      AND login_way <> 'google';
-    `);
+			// update user's email
+			await queryAsync(`
+			UPDATE taikhoan_nguoidung
+			SET 
+				email = '${data.email}'
+			WHERE id = '${account.id}'
+			AND login_way <> 'google';
+			`);
 
-		// update author name
-		await queryAsync(`
-    INSERT INTO tacgia (id, id_nguoi_dung, ten_tac_gia)
-    VALUES (
-      '${account.id}',
-      '${account.id}',
-      '${data.author_name}'
-    ) 
-    ON DUPLICATE KEY UPDATE ten_tac_gia = VALUES(ten_tac_gia);
-    `);
+			// update author name
+			await queryAsync(`
+			INSERT INTO tacgia (id, id_nguoi_dung, ten_tac_gia)
+			VALUES (
+			'${account.id}',
+			'${account.id}',
+			'${data.author_name}'
+			) 
+			ON DUPLICATE KEY UPDATE ten_tac_gia = VALUES(ten_tac_gia);
+			`);
 
-		res.sendStatus(200);
+			res.sendStatus(200);
+		} else return res.sendStatus(403);
 	} catch (err) {
 		console.log("SYSTEM | UPDATE INFO | ERROR | ", err);
 		res.sendStatus(500);
@@ -1030,26 +995,29 @@ const api_changePass = async (req, res) => {
 		const account = req.session.user;
 		const data = req.body;
 		// console.log("SYSTEM | CHANGE_PASSWORD |", data);
-		const result = await queryAsync(`
-    SELECT mat_khau as pass
-    FROM taikhoan_nguoidung
-    WHERE id = '${account.id}'
-    `);
+		if (account) {
+			const result = await queryAsync(`
+			SELECT mat_khau as pass
+			FROM taikhoan_nguoidung
+			WHERE id = '${account.id}'
+			`);
 
-		// const n_result = await server.find_one_Data("dang_nhap", {
-		//   _id: decodeList[1],
-		// });
-		if (data["Old-Password"] == result[0].pass) {
-			await queryAsync(`
-      UPDATE taikhoan_nguoidung
-      SET 
-        mat_khau = '${data["new-Password"]}'
-      WHERE id = '${account.id}';
-      `);
-			res.sendStatus(200);
-		} else {
-			res.status(403).send("Sai pass cũ");
-		}
+			// const n_result = await server.find_one_Data("dang_nhap", {
+			//   _id: decodeList[1],
+			// });
+			if (data["Old-Password"] == result[0].pass) {
+				await queryAsync(`
+				UPDATE taikhoan_nguoidung
+				SET 
+					mat_khau = '${data["new-Password"]}'
+				WHERE id = '${account.id}';
+				`);
+				res.sendStatus(200);
+			} else {
+				res.status(403).send("Sai pass cũ");
+			}
+		} else 
+			return res.sendStatus(403);
 	} catch (err) {
 		console.log("SYSTEM | UPDATE INFO | ERROR | ", err);
 		res.sendStatus(500);
@@ -1346,7 +1314,9 @@ const api_quick_upload = async (req, res) => {
 			} else {
 				return res.status(400).send("Invalid file type.");
 			}
-		}
+		} else 
+			return res.sendStatus(500);
+		
 	} catch (error) {
 		console.log("Error in update_state_novel:", error);
 		res.status(500).json({ error: "Có lỗi xảy ra trên server" });
@@ -1383,6 +1353,42 @@ const api_editSlider = async (req, res) => {
 	}
 };
 
+
+
+
+
+const api_get_list_chapter = async (req, res) => {
+	try {
+		// Chuyển đổi giá trị offset và n sang kiểu số
+		const offset = parseInt(req.body.offset, 10);
+		const id = req.body.id;
+
+		// Kiểm tra xem giá trị có phải là số hay không
+		if (isNaN(offset)) {
+			res.status(400).json({ error: "Giá trị không hợp lệ" });
+			return;
+		}
+		let result = await queryAsync(`
+		SELECT 
+		  chuong.ten_chuong,
+		  chuong.noi_dung_chuong
+		FROM chuong
+		INNER JOIN truyen
+		  ON chuong.id_truyen = truyen.id
+		WHERE truyen.id = '${id}'
+		ORDER BY chuong.thu_tu
+		LIMIT 6 OFFSET ${offset}
+		`);
+		if (result && result.length > 0) {
+			res.status(200).json({ data: result });
+		} else {
+			res.status(404).json({ error: "Không tìm thấy chương" });
+		}
+	} catch (error) {
+		console.error("Error in api_get_list_novel:", error);
+		res.status(500).json({ error: "Có lỗi xảy ra trên server" });
+	}
+};
 module.exports = {
 	api_search_more,
 	api_reset_password,
@@ -1416,4 +1422,5 @@ module.exports = {
 	api_get_quick_template,
 	api_quick_upload,
 	api_editSlider,
+	api_get_list_chapter,
 };

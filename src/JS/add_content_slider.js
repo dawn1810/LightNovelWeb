@@ -11,7 +11,9 @@ for (const btn of edit_btn) {
 
 		modal.style.display = 'block';
 		modal.setAttribute("id", btn.parentElement.getAttribute('id')) 
-		console.log(modal.id )
+		console.log(modal.id)
+		getNovel(btn.parentElement.querySelector('.slider_item_title span').innerText)
+		document.querySelector('.your-avt').src=btn.parentElement.querySelector('.slider_item_img img').src
 	}
 }
 modal.onclick = ()=>{
@@ -61,7 +63,7 @@ function validateFile(file, checkdoc = false) {
 		maxSize = maxSizeImg;
 		message_arlet = "Server có hạn, chọn file ảnh <1MB thoi người đẹp!.";
 	}
-	console.log("ẹc");
+	
 	// Check file format
 	const fileName = file.name;
 	const fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
@@ -109,6 +111,8 @@ const maxcout = parseInt(document.getElementById('max').innerText)
 const info_truyen = document.querySelector(".avt_space");
 
 document.addEventListener("DOMContentLoaded", function () {
+	
+
 	if (find_page.value <= 1) {
 	  previous_page.style.display = "none";
 	}
@@ -319,7 +323,6 @@ async function getListNovel(offset, fill) {
   
 		// Gán toàn bộ chuỗi vào list_container
 		info_truyen.innerHTML = novelListHTML;
-		chart();
 	  } else {
 		alert("Có lỗi xảy ra: " + response.statusText);
 	  }
@@ -332,8 +335,8 @@ async function getListNovel(offset, fill) {
   
 	localStorage.setItem("curentpage", before_num);
   });
-  document.querySelector(".edit_slider_btn").onclick = function () {
-	
+  document.querySelector(".edit_slider_btn").onclick = function (e) {
+	e.preventDefault();
 
 	const postData = JSON.stringify({
 		id: modal.getAttribute('id'),
@@ -360,5 +363,8 @@ async function getListNovel(offset, fill) {
 			console.error("Error downloading file:", error);
 		});
 };
+
+
+
   
 	
