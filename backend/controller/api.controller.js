@@ -300,7 +300,9 @@ const api_signup = async (req, res) => {
 		} else {
 			// add data to dang_ky database:
 			await queryAsync(
-				`INSERT INTO  taikhoan_dangky (ten_tai_khoan, mat_khau, email) VALUES ('${data.usr}','${data.pass}','${data.email}')`
+				`INSERT INTO  taikhoan_dangky (ten_tai_khoan, mat_khau, email) VALUES ('${
+					data.usr
+				}','${func_controller.hashPassword(data.pass)}','${data.email}')`
 			);
 			res.sendStatus(200);
 			console.log("SYSTEM | SIGN_UP | Sign up success!!!");
@@ -336,7 +338,8 @@ const api_login = async (req, res) => {
 		if (f_result.length != 0) {
 			// log in first time: (sign up database)
 			for (let i = 0; i < f_result.length; i++) {
-				if (f_result[i].mat_khau == data.pass) {
+				console.log(func_controller.comparePassword(data.pass, f_result[i].mat_khau));
+				if (func_controller.comparePassword(data.pass, f_result[i].mat_khau)) {
 					// copy data to dang_nhap database
 					const id_user = uuidv4();
 					await queryAsync(
@@ -369,7 +372,9 @@ const api_login = async (req, res) => {
 			//   _id: data.usr,
 			// });
 			const n_result = await queryAsync(
-				`SELECT * FROM taikhoan_nguoidung WHERE ten_tai_khoan= '${data.usr}' AND mat_khau = '${data.pass}'`
+				`SELECT * FROM taikhoan_nguoidung WHERE ten_tai_khoan= '${
+					data.usr
+				}' AND mat_khau = '${func_controller.hashPassword(data.pass)}'`
 			);
 			const role_u = await queryAsync(
 				`SELECT role FROM thongtin_nguoidung WHERE id_tai_khoan= '${n_result[0].id}'`
@@ -1255,26 +1260,26 @@ const api_quick_upload = async (req, res) => {
 			if (!req.files) {
 				return res.status(400).send("No file uploaded.");
 			}
-	
+
 			if (allowedMimeTypes.indexOf(req.files[0].mimetype) == 1) {
 				const filePath = path.join(uploadDirectory, req.files[0].originalname);
-	
+
 				// Use mammoth to extract text content from DOCX
 				const { value } = await mammoth.extractRawText({ path: filePath });
-	
+
 				// console.log(value, typeof value);
 				// The result object contains a "value" property with the text content
 				const result = await func_controller.extractInformation(value);
-	
+
 				if (result) {
 					const novel_id = uuidv4();
-	
+
 					// Get the current date
 					const currentDate = new Date();
-	
+
 					// Format the date in MySQL-compatible format
 					const formattedDate = currentDate.toISOString().slice(0, 19).replace("T", " ");
-	
+
 					// add to truyen database
 					await queryAsync(`
 					INSERT INTO truyen (
@@ -1296,7 +1301,7 @@ const api_quick_upload = async (req, res) => {
 						'${formattedDate}'
 					)
 					`);
-	
+
 					// add to chuong database
 					for (let i = 0; i < result.name_chapters.length; i++) {
 						await queryAsync(`
@@ -1316,7 +1321,7 @@ const api_quick_upload = async (req, res) => {
 						)
 						`);
 					}
-	
+
 					for (let i = 0; i < result.genre.length; i++) {
 						await queryAsync(`
 						INSERT INTO the_loai_truyen (
@@ -1333,7 +1338,6 @@ const api_quick_upload = async (req, res) => {
 					}
 					return res.status(200).send("Success.");
 				} else res.status(400).send("File have no match content.");
-	
 			} else {
 				return res.status(400).send("Invalid file type.");
 			}

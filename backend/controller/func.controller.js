@@ -39,6 +39,19 @@ const upload = () => {
 	return multer({ storage: storage_file });
 };
 
+const hashPassword = (password) => {
+	const hash = crypto
+		.pbkdf2Sync(password, authenticationKey, 10000, 64, "sha512")
+		.toString("hex");
+	return hash;
+};
+
+// Hàm để so sánh mật khẩu đã nhập với mật khẩu đã lưu trữ
+const comparePassword = (inputPassword, hashedPassword) => {
+	const hashToCompare = hashPassword(inputPassword, authenticationKey);
+	return hashedPassword === hashToCompare;
+};
+
 function encrypt(data, secretKey) {
 	const algorithm = "aes-256-cbc";
 	const iv = crypto.randomBytes(16); // Generate a random IV
@@ -474,17 +487,14 @@ async function extractInformation(text) {
 				name_chapters: chapters,
 				content_chapter: contents,
 			};
-			
-			new_gernes = await Promise.all(
-				dict.genre.split(',').map(gerne => gerne.trim())
-			);
+
+			new_gernes = await Promise.all(dict.genre.split(",").map((gerne) => gerne.trim()));
 			dict.genre = new_gernes;
 
 			new_content_chapter = await Promise.all(
 				dict.content_chapter.map((content) => server.uploadContentToDrive(content))
 			);
 			dict.content_chapter = new_content_chapter;
-
 
 			return dict;
 		} else return 0;
@@ -511,4 +521,6 @@ module.exports = {
 	getFirstAndLastDayOfMonth,
 	readDocxFile,
 	extractInformation,
+	hashPassword,
+	comparePassword,
 };
