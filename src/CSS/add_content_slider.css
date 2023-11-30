@@ -64,7 +64,10 @@
 .modal_slider_wrap{
     width: 1200px;
     margin: 0 auto;
-    background-color: var(--element-color);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .modal_slider_con{
     display: flex;
@@ -177,4 +180,8 @@
   }
   .edit_slider_btn{
     margin-top: 40px;
+  }
+  .edit_slider_btn:hover{
+    opacity: .6;
+    cursor: pointer;
   }

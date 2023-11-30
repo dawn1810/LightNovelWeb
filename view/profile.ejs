@@ -662,7 +662,7 @@
                   &emsp;:&emsp;
                 </div>
                 <input type="text" class="profile_input n_name" value="<%= edit_name_chaps[i].split(":")[1].trim() %>">
-                <a id='author_see' href=""><i class="fa-solid fa-eye"></i></a>
+                <a id='author_see' href=""><i class="fa-solid fa-book"></i></a>
               </div>
               <div class="btn_gritem">
                 <div class="novel_conntroller_btn">
@@ -685,12 +685,12 @@
             </div>
             <% } %>
           </div>
-          <div class="pagination_btn_gr">
-            <button class="previous_page"><i class="fa-solid fa-arrow-left"></i></button>
-            <input type="number" class="find_page" value="1">/
-            <p id="max"><%= Math.round(max_page[0].row_count/4)%></p>
-            <button class="next_page"><i class="fa-solid fa-arrow-right"></i></button>
-          </div>
+            <div class="pagination_btn_gr">
+              <button class="previous_page"><i class="fa-solid fa-arrow-left"></i></button>
+              <input type="number" class="find_page" value="1">/
+              <p id="max"><%= Math.round(max_page/6) %></p>
+              <button class="next_page"><i class="fa-solid fa-arrow-right"></i></button>
+            </div>
           <div class="page5_info_main_btn">
             <button class="close_btn" id="accept_drop">Hủy</button>
             <button class="next_btn" id="accept_change">

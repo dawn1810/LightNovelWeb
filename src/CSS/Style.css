@@ -215,6 +215,7 @@ a {
 	width: 100%;
 	height: 100%;
 	z-index: 1;
+	
 }
 .left,
 .right {
@@ -259,6 +260,9 @@ a {
 	left: 40px;
 	top: 15%;
 	display: none;
+	
+    width: 23%;
+
 }
 .content .left h1 {
 	font-size: xxx-large;
@@ -329,17 +333,18 @@ a {
 	margin: 0;
 	font-size: x-small;
 }
-#slide .item:nth-child(1) .image {
+#slide .item:nth-child(0) .image {
 	opacity: 0;
 	transform: scale(0) translate(-100px);
 }
-#slide .item:nth-child(2) .image {
+#slide .item:nth-child(1) .image {
 	opacity: 1;
 	transform: scale(1);
 }
-#slide .item:nth-child(2) {
+#slide .item:nth-child(1) {
 	z-index: 3;
 }
+
 @keyframes contentOut {
 	from {
 		opacity: 1;
@@ -368,12 +373,12 @@ a {
 #slide .item:nth-child(2) .right {
 	display: block;
 }
-#slide .item:nth-child(1) .left,
-#slide .item:nth-child(1) .right {
+#slide .item:nth-child(0) .left,
+#slide .item:nth-child(0) .right {
 	animation: contentOut 1s ease-in-out 1 forwards;
 }
-#slide .item:nth-child(2) .left,
-#slide .item:nth-child(2) .right {
+#slide .item:nth-child(1) .left,
+#slide .item:nth-child(1) .right {
 	animation: contentIn 1s ease-in-out 1 forwards;
 }
 

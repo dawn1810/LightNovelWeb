@@ -58,30 +58,16 @@ const api_search_more = async (req, res) => {
 			let name_more = false;
 			let genres_more = false;
 			if (type_id == "search_more1") {
-				// names = await server.find_all_Data({
-				//   table: "truyen",
-				//   query: { name: { $regex: new RegExp(search, "i") } },
-				//   projection: {
-				//     name: 1,
-				//     author: 1,
-				//     image: 1,
-				//     status: 1,
-				//     no_chapters: 1,
-				//   },
-				//   skip: 30 * num_click,
-				//   limit: 31,
-				// });
 				let names = await queryAsync(
 					`SELECT truyen.id AS _id,
-	  ten_truyen AS name,
-	   ten_tac_gia AS author, anh_dai_dien AS image, 
-	   trang_thai AS status, so_luong_chuong AS no_chapters 
-	   FROM truyen, tacgia WHERE 
-	   truyen.id_tac_gia = tacgia.id AND ten_truyen REGEXP ? LIMIT 31 OFFSET ${30 * num_click}
-
-	  `,
-					[search]
-				);
+					ten_truyen AS name,
+					ten_tac_gia AS author, anh_dai_dien AS image, 
+					trang_thai AS status, so_luong_chuong AS no_chapters 
+					FROM truyen, tacgia WHERE 
+					truyen.id_tac_gia = tacgia.id AND ten_truyen REGEXP ? LIMIT 31 OFFSET ?
+					`,
+					[search, 30 * num_click]
+					);
 				if (names.length == 31) {
 					name_more = true;
 					names.pop();
@@ -89,32 +75,18 @@ const api_search_more = async (req, res) => {
 				res.writeHead(200, { "Content-Type": "applicaiton/json" });
 				return res.end(JSON.stringify({ truyen: names, showbtn: name_more }));
 			} else if (type_id == "search_more2") {
-				// get all novels genres
-				// genres = await server.find_all_Data({
-				//   table: "truyen",
-				//   query: { genres: { $in: [new RegExp(search, "i")] } },
-				//   projection: {
-				//     name: 1,
-				//     author: 1,
-				//     image: 1,
-				//     status: 1,
-				//     no_chapters: 1,
-				//   },
-				//   skip: 30 * num_click,
-				//   limit: 31,
-				// });
 				let genres = await queryAsync(
 					`SELECT truyen.id AS _id,
-        ten_truyen AS name,
-        ten_tac_gia AS author, anh_dai_dien AS image, 
-        trang_thai AS status, so_luong_chuong AS no_chapters 
-        FROM truyen, tacgia, the_loai_truyen, the_loai WHERE 
-        truyen.id = the_loai_truyen.id_truyen
-        AND the_loai.id = the_loai_truyen.id_the_loai 
-        AND truyen.id_tac_gia = tacgia.id 
-        AND the_loai.ten_the_loai REGEXP ? LIMIT 31 OFFSET ${30 * num_click}
-        `,
-					[search]
+					ten_truyen AS name,
+					ten_tac_gia AS author, anh_dai_dien AS image, 
+					trang_thai AS status, so_luong_chuong AS no_chapters 
+					FROM truyen, tacgia, the_loai_truyen, the_loai WHERE 
+					truyen.id = the_loai_truyen.id_truyen
+					AND the_loai.id = the_loai_truyen.id_the_loai 
+					AND truyen.id_tac_gia = tacgia.id 
+					AND the_loai.ten_the_loai REGEXP ? LIMIT 31 OFFSET ?
+					`,
+					[search, 30 * num_click]
 				);
 				if (genres.length == 31) {
 					genres_more = true;
@@ -123,29 +95,15 @@ const api_search_more = async (req, res) => {
 				res.writeHead(200, { "Content-Type": "applicaiton/json" });
 				return res.end(JSON.stringify({ truyen: genres, showbtn: genres_more }));
 			} else if (type_id == "search_more3") {
-				// get all novels authors
-				// authors = await server.find_all_Data({
-				//   table: "truyen",
-				//   query: { author: { $regex: new RegExp(search, "i") } },
-				//   projection: {
-				//     name: 1,
-				//     author: 1,
-				//     image: 1,
-				//     status: 1,
-				//     no_chapters: 1,
-				//   },
-				//   skip: 30 * num_click,
-				//   limit: 31,
-				// });
 				let authors = await queryAsync(
 					`SELECT truyen.id AS _id,
-	  ten_truyen AS name,
-	   ten_tac_gia AS author, anh_dai_dien AS image, 
-	   trang_thai AS status, so_luong_chuong AS no_chapters 
-	   FROM truyen, tacgia WHERE 
-	   truyen.id_tac_gia = tacgia.id AND ten_tac_gia REGEXP ? LIMIT 31 OFFSET ${30 * num_click}
-	  `,
-					[search]
+					ten_truyen AS name,
+					ten_tac_gia AS author, anh_dai_dien AS image, 
+					trang_thai AS status, so_luong_chuong AS no_chapters 
+					FROM truyen, tacgia WHERE 
+					truyen.id_tac_gia = tacgia.id AND ten_tac_gia REGEXP ? LIMIT 31 OFFSET ?
+					`,
+					[search, 30 * num_click]
 				);
 				if (authors.length == 31) {
 					authors_more = true;
@@ -174,29 +132,29 @@ const api_advanced_search = async (req, res) => {
 	}
 };
 
-const api_no_chap = async (req, res) => {
-	const data = req.body;
-	console.log("SYSTEM | NO_CHAP | Dữ liệu nhận được: ", data);
-	try {
-		const result = await server.find_all_Data({
-			query: { name: data.name },
-			table: "truyen",
-			projection: { _id: 0, no_chapters: 1 },
-			limit: 1,
-		});
-		// if array emty return zero
-		if (result.length === 0) {
-			res.writeHead(200, { "Content-Type": "text/plain" });
-			res.end("0");
-		} else {
-			res.writeHead(200, { "Content-Type": "text/plain" });
-			res.end(String(result[0].no_chapters));
-		}
-	} catch (err) {
-		console.log("SYSTEM | NO_CHAP | ERROR | ", err);
-		res.sendStatus(500);
-	}
-};
+// const api_no_chap = async (req, res) => {
+// 	const data = req.body;
+// 	console.log("SYSTEM | NO_CHAP | Dữ liệu nhận được: ", data);
+// 	try {
+// 		const result = await server.find_all_Data({
+// 			query: { name: data.name },
+// 			table: "truyen",
+// 			projection: { _id: 0, no_chapters: 1 },
+// 			limit: 1,
+// 		});
+// 		// if array emty return zero
+// 		if (result.length === 0) {
+// 			res.writeHead(200, { "Content-Type": "text/plain" });
+// 			res.end("0");
+// 		} else {
+// 			res.writeHead(200, { "Content-Type": "text/plain" });
+// 			res.end(String(result[0].no_chapters));
+// 		}
+// 	} catch (err) {
+// 		console.log("SYSTEM | NO_CHAP | ERROR | ", err);
+// 		res.sendStatus(500);
+// 	}
+// };
 
 const api_update_novel = async (req, res) => {
 	try {
@@ -216,7 +174,7 @@ const api_update_novel = async (req, res) => {
 		let dummy = JSON.parse(data);
 
 		// Sử dụng biến dummy ở đây
-		console.log(dummy.ids);
+		// console.log(dummy.ids);
 
 		let myobj = {
 			name: dummy.title,
@@ -261,23 +219,22 @@ const api_update_novel = async (req, res) => {
 
 const api_reviews = async (req, res) => {
 	const data = req.body;
-	console.log("SYSTEM | REVIEWS |", data);
-	console.log("id", data.id);
 	try {
 		const result = {
 			no_chapters: 0,
 			chapters: [],
 		};
 		const count = await queryAsync(
-			`SELECT COUNT(id) as count FROM chuong WHERE id_truyen = '${data.id}'`
+			`SELECT COUNT(id) as count FROM chuong WHERE id_truyen = ?`,
+			[data.id]
 		);
 		result.no_chapters = count[0].count;
 		result.chapters = await queryAsync(
-			`SELECT id, ten_chuong, noi_dung_chuong FROM chuong WHERE id_truyen = '${data.id}' ORDER BY thu_tu`
+			`SELECT id, ten_chuong, noi_dung_chuong FROM chuong WHERE id_truyen = ? ORDER BY thu_tu`,
+			[data.id]
 		);
-		console.log(result);
 
-		// console.log('SYSTEM | REVIEWS | Trả về thông tin reviews truyện ', result[0].name);
+		// console.log("SYSTEM | REVIEWS | Trả về thông tin reviews truyện ", result[0].name);
 		res.writeHead(200, { "Content-Type": "application/json" });
 
 		res.end(JSON.stringify(result));
@@ -288,7 +245,7 @@ const api_reviews = async (req, res) => {
 };
 
 const api_signup = async (req, res) => {
-	// { email: 'chandoralong@gmail.com', usr: '1', pass: '959595595959599' }
+	// { email: "chandoralong@gmail.com", usr: "1", pass: "959595595959599" }
 	const data = req.body;
 	console.log("SYSTEM | SIGN_UP | Dữ liệu nhận được: ", data);
 	try {
@@ -299,15 +256,20 @@ const api_signup = async (req, res) => {
 		//   projection: { _id: 1 },
 		// });
 		const g_result = await queryAsync(
-			`SELECT * FROM taikhoan_nguoidung WHERE ten_tai_khoan= '${data.usr}'`
+			`SELECT * FROM taikhoan_nguoidung WHERE ten_tai_khoan = ?`, 
+			[data.usr]
 		);
 		if (g_result.length != 0) {
 			return res.sendStatus(404);
 		} else {
 			// add data to dang_ky database:
 			await queryAsync(
-				`INSERT INTO  taikhoan_dangky (ten_tai_khoan, mat_khau, email) VALUES ('${data.usr
-				}','${func_controller.hashPassword(data.pass)}','${data.email}')`
+				`INSERT INTO  taikhoan_dangky (ten_tai_khoan, mat_khau, email) VALUES (
+					?,
+					?, 
+					?
+				)`,
+				[data.usr, func_controller.hashPassword(data.pass), data.email]
 			);
 			res.sendStatus(200);
 			console.log("SYSTEM | SIGN_UP | Sign up success!!!");
@@ -328,16 +290,9 @@ const api_login = async (req, res) => {
 	// }
 	// data = {usr: bbp, pass: 1234567890}
 	try {
-		// const f_result = await server.find_all_Data({
-		//   query: { usr: data.usr },
-		//   table: "dang_ky",
-		//   projection: {
-		//     _id: 0,
-		//     pass: 1,
-		//   },
-		// });
 		let f_result = await queryAsync(
-			`SELECT * FROM taikhoan_dangky WHERE ten_tai_khoan= '${data.usr}'`
+			`SELECT * FROM taikhoan_dangky WHERE ten_tai_khoan = ?`,
+			[data.usr]
 		);
 		if (f_result.length != 0) {
 			// log in first time: (sign up database)
@@ -346,15 +301,29 @@ const api_login = async (req, res) => {
 					// copy data to dang_nhap database
 					const id_user = uuidv4();
 					await queryAsync(
-						`INSERT INTO taikhoan_nguoidung (id, ten_tai_khoan, email, mat_khau) VALUES ('${id_user}','${data.usr}','${f_result[i].email}','${func_controller.hashPassword(data.pass)}')`
+						`INSERT INTO taikhoan_nguoidung (id, ten_tai_khoan, email, mat_khau) 
+						VALUES (
+							?,
+							?,
+							?,
+							?
+						)`,
+						[id_user, data.usr, f_result[i].email, func_controller.hashPassword(data.pass)]
 					);
 					// them truong moi trong tt_nguoi_dung
 					await queryAsync(
-						`INSERT INTO  thongtin_nguoidung ( id ,  id_tai_khoan ,  ten_hien_thi ) VALUES ('${id_user}','${id_user}','${data.usr}')`
+						`INSERT INTO  thongtin_nguoidung ( id ,  id_tai_khoan ,  ten_hien_thi ) 
+						VALUES (
+							?,
+							?,
+							?
+						)`,
+						[id_user, id_user, data.usr]
 					);
 					// them mot nguoi dung moi
 					await queryAsync(
-						`DELETE FROM taikhoan_dangky WHERE ten_tai_khoan = '${data.usr}'`
+						`DELETE FROM taikhoan_dangky WHERE ten_tai_khoan = ?`,
+						[data.usr]
 					);
 					const user = {
 						id: id_user,
@@ -374,11 +343,11 @@ const api_login = async (req, res) => {
 			//   _id: data.usr,
 			// });
 			const n_result = await queryAsync(
-				`SELECT * FROM taikhoan_nguoidung WHERE ten_tai_khoan= '${data.usr
-				}' AND mat_khau = '${func_controller.hashPassword(data.pass)}'`
+				`SELECT * FROM taikhoan_nguoidung WHERE ten_tai_khoan= "${data.usr
+				}" AND mat_khau = "${func_controller.hashPassword(data.pass)}"`
 			);
 			const role_u = await queryAsync(
-				`SELECT role FROM thongtin_nguoidung WHERE id_tai_khoan= '${n_result[0].id}'`
+				`SELECT role FROM thongtin_nguoidung WHERE id_tai_khoan= "${n_result[0].id}"`
 			);
 			if (n_result.length != 0) {
 				req.session.user = {
@@ -400,20 +369,6 @@ const api_login = async (req, res) => {
 };
 
 const api_logout = async (req, res) => {
-	// const data = req.body;
-	// console.log("SYSTEM | LOGOUT | Dữ liệu nhận được: ", data);
-	// const expirationDate = new Date("2018-12-31");
-	// res.cookie("account", data.account, {
-	//   expires: expirationDate, // Cookie will permernently expire
-	//   secure: true,
-	//   sameSite: "none",
-	//   domain: "localhost",
-	//   // domain: 'c22c-2a09-bac5-d44d-18d2-00-279-87.ngrok-free.app',
-	//   path: "/",
-	// });
-	// res.writeHead(200, { "Content-Type": "text/plain" });
-	// console.log(`SYSTEM | LOGOUT | Dang xuat thành công`);
-	// res.end("Da dang xuat!");
 	req.session.destroy((err) => {
 		if (err) {
 			console.log("SYSTEM | LOG_OUT | Failed to logout:", err);
@@ -436,20 +391,16 @@ const api_updateLike = async (req, res) => {
 				await queryAsync(`
 				UPDATE truyen
 				SET luot_thich = luot_thich + 1
-				WHERE id = '${data.id_truyen}'
-				`);
-
-				// await server.update_one_Data(
-				//   "truyen",
-				//   { _id: new ObjectId(data.id_truyen) },
-				//   { $inc: { likes: 1 } }
-				// );
+				WHERE id = ?`,
+				[data.id_truyen]
+				);
 
 				// add current nodel to like list of current user
 				await queryAsync(`
 				INSERT INTO truyen_yeu_thich (id, id_nguoi_dung, id_truyen, chuong_hien_tai)
-				VALUES ('${uuidv4()}', '${account.id}', '${data.id_truyen}', ${data.curr_chap})
-				`);
+				VALUES (?, ?, ?, ?)`,
+				[uuidv4(), account.id, data.id_truyen, data.curr_chap]
+				);
 
 				// await server.update_one_Data(
 				//   "tt_nguoi_dung",
@@ -466,26 +417,18 @@ const api_updateLike = async (req, res) => {
 				await queryAsync(`
 				UPDATE truyen
 				SET luot_thich = luot_thich - 1
-				WHERE id = '${data.id_truyen}'
-				`);
+				WHERE id = ?`,
+				[data.id_truyen]
+				);
 
-				// await server.update_one_Data(
-				//   "truyen",
-				//   { _id: new ObjectId(data.id_truyen) },
-				//   { $inc: { likes: -1 } }
-				// );
 				// remove current nodel from like list of current user
 				await queryAsync(`
 				DELETE FROM truyen_yeu_thich 
-				WHERE id_nguoi_dung = '${account.id}'
-				AND id_truyen = '${data.id_truyen}';
-				`);
+				WHERE id_nguoi_dung = ?
+				AND id_truyen = ?;`,
+				[account.id, data.id_truyen]
+				);
 
-				// await server.update_one_Data(
-				//   "tt_nguoi_dung",
-				//   { _id: decodeList[1] },
-				//   { $pull: { likeNovels: data.id_truyen } }
-				// );
 				// response client
 				res.writeHead(200, { "Content-Type": "text/plain" });
 				console.log(`SYSTEM | UPDATE_LIKE | Unlike cho truyen hien tai`);
@@ -506,10 +449,12 @@ const api_updateCurrchap = async (req, res) => {
 			// update curr_chap for truyen_yeu_thich table of curr user
 			await queryAsync(`
 				UPDATE truyen_yeu_thich
-				SET chuong_hien_tai = ${data.curr_chap}
-				WHERE id_truyen = '${data.id_truyen}'
-				AND id_nguoi_dung = '${account.id}'
-				`);
+				SET chuong_hien_tai = ?
+				WHERE id_truyen = ?
+				AND id_nguoi_dung = ?
+				`,
+				[data.curr_chap, data.id_truyen, account.id]
+				);
 			res.writeHead(200, { "Content-Type": "text/plain" });
 			console.log(`SYSTEM | UPDATE_CURR_CHAP | Da cap nhat `);
 			res.end(JSON.stringify("viewed!!!"));
@@ -523,19 +468,15 @@ const api_updateCurrchap = async (req, res) => {
 const api_updateViews = async (req, res) => {
 	try {
 		const data = req.body;
-		console.log("SYSTEM | UPDATE_VIEWS | Dữ liệu nhận được: ", data);
 		// up one views for current novel
 		await queryAsync(`
         UPDATE truyen
         SET luot_xem = luot_xem + 1
-        WHERE id = '${data.id_truyen}'
-        `);
+        WHERE id = ?
+        `,
+		[data.id_truyen]
+		);
 
-		// await server.update_one_Data(
-		//   "truyen",
-		//   { _id: new ObjectId(data.id_truyen) },
-		//   { $inc: { views: 1 } }
-		// );
 		// response client
 		res.writeHead(200, { "Content-Type": "text/plain" });
 		console.log(`SYSTEM | UPDATE_VIEWS | Da tang view cho truyen hien tai`);
@@ -572,61 +513,45 @@ const api_uploadNovel = async (req, res) => {
 	
 			// add to truyen database
 			await queryAsync(`
-		  INSERT INTO truyen (
-			id, 
-			id_tac_gia, 
-			ten_truyen, 
-			so_luong_chuong, 
-			tom_tat_noi_dung, 
-			anh_dai_dien, 
-			trang_thai, 
-			ngay_cap_nhat
-		  )
-		  VALUES (
-			'${novel_id}', 
-			'${account.id}', 
-			'${data.name}', 
-			${data.name_chaps.length}, 
-			'${data.summary}', 
-			'${avt_var}', 
-			'${data.status}', 
-			'${formattedDate}'
-		  )
-		`);
+			INSERT INTO truyen (
+				id, 
+				id_tac_gia, 
+				ten_truyen, 
+				so_luong_chuong, 
+				tom_tat_noi_dung, 
+				anh_dai_dien, 
+				trang_thai, 
+				ngay_cap_nhat
+			)
+			VALUES (?,?,?,?,?,?,?,?)`,
+			[novel_id, account.id, data.name, data.name_chaps.length, data.summary, avt_var, data.status, formattedDate]
+			);
 	
 			// add to chuong database
 			for (let i = 0; i < data.name_chaps.length; i++) {
 				await queryAsync(`
-			INSERT INTO chuong (
-			  id,
-			  id_truyen,
-			  ten_chuong,
-			  noi_dung_chuong,
-			  thu_tu
-			)
-			VALUES (
-			  '${uuidv4()}',
-			  '${novel_id}',
-			  '${data.name_chaps[i]}',
-			  '${data.chap_ids[i]}',
-			  ${i + 1}
-			)
-			`);
+				INSERT INTO chuong (
+				id,
+				id_truyen,
+				ten_chuong,
+				noi_dung_chuong,
+				thu_tu
+				)
+				VALUES (?,?,?,?,?)`,
+				[uuidv4(), novel_id, data.name_chaps[i], data.chap_ids[i], i + 1]
+				);
 			}
 	
 			for (let i = 0; i < data.genres.length; i++) {
 				await queryAsync(`
-			INSERT INTO the_loai_truyen (
-			  id,
-			  id_the_loai,
-			  id_truyen
-			)
-			VALUES (
-			  '${uuidv4()}',
-			  '${data.genres[i]}',
-			  '${novel_id}'
-			)
-			`);
+				INSERT INTO the_loai_truyen (
+				id,
+				id_the_loai,
+				id_truyen
+				)
+				VALUES (?,?,?)`,
+				[uuidv4(), data.genres[i], novel_id]
+				);
 			}
 	
 			res.sendStatus(200);
@@ -648,58 +573,41 @@ const api_update_uploadNovel = async (req, res) => {
 		const formattedDate = currentDate.toISOString().slice(0, 19).replace("T", " ");
 
 		await queryAsync(`
-    UPDATE truyen
-    SET 
-      ngay_cap_nhat = '${formattedDate}',
-      so_luong_chuong = so_luong_chuong + ${data.name_chaps.length}
-    WHERE id = '${data.id}'
-	  `);
+		UPDATE truyen
+		SET 
+		ngay_cap_nhat = "${formattedDate}",
+		so_luong_chuong = so_luong_chuong + ${data.name_chaps.length}
+		WHERE id = "${data.id}"
+		`);
 
 		const last_chap =
 			(
 				await queryAsync(`
-    SELECT COUNT(id) as last_chap 
-    FROM chuong 
-    WHERE id_truyen = '${data.id}'
-    `)
+				SELECT COUNT(id) as last_chap 
+				FROM chuong 
+				WHERE id_truyen = "${data.id}"
+				`)
 			)[0].last_chap + 1;
 
 		// add to chuong database
 		for (let i = 0; i < data.name_chaps.length; i++) {
 			await queryAsync(`
-        INSERT INTO chuong (
-          id,
-          id_truyen,
-          ten_chuong,
-          noi_dung_chuong,
-          thu_tu
-        )
-        VALUES (
-          '${uuidv4()}',
-          '${data.id}',
-          '${data.name_chaps[i]}',
-          '${data.chap_ids[i]}',
-          ${last_chap + i}
-        )
-        `);
+			INSERT INTO chuong (
+			id,
+			id_truyen,
+			ten_chuong,
+			noi_dung_chuong,
+			thu_tu
+			)
+			VALUES (
+			"${uuidv4()}",
+			"${data.id}",
+			"${data.name_chaps[i]}",
+			"${data.chap_ids[i]}",
+			${last_chap + i}
+			)
+			`);
 		}
-
-		// await server.update_one_Data(
-		//   "truyen",
-		//   { _id: new ObjectId(data.id) },
-		//   {
-		//     $set: {
-		//       update_date: new Date(),
-		//     },
-		//     $push: {
-		//       name_chaps: { $each: data.name_chaps },
-		//       chap_ids: { $each: data.chap_ids },
-		//     },
-		//     $inc: {
-		//       no_chapters: data.name_chaps.length,
-		//     },
-		//   }
-		// );
 
 		res.sendStatus(200);
 	} catch (err) {
@@ -724,8 +632,10 @@ const api_editNovel = async (req, res) => {
 			await deleteFileFromDrive(data.remove_list[i]);
 			// remove chapter in chuong table
 			await queryAsync(`
-			DELETE FROM chuong WHERE noi_dung_chuong = '${data.remove_list[i]}'
-			`);
+			DELETE FROM chuong WHERE noi_dung_chuong = ?
+			`,
+			[data.remove_list[i]]
+			);
 		}
 
 		for (let i = 0; i < data.edit_index.length; i++) {
@@ -735,37 +645,57 @@ const api_editNovel = async (req, res) => {
 			await queryAsync(`
 			UPDATE chuong
 			SET
-				noi_dung_chuong = '${data.chap_ids[i]}'
-			WHERE id_truyen = '${data.id}'
-			AND noi_dung_chuong = '${data.edit_index[i]}'
-			`); // update chapter's indexs ở phía bên dưới
+				noi_dung_chuong = ?
+			WHERE id_truyen = ?
+			AND noi_dung_chuong = ?
+			`,
+			[data.chap_ids[i], data.id, data.edit_index[i]]
+			); // update chapter"s indexs ở phía bên dưới
 		}
 
 		// update indexed and name of all novel's chapter
 		const result = await queryAsync(`
 		SELECT id 
 		FROM chuong 
-		WHERE id_truyen = '${data.id}';
-		`);
+		WHERE id_truyen = ?;`,
+		[data.id]
+		);
+
+		const curr_start = (data.step-1)*6+1;
 
 		for (let i = 1; i <= result.length; i++) {
-			await queryAsync(`
-			UPDATE chuong
-			SET 
-				thu_tu = ${i},
-				ten_chuong = '${data.name_chaps[i - 1]}'
-			WHERE id = '${result[i - 1].id}';
-			`);
+			if (i >= curr_start && i <= curr_start+5) {
+				await queryAsync(`
+				UPDATE chuong
+				SET 
+					thu_tu = ?,
+					ten_chuong = ?
+				WHERE id = ?;
+				`,
+				[i, data.name_chaps[i - 1], result[i - 1].id]
+				);
+			} else {
+				await queryAsync(`
+				UPDATE chuong
+				SET 
+					thu_tu = ?,
+				WHERE id = ?;
+				`,
+				[i, result[i - 1].id]
+				);
+			}
 		}
 
 		// update no_chap and update_date in truyen database
 		await queryAsync(`
 			UPDATE truyen
 			SET 
-				so_luong_chuong = so_luong_chuong - ${data.remove_list.length},
-				ngay_cap_nhat = '${formattedDate}'
-			WHERE id = '${data.id}'
-		`);
+				so_luong_chuong = so_luong_chuong - ?,
+				ngay_cap_nhat = ?
+			WHERE id = ?
+		`,
+		[data.remove_list.length, formattedDate, data.id]
+		);
 
 		res.sendStatus(200);
 	} catch (err) {
@@ -776,7 +706,7 @@ const api_editNovel = async (req, res) => {
 
 const api_editInfoNovel = async (req, res) => {
 	const data = req.body;
-	// console.log('SYSTEM | EDIT_TRUYEN |', data);
+	// console.log("SYSTEM | EDIT_TRUYEN |", data);
 	try {
 		// Get the current date
 		const currentDate = new Date();
@@ -798,17 +728,17 @@ const api_editInfoNovel = async (req, res) => {
 		await queryAsync(`
       UPDATE truyen
       SET 
-        ten_truyen = '${data.novel_name}',
-        trang_thai = '${data.novel_status}',
-        tom_tat_noi_dung = '${data.novel_descript}',
-        ngay_cap_nhat = '${formattedDate}',
-        anh_dai_dien = '${avt_var}'
-      WHERE id = '${data.id}';
+        ten_truyen = "${data.novel_name}",
+        trang_thai = "${data.novel_status}",
+        tom_tat_noi_dung = "${data.novel_descript}",
+        ngay_cap_nhat = "${formattedDate}",
+        anh_dai_dien = "${avt_var}"
+      WHERE id = "${data.id}";
     `);
 
-		// update genres delete all current novel's genres first then and new one to novel's genres table
-		// delete all current novel's genres
-		await queryAsync(`DELETE FROM the_loai_truyen WHERE id_truyen = '${data.id}';`);
+		// update genres delete all current novel"s genres first then and new one to novel"s genres table
+		// delete all current novel"s genres
+		await queryAsync(`DELETE FROM the_loai_truyen WHERE id_truyen = "${data.id}";`);
 
 		for (let i = 0; i < data.novel_types.length; i++) {
 			await queryAsync(`
@@ -818,9 +748,9 @@ const api_editInfoNovel = async (req, res) => {
           id_truyen
         )
         VALUES (
-          '${uuidv4()}',
-          '${data.novel_types[i]}',
-          '${data.id}'
+          "${uuidv4()}",
+          "${data.novel_types[i]}",
+          "${data.id}"
         );
         `);
 		}
@@ -869,7 +799,7 @@ const api_uploadFile = async function (req, res) {
 	// Xử lý các tệp đã tải lên ở đây
 	console.log("SYSTEM | UPLOAD_FILE | Files uploaded:", req.files);
 	res.writeHead(200, { "Content-Type": "applicaiton/json" });
-	// res.end('ok bro');
+	// res.end("ok bro");
 
 	res.end(JSON.stringify(await func_controller.get_full_id(uploadDirectory, list_name)));
 };
@@ -886,7 +816,7 @@ const api_cancle = async (req, res) => {
 			res.sendStatus(200);
 		} else if (data.status == "delete") {
 			let result = await queryAsync(
-				`SELECT noi_dung_chuong FROM chuong WHERE id_truyen = '${data.id}'`
+				`SELECT noi_dung_chuong FROM chuong WHERE id_truyen = "${data.id}"`
 			);
 			const chuongArray = result.map((i) => ({
 				id_chap: i.noi_dung_chuong,
@@ -903,10 +833,10 @@ const api_cancle = async (req, res) => {
 			// }
 
 			// xóa truyện trên server
-			await queryAsync(`DELETE FROM chuong WHERE id_truyen = '${data.id}'`);
-			await queryAsync(`DELETE FROM the_loai_truyen WHERE id_truyen = '${data.id}'`);
-			await queryAsync(`DELETE FROM truyen_yeu_thich WHERE id_truyen = '${data.id}'`);
-			await queryAsync(`DELETE FROM truyen WHERE id = '${data.id}'`);
+			await queryAsync(`DELETE FROM chuong WHERE id_truyen = "${data.id}"`);
+			await queryAsync(`DELETE FROM the_loai_truyen WHERE id_truyen = "${data.id}"`);
+			await queryAsync(`DELETE FROM truyen_yeu_thich WHERE id_truyen = "${data.id}"`);
+			await queryAsync(`DELETE FROM truyen WHERE id = "${data.id}"`);
 			// // await server.delete_one_Data("truyen", { _id: new ObjectId(data.id) });
 			// const decodeList = func_controller.decode(account);
 			// // console.log(`SYSTEM | CANCEL | Dữ liệu đã giải mã ${decodeList}`);
@@ -956,28 +886,28 @@ const api_updateInfo = async (req, res) => {
 			await queryAsync(`
 			UPDATE thongtin_nguoidung
 			SET 
-				ten_hien_thi = '${data.hoten}',
-				anh_dai_dien = '${avt_var}',
+				ten_hien_thi = "${data.hoten}",
+				anh_dai_dien = "${avt_var}",
 				gioi_tinh = ${data.sex}
-			WHERE id_tai_khoan = '${account.id}';
+			WHERE id_tai_khoan = "${account.id}";
 			`);
 
-			// update user's email
+			// update user"s email
 			await queryAsync(`
 			UPDATE taikhoan_nguoidung
 			SET 
-				email = '${data.email}'
-			WHERE id = '${account.id}'
-			AND login_way <> 'google';
+				email = "${data.email}"
+			WHERE id = "${account.id}"
+			AND login_way <> "google";
 			`);
 
 			// update author name
 			await queryAsync(`
 			INSERT INTO tacgia (id, id_nguoi_dung, ten_tac_gia)
 			VALUES (
-			'${account.id}',
-			'${account.id}',
-			'${data.author_name}'
+			"${account.id}",
+			"${account.id}",
+			"${data.author_name}"
 			) 
 			ON DUPLICATE KEY UPDATE ten_tac_gia = VALUES(ten_tac_gia);
 			`);
@@ -999,7 +929,7 @@ const api_changePass = async (req, res) => {
 			const result = await queryAsync(`
 			SELECT mat_khau as pass
 			FROM taikhoan_nguoidung
-			WHERE id = '${account.id}'
+			WHERE id = "${account.id}"
 			`);
 
 			// const n_result = await server.find_one_Data("dang_nhap", {
@@ -1009,8 +939,8 @@ const api_changePass = async (req, res) => {
 				await queryAsync(`
 				UPDATE taikhoan_nguoidung
 				SET 
-					mat_khau = '${data["new-Password"]}'
-				WHERE id = '${account.id}';
+					mat_khau = "${data["new-Password"]}"
+				WHERE id = "${account.id}";
 				`);
 				res.sendStatus(200);
 			} else {
@@ -1044,26 +974,26 @@ const api_get_list_novel = async (req, res) => {
 		}
 		let result = [];
 		switch (fill) {
-			case 1: // if (x === 'value1')
+			case 1: // if (x === "value1")
 				result = await queryAsync(
 					"SELECT * FROM truyen ORDER BY ngay_cap_nhat DESC LIMIT ? OFFSET ?",
 					[n, offset]
 				);
 				break;
 
-			case 2: // if (x === 'value2')
+			case 2: // if (x === "value2")
 				result = await queryAsync(
 					"SELECT * FROM truyen ORDER BY ngay_cap_nhat ASC LIMIT ? OFFSET ?",
 					[n, offset]
 				);
 				break;
-			case 3: // if (x === 'value2')
+			case 3: // if (x === "value2")
 				result = await queryAsync(
 					"SELECT * FROM truyen ORDER BY luot_xem DESC  LIMIT ? OFFSET ?",
 					[n, offset]
 				);
 				break;
-			case 4: // if (x === 'value2')
+			case 4: // if (x === "value2")
 				result = await queryAsync(
 					"SELECT * FROM truyen ORDER BY luot_xem ASC LIMIT ? OFFSET ?",
 					[n, offset]
@@ -1092,7 +1022,7 @@ const api_get_info_novel = async (req, res) => {
 	try {
 		const idtruyen = req.body.id;
 		const result = await queryAsync(
-			`SELECT truyen.*, tacgia.ten_tac_gia AS ten_tac_gia, GROUP_CONCAT(the_loai.ten_the_loai SEPARATOR ', ') AS ten_the_loai FROM truyen JOIN tacgia ON truyen.id_tac_gia = tacgia.id JOIN the_loai_truyen ON truyen.id = the_loai_truyen.id_truyen JOIN the_loai ON the_loai_truyen.id_the_loai = the_loai.id WHERE truyen.id = '${idtruyen}' GROUP BY truyen.id ORDER BY ngay_cap_nhat LIMIT 1 ;`
+			`SELECT truyen.*, tacgia.ten_tac_gia AS ten_tac_gia, GROUP_CONCAT(the_loai.ten_the_loai SEPARATOR ", ") AS ten_the_loai FROM truyen JOIN tacgia ON truyen.id_tac_gia = tacgia.id JOIN the_loai_truyen ON truyen.id = the_loai_truyen.id_truyen JOIN the_loai ON the_loai_truyen.id_the_loai = the_loai.id WHERE truyen.id = "${idtruyen}" GROUP BY truyen.id ORDER BY ngay_cap_nhat LIMIT 1 ;`
 		);
 		if (result && result.length > 0) {
 			res.status(200).json({ data: result });
@@ -1136,10 +1066,10 @@ const api_block_account = async (req, res) => {
 		// }
 		console.log("id_acc:", id_acc);
 		const result = await queryAsync(
-			`UPDATE thongtin_nguoidung SET  last_role = role, role = 0 WHERE id = '${id_acc}'`
+			`UPDATE thongtin_nguoidung SET  last_role = role, role = 0 WHERE id = "${id_acc}"`
 		);
 		const role = await queryAsync(
-			`SELECT last_role FROM thongtin_nguoidung WHERE id = '${id_acc}'`
+			`SELECT last_role FROM thongtin_nguoidung WHERE id = "${id_acc}"`
 		);
 		if (result.affectedRows === 1) {
 			res.status(200).json({ role: role });
@@ -1160,10 +1090,10 @@ const api_open_account = async (req, res) => {
 		//   return res.status(400).json({ error: "Giá trị id không hợp lệ" });
 		// }
 		const result = await queryAsync(
-			`UPDATE thongtin_nguoidung SET  role = last_role, last_role = 0 WHERE id = '${id_acc}' AND last_role <> 0;`
+			`UPDATE thongtin_nguoidung SET  role = last_role, last_role = 0 WHERE id = "${id_acc}" AND last_role <> 0;`
 		);
 		const role = await queryAsync(
-			`SELECT last_role FROM thongtin_nguoidung  WHERE id = '${id_acc}' ;`
+			`SELECT last_role FROM thongtin_nguoidung  WHERE id = "${id_acc}" ;`
 		);
 		if (result.affectedRows === 1) {
 			res.status(200).json({ role: role });
@@ -1183,10 +1113,10 @@ const api_block_author = async (req, res) => {
 		//   return res.status(400).json({ error: "Giá trị id không hợp lệ" });
 		// }
 		const result = await queryAsync(
-			`UPDATE thongtin_nguoidung SET  role = 1 WHERE id = '${id_acc}' `
+			`UPDATE thongtin_nguoidung SET  role = 1 WHERE id = "${id_acc}" `
 		);
 		// const role = await queryAsync(
-		//   `SELECT role FROM thongtin_nguoidung  WHERE id = '${id_acc}' ;`
+		//   `SELECT role FROM thongtin_nguoidung  WHERE id = "${id_acc}" ;`
 		// );
 		if (result.affectedRows === 1) {
 			res.status(200).json({ role: "ok ha" });
@@ -1206,10 +1136,10 @@ const api_open_author = async (req, res) => {
 		//   return res.status(400).json({ error: "Giá trị id không hợp lệ" });
 		// }
 		const result = await queryAsync(
-			`UPDATE thongtin_nguoidung SET  role = 2 WHERE id = '${id_acc}' ;`
+			`UPDATE thongtin_nguoidung SET  role = 2 WHERE id = "${id_acc}" ;`
 		);
 		// const role = await queryAsync(
-		//   `SELECT role FROM thongtin_nguoidung  WHERE id = '${id_acc}' ;`
+		//   `SELECT role FROM thongtin_nguoidung  WHERE id = "${id_acc}" ;`
 		// );
 		if (result.affectedRows === 1) {
 			res.status(200).json({ role: "ok ha" });
@@ -1265,13 +1195,13 @@ const api_quick_upload = async (req, res) => {
 						ngay_cap_nhat
 					)
 					VALUES (
-						'${novel_id}', 
-						'${account.id}', 
-						'${result.name.trim()}', 
+						"${novel_id}", 
+						"${account.id}", 
+						"${result.name.trim()}", 
 						${result.name_chapters.length}, 
-						'${result.introduce}', 
-						'${result.status.trim()}', 
-						'${formattedDate}'
+						"${result.introduce}", 
+						"${result.status.trim()}", 
+						"${formattedDate}"
 					)
 					`);
 
@@ -1286,10 +1216,10 @@ const api_quick_upload = async (req, res) => {
 						thu_tu
 						)
 						VALUES (
-						'${uuidv4()}',
-						'${novel_id}',
-						'${result.name_chapters[i]}',
-						'${result.content_chapter[i]}',
+						"${uuidv4()}",
+						"${novel_id}",
+						"${result.name_chapters[i]}",
+						"${result.content_chapter[i]}",
 						${i + 1}
 						)
 						`);
@@ -1303,9 +1233,9 @@ const api_quick_upload = async (req, res) => {
 							id_truyen
 						)
 						VALUES (
-							'${uuidv4()}',
-							'${result.genre[i]}',
-							'${novel_id}'
+							"${uuidv4()}",
+							"${result.genre[i]}",
+							"${novel_id}"
 						)
 						`);
 					}
@@ -1341,8 +1271,8 @@ const api_editSlider = async (req, res) => {
 		await queryAsync(`
       UPDATE slider
       SET 
-        anh = '${avt_var}',
-        id_truyen = '${data.id_truyen}'
+        anh = "${avt_var}",
+        id_truyen = "${data.id_truyen}"
       WHERE id = ${data.id};
     `);
 
@@ -1370,15 +1300,15 @@ const api_get_list_chapter = async (req, res) => {
 		}
 		let result = await queryAsync(`
 		SELECT 
-		  chuong.ten_chuong,
-		  chuong.noi_dung_chuong
+		  *
 		FROM chuong
 		INNER JOIN truyen
 		  ON chuong.id_truyen = truyen.id
-		WHERE truyen.id = '${id}'
+		WHERE truyen.id = "${id}"
 		ORDER BY chuong.thu_tu
 		LIMIT 6 OFFSET ${offset}
 		`);
+		console.log(JSON.stringify(result))
 		if (result && result.length > 0) {
 			res.status(200).json({ data: result });
 		} else {
@@ -1393,7 +1323,6 @@ module.exports = {
 	api_search_more,
 	api_reset_password,
 	api_advanced_search,
-	api_no_chap,
 	api_reviews,
 	api_update_novel,
 	api_signup,

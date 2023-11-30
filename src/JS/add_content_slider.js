@@ -336,7 +336,8 @@ async function getListNovel(offset, fill) {
 	localStorage.setItem("curentpage", before_num);
   });
   document.querySelector(".edit_slider_btn").onclick = function (e) {
-	e.preventDefault();
+	  e.preventDefault();
+	  this.innerHTML = "Đang cập nhật...";
 
 	const postData = JSON.stringify({
 		id: modal.getAttribute('id'),
@@ -355,6 +356,7 @@ async function getListNovel(offset, fill) {
 		.then((response) => {
 			if (response.ok) {
 				notify("n", "Thay đổi thông tin thành công!");
+				this.innerHTML="Cập nhật"
 			} else {
 				notify("x", "Có lỗi xảy ra!");
 			}

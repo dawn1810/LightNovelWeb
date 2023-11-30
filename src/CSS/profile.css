@@ -1376,6 +1376,7 @@ input:required:focus {
   display: flex;
   align-items: center;
   margin: 5px;
+  font-size: 28px;
 }
 
 

@@ -37,9 +37,19 @@ const rederIndex = async (req, res) => {
   );
   const data_novel_avd = await category({ query: 1 }, null, 13);
 
+  let result_slider = []
   const truyen_slider  = await queryAsync(
-    `SELECT * FROM truyen WHERE id='${req.params.id}'`
+    `SELECT slider.anh,truyen.id,truyen.tom_tat_noi_dung,truyen.ten_truyen FROM truyen,slider WHERE truyen.id = slider.id_truyen`
   );
+  result_slider = [...truyen_slider];
+  for (let i = 0; i < truyen_slider.length; i++) {
+    const id = truyen_slider[i].id;
+    let theloaiID = await queryAsync(
+      `SELECT DISTINCT id_the_loai FROM the_loai_truyen WHERE the_loai_truyen.id_truyen = '${id}'`
+    );
+    const genres = theloaiID.map((row) => row.id_the_loai);
+    result_slider[i].genres = genres;
+  }
   res.render("index", {
     headerFile: "header",
     footerFile: "footer",
@@ -51,6 +61,7 @@ const rederIndex = async (req, res) => {
     truyen_dangra: truyen_dangra,
     novel_avd: data_novel_avd.novel,
     novel_check: data_novel_avd.check,
+    slider:result_slider
   });
 };
 

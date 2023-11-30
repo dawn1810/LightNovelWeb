@@ -67,14 +67,14 @@ const processNovels = async function (req, res, id_truyen) {
       ORDER BY chuong.thu_tu
       LIMIT 6 OFFSET 0
       `);
-      const max_page = await queryAsync(
-        `SELECT COUNT(*) AS row_count FROM chuong WHERE id_truyen='${novel.id}';`
-      );
       novel.chap_ids = chapters.map((chapter) => chapter.noi_dung_chuong);
       novel.name_chaps = chapters.map((chapter) => chapter.ten_chuong);
-
+      
       result.push(novel);
       if (novel.id == id_truyen) {
+        const max_page = await queryAsync(
+          `SELECT COUNT(*) AS row_count FROM chuong WHERE id_truyen='${id_truyen}';`
+        );
         render_data.edit_name = novel.name;
         render_data.edit_auth = novel.author;
         render_data.edit_status = novel.status;
@@ -84,7 +84,7 @@ const processNovels = async function (req, res, id_truyen) {
         render_data.edit_chap_ids = novel.chap_ids;
         render_data.edit_name_chaps = novel.name_chaps;
         render_data.edit_no_chaps = novel.no_chapters;
-        render_data.max_page= max_page;
+        render_data.max_page= max_page[0].row_count;
       }
     }
 

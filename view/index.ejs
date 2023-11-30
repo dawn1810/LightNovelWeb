@@ -36,107 +36,45 @@
       <div class="trending-container">
         
         <div class="slider_con">
-          <div class="slide_bg"></div>
           <div id="slide">
-            <div class="item">
-                <div class="image">
-                    <img src="https://images3.alphacoders.com/133/thumbbig-1334920.webp">
+            <%for(let i = 0; i <slider.length; i++) {%>
+              <div class="item" >
+                <div class="slide_bg" style="background-image: url('<%=slider[i].anh%>');"></div>
+
+                <div class="main_img">
+                  <div class="image">
+                    <img src="<%=slider[i].anh%>">
+                </div>
+                
                 </div>
                 <div class="content">
-                    <div class="left">
-                        <h1>NARUTO</h1>
-                        <div class="des">Tinh ru anh choi da <br> Chua kip choi da ma em da da anh</div>
-                        <button>Seee more
-                            <i class="fa-solid fa-angle-right"></i>
-                            <i class="fa-solid fa-angle-right"></i>
-                            <i class="fa-solid fa-angle-right"></i>
-                        </button>
-                    </div>
-                    <div class="right">
-                        <h2>THỂ LOẠI</h2>
-                        <ul>
+                  <div class="left">
+                      <h1><%=slider[i].ten_truyen%></h1>
+                      <div class="des"><%=slider[i].tom_tat_noi_dung%></div>
+                      <button><a href="/reviews/<%=slider[i].id%>" style="opacity: .7;">
+                        Seee more
+                          <i class="fa-solid fa-angle-right"></i>
+                          <i class="fa-solid fa-angle-right"></i>
+                          <i class="fa-solid fa-angle-right"></i>
+                      </a>
+                      </button>
+                  </div>
+                  <div class="right">
+                      <h2>THỂ LOẠI</h2>
+                      <ul>
+                          <% slider[i].genres.forEach( (genres) =>{%>
                             <li>
-                                <a href="">Hành động</a>
-                            </li>
-                            <li>
-                              <a href="">Kinh dị</a>
-                            </li>
-                            <li>
-                              <a href="">Trinh tham</a>
-                            </li>
-                        </ul>
-                    </div>
+                              <a href=""><%= genres %></a>
+                          </li>
+                          
+                            <%
+                          }); %>
+                      </ul>
+                  </div>
 
-                </div>
+              </div>
             </div>
-             <div class="item">
-                <div class="image">
-                    <img src="https://images3.alphacoders.com/133/thumbbig-1334920.webp">
-                </div>
-                <div class="content">
-                    <div class="left">
-                        <h1>NARUTO</h1>
-                        <div class="des">Tinh ru anh choi da <br> Chua kip choi da ma em da da anh</div>
-                        <button>Seee more
-                            <i class="fa-solid fa-angle-right"></i>
-                            <i class="fa-solid fa-angle-right"></i>
-                            <i class="fa-solid fa-angle-right"></i>
-                        </button>
-                    </div>
-                    <div class="right">
-                        <h2>CẤU HÌNH</h2>
-                        <ul>
-                            <li>
-                                <p>Năm sản xuất</p>
-                                <p>2022</p>
-                            </li>
-                            <li>
-                                <p>Năm sản xuất</p>
-                                <p>2022</p>
-                            </li>
-                            <li>
-                                <p>Năm sản xuất</p>
-                                <p>2022</p>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-             <div class="item">
-                <div class="image">
-                    <img src="https://images3.alphacoders.com/133/thumbbig-1334920.webp">
-                </div>
-                <div class="content">
-                    <div class="left">
-                        <h1>NARUTO</h1>
-                        <div class="des">Tinh ru anh choi da <br> Chua kip choi da ma em da da anh</div>
-                        <button>Seee more
-                            <i class="fa-solid fa-angle-right"></i>
-                            <i class="fa-solid fa-angle-right"></i>
-                            <i class="fa-solid fa-angle-right"></i>
-                        </button>
-                    </div>
-                    <div class="right">
-                        <h2>CẤU HÌNH</h2>
-                        <ul>
-                            <li>
-                                <p>Năm sản xuất</p>
-                                <p>2022</p>
-                            </li>
-                            <li>
-                                <p>Năm sản xuất</p>
-                                <p>2022</p>
-                            </li>
-                            <li>
-                                <p>Năm sản xuất</p>
-                                <p>2022</p>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
+            <%}%>
           </div>
           <div class="directional">
             <button id="prev"><i class="fa-solid fa-angle-left"></i></button>
