@@ -17,11 +17,13 @@ if (localStorage.getItem("curentpage")) {
 document.addEventListener("DOMContentLoaded", function () {
 	if (find_page.value <= 1) {
 		previous_page.style.display = "none";
-	}
+	}else if (find_page.value==maxcout){
+    next_page.style.display = "none";
+  }
 	find_page.addEventListener("keydown", function (event) {
-		if (find_page.value < 1) {
+		if (find_page.value <= 1) {
 			previous_page.style.display = "none";
-		} else if (find_page.value >= 1) {
+		} else if (find_page.value > 1) {
 			previous_page.style.display = "block";
 		}
 		if (event.key === "Enter") {
@@ -115,11 +117,8 @@ async function getListNovel(offset, fill) {
 		if (response.status === 200) {
 			const data = await response.json();
 			let novelListHTML = "";
-			if (data["data"].length <= 4) {
+			if (data["data"].length < 4) {
 				next_page.style.display = "none";
-			} else if (maxcout == Number(find_page.value)) {
-				next_page.style.display = "none";
-        console.log('đang ăn cái này')
 			} else {
 				next_page.style.display = "block";
 			}
