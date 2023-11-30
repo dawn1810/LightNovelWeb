@@ -224,6 +224,20 @@
                   </div>
                 </div>
   </header>
+  <div class="toast">
+    <div class="toast-content">
+      <i class="fas fa-solid fa-check check"></i>
+
+      <div class="message">
+        <span class="text text-1">null</span>
+        <span class="text text-2">null</span>
+      </div>
+      <i class="fa-solid fa-xmark close1" id="close"></i>
+    </div>
+
+    <!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
+    <div class="progress active"></div>
+  </div>
   <div class="modal">
     <div class="modal_wrap">
       <form class="form" id="form1">
@@ -507,12 +521,12 @@
           <span class="form-message"></span>
         </div>
         <div class="group1">
-          <input placeholder="Email" class="input" type="text" id="codeotp">
+          <input placeholder="Email đăng ký tài khoản" class="input" type="text" id="codeotp">
           <span class="form-message"></span>
         </div>
 
         <div class="group1">
-          <button class="btn signup" id="logins">Submit</button>
+          <button class="btn signup" id="forgot">Submit</button>
         </div>
 
 
@@ -558,20 +572,7 @@
     </li>
   </ul>
 
-  <div class="toast">
-    <div class="toast-content">
-      <i class="fas fa-solid fa-check check"></i>
 
-      <div class="message">
-        <span class="text text-1">null</span>
-        <span class="text text-2">null</span>
-      </div>
-      <i class="fa-solid fa-xmark close1" id="close"></i>
-    </div>
-
-    <!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
-    <div class="progress active"></div>
-  </div>
 
   <script>
     $("document").ready(function() {

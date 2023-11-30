@@ -88,6 +88,8 @@ const apiRouter = (app) => {
 	// Delete novel page --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	router.post("/api/cancel", api_router.api_cancle);
 
+	// reset password ----------------------------------------------------------------
+	router.post("/api/reset_password", api_router.api_reset_password);
 	// Thay đổi info -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	router.post("/api/updateInfo", api_router.api_updateInfo);
 
@@ -103,11 +105,9 @@ const apiRouter = (app) => {
 	// cập nhật trạng thái người dùng
 	router.post("/api/block_account", api_router.api_block_account);
 	// cập nhật trạng thái người dùng
-  router.post("/api/open_account", api_router.api_open_account);
-  //slider
+	router.post("/api/open_account", api_router.api_open_account);
+	//slider
 	router.post("/api/edit_slider", api_router.api_editSlider);
-  
-  
 
 	// cập nhật trạng thái người dùng
 	router.post("/api/block_author", api_router.api_block_author);

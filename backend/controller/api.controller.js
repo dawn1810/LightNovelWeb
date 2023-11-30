@@ -41,6 +41,12 @@ const isBase64 = (value) => {
 //   }
 // }
 
+const api_reset_password = async (req, res) => {
+	const data = req.body;
+	console.log(data);
+	res.sendStatus(200);
+};
+
 const api_search_more = async (req, res) => {
 	try {
 		const type_id = decodeURIComponent(req.query.type_id);
@@ -1379,6 +1385,7 @@ const api_editSlider = async (req, res) => {
 
 module.exports = {
 	api_search_more,
+	api_reset_password,
 	api_advanced_search,
 	api_no_chap,
 	api_reviews,

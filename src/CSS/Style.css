@@ -1687,7 +1687,7 @@ html .body_main {
 	top: 3%;
 	width: 100vw;
 	height: 100%;
-	z-index: 99999999;
+	z-index: 100;
 	display: none;
 	background: #000000d9;
 }
