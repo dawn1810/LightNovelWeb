@@ -338,7 +338,6 @@ const api_login = async (req, res) => {
 		if (f_result.length != 0) {
 			// log in first time: (sign up database)
 			for (let i = 0; i < f_result.length; i++) {
-				console.log(func_controller.comparePassword(data.pass, f_result[i].mat_khau));
 				if (func_controller.comparePassword(data.pass, f_result[i].mat_khau)) {
 					// copy data to dang_nhap database
 					const id_user = uuidv4();
