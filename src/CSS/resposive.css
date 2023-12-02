@@ -90,7 +90,8 @@
     }
 
     .novel_item {
-        width: 44%;
+        width: 28%;
+        margin: 10px;
     }
 
     .footer_wrap {
@@ -106,11 +107,11 @@
 
     .novel_item_main_img,
     .novel_item img {
-        height: 150px;
+        height: 122px;
     }
 
     .novel_item img {
-        object-position: 50% 0%;
+        object-position: 50% 50%;
     }
 
     .left_item {
@@ -128,13 +129,28 @@
     }
 
     .left_item {
-        bottom: 0;
-        display: flex;
         top: auto;
-        left: 0;
         width: 100%;
         background-color: var(--header-background);
         margin: 0;
+    }
+    .novel_name{
+        font-size: 14px;
+    }
+    .novel_author {
+        font-size: 10px;
+    }
+    .novel_chapter{
+        font-size: 12px;
+        display: block;
+    }
+    .novel_chapter span{
+        padding: 0;
+        border: 0;
+    }
+    .novel_chapter div{
+        margin: 0;
+        padding-top: 3px;
     }
 
     .close {
