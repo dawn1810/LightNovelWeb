@@ -45,14 +45,17 @@ const renderReading =  async (req, res) => {
 		// 	limit: 1
 		// });
 		let data = await queryAsync(
-			`SELECT * FROM chuong WHERE thu_tu=${req.params.chap} && id_truyen='${req.params.id}'`
+			`SELECT * FROM chuong WHERE thu_tu = ? && id_truyen = ?`,
+			[req.params.chap, req.params.id]
 		);
 
 		let old_name_list = await queryAsync(
-			`SELECT ten_chuong FROM chuong WHERE id_truyen='${req.params.id}'`
+			`SELECT ten_chuong FROM chuong WHERE id_truyen = ?`,
+			[req.params.id]
 		);
 		let getname = await queryAsync(
-			`SELECT ten_truyen FROM truyen WHERE id='${req.params.id}'`
+			`SELECT ten_truyen FROM truyen WHERE id = ?`,
+			[req.params.id]
 		);
 		// chuyen kieu du lieu cho giong mongo
 		function convertNewToOld(newData) {
@@ -70,7 +73,7 @@ const renderReading =  async (req, res) => {
 		// 	return;
 		// }
 		const chap_content = await server.downloadFileFromDrive(String(data[0].noi_dung_chuong));	
-		console.log(JSON.stringify(getname[0]));
+		// console.log(JSON.stringify(getname[0]));
 		res.render('readingpage.ejs', {
 			headerFile: 'header',
 			footerFile: 'footer',

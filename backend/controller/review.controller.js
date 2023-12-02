@@ -2,15 +2,10 @@ const { connection, queryAsync } = require("../dbmysql");
 // const { connectToDatabase } = require('../dbmysql');
 
 const func_controller = require("./func.controller");
-const secretKey = "5gB#2L1!8*1!0)$7vF@9";
-const authenticationKey = Buffer.from(
-  secretKey.padEnd(32, "0"),
-  "utf8"
-).toString("hex");
 const renderReviews = async (req, res) => {
   try {
     const account = req.session.user;
-    console.log("SYSTEM | REVIEWS |", account);
+    // console.log("SYSTEM | REVIEWS |", account);
     // Get novel information:
     let result = await queryAsync(
       `SELECT * FROM truyen WHERE id='${req.params.id}'`
@@ -20,7 +15,8 @@ const renderReviews = async (req, res) => {
     // default if they don't have an account
 
     let theloaiID = await queryAsync(
-      `SELECT DISTINCT id_the_loai FROM the_loai_truyen WHERE the_loai_truyen.id_truyen = '${req.params.id}'`
+      `SELECT DISTINCT id_the_loai FROM the_loai_truyen WHERE the_loai_truyen.id_truyen = ?`,
+      [req.params.id]
     );
     // console.log("the loai:", theloaiID);
     const genres = theloaiID.map((row) => row.id_the_loai);
@@ -32,9 +28,10 @@ const renderReviews = async (req, res) => {
      INNER JOIN tacgia ON truyen.id_tac_gia = tacgia.id
      INNER JOIN the_loai_truyen ON truyen.id = the_loai_truyen.id_truyen
      INNER JOIN the_loai ON the_loai_truyen.id_the_loai = the_loai.id
-     WHERE the_loai_truyen.id_the_loai IN (${genreList})
+     WHERE the_loai_truyen.id_the_loai IN (?)
      ORDER BY truyen.ngay_cap_nhat DESC, truyen.luot_xem DESC, truyen.luot_thich DESC, truyen.ten_truyen ASC
-     LIMIT 6;`
+     LIMIT 6;`,
+     [genreList]
     );
     
 
@@ -49,8 +46,9 @@ const renderReviews = async (req, res) => {
       // id_nguoidung = ${decodeList[1]}
       const like_list = await queryAsync(`
         SELECT * FROM truyen_yeu_thich 
-        WHERE id_nguoi_dung = '${account.id}'
-        AND id_truyen= '${req.params.id}'`);
+        WHERE id_nguoi_dung = ?
+        AND id_truyen= ?`,
+        [account.id, req.params.id]);
 
       if (like_list[0]) {
         // liked

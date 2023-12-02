@@ -103,8 +103,8 @@ height: 50rem;
   justify-content: space-between;
   gap: 20px;
 }
-.right_gr div {
-  background-color: var(--item-color) ;
+.right_gr button {
+  background-color: var(--item-color)!important ;
   padding: 1rem;
   border-radius: 0.7rem;
   font-size: 1rem;
@@ -113,8 +113,8 @@ height: 50rem;
   width: 185px;
   text-align: center;
 }
-.right_gr div:hover{
-  background-color: #daa06d;
+.right_gr button:hover{
+  background-color: #daa06d!important;
 }
 
 .previous_page {
@@ -134,7 +134,7 @@ height: 50rem;
     opacity: 0.6;
 }
 .right_gr .open{
-  background-color: #5e90a8;
+  background-color: #5e90a8!important;
 }
 .block{
   display: none;
@@ -147,7 +147,7 @@ height: 50rem;
     flex-direction: column;
     align-items: flex-start;
   }
-  .right_gr div {
+  .right_gr button {
     width: 6rem;
   }
 }

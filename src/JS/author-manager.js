@@ -140,7 +140,7 @@ async function getListNovel(offset, fill) {
                       <div class="name-novel-top">
                         <h2><a >${data["data"][i].ten_truyen}</a>
                         </h2>
-                          <h3>Trạng Thái: ${ban_state}</h3>
+                          <h3 class='trangthai'>Trạng Thái: ${ban_state}</h3>
                       </div>
                       <p>
                         sech
@@ -219,7 +219,6 @@ async function getNovel(id) {
                 </div>
               </div>
               <div class="author_btn_container">
-                <button class="status_btn edit_novel">Chỉnh sửa</button>
                 <button type="button"  class="status_btn ban_novel" value='${data.data[0].id}'onclick="changeState(this.value)">Mở Khoá</button>
               </div>
             </div>
@@ -253,7 +252,6 @@ async function getNovel(id) {
                 </div>
               </div>
               <div class="author_btn_container">
-                <button class="status_btn edit_novel">Chỉnh sửa</button>
                 <button type="button"  class="status_btn ban_novel" value='${data.data[0].id}' onclick="changeState(this.value)">Khoá truyện</button>
               </div>
             </div>
@@ -352,9 +350,11 @@ async function changeState(id) {
 			if (jsonResponse.message == 1) {
 				ban_novel.innerText = "Mở Khoá";
 				document.querySelector(".ban_novel").innerText = "Mở Khoá";
+				document.getElementById(id).querySelector('.trangthai').innerText='Trạng Thái: đã khoá'
 			} else {
 				ban_novel.innerText = "Khoá truyện";
 				document.querySelector(".ban_novel").innerText = "Khoá truyện";
+				document.getElementById(id).querySelector('.trangthai').innerText='Trạng Thái: không khoá'
 			}
 		} else {
 			alert("Có lỗi xảy ra: " + response.statusText);

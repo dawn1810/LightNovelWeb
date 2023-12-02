@@ -7,7 +7,7 @@ const session = require("express-session");
 const MySQLStore = require("express-mysql-session")(session);
 const cors = require("cors");
 const { connection } = require("./dbmysql");
-const authenticationKey = require("./controller/api.controller");
+const { get_authenkey } = require("./controller/func.controller");
 const cron = require("node-cron");
 const app = express();
 
@@ -29,7 +29,7 @@ app.use(cookieParser());
 app.use(
   session({
     name: "wtf-novel", // Đặt tên mới cho Session ID
-    secret: authenticationKey.authenticationKey,
+    secret: get_authenkey(),
     resave: false,
     saveUninitialized: false,
     store: sessionStore,

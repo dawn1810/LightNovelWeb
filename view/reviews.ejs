@@ -91,9 +91,9 @@
                   <div class="wrapper">
                     <a class="button-efect curr_chap" href="/reading/<%=idtruyen%>/<%=curr_chap%>"><span>Đọc tiếp</span></a>
                   </div>
-                <% } else if (liked && localStorage.getItem('idtruyen')) { %>
+                <% } else { %>
                   <div class="wrapper">
-                    <a class="button-efect curr_chap" href="/reading/<%=idtruyen%>/<%=localStorage.getItem('idtruyen')%>"><span>Đọc tiếp</span></a>
+                    <a class="button-efect curr_chap curr_chap_local" href="/reading/<%=idtruyen%>/"><span>Đọc tiếp</span></a>
                   </div>
                 <% } %>
                 <div class="wrapper">
@@ -209,6 +209,7 @@
       </div>
 
       <div class="Similar novels">
+        <% if(maybeulike.length>0){%>
         <div class="Similar_title">Có thể bạn sẽ thích</div>
         <div class="same-propose">
 
@@ -223,9 +224,9 @@
                 <div class="same-last-time"><%=maybeulike[i].update_date%></div>
               </div>
             </a>
-            <% } %>
-
-        </div>
+            
+          </div>
+          <% }} %>
 
       </div>
 
@@ -263,7 +264,6 @@
     </svg>
   </button>
 </div>
-<!-- <script src="/src/JS/script.js"></script> -->
  
 <script>const idtruyen = '<%=idtruyen%>'</script>
 <script src="/src/JS/review.js"></script>

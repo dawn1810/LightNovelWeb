@@ -5,7 +5,7 @@ const { queryAsync } = require("../dbmysql");
 const processNovels = async function (req, res, id_truyen) {
   try {
     const account = req.session.user;
-
+    console.log("Account: " + JSON.stringify(account));
     let render_data = {
       headerFile: "header",
       footerFile: "footer",
@@ -18,6 +18,8 @@ const processNovels = async function (req, res, id_truyen) {
       edit_chap_ids: "",
       edit_name_chaps: "",
       edit_no_chaps: "",
+      ban: "",
+      role: "",
       max_page: 0,
     };
 
@@ -31,14 +33,15 @@ const processNovels = async function (req, res, id_truyen) {
         truyen.tom_tat_noi_dung as summary,
         truyen.anh_dai_dien as image,
         truyen.luot_xem as views,
-        truyen.luot_thich as likes
+        truyen.luot_thich as likes,
+        truyen.ban as ban 
       FROM truyen
       INNER JOIN tacgia
         ON truyen.id_tac_gia = tacgia.id
       INNER JOIN thongtin_nguoidung
         ON tacgia.id_nguoi_dung = thongtin_nguoidung.id
-      WHERE thongtin_nguoidung.id = '${account.id}'
-    `);
+      WHERE thongtin_nguoidung.id = ?
+    `, [account.id]);
     let result = [];
     let result_like = [];
 
@@ -51,8 +54,8 @@ const processNovels = async function (req, res, id_truyen) {
         ON the_loai_truyen.id_the_loai = the_loai.id
       INNER JOIN truyen
         ON the_loai_truyen.id_truyen = truyen.id
-      WHERE truyen.id = '${novel.id}'
-      `);
+      WHERE truyen.id = ?
+      `, [novel.id]);
 
       novel.genres = genres.map((genre) => genre.ten_the_loai);
 
@@ -63,17 +66,17 @@ const processNovels = async function (req, res, id_truyen) {
       FROM chuong
       INNER JOIN truyen
         ON chuong.id_truyen = truyen.id
-      WHERE truyen.id = '${novel.id}'
+      WHERE truyen.id = ?
       ORDER BY chuong.thu_tu
       LIMIT 6 OFFSET 0
-      `);
+      `, [novel.id]);
       novel.chap_ids = chapters.map((chapter) => chapter.noi_dung_chuong);
       novel.name_chaps = chapters.map((chapter) => chapter.ten_chuong);
       
       result.push(novel);
       if (novel.id == id_truyen) {
         const max_page = await queryAsync(
-          `SELECT COUNT(*) AS row_count FROM chuong WHERE id_truyen='${id_truyen}';`
+          `SELECT COUNT(*) AS row_count FROM chuong WHERE id_truyen= ? ;`, [id_truyen]
         );
         render_data.edit_name = novel.name;
         render_data.edit_auth = novel.author;
@@ -84,8 +87,11 @@ const processNovels = async function (req, res, id_truyen) {
         render_data.edit_chap_ids = novel.chap_ids;
         render_data.edit_name_chaps = novel.name_chaps;
         render_data.edit_no_chaps = novel.no_chapters;
+        render_data.ban = novel.ban;
+        render_data.role = req.session.user;
         render_data.max_page= max_page[0].row_count;
       }
+
     }
 
     render_data.novels = result;
@@ -99,7 +105,8 @@ const processNovels = async function (req, res, id_truyen) {
         truyen.so_luong_chuong as no_chapters,
         truyen.anh_dai_dien as image,
         truyen.ngay_cap_nhat as update_date,
-        truyen_yeu_thich.chuong_hien_tai as curr_chap
+        truyen_yeu_thich.chuong_hien_tai as curr_chap,
+        truyen.ban as ban 
       FROM truyen
       INNER JOIN tacgia
         ON truyen.id_tac_gia = tacgia.id
@@ -107,8 +114,8 @@ const processNovels = async function (req, res, id_truyen) {
         ON truyen.id = truyen_yeu_thich.id_truyen
       INNER JOIN thongtin_nguoidung
         ON truyen_yeu_thich.id_nguoi_dung = thongtin_nguoidung.id
-      WHERE thongtin_nguoidung.id = '${account.id}'
-    `);
+      WHERE thongtin_nguoidung.id = ?
+    `, [account.id]);
     let idListlikeNovels = [];
     for (let novel of likeNovels) {
       idListlikeNovels.push(novel.id);

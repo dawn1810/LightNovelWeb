@@ -58,6 +58,15 @@ const webRouter = (app) => {
     }
   );
 
+  // ruri is here
+  router.get(
+    "/resetyourpassword",
+    func_controller.checkCookieLoglUser,
+    (req, res) => {
+      index_controller.rederIndex(req, res, null);
+    }
+  );
+
   router.get(
     "/profile/:anything",
     func_controller.checkCoookieIfOK,

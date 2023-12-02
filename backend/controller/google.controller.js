@@ -38,19 +38,31 @@ passport.use(
 				// console.log(request);
 				// Kiểm tra xem thông tin người dùng đã tồn tại chưa
 				await queryAsync(`
-		INSERT INTO taikhoan_nguoidung (id, ten_tai_khoan, email, mat_khau, login_way)
-		VALUES ('${profile.id}','${profile.id}', '${profile.emails[0].value}', null, 'google')
-		ON DUPLICATE KEY UPDATE
-			email = '${profile.emails[0].value}'
-		`);
+				INSERT INTO taikhoan_nguoidung (id, ten_tai_khoan, email, mat_khau, login_way)
+				VALUES (?,?,?, null, 'google')
+				ON DUPLICATE KEY UPDATE
+					email = ?
+				`, [
+					profile.id,
+					profile.id,
+					profile.emails[0].value,
+					profile.emails[0].value
+				]);
 
 				await queryAsync(`
-		INSERT INTO thongtin_nguoidung (id, id_tai_khoan, ten_hien_thi, anh_dai_dien)
-		VALUES ('${profile.id}', '${profile.id}', '${profile.displayName}', '${profile.photos[0].value}')
-		ON DUPLICATE KEY UPDATE
-			ten_hien_thi = '${profile.displayName}',
-			anh_dai_dien = '${profile.photos[0].value}'
-		`);
+				INSERT INTO thongtin_nguoidung (id, id_tai_khoan, ten_hien_thi, anh_dai_dien)
+				VALUES (?, ?, ?, ?)
+				ON DUPLICATE KEY UPDATE
+					ten_hien_thi = ?,
+					anh_dai_dien = ?
+				`, [
+					profile.id, 
+					profile.id, 
+					profile.displayName, 
+					profile.photos[0].value, 
+					profile.displayName, 
+					profile.photos[0].value
+				]);
 
 				// Fetch the user data from the database
 				const user = {
@@ -62,49 +74,6 @@ passport.use(
 
 				// Pass the user data to the done function
 				return done(null, user);
-				// const existingUser = await server.find_one_Data("tt_nguoi_dung", {
-				//   _id: profile.id,
-				// });
-				// if (existingUser) {
-				//   // update new data for tt_nguoi_dung database
-
-				//   await server.update_one_Data(
-				//     "tt_nguoi_dung",
-				//     { _id: profile.id },
-				//     {
-				//       $set: {
-				//         email: profile.emails[0].value,
-				//         displayName: profile.displayName,
-				//         avatarUrl: profile.photos[0].value,
-				//       },
-				//     }
-				//   );
-
-				//   return done(null, existingUser);
-				// } else {
-				//   // Tạo mới một người dùng
-				//   const newUser = {
-				//     _id: profile.id,
-				//     email: profile.emails[0].value,
-				//     displayName: profile.displayName,
-				//     avatarUrl: profile.photos[0].value,
-				//     sex: "unknown",
-				//     likeNovels: [],
-				//     mynovel: [],
-				//   };
-
-				//   // taikhoan_nguoidung database:
-				//   await server.add_one_Data("dang_nhap", {
-				//     _id: profile.id,
-				//     lgway: "google",
-				//   });
-
-				//   // thongtin_nguoidung database:
-				//   await server.add_one_Data("tt_nguoi_dung", newUser);
-
-				//   /// set cookie cho vào tài khoảng
-				//   return done(null, newUser);
-				// }
 			} catch (err) {
 				return done(err);
 			}

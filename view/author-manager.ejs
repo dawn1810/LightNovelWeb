@@ -126,6 +126,13 @@
                         <div class="name-novel-top">
                           <h2><a><%=truyen[i].ten_truyen%></a>
                           </h2>
+
+                          <% if(truyen[i].ban==1){ %>
+                          <h3 class="trangthai">Trạng Thái:đã khoá </h3>
+                          <% }else{ %>
+                            <h3 class="trangthai">Trạng Thái:không khoá </h3>
+                          <% } %>
+
                           <input type="checkbox" name="" id="">
                         </div>
                         <p>
@@ -149,7 +156,7 @@
               <div class="pagination_btn_gr">
                 <button class="previous_page"><i class="fa-solid fa-arrow-left"></i></button>
                 <input type="number" class="find_page" value="1">/
-                <p id="max"><%= Math.round(max_page[0].row_count/4)%></p>
+                <p id="max"><%= Math.ceil(max_page[0].row_count/4)%></p>
                 <button class="next_page"><i class="fa-solid fa-arrow-right"></i></button>
               </div>
             </div>
@@ -168,6 +175,7 @@
 
 <%}%>
   <%- include(footerFile) %>
+  <script src="/src/JS/link.js"></script>
   <script src="/src/JS/author-manager.js"></script>
 </body>
  

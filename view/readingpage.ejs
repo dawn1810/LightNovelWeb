@@ -261,7 +261,17 @@
             </button>
             <div class="chapter_list_wrap">
               <select name="show_more" id="show_more">
-                <%- name_chaps[0] %>
+                <% for (let i=0; i < name_chaps.length; i++) { %>
+                <% if (number_chap==i+1) { %>
+                <option class="show_more_item" selected value="<%= i+1 %>">
+                   <%= name_chaps[i] %>
+                </option>
+                <% } else { %>
+                <option class="show_more_item" value="<%= i+1 %>">
+                   <%= name_chaps[i] %>
+                </option>
+                <% } %>
+                <% }%>
               </select>
 
             </div>

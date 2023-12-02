@@ -92,7 +92,7 @@ const scrollHandler = () => {
         shouldRemoveScrollEvent = true; // Đặt biến cờ để gỡ bỏ sự kiện cuộn
         views_novel(id)
         updatecurrchap(id,chap)
-        localStorage.setItem(`${id}_`,`${chap}`)
+        localStorage.setItem(`${id}`,`${chap}`)
     } else {
         console.log("huhu");
     }

@@ -16,6 +16,13 @@ const btnLastPg = document.querySelector("button.last-page");
 const send_comment = document.querySelector(".send_your_cmt");
 const summary_btn = document.querySelector(".summary-btn");
 const summary_Content = document.querySelector(".summary-Content");
+const doctiep = document.querySelector(".curr_chap_local")
+console.log(idtruyen)
+if (localStorage.getItem(idtruyen)) {
+  doctiep.href = doctiep.href + localStorage.getItem(idtruyen);
+} else {
+  doctiep.parentElement.parentElement.removeChild(doctiep.parentElement);
+}
 summary_btn.onclick = () => {
   if (summary_Content.style.display == "none") {
     summary_Content.style.display = "block";

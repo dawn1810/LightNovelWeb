@@ -1,6 +1,6 @@
 Chào bạn,
 
-Chúng tôi nhận được yêu cầu xác nhận tài khoản từ bạn. Để hoàn tất quá trình xác thực, vui lòng click vào liên kết dưới đây, liên kết sẽ tồn tại 5 phút.
+Chúng tôi nhận được yêu cầu xác nhận tài khoản từ bạn. Để hoàn tất quá trình xác thực, vui lòng click vào liên kết dưới đây, liên kết sẽ tồn tại 30 phút.
           
 Liên kết của bạn: ${password}
           

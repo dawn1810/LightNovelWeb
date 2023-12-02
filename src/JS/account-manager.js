@@ -45,8 +45,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (data.role[0].last_role == 1) {
           element.parentElement.children[3].classList.add("last");
+          element.parentElement.children[3].disabled = true;
         } else if (data.role[0].last_role == 2) {
           element.parentElement.children[2].classList.add("last");
+          element.parentElement.children[2].disabled = true;
+
         }
       } else {
         notify("x", response.statusText);
@@ -95,6 +98,10 @@ document.addEventListener("DOMContentLoaded", function () {
         element.parentElement.children[1].classList.remove("block");
         element.parentElement.children[3].classList.remove("last");
         element.parentElement.children[2].classList.remove("last");
+        element.parentElement.children[3].disabled = false;
+
+        element.parentElement.children[2].disabled = false;
+
       } else {
         notify("x", response.statusText);
       }
@@ -106,6 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (author) {
     for (const open_account of author) {
       open_account.addEventListener("click", function (e) {
+        if ( open_account.disabled) return;
         e.preventDefault();
         console.log(
           open_account.parentElement.parentElement.getAttribute("id")
@@ -150,6 +158,8 @@ document.addEventListener("DOMContentLoaded", function () {
   if (authorf5) {
     for (const open_account of authorf5) {
       open_account.addEventListener("click", function (e) {
+        if ( open_account.disabled) return;
+
         e.preventDefault();
         console.log(
           open_account.parentElement.parentElement.getAttribute("id")

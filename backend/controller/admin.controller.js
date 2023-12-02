@@ -6,6 +6,9 @@ const admin = async (req, res) => {
     footerFile: "footer",
   });
 };
+
+const admin_id = 'bdbd15ad-50eb-40fb-a0d0-f141321e6fd0';
+
 const add_content_slider = async (req, res) => {
   let data = await queryAsync(
     `SELECT slider.*,truyen.ten_truyen FROM slider,truyen WHERE  slider.id_truyen = truyen.id`
@@ -69,4 +72,5 @@ module.exports = {
   accountManager,
   authortManager,
   add_content_slider,
+  admin_id,
 };

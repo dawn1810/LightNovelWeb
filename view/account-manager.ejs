@@ -43,58 +43,72 @@
             <div class="right_gr">
               <% if (user.role == 0  && user.last_role ==2) { %>
 
-                  <div class="block_account_f5 open">
+                  <button class="block_account_f5 open">
                     Mở khoá người dùng
-                  </div>
-                  <div class="block_account block">
+                  </button>
+                  <button class="block_account block">
                     Khoá người dùng
-                  </div>
-                  <div class="author_btn last">
+                  </button>
+                  <button class="author_btn last" disabled>
                     Xoá quyền tác giả
-                  </div>
-                  <div class="author_btn_f5 block open">
+                  </button>
+                  <button class="author_btn_f5 block open">
                     Thêm quyền tác giả
-                  </div>
+                  </button>
                
               <% } else if ( user.role ==0 && user.last_role == 1) { %>
-                <div class="block_account_f5 open">
+                <button class="block_account_f5 open">
                   Mở khoá người dùng
-                </div>
-                <div class="block_account block">
+                </button>
+                <button class="block_account block">
                   Khoá người dùng
-                </div>
-                <div class="author_btn block">
+                </button>
+                <button class="author_btn block">
                   Xoá quyền tác giả
-                </div>
-                <div class="author_btn_f5 last open">
+                </button>
+                <button class="author_btn_f5 last open" disabled>
                   Thêm quyền tác giả
-                </div>
-              <% } else if(user.role ==1) { %>
-                <div class="block_account_f5 open block">
+                </button>
+              <% } else if ( user.role ==0 && user.last_role == 0) { %>
+                <button class="block_account_f5 open">
                   Mở khoá người dùng
-                </div>
-                <div class="block_account ">
+                </button>
+                <button class="block_account block">
                   Khoá người dùng
-                </div>
-                <div class="author_btn block">
+                </button>
+                <button class="author_btn block">
                   Xoá quyền tác giả
-                </div>
-                <div class="author_btn_f5 open">
+                </button>
+                <button class="author_btn_f5 last open" disabled>
                   Thêm quyền tác giả
-                </div>
+                </button>
+              <% }
+              else if(user.role ==1) { %>
+                <button class="block_account_f5 open block">
+                  Mở khoá người dùng
+                </button>
+                <button class="block_account ">
+                  Khoá người dùng
+                </button>
+                <button class="author_btn block">
+                  Xoá quyền tác giả
+                </button>
+                <button class="author_btn_f5 open">
+                  Thêm quyền tác giả
+                </button>
               <% } else { %>
-                <div class="block_account_f5 open block">
+                <button class="block_account_f5 open block">
                   Mở khoá người dùng
-                </div>
-                <div class="block_account">
+                </button>
+                <button class="block_account">
                   Khoá người dùng
-                </div>
-                <div class="author_btn">
+                </button>
+                <button class="author_btn">
                   Xoá quyền tác giả
-                </div>
-                <div class="author_btn_f5 block open">
+                </button>
+                <button class="author_btn_f5 block open">
                   Thêm quyền tác giả
-                </div>
+                </button>
               <% } %>
             </div>
           </div>
@@ -110,7 +124,7 @@
   <%- include(footerFile) %>
 
 </body>
-
+<script src="/src/JS/link.js"></script>
 <script src="../src/JS/account-manager.js"></script>
 
 </html>

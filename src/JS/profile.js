@@ -1367,7 +1367,7 @@ document.querySelector(".page5_c .next_btn").onclick = function () {
 	const postData = JSON.stringify({
 		id: extractedID,
 		novel_name: document.querySelector(".page5_c  .profile_input ").value,
-		// author_name: document.querySelector(".page5_c  .author_name").value,
+		author_name: document.querySelector(".page5_c  .author_name").value,
 		novel_descript: document.querySelector(".page5_c  .novel_descript").value,
 		novel_types: listObj2.tempValues,
 		novel_status: document.querySelector(".page5_c  .novel_status select").options[

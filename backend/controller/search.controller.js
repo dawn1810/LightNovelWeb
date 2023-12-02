@@ -5,84 +5,46 @@ const {
 	getFirstAndLastDayOfMonth,
 	getFirstAndLastDayOfYear,
 } = require("./func.controller.js");
+
 // Search route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const search = async (req, res) => {
 	try {
 		const search = decodeURIComponent(req.query.search);
 		if (search) {
-			// get all novels name
-			//   let names = await server.find_all_Data({
-			//     table: "truyen",
-			//     query: { name: { $regex: new RegExp(search, "i") } },
-			//     projection: {
-			//       name: 1,
-			//       author: 1,
-			//       image: 1,
-			//       status: 1,
-			//       no_chapters: 1,
-			//     },
-			//     limit: 31,
-			//   });
 
 			let names = await queryAsync(
 				`SELECT truyen.id AS _id,
-	  ten_truyen AS name,
-	   ten_tac_gia AS author, anh_dai_dien AS image, 
-	   trang_thai AS status, so_luong_chuong AS no_chapters 
-	   FROM truyen, tacgia WHERE 
-	   truyen.ban!= 1 AND truyen.id_tac_gia = tacgia.id AND ten_truyen REGEXP ? ORDER BY truyen.id LIMIT 31
-	  `,
+				ten_truyen AS name,
+				ten_tac_gia AS author, anh_dai_dien AS image, 
+				trang_thai AS status, so_luong_chuong AS no_chapters 
+				FROM truyen, tacgia WHERE 
+				truyen.ban!= 1 AND truyen.id_tac_gia = tacgia.id AND ten_truyen REGEXP ? ORDER BY truyen.id LIMIT 31
+				`,
 				[search]
 			);
 
-			// get all novels authors
-			//   let authors = await server.find_all_Data({
-			//     table: "truyen",
-			//     query: { author: { $regex: new RegExp(search, "i") } },
-			//     projection: {
-			//       name: 1,
-			//       author: 1,
-			//       image: 1,
-			//       status: 1,
-			//       no_chapters: 1,
-			//     },
-			//     limit: 31,
-			//   });
 			let authors = await queryAsync(
 				`SELECT truyen.id AS _id,
-	  ten_truyen AS name,
-	   ten_tac_gia AS author, anh_dai_dien AS image, 
-	   trang_thai AS status, so_luong_chuong AS no_chapters 
-	   FROM truyen, tacgia WHERE 
-	   truyen.ban!= 1 AND truyen.id_tac_gia = tacgia.id AND ten_tac_gia REGEXP ? ORDER BY truyen.id LIMIT 31
-	  `,
+				ten_truyen AS name,
+				ten_tac_gia AS author, anh_dai_dien AS image, 
+				trang_thai AS status, so_luong_chuong AS no_chapters 
+				FROM truyen, tacgia WHERE 
+				truyen.ban!= 1 AND truyen.id_tac_gia = tacgia.id AND ten_tac_gia REGEXP ? ORDER BY truyen.id LIMIT 31
+				`,
 				[search]
 			);
-			// get all novels genres
-			//   let genres = await server.find_all_Data({
-			//     table: "truyen",
-			//     query: { genres: { $in: [new RegExp(search, "i")] } },
-			//     projection: {
-			//       name: 1,
-			//       author: 1,
-			//       image: 1,
-			//       status: 1,
-			//       no_chapters: 1,
-			//     },
-			//     limit: 31,
-			//   });
 			let genres = await queryAsync(
-				`SELECT truyen.id AS _id,
-	  ten_truyen AS name,
-	  ten_tac_gia AS author, anh_dai_dien AS image, 
-	  trang_thai AS status, so_luong_chuong AS no_chapters 
-	  FROM truyen, tacgia, the_loai_truyen, the_loai WHERE 
-	  truyen.id = the_loai_truyen.id_truyen
-	  AND the_loai.id = the_loai_truyen.id_the_loai 
-	  AND truyen.id_tac_gia = tacgia.id 
-    AND truyen.ban!= 1
-	  AND the_loai.ten_the_loai REGEXP ? ORDER BY truyen.id LIMIT 31
-	  `,
+			`SELECT truyen.id AS _id,
+			ten_truyen AS name,
+			ten_tac_gia AS author, anh_dai_dien AS image, 
+			trang_thai AS status, so_luong_chuong AS no_chapters 
+			FROM truyen, tacgia, the_loai_truyen, the_loai WHERE 
+			truyen.id = the_loai_truyen.id_truyen
+			AND the_loai.id = the_loai_truyen.id_the_loai 
+			AND truyen.id_tac_gia = tacgia.id 
+			AND truyen.ban!= 1
+			AND the_loai.ten_the_loai REGEXP ? ORDER BY truyen.id LIMIT 31
+			`,
 				[search]
 			);
 			//
@@ -113,7 +75,7 @@ const search = async (req, res) => {
 				genres: genres,
 				genres_more: genres_more,
 				what_search: search,
-				typesearch: req.query.type,
+				typesearch: req.query.type
 			});
 		} else {
 			res.sendStatus(404);
@@ -277,14 +239,16 @@ const category = async (req, res, limit = 31) => {
 
 const category_module = async (req, res) => {
 	try {
+		const theloai = await queryAsync(
+			`SELECT DISTINCT ten_the_loai FROM the_loai`);
 		const data = await category(req, res);
-
 		res.render("category-page.ejs", {
 			headerFile: "header",
 			footerFile: "footer",
 			result: data.novel,
 			more_novel: data.check,
 			autochoose: req.query,
+			theloai:theloai
 		});
 	} catch (err) {
 		console.log("SYSTEM | SEARCH | ERROR | ", err);
@@ -294,5 +258,5 @@ const category_module = async (req, res) => {
 module.exports = {
 	search,
 	category_module,
-	category,
+	category
 };

@@ -28,9 +28,9 @@
 
 
   <title>Document</title>
-  <!-- <script>
+  <script>
     const currentURL = window.location.origin;
-  </script> -->
+  </script>
 </head>
 
 <body>
@@ -112,15 +112,15 @@
         </div>
       </div>
 
-      <% if(admin!=100) { %>
-      <div class="information_name_wrap">
-        <h3>Tên sáng tác (tác giả)</h3>
-        <div class="information_name">
-          <input class="profile_input" type="text" id="author_name" value="<%= author_name %>" />
-          <span class="form-message-info"></span>
-        </div>
-      </div>
-      <% } %>
+	<%if(admin!=100){%>
+		<div class="information_name_wrap">
+			<h3>Tên sáng tác (tác giả)</h3>
+			<div class="information_name">
+			<input class="profile_input" type="text" id="author_name" value="<%= author_name %>" />
+			<span class="form-message-info"></span>
+			</div>
+		</div>
+	<%}%>
 
       <div class="information_name_wrap">
         <h3>Email</h3>
@@ -322,7 +322,7 @@
 
           <div class="add_new_box">
             <div class="normal_add">
-              <button class="add_new">+ THÊM TRUYỆN</button>
+              <button class="add_new">+ THÊM TRUYỆN <%= user.role %></button>
             </div>
             <div class="quick_add">
               <button class="add_new">+ THÊM TRUYỆN NHANH</button>
@@ -361,84 +361,169 @@
         <div class="page5_home_main">
           <!-- <%=novels %> -->
           <% for (let novel of novels) { %>
-          <!-- my novel item -->
-          <div class="page5_home_main_item">
-            <div class="page5_home_main_logo">
-              <img src="<%= novel.image %>" alt="<%= novel.name %>">
+            
+          <%if(novel.ban==1){%>
+            <!-- my novel item -->
+            <div  class="block">
+              <div style="color: red; margin:0">TRUYỆN NÀY CỦA BẠN HIỆN TẠI ĐANG BỊ KHOÁ DO ADMIN VUI LÒNG CHỈNH SỬA HOẶC LIÊN HỆ VỚI QUẢN TRỊ VIÊN ĐỂ ĐƯỢC HỖ TRỢ</div>
+              <div style="border:2px red solid" class="page5_home_main_item">
+                <div class="page5_home_main_logo">
+                  <img src="<%= novel.image %>" alt="<%= novel.name %>">
+                </div>
+                <div class="page5_home_info">
+                  <div class="page5_home_info_top">
+                    <div class="page5_home_info_name">
+                      <%= novel.name %>
+                    </div>
+                    <div class="page5_home_info_status">
+                      <%= novel.status %>
+                    </div>
+                  </div>
+                  <div class="page5_home_info_date">
+                    Cập nhật <span>
+                      <%= novel.update_time %>
+                    </span>
+                  </div>
+  
+                  <div class="page5_home_info_wrap">
+                    <div class="page5_home_info_wrap_item">
+                      <div class="page5_home_info_wrap_item_title">
+                        <i class="fa-solid fa-list-ul"></i>
+                        <span>Chương:</span>
+                      </div>
+                      <div class="page5_home_info_wrap_item_value">
+                        <%= novel.no_chapters %>
+                      </div>
+                    </div>
+                    <div class="page5_home_info_wrap_item">
+                      <div class="page5_home_info_wrap_item_title">
+                        <i class="fa-regular fa-eye"></i>
+                        <span>Lượt đọc:</span>
+                      </div>
+                      <div class="page5_home_info_wrap_item_value">
+                        <%= novel.views %>
+                      </div>
+                    </div>
+                    <div class="page5_home_info_wrap_item">
+                      <div class="page5_home_info_wrap_item_title">
+                        <i class="fa-regular fa-heart"></i>
+                        <span>Lượt thích:</span>
+                      </div>
+                      <div class="page5_home_info_wrap_item_value">
+                        <%= novel.likes %>
+                      </div>
+                    </div>
+                    <div class="page5_home_info_wrap_item">
+                      <div class="page5_home_info_wrap_item_title">
+                        <i class="fa-regular fa-star"></i>
+                        <span>Đánh giá</span>
+                      </div>
+                      <div class="page5_home_info_wrap_item_value">
+                        1
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="item_btn_gr" id="<%= novel.id %>">
+  
+                  <div class="novel_conntroller_btn">
+                    <button class="update_current_novel controller_btn">Chỉnh
+                      Sửa</button>
+                    <button class="delete_chapter controller_btn">Xóa</button>
+                  </div>
+  
+                  <div class="add_novel">
+                    <button class="add_novel_more_chap controller_btn">+ Thêm
+                      chương</button>
+                    <button class="showlist_novel controller_btn">Danh sách
+                      chương</button>
+                  </div>
+  
+                </div>
+              </div>
             </div>
-            <div class="page5_home_info">
-              <div class="page5_home_info_top">
-                <div class="page5_home_info_name">
-                  <%= novel.name %>
-                </div>
-                <div class="page5_home_info_status">
-                  <%= novel.status %>
-                </div>
+            <!-- my novel item -->
+            <% } else{%>
+              <!-- my novel item -->
+            <div class="page5_home_main_item">
+              <div class="page5_home_main_logo">
+                <img src="<%= novel.image %>" alt="<%= novel.name %>">
               </div>
-              <div class="page5_home_info_date">
-                Cập nhật <span>
-                  <%= novel.update_time %>
-                </span>
+              <div class="page5_home_info">
+                <div class="page5_home_info_top">
+                  <div class="page5_home_info_name">
+                    <%= novel.name %>
+                  </div>
+                  <div class="page5_home_info_status">
+                    <%= novel.status %>
+                  </div>
+                </div>
+                <div class="page5_home_info_date">
+                  Cập nhật <span>
+                    <%= novel.update_time %>
+                  </span>
+                </div>
+
+                <div class="page5_home_info_wrap">
+                  <div class="page5_home_info_wrap_item">
+                    <div class="page5_home_info_wrap_item_title">
+                      <i class="fa-solid fa-list-ul"></i>
+                      <span>Chương:</span>
+                    </div>
+                    <div class="page5_home_info_wrap_item_value">
+                      <%= novel.no_chapters %>
+                    </div>
+                  </div>
+                  <div class="page5_home_info_wrap_item">
+                    <div class="page5_home_info_wrap_item_title">
+                      <i class="fa-regular fa-eye"></i>
+                      <span>Lượt đọc:</span>
+                    </div>
+                    <div class="page5_home_info_wrap_item_value">
+                      <%= novel.views %>
+                    </div>
+                  </div>
+                  <div class="page5_home_info_wrap_item">
+                    <div class="page5_home_info_wrap_item_title">
+                      <i class="fa-regular fa-heart"></i>
+                      <span>Lượt thích:</span>
+                    </div>
+                    <div class="page5_home_info_wrap_item_value">
+                      <%= novel.likes %>
+                    </div>
+                  </div>
+                  <div class="page5_home_info_wrap_item">
+                    <div class="page5_home_info_wrap_item_title">
+                      <i class="fa-regular fa-star"></i>
+                      <span>Đánh giá</span>
+                    </div>
+                    <div class="page5_home_info_wrap_item_value">
+                      1
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div class="page5_home_info_wrap">
-                <div class="page5_home_info_wrap_item">
-                  <div class="page5_home_info_wrap_item_title">
-                    <i class="fa-solid fa-list-ul"></i>
-                    <span>Chương:</span>
-                  </div>
-                  <div class="page5_home_info_wrap_item_value">
-                    <%= novel.no_chapters %>
-                  </div>
+              <div class="item_btn_gr" id="<%= novel.id %>">
+
+                <div class="novel_conntroller_btn">
+                  <button class="update_current_novel controller_btn">Chỉnh
+                    Sửa</button>
+                  <button class="delete_chapter controller_btn">Xóa</button>
                 </div>
-                <div class="page5_home_info_wrap_item">
-                  <div class="page5_home_info_wrap_item_title">
-                    <i class="fa-regular fa-eye"></i>
-                    <span>Lượt đọc:</span>
-                  </div>
-                  <div class="page5_home_info_wrap_item_value">
-                    <%= novel.views %>
-                  </div>
+
+                <div class="add_novel">
+                  <button class="add_novel_more_chap controller_btn">+ Thêm
+                    chương</button>
+                  <button class="showlist_novel controller_btn">Danh sách
+                    chương</button>
                 </div>
-                <div class="page5_home_info_wrap_item">
-                  <div class="page5_home_info_wrap_item_title">
-                    <i class="fa-regular fa-heart"></i>
-                    <span>Lượt thích:</span>
-                  </div>
-                  <div class="page5_home_info_wrap_item_value">
-                    <%= novel.likes %>
-                  </div>
-                </div>
-                <div class="page5_home_info_wrap_item">
-                  <div class="page5_home_info_wrap_item_title">
-                    <i class="fa-regular fa-star"></i>
-                    <span>Đánh giá</span>
-                  </div>
-                  <div class="page5_home_info_wrap_item_value">
-                    1
-                  </div>
-                </div>
+
               </div>
             </div>
-
-            <div class="item_btn_gr" id="<%= novel.id %>">
-
-              <div class="novel_conntroller_btn">
-                <button class="update_current_novel controller_btn">Chỉnh
-                  Sửa</button>
-                <button class="delete_chapter controller_btn">Xóa</button>
-              </div>
-
-              <div class="add_novel">
-                <button class="add_novel_more_chap controller_btn">+ Thêm
-                  chương</button>
-                <button class="showlist_novel controller_btn">Danh sách
-                  chương</button>
-              </div>
-
-            </div>
-          </div>
-          <!-- my novel item -->
+             <!-- my novel item -->
+            <% } %>
           <% } %>
 
         </div>
@@ -482,11 +567,11 @@
               <div class="information_name_wrap">
                 <h3>Tác giả</h3>
                 <div class="information_name">
-                  <!-- <%if(admin!=100){%> -->
-                    <input class="profile_input author_name" type="text" required id="fullname" value="<%= author_name %>" />
-                  <!-- <% } else { %> -->
-                    <input class="profile_input author_name" type="text" required id="fullname" value="<%= author_name %>" readonly />
-                  <!-- <% } %> -->
+                    <%if(admin!=100){%>
+                    	<input class="profile_input author_name" type="text" required id="fullname" value="<%= author_name %>" readonly />
+					<% } else { %>
+                    	<input class="profile_input author_name" type="text" required id="fullname" value="Nguồn sưu tầm"/>
+					<% } %>
                 </div>
               </div>
 
@@ -736,7 +821,11 @@
                 <div class="information_name_wrap">
                   <h3>Tác giả</h3>
                   <div class="information_name">
-                    <input class="profile_input author_name" type="text" required id="fullname" value="<%= author_name %>" readonly />
+					<%if(admin!=100){%>
+                    	<input class="profile_input author_name" type="text" required id="fullname" value="<%= author_name %>" readonly />
+					<% } else { %>
+                    	<input class="profile_input author_name" type="text" required id="fullname" placeholder="Điền vào tên tác giả"/>
+					<% } %>
                   </div>
                 </div>
 
@@ -764,15 +853,15 @@
                       </select>
                       <%}%>
 
-														</div>
-													</div>
+						</div>
+					</div>
 
-													<div class="information_name_wrap">
-														<!-- tag -->
-														<h3>Thể loại</h3>
-														<div id="container">
-															<ul id="ulElement2">
-																<li>Action</li>
+					<div class="information_name_wrap">
+						<!-- tag -->
+						<h3>Thể loại</h3>
+						<div id="container">
+							<ul id="ulElement2">
+								<li>Action</li>
                                 <li>Adventure</li>
                                 <li>Comedy</li>
                                 <li>Drama</li>
@@ -787,17 +876,17 @@
                                 <li>Family</li>
                                 <li>Historical</li>
                                 <li>War</li>
-															</ul>
-														</div>
-													</div>
-												</div>
+							</ul>
+						</div>
+					</div>
+				</div>
 
-												<div class="information_name_wrap">
-													<h3>Giới thiệu truyện</h3>
-													<div class="information_name"
-														style="display:flex;flex-direction: column;">
-														<textarea class="profile_input novel_descript" id="fullname"
-															placeholder="Nhập nôi dung giới thiệu truyện của bạn"><%=edit_review%></textarea>
+				<div class="information_name_wrap">
+					<h3>Giới thiệu truyện</h3>
+					<div class="information_name"
+						style="display:flex;flex-direction: column;">
+						<textarea class="profile_input novel_descript" id="fullname"
+							placeholder="Nhập nôi dung giới thiệu truyện của bạn"><%=edit_review%></textarea>
                     </div>
                   </div>
                   <div class="page5_info_main_btn">
@@ -859,7 +948,7 @@
     </div>
     </div>
     </div>
-  </main>
+  </main>hor_name
   <!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
 
   <%- include(footerFile) %>
@@ -873,7 +962,7 @@
   </script>
   <script>
     // variable
-    let author_name_check = document.querySelector("#author_name").value;
+    let author_name_check = document.querySelector("#author_name") ? document.querySelector("#author_name").value : "Nguồn sưu tầm";
   </script>
 
   <script src="/src/JS/profile.js"></script>
@@ -952,6 +1041,7 @@
     rules: [
       Validator.isEmail("#email", "Vui Lòng Nhập Đúng Định Dạng Email"),
       Validator.isRequired("#fullname", "Vui lòng nhập nội dung này"),
+      Validator.isRequired("#author_name", "Vui lòng nhập nội dung này"),
     ],
 
   });
