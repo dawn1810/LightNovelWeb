@@ -869,11 +869,67 @@ const api_editInfoNovel = async (req, res) => {
     }
 
     // update truyen database
-	if (account.id === admin_id) {
-		
-	} else {
-		await queryAsync(
-		  `
+    if (account.id === admin_id) {
+      console.log(data.author_name);
+      const author_name = await queryAsync(
+        `
+			SELECT id FROM tacgia WHERE ten_tac_gia = ?`,
+        [data.author_name]
+      );
+      if (author_name.length) {
+        await queryAsync(
+          `
+			UPDATE truyen
+			SET 
+				id_tac_gia = ?,
+				ten_truyen = ?,
+				trang_thai = ?,
+				tom_tat_noi_dung = ?,
+				ngay_cap_nhat = ?,
+				anh_dai_dien = ?
+			WHERE id = ?;`,
+          [
+            author_name[0].id,
+            data.novel_name,
+            data.novel_status,
+            data.novel_descript,
+            formattedDate,
+            avt_var,
+            data.id,
+          ]
+        );
+      } else {
+        const author_id = uuidv4();
+        await queryAsync(`INSERT INTO tacgia VALUE (?,?,?)`, [
+          author_id,
+          account.id,
+          data.author_name,
+        ]);
+        await queryAsync(
+          `
+			UPDATE truyen
+			SET 
+				id_tac_gia = ?,
+				ten_truyen = ?,
+				trang_thai = ?,
+				tom_tat_noi_dung = ?,
+				ngay_cap_nhat = ?,
+				anh_dai_dien = ?
+			WHERE id = ?;`,
+          [
+            author_id,
+            data.novel_name,
+            data.novel_status,
+            data.novel_descript,
+            formattedDate,
+            avt_var,
+            data.id,
+          ]
+        );
+      }
+    } else {
+      await queryAsync(
+        `
 			UPDATE truyen
 			SET 
 				ten_truyen = ?,
@@ -882,16 +938,16 @@ const api_editInfoNovel = async (req, res) => {
 				ngay_cap_nhat = ?,
 				anh_dai_dien = ?
 			WHERE id = ?;`,
-		  [
-			data.novel_name,
-			data.novel_status,
-			data.novel_descript,
-			formattedDate,
-			avt_var,
-			data.id,
-		  ]
-		);
-	}
+        [
+          data.novel_name,
+          data.novel_status,
+          data.novel_descript,
+          formattedDate,
+          avt_var,
+          data.id,
+        ]
+      );
+    }
 
     // update genres delete all current novel"s genres first then and new one to novel"s genres table
     // delete all current novel"s genres
@@ -1357,16 +1413,16 @@ const api_quick_upload = async (req, res) => {
           // add to truyen database
           await queryAsync(
             `
-					INSERT INTO truyen (
-						id, 
-						id_tac_gia, 
-						ten_truyen, 
-						so_luong_chuong, 
-						tom_tat_noi_dung, 
-						trang_thai, 
-						ngay_cap_nhat
-					)
-					VALUES (?,?,?,?,?,?,?)`,
+			INSERT INTO truyen (
+				id, 
+				id_tac_gia, 
+				ten_truyen, 
+				so_luong_chuong, 
+				tom_tat_noi_dung, 
+				trang_thai, 
+				ngay_cap_nhat
+			)
+			VALUES (?,?,?,?,?,?,?)`,
             [
               novel_id,
               account.id,

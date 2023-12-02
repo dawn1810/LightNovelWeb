@@ -314,59 +314,142 @@
 
     <div class="Setting_pageWrapper page5" id='my_novel'>
 
-      <div class="page5_home page5_composed">
-        <div class="page_5_title">
-
-          <h2 class="my_novel_title"><i class="fa-solid fa-book-open-cover"></i> Truyện của
-            tôi</h2>
-
-          <div class="add_new_box">
-            <div class="normal_add">
-              <button class="add_new">+ THÊM TRUYỆN <%= user.role %></button>
-            </div>
-            <div class="quick_add">
-              <button class="add_new">+ THÊM TRUYỆN NHANH</button>
-              <div class="novel_conntroller_btn upload_quick_file">
-                <div class="head_b">
-                  <pre class="file-content" style="margin: 1rem 20px;"></pre>
-                  <input type="file" class="file-input" style="display:none;" accept=".txt, .docx" />
-                  <button class="add_new edit_btn">
-                    <i class="fa-solid fa-upload"></i>
-                  </button>
+      <%if(role==2){%>
+        <h4 style="color: red;">TÀI KHOẢN CỦA BẠN ĐANG BỊ HẠNG CHẾ DO VI PHẠM QUY ĐỊNH WEB XIN LIÊN HỆ VỚI QUẢN TRỊ VIÊN ĐỂ BIẾT THÊM THÔNG TIN CHI TIẾT </h4>
+      <% } else {%>
+        <div class="page5_home page5_composed">
+              <div class="page_5_title">
+      
+                <h2 class="my_novel_title"><i class="fa-solid fa-book-open-cover"></i> Truyện của
+                  tôi</h2>
+      
+                <div class="add_new_box">
+                  <div class="normal_add">
+                    <button class="add_new">+ THÊM TRUYỆN</button>
+                  </div>
+                  <div class="quick_add">
+                    <button class="add_new">+ THÊM TRUYỆN NHANH</button>
+                    <div class="novel_conntroller_btn upload_quick_file">
+                      <div class="head_b">
+                        <pre class="file-content" style="margin: 1rem 20px;"></pre>
+                        <input type="file" class="file-input" style="display:none;" accept=".txt, .docx" />
+                        <button class="add_new edit_btn">
+                          <i class="fa-solid fa-upload"></i>
+                        </button>
+                      </div>
+                      <button class="add_new download_btn">
+                        <i class="fa-solid fa-download"></i>
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <button class="add_new download_btn">
-                  <i class="fa-solid fa-download"></i>
-                </button>
+      
               </div>
-            </div>
-          </div>
-
-        </div>
         <% if (novels.length > 10) { %>
-        <!-- searchbar -->
-        <div class="header_search">
-          <div class="header_search_wrap">
-            <form role="search">
-              <div class="header_search_input">
-                <input type="text" placeholder="Tìm kiếm" />
+          <!-- searchbar -->
+          <div class="header_search">
+            <div class="header_search_wrap">
+              <form role="search">
+                <div class="header_search_input">
+                  <input type="text" placeholder="Tìm kiếm" />
+                </div>
+              </form>
+              <div class="header_search_logo">
+                <i class="fa-solid fa-magnifying-glass"></i>
               </div>
-            </form>
-            <div class="header_search_logo">
-              <i class="fa-solid fa-magnifying-glass"></i>
             </div>
           </div>
-        </div>
-        <% } %>
-        <!-- novel list -->
-        <div class="page5_home_main">
-          <!-- <%=novels %> -->
-          <% for (let novel of novels) { %>
-            
-          <%if(novel.ban==1){%>
-            <!-- my novel item -->
-            <div  class="block">
-              <div style="color: red; margin:0">TRUYỆN NÀY CỦA BẠN HIỆN TẠI ĐANG BỊ KHOÁ DO ADMIN VUI LÒNG CHỈNH SỬA HOẶC LIÊN HỆ VỚI QUẢN TRỊ VIÊN ĐỂ ĐƯỢC HỖ TRỢ</div>
-              <div style="border:2px red solid" class="page5_home_main_item">
+          <% } %>
+          <!-- novel list -->
+          <div class="page5_home_main">
+            <!-- <%=novels %> -->
+            <% for (let novel of novels) { %>
+              
+            <%if(novel.ban==1){%>
+              <!-- my novel item -->
+              <div  class="block">
+                <div style="color: red; margin:0">TRUYỆN NÀY CỦA BẠN HIỆN TẠI ĐANG BỊ KHOÁ DO ADMIN VUI LÒNG CHỈNH SỬA HOẶC LIÊN HỆ VỚI QUẢN TRỊ VIÊN ĐỂ ĐƯỢC HỖ TRỢ</div>
+                <div style="border:2px red solid" class="page5_home_main_item">
+                  <div class="page5_home_main_logo">
+                    <img src="<%= novel.image %>" alt="<%= novel.name %>">
+                  </div>
+                  <div class="page5_home_info">
+                    <div class="page5_home_info_top">
+                      <div class="page5_home_info_name">
+                        <%= novel.name %>
+                      </div>
+                      <div class="page5_home_info_status">
+                        <%= novel.status %>
+                      </div>
+                    </div>
+                    <div class="page5_home_info_date">
+                      Cập nhật <span>
+                        <%= novel.update_time %>
+                      </span>
+                    </div>
+    
+                    <div class="page5_home_info_wrap">
+                      <div class="page5_home_info_wrap_item">
+                        <div class="page5_home_info_wrap_item_title">
+                          <i class="fa-solid fa-list-ul"></i>
+                          <span>Chương:</span>
+                        </div>
+                        <div class="page5_home_info_wrap_item_value">
+                          <%= novel.no_chapters %>
+                        </div>
+                      </div>
+                      <div class="page5_home_info_wrap_item">
+                        <div class="page5_home_info_wrap_item_title">
+                          <i class="fa-regular fa-eye"></i>
+                          <span>Lượt đọc:</span>
+                        </div>
+                        <div class="page5_home_info_wrap_item_value">
+                          <%= novel.views %>
+                        </div>
+                      </div>
+                      <div class="page5_home_info_wrap_item">
+                        <div class="page5_home_info_wrap_item_title">
+                          <i class="fa-regular fa-heart"></i>
+                          <span>Lượt thích:</span>
+                        </div>
+                        <div class="page5_home_info_wrap_item_value">
+                          <%= novel.likes %>
+                        </div>
+                      </div>
+                      <div class="page5_home_info_wrap_item">
+                        <div class="page5_home_info_wrap_item_title">
+                          <i class="fa-regular fa-star"></i>
+                          <span>Đánh giá</span>
+                        </div>
+                        <div class="page5_home_info_wrap_item_value">
+                          1
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+    
+                  <div class="item_btn_gr" id="<%= novel.id %>">
+    
+                    <div class="novel_conntroller_btn">
+                      <button class="update_current_novel controller_btn">Chỉnh
+                        Sửa</button>
+                      <button class="delete_chapter controller_btn">Xóa</button>
+                    </div>
+    
+                    <div class="add_novel">
+                      <button class="add_novel_more_chap controller_btn">+ Thêm
+                        chương</button>
+                      <button class="showlist_novel controller_btn">Danh sách
+                        chương</button>
+                    </div>
+    
+                  </div>
+                </div>
+              </div>
+              <!-- my novel item -->
+              <% } else{%>
+                <!-- my novel item -->
+              <div class="page5_home_main_item">
                 <div class="page5_home_main_logo">
                   <img src="<%= novel.image %>" alt="<%= novel.name %>">
                 </div>
@@ -384,7 +467,7 @@
                       <%= novel.update_time %>
                     </span>
                   </div>
-  
+
                   <div class="page5_home_info_wrap">
                     <div class="page5_home_info_wrap_item">
                       <div class="page5_home_info_wrap_item_title">
@@ -424,112 +507,32 @@
                     </div>
                   </div>
                 </div>
-  
+
                 <div class="item_btn_gr" id="<%= novel.id %>">
-  
+
                   <div class="novel_conntroller_btn">
                     <button class="update_current_novel controller_btn">Chỉnh
                       Sửa</button>
                     <button class="delete_chapter controller_btn">Xóa</button>
                   </div>
-  
+
                   <div class="add_novel">
                     <button class="add_novel_more_chap controller_btn">+ Thêm
                       chương</button>
                     <button class="showlist_novel controller_btn">Danh sách
                       chương</button>
                   </div>
-  
+
                 </div>
               </div>
-            </div>
-            <!-- my novel item -->
-            <% } else{%>
               <!-- my novel item -->
-            <div class="page5_home_main_item">
-              <div class="page5_home_main_logo">
-                <img src="<%= novel.image %>" alt="<%= novel.name %>">
-              </div>
-              <div class="page5_home_info">
-                <div class="page5_home_info_top">
-                  <div class="page5_home_info_name">
-                    <%= novel.name %>
-                  </div>
-                  <div class="page5_home_info_status">
-                    <%= novel.status %>
-                  </div>
-                </div>
-                <div class="page5_home_info_date">
-                  Cập nhật <span>
-                    <%= novel.update_time %>
-                  </span>
-                </div>
-
-                <div class="page5_home_info_wrap">
-                  <div class="page5_home_info_wrap_item">
-                    <div class="page5_home_info_wrap_item_title">
-                      <i class="fa-solid fa-list-ul"></i>
-                      <span>Chương:</span>
-                    </div>
-                    <div class="page5_home_info_wrap_item_value">
-                      <%= novel.no_chapters %>
-                    </div>
-                  </div>
-                  <div class="page5_home_info_wrap_item">
-                    <div class="page5_home_info_wrap_item_title">
-                      <i class="fa-regular fa-eye"></i>
-                      <span>Lượt đọc:</span>
-                    </div>
-                    <div class="page5_home_info_wrap_item_value">
-                      <%= novel.views %>
-                    </div>
-                  </div>
-                  <div class="page5_home_info_wrap_item">
-                    <div class="page5_home_info_wrap_item_title">
-                      <i class="fa-regular fa-heart"></i>
-                      <span>Lượt thích:</span>
-                    </div>
-                    <div class="page5_home_info_wrap_item_value">
-                      <%= novel.likes %>
-                    </div>
-                  </div>
-                  <div class="page5_home_info_wrap_item">
-                    <div class="page5_home_info_wrap_item_title">
-                      <i class="fa-regular fa-star"></i>
-                      <span>Đánh giá</span>
-                    </div>
-                    <div class="page5_home_info_wrap_item_value">
-                      1
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="item_btn_gr" id="<%= novel.id %>">
-
-                <div class="novel_conntroller_btn">
-                  <button class="update_current_novel controller_btn">Chỉnh
-                    Sửa</button>
-                  <button class="delete_chapter controller_btn">Xóa</button>
-                </div>
-
-                <div class="add_novel">
-                  <button class="add_novel_more_chap controller_btn">+ Thêm
-                    chương</button>
-                  <button class="showlist_novel controller_btn">Danh sách
-                    chương</button>
-                </div>
-
-              </div>
-            </div>
-             <!-- my novel item -->
+              <% } %>
             <% } %>
-          <% } %>
+
+          </div>
 
         </div>
-
-      </div>
-
+      <%}%>
 
       <div class="page5_a page5_composed" id="add_novel">
         <div class="range" style="--p:0">

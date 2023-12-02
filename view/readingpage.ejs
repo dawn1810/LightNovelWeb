@@ -1,365 +1,407 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/b8977956b3.js"
+      crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/src/CSS/readingpage.css" />
+    <link rel="stylesheet" href="/src/CSS/reading_reposive.css" />
+    <script
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+      type="text/javascript"></script>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://kit.fontawesome.com/b8977956b3.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/src/CSS/readingpage.css" />
-  <link rel="stylesheet" href="/src/CSS/reading_reposive.css">
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <title>Reading</title>
+  </head>
 
-  <title>Reading</title>
-</head>
+  <body>
+    <script src="/src/JS/link.js"></script>
+    <%- include(headerFile) %>
+    <main>
+      <ul class="menu-tag">
+        <li class="active">
+          <a href="/" title="doc truyen">
+            <i class="fa-solid fa-house"></i> Truyện</a
+          >
+        </li>
+        >
+        <li class="active name_lv">
+          <a href="/reviews/<%= id %>">
+            <% if (name.length <= 15) { %> <%= name %> <% } else { %> <%=
+            name.substring(0, 15) %>... <% } %>
+          </a>
+        </li>
+        >
+        <li class="active rv-author-a">
+          <% if (name_chap.length <= 200) { %> <%= name_chap %> <% } else { %>
+          <%= name_chap.substring(0, 200) %>... <% } %>
+        </li>
+      </ul>
 
-<body>
-  <script src="/src/JS/link.js"></script>
-  <%- include(headerFile) %>
-  <main>
-    <ul class="menu-tag">
-      <li class="active">
-        <a href="/" title="doc truyen">
-          <i class="fa-solid fa-house"></i> Truyện</a>
-      </li>
-      >
-      <li class="active name_lv">
-        <a href="/reviews/<%= id %>">
-          <% if (name.length <= 15) { %>
-          <%= name %>
-          <% } else { %>
-          <%= name.substring(0, 15) %>...
-          <% } %>
+      <div class="main-body">
+        <div class="title">
+          <span class="novel-name"> <%= name %> </span>
+          <span class="novel-name-chapter"> <%= name_chap %> </span>
+        </div>
+
+        <div class="head btn-gr">
+          <div class="linevienchien"></div>
+          <div class="vienchien">
+            <button class="directional-btn left-btn">
+              <i class="fa-solid fa-angles-left"></i>
+            </button>
+            <div class="settings_siuuu">
+              <button class="directional-btn setting-btn">
+                <i class="fa-solid fa-sun"></i>
+              </button>
+              <div class="sub-menu wrap-settings">
+                <div class="colors">
+                  <ul>
+                    <p>Màu nền</p>
+                    <div class="form_color_text">
+                      <div class="ss_reader_background_reset">
+                        <i class="fa-solid fa-rotate"></i>
+                      </div>
+                      <ul>
+                        <select
+                          name="ss_reader_background"
+                          id="ss_reader_background1">
+                          <option value="#DFDFE3">Xám Đậm</option>
+                          <option
+                            value="linear-gradient(to left, #5b0664, #210e68)">
+                            GALAXY
+                          </option>
+                          show-list
+                          <option value="#E9EBEE">Xanh nhạt</option>
+                          <option value="#F4F4E4">Vàng nhạt</option>
+                          <option value="#EAE4D3">Màu sepia</option>
+                          <option value="#D5D8DC">Xanh đậm</option>
+                          <option value="#FAFAC8">Vàng đậm</option>
+                          <option value="#EFEFAB">Vàng ố</option>
+                          <option value="#FFF">Màu trắng</option>
+                          <option value="#eaeaea">Hạt sạn</option>
+                          <option value="#bfb197">Sách cũ</option>
+                          <option value="#232323">Màu tối</option>
+                        </select>
+                      </ul>
+                      <div class="form_background">
+                        <input type="color" name="" id="ss_reader_background" />
+                      </div>
+                    </div>
+                  </ul>
+                  <ul>
+                    <p>Màu chữ</p>
+                    <div class="form_color_text">
+                      <div class="ss_reader_textColor_reset">
+                        <i class="fa-solid fa-rotate"></i>
+                      </div>
+                      <ul>
+                        <select
+                          name="ss_reader_textColor"
+                          id="ss_reader_textColor1">
+                          <option selected value="#222">Đen</option>
+                          <option value="#2B2B2B">Benly</option>
+                          <option value="#373D3F">Raven</option>
+                          <option value="#555F61">Asher</option>
+                          <option value="#fff">Trắng</option>
+                          <option value="#007f61">SSTruyen</option>
+                        </select>
+                      </ul>
+
+                      <input type="color" name="" id="ss_reader_textColor" />
+                    </div>
+                  </ul>
+                </div>
+                <div class="size">
+                  <ul>
+                    <p>Size chữ</p>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value="20"
+                      step="1"
+                      name=""
+                      id="ss_reader_size" />
+                  </ul>
+                </div>
+                <div class="line-height">
+                  <ul>
+                    <p>Chiều cao dòng</p>
+                    <select
+                      name="ss_reader_line_height"
+                      id="ss_reader_line_height">
+                      <option value="1">1.0</option>
+                      <option value="1.2">1.2</option>
+                      <option value="1.4">1.4</option>
+                      <option value="1.6">1.6</option>
+                      <option value="1.8">1.8</option>
+                      <option value="2.0">2.0</option>
+                      <option value="2.2">2.2</option>
+                      <option value="2.5">2.5</option>
+                    </select>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="chapter_list">
+              <button class="directional-btn show-list">
+                <i class="fa-solid fa-list"></i>
+              </button>
+              <div class="chapter_list_wrap">
+                <select name="show_more" id="show_more">
+                  <% for (let i=0; i < name_chaps.length; i++) { %> 
+                  <% if (number_chap==i+1) { %>
+                  <option class="show_more_item" selected value="<%= i+1 %>">
+                    <%= name_chaps[i] %>
+                  </option>
+                  <% } else { %>
+                  <option class="show_more_item" value="<%= i+1 %>">
+                    <%= name_chaps[i] %>
+                  </option>
+                  <% } %> <% }%>
+                </select>
+              </div>
+            </div>
+            <%if(maxnumchap > number_chap){%>
+            <button class="directional-btn right-btn">
+              <i class="fa-solid fa-angles-right"></i>
+            </button>
+            <%}%>
+          </div>
+        </div>
+        <div class="main-content-container">
+          <div class="main-content"><%- chap_content %></div>
+        </div>
+
+        <div class="head btn-gr">
+          <div class="linevienchien"></div>
+          <div class="vienchien">
+            <button class="directional-btn left-btn">
+              <i class="fa-solid fa-angles-left"></i>
+            </button>
+            <div class="settings_siuuu">
+              <button class="directional-btn setting-btn">
+                <i class="fa-solid fa-sun"></i>
+              </button>
+              <div class="sub-menu wrap-settings">
+                <div class="colors">
+                  <ul>
+                    <p>Màu nền</p>
+                    <div class="form_color_text">
+                      <div class="ss_reader_background_reset">
+                        <i class="fa-solid fa-rotate"></i>
+                      </div>
+                      <ul>
+                        <select
+                          name="ss_reader_background"
+                          id="ss_reader_background1">
+                          <option value="#DFDFE3">Xám Đậm</option>
+                          <option
+                            value="linear-gradient(to left, #5b0664, #210e68)">
+                            GALAXY
+                          </option>
+                          show-list
+                          <option value="#E9EBEE">Xanh nhạt</option>
+                          <option value="#F4F4E4">Vàng nhạt</option>
+                          <option value="#EAE4D3">Màu sepia</option>
+                          <option value="#D5D8DC">Xanh đậm</option>
+                          <option value="#FAFAC8">Vàng đậm</option>
+                          <option value="#EFEFAB">Vàng ố</option>
+                          <option value="#FFF">Màu trắng</option>
+                          <option value="#eaeaea">Hạt sạn</option>
+                          <option value="#bfb197">Sách cũ</option>
+                          <option value="#232323">Màu tối</option>
+                        </select>
+                      </ul>
+                      <div class="form_background">
+                        <input type="color" name="" id="ss_reader_background" />
+                      </div>
+                    </div>
+                  </ul>
+                  <ul>
+                    <p>Màu chữ</p>
+                    <div class="form_color_text">
+                      <div class="ss_reader_textColor_reset">
+                        <i class="fa-solid fa-rotate"></i>
+                      </div>
+                      <ul>
+                        <select
+                          name="ss_reader_textColor"
+                          id="ss_reader_textColor1">
+                          <option selected value="#222">Đen</option>
+                          <option value="#2B2B2B">Benly</option>
+                          <option value="#373D3F">Raven</option>
+                          <option value="#555F61">Asher</option>
+                          <option value="#fff">Trắng</option>
+                          <option value="#007f61">SSTruyen</option>
+                        </select>
+                      </ul>
+
+                      <input type="color" name="" id="ss_reader_textColor" />
+                    </div>
+                  </ul>
+                </div>
+                <div class="size">
+                  <ul>
+                    <p>Size chữ</p>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value="20"
+                      step="1"
+                      name=""
+                      id="ss_reader_size" />
+                  </ul>
+                </div>
+                <div class="line-height">
+                  <ul>
+                    <p>Chiều cao dòng</p>
+                    <select
+                      name="ss_reader_line_height"
+                      id="ss_reader_line_height">
+                      <option value="1">1.0</option>
+                      <option value="1.2">1.2</option>
+                      <option value="1.4">1.4</option>
+                      <option value="1.6">1.6</option>
+                      <option value="1.8">1.8</option>
+                      <option value="2.0">2.0</option>
+                      <option value="2.2">2.2</option>
+                      <option value="2.5">2.5</option>
+                    </select>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="chapter_list">
+              <button class="directional-btn show-list">
+                <i class="fa-solid fa-list"></i>
+              </button>
+              <div class="chapter_list_wrap">
+                <select name="show_more" id="show_more">
+                  <% for (let i=0; i < name_chaps.length; i++) { %> <% if
+                  (number_chap==i+1) { %>
+                  <option class="show_more_item" selected value="<%= i+1 %>">
+                    <%= name_chaps[i] %>
+                  </option>
+                  <% } else { %>
+                  <option class="show_more_item" value="<%= i+1 %>">
+                    <%= name_chaps[i] %>
+                  </option>
+                  <% } %> <% }%>
+                </select>
+              </div>
+            </div>
+            <%if(maxnumchap > number_chap){%>
+            <button class="directional-btn right-btn">
+              <i class="fa-solid fa-angles-right"></i>
+            </button>
+            <%}%>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="allbtn">
+      <nav class="menu">
+        <input
+          type="checkbox"
+          href="#"
+          class="menu-open"
+          name="menu-open"
+          id="menu-open" />
+        <label class="menu-open-button" for="menu-open">
+          <span class="hamburger hamburger-1"></span>
+          <span class="hamburger hamburger-2"></span>
+          <span class="hamburger hamburger-3"></span>
+        </label>
+
+        <a href="#" class="menu-item">
+          <button class="lame-left lame">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
         </a>
-      </li>
-      >
-      <li class="active rv-author-a">
-        <% if (name_chap.length <= 200) { %>
-        <%= name_chap %>
-        <% } else { %>
-        <%= name_chap.substring(0, 200) %>...
-        <% } %>
-      </li>
-    </ul>
-
-    <div class="main-body">
-      <div class="title">
-        <span class="novel-name">
-          <%= name %>
-        </span>
-        <span class="novel-name-chapter">
-          <%= name_chap %>
-        </span>
-      </div>
-
-      <div class="head btn-gr">
-        <div class="linevienchien"></div>
-        <div class="vienchien">
-          <button class="directional-btn left-btn">
-            <i class="fa-solid fa-angles-left"></i>
+        <a href="#" class="menu-item">
+          <button class="lame-down lame">
+            <i class="fa-solid fa-chevron-down"></i>
           </button>
-          <div class="settings_siuuu">
-            <button class="directional-btn setting-btn">
-              <i class="fa-solid fa-sun"></i>
-            </button>
-            <div class="sub-menu wrap-settings">
-              <div class="colors">
-                <ul>
-                  <p>Màu nền</p>
-                  <div class="form_color_text">
-                    <div class="ss_reader_background_reset">
-                      <i class="fa-solid fa-rotate"></i>
-                    </div>
-                    <ul>
-                      <select name="ss_reader_background" id="ss_reader_background1">
-                        <option value="#DFDFE3">Xám Đậm</option>
-                        <option value="linear-gradient(to left, #5b0664, #210e68)">
-                          GALAXY
-                        </option>
-                        show-list
-                        <option value="#E9EBEE">Xanh nhạt</option>
-                        <option value="#F4F4E4">Vàng nhạt</option>
-                        <option value="#EAE4D3">Màu sepia</option>
-                        <option value="#D5D8DC">Xanh đậm</option>
-                        <option value="#FAFAC8">Vàng đậm</option>
-                        <option value="#EFEFAB">Vàng ố</option>
-                        <option value="#FFF">Màu trắng</option>
-                        <option value="#eaeaea">Hạt sạn</option>
-                        <option value="#bfb197">Sách cũ</option>
-                        <option value="#232323">Màu tối</option>
-                      </select>
-                    </ul>
-                    <div class="form_background">
-                      <input type="color" name="" id="ss_reader_background" />
-                    </div>
-                  </div>
-                </ul>
-                <ul>
-                  <p>Màu chữ</p>
-                  <div class="form_color_text">
-                    <div class="ss_reader_textColor_reset">
-                      <i class="fa-solid fa-rotate"></i>
-                    </div>
-                    <ul>
-                      <select name="ss_reader_textColor" id="ss_reader_textColor1">
-                        <option selected value="#222">Đen</option>
-                        <option value="#2B2B2B">Benly</option>
-                        <option value="#373D3F">Raven</option>
-                        <option value="#555F61">Asher</option>
-                        <option value="#fff">Trắng</option>
-                        <option value="#007f61">SSTruyen</option>
-                      </select>
-                    </ul>
+        </a>
+        <a href="#" class="menu-item">
+          <button class="lame-up lame">
+            <i class="fa-solid fa-chevron-up"></i></button
+        ></a>
 
-                    <input type="color" name="" id="ss_reader_textColor" />
-                  </div>
-                </ul>
-              </div>
-              <div class="size">
-                <ul>
-                  <p>Size chữ</p>
-                  <input type="range" min="0" max="100" value="20" step="1" name="" id="ss_reader_size" />
-                </ul>
-              </div>
-              <div class="line-height">
-                <ul>
-                  <p>Chiều cao dòng</p>
-                  <select name="ss_reader_line_height" id="ss_reader_line_height">
-                    <option value="1">1.0</option>
-                    <option value="1.2">1.2</option>
-                    <option value="1.4">1.4</option>
-                    <option value="1.6">1.6</option>
-                    <option value="1.8">1.8</option>
-                    <option value="2.0">2.0</option>
-                    <option value="2.2">2.2</option>
-                    <option value="2.5">2.5</option>
-                  </select>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="chapter_list">
-            <button class="directional-btn show-list">
-              <i class="fa-solid fa-list"></i>
-            </button>
-            <div class="chapter_list_wrap">
-              <select name="show_more" id="show_more">
-                <% for (let i=0; i < name_chaps.length; i++) { %>
-                <% if (number_chap==i+1) { %>
-                <option class="show_more_item" selected value="<%= i+1 %>">
-                   <%= name_chaps[i] %>
-                </option>
-                <% } else { %>
-                <option class="show_more_item" value="<%= i+1 %>">
-                   <%= name_chaps[i] %>
-                </option>
-                <% } %>
-                <% }%>
-              </select>
-            </div>
-          </div>
-          <button class="directional-btn right-btn">
-            <i class="fa-solid fa-angles-right"></i>
+        <a href="" class="menu-item">
+          <button class="lame-right lame">
+            <i class="fa-solid fa-chevron-right"></i>
           </button>
-        </div>
-      </div>
-      <div class="main-content-container">
-        <div class="main-content">
-          <%- chap_content %>
-        </div>
-      </div>
-
-      <div class="head btn-gr">
-        <div class="linevienchien"></div>
-        <div class="vienchien">
-          <button class="directional-btn left-btn">
-            <i class="fa-solid fa-angles-left"></i>
+        </a>
+        <a href="#" class="menu-item">
+          <button class="lame-auto lame playing">
+            <i class="fa-solid fa-caret-right play"></i>
+            <i class="fa-solid fa-pause pause" style="display: none"></i>
           </button>
-          <div class="settings_siuuu">
-            <button class="directional-btn setting-btn">
-              <i class="fa-solid fa-sun"></i>
-            </button>
-            <div class="sub-menu wrap-settings">
-              <div class="colors">
-                <ul>
-                  <p>Màu nền</p>
-                  <div class="form_color_text">
-                    <div class="ss_reader_background_reset">
-                      <i class="fa-solid fa-rotate"></i>
-                    </div>
-                    <ul>
-                      <select name="ss_reader_background" id="ss_reader_background1">
-                        <option value="#DFDFE3">Xám Đậm</option>
-                        <option value="linear-gradient(to left, #5b0664, #210e68)">
-                          GALAXY
-                        </option>
-                        show-list
-                        <option value="#E9EBEE">Xanh nhạt</option>
-                        <option value="#F4F4E4">Vàng nhạt</option>
-                        <option value="#EAE4D3">Màu sepia</option>
-                        <option value="#D5D8DC">Xanh đậm</option>
-                        <option value="#FAFAC8">Vàng đậm</option>
-                        <option value="#EFEFAB">Vàng ố</option>
-                        <option value="#FFF">Màu trắng</option>
-                        <option value="#eaeaea">Hạt sạn</option>
-                        <option value="#bfb197">Sách cũ</option>
-                        <option value="#232323">Màu tối</option>
-                      </select>
-                    </ul>
-                    <div class="form_background">
-                      <input type="color" name="" id="ss_reader_background" />
-                    </div>
-                  </div>
-                </ul>
-                <ul>
-                  <p>Màu chữ</p>
-                  <div class="form_color_text">
-                    <div class="ss_reader_textColor_reset">
-                      <i class="fa-solid fa-rotate"></i>
-                    </div>
-                    <ul>
-                      <select name="ss_reader_textColor" id="ss_reader_textColor1">
-                        <option selected value="#222">Đen</option>
-                        <option value="#2B2B2B">Benly</option>
-                        <option value="#373D3F">Raven</option>
-                        <option value="#555F61">Asher</option>
-                        <option value="#fff">Trắng</option>
-                        <option value="#007f61">SSTruyen</option>
-                      </select>
-                    </ul>
+        </a>
+      </nav>
 
-                    <input type="color" name="" id="ss_reader_textColor" />
-                  </div>
-                </ul>
-              </div>
-              <div class="size">
-                <ul>
-                  <p>Size chữ</p>
-                  <input type="range" min="0" max="100" value="20" step="1" name="" id="ss_reader_size" />
-                </ul>
-              </div>
-              <div class="line-height">
-                <ul>
-                  <p>Chiều cao dòng</p>
-                  <select name="ss_reader_line_height" id="ss_reader_line_height">
-                    <option value="1">1.0</option>
-                    <option value="1.2">1.2</option>
-                    <option value="1.4">1.4</option>
-                    <option value="1.6">1.6</option>
-                    <option value="1.8">1.8</option>
-                    <option value="2.0">2.0</option>
-                    <option value="2.2">2.2</option>
-                    <option value="2.5">2.5</option>
-                  </select>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="chapter_list">
-            <button class="directional-btn show-list">
-              <i class="fa-solid fa-list"></i>
-            </button>
-            <div class="chapter_list_wrap">
-              <select name="show_more" id="show_more">
-                <% for (let i=0; i < name_chaps.length; i++) { %>
-                <% if (number_chap==i+1) { %>
-                <option class="show_more_item" selected value="<%= i+1 %>">
-                   <%= name_chaps[i] %>
-                </option>
-                <% } else { %>
-                <option class="show_more_item" value="<%= i+1 %>">
-                   <%= name_chaps[i] %>
-                </option>
-                <% } %>
-                <% }%>
-              </select>
-
-            </div>
-          </div>
-          <button class="directional-btn right-btn">
-            <i class="fa-solid fa-angles-right"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <div class="allbtn">
-    <nav class="menu">
-      <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
-      <label class="menu-open-button" for="menu-open">
-        <span class="hamburger hamburger-1"></span>
-        <span class="hamburger hamburger-2"></span>
-        <span class="hamburger hamburger-3"></span>
-      </label>
-
-      <a href="#" class="menu-item ">
-        <button class="lame-left lame ">
-          <i class="fa-solid fa-chevron-left"></i>
-        </button>
-      </a>
-      <a href="#" class="menu-item">
-        <button class="lame-down lame">
-          <i class="fa-solid fa-chevron-down"></i>
-        </button>
-      </a>
-      <a href="#" class="menu-item">
-        <button class="lame-up lame">
-          <i class="fa-solid fa-chevron-up"></i></button></a>
-
-      <a href="" class="menu-item ">
-        <button class="lame-right lame">
-          <i class="fa-solid fa-chevron-right"></i>
-        </button>
-      </a>
-      <a href="#" class="menu-item">
-        <button class="lame-auto lame playing">
-          <i class="fa-solid fa-caret-right play"></i>
-          <i class="fa-solid fa-pause pause" style="display: none"></i>
-        </button>
-      </a>
-    </nav>
-
-    <!-- filters -->
-    <svg style="display: none" xmlns="http://www.w3.org/2000/svg" version="1.1">
-      <defs>
-        <filter id="shadowed-goo">
-          <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
-          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
-          <feGaussianBlur in="goo" stdDeviation="3" result="shadow" />
-          <feColorMatrix in="shadow" mode="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2" result="shadow" />
-          <feOffset in="shadow" dx="1" dy="1" result="shadow" />
-          <feComposite in2="shadow" in="goo" result="goo" />
-          <feComposite in2="goo" in="SourceGraphic" result="mix" />
-        </filter>
-        <filter id="goo">
-          <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
-          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
-          <feComposite in2="goo" in="SourceGraphic" result="mix" />
-        </filter>
-      </defs>
-    </svg>
-  </div>
-
-  <%- include(footerFile) %>
-
-</body>
-<div class="loaded">
-  <div class="loaded_wrap">
-    <div class="loader book">
-      <figure class="page"></figure>
-      <figure class="page"></figure>
-      <figure class="page"></figure>
+      <!-- filters -->
+      <svg
+        style="display: none"
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.1">
+        <defs>
+          <filter id="shadowed-goo">
+            <feGaussianBlur
+              in="SourceGraphic"
+              result="blur"
+              stdDeviation="10" />
+            <feColorMatrix
+              in="blur"
+              mode="matrix"
+              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+              result="goo" />
+            <feGaussianBlur in="goo" stdDeviation="3" result="shadow" />
+            <feColorMatrix
+              in="shadow"
+              mode="matrix"
+              values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2"
+              result="shadow" />
+            <feOffset in="shadow" dx="1" dy="1" result="shadow" />
+            <feComposite in2="shadow" in="goo" result="goo" />
+            <feComposite in2="goo" in="SourceGraphic" result="mix" />
+          </filter>
+          <filter id="goo">
+            <feGaussianBlur
+              in="SourceGraphic"
+              result="blur"
+              stdDeviation="10" />
+            <feColorMatrix
+              in="blur"
+              mode="matrix"
+              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+              result="goo" />
+            <feComposite in2="goo" in="SourceGraphic" result="mix" />
+          </filter>
+        </defs>
+      </svg>
     </div>
 
-    <h1>Loading</h1>
+    <%- include(footerFile) %>
+  </body>
+  <div class="loaded">
+    <div class="loaded_wrap">
+      <div class="loader book">
+        <figure class="page"></figure>
+        <figure class="page"></figure>
+        <figure class="page"></figure>
+      </div>
+
+      <h1>Loading</h1>
+    </div>
   </div>
-</div>
 
-
-
- 
-
-<script src="/src/JS/reading.js"></script>
-
+  <script src="/src/JS/reading.js"></script>
 </html>

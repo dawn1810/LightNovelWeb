@@ -5,7 +5,7 @@ const { queryAsync } = require("../dbmysql");
 const processNovels = async function (req, res, id_truyen) {
   try {
     const account = req.session.user;
-    console.log("Account: " + JSON.stringify(account));
+    const account_role= await queryAsync(`SELECT last_role FROM thongtin_nguoidung WHERE id ="${account.id}"`)
     let render_data = {
       headerFile: "header",
       footerFile: "footer",
@@ -19,7 +19,7 @@ const processNovels = async function (req, res, id_truyen) {
       edit_name_chaps: "",
       edit_no_chaps: "",
       ban: "",
-      role: "",
+      role: account_role[0].last_role,
       max_page: 0,
     };
 
@@ -88,7 +88,6 @@ const processNovels = async function (req, res, id_truyen) {
         render_data.edit_name_chaps = novel.name_chaps;
         render_data.edit_no_chaps = novel.no_chapters;
         render_data.ban = novel.ban;
-        render_data.role = req.session.user;
         render_data.max_page= max_page[0].row_count;
       }
 

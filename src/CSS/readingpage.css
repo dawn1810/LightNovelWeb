@@ -208,7 +208,9 @@ h1 {
   margin: 20px auto;
 }
 
-
+.directional-btn:hover {
+  cursor: pointer;
+}
 
 .directional-btn {
   width: 50px !important;
