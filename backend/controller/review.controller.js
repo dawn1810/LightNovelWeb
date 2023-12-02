@@ -28,7 +28,7 @@ const renderReviews = async (req, res) => {
      INNER JOIN tacgia ON truyen.id_tac_gia = tacgia.id
      INNER JOIN the_loai_truyen ON truyen.id = the_loai_truyen.id_truyen
      INNER JOIN the_loai ON the_loai_truyen.id_the_loai = the_loai.id
-     WHERE the_loai_truyen.id_the_loai IN (?)
+     WHERE the_loai_truyen.id_the_loai IN ?
      ORDER BY truyen.ngay_cap_nhat DESC, truyen.luot_xem DESC, truyen.luot_thich DESC, truyen.ten_truyen ASC
      LIMIT 6;`,
      [genreList]
