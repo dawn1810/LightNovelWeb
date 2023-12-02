@@ -143,7 +143,7 @@ function drop_menu(){
   }
 }
 var currentPath = window.location.href.substring(window.location.href.lastIndexOf('/'));
-console.log(currentPath)
+// console.log(currentPath)
 if(currentPath == '/' || currentPath == ''){
   drop_menu()
   document.querySelectorAll('.left_li a')[0].style.color = 'red'
@@ -160,7 +160,7 @@ else if(currentPath == '/novel_following'){
   document.querySelectorAll('.left_li a')[3].style.color = 'red'
 }
 else{
-  console.log('dùgsdujgfjsdhg')
+  // console.log('dùgsdujgfjsdhg')
 }
 
 

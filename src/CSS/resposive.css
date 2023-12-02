@@ -308,6 +308,7 @@
     }
     #slide .item .image img{
         width: 90%;
+        height: auto;
     }
     .right {
         display: none!important;

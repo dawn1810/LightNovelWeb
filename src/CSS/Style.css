@@ -1333,7 +1333,7 @@ html .body_main {
   padding-bottom: 2.1em;
   border: 2px dashed var(--login-btn);
   border-radius: 15px;
-  background-color: #fcd494;
+  background-color: var(--header-background);
   box-shadow: 0 0 0 4px var(--header-background),
     2px 2px 4px 2px rgba(0, 0, 0, 0.5);
   transition: 0.4s ease-in-out;
@@ -1354,23 +1354,26 @@ html .body_main {
 
 .form .heading {
   padding-left: 0.8em;
-  color: #daa06d;
+  color: var(--login-btn);
   background-color: transparent;
   letter-spacing: 0.5em;
   text-align: center;
   padding-top: 1em;
-  text-shadow: inset -1px -1px 1px #daa06d;
+  text-shadow: inset -1px -1px 1px var(--login-btn);
 }
 
 .form .input {
   outline: none;
   padding: 0.5em;
   border: 1px solid #daa06d;
-  color: #daa06d;
+  color: #000;
   height: 3em;
   border-radius: 10px;
   background-color: #eaddca;
   text-align: center;
+}
+.form .input::placeholder{
+  color: #000;
 }
 
 .group1 {
@@ -1382,14 +1385,14 @@ html .body_main {
   position: relative;
 }
 
-.form .btn {
+.form .header_btn {
   min-width: 80px;
   align-self: center;
   margin-top: 2em;
   border-radius: 10px;
   outline: none;
   border: none;
-  color: rgb(0, 0, 0);
+  color: var(--black-text);
   background-color: #e5aa70;
   font-weight: bold;
   letter-spacing: 0.1em;
@@ -1399,11 +1402,11 @@ html .body_main {
   cursor: pointer;
 }
 
-.form .btn:hover {
+.form .header_btn:hover {
   opacity: 0.8;
 }
 
-.form .btn:active {
+.form .header_btn:active {
   transform: translateX(0.1em) translateY(0.1em);
   box-shadow: none;
 }
@@ -1483,7 +1486,7 @@ html .body_main {
   cursor: pointer;
 }
 
-.login_more_item:not(:hover) {
+.login_more_item:hover {
   background: rgb(219, 133, 71);
   opacity: 0.5;
 }

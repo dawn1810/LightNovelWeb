@@ -563,10 +563,10 @@ const api_uploadNovel = async (req, res) => {
         console.log(data.author_name);
         const author_name = await queryAsync(
           `
-			SELECT id FROM tacgia WHERE ten_tac_gia = ? AND id_nguoi_dung = ?`,
-          [data.author_name, admin_id]
+			SELECT id, id_nguoi_dung FROM tacgia WHERE ten_tac_gia = ?`,
+          [data.author_name]
         );
-        if (author_name.length) {
+        if (author_name.length && author_name[0].id_nguoi_dung === admin_id) {
           // tac giả đã tồn tại
           // add to truyen database
           await queryAsync(
@@ -593,7 +593,7 @@ const api_uploadNovel = async (req, res) => {
               formattedDate,
             ]
           );
-        } else {
+        } else if (!author_name.length && author_name[0].id_nguoi_dung === admin_id) {
           const author_id = uuidv4();
           await queryAsync(`INSERT INTO tacgia VALUE (?,?,?)`, [
             author_id,
@@ -625,7 +625,7 @@ const api_uploadNovel = async (req, res) => {
               formattedDate,
             ]
           );
-        }
+        } else if (author_name[0].id_nguoi_dung !== admin_id) return res.sendStatus(400);
       } else {
         // add to truyen database
         await queryAsync(
@@ -858,11 +858,11 @@ const api_editInfoNovel = async (req, res) => {
     if (account.id === admin_id) {
       console.log(data.author_name);
       const author_name = await queryAsync(
-		`
-		  SELECT id FROM tacgia WHERE ten_tac_gia = ? AND id_nguoi_dung = ?`,
-		[data.author_name, admin_id]
-	  );
-      if (author_name.length) {
+        `
+		  SELECT id, id_nguoi_dung FROM tacgia WHERE ten_tac_gia = ?`,
+        [data.author_name]
+      );
+      if (author_name.length && author_name[0].id_nguoi_dung === admin_id) {
         await queryAsync(
           `
 			UPDATE truyen
@@ -884,7 +884,7 @@ const api_editInfoNovel = async (req, res) => {
             data.id,
           ]
         );
-      } else {
+      } else if (!author_name.length && author_name[0].id_nguoi_dung === admin_id) {
         const author_id = uuidv4();
         await queryAsync(`INSERT INTO tacgia VALUE (?,?,?)`, [
           author_id,
@@ -927,7 +927,7 @@ const api_editInfoNovel = async (req, res) => {
 		`,
           [admin_id]
         );
-      }
+      } else if (author_name[0].id_nguoi_dung !== admin_id) return res.sendStatus(400);
     } else {
       await queryAsync(
         `
@@ -1090,17 +1090,25 @@ const api_updateInfo = async (req, res) => {
         [data.email, account.id]
       );
 
-
-
       // update author name
-      await queryAsync(
+      const author_check = await queryAsync(
         `
-			INSERT INTO tacgia (id, id_nguoi_dung, ten_tac_gia)
-			VALUES (?, ?, ?) 
-			ON DUPLICATE KEY UPDATE ten_tac_gia = VALUES(ten_tac_gia);
-			`,
-        [account.id, account.id, data.author_name]
+			SELECT id FROM tacgia WHERE ten_tac_gia = ? AND id_nguoi_dung <> ?
+		`,
+        [data.author_name, account.id]
       );
+      if (author_check.length) {
+        return res.sendStatus(400);
+      } else {
+        await queryAsync(
+          `
+				  INSERT INTO tacgia (id, id_nguoi_dung, ten_tac_gia)
+				  VALUES (?, ?, ?) 
+				  ON DUPLICATE KEY UPDATE ten_tac_gia = VALUES(ten_tac_gia);
+				  `,
+          [account.id, account.id, data.author_name]
+        );
+      }
 
       res.sendStatus(200);
     } else return res.sendStatus(403);
@@ -1380,12 +1388,12 @@ const api_open_author = async (req, res) => {
 };
 
 const api_get_quick_template = async (req, res) => {
-	const account = req.session.user;
-	if (account.id === admin_id) {
-		return res.download("./local_template/mau_dang_truyen_admin.docx");
-	} else {
-		return res.download("./local_template/mau_dang_truyen.docx");
-	}
+  const account = req.session.user;
+  if (account.id === admin_id) {
+    return res.download("./local_template/mau_dang_truyen_admin.docx");
+  } else {
+    return res.download("./local_template/mau_dang_truyen.docx");
+  }
 };
 
 const api_quick_upload = async (req, res) => {
@@ -1421,16 +1429,16 @@ const api_quick_upload = async (req, res) => {
           // add to truyen database
           if (account.id === admin_id) {
             console.log(data.author_name);
-			const author_name = await queryAsync(
-				`
-				  SELECT id FROM tacgia WHERE ten_tac_gia = ? AND id_nguoi_dung = ?`,
-				[data.author_name, admin_id]
-			);
-            if (author_name.length) {
+            const author_name = await queryAsync(
+              `
+				  SELECT id, id_nguoi_dung FROM tacgia WHERE ten_tac_gia = ?`,
+              [data.author_name]
+            );
+            if (author_name.length && author_name[0].id_nguoi_dung === admin_id) {
               // tac giả đã tồn tại
               // add to truyen database
               await queryAsync(
-				`
+                `
 				  INSERT INTO truyen (
 					  id, 
 					  id_tac_gia, 
@@ -1441,17 +1449,17 @@ const api_quick_upload = async (req, res) => {
 					  ngay_cap_nhat
 				  )
 				  VALUES (?,?,?,?,?,?,?)`,
-				[
-				  novel_id,
-				  author_name[0].id,
-				  result.name.trim(),
-				  result.name_chapters.length,
-				  result.introduce,
-				  result.status.trim(),
-				  formattedDate,
-				]
-			  );
-            } else {
+                [
+                  novel_id,
+                  author_name[0].id,
+                  result.name.trim(),
+                  result.name_chapters.length,
+                  result.introduce,
+                  result.status.trim(),
+                  formattedDate,
+                ]
+              );
+            } else if (!author_name.length && author_name[0].id_nguoi_dung === admin_id){
               const author_id = uuidv4();
               await queryAsync(`INSERT INTO tacgia VALUE (?,?,?)`, [
                 author_id,
@@ -1483,7 +1491,7 @@ const api_quick_upload = async (req, res) => {
                   formattedDate,
                 ]
               );
-            }
+            } else if (author_name[0].id_nguoi_dung !== admin_id) return  res.sendStatus(400);
           } else {
             await queryAsync(
               `

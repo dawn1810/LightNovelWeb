@@ -79,20 +79,20 @@ const scrollHandler = () => {
     document.body.clientHeight,
     document.documentElement.clientHeight
   );
-  console.log("Chiều dài trang:", pageHeight);
-  console.log(scrollY);
+  // console.log("Chiều dài trang:", pageHeight);
+  // console.log(scrollY);
   scrollmax = pageHeight - 180;
   const scrollmin = (scrollmax * 60) / 100;
-  console.log(scrollmin);
+  // console.log(scrollmin);
 
   if (scrollY > scrollmin) {
-    console.log("haha");
+    // console.log("haha");
     shouldRemoveScrollEvent = true; // Đặt biến cờ để gỡ bỏ sự kiện cuộn
     views_novel(id);
     updatecurrchap(id, chap);
     localStorage.setItem(`${id}`, `${chap}`);
   } else {
-    console.log("huhu");
+    // console.log("huhu");
   }
 
   window.scrollYOld = scrollY;
@@ -150,7 +150,7 @@ reset_text_color.addEventListener("click", function () {
 });
 
 const changeFontSize = (size) => {
-  console.log(size);
+  // console.log(size);
   main_content.style.fontSize = `${size}px`;
   for (const font of reader_size) {
     font.value = size;
@@ -186,7 +186,7 @@ for (const l_btn of left_btn) {
 const right_btn = document.querySelectorAll(".right-btn");
 for (const r_btn of right_btn) {
   last_chaps = show_more_item.length;
-  console.log(last_chaps);
+  // console.log(last_chaps);
   if (parseInt(window.location.href.split("/").pop()) >= last_chaps) {
     r_btn.style.display = "none";
     document.querySelector(".lame-right").disabled = true;

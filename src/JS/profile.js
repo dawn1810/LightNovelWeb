@@ -629,6 +629,8 @@ Save_btn.onclick = async function (e) {
 			author_name_check = document.querySelector("#author_name").value;
 
 			notify("n", "Cập nhật thông tin người dùng thành công!");
+		} else if (response.status == "400") {
+			notify("n", "Tên tác giả đã tồn tại");
 		}
 	} catch (error) {
 		console.log("Error:", error);

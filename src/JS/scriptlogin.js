@@ -1,5 +1,3 @@
-
-
 // Đối tượng `Validator`
 function Validator(options) {
   function getParent(element, selector) {
@@ -67,13 +65,19 @@ function Validator(options) {
     const eye3a = document.querySelector("#form1 .eye-icon3");
     let go = 0;
     eyea.onclick = function () {
-      console.log(123);
+      // console.log(123);
 
       if (go >= 5) {
         eye3a.classList.remove("displayed");
         eye2a.classList.add("displayed");
         eye1a.classList.add("displayed");
-        document.querySelector("#form1 #Password").type = "password";
+        document.querySelector("#form1 #Password").type = "text";
+        document
+          .querySelector("#form1 #Password")
+          .setAttribute(
+            "style",
+            "filter: drop-shadow(0px 0px 20px blue) invert(75%);"
+          );
       } else {
         if (eye2a.classList.contains("displayed")) {
           eye2a.classList.remove("displayed");
@@ -96,23 +100,29 @@ function Validator(options) {
     const eye3b = document.querySelector("#form2 .eye-icon3");
     let jo = 0;
     eyeb.onclick = function () {
-      console.log(123);
+      // console.log(123);
 
       if (jo >= 3) {
         eye3b.classList.remove("displayed");
         eye2b.classList.add("displayed");
         eye1b.classList.add("displayed");
-        document.querySelector("#form2 #Password").type = "password";
+        document.querySelector("#form2 #Password_signup").type = "text";
+        document
+          .querySelector("#form2 #Password_signup")
+          .setAttribute(
+            "style",
+            "filter: drop-shadow(0px 0px 20px blue) invert(75%);"
+          );
       } else {
         if (eye2b.classList.contains("displayed")) {
           eye2b.classList.remove("displayed");
           eye1b.classList.add("displayed");
-          document.querySelector("#form2 #Password").type = "text";
+          document.querySelector("#form2 #Password_signup").type = "text";
           jo += 1;
         } else {
           eye1b.classList.remove("displayed");
           eye2b.classList.add("displayed");
-          document.querySelector("#form2 #new-Password").type = "password";
+          document.querySelector("#form2 #Password_signup").type = "password";
           jo += 1;
         }
       }
@@ -130,6 +140,12 @@ function Validator(options) {
         eye2c.classList.add("displayed");
         eye1c.classList.add("displayed");
         document.querySelector("#form4 #Passwordreset").type = "text";
+        document
+          .querySelector("#form4 #Passwordreset")
+          .setAttribute(
+            "style",
+            "filter: drop-shadow(0px 0px 20px blue) invert(75%);"
+          );
       } else {
         if (eye2c.classList.contains("displayed")) {
           eye2c.classList.remove("displayed");
@@ -199,7 +215,7 @@ function Validator(options) {
         // Trường hợp submit với hành vi mặc định
         else {
           // formElement.submit();
-          console.log("kaka");
+          // console.log("kaka");
         }
       }
     };
@@ -309,7 +325,7 @@ document.addEventListener("DOMContentLoaded", function () {
       Validator.minLength("#Password", 6),
     ],
     onSubmit: async function (data) {
-      console.log(data);
+      // console.log(data);
       // gửi request tới csdl server
       const url = `/api/login`; // URL của máy chủ mục tiêu
       const postData = JSON.stringify({
@@ -333,7 +349,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (response.status == 200) {
           window.location.reload();
         } else if (response.status == 403 || response.status == 500) {
-          notify("!", "Thông tin đang nhập không chính xác!");
+          notify("!", "Thông tin đăng nhập không chính xác!");
         }
       } catch (error) {
         console.log("Error:", error);
@@ -346,28 +362,28 @@ document.addEventListener("DOMContentLoaded", function () {
     formGroupSelector: ".group1",
     errorSelector: ".form-message",
     rules: [
-      Validator.isRequired("#Username", "Vui lòng nhập nội dung này"),
-      Validator.noChar("#Username"),
+      Validator.isRequired("#Username_signup", "Vui lòng nhập nội dung này"),
+      Validator.noChar("#Username_signup"),
 
-      Validator.isRequired("#Password", "Vui lòng nhập nội dung này"),
+      Validator.isRequired("#Password_signup", "Vui lòng nhập nội dung này"),
       Validator.isRequired("#email", "Vui lòng nhập nội dung này"),
       Validator.isEmail("#email"),
-      Validator.minLength("#Password", 6),
+      Validator.minLength("#Password_signup", 6),
       // Validator.isConfirmed('#new-Password-again', function () {
       //     return document.querySelector('#form-3 #new-Password').value;
       // }, 'Mật khẩu nhập lại không chính xác')
     ],
     onSubmit: async function (data) {
       // Call API
-      const reg_btn = document.querySelector(".signup");
-      console.log(data);
+      const reg_btn = document.querySelector("#signup");
+      // console.log(data);
       //gửi request tới csdl server
       const url = `/api/signup`; // URL của máy chủ mục tiêu
       const postData = JSON.stringify({
         // thông tin đăng kýýý
-        email: `${document.querySelector("#form2 #email").value}`,
-        usr: `${document.querySelector("#form2 #Username").value}`,
-        pass: `${document.querySelector("#form2 #Password").value}`,
+        email: `${document.querySelector("#email").value}`,
+        usr: `${document.querySelector("#Username_signup").value}`,
+        pass: `${document.querySelector("#Password_signup").value}`,
       });
 
       //bình minh bị đẹp trai
@@ -389,16 +405,14 @@ document.addEventListener("DOMContentLoaded", function () {
         const response = await fetch(url, requestOptions);
         // console.log(response.status);
         if (response.status == "200") {
-          reg_btn.disabled = false;
-          reg_btn.innerHTML = `Submit`;
           notify("n", "Đăng ký thành công!!!");
           document.querySelector(".no_login a").click();
         } else if (response.status == "404") {
           notify("!", "Tài khoản đã tồn tại");
         }
 
-        // btn_reg.disabled = false;
-        // btn_reg.textContent = "Register";
+        reg_btn.disabled = false;
+        reg_btn.innerHTML = `Submit`;
       } catch (error) {
         console.log("Error:", error);
       }
@@ -475,7 +489,7 @@ document.addEventListener("DOMContentLoaded", function () {
       Validator.isConfirmed(
         "#PasswordresetConfirm",
         function () {
-          return document.querySelector("#form4 #Passwordreset").value;
+          return document.querySelector("#Passwordreset").value;
         },
         "Mật khẩu nhập lại không chính xác"
       ),
@@ -483,13 +497,12 @@ document.addEventListener("DOMContentLoaded", function () {
     onSubmit: async function (data) {
       // Call API
       const reg_btn = document.querySelector("#resetpassword");
-      console.log(data);
       //gửi request tới csdl server
       const url = `/api/reset_password`; // URL của máy chủ mục tiêu
       const postData = JSON.stringify({
         // thông tin đăng kýýý
         user: queryValue,
-        pass: `${document.querySelector("#form4 #PasswordresetConfirm").value}`,
+        pass: `${document.querySelector("#PasswordresetConfirm").value}`,
       });
 
       //bình minh bị đẹp trai

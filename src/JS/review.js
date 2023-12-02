@@ -17,7 +17,7 @@ const send_comment = document.querySelector(".send_your_cmt");
 const summary_btn = document.querySelector(".summary-btn");
 const summary_Content = document.querySelector(".summary-Content");
 const doctiep = document.querySelector(".curr_chap_local")
-console.log(idtruyen)
+//console.log(idtruyen)
 if (localStorage.getItem(idtruyen)) {
   doctiep.href = doctiep.href + localStorage.getItem(idtruyen);
 } else {
@@ -135,7 +135,7 @@ pagination();
 
 checks.forEach((check) => {
   check.onclick = (e) => {
-    console.log(e.target);
+    //console.log(e.target);
     handleCheckTruncate();
     pagination();
   };
@@ -153,7 +153,7 @@ function handleCurPage(data) {
     curPage.value = 1;
     valuePage.curPage = 1;
   } else {
-    console.log(parseInt(curPage.value, (data.no_chapters / 10).toFixed(0)));
+    //console.log(parseInt(curPage.value, (data.no_chapters / 10).toFixed(0)));
     valuePage.curPage = parseInt(
       curPage.value,
       (data.no_chapters / 10).toFixed(0)
@@ -212,7 +212,7 @@ document.querySelector(".function_item_folow").onclick = function () {
       document.querySelector(".function_item_folow").innerHTML = `
                 <i class="fa-solid fa-heart"></i>
                 <span>UnLike</span>`;
-      console.log("ok ko");
+      //console.log("ok ko");
       document.querySelector("#number_of_likes").innerHTML = parseInt(tym) + 1;
       like_novel(1);
     }
@@ -283,7 +283,7 @@ async function getReview() {
             window.location.href.split("/")[
             window.location.href.split("/").length - 1
             ];
-          console.log(data);
+          //console.log(data);
           window.location.href = `/reading/${chan}/${data.no_chapters}`;
         };
 
@@ -352,7 +352,7 @@ async function getReview() {
                 window.location.href.split("/")[
                 window.location.href.split("/").length - 1
                 ];
-              console.log(chan);
+              //console.log(chan);
               window.location.href = `/reading/${chan}/${ranchap}`;
             };
           }
@@ -438,7 +438,7 @@ async function getReview() {
 }
 
 function showListLoad(pageNumber, data) {
-  console.log("haha", data);
+  //console.log("haha", data);
   const listchap = document.querySelector(".listchap");
   let showlist = "";
   const chan =
@@ -529,7 +529,7 @@ function haha(data) {
   // console.log(data)
   pg.onclick = (e) => {
     const ele = e.target;
-    console.log("ok");
+    //console.log("ok");
     if (ele.dataset.page) {
       const pageNumber = parseInt(e.target.dataset.page, 10);
 
