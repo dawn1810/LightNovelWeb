@@ -43,6 +43,9 @@ const isBase64 = (value) => {
 
 const api_reset_password = async (req, res) => {
 	const data = req.body;
+	const data_user = queryAsync("")
+	// const url = `/resetpassword?id=${}`
+	func_controller.sendEmail('')
 	console.log(data);
 	res.sendStatus(200);
 };
