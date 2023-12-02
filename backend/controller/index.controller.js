@@ -51,7 +51,7 @@ const rederIndex = async (req, res) => {
     );
     let truyen_hoanthanh = await queryAsync(
       `SELECT DISTINCT 
-    truyen.id AS _id,
+    truyen.id,
     truyen.ten_truyen,
     tacgia.ten_tac_gia AS author,
     truyen.anh_dai_dien ,

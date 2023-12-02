@@ -17,9 +17,9 @@ document.getElementById('prev').onclick = function(){
   
 };
 
-setInterval(function() {
-  document.querySelector('#next').click();
-}, 5000);
+// setInterval(function() {
+//   document.querySelector('#next').click();
+// }, 5000);
 
 var listObj = new ej.dropdowns.MultiSelect({
   // set placeholder to MultiSelect input element
@@ -130,9 +130,20 @@ $(".search-btn").text("Lọc Truyện");
     console.error("Error downloading file:", error);
   });
 });
-url_btn = '/category?skip=0&update_day=1&types=undefined&num_chaps=1&status=1&sort_by=1'
 $(".top_view h3").on("click", function () {
-  window.location.href = url_btn;
+  window.location.href = '/category?skip=0&update_day=1&types=undefined&num_chaps=1&status=1&sort_by=1';
+});
+$(".top_like h3").on("click", function () {
+  window.location.href = '/category?skip=0&update_day=1&types=undefined&num_chaps=1&status=1&sort_by=2';
+});
+$(".top_view h3").on("click", function () {
+  window.location.href = '/category?skip=0&update_day=1&types=undefined&num_chaps=1&status=1&sort_by=3';
+});
+$(".hoanthanhdone").on("click", function () {
+  window.location.href = '/category?skip=0&update_day=1&types=undefined&num_chaps=1&status=3&sort_by=3';
+});
+$(".capnhatnow").on("click", function () {
+  window.location.href = '/category?skip=0&update_day=1&types=undefined&num_chaps=1&status=2&sort_by=3';
 });
 
 

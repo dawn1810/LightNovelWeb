@@ -72,7 +72,7 @@
               <ul class="current-category-list">
                 <% genres.forEach(function(genre) { %>
                 <li id="<%= genre %>" class="current-category-list_item">
-                  <a href="/search?search=<%= genre %>&type=1" target="_blank">
+                  <a href="/category?skip=0&update_day=1&types=<%= genre %>&num_chaps=1&status=1&sort_by=1" target="_blank">
                     <div class="btn btn1">
                       <h4>
                         <%= genre %>
@@ -110,7 +110,6 @@
 
               <div class="function">
                 <div class="function_item function_item_folow ">
-                  <% console.log('liked:', liked) %>
                   <% if (!liked) { %>
                   <i class="fa-regular fa-heart"></i>
                   <span>Like</span>

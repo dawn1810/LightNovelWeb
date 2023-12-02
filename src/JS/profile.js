@@ -39,11 +39,11 @@ const range__label = document.querySelector(".range__label");
 const back_btn = document.querySelectorAll(".back_btn");
 
 //pagination //////////////////////////////////////////////////////////////////
-const list_chapter_body = document.querySelector('.list_chapter_body')
-const find_page = document.querySelector(".find_page");
-const next_page = document.querySelector(".next_page");
-const previous_page = document.querySelector(".previous_page");
-const maxcout = parseInt(document.getElementById("max").innerText);
+// const list_chapter_body = document.querySelector('.list_chapter_body')
+// const find_page = document.querySelector(".find_page");
+// const next_page = document.querySelector(".next_page");
+// const previous_page = document.querySelector(".previous_page");
+// const maxcout = parseInt(document.getElementById("max").innerText);
 
 // dieu khoan dich vu
 const checked = document.getElementById("Agree");
@@ -539,7 +539,7 @@ async function editNovel() {
 		chap_ids: chapters_content ? chapters_content.split(",") : [],
 		edit_index: edit_indexes ? edit_indexes.split(",") : [],
 		remove_list: remove_list ? remove_list.split(",") : [],
-		step: find_page.value,
+		// step: find_page.value,
 	});
 	const requestOptions = {
 		method: "POST",
@@ -908,7 +908,7 @@ document.querySelector(".page5_chap .more_chap_btn").onclick = function () {
 		<div class="information_name_wrap">
 			<div class="head">
 				<h3>Nội Dung</h3>
-				<pre class="file-content" style="margin: 1rem 20px;"></pre>
+				<pre class="file-content"></pre>
 				<input type="file" class="file-input" style="display:none;" accept=".txt, .docx"/>
 				<button class="upfile">
 					<i class="fa-solid fa-upload"></i>
@@ -1302,7 +1302,7 @@ document.querySelector(".page5_d .more_chap_btn").onclick = function () {
 		<div class="information_name_wrap">
 			<div class="head">
 				<h3>Nội Dung</h3>
-				<pre class="file-content" style="margin: 1rem 20px;"></pre>
+				<pre class="file-content"></pre>
 				<input type="file" class="file-input" style="display:none;" accept=".txt, .docx"/>
 				<button class="upfile">
 					<i class="fa-solid fa-upload"></i>
@@ -1367,7 +1367,7 @@ document.querySelector(".page5_c .next_btn").onclick = function () {
 	const postData = JSON.stringify({
 		id: extractedID,
 		novel_name: document.querySelector(".page5_c  .profile_input ").value,
-		author_name: document.querySelector(".page5_c  .author_name").value,
+		// author_name: document.querySelector(".page5_c  .author_name").value,
 		novel_descript: document.querySelector(".page5_c  .novel_descript").value,
 		novel_types: listObj2.tempValues,
 		novel_status: document.querySelector(".page5_c  .novel_status select").options[
@@ -1459,150 +1459,150 @@ page5_post_check.onclick = function () {
 };
 
 
-document.addEventListener("DOMContentLoaded", function () {
-	if (find_page.value <= 1) {
-		previous_page.style.display = "none";
-	} 
-	find_page.addEventListener("keydown", function (event) {
-		if (find_page.value <= 1) {
+// document.addEventListener("DOMContentLoaded", function () {
+// 	if (find_page.value <= 1) {
+// 		previous_page.style.display = "none";
+// 	} 
+// 	find_page.addEventListener("keydown", function (event) {
+// 		if (find_page.value <= 1) {
 			
-			previous_page.style.display = "none";
-		} else if (find_page.value > 1) {
+// 			previous_page.style.display = "none";
+// 		} else if (find_page.value > 1) {
 			
-			previous_page.style.display = "block";
-		}
-		if (event.key === "Enter") {
-			event.preventDefault();
-			if (parseInt(find_page.value) > maxcout) {
-				find_page.style.border = "3px red solid";
-				next_page.style.display = "none";
-				getListNovel((maxcout - 1)*6);
-				find_page.value = maxcout;
-			} else if (parseInt(find_page.value) <= 0) {
-				find_page.style.border = "3px red solid";
-				getListNovel((1 - 1)*6);
-				find_page.value = 1;
-			} else {
-				find_page.style.border = "none";
+// 			previous_page.style.display = "block";
+// 		}
+// 		if (event.key === "Enter") {
+// 			event.preventDefault();
+// 			if (parseInt(find_page.value) > maxcout) {
+// 				find_page.style.border = "3px red solid";
+// 				next_page.style.display = "none";
+// 				getListNovel((maxcout - 1)*6);
+// 				find_page.value = maxcout;
+// 			} else if (parseInt(find_page.value) <= 0) {
+// 				find_page.style.border = "3px red solid";
+// 				getListNovel((1 - 1)*6);
+// 				find_page.value = 1;
+// 			} else {
+// 				find_page.style.border = "none";
 				
-				previous_page.style.display = "block";
-				next_page.style.display = "block";
-				getListNovel((find_page.value - 1)*6);
-			}
-		}
-	});
+// 				previous_page.style.display = "block";
+// 				next_page.style.display = "block";
+// 				getListNovel((find_page.value - 1)*6);
+// 			}
+// 		}
+// 	});
 
 
-	next_page.onclick = function (event) {
-		if (find_page.value >= 1) {
+// 	next_page.onclick = function (event) {
+// 		if (find_page.value >= 1) {
 			
-			previous_page.style.display = "block";
-		}
-		event.preventDefault();
-		find_page.value = parseInt(find_page.value) + 1;
-		getListNovel((find_page.value - 1)*6);
-		find_page.style.border = "none";
-	};
-	previous_page.onclick = function (event) {
-		event.preventDefault();
-		find_page.value = parseInt(find_page.value) - 1;
-		getListNovel((find_page.value - 1)*6);
-		if (find_page.value <= 1) {
+// 			previous_page.style.display = "block";
+// 		}
+// 		event.preventDefault();
+// 		find_page.value = parseInt(find_page.value) + 1;
+// 		getListNovel((find_page.value - 1)*6);
+// 		find_page.style.border = "none";
+// 	};
+// 	previous_page.onclick = function (event) {
+// 		event.preventDefault();
+// 		find_page.value = parseInt(find_page.value) - 1;
+// 		getListNovel((find_page.value - 1)*6);
+// 		if (find_page.value <= 1) {
 			
-			previous_page.style.display = "none";
-		}
-		find_page.style.border = "none";
-	};
+// 			previous_page.style.display = "none";
+// 		}
+// 		find_page.style.border = "none";
+// 	};
 
 
-});
+// });
 
 
-async function getListNovel(offset) {
-	const url = `/api/api_chapter`;
-	const regex =
-		/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/;
+// async function getListNovel(offset) {
+// 	const url = `/api/api_chapter`;
+// 	const regex =
+// 		/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/;
 
-	const match = regex.exec(window.location.href);
+// 	const match = regex.exec(window.location.href);
 
-	const extractedID = match ? match[0] : null;
-	const requestOptions = {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({
-			id: extractedID,
-			offset: offset,
-		}),
-	};
+// 	const extractedID = match ? match[0] : null;
+// 	const requestOptions = {
+// 		method: "POST",
+// 		headers: {
+// 			"Content-Type": "application/json",
+// 		},
+// 		body: JSON.stringify({
+// 			id: extractedID,
+// 			offset: offset,
+// 		}),
+// 	};
 
-	try {
-		const response = await fetch(url, requestOptions);
+// 	try {
+// 		const response = await fetch(url, requestOptions);
 
-		if (response.status === 200) {
-			let listHTML =""
-			const data = await response.json();
-			console.log(data["data"]);
-			if (data["data"].length < 6) {
-				next_page.style.display = "none";
-			}
-			else if (find_page.value == maxcout) {
-				next_page.style.display = "none";
-			}else if (find_page.value > maxcout) {
-				next_page.style.display = "none";
-			}
-			 else {
-				next_page.style.display = "block";
-			}
-			for (let i = 0; i < data["data"].length; i++) {
-				listHTML +=`
-				<div class="my_novel_item" id="${data["data"][i].noi_dung_chuong}">
-				<div class="name_chapter" style="display: flex;">
-				  <div class="chapter" style="
-												  display: flex;
-												  align-items: center;
-												  justify-content: center;">
-												  ${data["data"][i].ten_chuong.split(":")[0].slice(0, 6)}
-				  </div>
-				  <span>&emsp;</span>
-				  <input type="text" class="profile_input n_num" style="width: 10%;" value="${data["data"][i].ten_chuong.split(":")[0].slice(6).trim()}" readonly />
-				  <div style="
-												  display: flex;
-												  align-items: center;
-												  justify-content: center;">
-					&emsp;:&emsp;
-				  </div>
-				  <input type="text" class="profile_input n_name" value="${data["data"][i].ten_chuong.split(":")[1].trim()}">
-				  <a id='author_see' href = "/reading/${extractedID}/${data["data"][i].ten_chuong.split(":")[0].slice(6).trim()}"><i class="fa-solid fa-eye"></i></a>
-				</div>
-				<div class="btn_gritem">
-				  <div class="novel_conntroller_btn">
-					<div class="head_b">
-					  <pre class="file-content" style="margin: 1rem 20px;"></pre>
-					  <input type="file" class="file-input" style="display:none;" accept=".txt, .docx" />
-					  <button class="upfile edit_btn">
-						<i class="fa-solid fa-upload"></i>
-					  </button>
-					</div>
-					<button class="upfile download_btn">
-					  <i class="fa-solid fa-download"></i>
-					</button>
+// 		if (response.status === 200) {
+// 			let listHTML =""
+// 			const data = await response.json();
+// 			console.log(data["data"]);
+// 			if (data["data"].length < 6) {
+// 				next_page.style.display = "none";
+// 			}
+// 			else if (find_page.value == maxcout) {
+// 				next_page.style.display = "none";
+// 			}else if (find_page.value > maxcout) {
+// 				next_page.style.display = "none";
+// 			}
+// 			 else {
+// 				next_page.style.display = "block";
+// 			}
+// 			for (let i = 0; i < data["data"].length; i++) {
+// 				listHTML +=`
+// 				<div class="my_novel_item" id="${data["data"][i].noi_dung_chuong}">
+// 				<div class="name_chapter" style="display: flex;">
+// 				  <div class="chapter" style="
+// 												  display: flex;
+// 												  align-items: center;
+// 												  justify-content: center;">
+// 												  ${data["data"][i].ten_chuong.split(":")[0].slice(0, 6)}
+// 				  </div>
+// 				  <span>&emsp;</span>
+// 				  <input type="text" class="profile_input n_num" style="width: 10%;" value="${data["data"][i].ten_chuong.split(":")[0].slice(6).trim()}" readonly />
+// 				  <div style="
+// 												  display: flex;
+// 												  align-items: center;
+// 												  justify-content: center;">
+// 					&emsp;:&emsp;
+// 				  </div>
+// 				  <input type="text" class="profile_input n_name" value="${data["data"][i].ten_chuong.split(":")[1].trim()}">
+// 				  <a id='author_see' href = "/reading/${extractedID}/${data["data"][i].ten_chuong.split(":")[0].slice(6).trim()}"><i class="fa-solid fa-eye"></i></a>
+// 				</div>
+// 				<div class="btn_gritem">
+// 				  <div class="novel_conntroller_btn">
+// 					<div class="head_b">
+// 					  <pre class="file-content" style="margin: 1rem 20px;"></pre>
+// 					  <input type="file" class="file-input" style="display:none;" accept=".txt, .docx" />
+// 					  <button class="upfile edit_btn">
+// 						<i class="fa-solid fa-upload"></i>
+// 					  </button>
+// 					</div>
+// 					<button class="upfile download_btn">
+// 					  <i class="fa-solid fa-download"></i>
+// 					</button>
   
-					<button class="upfile remove_chap">
-					  <i class="fa-solid fa-xmark"></i>
-					</button>
-				  </div>
-				</div>
-			  </div>
-				`
-			}
-			console.log(listHTML)
-			list_chapter_body.innerHTML = listHTML
-		} else {
-			alert("Có lỗi xảy ra: " + response.statusText);
-		}
-	} catch (error) {
-		console.log("Error:", error);
-	}
-}
+// 					<button class="upfile remove_chap">
+// 					  <i class="fa-solid fa-xmark"></i>
+// 					</button>
+// 				  </div>
+// 				</div>
+// 			  </div>
+// 				`
+// 			}
+// 			console.log(listHTML)
+// 			list_chapter_body.innerHTML = listHTML
+// 		} else {
+// 			alert("Có lỗi xảy ra: " + response.statusText);
+// 		}
+// 	} catch (error) {
+// 		console.log("Error:", error);
+// 	}
+// }

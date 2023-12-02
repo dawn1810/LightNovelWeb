@@ -64,7 +64,7 @@
                       <ul>
                           <% slider[i].genres.forEach( (genres) =>{%>
                             <li>
-                              <a href=""><%= genres %></a>
+                              <a href="/category?skip=0&update_day=1&types=<%= genres %>&num_chaps=1&status=1&sort_by=1"><%= genres %></a>
                           </li>
                           
                             <%
@@ -256,7 +256,7 @@
       
       <div class="top_popular">
         <div class="top_popular_top">
-          <div class="top_popular_top_title">
+          <div class="top_popular_top_title hoanthanhdone">
             Truyện đã hoàn thành
           </div>
 
@@ -289,7 +289,7 @@
       </div>
       <div class="top_popular">
         <div class="top_popular_top">
-          <div class="top_popular_top_title">
+          <div class="top_popular_top_title capnhatnow">
             Truyện đang cập nhật
           </div>
 

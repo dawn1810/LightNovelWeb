@@ -1,5 +1,4 @@
-// tao đã ở đây hhehee
-// fix thahf côg nhé :)))) 💢💌💥
+
 
 // Đối tượng `Validator`
 function Validator(options) {

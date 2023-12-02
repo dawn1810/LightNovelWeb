@@ -112,8 +112,6 @@ const apiRouter = (app) => {
   router.post("/api/open_account", api_router.api_open_account);
   //slider
   router.post("/api/edit_slider", api_router.api_editSlider);
-  // lấy chương trong profile
-  router.post("/api/api_chapter", api_router.api_get_list_chapter);
   // cập nhật trạng thái người dùng
   router.post("/api/block_author", api_router.api_block_author);
   // cập nhật trạng thái người dùng

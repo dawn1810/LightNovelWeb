@@ -761,8 +761,13 @@ body {
 
 .novel_conntroller_btn {
   display: flex;
+  padding:0;
 }
-
+.list_chapter_body{
+  height:100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
 .add_novel_more_chap {
   display: flex;
   background-color: #ffffff00 !important;
@@ -999,7 +1004,7 @@ textarea {
 }
 
 .head_b .file-content {
-  max-width: 100px;
+  max-width: 50px;
   font-size: 16px;
   color: var(--black-text);
   text-transform: capitalize;

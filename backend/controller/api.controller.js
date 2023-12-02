@@ -563,8 +563,8 @@ const api_uploadNovel = async (req, res) => {
         console.log(data.author_name);
         const author_name = await queryAsync(
           `
-			SELECT id FROM tacgia WHERE ten_tac_gia = ?`,
-          [data.author_name]
+			SELECT id FROM tacgia WHERE ten_tac_gia = ? AND id_nguoi_dung = ?`,
+          [data.author_name, admin_id]
         );
         if (author_name.length) {
           // tac giả đã tồn tại
@@ -799,31 +799,17 @@ const api_editNovel = async (req, res) => {
       [data.id]
     );
 
-    const curr_start = (data.step - 1) * 6 + 1;
-
     for (let i = 1; i <= result.length; i++) {
-      if (i >= curr_start && i <= curr_start + 5) {
-        await queryAsync(
-          `
+      await queryAsync(
+        `
 				UPDATE chuong
 				SET 
 					thu_tu = ?,
 					ten_chuong = ?
 				WHERE id = ?;
 				`,
-          [i, data.name_chaps[i - 1], result[i - 1].id]
-        );
-      } else {
-        await queryAsync(
-          `
-				UPDATE chuong
-				SET 
-					thu_tu = ?,
-				WHERE id = ?;
-				`,
-          [i, result[i - 1].id]
-        );
-      }
+        [i, data.name_chaps[i - 1], result[i - 1].id]
+      );
     }
 
     // update no_chap and update_date in truyen database
@@ -872,10 +858,10 @@ const api_editInfoNovel = async (req, res) => {
     if (account.id === admin_id) {
       console.log(data.author_name);
       const author_name = await queryAsync(
-        `
-			SELECT id FROM tacgia WHERE ten_tac_gia = ?`,
-        [data.author_name]
-      );
+		`
+		  SELECT id FROM tacgia WHERE ten_tac_gia = ? AND id_nguoi_dung = ?`,
+		[data.author_name, admin_id]
+	  );
       if (author_name.length) {
         await queryAsync(
           `
@@ -925,6 +911,21 @@ const api_editInfoNovel = async (req, res) => {
             avt_var,
             data.id,
           ]
+        );
+
+        // delete all admin author that dont have any novels
+        await queryAsync(
+          `
+		DELETE 
+		FROM tacgia 
+		WHERE id_nguoi_dung = ?
+		AND ( 
+			SELECT COUNT(id) 
+			FROM truyen
+			WHERE id_tac_gia = tacgia.id
+			) <= 0;
+		`,
+          [admin_id]
         );
       }
     } else {
@@ -1088,6 +1089,8 @@ const api_updateInfo = async (req, res) => {
 			`,
         [data.email, account.id]
       );
+
+
 
       // update author name
       await queryAsync(
@@ -1377,7 +1380,12 @@ const api_open_author = async (req, res) => {
 };
 
 const api_get_quick_template = async (req, res) => {
-  return res.download("./local_template/mau_dang_truyen.docx");
+	const account = req.session.user;
+	if (account.id === admin_id) {
+		return res.download("./local_template/mau_dang_truyen_admin.docx");
+	} else {
+		return res.download("./local_template/mau_dang_truyen.docx");
+	}
 };
 
 const api_quick_upload = async (req, res) => {
@@ -1411,28 +1419,95 @@ const api_quick_upload = async (req, res) => {
             .replace("T", " ");
 
           // add to truyen database
-          await queryAsync(
-            `
-			INSERT INTO truyen (
-				id, 
-				id_tac_gia, 
-				ten_truyen, 
-				so_luong_chuong, 
-				tom_tat_noi_dung, 
-				trang_thai, 
-				ngay_cap_nhat
-			)
-			VALUES (?,?,?,?,?,?,?)`,
-            [
-              novel_id,
-              account.id,
-              result.name.trim(),
-              result.name_chapters.length,
-              result.introduce,
-              result.status.trim(),
-              formattedDate,
-            ]
-          );
+          if (account.id === admin_id) {
+            console.log(data.author_name);
+			const author_name = await queryAsync(
+				`
+				  SELECT id FROM tacgia WHERE ten_tac_gia = ? AND id_nguoi_dung = ?`,
+				[data.author_name, admin_id]
+			);
+            if (author_name.length) {
+              // tac giả đã tồn tại
+              // add to truyen database
+              await queryAsync(
+				`
+				  INSERT INTO truyen (
+					  id, 
+					  id_tac_gia, 
+					  ten_truyen, 
+					  so_luong_chuong, 
+					  tom_tat_noi_dung, 
+					  trang_thai, 
+					  ngay_cap_nhat
+				  )
+				  VALUES (?,?,?,?,?,?,?)`,
+				[
+				  novel_id,
+				  author_name[0].id,
+				  result.name.trim(),
+				  result.name_chapters.length,
+				  result.introduce,
+				  result.status.trim(),
+				  formattedDate,
+				]
+			  );
+            } else {
+              const author_id = uuidv4();
+              await queryAsync(`INSERT INTO tacgia VALUE (?,?,?)`, [
+                author_id,
+                account.id,
+                result.author.trim(),
+              ]);
+
+              await queryAsync(
+                `
+					INSERT INTO truyen (
+						id, 
+						id_tac_gia, 
+						ten_truyen, 
+						so_luong_chuong, 
+						tom_tat_noi_dung, 
+						anh_dai_dien, 
+						trang_thai, 
+						ngay_cap_nhat
+					)
+					VALUES (?,?,?,?,?,?,?,?)`,
+                [
+                  novel_id,
+                  author_id,
+                  data.name,
+                  data.name_chaps.length,
+                  data.summary,
+                  avt_var,
+                  data.status,
+                  formattedDate,
+                ]
+              );
+            }
+          } else {
+            await queryAsync(
+              `
+				INSERT INTO truyen (
+					id, 
+					id_tac_gia, 
+					ten_truyen, 
+					so_luong_chuong, 
+					tom_tat_noi_dung, 
+					trang_thai, 
+					ngay_cap_nhat
+				)
+				VALUES (?,?,?,?,?,?,?)`,
+              [
+                novel_id,
+                account.id,
+                result.name.trim(),
+                result.name_chapters.length,
+                result.introduce,
+                result.status.trim(),
+                formattedDate,
+              ]
+            );
+          }
 
           // add to chuong database
           for (let i = 0; i < result.name_chapters.length; i++) {
@@ -1514,41 +1589,6 @@ const api_editSlider = async (req, res) => {
   }
 };
 
-const api_get_list_chapter = async (req, res) => {
-  try {
-    // Chuyển đổi giá trị offset và n sang kiểu số
-    const offset = parseInt(req.body.offset, 10);
-    const id = req.body.id;
-
-    // Kiểm tra xem giá trị có phải là số hay không
-    if (isNaN(offset)) {
-      res.status(400).json({ error: "Giá trị không hợp lệ" });
-      return;
-    }
-    let result = await queryAsync(
-      `
-		SELECT *
-		FROM chuong
-		INNER JOIN truyen
-		  ON chuong.id_truyen = truyen.id
-		WHERE truyen.id = ?
-		ORDER BY chuong.thu_tu
-		LIMIT 6 OFFSET ?
-		`,
-      [id, offset]
-    );
-
-    if (result && result.length > 0) {
-      return res.status(200).json({ data: result });
-    } else {
-      return res.status(404).json({ error: "Không tìm thấy chương" });
-    }
-  } catch (error) {
-    console.log("Error in api_get_list_novel:", error);
-    return res.status(500).json({ error: "Có lỗi xảy ra trên server" });
-  }
-};
-
 module.exports = {
   api_search_more,
   api_reset_password,
@@ -1580,5 +1620,4 @@ module.exports = {
   api_get_quick_template,
   api_quick_upload,
   api_editSlider,
-  api_get_list_chapter,
 };

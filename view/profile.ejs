@@ -331,7 +331,7 @@
                     <button class="add_new">+ THÊM TRUYỆN NHANH</button>
                     <div class="novel_conntroller_btn upload_quick_file">
                       <div class="head_b">
-                        <pre class="file-content" style="margin: 1rem 20px;"></pre>
+                        <pre class="file-content"></pre>
                         <input type="file" class="file-input" style="display:none;" accept=".txt, .docx" />
                         <button class="add_new edit_btn">
                           <i class="fa-solid fa-upload"></i>
@@ -755,7 +755,7 @@
               <div class="btn_gritem">
                 <div class="novel_conntroller_btn">
                   <div class="head_b">
-                    <pre class="file-content" style="margin: 1rem 20px;"></pre>
+                    <pre class="file-content" ></pre>
                     <input type="file" class="file-input" style="display:none;" accept=".txt, .docx" />
                     <button class="upfile edit_btn">
                       <i class="fa-solid fa-upload"></i>
@@ -773,12 +773,6 @@
             </div>
             <% } %>
           </div>
-            <div class="pagination_btn_gr">
-              <button class="previous_page"><i class="fa-solid fa-arrow-left"></i></button>
-              <input type="number" class="find_page" value="1">/
-              <p id="max"><%= Math.round(max_page/6) %></p>
-              <button class="next_page"><i class="fa-solid fa-arrow-right"></i></button>
-            </div>
           <div class="page5_info_main_btn">
             <button class="close_btn" id="accept_drop">Hủy</button>
             <button class="next_btn" id="accept_change">

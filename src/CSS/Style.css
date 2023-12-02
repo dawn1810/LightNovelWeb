@@ -31,6 +31,10 @@
   --button-colors: #b0906b;
   --input-color: #ffffff;
 }
+
+textarea{
+  resize: none !important;
+}
 body {
   box-sizing: border-box;
   padding: 0;
@@ -247,8 +251,10 @@ a {
   transition: 1.5s;
 }
 #slide .item .image img {
-  width: 65%;
+  width: 750px;
+  height: 460px;
   transition: 0.5s;
+  object-fit: cover;
 }
 #slide .item .image::before {
   position: absolute;
