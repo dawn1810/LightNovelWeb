@@ -11,7 +11,6 @@ const search = async (req, res) => {
 	try {
 		const search = decodeURIComponent(req.query.search);
 		if (search) {
-
 			let names = await queryAsync(
 				`SELECT truyen.id AS _id,
 				ten_truyen AS name,
@@ -34,7 +33,7 @@ const search = async (req, res) => {
 				[search]
 			);
 			let genres = await queryAsync(
-			`SELECT truyen.id AS _id,
+				`SELECT truyen.id AS _id,
 			ten_truyen AS name,
 			ten_tac_gia AS author, anh_dai_dien AS image, 
 			trang_thai AS status, so_luong_chuong AS no_chapters 
@@ -75,7 +74,7 @@ const search = async (req, res) => {
 				genres: genres,
 				genres_more: genres_more,
 				what_search: search,
-				typesearch: req.query.type
+				typesearch: req.query.type,
 			});
 		} else {
 			res.sendStatus(404);
@@ -239,8 +238,7 @@ const category = async (req, res, limit = 31) => {
 
 const category_module = async (req, res) => {
 	try {
-		const theloai = await queryAsync(
-			`SELECT DISTINCT ten_the_loai FROM the_loai`);
+		const theloai = await queryAsync(`SELECT DISTINCT ten_the_loai FROM the_loai`);
 		const data = await category(req, res);
 		res.render("category-page.ejs", {
 			headerFile: "header",
@@ -248,7 +246,7 @@ const category_module = async (req, res) => {
 			result: data.novel,
 			more_novel: data.check,
 			autochoose: req.query,
-			theloai:theloai
+			theloai: theloai,
 		});
 	} catch (err) {
 		console.log("SYSTEM | SEARCH | ERROR | ", err);
@@ -258,5 +256,5 @@ const category_module = async (req, res) => {
 module.exports = {
 	search,
 	category_module,
-	category
+	category,
 };

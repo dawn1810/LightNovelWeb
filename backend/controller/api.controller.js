@@ -386,11 +386,11 @@ const api_login = async (req, res) => {
         `SELECT * FROM taikhoan_nguoidung WHERE ten_tai_khoan= ? AND mat_khau = ?`,
         [data.usr, func_controller.hashPassword(data.pass)]
       );
-      const role_u = await queryAsync(
-        `SELECT role FROM thongtin_nguoidung WHERE id_tai_khoan= ?`,
-        [n_result[0].id]
-      );
       if (n_result.length != 0) {
+        const role_u = await queryAsync(
+          `SELECT role FROM thongtin_nguoidung WHERE id_tai_khoan = ?`,
+          [n_result[0].id]
+        );
         req.session.user = {
           id: n_result[0].id,
           username: data.usr,
