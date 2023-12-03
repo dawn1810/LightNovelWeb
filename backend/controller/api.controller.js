@@ -284,7 +284,7 @@ const api_reviews = async (req, res) => {
 		return res.end(JSON.stringify(result));
 	} catch (err) {
 		console.log("SYSTEM | REVIEWS | ERROR | ", err);
-		res.sendStatus(500);
+		return res.sendStatus(500);
 	}
 };
 
@@ -431,7 +431,7 @@ const api_login = async (req, res) => {
 		await queryAsync("ROLLBACK");
 
 		console.log("SYSTEM | LOG_IN | ERROR | ", err);
-		res.sendStatus(500);
+		return res.sendStatus(500);
 	}
 };
 
@@ -500,7 +500,7 @@ const api_updateLike = async (req, res) => {
 				// response client
 				res.writeHead(200, { "Content-Type": "text/plain" });
 				// console.log(`SYSTEM | UPDATE_LIKE | Unlike cho truyen hien tai`);
-				res.end(JSON.stringify("Unliked!!!"));
+				return res.end(JSON.stringify("Unliked!!!"));
 			}
 		} else {
 			await queryAsync("COMMIT");
@@ -510,7 +510,7 @@ const api_updateLike = async (req, res) => {
 		await queryAsync("ROLLBACK");
 
 		console.log("SYSTEM | UPDATE_LIKE | ERROR | ", err);
-		res.sendStatus(500);
+		return res.sendStatus(500);
 	}
 };
 
@@ -535,7 +535,7 @@ const api_updateCurrchap = async (req, res) => {
 
 			res.writeHead(200, { "Content-Type": "text/plain" });
 			// console.log(`SYSTEM | UPDATE_CURR_CHAP | Da cap nhat `);
-			res.end(JSON.stringify("viewed!!!"));
+			return res.end(JSON.stringify("viewed!!!"));
 		} else {
 			await queryAsync("COMMIT");
 			return res.sendStatus(403);
@@ -1044,7 +1044,7 @@ const api_editInfoNovel = async (req, res) => {
 	} catch (err) {
 		await queryAsync("ROLLBACK");
 		console.log("SYSTEM | EDIT INFO NOVEL | ERROR | ", err);
-		res.sendStatus(500);
+		return res.sendStatus(500);
 	}
 };
 
@@ -1072,7 +1072,7 @@ const api_uploadFile = async function (req, res) {
 	res.writeHead(200, { "Content-Type": "applicaiton/json" });
 	// res.end("ok bro");
 
-	res.end(JSON.stringify(await func_controller.get_full_id(uploadDirectory, list_name)));
+	return res.end(JSON.stringify(await func_controller.get_full_id(uploadDirectory, list_name)));
 };
 
 const api_cancle = async (req, res) => {
@@ -1238,7 +1238,7 @@ const api_changePass = async (req, res) => {
 		await queryAsync("ROLLBACK");
 
 		console.log("SYSTEM | UPDATE INFO | ERROR | ", err);
-		res.sendStatus(500);
+		return res.sendStatus(500);
 	}
 };
 
@@ -1692,7 +1692,7 @@ const api_editSlider = async (req, res) => {
 		);
 		await queryAsync("COMMIT");
 
-		res.sendStatus(200);
+		return res.sendStatus(200);
 	} catch (err) {
 		await queryAsync("ROLLBACK");
 
