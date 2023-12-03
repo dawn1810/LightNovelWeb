@@ -1000,8 +1000,6 @@ $(document).ready(function () {
 		page5_composed_drop();
 		var newURL = "/profile/update/" + grandparentID + "/edit";
 		window.location.href = newURL;
-
-		console.log(grandparentID); // This will log 'grandparent'
 	});
 
 	// load update edit (chỉnh sửa) page
@@ -1369,7 +1367,7 @@ document.querySelector(".page5_c .next_btn").onclick = function () {
 	const postData = JSON.stringify({
 		id: extractedID,
 		novel_name: document.querySelector(".page5_c  .profile_input ").value,
-		// author_name: document.querySelector(".page5_c  .author_name").value,
+		author_name: document.querySelector(".page5_c  .author_name").value,
 		novel_descript: document.querySelector(".page5_c  .novel_descript").value,
 		novel_types: listObj2.tempValues,
 		novel_status: document.querySelector(".page5_c  .novel_status select").options[
@@ -1389,6 +1387,8 @@ document.querySelector(".page5_c .next_btn").onclick = function () {
 		.then((response) => {
 			if (response.ok) {
 				notify("n", "Thay đổi thông tin thành công!");
+			} else if (response.status = "400") {
+				notify("x", "Tên sáng tác đã tồn tại!");
 			} else {
 				notify("x", "Có lỗi xảy ra!");
 			}

@@ -387,6 +387,13 @@
                         <%= novel.update_time %>
                       </span>
                     </div>
+                    <%if(admin==100){%>
+                      <div class="page5_home_info_author">
+                        Tác giả <span>
+                          <%= novel.author %>
+                        </span>
+                      </div>
+                    <%}%>
     
                     <div class="page5_home_info_wrap">
                       <div class="page5_home_info_wrap_item">
@@ -467,6 +474,13 @@
                       <%= novel.update_time %>
                     </span>
                   </div>
+                  <%if(admin==100){%>
+                  <div class="page5_home_info_author">
+                    Tác giả <span>
+                      <%= novel.author %>
+                    </span>
+                  </div>
+                  <%}%>
 
                   <div class="page5_home_info_wrap">
                     <div class="page5_home_info_wrap_item">
@@ -742,14 +756,14 @@
                   <%= edit_name_chaps[i].split(":")[0].slice(0, 6) %>
                 </div>
                 <span>&emsp;</span>
-                <input type="text" class="profile_input n_num" style="width: 10%;" value="<%= edit_name_chaps[i].split(":")[0].slice(6).trim() %>" readonly />
+                <input type="text" class="profile_input n_num" style="width: 10%;" value="<%= edit_name_chaps[i].split(/:(.*)/s)[0].slice(6).trim() %>" readonly />
                 <div style="
 												display: flex;
 												align-items: center;
 												justify-content: center;">
                   &emsp;:&emsp;
                 </div>
-                <input type="text" class="profile_input n_name" value="<%= edit_name_chaps[i].split(":")[1].trim() %>">
+                <input type="text" class="profile_input n_name" value="<%= edit_name_chaps[i].split(/:(.*)/s)[1].trim() %>">
                 <a id='author_see' href=""><i class="fa-solid fa-book"></i></a>
               </div>
               <div class="btn_gritem">
@@ -818,11 +832,11 @@
                 <div class="information_name_wrap">
                   <h3>Tác giả</h3>
                   <div class="information_name">
-					<%if(admin!=100){%>
+					        <%if(admin!=100){%>
                     	<input class="profile_input author_name" type="text" required id="fullname" value="<%= author_name %>" readonly />
-					<% } else { %>
-                    	<input class="profile_input author_name" type="text" required id="fullname" placeholder="Điền vào tên tác giả"/>
-					<% } %>
+				        	<% } else { %>
+                    	<input class="profile_input author_name" type="text" required id="fullname" value="<%= edit_auth %>"/>
+				        	<% } %>
                   </div>
                 </div>
 

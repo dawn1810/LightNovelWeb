@@ -551,14 +551,14 @@ async function extractInformation(text) {
       let contents = text.split(/Chương .*: .*/).slice(1);
 
       let nameMatch = text.match(/Tên truyện:\s*(.*)\.?/);
-      let author_name = text.match(/Tác giả:\s*(.*)\.?/);
+      let authorMatch = text.match(/Tác giả:\s*(.*)\.?/);
       let statusMatch = text.match(/Trạng thái \[.*\]:\s*(.*)\.?/);
       let genreMatch = text.match(/Thể loại \[.*\]:\s*(.*)\.?/);
       let introMatch = text.match(/Giới thiệu truyện:\s*(.*)\.?/);
 
       let dict = {
         name: nameMatch ? nameMatch[1] : null,
-        author: author_name ? author_name[1] : null,
+        author: authorMatch ? authorMatch[1] : null,
         status: statusMatch ? statusMatch[1] : null,
         genre: genreMatch ? genreMatch[1] : null,
         introduce: introMatch ? introMatch[1] : null,

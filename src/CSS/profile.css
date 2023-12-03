@@ -1402,6 +1402,7 @@ input:required:focus {
   /* flex-direction: column; */
   justify-content: center;
   align-items: center;
+  gap: 10px
 }
 
 .upload_quick_file {
