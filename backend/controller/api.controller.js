@@ -1103,7 +1103,7 @@ const api_cancle = async (req, res) => {
 
 			// xóa truyện trên server
 			await queryAsync(`DELETE FROM chuong WHERE id_truyen = ?`, [data.id]);
-      await queryAsync(`DELETE FROM slider WHERE id_truyen = ?`, [data.id]);
+			await queryAsync(`DELETE FROM slider WHERE id_truyen = ?`, [data.id]);
 			await queryAsync(`DELETE FROM the_loai_truyen WHERE id_truyen = ?`, [data.id]);
 			await queryAsync(`DELETE FROM truyen_yeu_thich WHERE id_truyen = ?`, [data.id]);
 			await queryAsync(`DELETE FROM truyen WHERE id = ?`, [data.id]);
@@ -1122,6 +1122,7 @@ const api_updateInfo = async (req, res) => {
 	try {
 		const account = req.session.user;
 		const data = req.body;
+    await queryAsync("START TRANSACTION");
 
 		if (account) {
 			let avt_var = data.img;
@@ -1134,7 +1135,6 @@ const api_updateInfo = async (req, res) => {
 			}
 
 			// imgdata.fileLink la link hinh
-			await queryAsync("START TRANSACTION");
 			// update user information
 			await queryAsync(
 				`
@@ -1179,15 +1179,18 @@ const api_updateInfo = async (req, res) => {
 				  `,
 					[account.id, account.id, data.author_name]
 				);
-				await queryAsync("COMMIT");
 			}
-			res.sendStatus(200);
-		} else return res.sendStatus(403);
+			await queryAsync("COMMIT");
+			return res.sendStatus(200);
+		} else {
+			await queryAsync("COMMIT");
+			return res.sendStatus(403);
+		}
 	} catch (err) {
 		await queryAsync("ROLLBACK");
 
 		console.log("SYSTEM | UPDATE INFO | ERROR | ", err);
-		res.sendStatus(500);
+		return res.sendStatus(500);
 	}
 };
 
@@ -1228,7 +1231,7 @@ const api_changePass = async (req, res) => {
 				return res.status(403).send("Sai pass cũ");
 			}
 		} else {
-      await queryAsync("COMMIT");
+			await queryAsync("COMMIT");
 			return res.sendStatus(403);
 		}
 	} catch (err) {
@@ -1492,7 +1495,7 @@ const api_quick_upload = async (req, res) => {
 		if (!req.files) {
 			return res.status(400).send("No file uploaded.");
 		}
-    await queryAsync("START TRANSACTION");
+		await queryAsync("START TRANSACTION");
 
 		if (allowedMimeTypes.indexOf(req.files[0].mimetype) == 1) {
 			const filePath = path.join(uploadDirectory, req.files[0].originalname);
