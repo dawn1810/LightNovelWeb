@@ -37,6 +37,8 @@ passport.use(
 				// console.log(refreshToken);
 				// console.log(request);
 				// Kiểm tra xem thông tin người dùng đã tồn tại chưa
+				await queryAsync("START TRANSACTION");
+
 				await queryAsync(`
 				INSERT INTO taikhoan_nguoidung (id, ten_tai_khoan, email, mat_khau, login_way)
 				VALUES (?,?,?, null, 'google')
@@ -63,6 +65,7 @@ passport.use(
 					profile.displayName, 
 					profile.photos[0].value
 				]);
+				await queryAsync("COMMIT");
 
 				// Fetch the user data from the database
 				const user = {
@@ -75,6 +78,8 @@ passport.use(
 				// Pass the user data to the done function
 				return done(null, user);
 			} catch (err) {
+				await queryAsync("ROLLBACK");
+
 				return done(err);
 			}
 		}
