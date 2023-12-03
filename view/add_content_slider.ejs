@@ -60,131 +60,131 @@
 			</div>
 		</div>
 		<%- include(footerFile) %>
-	</body>
-	<div class="modal_slider">
-		<div class="modal_slider_wrap">
-			<% if(truyen_info[0]){%>
-			<div class="modal_main" style="display: block; min-height: 85vh; margin-top: 70px">
-				<div class="modal_admin">
-					<form class="form3" id="form1">
-						<div class="author_status">
-              <div class="status">
-
-
-                <div class="avt_space">
-                  <div class="author_avt_container">
-                    <img src="<%=truyen_info[0].anh_dai_dien%>" alt="" class="author_">
-                    <div class="truyen_info">
-                      <p>Người đăng tải: <span><%=truyen_info[0].ten_tac_gia%></span></p>
-                      <p>Thể loại: <span><%=truyen_info[0].ten_the_loai%></span></p>
-                      <p>Tổng số chương: <span><%=truyen_info[0].so_luong_chuong%></span></p>
-                    </div>
-                  </div>
-                  <span class="anime_name">
-                    <%=truyen_info[0].ten_truyen%>
-                  </span>
-                </div>
-  
-  
-  
-                <div class="status-content">
-                  <div class="info">
-              
-                   
-                    <div class="information_name">
-                        <div class="dropdown">
-                          <button class="dropdown-trigger" type="button">
-                            <div class="dropdown-content">
-                              <label>Choose image</label>
-                              <input
-                                id="file-upload"
-                                type="file"
-                                style="display: none"
-                                accept=".jpg, .png, ,jpeg"
-                              />
-                            </div>
-                            <div
-                              class="drop-zone"
-                              ondrop="drop(event)"
-                              ondragover="allowDrop(event)"
-                            >
-                              <p>Drop / Choose Avatar</p>
-                            </div>
-                            <img class="your-avt" src="<%= avt %>" alt="" />
-                          </button>
-                        </div>
-                      </div>
-                      <button class="status_btn edit_slider_btn">Cập nhật</button>
-                  </div>
-                </div>
-              </div>
-              
-							<div class="author_nvlist">
-								<div class="author_nvlist_btn_container">
-									
-									<div class="select">
-										<select name="" id="">
-											<option value="1">Mới nhất</option>
-											<option value="2">Cũ nhất</option>
-											<option value="3">Lượt xem ↓</option>
-											<option value="4">Lượt xem ↑</option>
-										</select>
-									</div>
+		<div class="modal_slider">
+			<div class="modal_slider_wrap">
+				<% if(truyen_info[0]){%>
+				<div class="modal_main" style="display: block; min-height: 85vh; margin-top: 70px">
+					<div class="modal_admin">
+						<form class="form3" id="form1">
+							<div class="author_status">
+				  <div class="status">
+	
+	
+					<div class="avt_space">
+					  <div class="author_avt_container">
+						<img src="<%=truyen_info[0].anh_dai_dien%>" alt="" class="author_">
+						<div class="truyen_info">
+						  <p>Người đăng tải: <span><%=truyen_info[0].ten_tac_gia%></span></p>
+						  <p>Thể loại: <span><%=truyen_info[0].ten_the_loai%></span></p>
+						  <p>Tổng số chương: <span><%=truyen_info[0].so_luong_chuong%></span></p>
+						</div>
+					  </div>
+					  <span class="anime_name">
+						<%=truyen_info[0].ten_truyen%>
+					  </span>
+					</div>
+	  
+	  
+	  
+					<div class="status-content">
+					  <div class="info">
+				  
+					   
+						<div class="information_name">
+							<div class="dropdown">
+							  <button class="dropdown-trigger" type="button">
+								<div class="dropdown-content">
+								  <label>Choose image</label>
+								  <input
+									id="file-upload"
+									type="file"
+									style="display: none"
+									accept=".jpg, .png, ,jpeg"
+								  />
 								</div>
-								<div class="author_nvlist_container">
-									<% for (let i=0; i < truyen.length; i++) { %>
-									<!-- item -->
-									<div class="followed-item" id="<%=truyen[i].id%>">
-										<div class="name-container">
-											<div class="name-container_img">
-												<img
-													src="<%=truyen[i].anh_dai_dien%>"
-													alt=""
-													class="avt"
-												/>
-											</div>
-
-											<div class="name-novel">
-												<div class="name-novel-top">
-													<h2><a><%=truyen[i].ten_truyen%></a></h2>
-													<input type="checkbox" name="" id="" />
+								<div
+								  class="drop-zone"
+								  ondrop="drop(event)"
+								  ondragover="allowDrop(event)"
+								>
+								  <p>Drop / Choose Avatar</p>
+								</div>
+								<img class="your-avt" src="<%= avt %>" alt="" />
+							  </button>
+							</div>
+						  </div>
+						  <button class="status_btn edit_slider_btn">Cập nhật</button>
+					  </div>
+					</div>
+				  </div>
+				  
+								<div class="author_nvlist">
+									<div class="author_nvlist_btn_container">
+										
+										<div class="select">
+											<select name="" id="">
+												<option value="1">Mới nhất</option>
+												<option value="2">Cũ nhất</option>
+												<option value="3">Lượt xem ↓</option>
+												<option value="4">Lượt xem ↑</option>
+											</select>
+										</div>
+									</div>
+									<div class="author_nvlist_container">
+										<% for (let i=0; i < truyen.length; i++) { %>
+										<!-- item -->
+										<div class="followed-item" id="<%=truyen[i].id%>">
+											<div class="name-container">
+												<div class="name-container_img">
+													<img
+														src="<%=truyen[i].anh_dai_dien%>"
+														alt=""
+														class="avt"
+													/>
 												</div>
-												<p>sech</p>
-												<div class="last-time-container">
-													<div class="chapter">
-														<a href=""
-															>Chap <%=truyen[i].so_luong_chuong%></a
-														>
+	
+												<div class="name-novel">
+													<div class="name-novel-top">
+														<h2><a><%=truyen[i].ten_truyen%></a></h2>
+														<input type="checkbox" name="" id="" />
 													</div>
-													<div class="time">
-														<%=truyen[i].trang_thai%>
+													<p>sech</p>
+													<div class="last-time-container">
+														<div class="chapter">
+															<a href=""
+																>Chap <%=truyen[i].so_luong_chuong%></a
+															>
+														</div>
+														<div class="time">
+															<%=truyen[i].trang_thai%>
+														</div>
 													</div>
 												</div>
 											</div>
 										</div>
+										<!-- item -->
+										<% }%>
 									</div>
-									<!-- item -->
-									<% }%>
-								</div>
-
-								<div class="pagination_btn_gr">
-									<button class="previous_page">
-										<i class="fa-solid fa-arrow-left"></i>
-									</button>
-									<input type="number" class="find_page" value="1" />/
-									<p id="max"><%= Math.round(max_page[0].row_count/4)%></p>
-									<button class="next_page">
-										<i class="fa-solid fa-arrow-right"></i>
-									</button>
+	
+									<div class="pagination_btn_gr">
+										<button class="previous_page">
+											<i class="fa-solid fa-arrow-left"></i>
+										</button>
+										<input type="number" class="find_page" value="1" />/
+										<p id="max"><%= Math.round(max_page[0].row_count/4)%></p>
+										<button class="next_page">
+											<i class="fa-solid fa-arrow-right"></i>
+										</button>
+									</div>
 								</div>
 							</div>
-						</div>
-					</form>
+						</form>
+					</div>
 				</div>
+				<% }%>
 			</div>
-			<% }%>
 		</div>
-	</div>
-
-	<script src="../src/JS/add_content_slider.js"></script>
+	
+		<script src="../src/JS/add_content_slider.js"></script>
+	</body>
 </html>

@@ -26,7 +26,6 @@
 </head>
 
 <body>
-  <script src="/src/JS/link.js"></script>
 
   <%- include(headerFile) %>
 
@@ -160,25 +159,24 @@
     </main>
 
     <%- include(footerFile) %>
-</body>
-<script>
-  var listObj = new ej.dropdowns.MultiSelect({
-        // set placeholder to MultiSelect input element
+    <script>
+    let listObj = new ej.dropdowns.MultiSelect({
+          // set placeholder to MultiSelect input element
 
-        <%if (autochoose && autochoose.types != undefined){%>
-        <%
-        const arr = autochoose.types.split(',');
-        const formattedArr = arr.map((item) => `'${item}'`);
-        const result_type = formattedArr.length > 0 ? `[${formattedArr.join(", ")}]` : "''";
-        %>
-        value: <%- result_type%>,
-        <%}%>
+          <%if (autochoose && autochoose.types != undefined){%>
+          <%
+          const arr = autochoose.types.split(',');
+          const formattedArr = arr.map((item) => `'${item}'`);
+          const result_type = formattedArr.length > 0 ? `[${formattedArr.join(", ")}]` : "''";
+          %>
+          value: <%- result_type%>,
+          <%}%>
 
-      placeholder: "Chọn thể loại truyện",
-    },
-    "#ulElement"
-  );
-  var ele = document.querySelectorAll("#container");
+        placeholder: "Chọn thể loại truyện",
+      },
+      "#ulElement"
+    );
+  let ele = document.querySelectorAll("#container");
   if (ele) {
     ele.forEach((a) => {
       a.style.visibility = "visible";
@@ -186,5 +184,7 @@
   }
 </script>
 <script src="/src/JS/category-page.js"></script>
+</body>
+
 
 </html>

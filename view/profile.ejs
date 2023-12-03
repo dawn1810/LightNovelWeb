@@ -943,7 +943,25 @@
   <!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
 
   <%- include(footerFile) %>
+
+  <script src="/src/JS/profile.js"></script>
   <script>
+    <%if (edit_tag) {%>
+    // Gắn đối tượng vào phần tử có id là 'ulElement2'
+    const listObj2 = new ej.dropdowns.MultiSelect({
+      // Các tùy chọn khác cho MultiSelect
+      placeholder: "Chọn thể loại truyện",
+      value: <%-JSON.stringify(edit_tag)%>
+    
+    }, '#ulElement2');
+    <%} else {%>
+    var listObj2 = new ej.dropdowns.MultiSelect({
+      // set placeholder to MultiSelect input element
+      placeholder: "Chọn thể loại truyện"
+    }, '#ulElement2');
+    <%}%>
+    
+    
     var ele = document.querySelectorAll('#container');
     if (ele) {
       ele.forEach(a => {
@@ -951,150 +969,6 @@
       });
     }
   </script>
-  <script>
-    // variable
-    let author_name_check = document.querySelector("#author_name") ? document.querySelector("#author_name").value : "Nguồn sưu tầm";
-  </script>
-
-  <script src="/src/JS/profile.js"></script>
-  <!-- <script src="/src/JS/notify.js"></script> -->
 </body>
-
-
-<script src="/src/JS/link.js"></script>
-
-<!-- <script src="/src/JS/scriptlogin.js"></script> -->
-<script>
-  Validator({
-    form: "#change-pass",
-    formGroupSelector: ".group11",
-    errorSelector: ".form-message1",
-    rules: [
-      Validator.isRequired(".old-password", "Vui lòng nhập nội dung này"),
-      Validator.isRequired(".new-password-again", "Vui lòng nhập nội dung này"),
-      Validator.isRequired(".new-password", "Vui lòng nhập nội dung này"),
-      Validator.minLength(".new-password", 6),
-      Validator.minLength(".new-password-again", 6),
-      Validator.isConfirmed('.new-password-again', function() {
-        return document.querySelector('.new-password').value;
-      }, 'Mật khẩu nhập lại không chính xác')
-
-    ],
-    onSubmit: async function() {
-
-      console.log('cut di bn oi');
-      //gửi request tới csdl server
-      const url = `/api/changepass`; // URL của máy chủ mục tiêu
-      const postData = JSON.stringify({
-        // thông tin đăng kýýý
-        'status': 'Change Pass',
-        'Old-Password': `${document.querySelector('.old-password').value}`,
-        'new-Password': `${document.querySelector('.new-password').value}`,
-        'new-Password-again': `${document.querySelector('.new-password-again').value}`
-      });
-
-
-      //BM  _______
-      const requestOptions = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: postData
-      };
-
-
-      try {
-        const response = await fetch(url, requestOptions)
-        // taì khoan hơp lệ 
-        if (response.status == '200') {
-          notify('Thành công', 'Chúc mừng bạn đã đổi thành công mật khẩu!');
-        } else if (response.status == '403') {
-          notify('Lỗi', 'Có phải bạn đã quên mật khẩu đã quên không ???');
-        } else if (response.status == '404') {
-          notify('Lỗi', 'Anh bạn à !!!');
-        } else {
-          notify('Lỗi', 'Máy chủ đang có chút trục trặc !!!');
-        }
-      } catch (error) {
-        console.log('Error:', error);
-
-      }
-
-    },
-  });
-
-
-  Validator({
-    form: "#update_info",
-    formGroupSelector: ".information_name",
-    errorSelector: ".form-message-info",
-    rules: [
-      Validator.isEmail("#email", "Vui Lòng Nhập Đúng Định Dạng Email"),
-      Validator.isRequired("#fullname", "Vui lòng nhập nội dung này"),
-      Validator.isRequired("#author_name", "Vui lòng nhập nội dung này"),
-    ],
-
-  });
-</script>
-
-<script>
-  // upload novel page 1:
-  if (sessionStorage.getItem("novel_name")) {
-    novel_name.value = sessionStorage.getItem("novel_name")
-  }
-  if (sessionStorage.getItem("author_name")) {
-    author_name.value = sessionStorage.getItem("author_name")
-  }
-  if (sessionStorage.getItem("novel_name")) {
-    novel_descript.value = sessionStorage.getItem("novel_descript")
-  }
-  if (sessionStorage.getItem("novel_status")) {
-    var options = novel_status.options;
-    for (var i = 0; i < options.length; i++) {
-      if (options[i].text == sessionStorage.getItem("novel_status")) {
-        options[i].selected = true;
-        break;
-      }
-    }
-  }
-
-  if (sessionStorage.getItem("novel_types")) {
-    var listObj = new ej.dropdowns.MultiSelect({
-      // set placeholder to MultiSelect input element
-      placeholder: "Chọn thể loại truyện",
-      value: sessionStorage.getItem("novel_types").split(",")
-    }, '#ulElement');
-  } else {
-    var listObj = new ej.dropdowns.MultiSelect({
-      // set placeholder to MultiSelect input element
-      placeholder: "Chọn thể loại truyện"
-    }, '#ulElement');
-  }
-
-  <%if (edit_tag) {%>
-  // Gắn đối tượng vào phần tử có id là 'ulElement2'
-  const listObj2 = new ej.dropdowns.MultiSelect({
-    // Các tùy chọn khác cho MultiSelect
-    placeholder: "Chọn thể loại truyện",
-    value: <%-JSON.stringify(edit_tag)%>
-
-  }, '#ulElement2');
-  <%} else {%>
-  var listObj2 = new ej.dropdowns.MultiSelect({
-    // set placeholder to MultiSelect input element
-    placeholder: "Chọn thể loại truyện"
-  }, '#ulElement2');
-  <%}%>
-
-
-  var ele = document.querySelectorAll('#container');
-	if (ele) {
-		ele.forEach(a => {
-			a.style.visibility = "visible";
-		});
-	}
-    // upload novel page 2:
-</script>
 
 </html>
