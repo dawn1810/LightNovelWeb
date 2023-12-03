@@ -614,11 +614,11 @@ Save_btn.onclick = async function (e) {
 		// thông tin đăng ký
 		img: `${avatar.src}`,
 		usr: `1`,
-		hoten: `${document.querySelector(".profile_input #fullname").value}`,
-		email: `${document.querySelector(".profile_input #email").value}`,
+		hoten: `${document.querySelector("#fullname").value}`,
+		email: `${document.querySelector("#emailprofile").value}`,
 		sex: `${sex}`,
-		author_name: document.querySelector(".profile_input #author_name")
-			? `${document.querySelector(".profile_input #author_name").value}`
+		author_name: document.querySelector("#author_name")
+			? `${document.querySelector("#author_name").value}`
 			: "Nguồn sưu tâm",
 	});
 
@@ -915,7 +915,7 @@ document.querySelector(".page5_chap .more_chap_btn").onclick = function () {
 		<div class="information_name_wrap">
 			<h3>Thứ tự chương</h3>
 			<div class="information_name">
-				<input class="profile_input chap_num" type="number" id="name_novel"
+				<input class="profile_input chap_num" type="number" 
 					value="${document.querySelectorAll(".page5_a .chap_num").length + 1}" readonly />
 			</div>
 		</div>
@@ -923,7 +923,7 @@ document.querySelector(".page5_chap .more_chap_btn").onclick = function () {
 		<div class="information_name_wrap">
 			<h3>Tên chương</h3>
 			<div class="information_name">
-				<input class="profile_input chap_name" type="text" id="fullname"
+				<input class="profile_input chap_name" type="text" 
 					placeholder="Nhập tên chương" />
 			</div>
 		</div>
@@ -1304,7 +1304,7 @@ document.querySelector(".page5_d .more_chap_btn").onclick = function () {
 		<div class="information_name_wrap">
 			<h3>Thứ tự chương</h3>
 			<div class="information_name">
-        <input class="profile_input chap_num" type="number" id="name_novel"
+        <input class="profile_input chap_num" type="number" 
 					value="${
 						parseInt(document.querySelectorAll(".page5_d .chap_num")[0].value) +
 						document.querySelectorAll(".page5_d .chap_num").length
@@ -1315,7 +1315,7 @@ document.querySelector(".page5_d .more_chap_btn").onclick = function () {
 		<div class="information_name_wrap">
 			<h3>Tên chương</h3>
 			<div class="information_name">
-				<input class="profile_input chap_name" type="text" id="fullname"
+				<input class="profile_input chap_name" type="text" 
 					placeholder="Nhập tên chương" />
 			</div>
 		</div>
@@ -1544,7 +1544,7 @@ Validator({
 	formGroupSelector: ".information_name",
 	errorSelector: ".form-message-info",
 	rules: [
-		Validator.isEmail("#email", "Vui Lòng Nhập Đúng Định Dạng Email"),
+		Validator.isEmail("#emailprofile", "Vui Lòng Nhập Đúng Định Dạng Email"),
 		Validator.isRequired("#fullname", "Vui lòng nhập nội dung này"),
 		Validator.isRequired("#author_name", "Vui lòng nhập nội dung này"),
 	],

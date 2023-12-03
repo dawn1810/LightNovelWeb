@@ -27,7 +27,7 @@
 
 
 
-  <title>Document</title>
+  <title>Trang cá nhân</title>
   <script>
     const currentURL = window.location.origin;
   </script>
@@ -126,12 +126,12 @@
         <h3>Email</h3>
         <% if (login_way === 'normal') {%>
         <div class="information_name">
-          <input class="profile_input" type="email" id="email" value="<%= email %>" />
+          <input class="profile_input" type="email" id="emailprofile" value="<%= email %>" />
           <span class="form-message-info"></span>
         </div>
         <% } else { %>
         <div class="information_name">
-          <input class="profile_input" type="email" id="email" value="<%= email %>" readonly />
+          <input class="profile_input" type="email" id="emailprofile" value="<%= email %>" readonly />
           <span class="form-message-info"></span>
         </div>
         <% } %>
@@ -579,7 +579,7 @@
               <div class="information_name_wrap">
                 <h3>Tên truyện</h3>
                 <div class="information_name">
-                  <input class="profile_input n_name" type="text" required id="name_novel" placeholder="Nhập tên truyện" />
+                  <input class="profile_input n_name" type="text" required placeholder="Nhập tên truyện" />
                 </div>
               </div>
 
@@ -587,9 +587,9 @@
                 <h3>Tác giả</h3>
                 <div class="information_name">
                     <%if(admin!=100){%>
-                    	<input class="profile_input author_name" type="text" required id="fullname" value="<%= author_name %>" readonly />
+                    	<input class="profile_input author_name" type="text" required value="<%= author_name %>" readonly />
 					<% } else { %>
-                    	<input class="profile_input author_name" type="text" required id="fullname" value="Nguồn sưu tầm"/>
+                    	<input class="profile_input author_name" type="text" required  value="Nguồn sưu tầm"/>
 					<% } %>
                 </div>
               </div>
@@ -622,7 +622,7 @@
               <div class="information_name_wrap">
                 <h3>Giới thiệu truyện</h3>
                 <div class="information_name" style="display:flex;flex-direction: column;">
-                  <textarea class="profile_input novel_descript" id="fullname" placeholder="Nhập nôi dung giới thiệu truyện của bạn"></textarea>
+                  <textarea class="profile_input novel_descript" placeholder="Nhập nôi dung giới thiệu truyện của bạn"></textarea>
                 </div>
               </div>
               <div class="page5_info_main_btn">
@@ -639,14 +639,14 @@
               <div class="information_name_wrap">
                 <h3>Thứ tự chương</h3>
                 <div class="information_name">
-                  <input class="profile_input chap_num" type="number" required id="name_novel" value="1" readonly />
+                  <input class="profile_input chap_num" type="number" required value="1" readonly />
                 </div>
               </div>
 
               <div class="information_name_wrap">
                 <h3>Tên chương</h3>
                 <div class="information_name">
-                  <input class="profile_input chap_name" type="text" required id="fullname" placeholder="Nhập tên chương" />
+                  <input class="profile_input chap_name" type="text" required placeholder="Nhập tên chương" />
                 </div>
               </div>
 
@@ -816,7 +816,7 @@
                 <div class="information_name_wrap">
                   <h3>Tên truyện</h3>
                   <div class="information_name">
-                    <input class="profile_input n_name" type="text" required id="name_novel" placeholder="Nhập tên truyện" value="<%=edit_name%>" />
+                    <input class="profile_input n_name" type="text" required placeholder="Nhập tên truyện" value="<%=edit_name%>" />
                   </div>
                 </div>
 
@@ -824,9 +824,9 @@
                   <h3>Tác giả</h3>
                   <div class="information_name">
 					        <%if(admin!=100){%>
-                    	<input class="profile_input author_name" type="text" required id="fullname" value="<%= author_name %>" readonly />
+                    	<input class="profile_input author_name" type="text" required  value="<%= author_name %>" readonly />
 				        	<% } else { %>
-                    	<input class="profile_input author_name" type="text" required id="fullname" value="<%= edit_auth %>"/>
+                    	<input class="profile_input author_name" type="text" required value="<%= edit_auth %>"/>
 				        	<% } %>
                   </div>
                 </div>
@@ -876,7 +876,7 @@
 					<h3>Giới thiệu truyện</h3>
 					<div class="information_name"
 						style="display:flex;flex-direction: column;">
-						<textarea class="profile_input novel_descript" id="fullname"
+						<textarea class="profile_input novel_descript"
 							placeholder="Nhập nôi dung giới thiệu truyện của bạn"><%=edit_review%></textarea>
                     </div>
                   </div>
@@ -898,13 +898,13 @@
                   <h3>Thứ tự chương</h3>
                   <div class="information_name">
 
-                    <input class="profile_input chap_num" type="text" required id="name_novel" value="<%= edit_no_chaps + 1 %>" readonly />
+                    <input class="profile_input chap_num" type="text" required  value="<%= edit_no_chaps + 1 %>" readonly />
                   </div>
                 </div>
                 <div class="information_name_wrap">
                   <h3>Tên chương</h3>
                   <div class="information_name">
-                    <input class="profile_input chap_name" type="text" required id="fullname" placeholder="Nhập tên chương" />
+                    <input class="profile_input chap_name" type="text" required  placeholder="Nhập tên chương" />
                   </div>
                 </div>
 
