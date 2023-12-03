@@ -724,6 +724,9 @@ if (add_quick) {
 						// Error occurred during upload
 						notify("!", "Sai định dạng file!");
 						console.error("Error uploading files.");
+					} else if (response.status == 500) {
+						// Error occurred during upload
+						notify("!", "Có lỗi xảy ra!");
 					}
 				} else {
 					notify("!", "Chưa có file!");
