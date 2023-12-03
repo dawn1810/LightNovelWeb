@@ -1009,6 +1009,7 @@ $(document).ready(function () {
 				const response = await fetch(url, requestOptions);
 				// taì khoan hơp lệ
 				if (response.status == "200") {
+					notify("!", "Đã xoá...!");
 					$(this).parent().parent().parent().remove();
 				} else {
 					notify("x", "Xoá truyện thất bại!");
