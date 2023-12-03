@@ -1103,6 +1103,7 @@ const api_cancle = async (req, res) => {
 
 			// xóa truyện trên server
 			await queryAsync(`DELETE FROM chuong WHERE id_truyen = ?`, [data.id]);
+      await queryAsync(`DELETE FROM slider WHERE id_truyen = ?`, [data.id]);
 			await queryAsync(`DELETE FROM the_loai_truyen WHERE id_truyen = ?`, [data.id]);
 			await queryAsync(`DELETE FROM truyen_yeu_thich WHERE id_truyen = ?`, [data.id]);
 			await queryAsync(`DELETE FROM truyen WHERE id = ?`, [data.id]);
