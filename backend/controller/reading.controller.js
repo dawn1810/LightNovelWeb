@@ -31,7 +31,7 @@ function escapeHtml(text) {
 
 const renderReading = async (req, res) => {
   try {
-	console.log(res.url)
+	// console.log(res.url)
     // let result = await server.find_all_Data({
     // 	table: "truyen",
     // 	query: { _id: new ObjectId(req.params.id) },

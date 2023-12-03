@@ -16,12 +16,14 @@ const btnLastPg = document.querySelector("button.last-page");
 const send_comment = document.querySelector(".send_your_cmt");
 const summary_btn = document.querySelector(".summary-btn");
 const summary_Content = document.querySelector(".summary-Content");
-const doctiep = document.querySelector(".curr_chap_local")
+const doctiep = document.querySelector(".curr_chap_local");
 //console.log(idtruyen)
-if (localStorage.getItem(idtruyen)) {
-  doctiep.href = doctiep.href + localStorage.getItem(idtruyen);
-} else {
-  doctiep.parentElement.parentElement.removeChild(doctiep.parentElement);
+if (doctiep) {
+  if (localStorage.getItem(idtruyen)) {
+    doctiep.href = doctiep.href + localStorage.getItem(idtruyen);
+  } else {
+    doctiep.parentElement.parentElement.removeChild(doctiep.parentElement);
+  }
 }
 summary_btn.onclick = () => {
   if (summary_Content.style.display == "none") {
@@ -50,7 +52,7 @@ async function like_novel(status) {
     body: JSON.stringify({
       liked: status,
       id_truyen: idtruyen,
-      curr_chap: curr_chap
+      curr_chap: curr_chap,
     }),
   })
     .then((response) => {
@@ -277,11 +279,20 @@ async function getReview() {
       responseData = data; // Lưu trữ nội dung phản hồi vào biến
       if (data) {
         const lasted_chap = document.querySelector(".lasted_chap");
+        if (data.chapters.length == 0) {
+          const allbtns = document.querySelectorAll(".wrapper");
+          if (allbtns) {
+            allbtns.forEach((btn) => {
+              btn.style.pointerEvents = "none";
+            });
+          }
+        }
+
         lasted_chap.onclick = function (e) {
           e.preventDefault();
           const chan =
             window.location.href.split("/")[
-            window.location.href.split("/").length - 1
+              window.location.href.split("/").length - 1
             ];
           //console.log(data);
           window.location.href = `/reading/${chan}/${data.no_chapters}`;
@@ -350,7 +361,7 @@ async function getReview() {
             jackpot_btn.onclick = function () {
               const chan =
                 window.location.href.split("/")[
-                window.location.href.split("/").length - 1
+                  window.location.href.split("/").length - 1
                 ];
               //console.log(chan);
               window.location.href = `/reading/${chan}/${ranchap}`;
@@ -381,14 +392,14 @@ async function getReview() {
         // console.log(showlist)
         const chan =
           window.location.href.split("/")[
-          window.location.href.split("/").length - 1
+            window.location.href.split("/").length - 1
           ];
 
         showListLoad(1, data.chapters);
         document.querySelector(".loaded").style.display = "none";
 
         // for download curr chap
-        document.querySelectorAll('.down_chap').forEach(e => {
+        document.querySelectorAll(".down_chap").forEach((e) => {
           e.onclick = () => {
             notify("n", "Đã bắt đầu quá trình tải.");
             const url = `/api/download_chap`; // URL của máy chủ mục tiêu
@@ -409,7 +420,9 @@ async function getReview() {
             fetch(url, requestOptions)
               .then(async (response) => {
                 // extract the filename from the response header
-                const filename = response.headers.get("Content-Disposition").split("filename=")[1];
+                const filename = response.headers
+                  .get("Content-Disposition")
+                  .split("filename=")[1];
 
                 // create a new blob object from the response body
                 const blob = await response.blob();
@@ -443,7 +456,6 @@ function showListLoad(pageNumber, data) {
   let showlist = "";
   const chan =
     window.location.href.split("/")[window.location.href.split("/").length - 1];
-
 
   if (data.length > 10) {
     for (let i = pageNumber * 10 - 10; i < pageNumber * 10; i++) {

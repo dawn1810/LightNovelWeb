@@ -5,7 +5,9 @@ const { queryAsync } = require("../dbmysql");
 const processNovels = async function (req, res, id_truyen) {
   try {
     const account = req.session.user;
-    const account_role= await queryAsync(`SELECT last_role FROM thongtin_nguoidung WHERE id ="${account.id}"`)
+    const account_role = await queryAsync(
+      `SELECT last_role FROM thongtin_nguoidung WHERE id ="${account.id}"`
+    );
     let render_data = {
       headerFile: "header",
       footerFile: "footer",
@@ -18,11 +20,13 @@ const processNovels = async function (req, res, id_truyen) {
       edit_chap_ids: "",
       edit_name_chaps: "",
       edit_no_chaps: "",
+      theloai: "",
       ban: "",
       role: account_role[0].last_role,
     };
 
-    const myNovels = await queryAsync(`
+    const myNovels = await queryAsync(
+      `
       SELECT 
         truyen.id, 
         truyen.ten_truyen as name, 
@@ -40,12 +44,15 @@ const processNovels = async function (req, res, id_truyen) {
       INNER JOIN thongtin_nguoidung
         ON tacgia.id_nguoi_dung = thongtin_nguoidung.id
       WHERE thongtin_nguoidung.id = ?
-    `, [account.id]);
+    `,
+      [account.id]
+    );
     let result = [];
     let result_like = [];
 
     for (let novel of myNovels) {
-      const genres = await queryAsync(`
+      const genres = await queryAsync(
+        `
       SELECT 
         the_loai.ten_the_loai
       FROM the_loai
@@ -54,11 +61,14 @@ const processNovels = async function (req, res, id_truyen) {
       INNER JOIN truyen
         ON the_loai_truyen.id_truyen = truyen.id
       WHERE truyen.id = ?
-      `, [novel.id]);
+      `,
+        [novel.id]
+      );
 
       novel.genres = genres.map((genre) => genre.ten_the_loai);
 
-      const chapters = await queryAsync(`
+      const chapters = await queryAsync(
+        `
       SELECT 
         chuong.ten_chuong,
         chuong.noi_dung_chuong
@@ -67,10 +77,12 @@ const processNovels = async function (req, res, id_truyen) {
         ON chuong.id_truyen = truyen.id
       WHERE truyen.id = ?
       ORDER BY chuong.thu_tu
-      `, [novel.id]);
+      `,
+        [novel.id]
+      );
       novel.chap_ids = chapters.map((chapter) => chapter.noi_dung_chuong);
       novel.name_chaps = chapters.map((chapter) => chapter.ten_chuong);
-      
+
       result.push(novel);
       if (novel.id == id_truyen) {
         render_data.edit_name = novel.name;
@@ -84,11 +96,11 @@ const processNovels = async function (req, res, id_truyen) {
         render_data.edit_no_chaps = novel.no_chapters;
         render_data.ban = novel.ban;
       }
-
     }
 
     render_data.novels = result;
-    const likeNovels = await queryAsync(`
+    const likeNovels = await queryAsync(
+      `
       SELECT 
         truyen.id, 
         truyen.ten_truyen as name, 
@@ -108,7 +120,9 @@ const processNovels = async function (req, res, id_truyen) {
       INNER JOIN thongtin_nguoidung
         ON truyen_yeu_thich.id_nguoi_dung = thongtin_nguoidung.id
       WHERE thongtin_nguoidung.id = ?
-    `, [account.id]);
+    `,
+      [account.id]
+    );
     let idListlikeNovels = [];
     for (let novel of likeNovels) {
       idListlikeNovels.push(novel.id);
@@ -120,10 +134,15 @@ const processNovels = async function (req, res, id_truyen) {
     render_data.like_novel = idListlikeNovels;
     render_data.like_novel_list = result_like;
 
-    if (id_truyen && myNovels.every(novel => novel.id !== id_truyen)) {
+    if (id_truyen && myNovels.every((novel) => novel.id !== id_truyen)) {
       return res.status(403).send("Lỗi, không có quyền truy cập!");
     }
-    
+
+    const theloai = await queryAsync(
+      `SELECT DISTINCT ten_the_loai FROM the_loai`
+    );
+    render_data.theloai = theloai;
+
     res.render("profile.ejs", render_data);
   } catch (err) {
     console.log("SYSTEM | LIST MY NOVELS | ERROR | ", err);

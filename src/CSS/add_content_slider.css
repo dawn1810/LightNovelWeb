@@ -29,6 +29,8 @@
     width: 400px;
     height: 250px;
     overflow: hidden;
+    display: flex;
+    align-items: center;
 }
 .slider_item_img img{
     width: 100%;
@@ -184,4 +186,7 @@
   .edit_slider_btn:hover{
     opacity: .6;
     cursor: pointer;
+  }
+  .author_nvlist_btn_container{
+    justify-content: flex-end!important;
   }

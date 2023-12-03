@@ -127,6 +127,11 @@ const apiRouter = (app) => {
     api_router.api_get_quick_template
   );
 
+  // thêm xoá thể loại 
+  router.post("/api/delete_category", api_router.delete_category);
+  router.post("/api/add_new_category", api_router.add_new_category);
+
+
   router.get(
     "*",
     func_controller.checkCookieLoglUser,

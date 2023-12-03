@@ -143,7 +143,7 @@ async function checkCookieLoglUser(req, res, next) {
     if (req.isAuthenticated()) {
       req.session.user = req.user;
     }
-    res.locals.showpopup = 'null';
+    res.locals.showpopup = "null";
 
     const user = req.session.user;
     if (!user) {
@@ -544,46 +544,125 @@ async function readDocxFile(docxFilePath) {
 }
 
 // Function to extract information based on the provided template
+// async function extractInformation(text) {
+//   try {
+//     if (text) {
+//       // Regex patterns with the 's' flag
+//       let storyNamePattern = /Tên truyện: (.+)/;
+//       let authorPattern = /Tác giả: (.+)/;
+//       let statusPattern = /Trạng thái \[([^\]]+)\]/;
+//       let genrePattern = /Thể loại \[([^\]]+)\]/;
+//       let introductionPattern = /Giới thiêu truyện: (.+)/s;
+//       let chapterPattern =
+//         /Tên chương: (.+)[\s\S]*?Nội dung chương: (.+?)(?=(\n\n|\n$))/gs;
+
+//       // Extracting information
+//       let nameMatch = text.match(storyNamePattern);
+//       let authorMatch = text.match(authorPattern);
+//       let statusMatch = text.match(statusPattern);
+//       let genreMatch = text.match(genrePattern);
+//       let introMatch = text.match(introductionPattern);
+
+//       // Extracting chapter names and contents
+//       let chapterNamePattern = /Tên chương: (.+)/;
+//       let chapterContentPattern = /Nội dung chương: ([\s\S]+?)(?=(Tên chương|\n\n|\n$))/g;
+
+//       // Extracting chapter names
+//       let chapterNames = [];
+//       let match;
+//       while ((match = chapterNamePattern.exec(text)) !== null) {
+//         chapterNames.push(match[1].trim());
+//       }
+
+//       // Extracting chapter contents
+//       let chapterContents = [];
+//       while ((match = chapterContentPattern.exec(text)) !== null) {
+//         chapterContents.push(match[1].trim());
+//       }
+
+//       let dict = {
+//         name: nameMatch ? nameMatch[1] : null,
+//         author: authorMatch ? authorMatch[1] : null,
+//         status: statusMatch ? statusMatch[1] : null,
+//         genre: genreMatch ? genreMatch[1] : null,
+//         introduce: introMatch ? introMatch[1] : null,
+//         name_chapters: chapterNames,
+//         content_chapter: chapterContents,
+//       };
+
+//       dict.status = await dict.status.split(",")[0];
+
+//       new_gernes = await Promise.all(
+//         dict.genre.split(",").map((gerne) => gerne.trim())
+//       );
+//       dict.genre = new_gernes;
+
+//       new_content_chapter = await Promise.all(
+//         dict.content_chapter.map((content) =>
+//           server.uploadContentToDrive(content)
+//         )
+//       );
+//       dict.content_chapter = new_content_chapter;
+
+//       return dict;
+//     } else return 0;
+//   } catch (error) {
+//     console.error("An error occurred:", error);
+//   }
+// }
+
 async function extractInformation(text) {
   try {
-    if (text) {
-      let chapters = text.match(/(Chương .*: .*)/g);
-      let contents = text.split(/Chương .*: .*/).slice(1);
+    if (!text) return 0;
 
-      let nameMatch = text.match(/Tên truyện:\s*(.*)\.?/);
-      let authorMatch = text.match(/Tác giả:\s*(.*)\.?/);
-      let statusMatch = text.match(/Trạng thái \[.*\]:\s*(.*)\.?/);
-      let genreMatch = text.match(/Thể loại \[.*\]:\s*(.*)\.?/);
-      let introMatch = text.match(/Giới thiệu truyện:\s*(.*)\.?/);
+    // Regex patterns with the 's' flag
+    let storyNamePattern = /Tên truyện: (.+)/;
+    let authorPattern = /Tác giả: (.+)/;
+    let statusPattern = /Trạng thái \[([^\]]+)\]/;
+    let genrePattern = /Thể loại \[([^\]]+)\]/;
+    let introductionPattern = /Giới thiêu truyện: (.+)/s;
+    
+    // Extracting information
+    let nameMatch = text.match(storyNamePattern);
+    let authorMatch = text.match(authorPattern);
+    let statusMatch = text.match(statusPattern);
+    let genreMatch = text.match(genrePattern);
+    let introMatch = text.match(introductionPattern);
 
-      let dict = {
-        name: nameMatch ? nameMatch[1] : null,
-        author: authorMatch ? authorMatch[1] : null,
-        status: statusMatch ? statusMatch[1] : null,
-        genre: genreMatch ? genreMatch[1] : null,
-        introduce: introMatch ? introMatch[1] : null,
-        name_chapters: chapters,
-        content_chapter: contents,
-      };
+    // Extracting chapter names and contents
+    let chapterPattern = /Tên chương: (.+)[\s\S]*?Nội dung chương: ([\s\S]+?)(?=(Tên chương|$))/g;
+    let chapterNames = [];
+    let chapterContents = [];
+    let match;
+    let i = 1;
+    while ((match = chapterPattern.exec(text)) !== null) {
+      chapterNames.push(`Chương ${i}: ${match[1].trim()}`);
+      chapterContents.push(await server.uploadContentToDrive(match[2].trim()));
+      i += 1;
+    }
 
-      new_gernes = await Promise.all(
-        dict.genre.split(",").map((gerne) => gerne.trim())
-      );
-      dict.genre = new_gernes;
+    let dict = {
+      name: nameMatch ? nameMatch[1] : null,
+      author: authorMatch ? authorMatch[1] : null,
+      status: statusMatch ? statusMatch[1].split(",")[0] : null,
+      genre: genreMatch
+        ? await Promise.all(
+            genreMatch[1].split(",").map((genre) => genre.trim())
+          )
+        : null,
+      introduce: introMatch ? introMatch[1] : null,
+      name_chapters: chapterNames,
+      content_chapter: chapterContents,
+    };
 
-      new_content_chapter = await Promise.all(
-        dict.content_chapter.map((content) =>
-          server.uploadContentToDrive(content)
-        )
-      );
-      dict.content_chapter = new_content_chapter;
-
-      return dict;
-    } else return 0;
+    return dict;
   } catch (error) {
     console.error("An error occurred:", error);
+    // Throw or reject the promise to propagate the error
+    throw error;
   }
 }
+
 
 module.exports = {
   encrypt,

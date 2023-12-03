@@ -281,7 +281,6 @@ async function getListNovel(offset, fill) {
 			<p>Thể loại: <span>${data.data[0].ten_the_loai}</span></p>
 			<p>Tổng số chương: <span>${data.data[0].so_luong_chuong}</span></p>
   
-			<button class="status_btn"><a href="/reviews/${data.data[0].id}">Đọc truyện</a></button>
 		  </div>
 		</div>
 		<span class="anime_name">
@@ -305,7 +304,6 @@ async function getListNovel(offset, fill) {
 			<p>Thể loại: <span>${data.data[0].ten_the_loai}</span></p>
 			<p>Tổng số chương: <span>${data.data[0].so_luong_chuong}</span></p>
   
-			<button class="status_btn"><a href="/reviews/${data.data[0].id}">Đọc truyện</a></button>
 		  </div>
 		</div>
 		<span class="anime_name">

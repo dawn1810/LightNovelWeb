@@ -327,21 +327,23 @@
                   <div class="normal_add">
                     <button class="add_new">+ THÊM TRUYỆN</button>
                   </div>
-                  <div class="quick_add">
-                    <button class="add_new">+ THÊM TRUYỆN NHANH</button>
-                    <div class="novel_conntroller_btn upload_quick_file">
-                      <div class="head_b">
-                        <pre class="file-content"></pre>
-                        <input type="file" class="file-input" style="display:none;" accept=".txt, .docx" />
-                        <button class="add_new edit_btn">
-                          <i class="fa-solid fa-upload"></i>
+                  <% if (admin == 100) { %>
+                    <div class="quick_add">
+                      <button class="add_new">+ THÊM TRUYỆN NHANH</button>
+                      <div class="novel_conntroller_btn upload_quick_file">
+                        <div class="head_b">
+                          <pre class="file-content"></pre>
+                          <input type="file" class="file-input" style="display:none;" accept=".txt, .docx" />
+                          <button class="add_new edit_btn">
+                            <i class="fa-solid fa-upload"></i>
+                          </button>
+                        </div>
+                        <button class="add_new download_btn">
+                          <i class="fa-solid fa-download"></i>
                         </button>
                       </div>
-                      <button class="add_new download_btn">
-                        <i class="fa-solid fa-download"></i>
-                      </button>
                     </div>
-                  </div>
+                  <% } %>
                 </div>
       
               </div>
@@ -609,21 +611,9 @@
                   <h3>Thể loại</h3>
                   <div id="container">
                     <ul id="ulElement">
-                      <li>Action</li>
-                      <li>Adventure</li>
-                      <li>Comedy</li>
-                      <li>Drama</li>
-                      <li>Fantasy</li>
-                      <li>Horror</li>
-                      <li>Mystery</li>
-                      <li>Romance</li>
-                      <li>Sci-Fi</li>
-                      <li>Thriller</li>
-                      <li>Animation</li>
-                      <li>Crime</li>
-                      <li>Family</li>
-                      <li>Historical</li>
-                      <li>War</li> 
+                      <% for(let i = 0; i < theloai.length; i++) { %>
+                        <li><%= theloai[i].ten_the_loai %></li>
+                      <%}%>
                     </ul>
                   </div>
                 </div>
@@ -753,7 +743,7 @@
 												display: flex;
 												align-items: center;
 												justify-content: center;">
-                  <%= edit_name_chaps[i].split(":")[0].slice(0, 6) %>
+                  <%= edit_name_chaps[i].split(/:(.*)/s)[0].slice(0, 6) %>
                 </div>
                 <span>&emsp;</span>
                 <input type="text" class="profile_input n_num" style="width: 10%;" value="<%= edit_name_chaps[i].split(/:(.*)/s)[0].slice(6).trim() %>" readonly />
@@ -763,6 +753,7 @@
 												justify-content: center;">
                   &emsp;:&emsp;
                 </div>
+                
                 <input type="text" class="profile_input n_name" value="<%= edit_name_chaps[i].split(/:(.*)/s)[1].trim() %>">
                 <a id='author_see' href=""><i class="fa-solid fa-book"></i></a>
               </div>
@@ -870,25 +861,14 @@
 					<div class="information_name_wrap">
 						<!-- tag -->
 						<h3>Thể loại</h3>
-						<div id="container">
-							<ul id="ulElement2">
-								<li>Action</li>
-                                <li>Adventure</li>
-                                <li>Comedy</li>
-                                <li>Drama</li>
-                                <li>Fantasy</li>
-                                <li>Horror</li>
-                                <li>Mystery</li>
-                                <li>Romance</li>
-                                <li>Sci-Fi</li>
-                                <li>Thriller</li>
-                                <li>Animation</li>
-                                <li>Crime</li>
-                                <li>Family</li>
-                                <li>Historical</li>
-                                <li>War</li>
-							</ul>
-						</div>
+            <div id="container">
+              <ul id="ulElement2">
+                <% for(let i = 0; i < theloai.length; i++) { %>
+                  <li><%= theloai[i].ten_the_loai %></li>
+                <%}%>
+               
+              </ul>
+            </div>
 					</div>
 				</div>
 

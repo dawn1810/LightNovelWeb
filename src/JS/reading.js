@@ -68,32 +68,29 @@ async function updatecurrchap(id_truyen, curr_chap) {
 }
 let shouldRemoveScrollEvent = false;
 
+let pageHeight = Math.max(
+  document.body.scrollHeight,
+  document.documentElement.scrollHeight,
+  document.body.offsetHeight,
+  document.documentElement.offsetHeight,
+  document.body.clientHeight,
+  document.documentElement.clientHeight
+);
 const scrollHandler = () => {
   const scrollY = window.scrollY; // độ dài vị trí hiện tại đã vuốt xuống
   let scrollmax = 0;
-  var pageHeight = Math.max(
-    document.body.scrollHeight,
-    document.documentElement.scrollHeight,
-    document.body.offsetHeight,
-    document.documentElement.offsetHeight,
-    document.body.clientHeight,
-    document.documentElement.clientHeight
-  );
   // console.log("Chiều dài trang:", pageHeight);
   // console.log(scrollY);
   scrollmax = pageHeight - 180;
   const scrollmin = (scrollmax * 60) / 100;
-  // console.log(scrollmin);
-
+  // const scrollPosition = (scrollY / (pageHeight - window.innerHeight)) * 100;
+  // if (scrollPosition > 60){
   if (scrollY > scrollmin) {
-    // console.log("haha");
     shouldRemoveScrollEvent = true; // Đặt biến cờ để gỡ bỏ sự kiện cuộn
     views_novel(id);
     updatecurrchap(id, chap);
     localStorage.setItem(`${id}`, `${chap}`);
-  } else {
-    // console.log("huhu");
-  }
+  } 
 
   window.scrollYOld = scrollY;
 };
@@ -106,9 +103,18 @@ const scrollEvent = () => {
   }
 };
 
-setTimeout(function () {
-  window.addEventListener("scroll", scrollEvent);
-}, 10000);
+if (pageHeight < 1500) {
+  setTimeout(function () {
+  shouldRemoveScrollEvent = true; // Đặt biến cờ để gỡ bỏ sự kiện cuộn
+  views_novel(id);
+  updatecurrchap(id, chap);
+    localStorage.setItem(`${id}`, `${chap}`);
+  },  5000)
+} else {
+  setTimeout(function () {
+    window.addEventListener("scroll", scrollEvent);
+  }, 10000)
+}
 
 ////////////////////////////////////////////////////////////////////////////
 

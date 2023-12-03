@@ -233,8 +233,9 @@ a {
 .left,
 .right {
   background: #7b7b7b69;
-  padding: 10px;
+  padding: 20px;
   border-radius: 5px;
+  backdrop-filter: blur(10px);
 }
 #slide .item .image {
   position: absolute;
@@ -1441,7 +1442,8 @@ html .body_main {
   width: 400px;
   position: absolute;
   top: 20%;
-  left: 38%;
+  left: 50%;
+  transform: translate(-50%, 10px);
   display: flex;
 }
 .fogot {
@@ -1945,10 +1947,12 @@ html .body_main {
   }
   .rank_container ul {
     flex-direction: row;
+    overflow-y: hidden;
+    overflow-x: scroll;
+
   }
   .rank_container {
     padding: 0;
-    overflow-x: scroll;
   }
   .sort-menu {
     flex-wrap: wrap;

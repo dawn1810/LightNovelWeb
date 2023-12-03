@@ -139,6 +139,13 @@ const webRouter = (app) => {
     func_controller.checkAdmin,
     renderAdmin.add_content_slider
   );
+    // update the loai=======================================================================================
+    router.get(
+      "/manager_category",
+      func_controller.checkCookieLoglUser,
+      func_controller.checkAdmin,
+      renderAdmin.manager_category
+    );
   // Search route --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   router.get(
     "/search",

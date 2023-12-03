@@ -8,7 +8,7 @@ const MySQLStore = require("express-mysql-session")(session);
 const cors = require("cors");
 const { connection } = require("./dbmysql");
 const { get_authenkey } = require("./controller/func.controller");
-const cron = require("node-cron");
+// const cron = require("node-cron");
 const app = express();
 
 const port = 6969;
@@ -52,11 +52,11 @@ webRouter.webRouter(app);
 apiRouter.apiRouter(app);
 
 // Schedule the code execution at midnight (00:00)
-cron.schedule("0 0 * * *", async () => {
-  // update popular novel list
-  // await func_controller.getNovelList();
-  // remove all data in dang_ky database
-});
+// cron.schedule("0 0 * * *", async () => {
+//   // update popular novel list
+//   // await func_controller.getNovelList();
+//   // remove all data in dang_ky database
+// });
 
 app.listen(port, async () => {
   console.log(

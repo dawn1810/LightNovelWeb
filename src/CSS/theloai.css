@@ -1,0 +1,47 @@
+.main{
+  color: var(--black-text);
+  padding: 8rem 0;
+}
+h1{
+    text-align: center;
+    margin-bottom: 50px;
+}
+.table{
+    width: 1200px;
+    margin: 0 auto;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #ababab;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  /* tr:nth-child(even) {
+    background-color: #dddddd;
+  } */
+ .insert_cate{
+    margin-bottom: 20px;
+    font-size: 18px;
+ }
+ .insert_cate input{
+    padding: 5px;
+ }
+ .insert_cate button ,.delete_category{
+    padding: 5px 10px;
+    background-color: var(--button-colors) !important;
+    border-radius: 0.3rem;
+    font-size: 1.2rem;
+ }
+ .insert_cate button:hover,.delete_category:hover{
+    opacity: .7;
+    cursor: pointer;
+}
+.delete_category_gr{
+  text-align: center !important;
+}

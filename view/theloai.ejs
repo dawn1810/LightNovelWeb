@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../src/CSS/theloai.css">
+</head>
+<body>
+    <%- include(headerFile) %>
+    <div class="main">
+        <h1>DANH SÁCH THỂ LOẠI</h1>
+        
+        <div class="table">
+            <div class="insert_cate">
+                <label for="cate">Thêm thể loại:</label>
+                <input type="text" name="cate" id="cate">
+                <button>+</button>
+    
+            </div>
+            <table>
+            <tr>
+                <th>ID</th>
+                <th>Tên</th>
+                <th class="delete_category_gr">Xoá</th>
+            </tr>
+            <% for (let i=0; i < data.length; i++) { %> 
+                <tr>
+                    <td><%=data[i].id%></td>
+                    <td><%=data[i].ten_the_loai%></td>
+                    <td class="delete_category_gr"><button id="<%=data[i].id%>" class="delete_category">Xoá</button></td>
+                </tr>
+            <%}%>
+        </table>
+        </div>
+    </div>
+    <%- include(footerFile) %>
+</body>
+<script src="../src/JS/theloai.js"></script>
+
+</html>

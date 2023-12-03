@@ -33,6 +33,16 @@ const add_content_slider = async (req, res) => {
     data: data
   });
 };
+const manager_category = async (req, res) => {
+  const data = await queryAsync(
+    `SELECT * FROM the_loai;`
+  );
+  res.render("theloai", {
+    headerFile: "header",
+    footerFile: "footer",
+    data: data
+  });
+};
 
 const accountManager = async (req, res) => {
   let dataa = await queryAsync(
@@ -73,4 +83,5 @@ module.exports = {
   authortManager,
   add_content_slider,
   admin_id,
+  manager_category
 };

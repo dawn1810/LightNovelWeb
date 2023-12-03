@@ -13,7 +13,7 @@
     flex-direction: column;
     gap: 10px;
     padding-bottom: 6em;
-    border-radius: 15px;
+    border-radius: 7px;
     background-color: var(--header-background);
     box-shadow: 0 0 0 4px var(--header-background), 2px 2px 4px 2px rgba(0, 0, 0, 0.5);
     transition: 0.4s ease-in-out;
@@ -35,6 +35,7 @@
 .admin_btn {
     width: 20rem;
     height: 7rem;
+    color: var(--black-text);
     background-color: var(--item-color) !important;
     font-size: 1.5rem;
     display: flex;
@@ -42,8 +43,10 @@
     align-content: center;
     justify-content: center;
     align-items: center;
-    border-radius: 1rem;
+    border-radius:7px;
     margin: 4rem;
+    border: 1px solid var(--black-text) !important;
+    cursor: pointer;
 }
 
 .admin_btn i {
@@ -62,9 +65,9 @@
     margin: 0;
     width: 100%;
     height: 4rem;
-    border-radius: 1rem;
+    border-radius:7px;
     background-color: var(--item-color);
-    color: var(--white-text);
+    color: var(--black-text);
     align-content: center;
     justify-content: center;
     align-items: center;
@@ -76,7 +79,12 @@
         margin: 1rem;
     }
     .admin_btn{
-        width: 100%;
+        width: 70%;
         margin: 1rem;
+        font-size: 1.2rem;
+
+    }
+    .admin_btn i{
+        font-size: 2rem;
     }
 }

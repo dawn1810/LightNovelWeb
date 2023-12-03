@@ -7,7 +7,7 @@ $(".search-btn").on("click", function (event) {
   $(".search-btn").prop("disabled", true);
   // loading
   $(".search-btn").text("Finding...");
-
+  console.log(listObj.tempValues.dataset.value);
   history.pushState(
     null,
     null,
