@@ -20,10 +20,14 @@ const renderReviews = async (req, res) => {
       );
       // console.log("the loai:", theloaiID);
       const genres = theloaiID.map((row) => row.id_the_loai);
-      const datee_get = await queryAsync("SELECT * FROM the_loai WHERE id IN (?)",[genres])
-      const ten_the_loai = datee_get.map((row) => row.ten_the_loai);
       let maybeulikethat = [];
+      let ten_the_loai = [];
       if (genres.length > 0) {
+        const datee_get = await queryAsync(
+          "SELECT * FROM the_loai WHERE id IN (?)",
+          [genres]
+        );
+        ten_the_loai = datee_get.map((row) => row.ten_the_loai);
         maybeulikethat = await queryAsync(
           `SELECT DISTINCT truyen.id as _id, truyen.ten_truyen, tacgia.ten_tac_gia AS author, truyen.anh_dai_dien as image, truyen.so_luong_chuong AS no_chapters, truyen.trang_thai AS status, truyen.luot_thich AS likes, truyen.luot_xem AS views, truyen.ngay_cap_nhat AS update_date
      FROM truyen
@@ -33,7 +37,7 @@ const renderReviews = async (req, res) => {
      WHERE the_loai_truyen.id_the_loai IN (?)
      ORDER BY truyen.ngay_cap_nhat DESC, truyen.luot_xem DESC, truyen.luot_thich DESC, truyen.ten_truyen ASC
      LIMIT 6;`,
-          [genres]
+          [ten_the_loai]
         );
 
         for (let i = 0; i < maybeulikethat.length; i++) {

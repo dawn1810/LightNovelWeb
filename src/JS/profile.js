@@ -731,6 +731,8 @@ if (add_quick) {
             let audio = new Audio("/src/audio/naruto-trap.mp3");
             audio.volume = 0.5;
             audio.play();
+
+            location.reload();
           } else if (response.status == 400) {
             // Error occurred during upload
             notify("!", "Sai định dạng file!");
@@ -787,9 +789,11 @@ if (add_quick) {
   document.querySelector(".upload_quick_file .file-input").onchange =
     function () {
       const file = $(this)[0].files[0];
-      if (validateFile(file, true)) {
-        $(this).parent().find(".file-content").text(file.name);
-      }
+      if (file) {
+        if (validateFile(file, true)) {
+          $(this).parent().find(".file-content").text(file.name);
+        }
+      } else $(this).parent().find(".file-content").text('');
     };
 
   //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\//
@@ -1000,9 +1004,10 @@ $(document).ready(function () {
 
   $(document).on("change", ".page5_chap .file-input", function () {
     const file = $(this)[0].files[0];
-    if (validateFile(file, true)) {
-      $(this).parent().find(".file-content").text(file.name);
-    }
+    if (file) {
+      if (validateFile(file, true))
+        $(this).parent().find(".file-content").text(file.name);
+    } else $(this).parent().find(".file-content").text('');
   });
 
   // delete one file
@@ -1106,9 +1111,11 @@ $(document).ready(function () {
 
   $(document).on("change", ".page5_b .file-input", function () {
     const file = $(this)[0].files[0];
-    if (validateFile(file, true)) {
-      $(this).parent().find(".file-content").text(file.name);
-    }
+    if (file) {
+      if (validateFile(file, true))
+        $(this).parent().find(".file-content").text(file.name);
+
+    } else $(this).parent().find(".file-content").text("");
   });
 
   $(document).on("click", ".page5_b .download_btn", async function () {
