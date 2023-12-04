@@ -75,6 +75,15 @@ const apiRouter = (app) => {
     gg_router.passport.authenticate("google", {
       failureRedirect: "/api/login",
     }),
+    function (req, res, next) {
+      // Kiểm tra điều kiện sau khi xác thực
+      if (req.isAuthenticated()) {
+        console.log("x");
+        // Gửi sự kiện khi xác thực không thành công
+        return res.status(403).send("Không có quyền truy cập.");
+      }
+      next();
+    },
     gg_router.open_window
   );
 
@@ -127,10 +136,9 @@ const apiRouter = (app) => {
     api_router.api_get_quick_template
   );
 
-  // thêm xoá thể loại 
+  // thêm xoá thể loại
   router.post("/api/delete_category", api_router.delete_category);
   router.post("/api/add_new_category", api_router.add_new_category);
-
 
   router.get(
     "*",

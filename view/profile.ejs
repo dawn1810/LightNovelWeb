@@ -58,12 +58,19 @@
               </div>
             </div>
             <%}%>
-									<div class="Setting_sidebar-list_item up_novel">
-										<div class="Setting_sidebar-list_item_wrap">
-											<i class="fa-solid fa-pen-nib"></i> Sáng tác
-										</div>
-									</div>
-
+              <%if(role==2){%>
+                <div class="Setting_sidebar-list_item">
+                  <div class="Setting_sidebar-list_item_wrap" style="color: red; opacity: 0.6;">
+                    <i class="fa-solid fa-pen-nib"></i> Sáng tác (Đã Khoá)
+                  </div>
+                </div>
+              <% } else {%>
+                    <div class="Setting_sidebar-list_item up_novel">
+                      <div class="Setting_sidebar-list_item_wrap">
+                        <i class="fa-solid fa-pen-nib"></i> Sáng tác
+                      </div>
+                    </div>
+              <%}%>
 
 									<a href="/" class="Setting_sidebar-list_item logout">
 										<div class="Setting_sidebar-list_item_wrap">
@@ -199,14 +206,7 @@
         </div>
 
 
-        <div class="information_name" style="display: flex; flex-direction: row;">
-          <div class="sex_wrapper">
-            <div class="sex_random">Nam</div>
-          </div>
-          <button id="button_file" class="button_random">
-            Random
-          </button>
-        </div>
+       
       </div>
       <div class="information_name_wrap">
         <button id="Save_btn" type="submit" class="Save_btn">

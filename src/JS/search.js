@@ -1,47 +1,52 @@
-const more_btn = document.querySelectorAll('.search_more button');
-const search_value = document.querySelector('.search_value').innerText;
-const tag = document.querySelectorAll('.search_tag_item');
+const more_btn = document.querySelectorAll(".search_more button");
+const search_value = document.querySelector(".search_value").innerText;
+const tag = document.querySelectorAll(".search_tag_item");
 
 if (more_btn) {
-    let c_btn1 = 0
-    let c_btn2 = 0
-    let c_btn3 = 0
-    for (const more of more_btn) {
-        more.onclick = function () {
-            // make btn disables untill response
-            $(more).prop('disabled', true);
-            // loading 
-            $(more).html(`
+  let c_btn1 = 0;
+  let c_btn2 = 0;
+  let c_btn3 = 0;
+  for (const more of more_btn) {
+    more.onclick = function () {
+      // make btn disables untill response
+      $(more).prop("disabled", true);
+      // loading
+      $(more).html(`
             <span>Loading...</span>
             `);
-            console.log('aa')
-            if (more.className == 'search_more1') {
-                c_btn1 += 1
-                url =  `/api/search/more?type_id=search_more1&times=${c_btn1}&search=${encodeURI(search_value)}`
-            }
-            else if (more.className == 'search_more2') {
-                c_btn2 += 1
-                url =  `/api/search/more?type_id=search_more2&times=${c_btn2}&search=${encodeURI(search_value)}`
-            }
-            else {
-                c_btn3 += 1
-                url =  `/api/search/more?type_id=search_more3&times=${c_btn3}&search=${encodeURI(search_value)}`
-            }
+      console.log("aa");
+      if (more.className == "search_more1") {
+        c_btn1 += 1;
+        url = `/api/search/more?type_id=search_more1&times=${c_btn1}&search=${encodeURI(
+          search_value
+        )}`;
+      } else if (more.className == "search_more2") {
+        c_btn2 += 1;
+        url = `/api/search/more?type_id=search_more2&times=${c_btn2}&search=${encodeURI(
+          search_value
+        )}`;
+      } else {
+        c_btn3 += 1;
+        url = `/api/search/more?type_id=search_more3&times=${c_btn3}&search=${encodeURI(
+          search_value
+        )}`;
+      }
 
-            const requestOptions = {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-
-            };
-            fetch(url, requestOptions)
-                .then(response => {
-                    if (response.ok) {
-                        response.json().then(data => {
-                            // render all more data
-                            for (truyen of data.truyen) {
-                                $(more).parent().parent().find('.novel').append(`
+      const requestOptions = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      fetch(url, requestOptions)
+        .then((response) => {
+          if (response.ok) {
+            response
+              .json()
+              .then((data) => {
+                // render all more data
+                for (truyen of data.truyen) {
+                  $(more).parent().parent().find(".novel").append(`
                                 <a href="/reviews/${truyen._id}" class="novel_item">
                                     <div>
                                         <div class="novel_item_main">
@@ -70,12 +75,12 @@ if (more_btn) {
                                     </div>
                                 </a>
                                 `);
-                            }
+                }
 
-                            if (data.showbtn) {
-                                // make button able again
-                                $(more).prop('disabled', false);
-                                $(more).html(`
+                if (data.showbtn) {
+                  // make button able again
+                  $(more).prop("disabled", false);
+                  $(more).html(`
                                 <span>Xem thêm</span>
                                 <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="37" cy="37" r="35.5" stroke="var(--black-text)" stroke-width="3"></circle>
@@ -84,54 +89,63 @@ if (more_btn) {
                                     fill="var(--black-text)"></path>
                                 </svg>
                                 `);
-                            } else {
-                                more.remove()
-                            }
-
-
-
-                        }).catch(error => {
-                            console.error('Error parsing JSON:', error);
-                        });
-                    }
-                    else {
-                        console.log('erro')
-                    }
-                })
-                .catch(error => {
-                    console.error('Error downloading file:', error);
-                });
-
-        }
-    }
+                } else {
+                  more.remove();
+                }
+              })
+              .catch((error) => {
+                console.error("Error parsing JSON:", error);
+              });
+          } else {
+            console.log("erro");
+          }
+        })
+        .catch((error) => {
+          console.error("Error downloading file:", error);
+        });
+    };
+  }
 }
 
 // tag novel_name, author, genres
 function drop_novel() {
-    for (const novel of document.querySelectorAll('.novel_wrap')) {
-        novel.style.display = 'none'
-    }
+  for (const novel of document.querySelectorAll(".novel_wrap")) {
+    novel.style.display = "none";
+  }
 }
 
 function drop_tag(g) {
-    drop_novel();
-    document.querySelectorAll('.novel_wrap')[g].style.display = 'block'
+  drop_novel();
+  document.querySelectorAll(".novel_wrap")[g].style.display = "block";
 }
 
+for (
+  let i = 0;
+  i < document.querySelectorAll(".radio-input_search label").length;
+  i++
+) {
+  document.querySelectorAll(".radio-input_search label")[i].onclick =
+    function () {
+      drop_tag(i);
+      // Lấy URL hiện tại
+      let urlObject = new URL(window.location.href);
 
-for (let i = 0; i < document.querySelectorAll('.radio-input_search label').length; i++) {
-    document.querySelectorAll('.radio-input_search label')[i].onclick = function () {
-        drop_tag(i)
-        for (const tag of document.querySelectorAll('.radio-input_search label')) {
-            tag.style.background = 'var(--white-color)'
-        }
-        this.style.background = 'var(--author-color)'
+      history.pushState(
+        null,
+        null,
+        `/search?search=${urlObject.searchParams.get("search")}&type=${i}`
+      );
+      for (const tag of document.querySelectorAll(
+        ".radio-input_search label"
+      )) {
+        tag.style.background = "var(--white-color)";
+      }
+      this.style.background = "var(--author-color)";
     };
 }
-drop_tag(0)
-        for (const tag of document.querySelectorAll('.radio-input_search label')) {
-            tag.style.background = 'var(--white-color)'
-        }
-        document.querySelectorAll('.radio-input_search label')[0].style.background = 'var(--author-color)'
-
-
+drop_tag(0);
+for (const tag of document.querySelectorAll(".radio-input_search label")) {
+  tag.style.background = "var(--white-color)";
+}
+document.querySelectorAll(".radio-input_search label")[0].style.background =
+  "var(--author-color)";

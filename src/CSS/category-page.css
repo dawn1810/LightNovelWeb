@@ -2,6 +2,7 @@ main {
     display: flex;
     padding-right: 10%;
     padding-left: 10%;
+    min-height: 85vh;
     flex-direction: column;
 }
 

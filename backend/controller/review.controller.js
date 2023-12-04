@@ -8,12 +8,11 @@ const renderReviews = async (req, res) => {
     // console.log("SYSTEM | REVIEWS |", account);
     // Get novel information:
     let result = await queryAsync(
-      `SELECT * FROM truyen WHERE id='${req.params.id}'`
+      `SELECT truyen.*, tacgia.ten_tac_gia AS author FROM truyen,tacgia WHERE truyen.id=?  AND truyen.id_tac_gia = tacgia.id `,[req.params.id]
     );
     if (result.length > 0) {
       //paste here
       // default if they don't have an account
-
       let theloaiID = await queryAsync(
         `SELECT DISTINCT id_the_loai FROM the_loai_truyen WHERE the_loai_truyen.id_truyen = ?`,
         [req.params.id]

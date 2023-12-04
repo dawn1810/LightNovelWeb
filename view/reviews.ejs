@@ -61,13 +61,11 @@
                 <%= name %>
               </span>
               <div class="current-novel-actor">
-                <%= author %>
+               <a href="/search?search=<%=author%>&type=2">Tên Tác Giả: <%= author %></a> 
               </div>
-
               <div class="last-time-update">Tình trạng: <span>
                   <%= status %>
                 </span></div>
-
               <ul class="current-category-list">
                 <% genres.forEach(function(genre) { %>
                 <li id="<%= genre %>" class="current-category-list_item">
@@ -131,9 +129,9 @@
             </div>
           </div>
           <div class="summary">
-            <button class="summary-btn" onclick="toggleSummary()"><i class="fa-solid fa-bars"></i>
-              HIỆN TÓM TẮT </button>
-            <div style="display: none;" class="summary-Content">
+            <button class="summary-btn" onclick="toggleSummary()"><i class="fa-solid fa-angles-up"></i>
+              Ẩn Tóm Tắt </button>
+            <div class="summary-Content">
               <%= summary %>
             </div>
           </div>

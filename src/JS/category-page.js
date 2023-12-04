@@ -221,8 +221,9 @@ $(".search_more_btn").on("click", function () {
 
 const showButton = document.querySelector(".show_menu");
 const sortMenu = document.querySelector(".sort-menu");
-
-showButton.addEventListener("click", () => {
-  sortMenu.classList.toggle("show");
-  showButton.classList.toggle("show_menu_hover");
-});
+if (showButton) {
+  showButton.addEventListener("click", () => {
+    sortMenu.classList.toggle("show");
+    showButton.classList.toggle("show_menu_hover");
+  });
+}

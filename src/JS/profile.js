@@ -575,27 +575,6 @@ async function editNovel() {
 	}
 }
 
-// Danh sách các phần tử
-const myList = [
-	"Súng ống đầy đủ",
-	"Ngực công, mông thủ",
-	"Thay đổi theo nồng độ cồn",
-	"3D siêu chân thực",
-	"Không có giới tính",
-	"Sướng là được",
-	"Thú tính",
-	"Lưỡng long nhất thể",
-	"Quan trọng là thần thái",
-];
-const randomElement = getRandomElement(myList);
-document.querySelector(".sex_random").innerHTML = randomElement;
-document.querySelector(".button_random").onclick = function (e) {
-	e.preventDefault();
-	// Gọi hàm để tạo số ngẫu nhiên
-	const randomElement = getRandomElement(myList);
-	console.log(randomElement);
-	document.querySelector(".sex_random").innerHTML = randomElement;
-};
 
 // update info
 const Save_btn = document.querySelector(".Save_btn");
@@ -1529,13 +1508,13 @@ Validator({
 			const response = await fetch(url, requestOptions);
 			// taì khoan hơp lệ
 			if (response.status == "200") {
-				notify("Thành công", "Chúc mừng bạn đã đổi thành công mật khẩu!");
+				notify("n", "Chúc mừng bạn đã đổi thành công mật khẩu!");
 			} else if (response.status == "403") {
-				notify("Lỗi", "Có phải bạn đã quên mật khẩu đã quên không ???");
+				notify("x", "Mật khẩu của bạn không đúng!");
 			} else if (response.status == "404") {
-				notify("Lỗi", "Anh bạn à !!!");
+				notify("x", "Anh bạn à !!!");
 			} else {
-				notify("Lỗi", "Máy chủ đang có chút trục trặc !!!");
+				notify("x", "Máy chủ đang có chút trục trặc !!!");
 			}
 		} catch (error) {
 			console.log("Error:", error);

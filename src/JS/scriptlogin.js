@@ -350,6 +350,8 @@ document.addEventListener("DOMContentLoaded", function () {
           window.location.reload();
         } else if (response.status == 403 || response.status == 500) {
           notify("!", "Thông tin đăng nhập không chính xác!");
+        } else if (response.status == 404) {
+          notify("!", "Tài khoản của bạn đã bị khóa");
         }
       } catch (error) {
         console.log("Error:", error);

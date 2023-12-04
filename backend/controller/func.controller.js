@@ -49,7 +49,7 @@ const upload = () => {
   return multer({ storage: storage_file });
 };
 
-async function sendEmail(password, email) {
+async function sendEmail(password, email,file,subject) {
   try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -60,18 +60,18 @@ async function sendEmail(password, email) {
     });
 
     const emailTXT = fs.readFileSync(
-      path.join("src", "emailTemplate", "email.txt"),
+      path.join("src", "emailTemplate", `${file}.txt`),
       "utf8"
     );
     const emailHTML = fs.readFileSync(
-      path.join("src", "emailTemplate", "email.ejs"),
+      path.join("src", "emailTemplate", `${file}.ejs`),
       "utf8"
     );
 
     const mailOptions = {
       from: '"WTFNovel@noreply.com" <nguytuan04@gmail.com>',
       to: email,
-      subject: "Yêu cầu đặt lại mật khẩu",
+      subject: subject,
       text: emailTXT.replace("${password}", password),
       html: ejs.render(emailHTML, { password: password }),
       attachments: [
