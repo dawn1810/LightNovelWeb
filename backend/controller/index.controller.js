@@ -78,7 +78,13 @@ const rederIndex = async (req, res) => {
         `SELECT DISTINCT id_the_loai FROM the_loai_truyen WHERE the_loai_truyen.id_truyen = ?`,
         [id]
       );
-      const genres = theloaiID.map((row) => row.id_the_loai);
+      
+      const genresID = theloaiID.map((row) => row.id_the_loai);
+      const genresList = await queryAsync(
+        `SELECT DISTINCT ten_the_loai FROM the_loai WHERE id IN (?)`,
+        [genresID]
+      );
+      const genres = genresList.map((row) => row.ten_the_loai);
       result_slider[i].genres = genres;
     }
     return res.render("index", {

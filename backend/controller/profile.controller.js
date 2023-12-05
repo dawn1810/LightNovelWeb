@@ -6,7 +6,7 @@ const processNovels = async function (req, res, id_truyen) {
   try {
     const account = req.session.user;
     const account_role = await queryAsync(
-      `SELECT last_role FROM thongtin_nguoidung WHERE id ="${account.id}"`
+      `SELECT role FROM thongtin_nguoidung WHERE id ="${account.id}"`
     );
     let render_data = {
       headerFile: "header",
@@ -22,9 +22,8 @@ const processNovels = async function (req, res, id_truyen) {
       edit_no_chaps: "",
       theloai: "",
       ban: "",
-      role: account_role[0].last_role,
+      role: account_role[0].role,
     };
-
     const myNovels = await queryAsync(
       `
       SELECT 

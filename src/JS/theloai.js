@@ -53,10 +53,10 @@ document.addEventListener("DOMContentLoaded", function () {
       const response = await fetch(url, requestOptions);
       const data = await response.json();
       if (response.status === 200) {
-        notify("n", "Thêm thể loại thành công!");
+        notify("n", "Xoá thể loại thành công!");
         indert_table(data);
       } else {
-        notify("x", "Không thể thêm thể loại !");
+        notify("x", "Không thể xoá thể loại !");
       }
     } catch (error) {
       console.log("Error:", error);

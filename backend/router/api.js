@@ -77,8 +77,7 @@ const apiRouter = (app) => {
     }),
     function (req, res, next) {
       // Kiểm tra điều kiện sau khi xác thực
-      if (req.isAuthenticated()) {
-        console.log("x");
+      if (!req.isAuthenticated()) {
         // Gửi sự kiện khi xác thực không thành công
         return res.status(403).send("Không có quyền truy cập.");
       }

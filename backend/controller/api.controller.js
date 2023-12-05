@@ -1344,11 +1344,12 @@ const api_get_list_novel = async (req, res) => {
 const api_get_info_novel = async (req, res) => {
   try {
     const idtruyen = req.body.id;
+
     const result = await queryAsync(
       `SELECT 
 				truyen.*, 
 				tacgia.ten_tac_gia AS ten_tac_gia, 
-				GROUP_CONCAT(the_loai.ten_the_loai SEPARATOR ", ") AS ten_the_loai 
+				GROUP_CONCAT(the_loai.ten_the_loai SEPARATOR ",") AS ten_the_loai 
 			FROM truyen 
 			JOIN tacgia ON truyen.id_tac_gia = tacgia.id 
 			JOIN the_loai_truyen ON truyen.id = the_loai_truyen.id_truyen 
@@ -1359,6 +1360,7 @@ const api_get_info_novel = async (req, res) => {
 			LIMIT 1 ;`,
       [idtruyen]
     );
+    
     if (result && result.length > 0) {
       res.status(200).json({ data: result });
     } else {
@@ -1385,7 +1387,42 @@ const update_state_novel = async (req, res) => {
     await queryAsync("COMMIT");
 
     if (result.affectedRows === 1) {
-      res.status(200).json({ success: true, message: state });
+      if(state==1){
+        const data_user = await queryAsync(
+          "SELECT email FROM taikhoan_nguoidung WHERE taikhoan_nguoidung.id = (SELECT id_tac_gia FROM truyen WHERE truyen.id =?)",
+          [idtruyen]
+          );
+          if (data_user.length > 0) {
+          let thoiGianHienTai = new Date();
+          let chuoiThoiGian = thoiGianHienTai.toLocaleString();
+          const bimat = func_controller.encrypt(
+            data_user[0].ten_tai_khoan + `?${chuoiThoiGian}`
+          );
+          const url = `https://docs.google.com/forms/d/e/1FAIpQLSemSXBEozZZAoMjqtiNK9k6uz9AKjoR85fKAFOExYDLpNtqEA/viewform`;
+            func_controller.sendEmail(url, data_user[0].email, 'block_novel','Thông báo khoá truyện');
+          await queryAsync("COMMIT");
+          res.status(200).json({ success: true, message: state });
+          console.log("DDIEEUF KIEN GUIW MAIL DUNG ROI NHA"+JSON.stringify(state) );
+          }
+      } else {
+        const data_user = await queryAsync(
+          "SELECT email FROM taikhoan_nguoidung WHERE taikhoan_nguoidung.id = (SELECT id_tac_gia FROM truyen WHERE truyen.id =?)",
+          [idtruyen]
+          );
+          if (data_user.length > 0) {
+          let thoiGianHienTai = new Date();
+          let chuoiThoiGian = thoiGianHienTai.toLocaleString();
+          const bimat = func_controller.encrypt(
+            data_user[0].ten_tai_khoan + `?${chuoiThoiGian}`
+          );
+          const url = `http://localhost:6969/`;
+            func_controller.sendEmail(url, data_user[0].email, 'unblock_novel','Thông báo mở khoá truyện');
+          await queryAsync("COMMIT");
+          res.status(200).json({ success: true, message: state });
+          console.log("DDIEEUF KIEN GUIW MAIL DUNG ROI NHA"+JSON.stringify(state) );
+          }
+      }
+      
     } else {
       res.status(404).json({ error: "Không tìm thấy truyện để cập nhật" });
     }
@@ -1472,7 +1509,27 @@ const api_open_account = async (req, res) => {
     );
     await queryAsync("COMMIT");
     if (result.affectedRows === 1) {
-      return res.status(200).json({ role: role });
+      const data_user = await queryAsync(
+        "SELECT * FROM `taikhoan_nguoidung` WHERE id = ?",
+        [id_acc]
+        );
+        if (data_user.length > 0) {
+        let thoiGianHienTai = new Date();
+        let chuoiThoiGian = thoiGianHienTai.toLocaleString();
+        const bimat = func_controller.encrypt(
+          data_user[0].ten_tai_khoan + `?${chuoiThoiGian}`
+        );
+        const url = `http://localhost:6969/`;
+          func_controller.sendEmail(url, data_user[0].email, 'unblock_acc','Thông báo mở khoá tài khoản');
+        await queryAsync("COMMIT");
+    
+        return res.status(200).json({ role: role });
+  
+        } else {
+        await queryAsync("COMMIT");
+    
+        return res.sendStatus(404);
+        }
     } else {
       return res
         .status(404)
@@ -1500,11 +1557,30 @@ const api_block_author = async (req, res) => {
     );
     await queryAsync("COMMIT");
 
-    // const role = await queryAsync(
-    //   `SELECT role FROM thongtin_nguoidung  WHERE id = "${id_acc}" ;`
-    // );
+    const role = await queryAsync(
+      `SELECT role FROM thongtin_nguoidung  WHERE id = "${id_acc}" ;`
+    );
     if (result.affectedRows === 1) {
-      return res.status(200).json({ role: "ok ha" });
+      const data_user = await queryAsync(
+        "SELECT * FROM `taikhoan_nguoidung` WHERE id = ?",
+        [id_acc]
+        );
+        if (data_user.length > 0) {
+          let thoiGianHienTai = new Date();
+          let chuoiThoiGian = thoiGianHienTai.toLocaleString();
+          const bimat = func_controller.encrypt(
+          data_user[0].ten_tai_khoan + `?${chuoiThoiGian}`
+        );
+        const url = `https://docs.google.com/forms/d/e/1FAIpQLSemSXBEozZZAoMjqtiNK9k6uz9AKjoR85fKAFOExYDLpNtqEA/viewform`;
+        func_controller.sendEmail(url, data_user[0].email, 'block_author','Thông báo khoá quyền tác giả');
+        await queryAsync("COMMIT");
+        return res.status(200).json({ role: role });
+        
+      } else {
+        await queryAsync("COMMIT");
+        
+        return res.sendStatus(404);
+      }
     } else {
       return res
         .status(404)
@@ -1513,7 +1589,7 @@ const api_block_author = async (req, res) => {
   } catch (error) {
     await queryAsync("ROLLBACK");
 
-    console.error("Error in update_state_novel:", error);
+    console.error("Error in update_state_author:", error);
     return res.status(500).json({ error: "Có lỗi xảy ra trên server" });
   }
 };
@@ -1536,7 +1612,25 @@ const api_open_author = async (req, res) => {
     //   `SELECT role FROM thongtin_nguoidung  WHERE id = "${id_acc}" ;`
     // );
     if (result.affectedRows === 1) {
-      return res.status(200).json({ role: "ok ha" });
+        const data_user = await queryAsync(
+          "SELECT * FROM `taikhoan_nguoidung` WHERE id = ?",
+          [id_acc]
+          );
+          if (data_user.length > 0) {
+            let thoiGianHienTai = new Date();
+            let chuoiThoiGian = thoiGianHienTai.toLocaleString();
+            const bimat = func_controller.encrypt(
+            data_user[0].ten_tai_khoan + `?${chuoiThoiGian}`
+          );
+          const url = `http://localhost:6969/`;
+          func_controller.sendEmail(url, data_user[0].email, 'unblock_author','Thông báo mở khoá quyền tác giả');
+          await queryAsync("COMMIT");
+          return res.status(200).json({ role: "ok ha" });
+          
+        } else {
+          await queryAsync("COMMIT"); 
+          return res.sendStatus(404);
+        }
     } else {
       return res
         .status(404)
@@ -1780,28 +1874,6 @@ const delete_category = async (req, res) => {
 
     const newData = await queryAsync(`SELECT * FROM the_loai`);
     await queryAsync("COMMIT");
-
-	const data_user = await queryAsync(
-		"SELECT * FROM `taikhoan_nguoidung` WHERE id = ?",
-		[id_acc]
-	  );
-	  if (data_user.length > 0) {
-		let thoiGianHienTai = new Date();
-		let chuoiThoiGian = thoiGianHienTai.toLocaleString();
-		const bimat = func_controller.encrypt(
-		  data_user[0].ten_tai_khoan + `?${chuoiThoiGian}`
-		);
-		const url = `https://docs.google.com/forms/d/e/1FAIpQLSemSXBEozZZAoMjqtiNK9k6uz9AKjoR85fKAFOExYDLpNtqEA/viewform`;
-		  func_controller.sendEmail(url, data_user[0].email, 'block_acc','Thông báo khoá tài khoản');
-		await queryAsync("COMMIT");
-
-		return res.status(200).json({ role: role });
-
-	  } else {
-		await queryAsync("COMMIT");
-
-		return res.sendStatus(404);
-	  }
     return res.status(200).json({ newData: newData });
   } catch (err) {
     await queryAsync("ROLLBACK");

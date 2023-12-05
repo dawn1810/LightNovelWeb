@@ -15,8 +15,8 @@ connection.connect((err) => {
   }
   console.log("Connected to MySQL!");
 });
-const queryAsync = util.promisify(connection.query).bind(connection);
 
+const queryAsync = util.promisify(connection.query).bind(connection);
 
 module.exports = {
   connection,

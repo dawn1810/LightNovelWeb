@@ -61,13 +61,12 @@
                   <div class="right">
                       <h2>THỂ LOẠI</h2>
                       <ul>
-                          <% slider[i].genres.forEach( (genres) =>{%>
-                            <li>
-                              <a href="/category?skip=0&update_day=1&types=<%= genres %>&num_chaps=1&status=1&sort_by=1"><%= genres %></a>
+                        <% for (let j = 0; j < 3; j++) { %>
+                          <li>
+                            <a href="/category?skip=0&update_day=1&types=<%= slider[i].genres[j] %>&num_chaps=1&status=1&sort_by=1"><%= slider[i].genres[j] %></a>
                           </li>
                           
-                            <%
-                          }); %>
+                        <% } %>
                       </ul>
                   </div>
 

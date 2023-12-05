@@ -5,7 +5,6 @@ const EventEmitter = require("events");
 
 /////////////////ALL LOG IN WAYS/////////////////
 passport.serializeUser(function (user, done) {
-  console.log(user);
   done(null, user.id);
 });
 
