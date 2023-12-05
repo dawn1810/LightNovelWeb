@@ -204,11 +204,11 @@
 
       </div>
 
+      <% if( maybeulike.length > 0 ){%>
       <div class="Similar novels">
-        <% if(maybeulike.length>0){%>
         <div class="Similar_title">Có thể bạn sẽ thích</div>
         <div class="same-propose">
-
+          <!-- <% console.log(maybeulike.length) %> -->
           <% for (var i = 0; i < maybeulike.length; i++) { %>
             <% if (i > 4) {break}%>
             <a href="/reviews/<%=maybeulike[i]._id%>" class="same-propose-item">
@@ -221,10 +221,10 @@
               </div>
             </a>
             
-            <% }} %>
-          </div>
-
+          <% } %>
+        </div>
       </div>
+      <% } %>
 
     </div>
     </div>

@@ -36,7 +36,7 @@ const renderReviews = async (req, res) => {
      WHERE the_loai_truyen.id_the_loai IN (?)
      ORDER BY truyen.ngay_cap_nhat DESC, truyen.luot_xem DESC, truyen.luot_thich DESC, truyen.ten_truyen ASC
      LIMIT 6;`,
-          [ten_the_loai]
+          [genres]
         );
 
         for (let i = 0; i < maybeulikethat.length; i++) {
