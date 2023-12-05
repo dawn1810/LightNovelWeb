@@ -90,7 +90,7 @@ const scrollHandler = () => {
     views_novel(id);
     updatecurrchap(id, chap);
     localStorage.setItem(`${id}`, `${chap}`);
-  } 
+  }
 
   window.scrollYOld = scrollY;
 };
@@ -105,11 +105,11 @@ const scrollEvent = () => {
 
 if (pageHeight < 1500) {
   setTimeout(function () {
-  shouldRemoveScrollEvent = true; // Đặt biến cờ để gỡ bỏ sự kiện cuộn
-  views_novel(id);
-  updatecurrchap(id, chap);
+    shouldRemoveScrollEvent = true; // Đặt biến cờ để gỡ bỏ sự kiện cuộn
+    views_novel(id);
+    updatecurrchap(id, chap);
     localStorage.setItem(`${id}`, `${chap}`);
-  },  5000)
+  }, 5000)
 } else {
   setTimeout(function () {
     window.addEventListener("scroll", scrollEvent);
@@ -205,6 +205,7 @@ for (const r_btn of right_btn) {
     );
 
     window.location.href = `${crUrl}/${chap}`;
+
   };
 }
 
@@ -291,12 +292,11 @@ function autoScroll() {
 // go chap
 for (show_chap of show_more) {
   show_chap.onchange = function () {
-    const chap = show_chap.value;
+    const chap = this.value; // Sử dụng 'this' thay vì 'show_chap'
     const crUrl = window.location.href.substring(
       0,
       window.location.href.lastIndexOf("/")
     );
-
     window.location.href = `${crUrl}/${chap}`;
   };
 }

@@ -22,6 +22,7 @@ const allowedMimeTypes = [
 ];
 
 const { queryAsync } = require("../dbmysql");
+const { log } = require("console");
 const uploadDirectory = path.join(".upload_temp", "files");
 const storage = NodePersist.create({
   // index
@@ -1453,12 +1454,15 @@ const api_block_account = async (req, res) => {
       [id_acc]
     );
     await queryAsync("COMMIT");
-
+    
 	  if (result.affectedRows === 1) {
-		const data_user = await queryAsync(
-			"SELECT * FROM `taikhoan_nguoidung` WHERE id = ?",
-			[id_acc]
-		  );
+      await queryAsync(
+        `DELETE FROM sessions WHERE data LIKE '%"username":"${id_acc}"%';`
+      );
+      const data_user = await queryAsync(
+        "SELECT * FROM `taikhoan_nguoidung` WHERE id = ?",
+        [id_acc]
+        );
 		  if (data_user.length > 0) {
 			let thoiGianHienTai = new Date();
 			let chuoiThoiGian = thoiGianHienTai.toLocaleString();
