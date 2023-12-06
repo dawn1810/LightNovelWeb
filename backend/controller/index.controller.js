@@ -23,7 +23,7 @@ const rederIndex = async (req, res) => {
 			return timeDifferenceInMinutes <= 30;
 		}
 		// let result = await storage.getItem("novellist");
-		currentURL = req.url; // cho Long cho Long:))))
+		currentURL = req.url; 
 		let showpopup = "null";
 		const data_reset_pass = req.query.id;
 		if (data_reset_pass) {

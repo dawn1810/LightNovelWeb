@@ -11,6 +11,28 @@
     }
     .rv-author-a{
         padding: 0;
+        width: 200px;
+        text-transform: capitalize;
+        word-wrap: break-word;
+        white-space: normal;
+        overflow: hidden;
+        display: -webkit-box;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        line-height: 20px;
+    }
+    .name_lv a{
+        max-width: 80px;
+        text-transform: capitalize;
+        word-wrap: break-word;
+        white-space: normal;
+        overflow: hidden;
+        display: -webkit-box;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        line-height: 20px;
     }
     .menu{
         top: 82%;

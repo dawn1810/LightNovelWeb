@@ -80,7 +80,7 @@ const scrollHandler = () => {
   const scrollY = window.scrollY; // độ dài vị trí hiện tại đã vuốt xuống
   let scrollmax = 0;
   scrollmax = pageHeight - 180;
-  const scrollmin = (scrollmax * 60) / 100;
+  const scrollmin = scrollmax * 60 / 100;
   // const scrollPosition = (scrollY / (pageHeight - window.innerHeight)) * 100;
   // if (scrollPosition > 60){
   if (scrollY > scrollmin) {
@@ -163,13 +163,10 @@ const changeFontSize = (size) => {
 const changeHeight = (height_val) => {
   main_content.style.lineHeight = height_val;
   for (const height of line_height) {
-    // roi do hai anh trai name chap cho ten chap hien tai, con name chaps la tat ca
     height.value = height_val;
   }
 };
 
-// cai hai thg bay moi coii laf review nha
-// cais tao sua la reading coi chung lam duong lac loi
 const left_btn = document.querySelectorAll(".left-btn");
 for (const l_btn of left_btn) {
   if (parseInt(window.location.href.split("/").pop()) <= 1) {

@@ -23,7 +23,7 @@ function Validator(options) {
     var rules = selectorRules[rule.selector];
 
     // Lặp qua từng rule & kiểm tra
-    // Nếu có lỗi thì dừng việc kiểm
+    // Nếu có lỗi thì dừng việc kiểm tra
     for (var i = 0; i < rules.length; ++i) {
       switch (inputElement.type) {
         case "radio":
@@ -264,9 +264,7 @@ Validator.isEmail = function (selector, message) {
     selector: selector,
     test: function (value) {
       var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      return regex.test(value)
-        ? undefined
-        : message || "Trường này phải là email";
+      return regex.test(value) ? undefined : message || "Trường này phải là email";
     },
   };
 };

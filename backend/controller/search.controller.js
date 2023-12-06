@@ -12,7 +12,7 @@ const search = async (req, res) => {
     const search = decodeURIComponent(req.query.search);
     if (search) {
       let names = await queryAsync(
-        `SELECT truyen.id AS _id,
+        `SELECT  DISTINCT truyen.id AS _id,
 				ten_truyen AS name,
 				ten_tac_gia AS author, anh_dai_dien AS image, 
 				trang_thai AS status, so_luong_chuong AS no_chapters 
@@ -23,7 +23,7 @@ const search = async (req, res) => {
       );
 
       let authors = await queryAsync(
-        `SELECT truyen.id AS _id,
+        `SELECT DISTINCT truyen.id AS _id,
 				ten_truyen AS name,
 				ten_tac_gia AS author, anh_dai_dien AS image, 
 				trang_thai AS status, so_luong_chuong AS no_chapters 
@@ -33,7 +33,7 @@ const search = async (req, res) => {
         [search]
       );
       let genres = await queryAsync(
-        `SELECT truyen.id AS _id,
+        `SELECT DISTINCT truyen.id AS _id,
 			ten_truyen AS name,
 			ten_tac_gia AS author, anh_dai_dien AS image, 
 			trang_thai AS status, so_luong_chuong AS no_chapters 
@@ -190,7 +190,7 @@ const category = async (req, res, limit = 31) => {
 
     // In kết quả
     result = await queryAsync(
-      `SELECT
+      `SELECT DISTINCT
 	 truyen.id AS _id,
 	 truyen.ten_truyen AS name,
 	 tacgia.ten_tac_gia AS author,
@@ -212,7 +212,7 @@ const category = async (req, res, limit = 31) => {
     );
   } else {
     result = await queryAsync(
-      `SELECT
+      `SELECT DISTINCT
 	  truyen.id AS _id,
 	  truyen.ten_truyen AS name,
 	  tacgia.ten_tac_gia AS author,

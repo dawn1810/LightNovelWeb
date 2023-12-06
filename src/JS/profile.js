@@ -885,29 +885,29 @@ async function cancel() {
   // remove all chapters
   if (
     confirm(
-      "Shinra tensei - Hủy diệt mọi thứ. Are you sure about that? ( ⚆ _ ⚆ )"
+      "Bạn có chắc chắn muốn huỷ không?"
     ) == true
   ) {
     // create shinra tensei not turn on this code
-    var elem = document.createElement("div");
-    elem.className = "shinra";
-    elem.style.cssText = `
-    		position:absolute;
-    		top: 0;
-    		left: 0;
-    		width:100vw;
-    		height:130%;
-    		margin-top: -100px;
-    		z-index:99999999999999999;
-    		background:#000;
-    		background-image: url('https://media.tenor.com/WNyMsbIJmBMAAAAC/naruto-shinra.gif');
-    		`;
-    // background-image: url('https://cdn.discordapp.com/attachments/1119221555566751754/1132280018534408233/thien.webp');
-    document.body.appendChild(elem);
+    // var elem = document.createElement("div");
+    // elem.className = "shinra";
+    // elem.style.cssText = `
+    // 		position:absolute;
+    // 		top: 0;
+    // 		left: 0;
+    // 		width:100vw;
+    // 		height:130%;
+    // 		margin-top: -100px;
+    // 		z-index:99999999999999999;
+    // 		background:#000;
+    // 		background-image: url('https://media.tenor.com/WNyMsbIJmBMAAAAC/naruto-shinra.gif');
+    // 		`;
+    // // background-image: url('https://cdn.discordapp.com/attachments/1119221555566751754/1132280018534408233/thien.webp');
+    // document.body.appendChild(elem);
 
-    let audio = new Audio("/src/audio/shinra.mp3");
-    audio.volume = 0.5;
-    audio.play();
+    // let audio = new Audio("/src/audio/shinra.mp3");
+    // audio.volume = 0.5;
+    // audio.play();
     //////////////////////////////////////////////////////////////////////////////////////////
     if (sessionStorage.getItem("chapters_content")) {
       // remove all chapters

@@ -20,6 +20,7 @@
         top: 16rem;
         left: 50%;
         transform: translate(-50%, -50%);
+        z-index: 90;
     }
 
     .sort-menu-container {
@@ -30,7 +31,7 @@
     .fix_btn {
         background: var(--background-color);
         /* width: 100%; */
-        opacity:0.5;
+        opacity:1;
         margin: 0 auto;
         display: flex;
         justify-content: center;
