@@ -323,6 +323,9 @@ a {
 	font-weight: 500;
 	margin-bottom: 10px;
 }
+.content .right a , .left a{
+	color:#fff;
+}
 .content .right ul {
 	padding: 0;
 	margin: 0;
@@ -1280,6 +1283,7 @@ html .body_main {
 	margin-left: 10px;
 	color: #ab1010;
 	font-weight: 700;
+	width: 10px;
 }
 
 .trending-container {
