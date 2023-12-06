@@ -1244,6 +1244,7 @@ html .body_main {
 	margin: 10px 0;
 	padding: 0 10px;
 	font-size: 15px;
+	position: relative;
 }
 
 .novel_name {
@@ -1276,14 +1277,20 @@ html .body_main {
 
 .novel_chapter span {
 	padding: 0 10px;
-	border-right: 1px solid #a2a2a2;
 }
 
 .novel_chapter div {
 	margin-left: 10px;
 	color: #ab1010;
 	font-weight: 700;
-	width: 10px;
+	font-size: 18px;
+    position: absolute;
+    top: -40px;
+    right: 3%;
+    background: #fffefd9e;
+    padding: 3px;
+    border-radius: 4px;
+    backdrop-filter: blur(5px);
 }
 
 .trending-container {
@@ -1945,7 +1952,7 @@ html .body_main {
 }
 .rank_item_body a,
 .novel_author {
-	font-size: 16px;
+	/* font-size: 16px; */
 	color: var(--black-text);
 	text-transform: capitalize;
 	word-wrap: break-word;

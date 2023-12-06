@@ -182,7 +182,7 @@ async function checkCookieLoglUser(req, res, next) {
         res.locals.author_name = author.length
           ? author[0].ten_tac_gia
           : undefined;
-        res.locals.admin = user.role;
+        res.locals.admin = result[0].role;
         next();
       } else {
         res.locals.avt =
@@ -214,18 +214,16 @@ async function checkAdmin(req, res, next) {
   const user = req.session.user;
   if (user) {
     const result = await queryAsync(
-      `SELECT * FROM thongtin_nguoidung WHERE role= '100' AND id_tai_khoan ="${user.id}"`
+      `SELECT * FROM thongtin_nguoidung WHERE role='100' AND id_tai_khoan ="${user.id}"`
     );
 
     if (!result.length) {
       res.locals.admin = "";
       res.locals.admin = null;
-      // console.log("huhu");
 
       return res.redirect("/");
     } else {
       res.locals.admin = result[0].role;
-      // console.log("hahah");
       next();
     }
   } else {

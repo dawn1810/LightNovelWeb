@@ -232,9 +232,9 @@
         width: 100%;
     }
 
-    .modal_wrap {
+    /* .modal_wrap {
         left: auto;
-    }
+    } */
 
     .slider::before {
         background-image: url(https://cdn.discordapp.com/attachments/1119221555566751754/1132253715651367002/superman.png);

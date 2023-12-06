@@ -58,20 +58,19 @@
               </div>
             </div>
             <%}%>
-              <%if(role == 1){%>
-                <div class="Setting_sidebar-list_item">
-                  <div class="Setting_sidebar-list_item_wrap" style="color: red; opacity: 0.6;">
-                    <i class="fa-solid fa-pen-nib"></i> Sáng tác (Đã Khoá)
-                  </div>
-                </div>
-              <% } else{%>
+                    <%if(role< 2){%>
+                      <div class="Setting_sidebar-list_item up_novel">
+                        <div style="color: red;" class="Setting_sidebar-list_item_wrap">
+                          <i class="fa-solid fa-pen-nib"></i> Sáng tác (Đã Khoá)
+                        </div>
+                      </div>
+                    <%}else{%>
                     <div class="Setting_sidebar-list_item up_novel">
                       <div class="Setting_sidebar-list_item_wrap">
                         <i class="fa-solid fa-pen-nib"></i> Sáng tác
                       </div>
                     </div>
-              <%}%>
-
+                    <%}%>
 									<a href="/" class="Setting_sidebar-list_item logout">
 										<div class="Setting_sidebar-list_item_wrap">
 											<i class="fa-solid fa-right-from-bracket"></i> Thoát
@@ -161,7 +160,7 @@
               </label>
               <label>
                 <input type="radio" name="radio" id="o" value="2">
-                <span>Khac</span>
+                <span>Khác</span>
               </label>
             </form>
           </div>
@@ -179,7 +178,7 @@
               </label>
               <label>
                 <input type="radio" name="radio" id="o" value="2">
-                <span>Khac</span>
+                <span>Khác</span>
               </label>
             </form>
           </div>
@@ -197,7 +196,7 @@
               </label>
               <label>
                 <input type="radio" name="radio" id="o" value="2" checked>
-                <span>Khac</span>
+                <span>Khác</span>
               </label>
             </form>
           </div>
@@ -314,15 +313,12 @@
 
     <div class="Setting_pageWrapper page5" id='my_novel'>
 
-      <%if(role==1){%>
-        <h4 style="color: red;">TÀI KHOẢN CỦA BẠN ĐANG BỊ HẠNG CHẾ DO VI PHẠM QUY ĐỊNH WEB XIN LIÊN HỆ VỚI QUẢN TRỊ VIÊN ĐỂ BIẾT THÊM THÔNG TIN CHI TIẾT </h4>
-      <% } else {%>
+        <!-- <h4 style="color: red;">TÀI KHOẢN CỦA BẠN ĐANG BỊ HẠNG CHẾ DO VI PHẠM QUY ĐỊNH WEB XIN LIÊN HỆ VỚI QUẢN TRỊ VIÊN ĐỂ BIẾT THÊM THÔNG TIN CHI TIẾT </h4> -->
         <div class="page5_home page5_composed">
               <div class="page_5_title">
       
                 <h2 class="my_novel_title"><i class="fa-solid fa-book-open-cover"></i> Truyện của
                   tôi</h2>
-      
                 <div class="add_new_box">
                   <div class="normal_add">
                     <button class="add_new">+ THÊM TRUYỆN</button>
@@ -548,7 +544,7 @@
           </div>
 
         </div>
-      <%}%>
+
 
       <div class="page5_a page5_composed" id="add_novel">
         <div class="range" style="--p:0">
@@ -941,9 +937,11 @@
     </div>
   </main>
   <!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
-
+  
   <%- include(footerFile) %>
-
+  <script> 
+    const role = '<%=admin%>'
+  </script>
   <script src="/src/JS/profile.js"></script>
   <script>
     <%if (edit_tag) {%>

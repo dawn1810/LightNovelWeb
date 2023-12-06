@@ -19,6 +19,7 @@
 
 	<body>
 		<header>
+			
 			<div class="header_wrap">
 				<div class="header_start">
 					<div id="hamburger" class="hamburglar is-closed">
@@ -1226,17 +1227,27 @@
 					</div>
 				</a>
 			</li>
-			<li id="composed" class="left_li">
-				<a href="/profile/my_novel">
-					<div><i class="fa-solid fa-feather-pointed"></i> <span>Sáng Tác</span></div>
-				</a>
-			</li>
+			
+			<%if(login_way!='null' && admin > 2){%>
+				<li id="composed" class="left_li">
+					<a href="/profile/my_novel">
+						<div><i class="fa-solid fa-feather-pointed"></i> <span>Sáng Tác</span></div>
+					</a>
+				</li>
+			<% } else { %>
+				<li id="composed" class="left_li">
+					<a href="/profile/my_novel">
+						<div><i class="fa-solid fa-feather-pointed"></i> <span style="color: red">Sáng Tác (Đã khoá)</span></div>
+					</a>
+				</li>
+			<% } %>
+
 			<%if(login_way!='null' && admin==100){%>
-			<li id="admin" class="left_li">
-				<a href="/admin">
-					<div><i class="fa-brands fa-black-tie"></i> <span>Admin</span></div>
-				</a>
-			</li>
+				<li id="admin" class="left_li">
+					<a href="/admin">
+						<div><i class="fa-brands fa-black-tie"></i> <span>Admin</span></div>
+					</a>
+				</li>
 			<%} else {%>
 			<li id="history" class="left_li">
 				<a href="/profile/novel_following">
