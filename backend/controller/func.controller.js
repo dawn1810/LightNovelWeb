@@ -168,6 +168,7 @@ async function checkCookieLoglUser(req, res, next) {
         [result[0].id]
       );
 
+
       if (result.length != 0) {
         // neu dang nhap = google thi 2 bien avt va display name co gia tri, nhung login = tk,mk thi k co 2 bien nay
         res.locals.avt = result[0].anh_dai_dien
@@ -181,7 +182,7 @@ async function checkCookieLoglUser(req, res, next) {
         res.locals.author_name = author.length
           ? author[0].ten_tac_gia
           : undefined;
-        res.locals.admin = result[0].role;
+        res.locals.admin = user.role;
         next();
       } else {
         res.locals.avt =
@@ -326,10 +327,10 @@ const getFirstAndLastDayOfYear = () => {
 const calTime = (update_date) => {
   // Thời điểm hiện tại
   const now = new Date();
-
   // Thời điểm trả về từ server
   const serverTime = new Date(update_date);
-
+  
+  
   // Tính số lượng năm chênh lệch
   const yearsDiff = now.getFullYear() - serverTime.getFullYear();
 
@@ -359,9 +360,8 @@ const calTime = (update_date) => {
   } else if (minutesDiff > 0) {
     return minutesDiff + " phút";
   } else {
-    return "Nóng như chuyện tình đôi ta <3";
+    return "Vừa mới cập nhật";
   }
-  return "éo tính dc";
 };
 
 const deleteItemsById = async (data, idToDelete) => {

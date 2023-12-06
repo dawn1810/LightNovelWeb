@@ -4,23 +4,25 @@ const avatar = document.querySelector(".page1 .your-avt");
 const dropZone = document.querySelectorAll(".drop-zone");
 const maxSizeInBytes = 10485760;
 const maxSizeImg = 1048576;
-const modal = document.querySelector('.modal_slider')
+const modal_sli = document.querySelector('.modal_slider')
 const edit_btn = document.querySelectorAll('.slider_btn')
+const x_btn = document.querySelector('.fa-xmark')
 for (const btn of edit_btn) {
 	btn.onclick = () =>{
 
-		modal.style.display = 'block';
-		modal.setAttribute("id", btn.parentElement.getAttribute('id')) 
-		console.log(modal.id)
+		modal_sli.style.display = 'block';
+		modal_sli.setAttribute("id", btn.parentElement.getAttribute('id')) 
 		getNovel(btn.parentElement.querySelector('.slider_item_title span').innerText)
 		document.querySelector('.your-avt').src=btn.parentElement.querySelector('.slider_item_img img').src
 	}
 }
-modal.onclick = ()=>{
-	console.log('hahah')
-	modal.style.display = 'none';
+modal_sli.onclick = ()=>{
+	modal_sli.style.display = 'none';
 }
-document.querySelector('.modal_main').onclick = (event)=>{
+x_btn.onclick = ()=>{
+	modal_sli.style.display = 'none';
+}
+document.querySelector('.form3').onclick = (event)=>{
 	event.stopPropagation();
 }
 for (const button of avtBtn) {
@@ -83,7 +85,6 @@ function validateFile(file, checkdoc = false) {
 }
 
 dropZone.ondrop = function (event) {
-    console.log('hahaha')
 		event.preventDefault();
 		const file = event.dataTransfer.files[0];
 		if (validateFile(file)) {
@@ -272,50 +273,39 @@ async function getListNovel(offset, fill) {
 		for (let i = 0; i < data["data"].length; i++) {
 		  if (data.data[0].ban == 1) {
 			novelListHTML += `
-		  <!-- item -->
-		  
-		  <div class="author_avt_container" id="${data.data[0].id}">
-		  <img src="${data.data[0].anh_dai_dien}">
-		  <div class="truyen_info">
-			<p>Người đăng tải: <span>${data.data[0].ten_tac_gia}</span></p>
-			<p>Thể loại: <span>${data.data[0].ten_the_loai}</span></p>
-			<p>Tổng số chương: <span>${data.data[0].so_luong_chuong}</span></p>
-  
-		  </div>
-		</div>
-		<span class="anime_name">
-		  ${data.data[0].ten_truyen}
-		</span>
-		</div>
-  
-  
-  
-			 
-			 
-			  <!-- item -->`;
+				<!-- item -->
+				
+				<div class="author_avt_container" id="${data.data[0].id}">
+				<img src="${data.data[0].anh_dai_dien}">
+				<div class="truyen_info">
+					<p>Người đăng tải: <span>${data.data[0].ten_tac_gia}</span></p>
+					<p>Thể loại: <span>${data.data[0].ten_the_loai}</span></p>
+					<p>Tổng số chương: <span>${data.data[0].so_luong_chuong}</span></p>
+		
+				</div>
+				</div>
+				<span class="anime_name">
+				${data.data[0].ten_truyen}
+				</span>
+				</div>
+			  	<!-- item -->`;
 		  } else {
 			novelListHTML += `
-		  <!-- item -->
-		  
-		  <div class="author_avt_container" id="${data.data[0].id}">
-		  <img src="${data.data[0].anh_dai_dien}" alt="" class="author_">
-		  <div class="truyen_info">
-			<p>Người đăng tải: <span>${data.data[0].ten_tac_gia}</span></p>
-			<p>Thể loại: <span>${data.data[0].ten_the_loai}</span></p>
-			<p>Tổng số chương: <span>${data.data[0].so_luong_chuong}</span></p>
-  
-		  </div>
-		</div>
-		<span class="anime_name">
-		  ${data.data[0].ten_truyen}
-		</span>
-		</div>
-  
-  
-  
-			  
-			 
-				  <!-- item -->`;
+				<!-- item -->
+				<div class="author_avt_container" id="${data.data[0].id}">
+				<img src="${data.data[0].anh_dai_dien}" alt="" class="author_">
+				<div class="truyen_info">
+					<p>Người đăng tải: <span>${data.data[0].ten_tac_gia}</span></p>
+					<p>Thể loại: <span>${data.data[0].ten_the_loai}</span></p>
+					<p>Tổng số chương: <span>${data.data[0].so_luong_chuong}</span></p>
+		
+				</div>
+				</div>
+				<span class="anime_name">
+				${data.data[0].ten_truyen}
+				</span>
+				</div>
+				<!-- item -->`;
 		  }
 		}
   
@@ -338,7 +328,7 @@ async function getListNovel(offset, fill) {
 	  this.innerHTML = "Đang cập nhật...";
 
 	const postData = JSON.stringify({
-		id: modal.getAttribute('id'),
+		id: modal_sli.getAttribute('id'),
 		id_truyen : document.querySelector('.author_avt_container').getAttribute('id'),
 		novel_avt: document.querySelector(".author_status .your-avt").src,
 	});

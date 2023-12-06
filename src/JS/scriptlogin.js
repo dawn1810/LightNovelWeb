@@ -65,8 +65,6 @@ function Validator(options) {
     const eye3a = document.querySelector("#form1 .eye-icon3");
     let go = 0;
     eyea.onclick = function () {
-      // console.log(123);
-
       if (go >= 5) {
         eye3a.classList.remove("displayed");
         eye2a.classList.add("displayed");
@@ -100,8 +98,6 @@ function Validator(options) {
     const eye3b = document.querySelector("#form2 .eye-icon3");
     let jo = 0;
     eyeb.onclick = function () {
-      // console.log(123);
-
       if (jo >= 3) {
         eye3b.classList.remove("displayed");
         eye2b.classList.add("displayed");
@@ -175,7 +171,6 @@ function Validator(options) {
       });
 
       if (isFormValid) {
-        // console.log('haha')
 
         // Trường hợp submit với javascript
         if (typeof options.onSubmit === "function") {
@@ -213,10 +208,6 @@ function Validator(options) {
           options.onSubmit(formValues);
         }
         // Trường hợp submit với hành vi mặc định
-        else {
-          // formElement.submit();
-          // console.log("kaka");
-        }
       }
     };
 
@@ -325,7 +316,6 @@ document.addEventListener("DOMContentLoaded", function () {
       Validator.minLength("#Password", 6),
     ],
     onSubmit: async function (data) {
-      // console.log(data);
       // gửi request tới csdl server
       const url = `/api/login`; // URL của máy chủ mục tiêu
       const postData = JSON.stringify({
@@ -345,7 +335,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       try {
         const response = await fetch(url, requestOptions);
-        // console.log(response.status);
         if (response.status == 200) {
           window.location.reload();
         } else if (response.status == 403 || response.status == 500) {
@@ -378,7 +367,6 @@ document.addEventListener("DOMContentLoaded", function () {
     onSubmit: async function (data) {
       // Call API
       const reg_btn = document.querySelector("#signup");
-      // console.log(data);
       //gửi request tới csdl server
       const url = `/api/signup`; // URL của máy chủ mục tiêu
       const postData = JSON.stringify({
@@ -405,7 +393,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>`;
       try {
         const response = await fetch(url, requestOptions);
-        // console.log(response.status);
         if (response.status == "200") {
           notify("n", "Đăng ký thành công!!!");
           document.querySelector(".no_login a").click();

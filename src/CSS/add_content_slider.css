@@ -4,6 +4,9 @@
     min-height: 85vh;
     margin-top: 100px;
 }
+.modal_admin .fa-xmark{
+  display: none;
+}
 .slider_wrap{
     width: 1200px;
     margin: 0 auto;
@@ -189,4 +192,40 @@
   }
   .author_nvlist_btn_container{
     justify-content: flex-end!important;
+  }
+ 
+  @media screen and (max-width:600px) {
+    .slider_wrap{
+      width: auto ;
+    }
+    .slider_item{
+      flex-direction: column;
+    }
+    .slider_btn{
+      margin: 20px 0;
+    }
+    .modal_main{
+      width: 90vw;
+      margin: 80px auto!important;
+    }
+    .author_nvlist_container{
+      height: 260px;
+      overflow: auto;
+    }
+    .modal_slider_wrap{
+      width: 100%;
+    }
+    .author_nvlist_container{
+      height: 200px !important;
+    }
+    .fa-xmark{
+      position: absolute;
+      right: 5%;
+      font-size: 30px;
+      border-radius: 50%;
+      color: #000;
+      background: aliceblue;
+      border: 2px solid;
+      padding: 0 4px;
+    }
   }

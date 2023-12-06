@@ -2,17 +2,21 @@
     .Titile_interact_siu {
         flex-direction: column;
     }
-
+    .same-name {
+        width: 250px;
+    }
     .title-gr {
         width: 100%;
     }
 
     .novels {
-        display: none;
+        margin: 0;
+        margin-top: 30px;
+        padding: 0 10px;
     }
 
     .btn1 {
-        width: 90px !important;
+        /* width: 90px !important; */
     }
 
     .btn {
@@ -61,8 +65,8 @@
     .chapter-item h2 {
         flex:1;
         font-size: 1rem;
-        margin: 0.2em;
-        width: 110px;
+        margin: 1rem;
+        /* width: 110px; */
     }
     .chapter_item_info div{
         flex: 2;
@@ -79,6 +83,7 @@
 
     .current-body {
         width: 100vw;
+        flex-direction: column;
     }
 
     .settings .form-input>input {
@@ -139,4 +144,5 @@
     .page-container{
         flex-wrap: nowrap;
     }
+    
 }

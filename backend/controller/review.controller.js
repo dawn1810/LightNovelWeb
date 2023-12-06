@@ -1,4 +1,4 @@
-const { connection, queryAsync } = require("../dbmysql");
+const { queryAsync } = require("../dbmysql");
 // const { connectToDatabase } = require('../dbmysql');
 
 const func_controller = require("./func.controller");
@@ -34,7 +34,7 @@ const renderReviews = async (req, res) => {
      INNER JOIN the_loai_truyen ON truyen.id = the_loai_truyen.id_truyen
      INNER JOIN the_loai ON the_loai_truyen.id_the_loai = the_loai.id
      WHERE the_loai_truyen.id_the_loai IN (?)
-     ORDER BY truyen.ngay_cap_nhat DESC, truyen.luot_xem DESC, truyen.luot_thich DESC, truyen.ten_truyen ASC
+     ORDER BY truyen.ngay_cap_nhat DESC, truyen.luot_xem DESC, truyen.luot_thich DESC, truyen.ten_truyen 
      LIMIT 6;`,
           [genres]
         );

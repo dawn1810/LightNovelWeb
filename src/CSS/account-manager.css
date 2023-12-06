@@ -148,6 +148,9 @@ height: 50rem;
     align-items: flex-start;
   }
   .right_gr button {
-    width: 6rem;
+    width: 170px;
+  }
+  .form_admin {
+    width: 85%;
   }
 }

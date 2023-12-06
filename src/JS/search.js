@@ -14,7 +14,6 @@ if (more_btn) {
       $(more).html(`
             <span>Loading...</span>
             `);
-      console.log("aa");
       if (more.className == "search_more1") {
         c_btn1 += 1;
         url = `/api/search/more?type_id=search_more1&times=${c_btn1}&search=${encodeURI(
@@ -97,7 +96,7 @@ if (more_btn) {
                 console.error("Error parsing JSON:", error);
               });
           } else {
-            console.log("erro");
+            console.log("err");
           }
         })
         .catch((error) => {

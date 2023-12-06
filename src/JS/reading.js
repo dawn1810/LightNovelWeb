@@ -79,8 +79,6 @@ let pageHeight = Math.max(
 const scrollHandler = () => {
   const scrollY = window.scrollY; // độ dài vị trí hiện tại đã vuốt xuống
   let scrollmax = 0;
-  // console.log("Chiều dài trang:", pageHeight);
-  // console.log(scrollY);
   scrollmax = pageHeight - 180;
   const scrollmin = (scrollmax * 60) / 100;
   // const scrollPosition = (scrollY / (pageHeight - window.innerHeight)) * 100;
@@ -156,7 +154,6 @@ reset_text_color.addEventListener("click", function () {
 });
 
 const changeFontSize = (size) => {
-  // console.log(size);
   main_content.style.fontSize = `${size}px`;
   for (const font of reader_size) {
     font.value = size;
@@ -192,7 +189,6 @@ for (const l_btn of left_btn) {
 const right_btn = document.querySelectorAll(".right-btn");
 for (const r_btn of right_btn) {
   last_chaps = show_more_item.length;
-  // console.log(last_chaps);
   if (parseInt(window.location.href.split("/").pop()) >= last_chaps) {
     r_btn.style.display = "none";
     document.querySelector(".lame-right").disabled = true;

@@ -6,6 +6,15 @@ const ban_novel = document.querySelector(".ban_novel");
 const info_truyen = document.querySelector(".status");
 const select = document.querySelector(".select select ");
 const maxcout = parseInt(document.getElementById("max").innerText);
+const add_novel = document.querySelector(".addnovel");
+
+
+
+add_novel.onclick = function (event) {
+	event.preventDefault();
+	window.location.href = `/my_novel`;
+};
+
 if (localStorage.getItem("curentpage")) {
 	var currentpage = localStorage.getItem("curentpage");
 	find_page.value = currentpage;
@@ -197,16 +206,18 @@ async function getNovel(id) {
         <div class="author_avt_container">
         <img src="${data.data[0].anh_dai_dien}">
         <div class="truyen_info">
+		<p class="anime_name">
+        ${data.data[0].ten_truyen}
+      </p>
           <p>Người đăng tải: <span>${data.data[0].ten_tac_gia}</span></p>
           <p>Thể loại: <span>${data.data[0].ten_the_loai}</span></p>
           <p>Tổng số chương: <span>${data.data[0].so_luong_chuong}</span></p>
-
+					<div>
           <button class="status_btn"><a href="/reviews/${data.data[0].id}">Đọc truyện</a></button>
-        </div>
+		  </div>
+		  </div>
       </div>
-      <span class="anime_name">
-        ${data.data[0].ten_truyen}
-      </span>
+      
       </div>
 
 
@@ -230,16 +241,18 @@ async function getNovel(id) {
         <div class="author_avt_container">
         <img src="${data.data[0].anh_dai_dien}" alt="" class="author_">
         <div class="truyen_info">
+		<p class="anime_name">
+        ${data.data[0].ten_truyen}
+      </p>
           <p>Người đăng tải: <span>${data.data[0].ten_tac_gia}</span></p>
           <p>Thể loại: <span>${data.data[0].ten_the_loai}</span></p>
           <p>Tổng số chương: <span>${data.data[0].so_luong_chuong}</span></p>
-
+<div>
           <button class="status_btn"><a href="/reviews/${data.data[0].id}">Đọc truyện</a></button>
-        </div>
+		  </div>
+		  </div>
       </div>
-      <span class="anime_name">
-        ${data.data[0].ten_truyen}
-      </span>
+      
       </div>
 
 
@@ -346,7 +359,6 @@ async function changeState(id) {
 
 		if (response.status === 200) {
 			const jsonResponse = await response.json();
-			const timeElement = document.getElementById(`${id}`).querySelector(".time");
 			if (jsonResponse.message == 1) {
 				ban_novel.innerText = "Mở Khoá";
 				document.querySelector(".ban_novel").innerText = "Mở Khoá";

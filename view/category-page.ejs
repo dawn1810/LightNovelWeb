@@ -31,86 +31,86 @@
 
   <main>
     <div class="container">
-      <div class="sort-menu-container">
-        <div class="fix_btn">
-          <button class="show_menu">
-            <span><i class="fa-solid fa-bars"></i></span>
-          </button>
-        </div>
-        <div class="sort-menu">
-          <div class="change-category sort-container">
-            <div class="select-title">Ngày tải lên</div>
-
-            <select class="sort update_day" name="ct" id="ct">
-              <option value="1" <%= autochoose.update_day === '1' ? 'selected' : '' %>>Tất cả</option>
-              <option value="2" <%= autochoose.update_day === '2' ? 'selected' : '' %>>Hôm nay</option>
-              <option value="3" <%= autochoose.update_day === '3' ? 'selected' : '' %>>Tuần này</option>
-              <option value="4" <%= autochoose.update_day === '4' ? 'selected' : '' %>>Tháng này</option>
-              <option value="5" <%= autochoose.update_day === '5' ? 'selected' : '' %>>Năm nay</option>
-            </select>
-          </div>
-
-          <div class="change-category sort-container">
-            <div class="select-title">Thể loại</div>
-            <div class="information_name_wrap">
-              <div id="container">
-                <ul id="ulElement">
-                  <% for(let i = 0; i < theloai.length; i++) { %>
-                    <li><%= theloai[i].ten_the_loai %></li>
-                  <%}%>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="change-category sort-container">
-            <div class="select-title">Số chương truyện</div>
-
-            <select class="sort num_chaps" name="ct" id="ct">
-              <option value="1" <%= autochoose.num_chaps === '1' ? 'selected' : '' %>>Tất cả</option>
-              <option value="2" <%= autochoose.num_chaps === '2' ? 'selected' : '' %>> > 10 chương</option>
-              <option value="3" <%= autochoose.num_chaps === '3' ? 'selected' : '' %>> > 100 chương</option>
-              <option value="4" <%= autochoose.num_chaps === '4' ? 'selected' : '' %>> > 1000 chương</option>
-            </select>
-          </div>
-
-          <div class="change-category sort-container">
-            <div class="select-title">Trạng thái</div>
-
-            <select class="sort status" name="ct" id="ct">
-              <option value="1" <%= autochoose.status === '1' ? 'selected' : '' %>>Tất cả</option>
-              <option value="2" <%= autochoose.status === '2' ? 'selected' : '' %>>Đang ra</option>
-              <option value="3" <%= autochoose.status === '3' ? 'selected' : '' %>>Hoàn Thành</option>
-              <option value="4" <%= autochoose.status === '4' ? 'selected' : '' %>>Tạm dừng</option>
-            </select>
-          </div>
-
-          <div class="change-category sort-container">
-            <div class="select-title">Sắp xếp theo</div>
-
-            <select class="sort sort_by" name="ct" id="ct">
-              <option value="1" <%= autochoose.sort_by === '1' ? 'selected' : '' %>>Lượt xem</option>
-              <option value="2" <%= autochoose.sort_by === '2' ? 'selected' : '' %>>Lượt thích</option>
-              <option value="3" <%= autochoose.sort_by === '3' ? 'selected' : '' %>>Ngày cập nhật</option>
-            </select>
-          </div>
-
-          <div class="change-category sort-container sort-container-btn">
-            <div class="select-title"></div>
-            <button class="search-btn">Lọc Truyện</button>
-          </div>
-        </div>
-      </div>
       <ul class="menu-tag">
         <li class="active">
           <a href="/" title="doc truyen">
             <i class="fa-solid fa-house"></i> Truyện</a>>
-        </li>
-        <li class="active"><a href="/category">Tìm kiếm nâng cao</a></li>
-      </ul>
-      <h1 id="current-category">Danh sách truyện</h1>
-
-      <div class="body_main">
+          </li>
+          <li class="active"><a href="/category">Tìm kiếm nâng cao</a></li>
+        </ul>
+        <h1 id="current-category">Danh sách truyện</h1>
+        
+        <div class="body_main">
+          <div class="sort-menu-container">
+            <div class="fix_btn">
+              <button class="show_menu">
+                <span><i class="fa-solid fa-bars"></i></span>
+              </button>
+            </div>
+            <div class="sort-menu">
+              <div class="change-category sort-container">
+                <div class="select-title">Ngày tải lên</div>
+    
+                <select class="sort update_day" name="ct" id="ct">
+                  <option value="1" <%= autochoose.update_day === '1' ? 'selected' : '' %>>Tất cả</option>
+                  <option value="2" <%= autochoose.update_day === '2' ? 'selected' : '' %>>Hôm nay</option>
+                  <option value="3" <%= autochoose.update_day === '3' ? 'selected' : '' %>>Tuần này</option>
+                  <option value="4" <%= autochoose.update_day === '4' ? 'selected' : '' %>>Tháng này</option>
+                  <option value="5" <%= autochoose.update_day === '5' ? 'selected' : '' %>>Năm nay</option>
+                </select>
+              </div>
+    
+              <div class="change-category sort-container">
+                <div class="select-title">Thể loại</div>
+                <div class="information_name_wrap">
+                  <div id="container">
+                    <ul id="ulElement">
+                      <% for(let i = 0; i < theloai.length; i++) { %>
+                        <li><%= theloai[i].ten_the_loai %></li>
+                      <%}%>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="change-category sort-container">
+                <div class="select-title">Số chương truyện</div>
+    
+                <select class="sort num_chaps" name="ct" id="ct">
+                  <option value="1" <%= autochoose.num_chaps === '1' ? 'selected' : '' %>>Tất cả</option>
+                  <option value="2" <%= autochoose.num_chaps === '2' ? 'selected' : '' %>> > 10 chương</option>
+                  <option value="3" <%= autochoose.num_chaps === '3' ? 'selected' : '' %>> > 100 chương</option>
+                  <option value="4" <%= autochoose.num_chaps === '4' ? 'selected' : '' %>> > 1000 chương</option>
+                </select>
+              </div>
+    
+              <div class="change-category sort-container">
+                <div class="select-title">Trạng thái</div>
+    
+                <select class="sort status" name="ct" id="ct">
+                  <option value="1" <%= autochoose.status === '1' ? 'selected' : '' %>>Tất cả</option>
+                  <option value="2" <%= autochoose.status === '2' ? 'selected' : '' %>>Đang ra</option>
+                  <option value="3" <%= autochoose.status === '3' ? 'selected' : '' %>>Hoàn Thành</option>
+                  <option value="4" <%= autochoose.status === '4' ? 'selected' : '' %>>Tạm dừng</option>
+                </select>
+              </div>
+    
+              <div class="change-category sort-container">
+                <div class="select-title">Sắp xếp theo</div>
+    
+                <select class="sort sort_by" name="ct" id="ct">
+                  <option value="1" <%= autochoose.sort_by === '1' ? 'selected' : '' %>>Lượt xem</option>
+                  <option value="2" <%= autochoose.sort_by === '2' ? 'selected' : '' %>>Lượt thích</option>
+                  <option value="3" <%= autochoose.sort_by === '3' ? 'selected' : '' %>>Ngày cập nhật</option>
+                </select>
+              </div>
+    
+              <div class="change-category sort-container sort-container-btn">
+                <div class="select-title"></div>
+                <button class="search-btn">Lọc Truyện</button>
+              </div>
+            </div>
+          </div>
         <div class="top_popular">
           <div class="novel_wrap">
             <div class="novel">

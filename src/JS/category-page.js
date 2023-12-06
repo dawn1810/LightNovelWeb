@@ -119,7 +119,7 @@ $(".search-btn").on("click", function (event) {
             console.error("Error parsing JSON:", error);
           });
       } else {
-        console.log("erro");
+        console.log("err");
       }
     })
     .catch((error) => {
@@ -211,7 +211,7 @@ $(".search_more_btn").on("click", function () {
             console.error("Error parsing JSON:", error);
           });
       } else {
-        console.log("erro");
+        console.log("err");
       }
     })
     .catch((error) => {

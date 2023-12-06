@@ -177,4 +177,9 @@
 	.page_5_title {
 		flex-wrap: wrap;
 	}
+	    
+	.page5_composed .header_search{
+        width: 100%!important;
+        margin: 20px 0!important;
+    }
 }

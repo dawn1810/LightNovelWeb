@@ -208,7 +208,6 @@
       <div class="Similar novels">
         <div class="Similar_title">Có thể bạn sẽ thích</div>
         <div class="same-propose">
-          <!-- <% console.log(maybeulike.length) %> -->
           <% for (var i = 0; i < maybeulike.length; i++) { %>
             <% if (i > 4) {break}%>
             <a href="/reviews/<%=maybeulike[i]._id%>" class="same-propose-item">
@@ -216,8 +215,15 @@
                 <img src="<%=maybeulike[i].image%>" alt="">
               </div>
               <div class="same-propose-item_title">
+                
                 <div class="same-name"><%=maybeulike[i].ten_truyen%></div>
-                <div class="same-last-time"><%=maybeulike[i].update_date%></div>
+                <div class="same same-author">Tác giả: <span><%=maybeulike[i].author%></span></div>
+                <div class="same same-status">Trạng thái: <span><%=maybeulike[i].status%></span></div>
+                <div class = "infochung">
+                  <div class="same same-like">Lượt thích: <span><%=maybeulike[i].likes%></span></div>
+                  <div class="same same-views">Lượt xem: <span><%=maybeulike[i].views%></span></div>
+                </div>
+                <div class="same same-last-time">Lần cuối cập nhật: <span><%=maybeulike[i].update_date%></span></div>
               </div>
             </a>
             

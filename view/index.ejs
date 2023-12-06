@@ -90,7 +90,7 @@
           <div class="change-category sort-container">
             <div class="select-title">Ngày tải lên</div>
 
-            <select class="sort update_day" name="ct" id="ct">
+            <select class="sort update_day" name="ct">
               <option value="1" selected="">Tất cả</option>
               <option value="2">Hôm nay</option>
               <option value="3">Tuần này</option>
@@ -116,7 +116,7 @@
           <div class="change-category sort-container">
             <div class="select-title">Số chương truyện</div>
 
-            <select class="sort num_chaps" name="ct" id="ct">
+            <select class="sort num_chaps" name="ct" >
               <option value="1" selected="">Tất cả</option>
               <option value="2">> 10 chương</option>
               <option value="3">> 100 chương</option>
@@ -127,7 +127,7 @@
           <div class="change-category sort-container">
             <div class="select-title">Trạng thái</div>
 
-            <select class="sort status" name="ct" id="ct">
+            <select class="sort status" name="ct" >
               <option value="1" selected="">Tất cả</option>
               <option value="2">Đang ra</option>
               <option value="3">Hoàn Thành</option>
@@ -138,7 +138,7 @@
           <div class="change-category sort-container">
             <div class="select-title">Sắp xếp theo</div>
 
-            <select class="sort sort_by" name="ct" id="ct">
+            <select class="sort sort_by" name="ct">
               <option value="1" selected="">Lượt xem</option>
               <option value="2">Lượt thích</option>
               <option value="3">Ngày cập nhật</option>
@@ -202,6 +202,8 @@
                       <i class="fa-regular fa-eye"></i>
                       <span><%=truyen_top_view[i].luot_xem%></span>
                     </div>
+                  <p>Ngày cập nhật: <%=truyen_top_view[i].ngay_cap_nhat%></p>
+
                   </div>
                 </li>
               <%}%>
@@ -224,6 +226,7 @@
                     <i class="fa-regular fa-eye"></i>
                     <span><%=truyen_top_like[i].luot_xem%></span>
                   </div>
+                  <p>Ngày cập nhật: <%=truyen_top_like[i].ngay_cap_nhat%></p>
                 </div>
               </li>
             <%}%>
@@ -245,6 +248,8 @@
                   <i class="fa-regular fa-eye"></i>
                   <span><%=truyen_top_date[i].luot_xem%></span>
                 </div>
+                <p>Ngày cập nhật: <%=truyen_top_date[i].ngay_cap_nhat%></p>
+
               </div>
             </li>
           <%}%>

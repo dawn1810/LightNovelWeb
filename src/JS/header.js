@@ -1,3 +1,7 @@
+const modal = document.querySelector(".modal"); //cam xoa
+const modal2 = document.querySelector(".modal2"); //cam xoa
+const modal3 = document.querySelector(".modal3"); //cam xoa
+const modal4 = document.querySelector(".modal4"); //cam xoa
 $("document").ready(function () {
 	let trigger = $("#hamburger"),
 		isClosed = false;
@@ -48,7 +52,6 @@ $("document").ready(function () {
 
 	left_item.onclick = function (event) {
 		event.stopPropagation();
-		// console.log("ok");
 	};
 	const checkbox = document.getElementById("checkbox");
 
@@ -69,10 +72,7 @@ $("document").ready(function () {
 	// }
 	// console.log(new DevChecker());
 
-	const modal = document.querySelector(".modal"); //cam xoa
-	const modal2 = document.querySelector(".modal2"); //cam xoa
-	const modal3 = document.querySelector(".modal3"); //cam xoa
-	const modal4 = document.querySelector(".modal4"); //cam xoa
+
 
 	const login_gg = document.querySelector(".login_gg");
 	login_gg.onclick = async function () {
@@ -80,7 +80,6 @@ $("document").ready(function () {
 	};
 	const login = document.querySelector(".header_login");
 	login.onclick = function () {
-		// console.log("Login");
 		modal.style.display = "block";
 		if (modal2.style.display == "block") {
 			modal2.style.display = "none";
@@ -102,7 +101,6 @@ $("document").ready(function () {
 	document.querySelector(".fogot a").onclick = function (e) {
 		e.preventDefault();
 
-		// console.log("forgot_password");
 		modal3.style.display = "block";
 		if (modal.style.display == "block") {
 			modal.style.display = "none";
@@ -131,7 +129,6 @@ $("document").ready(function () {
 
 	$(".logout").click(async function (e) {
 		e.preventDefault();
-		// console.log("logout");
 		await fetch(`/api/logout`, {
 			method: "POST",
 			headers: {
@@ -345,7 +342,6 @@ $("document").ready(function () {
 		}
 	}
 	var currentPath = window.location.href.substring(window.location.href.lastIndexOf("/"));
-	// console.log(currentPath)
 	if (currentPath == "/" || currentPath == "") {
 		drop_menu();
 		document.querySelectorAll(".left_li a")[0].style.color = "red";
@@ -357,7 +353,5 @@ $("document").ready(function () {
 	} else if (currentPath == "/novel_following") {
 		drop_menu();
 		document.querySelectorAll(".left_li a")[3].style.color = "red";
-	} else {
-		// console.log('dùgsdujgfjsdhg')
 	}
 });

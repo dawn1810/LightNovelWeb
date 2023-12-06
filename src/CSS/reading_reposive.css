@@ -4,9 +4,20 @@
     }
     .menu-tag{
         padding: 0%;
+        align-items: center;
+    }
+    .active {
+        margin: 0 8px;
+    }
+    .rv-author-a{
+        padding: 0;
     }
     .menu{
         top: 82%;
         left: 92%;
+    }
+    .active{
+        font-size: 12px;
+        overflow: hidden;
     }
 }

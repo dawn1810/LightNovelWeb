@@ -61,11 +61,20 @@
 							</div>
 						</div>
 					</div>
-					<a href="/">
-						<div class="header_logo">
-							<img src="/image/logo.png" alt="" />
+
+					<%if (login_way!='null' && admin == 100){;%>
+					<a href="/admin">
+						<div class="header_logo_admin">
+							<img src="/image/logo_admin.svg" alt="" />
 						</div>
 					</a>
+					<%} else {%>
+					<a href="/">
+						<div class="header_logo">
+							<img src="/image/logo.svg" alt="" />
+						</div>
+					</a>
+					<%}%>
 				</div>
 				<div class="header_search">
 					<div class="header_search_wrap">
@@ -248,11 +257,23 @@
 					<div class="Error_mess"></div>
 
 					<div class="group1">
-						<input placeholder="Username" class="input" type="text" id="Username" />
+						<input
+							placeholder="Username"
+							class="input"
+							type="text"
+							id="Username"
+							autocomplete="username"
+						/>
 						<span class="form-message"></span>
 					</div>
 					<div class="group1">
-						<input placeholder="Password" class="input" type="password" id="Password" />
+						<input
+							placeholder="Password"
+							class="input"
+							type="password"
+							id="Password"
+							autocomplete="current-password"
+						/>
 						<div class="eye">
 							<div class="eye-icon1">
 								<i class="fa-regular fa-eye-slash"></i>
@@ -558,7 +579,13 @@
 						<span class="form-message"></span>
 					</div>
 					<div class="group1">
-						<input placeholder="Email" class="input" type="email" id="email" />
+						<input
+							placeholder="Email"
+							class="input"
+							type="email"
+							id="email"
+							autocomplete="email"
+						/>
 						<span class="form-message"></span>
 					</div>
 					<div class="group1">
@@ -567,6 +594,7 @@
 							class="input"
 							type="password"
 							id="Password_signup"
+							autocomplete="new-password"
 						/>
 						<div class="eye">
 							<div class="eye-icon1">
@@ -861,6 +889,7 @@
 							class="input"
 							type="text"
 							id="UsernameForgot"
+							autocomplete="username"
 						/>
 						<span class="form-message"></span>
 					</div>
@@ -885,13 +914,14 @@
 				<form class="form" id="form4">
 					<p class="heading">Đặt lại mật khẩu</p>
 					<div class="Error_mess"></div>
-
+					<input hidden type="text" autocomplete="username" />
 					<div class="group1">
 						<input
 							placeholder="Password"
 							class="input"
 							type="password"
 							id="Passwordreset"
+							autocomplete="new-password"
 						/>
 						<div class="eye">
 							<div class="eye-icon1">
@@ -1172,6 +1202,7 @@
 							class="input"
 							type="password"
 							id="PasswordresetConfirm"
+							autocomplete="new-password"
 						/>
 						<span class="form-message"></span>
 					</div>
@@ -1200,11 +1231,19 @@
 					<div><i class="fa-solid fa-feather-pointed"></i> <span>Sáng Tác</span></div>
 				</a>
 			</li>
+			<%if(login_way!='null' && admin==100){%>
+			<li id="admin" class="left_li">
+				<a href="/admin">
+					<div><i class="fa-brands fa-black-tie"></i> <span>Admin</span></div>
+				</a>
+			</li>
+			<%} else {%>
 			<li id="history" class="left_li">
 				<a href="/profile/novel_following">
 					<div><i class="fa-solid fa-heart"></i> <span>Truyện Đã Thích</span></div>
 				</a>
 			</li>
+			<% } %>
 			<li class="d-l_theme">
 				<div class="toggle-switch">
 					<label class="switch-label">

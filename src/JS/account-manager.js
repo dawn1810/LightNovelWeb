@@ -8,9 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
     for (const block_account of accountElements) {
       block_account.addEventListener("click", function (e) {
         e.preventDefault();
-        console.log(
-          block_account.parentElement.parentElement.getAttribute("id")
-        );
         func_block_account(
           block_account,
           block_account.parentElement.parentElement.getAttribute("id")
@@ -39,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
         notify("n", "Thay đổi thông tin thành công!");
         element.classList.add("block");
         element.parentElement.children[0].classList.remove("block");
-        console.log(data.role[0].last_role);
         element.parentElement.children[3].classList.remove("last");
         element.parentElement.children[2].classList.remove("last");
 
@@ -63,9 +59,6 @@ document.addEventListener("DOMContentLoaded", function () {
     for (const open_account of accountf5) {
       open_account.addEventListener("click", function (e) {
         e.preventDefault();
-        console.log(
-          open_account.parentElement.parentElement.getAttribute("id")
-        );
         func_open_account(
           open_account,
           open_account.parentElement.parentElement.getAttribute("id")
@@ -91,7 +84,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (response.status === 200) {
         const data = await response.json();
-        console.log(data.role[0].role);
         notify("n", "Thay đổi thông tin thành công!");
 
         element.classList.add("block");
@@ -115,9 +107,6 @@ document.addEventListener("DOMContentLoaded", function () {
       open_account.addEventListener("click", function (e) {
         if ( open_account.disabled) return;
         e.preventDefault();
-        console.log(
-          open_account.parentElement.parentElement.getAttribute("id")
-        );
         func_block_author(
           open_account,
           open_account.parentElement.parentElement.getAttribute("id")
@@ -161,9 +150,6 @@ document.addEventListener("DOMContentLoaded", function () {
         if ( open_account.disabled) return;
 
         e.preventDefault();
-        console.log(
-          open_account.parentElement.parentElement.getAttribute("id")
-        );
         func_open_author(
           open_account,
           open_account.parentElement.parentElement.getAttribute("id")

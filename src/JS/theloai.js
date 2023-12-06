@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const table = document.querySelector(".table table");
   them_btn.onclick = async () => {
     const them_input = document.querySelector(".insert_cate input");
-    console.log(them_input);
     if (them_input.value) {
       const url = `/api/add_new_category`;
 
@@ -36,7 +35,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
   const del_row = async (btn) => {
-    console.log("haha");
     const url = `/api/delete_category`;
 
     const requestOptions = {

@@ -338,5 +338,17 @@
     .content .left h1{
         font-size: 20px;
     }
-    
+    .content .left button a{
+        font-size: 10px;
+    }
+    .header_logo img {
+        width: 30px !important;
+    }
+    .header_logo_admin img {
+        width: 35px !important;
+    }
+
+    #footer_wrap_main_title p {
+        margin-bottom: 40px;
+    }
 }

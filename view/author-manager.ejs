@@ -31,17 +31,20 @@
 
               <div class="avt_space">
                 <div class="author_avt_container">
-                  <img src="https://m.media-amazon.com/images/M/MV5BZTIxMzBhNzYtY2NiZS00MGVlLWFmYjEtYWJlMjUyZjhmOThmXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg" alt="" class="author_">
+                  <img src="<%=truyen_info[0].anh_dai_dien%>" alt="" class="author_">
                   <div class="truyen_info">
+                    <p class="anime_name">
+                      <%=truyen_info[0].ten_truyen%>
+                    </p>
                     <p>Người đăng tải: <span><%=truyen_info[0].ten_tac_gia%></span></p>
                     <p>Thể loại: <span><%=truyen_info[0].ten_the_loai%></span></p>
                     <p>Tổng số chương: <span><%=truyen_info[0].so_luong_chuong%></span></p>
-                    <button class="status_btn"><a href="/reviews/<%=truyen_info[0].id%>">Đọc truyện</a></button>
+                    <div>
+                      <button class="status_btn"><a href="/reviews/<%=truyen_info[0].id%>">Đọc truyện</a></button>
+                    </div>
                   </div>
                 </div>
-                <span class="anime_name">
-                  <%=truyen_info[0].ten_truyen%>
-                </span>
+                
               </div>
 
 
@@ -91,7 +94,11 @@
                   </div>
                 </div>
                 <div class="author_btn_container">
-                  <button type="button" class="status_btn ban_novel" value="<%=truyen_info[0].id%>" onclick="changeState(ban_novel.value, 'block')">Khoá truyện</button>
+                  <%if(truyen_info[0].ban==1){%>
+                  <button type="button"  class="status_btn ban_novel" value="<%=truyen_info[0].id%>" onclick="changeState(this.value)">Mở Khoá</button>
+                  <%} else{%>
+                    <button type="button"  class="status_btn ban_novel" value="<%=truyen_info[0].id%>" onclick="changeState(this.value)">Khoá truyện</button>
+                  <%}%>
                 </div>
               </div>
             </div>
@@ -119,7 +126,7 @@
                     <div class="name-container">
 
                       <div class="name-container_img">
-                        <img src="https://gamek.mediacdn.vn/133514250583805952/2022/4/26/pic2-1650946993680394357604.jpeg" alt="" class="avt" />
+                        <img src="<%=truyen[i].anh_dai_dien%>" alt="" class="avt" />
                       </div>
 
                       <div class="name-novel">
