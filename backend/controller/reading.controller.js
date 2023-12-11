@@ -1,7 +1,5 @@
-const server = require("../vip_pro_lib");
-const { ObjectId } = require("mongodb");
-const { connection, queryAsync } = require("../dbmysql");
-const { json } = require("express");
+const server = require("../controller/google.controller");
+const { queryAsync } = require("../dbmysql");
 
 function convertToHtml(text) {
   const escapedText = escapeHtml(text);
@@ -31,19 +29,6 @@ function escapeHtml(text) {
 
 const renderReading = async (req, res) => {
   try {
-	// console.log(res.url)
-    // let result = await server.find_all_Data({
-    // 	table: "truyen",
-    // 	query: { _id: new ObjectId(req.params.id) },
-    // 	projection: {
-    // 		_id: 0,
-    // 		name: 1,
-    // 		name_chaps: 1,
-    // 		chap_ids: 1,
-    // 		no_chapters: 1,
-    // 	},
-    // 	limit: 1
-    // });
     let getname = await queryAsync(
       `SELECT ten_truyen, so_luong_chuong FROM truyen WHERE id = ?`,
       [req.params.id]
@@ -69,14 +54,10 @@ const renderReading = async (req, res) => {
       }
       const chapter_names = convertNewToOld(old_name_list);
 
-      // if ((parseInt(result[0].no_chapters) <= parseInt(req.params.chap)) || (parseInt(req.params.chap) < 0)) {
-      // 	res.status(404).send('Không tìm thấy chương!');
-      // 	return;
-      // }
       const chap_content = await server.downloadFileFromDrive(
         String(data[0].noi_dung_chuong)
       );
-      // console.log(JSON.stringify(getname[0]));
+
       return res.render("readingpage.ejs", {
         headerFile: "header",
         footerFile: "footer",

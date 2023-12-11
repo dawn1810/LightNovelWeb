@@ -929,27 +929,27 @@ async function cancel() {
         const response = await fetch(url, requestOptions);
         // taì khoan hơp lệ
         if (response.status == "200") {
-          setTimeout(function () {
+          // setTimeout(function () {
             // back to novel list scene
             page5_a_up_drop();
             let newURL = "/my_novel";
             window.location.href = newURL;
             // reset sessionStorage
             sessionStorage.clear();
-          }, 7000);
+          // }, 7000);
         }
       } catch (error) {
         console.log("Error:", error);
       }
     } else {
-      setTimeout(function () {
+      // setTimeout(function () {
         // back to novel list scene
         page5_a_up_drop();
         let newURL = "/my_novel";
         window.location.href = newURL;
         // reset sessionStorage
         sessionStorage.clear();
-      }, 7000);
+      // }, 7000);
     }
   } else {
     notify("!", "Đã huỷ!");

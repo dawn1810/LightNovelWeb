@@ -1,4 +1,3 @@
-const { ObjectId } = require("mongodb");
 const func_controller = require("./func.controller");
 const { queryAsync } = require("../dbmysql");
 

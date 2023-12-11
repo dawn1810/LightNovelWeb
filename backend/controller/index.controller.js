@@ -1,12 +1,7 @@
-const NodePersist = require("node-persist");
 const path = require("path");
-const { connection, queryAsync } = require("../dbmysql");
+const { queryAsync } = require("../dbmysql");
 const { category } = require("./search.controller.js");
 const { decrypt,calTime } = require("./func.controller.js");
-
-const storage = NodePersist.create({
-	dir: ".temp",
-});
 
 const rederIndex = async (req, res) => {
 	try {

@@ -1,4 +1,3 @@
-const server = require("../vip_pro_lib");
 const { queryAsync } = require("../dbmysql");
 const {
   getFirstAndLastDayOfWeek,

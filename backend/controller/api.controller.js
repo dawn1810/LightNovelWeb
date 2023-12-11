@@ -1,11 +1,6 @@
-const updateNovel = require("../test/Updatenovel");
-const fs = require("fs");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
-const { ObjectId } = require("mongodb");
 const func_controller = require("./func.controller");
-const NodePersist = require("node-persist");
-const server = require("../vip_pro_lib");
 const { category } = require("./search.controller.js");
 const { admin_id } = require("./admin.controller.js");
 
@@ -16,18 +11,15 @@ const {
 	uploadFileToDrivebase64,
 	getDriveFileLinkAndDescription,
 } = require("./google.controller");
+
 const allowedMimeTypes = [
 	"text/plain",
 	"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 ];
 
 const { queryAsync } = require("../dbmysql");
-const { log } = require("console");
 const uploadDirectory = path.join(".upload_temp", "files");
-const storage = NodePersist.create({
-	// index
-	dir: ".temp",
-});
+
 const isBase64 = (value) => {
 	const base64Regex = /^data:image\/[a-z]+;base64,/i;
 	return base64Regex.test(value);
@@ -197,64 +189,6 @@ const api_advanced_search = async (req, res) => {
 		return res.end(JSON.stringify({ novel: data.novel, more_novel: data.check }));
 	} catch (err) {
 		console.log("SYSTEM | SEARCH_MORE | ERROR | ", err);
-		return res.sendStatus(500);
-	}
-};
-
-const api_update_novel = async (req, res) => {
-	try {
-		await updateNovel.updateIds();
-
-		// Đọc tệp JSON không đồng bộ
-		const data = fs.promises
-			.readFile(destFilePath, "utf8")
-			.then((fileContent) => {
-				resolve(fileContent);
-			})
-			.catch((err) => {
-				reject(err);
-			});
-
-		// Phân tích cú pháp tệp JSON và lưu vào biến dummy
-		let dummy = JSON.parse(data);
-
-		// Sử dụng biến dummy ở đây
-
-		let myobj = {
-			name: dummy.title,
-			author: "1810s team",
-			name_chaps: dummy.name_chap,
-			chap_ids: dummy.ids,
-			no_chapters: dummy.ids.length,
-			genres: dummy["Genre(s)"],
-			status: "Đang ra",
-			summary: dummy.Summary,
-			image: dummy.img,
-			views: 0,
-			likes: 0,
-			update_date: new Date(),
-			comment_id: "unknown",
-		};
-
-		// clear folder tong hop
-		const directory = "./trans/tonghop";
-
-		fs.readdir(directory, (err, files) => {
-			if (err) throw err;
-
-			for (const file of files) {
-				fs.unlink(path.join(directory, file), (err) => {
-					if (err) throw err;
-				});
-			}
-		});
-
-		// upload to mongoDB
-		await server.add_one_Data("truyen", myobj);
-
-		return res.sendStatus(200);
-	} catch (err) {
-		console.log("SYSTEM | UPDATE_NOVEL | ERROR | ", err);
 		return res.sendStatus(500);
 	}
 };
@@ -1602,6 +1536,7 @@ const api_quick_upload = async (req, res) => {
 
 			// The result object contains a "value" property with the text content
 			const result = await func_controller.extractInformation(value);
+			console.log(result)
 
 			if (result) {
 				const novel_id = uuidv4();
@@ -1835,7 +1770,6 @@ module.exports = {
 	api_reset_password,
 	api_advanced_search,
 	api_reviews,
-	api_update_novel,
 	api_signup,
 	api_login,
 	api_logout,

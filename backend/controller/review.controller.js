@@ -5,7 +5,6 @@ const func_controller = require("./func.controller");
 const renderReviews = async (req, res) => {
   try {
     const account = req.session.user;
-    // console.log("SYSTEM | REVIEWS |", account);
     // Get novel information:
     let result = await queryAsync(
       `SELECT truyen.*, tacgia.ten_tac_gia AS author FROM truyen,tacgia WHERE truyen.id=?  AND truyen.id_tac_gia = tacgia.id `,[req.params.id]
@@ -17,7 +16,6 @@ const renderReviews = async (req, res) => {
         `SELECT DISTINCT id_the_loai FROM the_loai_truyen WHERE the_loai_truyen.id_truyen = ?`,
         [req.params.id]
       );
-      // console.log("the loai:", theloaiID);
       const genres = theloaiID.map((row) => row.id_the_loai);
       let maybeulikethat = [];
       let ten_the_loai = [];
@@ -63,7 +61,6 @@ const renderReviews = async (req, res) => {
           result[0].curr_chap = like_list[0].chuong_hien_tai;
         }
       }
-      // console.log(result);
       res.render("reviews.ejs", {
         headerFile: "header",
         footerFile: "footer",

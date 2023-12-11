@@ -24,7 +24,7 @@ const apiRouter = (app) => {
   // router.post("/api/no_chaps", api_router.api_no_chap);
 
   // Update mongDB novel data --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  router.get("api/update_novel", api_router.api_update_novel);
+  // router.get("api/update_novel", api_router.api_update_novel);
 
   // Reviews novels --------------------------------------------------------------------------------------------------------------------------------
   router.post("/api/reviews", api_router.api_reviews);

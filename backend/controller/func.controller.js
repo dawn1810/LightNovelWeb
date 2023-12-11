@@ -115,7 +115,6 @@ function encrypt(data) {
   encryptedData += cipher.final("hex");
 
   const encryptedDataWithIV = iv.toString("hex") + encryptedData;
-  // console.log('SYSTEM | ENCRYPT | OK');
 
   return encryptedDataWithIV;
 }
@@ -132,8 +131,6 @@ function decrypt(encryptedDataWithIV) {
 
   let decryptedData = decipher.update(encryptedData, "hex", "utf8");
   decryptedData += decipher.final("utf8");
-
-  // console.log('SYSTEM | DECRYPT | OK');
 
   return decryptedData;
 }
@@ -153,7 +150,6 @@ async function checkCookieLoglUser(req, res, next) {
       res.locals.login_way = "null";
       next();
     } else {
-      // console.log("SYSTEM | CHECK_COOKIE | User login", user);
       const n_result = await queryAsync(
         `SELECT login_way, email FROM taikhoan_nguoidung WHERE id= ?`,
         [user.id]
@@ -239,10 +235,10 @@ async function get_full_id(directoryPath, listName) {
     for (const name of listName) {
       txtFilePaths.push(path.join(directoryPath, name));
     }
-    // console.log(txtFilePaths);
+
     const processFiles = async () => {
       for (const filePath of txtFilePaths) {
-        // console.log(filePath);
+
         list_id.push(await server.uploadFileToDrive(filePath));
       }
     };
@@ -485,9 +481,7 @@ const getNovelList = async () => {
     await storage.init();
 
     await storage.setItem("novellist", result);
-    console.log(`SYSTEM | LOG | OK BRO, EVERYTHING DONE`);
 
-    // console.log(`SYSTEM | GET_NOVEL_LIST | Danh sách truyện `, result);
     return result;
   } catch (err) {
     console.log("SYSTEM | GET_NOVEL_LIST | ERROR | ", err);
@@ -526,12 +520,9 @@ async function readDocxFile(docxFilePath) {
       if (err) {
         console.log("An error occurred while writing the file:", err);
       } else {
-        // console.log(`File contents saved to ${outputFilePath}`);
         fs.unlink(docxFilePath, (err) => {
           if (err) {
             console.log("An error occurred while deleting the file:", err);
-          } else {
-            // console.log(`Deleted ${docxFilePath}`);
           }
         });
       }
@@ -540,74 +531,6 @@ async function readDocxFile(docxFilePath) {
     console.log("An error occurred:", error);
   }
 }
-
-// Function to extract information based on the provided template
-// async function extractInformation(text) {
-//   try {
-//     if (text) {
-//       // Regex patterns with the 's' flag
-//       let storyNamePattern = /Tên truyện: (.+)/;
-//       let authorPattern = /Tác giả: (.+)/;
-//       let statusPattern = /Trạng thái \[([^\]]+)\]/;
-//       let genrePattern = /Thể loại \[([^\]]+)\]/;
-//       let introductionPattern = /Giới thiêu truyện: (.+)/s;
-//       let chapterPattern =
-//         /Tên chương: (.+)[\s\S]*?Nội dung chương: (.+?)(?=(\n\n|\n$))/gs;
-
-//       // Extracting information
-//       let nameMatch = text.match(storyNamePattern);
-//       let authorMatch = text.match(authorPattern);
-//       let statusMatch = text.match(statusPattern);
-//       let genreMatch = text.match(genrePattern);
-//       let introMatch = text.match(introductionPattern);
-
-//       // Extracting chapter names and contents
-//       let chapterNamePattern = /Tên chương: (.+)/;
-//       let chapterContentPattern = /Nội dung chương: ([\s\S]+?)(?=(Tên chương|\n\n|\n$))/g;
-
-//       // Extracting chapter names
-//       let chapterNames = [];
-//       let match;
-//       while ((match = chapterNamePattern.exec(text)) !== null) {
-//         chapterNames.push(match[1].trim());
-//       }
-
-//       // Extracting chapter contents
-//       let chapterContents = [];
-//       while ((match = chapterContentPattern.exec(text)) !== null) {
-//         chapterContents.push(match[1].trim());
-//       }
-
-//       let dict = {
-//         name: nameMatch ? nameMatch[1] : null,
-//         author: authorMatch ? authorMatch[1] : null,
-//         status: statusMatch ? statusMatch[1] : null,
-//         genre: genreMatch ? genreMatch[1] : null,
-//         introduce: introMatch ? introMatch[1] : null,
-//         name_chapters: chapterNames,
-//         content_chapter: chapterContents,
-//       };
-
-//       dict.status = await dict.status.split(",")[0];
-
-//       new_gernes = await Promise.all(
-//         dict.genre.split(",").map((gerne) => gerne.trim())
-//       );
-//       dict.genre = new_gernes;
-
-//       new_content_chapter = await Promise.all(
-//         dict.content_chapter.map((content) =>
-//           server.uploadContentToDrive(content)
-//         )
-//       );
-//       dict.content_chapter = new_content_chapter;
-
-//       return dict;
-//     } else return 0;
-//   } catch (error) {
-//     console.error("An error occurred:", error);
-//   }
-// }
 
 async function extractInformation(text) {
   try {
@@ -652,7 +575,7 @@ async function extractInformation(text) {
       name_chapters: chapterNames,
       content_chapter: chapterContents,
     };
-
+    
     return dict;
   } catch (error) {
     console.error("An error occurred:", error);

@@ -1,7 +1,6 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const { queryAsync } = require("../dbmysql");
-const EventEmitter = require("events");
 
 /////////////////ALL LOG IN WAYS/////////////////
 passport.serializeUser(function (user, done) {
@@ -41,9 +40,6 @@ passport.use(
     },
     async function (request, accessToken, refreshToken, profile, done) {
       try {
-        // console.log(accessToken);
-        // console.log(refreshToken);
-        // console.log(request);
         // Kiểm tra xem thông tin người dùng đã tồn tại chưa
         await queryAsync("START TRANSACTION");
 
@@ -101,19 +97,6 @@ passport.use(
 );
 
 const open_window = (req, res) => {
-  // req.user = {
-  // 	_id: '113263126602180653712',
-  // 	email: 'binhminh19112003@gmail.com',
-  // 	displayName: 'Dawn Nguyen',
-  // 	avatarUrl: 'https://lh3.googleusercontent.com/a/AAcHTtdoUcqqaX6Kqqxfujnio9LmL2J_SIYjDaxcb8kf=s96-c',
-  // 	sex: 'unknown',
-  // 	likeNovels: [],
-  // 	monitorNovels: [],
-  // 	commentIds: []
-  //  }
-  //set cookies
-  // func.set_cookies(res, req.user._id, "");
-
   // Đóng tab hiện tại và reload main window
   res.write("<script>");
   res.write("window.close();");
@@ -423,7 +406,7 @@ const getFileName = async (fileId) => {
     });
 
     const fileName = response.data.name;
-    // console.log('File name:', fileName);
+
     return fileName;
   } catch (error) {
     console.error("Error retrieving file name:", error);
@@ -464,7 +447,6 @@ const downloadFileFromDriveforUser = async (fileId, res) => {
       res.write(chunk);
     })
     .on("end", () => {
-      // console.log('SYSTEM | DRIVE | File sent successfully!');
       res.end();
     })
     .on("error", (err) => {
@@ -472,7 +454,6 @@ const downloadFileFromDriveforUser = async (fileId, res) => {
       res.status(500).end(); // Or handle the error in an appropriate way
     });
 
-  // console.log('SYSTEM | DRIVE | File reading successfully!');
 };
 const deleteFileFromDrive = async (fileId) => {
   await initStorage();
@@ -482,7 +463,6 @@ const deleteFileFromDrive = async (fileId) => {
       fileId: fileId,
       auth: auth,
     });
-    // console.log('SYSTEM | DRIVE | File deleted successfully!');
   } catch (err) {
     console.error("SYSTEM | DRIVE | Error deleting file:", err);
   }

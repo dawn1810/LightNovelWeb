@@ -1,4 +1,4 @@
-const { connection, queryAsync } = require("../dbmysql");
+const { queryAsync } = require("../dbmysql");
 
 const admin = async (req, res) => {
   res.render("admin-index", {
